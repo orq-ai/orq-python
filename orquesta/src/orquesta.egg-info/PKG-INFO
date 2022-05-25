@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: orquesta
+Version: 1.0.0a1
+Summary: Orquesta Python SDK
+Home-page: UNKNOWN
+Author: Orquesta
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=2.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+![Logo](https://my.orquesta.dev/assets/img/favicon.ico)
+
+# Orquesta Python SDK
+> NOTE: You can get `WORKSPACE_API_KEY` from the settings section in your workspace.
+

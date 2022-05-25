@@ -1,0 +1,7 @@
+Steps to publish orquesta-engine package test
+1- python setup.py sdist bdist_wheel
+2- python3 -m twine upload --repository testpypi dist/* --verbose --config-file .pypirc
+
+Steps to publish orquesta-engine package production
+1- python setup.py sdist bdist_wheel
+2- python3 -m twine upload dist/* --verbose --config-file .pypirc
