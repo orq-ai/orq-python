@@ -1,2 +1,6 @@
 .pypirc
-.private.txt
+private.txt
+.idea
+venv
+dist
+build

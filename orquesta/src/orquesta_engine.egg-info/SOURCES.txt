@@ -1,7 +1,0 @@
-LICENSE
-setup.py
-orquesta/src/orquesta.py
-orquesta/src/orquesta_engine.egg-info/PKG-INFO
-orquesta/src/orquesta_engine.egg-info/SOURCES.txt
-orquesta/src/orquesta_engine.egg-info/dependency_links.txt
-orquesta/src/orquesta_engine.egg-info/top_level.txt

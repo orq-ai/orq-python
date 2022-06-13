@@ -3,14 +3,19 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+__version__ = None
+with open('orquestadev/version.py') as f:
+    exec(f.read())
+
 setuptools.setup(
-    name="orquesta-engine",                        # This is the name of the package
-    version="1.0.0a1",                        # The initial release version
-    author="Orquesta",                     # Full name of the author
-    description="Orquesta Python SDK",
-    long_description=long_description,      # Long description read from the the readme file
+    name="orquesta-dev",
+    version=str(__version__),
+    author="orquestadev",
+    description="Official Orquesta SDK for Python",
+    long_description=long_description,
     long_description_content_type="text/markdown",
-    packages=setuptools.find_packages(),    # List of all python modules to be installed
+    license='MIT',
+    packages=setuptools.find_packages('orquestadev'),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
@@ -26,9 +31,11 @@ setuptools.setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Libraries"
-    ],                                      # Information to filter the project on PyPi website
-    python_requires='>=2.7',                # Minimum version requirement of the package
-    py_modules=["orquesta"],             # Name of the python package
-    package_dir={'':'orquesta/src'},     # Directory of the source code of the package
-    install_requires=[]                     # Install other dependencies if any
+    ],
+    python_requires='>=2.7',
+    py_modules=["orquestadev", "base_client", "utils", "version"],
+    package_dir={'': 'orquestadev'},
+    install_requires=[
+        'requests'
+    ]
 )
