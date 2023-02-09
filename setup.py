@@ -1,21 +1,21 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("readme.md", "r") as fh:
     long_description = fh.read()
 
 __version__ = None
-with open('orquestadev/version.py') as f:
+with open("orquestadev/version.py") as f:
     exec(f.read())
 
 setuptools.setup(
-    name="orquesta-dev",
+    name="orquestadev",
     version=str(__version__),
     author="orquestadev",
     description="Official Orquesta SDK for Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    license='MIT',
-    packages=setuptools.find_packages('orquestadev'),
+    license="MIT",
+    packages=setuptools.find_packages("orquestadev"),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3",
@@ -30,12 +30,10 @@ setuptools.setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
-        "Topic :: Software Development :: Libraries"
+        "Topic :: Software Development :: Libraries",
     ],
-    python_requires='>=2.7',
+    python_requires=">=2.7",
     py_modules=["orquestadev", "base_client", "utils", "version"],
-    package_dir={'': 'orquestadev'},
-    install_requires=[
-        'requests'
-    ]
+    package_dir={"": "orquestadev"},
+    install_requires=["requests >= 2.18.0, < 3.0.0dev", "urllib3>=1.26.0"],
 )

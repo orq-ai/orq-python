@@ -36,9 +36,6 @@ class BaseClient(object):
             return default_value
 
     def _perform_request(self, data):
-        result = client.query(
-            "kill_switch", false, {"environments": "production", "isAdmin": True}
-        )
         return requests.post(
             "http://api.orquesta.dev/evaluate/", headers=self.headers, json=data
         )
