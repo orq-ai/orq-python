@@ -6,13 +6,11 @@
 
 # Orquesta Python SDK
 
-**This library allows you to quickly and easily use the Orquesta API v1 via Python.**
+**This library allows you to quickly and easily use the Orquesta API via Python.**
 
-Installation
-============
+# Installation
 
-Prerequisites
--------------
+## Prerequisites
 
 - Python version 2.7 and 3.5+
 - A free Orquesta account from [orquesta.dev](https://orquesta.dev).
@@ -20,7 +18,7 @@ Prerequisites
 ### Install package
 
 ```bash
-pip install sendgrid
+pip install orquestadev
 ```
 
 ## Dependencies
@@ -28,17 +26,6 @@ pip install sendgrid
 - [requests](https://github.com/psf/requests)
 
 ## Usage
-
-#### Query a rule
-
-```python
-
-import os
-import orquestadev
-
-client = orquestadev.OrquestaClient(os.environ.get('ORQUESTA_API_KEY'))
-client.query('<your_rule_key>', '<your_default_value>')
-```
 
 #### Query a rule with context
 
@@ -48,10 +35,16 @@ import os
 import orquestadev
 
 client = orquestadev.OrquestaClient(os.environ.get('ORQUESTA_API_KEY'))
-client.query('<your_rule_key>', '<your_default_value>', {'<your_field_key>': '<your_value>'})
+result = client.query('<your_rule_key>', '<your_default_value>', {'<your_field_key>': '<your_value>'})
+
+## Example
+
+result = client.query(
+            "kill_switch", false, {"environments": "production", "isAdmin": True}
+        )
 ```
 
-#### Query a domain of rules
+#### Query a rule without context
 
 ```python
 
@@ -59,5 +52,9 @@ import os
 import orquestadev
 
 client = orquestadev.OrquestaClient(os.environ.get('ORQUESTA_API_KEY'))
-client.query('<your_domain_key>')
+client.query('<your_rule_key>', '<your_default_value>')
+
+## Example
+
+result = client.query("kill_switch", false)
 ```
