@@ -1,12 +1,20 @@
 <p align="left">
   <a href="https://orquesta.dev" target="_blank">
-    <img src="https://static.wixstatic.com/media/e063e5_4f60988535a643218a02ad84cf60b7cd~mv2.png/v1/fill/w_130,h_108,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Logo%2001.png" alt="Orquesta"  height="84">
+    <img src="https://media.licdn.com/dms/image/C4E0BAQEXwCA4xN_AtQ/company-logo_200_200/0/1677578302965?e=2147483647&v=beta&t=df-lwhojzn0ZspaLGbRhZmTsZQimiLoVy9Uh7iYO-5U" alt="Orquesta"  height="84">
   </a>
 </p>
 
+_Orquesta's platform provides product teams with no-code building blocks for business rules, remote configurations and AI prompts_
+
 # Orquesta Python SDK
 
-**This library allows you to quickly and easily use the Orquesta API via Python.**
+## Table of contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+   1. [Prompts](#prompts)
+   2. [Rules](#rules)
+3. [Reference][#reference]
 
 # Installation
 
@@ -15,46 +23,102 @@
 - Python version 2.7 and 3.5+
 - A free Orquesta account from [orquesta.dev](https://orquesta.dev).
 
-### Install package
+### Installation
+
+<div id='installation'/>
 
 ```bash
-pip install orquestadev
+pip install orquesta-sdk
 ```
-
-## Dependencies
-
-- [requests](https://github.com/psf/requests)
 
 ## Usage
 
-#### Query a rule with context
+<div id="usage"/>
+
+_You can get your workspace API key from the settings section in your Orquesta workspace._
+
+Initialize the Orquesta client with your API key:
+
+The Orquesta SDK can be initialized in two ways. If you have the environment variable `ORQUESTA_API_KEY` is set, the SDK will use that key. Otherwise, you can pass the key as an argument to the `OrquestaClient` constructor.
 
 ```python
+from orquesta_sdk import OrquestaClient
 
-import os
-import orquestadev
+api_key = os.environ.get('ORQUESTA_API_KEY', '__API_KEY__')
 
-client = orquestadev.OrquestaClient(os.environ.get('ORQUESTA_API_KEY'))
-result = client.query('<your_rule_key>', '<your_default_value>', {'<your_field_key>': '<your_value>'})
-
-## Example
-
-result = client.query(
-            "kill_switch", false, {"environments": "production", "isAdmin": True}
-        )
+const client = OrquestaClient(api_key=api_key, ttl= 3600);
 ```
 
-#### Query a rule without context
+### Query a prompt
+
+<div id="prompts"/>
 
 ```python
+from orquesta_sdk import OrquestaClient, OrquestaClienOptions
 
-import os
-import orquestadev
+options = OrquestaClienOptions(ttl=3600)
 
-client = orquestadev.OrquestaClient(os.environ.get('ORQUESTA_API_KEY'))
-client.query('<your_rule_key>', '<your_default_value>')
+client = OrquestaClient("__API_KEY__", options)
 
-## Example
-
-result = client.query("kill_switch", false)
+result = client.prompts.query(
+    prompt_key="prompt_key",
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
 ```
+
+The `metadata` properties are optional.
+
+### Query a rule
+
+<div id="rules"/>
+
+```python
+from orquesta_sdk import OrquestaClient, OrquestaClienOptions
+
+options = OrquestaClienOptions(ttl=3600)
+
+client = OrquestaClient("__API_KEY__", options)
+
+# Query an string rule
+boolean_result = client.rules.query(
+    rule_key="boolean_rule_key",
+    default_value=False,
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
+
+# Query an string rule
+string_result = client.rules.query(
+    rule_key="string_rule_key",
+    default_value="my_default_value",
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
+
+# Query an int rule
+int_result = client.rules.query(
+    rule_key="int_rule_key",
+    default_value=100,
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
+
+# Query an list rule
+list_result = client.rules.query(
+    rule_key="list_rule_key",
+    default_value=[],
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
+
+# Query an json rule
+json_result = client.rules.query(
+    rule_key="json_rule_key",
+    default_value=[],
+    context={"environments": ["production"]},
+    metadata={"key": "value"},
+)
+```
+
+The `context` and `metadata` properties are optional.
