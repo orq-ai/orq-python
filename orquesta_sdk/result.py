@@ -62,9 +62,23 @@ class OrquestaBaseEntity:
         key: str,
         context: Optional[dict] = None,
         metadata: Optional[dict] = None,
+        variables: Optional[dict] = None,
     ) -> Any:
+        body = {
+            self.__payloadKey: [key],
+        }
+
+        if context:
+            body["context"] = context
+
+        if metadata:
+            body["metadata"] = metadata
+
+        if variables:
+            body["variables"] = variables
+
         return post(
             self.__endpointUrl,
             self.dsn,
-            {self.__payloadKey: [key], **(context or {}), **(metadata or {})},
+            body,
         )

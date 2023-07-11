@@ -21,7 +21,7 @@ _Orquesta's platform provides product teams with no-code building blocks for bus
 ## Prerequisites
 
 - Python version 2.7 and 3.5+
-- A free Orquesta account from [orquesta.dev](https://orquesta.dev).
+- A free Orquesta account from [orquesta.cloud](https://orquesta.cloud).
 
 ### Installation
 
@@ -63,6 +63,7 @@ client = OrquestaClient("__API_KEY__", options)
 result = client.prompts.query(
     prompt_key="prompt_key",
     context={"environments": ["production"]},
+    variables={"name": "John Doe"},
     metadata={"key": "value"},
 )
 ```

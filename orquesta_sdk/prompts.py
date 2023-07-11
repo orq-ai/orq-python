@@ -9,6 +9,18 @@ from .rule_type import OrquestaRuleType
 
 class OrquestaPromptMetricsEconomics:
     def __init__(self, prompt_tokens: int, completion_tokens: int, total_tokens: int):
+        """
+        Initializes an instance of the OrquestaPromptMetricsEconomics class.
+
+        Parameters
+        ----------
+        prompt_tokens : int
+            The number of tokens used in the initial prompt.
+        completion_tokens : int
+            The number of tokens used in the completion generated in response to the prompt.
+        total_tokens : int
+            The total number of tokens used, including both the prompt and completion.
+        """
         self.prompt_tokens = prompt_tokens
         self.completion_tokens = completion_tokens
         self.total_tokens = total_tokens
@@ -20,12 +32,14 @@ class OrquestaPromptMetrics:
         score: Optional[float] = None,
         latency: Optional[int] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        llm_response: Optional[str] = None,
         economics: Optional[OrquestaPromptMetricsEconomics] = None,
     ):
         self.score = score
         self.latency = latency
         self.metadata = metadata
         self.economics = economics
+        self.variables = llm_response
 
 
 class OrquestaPromptResponse:
@@ -48,6 +62,9 @@ class OrquestaPromptResult(OrquestaResult):
 
         self.has_error = not bool(trace_id)
 
+    def add_metrics(self, metrics: OrquestaPromptMetrics = {}) -> None:
+        return super().add_metrics(metrics)
+
 
 class OrquestaPrompts(OrquestaBaseEntity):
     def __init__(self, dsn: str, cache: CacheStore):
@@ -59,6 +76,7 @@ class OrquestaPrompts(OrquestaBaseEntity):
         self,
         prompt_key: str,
         context: Optional[Dict[str, Any]] = None,
+        variables: Optional[Dict[str, str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ) -> OrquestaPromptResult:
         cached_result = self.__cache.get(prompt_key, context or {})
@@ -68,7 +86,12 @@ class OrquestaPrompts(OrquestaBaseEntity):
 
         start_time = int(time.time() * 1000)
 
-        response = self.perform_request(prompt_key, context, metadata)
+        response = self.perform_request(
+            prompt_key=prompt_key,
+            context=context,
+            metadata=metadata,
+            variables=variables,
+        )
 
         result = response.json().get(prompt_key, {})
 

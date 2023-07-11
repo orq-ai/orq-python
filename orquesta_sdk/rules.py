@@ -24,6 +24,9 @@ class OrquestaRuleResult(OrquestaResult):
         super().__init__(dsn, RULES_URL, start_time, value, trace_id, type)
         self.default_matched = not trace_id
 
+    def add_metrics(self, metrics: OrquestaRulesMetrics = {}) -> None:
+        return super().add_metrics(metrics)
+
 
 class OrquestaRules(OrquestaBaseEntity):
     def __init__(self, dsn: str, cache: CacheStore):
