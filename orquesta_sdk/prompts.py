@@ -2,13 +2,13 @@ import time
 from typing import Any, Dict, Optional
 
 from .cache import CacheStore
+from .remote_config_kind import OrquestaRemoteConfigKind
 from .request import PROMPTS_URL
 from .result import OrquestaBaseEntity, OrquestaResult
-from .rule_type import OrquestaRuleType
 
 
 class OrquestaPromptMetricsEconomics:
-    def __init__(self, prompt_tokens: int, completion_tokens: int, total_tokens: int):
+    def __init__(self, prompt_tokens: Optional[int], completion_tokens: int, total_tokens: Optional[int]):
         """
         Initializes an instance of the OrquestaPromptMetricsEconomics class.
 
@@ -28,58 +28,51 @@ class OrquestaPromptMetricsEconomics:
 
 class OrquestaPromptMetrics:
     def __init__(
-        self,
-        score: Optional[float] = None,
-        latency: Optional[int] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        llm_response: Optional[str] = None,
-        economics: Optional[OrquestaPromptMetricsEconomics] = None,
+            self,
+            score: Optional[float] = None,
+            latency: Optional[int] = None,
+            metadata: Optional[Dict[str, Any]] = None,
+            llm_response: Optional[str] = None,
+            economics: Optional[OrquestaPromptMetricsEconomics] = None
     ):
         self.score = score
         self.latency = latency
         self.metadata = metadata
         self.economics = economics
-        self.variables = llm_response
+        self.llm_response = llm_response
 
 
-class OrquestaPromptResponse:
-    def __init__(self, trace_id: str, value: Dict[str, Any], status: int):
-        self.trace_id = trace_id
-        self.value = value
-        self.status = status
-
-
-class OrquestaPromptResult(OrquestaResult):
+class OrquestaPrompt(OrquestaResult):
     def __init__(
-        self,
-        api_key: str,
-        start_time: int,
-        value: Any,
-        trace_id: Optional[str],
-        type: Optional[OrquestaRuleType],
+            self,
+            api_key: str,
+            start_time: int,
+            value: Any,
+            trace_id: Optional[str],
+            kind: Optional[OrquestaRemoteConfigKind],
     ):
-        super().__init__(api_key, PROMPTS_URL, start_time, value, trace_id, type)
+        super().__init__(api_key, PROMPTS_URL, start_time, value, trace_id, kind)
 
         self.has_error = not bool(trace_id)
 
-    def add_metrics(self, metrics: OrquestaPromptMetrics = {}) -> None:
+    def add_metrics(self, metrics: OrquestaPromptMetrics) -> None:
         return super().add_metrics(metrics)
 
 
 class OrquestaPrompts(OrquestaBaseEntity):
     def __init__(self, dsn: str, cache: CacheStore):
-        super().__init__(dsn, PROMPTS_URL, "prompts")
+        super().__init__(dsn, PROMPTS_URL)
 
         self.__cache = cache
 
     def query(
-        self,
-        prompt_key: str,
-        context: Optional[Dict[str, Any]] = None,
-        variables: Optional[Dict[str, str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> OrquestaPromptResult:
-        cached_result = self.__cache.get(prompt_key, context or {})
+            self,
+            key: str,
+            context: Optional[Dict[str, Any]] = None,
+            variables: Optional[Dict[str, str]] = None,
+            metadata: Optional[Dict[str, Any]] = None,
+    ) -> OrquestaPrompt:
+        cached_result = self.__cache.get(key, context or {})
 
         if cached_result:
             return cached_result.result
@@ -87,15 +80,15 @@ class OrquestaPrompts(OrquestaBaseEntity):
         start_time = int(time.time() * 1000)
 
         response = self.perform_request(
-            prompt_key=prompt_key,
+            key=key,
             context=context,
             metadata=metadata,
             variables=variables,
         )
 
-        result = response.json().get(prompt_key, {})
+        result = response.json().get(key, {})
 
-        prompt_result = OrquestaPromptResult(
+        prompt = OrquestaPrompt(
             self.dsn,
             start_time,
             result.get("value"),
@@ -104,6 +97,6 @@ class OrquestaPrompts(OrquestaBaseEntity):
         )
 
         if result.get("trace_id") and result.get("value") is not None:
-            self.__cache.set(prompt_key, prompt_result, context or {})
+            self.__cache.set(key, prompt, context)
 
-        return prompt_result
+        return prompt

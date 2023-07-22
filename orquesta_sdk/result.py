@@ -2,7 +2,7 @@ import time
 from typing import Any, Optional
 
 from .request import post
-from .rule_type import OrquestaRuleType
+from .remote_config_kind import OrquestaRemoteConfigKind
 
 
 class OrquestaResult:
@@ -13,10 +13,10 @@ class OrquestaResult:
         start_time: int,
         value: Any,
         trace_id: Optional[str],
-        type: Optional[OrquestaRuleType],
+        kind: Optional[OrquestaRemoteConfigKind],
     ):
         self.trace_id = trace_id
-        self.type = type
+        self.kind = kind
         self.value = value
         self.__api_key = api_key
         self.__endpoint_url = endpoint_url
@@ -27,7 +27,7 @@ class OrquestaResult:
     def _metrics_endpoint_url(self) -> str:
         return f"{self.__endpoint_url}/{self.trace_id}/metrics"
 
-    def add_metrics(self, metrics: dict = {}) -> None:
+    def add_metrics(self, metrics) -> None:
         if not self.trace_id:
             return
 
@@ -51,11 +51,9 @@ class OrquestaBaseEntity:
         self,
         dsn: str,
         endpointUrl: str,
-        payloadKey: str,
     ):
         self.dsn = dsn
         self.__endpointUrl = endpointUrl
-        self.__payloadKey = payloadKey
 
     def perform_request(
         self,
@@ -65,7 +63,7 @@ class OrquestaBaseEntity:
         variables: Optional[dict] = None,
     ) -> Any:
         body = {
-            self.__payloadKey: [key],
+            "keys": [key],
         }
 
         if context:

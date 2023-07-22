@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "orquesta_sdk"
-version = "1.9"
-description = "No-code business rules and remote configurations"
+version = "1.10.2"
+description = "No-code collaboration tooling to experiment, operate and monitor LLMs and remote configurations within your SaaS"
 authors = ["Orquesta <info@orquesta.dev>"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -40,5 +40,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [pypi]
-  username = "__token__"
-  password = "pypi-AgEIcHlwaS5vcmcCJGUyNWYyMTgyLWQxZDEtNDY4NS1hZWQ2LWI0NThhOTVlZjVkYwACKlszLCJhZTRmZTFkOS03ZDRmLTQ3MzAtYWE1Mi03YzNmYmM1YzFhOWYiXQAABiACbV_qv9N-Y__Of4zznDbvBlkEb4cf9ld4YxlMuSn87g"
+username = "__token__"
+password = "pypi-AgEIcHlwaS5vcmcCJGUyNWYyMTgyLWQxZDEtNDY4NS1hZWQ2LWI0NThhOTVlZjVkYwACKlszLCJhZTRmZTFkOS03ZDRmLTQ3MzAtYWE1Mi03YzNmYmM1YzFhOWYiXQAABiACbV_qv9N-Y__Of4zznDbvBlkEb4cf9ld4YxlMuSn87g"

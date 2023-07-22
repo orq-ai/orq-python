@@ -6,7 +6,7 @@ from .result import OrquestaResult
 
 class OrquestaCacheItem:
     def __init__(
-        self, key: str, result: OrquestaResult, context: Dict[str, Any], created: int
+        self, key: str, result, context: Dict[str, Any], created: int
     ):
         self.key = key
         self.result = result
