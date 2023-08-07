@@ -12,6 +12,8 @@ class OrquestaRemoteConfigMetrics:
         self.metadata = metadata
 
     def to_dict(self):
+        if not self.metadata:
+            return {}
         return {
             "metadata": self.metadata,
         }

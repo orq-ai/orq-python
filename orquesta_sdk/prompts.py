@@ -47,13 +47,20 @@ class OrquestaPromptMetrics:
         self.llm_response = llm_response
 
     def to_dict(self):
-        return {
-            "score": self.score,
-            "latency": self.latency,
-            "metadata": self.metadata,
-            "economics": self.economics,
-            "llm_response": self.llm_response,
-        }
+        value = {}
+
+        if self.score is not None:
+            value["score"] = self.score
+        if self.latency is not None:
+            value["latency"] = self.latency
+        if self.metadata is not None:
+            value["metadata"] = self.metadata
+        if self.economics is not None:
+            value["economics"] = self.economics
+        if self.llm_response is not None:
+            value["llm_response"] = self.llm_response
+
+        return value
 
 
 class OrquestaPrompt(OrquestaResult):
