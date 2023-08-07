@@ -10,9 +10,9 @@ import sys
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "orquesta_sdk"
-copyright = "2023, orquestadev"
-author = "orquestadev"
-release = "1.10.2"
+copyright = "2023, orquesta"
+author = "orquesta"
+release = "1.10.4"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

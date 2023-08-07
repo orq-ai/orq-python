@@ -11,21 +11,28 @@ class OrquestaRemoteConfigMetrics:
     def __init__(self, metadata: Dict[str, Any]):
         self.metadata = metadata
 
+    def to_dict(self):
+        return {
+            "metadata": self.metadata,
+        }
+
 
 class OrquestaRemoteConfig(OrquestaResult):
     def __init__(
-            self,
-            dsn: str,
-            start_time: int,
-            value: Any,
-            trace_id: Optional[str],
-            config_type: Optional[OrquestaRemoteConfigKind],
+        self,
+        dsn: str,
+        start_time: int,
+        value: Any,
+        trace_id: Optional[str],
+        config_type: Optional[OrquestaRemoteConfigKind],
     ):
-        super().__init__(dsn, REMOTE_CONFIGS_URL, start_time, value, trace_id, config_type)
+        super().__init__(
+            dsn, REMOTE_CONFIGS_URL, start_time, value, trace_id, config_type
+        )
         self.default_matched = not trace_id
 
     def add_metrics(self, metrics: OrquestaRemoteConfigMetrics) -> None:
-        return super().add_metrics(metrics)
+        return super().add_metrics(metrics.to_dict())
 
 
 class OrquestaRemoteConfigs(OrquestaBaseEntity):
@@ -35,11 +42,11 @@ class OrquestaRemoteConfigs(OrquestaBaseEntity):
         self.__cache = cache
 
     def query(
-            self,
-            key: str,
-            default_value: Any,
-            context: Optional[Dict[str, Any]] = None,
-            metadata: Optional[Dict[str, Any]] = None,
+        self,
+        key: str,
+        default_value: Any,
+        context: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ) -> OrquestaRemoteConfig:
         cached_result = self.__cache.get(key, context or {})
 
