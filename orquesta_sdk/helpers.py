@@ -1,80 +1,56 @@
-class OrquestaOpenAIPromptParameters:
-    def __init__(self, parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.max_tokens = parameters.get("maxTokens")
-        self.top_p = parameters.get("topP")
-        self.frequency_penalty = parameters.get("frequencyPenalty")
-        self.presence_penalty = parameters.get("presencePenalty")
+def orquesta_openai_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "max_tokens": prompt.get("maxTokens"),
+        "top_p": prompt.get("topP"),
+        "frequency_penalty": prompt.get("frequencyPenalty"),
+        "presence_penalty": prompt.get("presencePenalty"),
+    }
 
 
-class OrquestaCoherePromptParameters:
-    def __init__(self, parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.max_tokens = parameters.get("maxTokens")
-        self.k = parameters.get("topK")
-        self.p = parameters.get("topP")
-        self.frequency_penalty = parameters.get("frequencyPenalty")
-        self.presence_penalty = parameters.get("presencePenalty")
+def orquesta_cohere_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "max_tokens": prompt.get("maxTokens"),
+        "k": prompt.get("topK"),
+        "p": prompt.get("topP"),
+        "frequency_penalty": prompt.get("frequencyPenalty"),
+        "presence_penalty": prompt.get("presencePenalty"),
+    }
 
 
-class OrquestaAnthropicPromptParameters:
-    def __init__(self, parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.max_tokens_to_sample = parameters.get("maxTokens")
-        self.top_k = parameters.get("topK")
-        self.top_p = parameters.get("topP")
+def orquesta_anthropic_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "max_tokens_to_sample": prompt.get("maxTokens"),
+        "top_k": prompt.get("topK"),
+        "top_p": prompt.get("topP"),
+    }
 
 
-class OrquestaReplicatePromptParameters:
-    def __init__(self, parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.max_length = parameters.get("maxTokens")
-        self.top_p = parameters.get("topP")
-        self.repetition_penalty = parameters.get("repetitionPenalty")
+def orquesta_replicate_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "max_length": prompt.get("maxTokens"),
+        "top_p": prompt.get("topP"),
+        "repetition_penalty": prompt.get("repetitionPenalty"),
+    }
 
 
-class OrquestaGooglePromptParameters:
-    def __init__(self, parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.maxOutputTokens = parameters.get("maxTokens")
-        self.topK = parameters.get("topK")
-        self.topP = parameters.get("topP")
+def orquesta_google_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "maxOutputTokens": prompt.get("maxTokens"),
+        "topK": prompt.get("topK"),
+        "topP": prompt.get("topP"),
+    }
 
 
-class OrquestaHuggingFacePromptParameters:
-    def __init__(self,parameters: dict):
-        self.model = parameters.get("model")
-        self.temperature = parameters.get("temperature")
-        self.max_new_tokens = parameters.get("maxTokens")
-        self.top_p = parameters.get("topP")
-        self.top_k = parameters.get("topK")
-        self.repetition_penalty = parameters.get("repetitionPenalty")
-
-
-def orquesta_openai_parameters_mapper(prompt) -> OrquestaOpenAIPromptParameters:
-    return OrquestaOpenAIPromptParameters(prompt)
-
-
-def orquesta_cohere_parameters_mapper(prompt) -> OrquestaCoherePromptParameters:
-    return OrquestaCoherePromptParameters(prompt)
-
-
-def orquesta_anthropic_parameters_mapper(prompt: dict) -> OrquestaAnthropicPromptParameters:
-    return OrquestaAnthropicPromptParameters(prompt)
-
-
-def orquesta_replicate_parameters_mapper(prompt: dict) -> OrquestaReplicatePromptParameters:
-    return OrquestaReplicatePromptParameters(prompt)
-
-
-def orquesta_google_parameters_mapper(prompt: dict) -> OrquestaGooglePromptParameters:
-    return OrquestaGooglePromptParameters(prompt)
-
-
-def orquesta_huggingface_parameters_mapper(prompt: dict) -> OrquestaHuggingFacePromptParameters:
-    return OrquestaHuggingFacePromptParameters(prompt)
+def orquesta_huggingface_parameters_mapper(prompt):
+    return {
+        "temperature": prompt.get("temperature"),
+        "max_new_tokens": prompt.get("maxTokens"),
+        "top_p": prompt.get("topP"),
+        "top_k": prompt.get("topK"),
+        "repetition_penalty": prompt.get("repetitionPenalty"),
+    }

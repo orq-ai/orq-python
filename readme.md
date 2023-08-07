@@ -100,16 +100,16 @@ openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
 
 #### Helper functions per LLM provider
 
-We provide `helper` functions and `interfaces` that map the returned value from Orquesta to the specific provider, so it's easy for you to forward the Prompt to your different LLM providers.
+We provide `helper` functions that map the returned value from Orquesta to a `dict` following the definitions of the specific provider, so it's easy for you to forward the Prompt to your different LLM providers.
 
-| Provider     | Helper                                | Class                             |
-| ------------ | ------------------------------------- | ------------------------------------- |
-| Anthropic    | `orquesta_anthropic_parameters_mapper`   | `OrquestaAnthropicPromptParameters`   |
-| Cohere       | `orquesta_cohere_parameters_mapper`      | `OrquestaCoherePromptParameters`      |
-| Google       | `orquesta_google_parameters_mapper`      | `OrquestaGooglePromptParameters`      |
-| Hugging Face | `orquesta_huggingface_parameters_mapper` | `OrquestaHuggingFacePromptParameters` |
-| OpenAI       | `orquesta_openai_parameters_mapper`      | `OrquestaOpenAIPromptParameters`      |
-| Replicate    | `orquesta_replicate_parameters_mapper`   | `OrquestaReplicatePromptParameters`   |
+| Provider     | Helper                                   |
+| ------------ | ---------------------------------------- |
+| Anthropic    | `orquesta_anthropic_parameters_mapper`   |
+| Cohere       | `orquesta_cohere_parameters_mapper`      |
+| Google       | `orquesta_google_parameters_mapper`      |
+| Hugging Face | `orquesta_huggingface_parameters_mapper` |
+| OpenAI       | `orquesta_openai_parameters_mapper`      |
+| Replicate    | `orquesta_replicate_parameters_mapper`   |
 
 ### Logging responses and metadata for prompts
 
@@ -238,7 +238,7 @@ config.add_metrics(metrics)
 #### `OrquestaPromptQuery`
 
 | Parameter | Type  | Description                                                                       | Required |
-|-----------|-------|-----------------------------------------------------------------------------------|----------|
+| --------- | ----- | --------------------------------------------------------------------------------- | -------- |
 | api_key   | `str` | your workspace API key to use for authentication                                  | Yes      |
 | ttl       | `int` | the time to live in seconds for the local cache. Default is 3600 seconds (1 hour) | No       |
 
@@ -247,35 +247,35 @@ config.add_metrics(metrics)
 #### `OrquestaPromptQuery`
 
 | Parameter | Type             | Description                                                                                                                                        | Required |
-|-----------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| key       | `str`            | Key of prompt to retrieve                                                                                                                              | Yes      |
+| --------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| key       | `str`            | Key of prompt to retrieve                                                                                                                          | Yes      |
 | context   | `Dict[str, Any]` | Set of key-value pairs from your data model that should be compared against the values in the configuration matrix                                 | No       |
 | variables | `Dict[str, Any]` | Set of key-value pairs variables to replace in your prompts. The provided variables are combined with the default variables defined in the prompt. | No       |
-| metadata  | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated                         | No       |
+| metadata  | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated                                                    | No       |
 
 #### `OrquestaPrompt`
 
-| Property    | Type                                               | Description                                                                                                                                                            |
-|-------------|----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| value       | `OrquestaCompletionPrompt` or `OrquestaChatPrompt` | The value of the prompt                                                                                                                                                |
-| has_error   | `bool`                                             | A boolean indicating if the request resulted in an error                                                                                                                 |
-| trace_id    | `str`                                              | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                                                         |
-| add_metrics | `(metrics: OrquestaPromptMetrics) -> None`         |  method that reports metadata and information of the LLM interaction to the request log after the prompt value is returned. At least one of the properties is required |
+| Property    | Type                                               | Description                                                                                                                                                           |
+| ----------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| value       | `OrquestaCompletionPrompt` or `OrquestaChatPrompt` | The value of the prompt                                                                                                                                               |
+| has_error   | `bool`                                             | A boolean indicating if the request resulted in an error                                                                                                              |
+| trace_id    | `str`                                              | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                                                        |
+| add_metrics | `(metrics: OrquestaPromptMetrics) -> None`         | method that reports metadata and information of the LLM interaction to the request log after the prompt value is returned. At least one of the properties is required |
 
 #### `OrquestaPromptMetrics`
 
-| Property     | Type             | Description                                                                                                    | Required |
-|--------------|------------------|----------------------------------------------------------------------------------------------------------------|----------|
-| metadata     | `Dict[str, Any]` | Key-value pairs of custom fields to attach to the generated logs       | No       |
-| score        | `int`            | Feedback provided by your end user. Number between 0 and 10                                                                          | No       |
-| latency      | `int`            | Total time in milliseconds of the request to the LLM provider API                                                          | No       |
-| llm_response | `str`            | Full response returned by your LLM provider | No       |
-| economics    | `int`            | Prompt information about the prompt and completion tokens                                                      | No       |
+| Property     | Type             | Description                                                       | Required |
+| ------------ | ---------------- | ----------------------------------------------------------------- | -------- |
+| metadata     | `Dict[str, Any]` | Key-value pairs of custom fields to attach to the generated logs  | No       |
+| score        | `int`            | Feedback provided by your end user. Number between 0 and 10       | No       |
+| latency      | `int`            | Total time in milliseconds of the request to the LLM provider API | No       |
+| llm_response | `str`            | Full response returned by your LLM provider                       | No       |
+| economics    | `int`            | Prompt information about the prompt and completion tokens         | No       |
 
 #### `OrquestaPromptMetricsEconomics`
 
 | Property          | Type  | Description                                  | Required |
-|-------------------|-------|----------------------------------------------|----------|
+| ----------------- | ----- | -------------------------------------------- | -------- |
 | prompt_tokens     | `int` | Total tokens input into the model            | Yes      |
 | completion_tokens | `int` | Total tokens output by the model             | Yes      |
 | total_tokens      | `int` | Sum of `prompt_tokens` + `completion_tokens` | No       |
@@ -284,24 +284,24 @@ config.add_metrics(metrics)
 
 #### `OrquestaRemoteConfigQuery`
 
-| Parameter     | Type             | Description                                                                                                                | Required |
-|---------------|------------------|----------------------------------------------------------------------------------------------------------------------------|----------|
-| key           | `str`            | Key of remote configuration to retrieve                                                                                    | Yes      |
-| default_value | `Any`            | The value to be used in case there is an error during evaluation or the remote configuration does not exist         | Yes      |
-| context       | `Dict[str, Any]` | Set of key-value pairs from your data model that should be compared against the values in the configuration matrix         | No       |
-| metadata      | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated | No       |
+| Parameter     | Type             | Description                                                                                                        | Required |
+| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | -------- |
+| key           | `str`            | Key of remote configuration to retrieve                                                                            | Yes      |
+| default_value | `Any`            | The value to be used in case there is an error during evaluation or the remote configuration does not exist        | Yes      |
+| context       | `Dict[str, Any]` | Set of key-value pairs from your data model that should be compared against the values in the configuration matrix | No       |
+| metadata      | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated                    | No       |
 
 #### `OrquestaRemoteConfig`
 
-| Parameter   | Type                                             | Description                                                                                                                            |
-|-------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| value       | `Any`                                            | The value of the remote configuration                     |
-| config_type | `bool` or `str` or `float` or `dict` or `list`   | Return type of the remote configuration                     |
-| trace_id    | `str`                                            | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                                                                                                            |
+| Parameter   | Type                                             | Description                                                                                                                             |
+| ----------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| value       | `Any`                                            | The value of the remote configuration                                                                                                   |
+| config_type | `bool` or `str` or `float` or `dict` or `list`   | Return type of the remote configuration                                                                                                 |
+| trace_id    | `str`                                            | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                          |
 | add_metrics | `(metrics: OrquestaRemoteConfigMetrics) -> None` | A method that reports metadata to the request log after the configuration value is returned. At least one of the properties is required |
 
 #### `OrquestaRemoteConfigMetrics`
 
-| Parameter | Type             | Description                                                                                                                | Required |
-|-----------|------------------|----------------------------------------------------------------------------------------------------------------------------|----------|
+| Parameter | Type             | Description                                                              | Required |
+| --------- | ---------------- | ------------------------------------------------------------------------ | -------- |
 | metadata  | `Dict[str, Any]` | Set of key-value pairs of metadata you want to attach to the request log | No       |
