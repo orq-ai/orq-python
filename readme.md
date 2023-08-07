@@ -77,7 +77,7 @@ prompt = client.prompts.query(
     key="completion_prompt_key",
     context={"environments": "production", "workspaceId": "soql1odAABC2"},
     variables={"firstname": "John", "city": "New York"},
-    metadata={"chaid_id": "ad1231xsdaABw"},
+    metadata={"chain_id": "ad1231xsdaABw"},
 )
 
 openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
@@ -92,7 +92,7 @@ prompt = client.prompts.query(
     key="chat_prompt_key",
     context={"environments": "production", "workspaceId": "soql1odAABC2"},
     variables={"firstname": "John", "city": "New York"},
-    metadata={"chaid_id": "ad1231xsdaABw"},
+    metadata={"chain_id": "ad1231xsdaABw"},
 )
 
 openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
@@ -145,6 +145,9 @@ prompt.add_metrics(metrics)
 ```
 
 ## Usage - Remote Configurations
+
+Orquesta also comes with a powerful Remote Configurations API that allows you to dynamically configure and run all your
+environments and services remotely.
 
 Orquesta has a powerful Remote Configurations API that allows you to configure and run all your environments and services remotely dynamically. Orquesta supports different types of remote configurations, and we recommend always typing the `query` method to help Typescript infer the correct type.
 
