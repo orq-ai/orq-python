@@ -8,7 +8,7 @@ ENDPOINTS_API = "https://api.orquesta.cloud/v1/endpoints"
 METRICS_API = "https://api.orquesta.cloud/v1/metrics"
 
 
-def post(url: str, api_key: str, body: dict, stream=False):
+def post(url: str, api_key: str, body: dict, stream=False, environment=None):
     headers = {
         "X-SDK-Version": "@orquesta/python@{}".format(__version__),
         "Authorization": f"Bearer {api_key}",
@@ -20,6 +20,12 @@ def post(url: str, api_key: str, body: dict, stream=False):
     if stream:
         headers["Accept"] = "text/event-stream"
         body["stream"] = True
+
+    if environment:
+        if body.get("context", None) is None:
+            body["context"] = {"environments": [environment]}
+        else:
+            body["context"]["environments"] = [environment]
 
     response = requests.post(url, json=body, headers=headers)
     return response

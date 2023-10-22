@@ -10,10 +10,11 @@ from .utils import extract_json
 
 class OrquestaEndpointRequest:
     def __init__(
-            self, key: str,
-            context: Optional[Dict[str, Any]] = None,
-            variables: Optional[Dict[str, str]] = None,
-            metadata: Optional[Dict[str, Any]] = None
+        self,
+        key: str,
+        context: Optional[Dict[str, Any]] = None,
+        variables: Optional[Dict[str, str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ):
         self.key = key
         self.context = context
@@ -37,9 +38,9 @@ class OrquestaEndpointRequest:
 
 class OrquestaEndpointMetrics:
     def __init__(
-            self,
-            score: Optional[float] = None,
-            metadata: Optional[Dict[str, Any]] = None,
+        self,
+        score: Optional[float] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ):
         self.score = score
         self.metadata = metadata
@@ -57,11 +58,11 @@ class OrquestaEndpointMetrics:
 
 class OrquestaEndpoint:
     def __init__(
-            self,
-            options: OrquestaClientOptions,
-            content: str,
-            is_final: bool,
-            trace_id: str
+        self,
+        options: OrquestaClientOptions,
+        content: str,
+        is_final: bool,
+        trace_id: str,
     ):
         self.__options = options
         self.content = content
@@ -72,11 +73,7 @@ class OrquestaEndpoint:
         body = metrics.to_dict()
         body["trace_id"] = self.trace_id
 
-        post(
-            url=METRICS_API,
-            api_key=self.__options.api_key,
-            body=body
-        )
+        post(url=METRICS_API, api_key=self.__options.api_key, body=body)
 
 
 class OrquestaEndpoints:
@@ -85,8 +82,8 @@ class OrquestaEndpoints:
         self.__cache = cache
 
     def query(
-            self,
-            request: OrquestaEndpointRequest,
+        self,
+        request: OrquestaEndpointRequest,
     ) -> OrquestaEndpoint:
         response = post(
             url=ENDPOINTS_API,
@@ -103,29 +100,20 @@ class OrquestaEndpoints:
             trace_id=data.get("trace_id"),
         )
 
-    def stream(
-            self,
-            request: OrquestaEndpointRequest
-    ) -> Observable[OrquestaEndpoint]:
-
+    def stream(self, request: OrquestaEndpointRequest) -> Observable[OrquestaEndpoint]:
         def handle_stream(observer, _):
-
             with post(
-                    url=ENDPOINTS_API,
-                    api_key=self.__options.api_key,
-                    body=request.to_dict(),
-                    stream=True
+                url=ENDPOINTS_API,
+                api_key=self.__options.api_key,
+                body=request.to_dict(),
+                stream=True,
             ) as response:
-
                 if response.ok is None or response.status_code != 200:
-                    observer.on_error({
-                        "errorCode": 500,
-                        "providerErrorMessage": "An error occurred while processing your request.",
-                    })
+                    observer.on_error(response.json())
+                    return
 
                 for line in response.iter_lines():
                     if line:
-
                         data = extract_json(line)
 
                         if data.get("is_final") or "[DONE]" in line.decode("utf-8"):

@@ -1,11 +1,10 @@
 <p align="left">
-  <a href="https://orquesta.dev" target="_blank">
+  <a href="https://orquesta.cloud" target="_blank">
     <img src="https://raw.githubusercontent.com/orquestadev/orquesta-javascript/main/img/banner.png" alt="Orquesta"  height="84">
   </a>
 </p>
 
-_Orquesta provides your product teams with no-code collaboration tooling to experiment, operate and monitor LLMs and
-remote configurations within your SaaS_
+_LLM Operations and Integration Platform_
 
 ![npm](https://img.shields.io/pypi/v/orquesta-sdk)
 
@@ -43,19 +42,101 @@ api_key = os.environ.get("ORQUESTA_API_KEY", "__API_KEY__")
 
 options = OrquestaClientOptions(
     api_key=api_key,
-    ttl=3600
+    ttl=3600,
+    environment="production"
 )
 
 client = OrquestaClient(options)
 ```
 
-When creating a client instance, the following connection settings can be adjusted using the `OrquestaClientOptions`
-class:
+When creating a client instance, the following connection settings can be adjusted using the `OrquestaClientOptions` class:
 
 `OrquestaClientOptions`
 
 - `api_key`: str - your workspace API key to use for authentication.
-- `ttl?`: int - the time to live in seconds for the local cache. Default is 3600 seconds (1 hour).
+- `environment`: Optional[str] - the environment to use for the client. Not required but recommended to use so it"s added to the evaluation context automatically.
+- `ttl`: Optional[int] - the time to live in seconds for the local cache. Default is 3600 seconds (1 hour).
+
+## Usage - Endpoints
+
+Use the Endpoints API to query or stream your endpoints from Orquesta.
+
+Using endpoints to generate a LLM response based on your use case with Orquesta provides a low-latency, secure connection to the Endpoints API online prediction service. Getting out of the box metrics and logging for your LLMs.
+
+Endpoints API support streaming and querying. We recommend to use the code snippets provided in the Orquesta Admin panel to reduce risk of errors and improve ease of use.
+
+#### Example: Querying an endpoint
+
+```python
+from orquesta_sdk.endpoints import OrquestaEndpointRequest
+
+request = OrquestaEndpointRequest(
+    key="customer_service",
+    context={"environments": "production", "country": "NLD"},
+    variables={"firstname": "John", "city": "New York"},
+    metadata={"customer_id": "Qwtqwty90281"},
+)
+
+endpoint_ref = client.endpoints.query(
+    request
+)
+
+print(endpoint_ref.content)
+```
+
+#### Example: Streaming your endpoints
+
+```python
+request = OrquestaEndpointRequest(
+    key="customer_service",
+    context={ "environments": "production", "country": "NLD" },
+    variables={ "firstname": "John", "city": "New York" },
+    metadata={ "customer_id": "Qwtqwty90281" },
+)
+
+endpoint_ref = None
+
+def handle_next(chunk):
+    endpoint_ref = chunk
+    print(f"Received {chunk.content}")
+
+
+def handle_error(e):
+    print(f"Error Occurred: {e}")
+
+
+def handle_completed():
+    print("Stream completed!")
+
+
+stream = client.endpoints.stream(
+    request
+).subscribe(
+    on_next=handle_next,
+    on_error=handle_error,
+    on_completed=handle_completed,
+)
+
+```
+
+### Logging score and metadata for endpoints
+
+After every query, Orquesta will generate a log with the result of the evaluation. You can add `metadata` and `score` to the endpoint by using the `addMetrics` method.
+
+If you need to cancel a stream, you can call `stream.unsubscribe()` method.
+
+```python
+
+metrics = OrquestaEndpointMetrics(
+    score=85,
+    metadata={
+        "custom": "custom_metadata",
+        "chain_id": "ad1231xsdaABw",
+    },
+)
+
+endpoint_ref.addMetrics(metrics);
+```
 
 ## Usage - Prompts
 
@@ -63,33 +144,20 @@ class:
 
 Use the Prompts API to query your prompts from Orquesta.
 
-Orquesta supports completion and chat prompts. The prompt value type is `OrquestaPrompt`. We recommend using the code snippets provided in the Orquesta Admin panel to reduce the risk of errors and improve ease of use.
+You can use Orquesta in prompt management mode by consuming our Prompts API. The prompt value type is `OrquestaPrompt`. We recommend to use the code snippets provided in the Orquesta Admin panel to reduce risk of errors and improve ease of use.
 
-We also provide helper functions that map the returned value from Orquesta to the specific provider.
+We support an unified data model structure for all our prompts and provide helper functions that map the returned value from Orquesta to the specific provider.
 
-#### Example: Querying a completion prompt
+The `query` method receives an object of type `OrquestaPromptRequest` as parameter.
+
+#### Example: Querying a prompt
 
 ```python
 
 from orquesta_sdk.helpers import orquesta_openai_parameters_mapper
 
 prompt = client.prompts.query(
-    key="completion_prompt_key",
-    context={"environments": "production", "workspaceId": "soql1odAABC2"},
-    variables={"firstname": "John", "city": "New York"},
-    metadata={"chain_id": "ad1231xsdaABw"},
-)
-
-openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
-```
-
-#### Example: Querying a chat prompt
-
-```python
-from orquesta_sdk.helpers import orquesta_openai_parameters_mapper
-
-prompt = client.prompts.query(
-    key="chat_prompt_key",
+    key="prompt_key",
     context={"environments": "production", "workspaceId": "soql1odAABC2"},
     variables={"firstname": "John", "city": "New York"},
     metadata={"chain_id": "ad1231xsdaABw"},
@@ -100,7 +168,7 @@ openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
 
 #### Helper functions per LLM provider
 
-We provide `helper` functions that map the returned value from Orquesta to a `dict` following the definitions of the specific provider, so it's easy for you to forward the Prompt to your different LLM providers.
+We provide `helper` functions that map the returned value from Orquesta to a `dict` following the definitions of the specific provider, so it"s easy for you to forward the Prompt to your different LLM providers.
 
 | Provider     | Helper                                   |
 | ------------ | ---------------------------------------- |
@@ -108,10 +176,10 @@ We provide `helper` functions that map the returned value from Orquesta to a `di
 | Cohere       | `orquesta_cohere_parameters_mapper`      |
 | Google       | `orquesta_google_parameters_mapper`      |
 | Hugging Face | `orquesta_huggingface_parameters_mapper` |
-| OpenAI       | `orquesta_openai_parameters_mapper`      |
-| Replicate    | `orquesta_replicate_parameters_mapper`   |
+| OpenAI       | `⚠️ Work in progres`                     |
+| Replicate    | `⚠️ Work in progres`                     |
 
-### Logging responses and metadata for prompts
+### Logging metrics and metadata for prompts
 
 After every query, Orquesta will generate a log with the result of the evaluation. You can add metadata and information about the interaction with the LLM to the log by using the `add_metrics` method.
 
@@ -149,9 +217,9 @@ prompt.add_metrics(metrics)
 Orquesta also comes with a powerful Remote Configurations API that allows you to dynamically configure and run all your
 environments and services remotely.
 
-Orquesta has a powerful Remote Configurations API that allows you to configure and run all your environments and services remotely dynamically. Orquesta supports different types of remote configurations, and we recommend always typing the `query` method to help Typescript infer the correct type.
+Orquesta has a powerful Remote Configurations API that allows you to configure and run all your environments and services remotely dynamically. Orquesta supports different Class of remote configurations, and we recommend always typing the `query` method to help Classcript infer the correct type.
 
-Supported types: `bool`, `float`, `str`, `dict`, `list`
+Supported Class: `bool`, `float`, `str`, `dict`, `list`
 
 #### Example: Querying a configuration of type boolean
 
@@ -233,75 +301,43 @@ config.add_metrics(metrics)
 
 <div id="reference"/>
 
-## Options API
+# Orquesta API
 
-#### `OrquestaPromptQuery`
+## Endpoints API
 
-| Parameter | Type  | Description                                                                       | Required |
-| --------- | ----- | --------------------------------------------------------------------------------- | -------- |
-| api_key   | `str` | your workspace API key to use for authentication                                  | Yes      |
-| ttl       | `int` | the time to live in seconds for the local cache. Default is 3600 seconds (1 hour) | No       |
+Class:
+
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/endpoints.ts#L59">OrquestaEndpoint</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/endpoints.ts#L39">OrquestaEndpointMetrics</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/endpoints.ts#L11">OrquestaEndpointRequest</a></code>
+
+Methods:
+
+- <code>client.endpoints.<a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/endpoints.ts#L84">query</a>({ ...params }) -> OrquestaEndpoint</code>
+- <code>client.endpoints.<a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/endpoints.ts#L103">stream</a>({ ...params }) -> Observable`[OrquestaEndpoint]` </code>
 
 ## Prompts API
 
-#### `OrquestaPromptQuery`
+Class:
 
-| Parameter | Type             | Description                                                                                                                                        | Required |
-| --------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| key       | `str`            | Key of prompt to retrieve                                                                                                                          | Yes      |
-| context   | `Dict[str, Any]` | Set of key-value pairs from your data model that should be compared against the values in the configuration matrix                                 | No       |
-| variables | `Dict[str, Any]` | Set of key-value pairs variables to replace in your prompts. The provided variables are combined with the default variables defined in the prompt. | No       |
-| metadata  | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated                                                    | No       |
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/prompts.ts#L127">OrquestaPrompt</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/prompts.ts#L95">OrquestaPromptMetrics</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/prompts.ts#L71">OrquestaPromptMetricsEconomics</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/prompts.ts#L9">OrquestaPromptRequest</a></code>
 
-#### `OrquestaPrompt`
+Methods:
 
-| Property    | Type                                               | Description                                                                                                                                                           |
-| ----------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| value       | `OrquestaCompletionPrompt` or `OrquestaChatPrompt` | The value of the prompt                                                                                                                                               |
-| has_error   | `bool`                                             | A boolean indicating if the request resulted in an error                                                                                                              |
-| trace_id    | `str`                                              | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                                                        |
-| add_metrics | `(metrics: OrquestaPromptMetrics) -> None`         | method that reports metadata and information of the LLM interaction to the request log after the prompt value is returned. At least one of the properties is required |
+- <code>client.prompts.<a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/prompts.ts#L155">query</a>({ ...params }) -> OrquestaPrompt</code>
 
-#### `OrquestaPromptMetrics`
+## RemoteConfigs API
 
-| Property     | Type             | Description                                                       | Required |
-| ------------ | ---------------- | ----------------------------------------------------------------- | -------- |
-| metadata     | `Dict[str, Any]` | Key-value pairs of custom fields to attach to the generated logs  | No       |
-| score        | `int`            | Feedback provided by your end user. Number between 0 and 10       | No       |
-| latency      | `int`            | Total time in milliseconds of the request to the LLM provider API | No       |
-| llm_response | `str`            | Full response returned by your LLM provider                       | No       |
-| economics    | `int`            | Prompt information about the prompt and completion tokens         | No       |
+Class:
 
-#### `OrquestaPromptMetricsEconomics`
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/remoteconfigs.ts#L9">OrquestaRemoteConfigKind</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/remoteconfigs.ts#L90">OrquestaRemoteConfig</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/remoteconfigs.ts#L77">OrquestaRemoteConfigMetrics</a></code>
+- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/remoteconfigs.ts#L17">OrquestaRemoteConfigRequest</a></code>
 
-| Property          | Type  | Description                                  | Required |
-| ----------------- | ----- | -------------------------------------------- | -------- |
-| prompt_tokens     | `int` | Total tokens input into the model            | Yes      |
-| completion_tokens | `int` | Total tokens output by the model             | Yes      |
-| total_tokens      | `int` | Sum of `prompt_tokens` + `completion_tokens` | No       |
+Methods:
 
-## Remote Configurations API
-
-#### `OrquestaRemoteConfigQuery`
-
-| Parameter     | Type             | Description                                                                                                        | Required |
-| ------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------ | -------- |
-| key           | `str`            | Key of remote configuration to retrieve                                                                            | Yes      |
-| default_value | `Any`            | The value to be used in case there is an error during evaluation or the remote configuration does not exist        | Yes      |
-| context       | `Dict[str, Any]` | Set of key-value pairs from your data model that should be compared against the values in the configuration matrix | No       |
-| metadata      | `Dict[str, Any]` | Set of key-value pairs of metadata to attach to the generated log after the prompt is evaluated                    | No       |
-
-#### `OrquestaRemoteConfig`
-
-| Parameter   | Type                                             | Description                                                                                                                             |
-| ----------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| value       | `Any`                                            | The value of the remote configuration                                                                                                   |
-| config_type | `bool` or `str` or `float` or `dict` or `list`   | Return type of the remote configuration                                                                                                 |
-| trace_id    | `str`                                            | Trace ID of the request log to use to report prompt metrics to the API if the method `add_metrics` is not used                          |
-| add_metrics | `(metrics: OrquestaRemoteConfigMetrics) -> None` | A method that reports metadata to the request log after the configuration value is returned. At least one of the properties is required |
-
-#### `OrquestaRemoteConfigMetrics`
-
-| Parameter | Type             | Description                                                              | Required |
-| --------- | ---------------- | ------------------------------------------------------------------------ | -------- |
-| metadata  | `Dict[str, Any]` | Set of key-value pairs of metadata you want to attach to the request log | No       |
+- <code>client.remoteconfigs.<a href="https://github.com/orquestadev/orquesta-python/blob/main/packages/js/src/lib/remoteconfigs.ts#L121">query<T></a>({ ...params }) -> OrquestaRemoteConfig</code>
