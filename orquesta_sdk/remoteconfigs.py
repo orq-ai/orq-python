@@ -1,10 +1,77 @@
-import time
+from enum import Enum
 from typing import Any, Dict, Optional
 
 from .cache import CacheStore
-from .remote_config_kind import OrquestaRemoteConfigKind
-from .request import REMOTE_CONFIGS_API
-from .result import OrquestaBaseEntity, OrquestaResult
+from .options import OrquestaClientOptions
+from .request import REMOTE_CONFIGS_API, post, METRICS_API
+
+
+class OrquestaRemoteConfigKind(Enum):
+    Boolean = "boolean"
+    Integer = "integer"
+    String = "string"
+    List = "list"
+    Json = "json"
+
+
+class OrquestaRemoteConfigRequest:
+    """
+    OrquestaRemoteConfigRequest represents a configuration request for the Orquesta system.
+
+    Attributes:
+        key (str): The configuration key.
+        default_value (Any): The default value to be used if the key is not present.
+        context (Optional[Dict[str, Any]]): Optional context information for the configuration request.
+        metadata (Optional[Dict[str, Any]]): Optional metadata associated with the request.
+
+    Methods:
+        to_dict(): Returns a dictionary representation of the instance.
+    """
+
+    def __init__(
+            self,
+            key: str,
+            default_value: Any,
+            context: Optional[Dict[str, Any]] = None,
+            metadata: Optional[Dict[str, Any]] = None
+    ):
+        """
+        Initializes a new OrquestaRemoteConfigRequest instance.
+
+        Args:
+            key (str): The configuration key.
+            default_value (Any): The default value to be used if the key is not present.
+            context (Optional[Dict[str, Any]]): Optional context information for the configuration request.
+            metadata (Optional[Dict[str, Any]]): Optional metadata associated with the request.
+
+        Returns:
+            None
+        """
+        self.key = key  # The configuration key
+        self.default_value = default_value  # The default value for the configuration key
+        self.context = context  # Additional context for the request
+        self.metadata = metadata  # Metadata related to the request
+
+    def to_dict(self):
+        """
+        Returns a dictionary representation of the OrquestaRemoteConfigRequest instance.
+
+        The returned dictionary will contain the key and optionally, the context and metadata
+        if they are not None.
+
+        Returns:
+            Dict: A dictionary containing the key, context, and metadata of the instance.
+        """
+        value = {
+            "keys": [self.key],
+        }
+
+        if self.context:
+            value["context"] = self.context
+        if self.metadata:
+            value["metadata"] = self.metadata
+
+        return value
 
 
 class OrquestaRemoteConfigMetrics:
@@ -12,64 +79,73 @@ class OrquestaRemoteConfigMetrics:
         self.metadata = metadata
 
     def to_dict(self):
-        if not self.metadata:
-            return {}
-        return {
-            "metadata": self.metadata,
-        }
+        value = {}
+
+        if self.metadata:
+            value["metadata"] = self.metadata
+
+        return value
 
 
-class OrquestaRemoteConfig(OrquestaResult):
+class OrquestaRemoteConfig:
     def __init__(
-        self,
-        dsn: str,
-        start_time: int,
-        value: Any,
-        trace_id: Optional[str],
-        config_type: Optional[OrquestaRemoteConfigKind],
+            self,
+            options: OrquestaClientOptions,
+            value: Any,
+            trace_id: Optional[str],
+            config_type: Optional[OrquestaRemoteConfigKind],
     ):
-        super().__init__(
-            dsn, REMOTE_CONFIGS_API, start_time, value, trace_id, config_type
-        )
+        self.__options = options
+        self.value = value
+        self.trace_id = trace_id
+        self.config_type = config_type
         self.default_matched = not trace_id
 
     def add_metrics(self, metrics: OrquestaRemoteConfigMetrics) -> None:
-        return super().add_metrics(metrics.to_dict())
+        body = metrics.to_dict()
+
+        body['trace_id'] = self.trace_id
+
+        return post(
+            api_key=self.__options.api_key,
+            url=METRICS_API,
+            body=body
+        )
 
 
-class OrquestaRemoteConfigs(OrquestaBaseEntity):
-    def __init__(self, dsn: str, cache: CacheStore):
-        super().__init__(dsn, REMOTE_CONFIGS_API)
-
+class OrquestaRemoteConfigs:
+    def __init__(self, options: OrquestaClientOptions, cache: CacheStore):
+        self.__options = options
         self.__cache = cache
 
     def query(
-        self,
-        key: str,
-        default_value: Any,
-        context: Optional[Dict[str, Any]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+            self,
+            request: OrquestaRemoteConfigRequest
     ) -> OrquestaRemoteConfig:
-        cached_result = self.__cache.get(key, context or {})
+
+        context = request.context or {}
+
+        cached_result = self.__cache.get(request.key, context)
 
         if cached_result:
             return cached_result.result
 
-        start_time = int(time.time() * 1000)
-
-        response = self.perform_request(key, context, metadata)
-
-        result = response.json().get(key, {})
-
-        config = OrquestaRemoteConfig(
-            self.dsn,
-            start_time,
-            result.get("value", default_value),
-            result.get("trace_id"),
-            result.get("type"),
+        response = post(
+            url=REMOTE_CONFIGS_API,
+            api_key=self.__options.api_key,
+            body=request.to_dict()
         )
 
-        if result.get("trace_id") and result.get("value") is not None:
-            self.__cache.set(key, config, context or {})
+        data = response.json().get(request.key, {})
+
+        config = OrquestaRemoteConfig(
+            options=self.__options,
+            value=data.get("value", request.default_value),
+            trace_id=data.get("trace_id"),
+            config_type=data.get("type"),
+        )
+
+        if config.trace_id and config.value is not None:
+            self.__cache.set(request.key, config, context)
 
         return config

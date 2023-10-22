@@ -1,3 +1,6 @@
+import json
+
+
 def are_object_equals(dict1, dict2):
     if isinstance(dict1, dict) and isinstance(dict2, dict):
         keys1 = sorted(dict1.keys())
@@ -19,3 +22,21 @@ def are_object_equals(dict1, dict2):
         return True
 
     return False
+
+
+def dict_cleanup(input_dict):
+    return {k: v for k, v in input_dict.items() if v is not None}
+
+def extract_json(byte_string):
+    try:
+        decoded_string = byte_string.decode('utf-8')
+        if decoded_string.startswith('data: '):
+            json_str = decoded_string[6:]  # Remove the 'data: ' prefix
+            json_obj = json.loads(json_str)
+            return json_obj
+        else:
+            return None
+    except json.JSONDecodeError:
+        return None
+    except UnicodeDecodeError:
+        return None

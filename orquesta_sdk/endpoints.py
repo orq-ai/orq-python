@@ -1,123 +1,146 @@
-import time
 from typing import Any, Dict, Optional
 
 from .cache import CacheStore
-from .remote_config_kind import OrquestaRemoteConfigKind
-from .request import PROMPTS_URL
-from .result import OrquestaBaseEntity, OrquestaResult
+from .options import OrquestaClientOptions
+from .request import post, ENDPOINTS_API, METRICS_API
+from reactivex import create, Observable
+
+from .utils import extract_json
 
 
-class OrquestaPromptMetricsEconomics:
+class OrquestaEndpointRequest:
     def __init__(
-        self,
-        prompt_tokens: Optional[int],
-        completion_tokens: int,
-        total_tokens: Optional[int],
+            self, key: str,
+            context: Optional[Dict[str, Any]] = None,
+            variables: Optional[Dict[str, str]] = None,
+            metadata: Optional[Dict[str, Any]] = None
     ):
-        """
-        Initializes an instance of the OrquestaPromptMetricsEconomics class.
+        self.key = key
+        self.context = context
+        self.variables = variables
+        self.metadata = metadata
 
-        Parameters
-        ----------
-        prompt_tokens : int
-            The number of tokens used in the initial prompt.
-        completion_tokens : int
-            The number of tokens used in the completion generated in response to the prompt.
-        total_tokens : int
-            The total number of tokens used, including both the prompt and completion.
-        """
-        self.prompt_tokens = prompt_tokens
-        self.completion_tokens = completion_tokens
-        self.total_tokens = total_tokens
+    def to_dict(self):
+        value = {
+            "key": self.key,
+        }
+
+        if self.context:
+            value["context"] = self.context
+        if self.variables:
+            value["variables"] = self.variables
+        if self.metadata:
+            value["metadata"] = self.metadata
+
+        return value
 
 
-class OrquestaPromptMetrics:
+class OrquestaEndpointMetrics:
     def __init__(
-        self,
-        score: Optional[float] = None,
-        latency: Optional[int] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        llm_response: Optional[str] = None,
-        economics: Optional[OrquestaPromptMetricsEconomics] = None,
+            self,
+            score: Optional[float] = None,
+            metadata: Optional[Dict[str, Any]] = None,
     ):
         self.score = score
-        self.latency = latency
         self.metadata = metadata
-        self.economics = economics
-        self.llm_response = llm_response
 
     def to_dict(self):
         value = {}
 
         if self.score is not None:
             value["score"] = self.score
-        if self.latency is not None:
-            value["latency"] = self.latency
         if self.metadata is not None:
             value["metadata"] = self.metadata
-        if self.economics is not None:
-            value["economics"] = self.economics
-        if self.llm_response is not None:
-            value["llm_response"] = self.llm_response
 
         return value
 
 
-class OrquestaPrompt(OrquestaResult):
+class OrquestaEndpoint:
     def __init__(
-        self,
-        api_key: str,
-        start_time: int,
-        value: Any,
-        trace_id: Optional[str],
-        kind: Optional[OrquestaRemoteConfigKind],
+            self,
+            options: OrquestaClientOptions,
+            content: str,
+            is_final: bool,
+            trace_id: str
     ):
-        super().__init__(api_key, PROMPTS_URL, start_time, value, trace_id, kind)
+        self.__options = options
+        self.content = content
+        self.is_final = is_final
+        self.trace_id = trace_id
 
-        self.has_error = not bool(trace_id)
+    def add_metrics(self, metrics: OrquestaEndpointMetrics) -> None:
+        body = metrics.to_dict()
+        body["trace_id"] = self.trace_id
 
-    def add_metrics(self, metrics: OrquestaPromptMetrics) -> None:
-        return super().add_metrics(metrics.to_dict())
+        post(
+            url=METRICS_API,
+            api_key=self.__options.api_key,
+            body=body
+        )
 
 
-class OrquestaPrompts(OrquestaBaseEntity):
-    def __init__(self, dsn: str, cache: CacheStore):
-        super().__init__(dsn, PROMPTS_URL)
-
+class OrquestaEndpoints:
+    def __init__(self, options: OrquestaClientOptions, cache: CacheStore):
+        self.__options = options
         self.__cache = cache
 
     def query(
-        self,
-        key: str,
-        context: Optional[Dict[str, Any]] = None,
-        variables: Optional[Dict[str, str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-    ) -> OrquestaPrompt:
-        cached_result = self.__cache.get(key, context or {})
-
-        if cached_result:
-            return cached_result.result
-
-        start_time = int(time.time() * 1000)
-
-        response = self.perform_request(
-            key=key,
-            context=context,
-            metadata=metadata,
-            variables=variables,
+            self,
+            request: OrquestaEndpointRequest,
+    ) -> OrquestaEndpoint:
+        response = post(
+            url=ENDPOINTS_API,
+            api_key=self.__options.api_key,
+            body=request.to_dict(),
         )
 
-        result = response.json().get(key, {})
+        data = response.json()
 
-        prompt = OrquestaPrompt(
-            self.dsn,
-            start_time,
-            result.get("value"),
-            result.get("trace_id"),
-            result.get("type"),
+        return OrquestaEndpoint(
+            self.__options,
+            content=data.get("content"),
+            is_final=data.get("is_final"),
+            trace_id=data.get("trace_id"),
         )
 
-        if result.get("trace_id") and result.get("value") is not None:
-            self.__cache.set(key, prompt, context)
+    def stream(
+            self,
+            request: OrquestaEndpointRequest
+    ) -> Observable[OrquestaEndpoint]:
 
-        return prompt
+        def handle_stream(observer, _):
+
+            with post(
+                    url=ENDPOINTS_API,
+                    api_key=self.__options.api_key,
+                    body=request.to_dict(),
+                    stream=True
+            ) as response:
+
+                if response.ok is None or response.status_code != 200:
+                    observer.on_error({
+                        "errorCode": 500,
+                        "providerErrorMessage": "An error occurred while processing your request.",
+                    })
+
+                for line in response.iter_lines():
+                    if line:
+
+                        data = extract_json(line)
+
+                        if data.get("is_final") or "[DONE]" in line.decode("utf-8"):
+                            observer.on_completed()
+                            break
+
+                        if data:
+                            endpoint_chunk = OrquestaEndpoint(
+                                self.__options,
+                                content=data.get("content"),
+                                is_final=data.get("is_final"),
+                                trace_id=data.get("trace_id"),
+                            )
+                            observer.on_next(endpoint_chunk)
+
+        source = create(handle_stream)
+
+        return source

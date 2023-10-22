@@ -1,7 +1,7 @@
 import time
 from typing import Any, Dict, Optional
+
 from .utils import are_object_equals
-from .result import OrquestaResult
 
 
 class OrquestaCacheItem:
@@ -31,13 +31,13 @@ class CacheStore:
             None,
         )
 
-    def set(self, key: str, result: OrquestaResult, context: Dict[str, Any]):
+    def set(self, key: str, result: Any, context: Dict[str, Any]):
         self.cache.append(
             OrquestaCacheItem(key, result, context, int(time.time() * 1000))
         )
 
-    def is_expired(self, cacheTime: int, ttl: int) -> bool:
-        return time.time() * 1000 - cacheTime > ttl * 1000
+    def is_expired(self, cache_time: int, ttl: int) -> bool:
+        return time.time() * 1000 - cache_time > ttl * 1000
 
     def flush_expired(self):
         self.cache = [

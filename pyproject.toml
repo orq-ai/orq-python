@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "orquesta_sdk"
 version = "1.10.6"
-description = "No-code collaboration tooling to experiment, operate and monitor LLMs and remote configurations within your SaaS"
+description = "_LLM Operations and Integration Platform_"
 authors = ["Orquesta <info@orquesta.dev>"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python :: 3",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
@@ -25,6 +25,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.7,<4.0.0"
 requests = "^2.28.2"
+reactivex = "^4.0.4"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
