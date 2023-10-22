@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 
 from .cache import CacheStore
 from .remote_config_kind import OrquestaRemoteConfigKind
-from .request import REMOTE_CONFIGS_URL
+from .request import REMOTE_CONFIGS_API
 from .result import OrquestaBaseEntity, OrquestaResult
 
 
@@ -29,7 +29,7 @@ class OrquestaRemoteConfig(OrquestaResult):
         config_type: Optional[OrquestaRemoteConfigKind],
     ):
         super().__init__(
-            dsn, REMOTE_CONFIGS_URL, start_time, value, trace_id, config_type
+            dsn, REMOTE_CONFIGS_API, start_time, value, trace_id, config_type
         )
         self.default_matched = not trace_id
 
@@ -39,7 +39,7 @@ class OrquestaRemoteConfig(OrquestaResult):
 
 class OrquestaRemoteConfigs(OrquestaBaseEntity):
     def __init__(self, dsn: str, cache: CacheStore):
-        super().__init__(dsn, REMOTE_CONFIGS_URL)
+        super().__init__(dsn, REMOTE_CONFIGS_API)
 
         self.__cache = cache
 

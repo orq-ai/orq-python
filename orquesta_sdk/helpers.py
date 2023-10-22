@@ -1,11 +1,18 @@
 def orquesta_openai_parameters_mapper(prompt):
-    return {
+    parameters = {
         "temperature": prompt.get("temperature"),
         "max_tokens": prompt.get("maxTokens"),
         "top_p": prompt.get("topP"),
         "frequency_penalty": prompt.get("frequencyPenalty"),
         "presence_penalty": prompt.get("presencePenalty"),
     }
+
+    functions = prompt.get("functions", None)
+
+    if functions is not None:
+        parameters["functions"] = functions
+
+    return parameters
 
 
 def orquesta_cohere_parameters_mapper(prompt):

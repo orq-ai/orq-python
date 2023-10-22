@@ -156,7 +156,7 @@ Supported types: `bool`, `float`, `str`, `dict`, `list`
 #### Example: Querying a configuration of type boolean
 
 ```python
-config = client.remote_configs.query(
+config = client.remoteconfigs.query(
     key="boolean_config",
     default_value=False,
     context={"environments": "production", "role": "admin"},
@@ -169,7 +169,7 @@ config = client.remote_configs.query(
 ```python
 
 
-config = client.remote_configs.query(
+config = client.remoteconfigs.query(
     key="str_config",
     default_value="str_value",
     context={"environments": "production", "country": "NL"},
@@ -180,7 +180,7 @@ config = client.remote_configs.query(
 #### Example: Querying a configuration of type int
 
 ```python
-config = client.remote_configs.query(
+config = client.remoteconfigs.query(
     key="int_config",
     default_value=1990,
     context={"environments": "production", "market": "US" },
@@ -191,7 +191,7 @@ config = client.remote_configs.query(
 #### Example: Querying a configuration of type array
 
 ```python
-config = client.remote_configs.query(
+config = client.remoteconfigs.query(
     key="list_config",
     default_value=["USA", "NL"],
     context={"environments": "acceptance", "is_enable": True},
@@ -202,7 +202,7 @@ config = client.remote_configs.query(
 #### Example: Querying a configuration of type JSON
 
 ```python
-config = client.remote_configs.query(
+config = client.remoteconfigs.query(
     key="json_config",
     default_value=dict,
     contenxt={"environments": "develop", "platform": "mobile"},
@@ -218,7 +218,7 @@ After every query, Orquesta will generate a log with data about the request. You
 #### Example: Add metrics to your request log
 
 ```python
-from orquesta_sdk.remote_configs import OrquestaRemoteConfigMetrics
+from orquesta_sdk.remoteconfigs import OrquestaRemoteConfigMetrics
 
 metrics = OrquestaRemoteConfigMetrics(
     metadata={

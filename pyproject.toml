@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orquesta_sdk"
-version = "1.10.5"
+version = "1.10.6"
 description = "No-code collaboration tooling to experiment, operate and monitor LLMs and remote configurations within your SaaS"
 authors = ["Orquesta <info@orquesta.dev>"]
 classifiers = [

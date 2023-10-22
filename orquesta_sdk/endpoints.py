@@ -2,9 +2,8 @@ import time
 from typing import Any, Dict, Optional
 
 from .cache import CacheStore
-from .options import OrquestaClientOptions
 from .remote_config_kind import OrquestaRemoteConfigKind
-from .request import PROMPTS_URL, post
+from .request import PROMPTS_URL
 from .result import OrquestaBaseEntity, OrquestaResult
 
 
@@ -82,11 +81,10 @@ class OrquestaPrompt(OrquestaResult):
 
 
 class OrquestaPrompts(OrquestaBaseEntity):
-    def __init__(self, options: OrquestaClientOptions, cache: CacheStore):
-        self.__options = options
-        self.__cache = cache
+    def __init__(self, dsn: str, cache: CacheStore):
+        super().__init__(dsn, PROMPTS_URL)
 
-        super().__init__(options, PROMPTS_URL)
+        self.__cache = cache
 
     def query(
         self,
@@ -99,26 +97,21 @@ class OrquestaPrompts(OrquestaBaseEntity):
 
         if cached_result:
             return cached_result.result
-        
-        body = {
-            "key": key
-        }
 
-        for prop in [context, variables, metadata]:
-            if prop:
-                body.update(prop)
+        start_time = int(time.time() * 1000)
 
-
-        response = post(
-            body
+        response = self.perform_request(
+            key=key,
+            context=context,
+            metadata=metadata,
+            variables=variables,
         )
 
-        resource = response.json().get(key, {})
+        result = response.json().get(key, {})
 
         prompt = OrquestaPrompt(
-            self.__options,
-            resource
             self.dsn,
+            start_time,
             result.get("value"),
             result.get("trace_id"),
             result.get("type"),

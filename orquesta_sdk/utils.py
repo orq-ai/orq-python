@@ -1,7 +1,3 @@
-def is_invalid_api_key(key):
-    return not key.startswith("RQST.")
-
-
 def are_object_equals(dict1, dict2):
     if isinstance(dict1, dict) and isinstance(dict2, dict):
         keys1 = sorted(dict1.keys())

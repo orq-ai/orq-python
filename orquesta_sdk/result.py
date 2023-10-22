@@ -1,8 +1,9 @@
 import time
 from typing import Any, Optional
 
-from .request import post
+from .options import OrquestaClientOptions
 from .remote_config_kind import OrquestaRemoteConfigKind
+from .request import post
 
 
 class OrquestaResult:
@@ -32,51 +33,3 @@ class OrquestaResult:
             return
 
         post(self._metrics_endpoint_url, self.__api_key, metrics)
-
-    def __report_roundtrip_time(self, start_time: int) -> None:
-        if not self.trace_id:
-            return
-
-        roundtrip_time = int(time.time() * 1000) - start_time
-
-        post(
-            self._metrics_endpoint_url,
-            self.__api_key,
-            {"roundtrip_time": roundtrip_time},
-        )
-
-
-class OrquestaBaseEntity:
-    def __init__(
-        self,
-        dsn: str,
-        endpointUrl: str,
-    ):
-        self.dsn = dsn
-        self.__endpointUrl = endpointUrl
-
-    def perform_request(
-        self,
-        key: str,
-        context: Optional[dict] = None,
-        metadata: Optional[dict] = None,
-        variables: Optional[dict] = None,
-    ) -> Any:
-        body = {
-            "keys": [key],
-        }
-
-        if context:
-            body["context"] = context
-
-        if metadata:
-            body["metadata"] = metadata
-
-        if variables:
-            body["variables"] = variables
-
-        return post(
-            self.__endpointUrl,
-            self.dsn,
-            body,
-        )
