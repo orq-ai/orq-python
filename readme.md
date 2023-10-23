@@ -156,11 +156,15 @@ The `query` method receives an object of type `OrquestaPromptRequest` as paramet
 
 from orquesta_sdk.helpers import orquesta_openai_parameters_mapper
 
-prompt = client.prompts.query(
+request = OrquestaPromptRequest(
     key="prompt_key",
     context={"environments": "production", "workspaceId": "soql1odAABC2"},
     variables={"firstname": "John", "city": "New York"},
     metadata={"chain_id": "ad1231xsdaABw"},
+)
+
+prompt = client.prompts.query(
+    request=request,
 )
 
 openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
@@ -236,44 +240,60 @@ config = client.remoteconfigs.query(
 
 ```python
 
-
-config = client.remoteconfigs.query(
+request = OrquestaRemoteConfigRequest(
     key="str_config",
     default_value="str_value",
     context={"environments": "production", "country": "NL"},
     metadata={"timestamp": 1623345600}
+)
+
+config = client.remoteconfigs.query(
+    request=request
 )
 ```
 
 #### Example: Querying a configuration of type int
 
 ```python
-config = client.remoteconfigs.query(
+request = OrquestaRemoteConfigRequest(
     key="int_config",
     default_value=1990,
     context={"environments": "production", "market": "US" },
     metadata={"domain": "ecommerce"}
 )
+
+config = client.remoteconfigs.query(
+    request=request
+)
+
 ```
 
 #### Example: Querying a configuration of type array
 
 ```python
-config = client.remoteconfigs.query(
+request = OrquestaRemoteConfigRequest(
     key="list_config",
     default_value=["USA", "NL"],
     context={"environments": "acceptance", "is_enable": True},
     metadata={"domain": "ecommerce"}
+)
+
+config = client.remoteconfigs.query(
+    request=request
 )
 ```
 
 #### Example: Querying a configuration of type JSON
 
 ```python
-config = client.remoteconfigs.query(
+request = OrquestaRemoteConfigRequest(
     key="json_config",
     default_value=dict,
     contenxt={"environments": "develop", "platform": "mobile"},
+)
+
+config = client.remoteconfigs.query(
+    request=request
 )
 ```
 
