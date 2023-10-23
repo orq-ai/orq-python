@@ -170,14 +170,14 @@ openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
 
 We provide `helper` functions that map the returned value from Orquesta to a `dict` following the definitions of the specific provider, so it"s easy for you to forward the Prompt to your different LLM providers.
 
-| Provider     | Helper                                   |
-| ------------ | ---------------------------------------- |
-| Anthropic    | `orquesta_anthropic_parameters_mapper`   |
-| Cohere       | `orquesta_cohere_parameters_mapper`      |
-| Google       | `orquesta_google_parameters_mapper`      |
-| Hugging Face | `orquesta_huggingface_parameters_mapper` |
-| OpenAI       | `⚠️ Work in progres`                     |
-| Replicate    | `⚠️ Work in progres`                     |
+| Provider     | Helper                                 |
+| ------------ | -------------------------------------- |
+| Anthropic    | `orquesta_anthropic_parameters_mapper` |
+| Cohere       | `orquesta_cohere_parameters_mapper`    |
+| Google       | `orquesta_google_parameters_mapper`    |
+| OpenAI       | `orquesta_openai_parameters_mapper`    |
+| Hugging Face | `⚠️ Work in progress`                  |
+| Replicate    | `⚠️ Work in progress`                  |
 
 ### Logging metrics and metadata for prompts
 
