@@ -1,5 +1,7 @@
 import json
 
+from .exceptions import OrquestaException
+
 
 def are_object_equals(dict1, dict2):
     if isinstance(dict1, dict) and isinstance(dict2, dict):
@@ -27,10 +29,11 @@ def are_object_equals(dict1, dict2):
 def dict_cleanup(input_dict):
     return {k: v for k, v in input_dict.items() if v is not None}
 
+
 def extract_json(byte_string):
     try:
-        decoded_string = byte_string.decode('utf-8')
-        if decoded_string.startswith('data: '):
+        decoded_string = byte_string.decode("utf-8")
+        if decoded_string.startswith("data: "):
             json_str = decoded_string[6:]  # Remove the 'data: ' prefix
             json_obj = json.loads(json_str)
             return json_obj
@@ -40,3 +43,17 @@ def extract_json(byte_string):
         return None
     except UnicodeDecodeError:
         return None
+
+
+def notify_error(response):
+    error = response.json()
+
+    if "error" not in error and "message" not in error:
+        response.raise_for_status()
+
+    raise OrquestaException(
+        name=error["name"],
+        message=error["message"],
+        provider_error_message=error.get("provider_error_message", None),
+        code=error["error_code"],
+    )

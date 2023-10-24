@@ -17,15 +17,15 @@ def post(url: str, api_key: str, body: dict, stream=False, environment=None):
         "User-Agent": "orquesta/{};python".format(__version__),
     }
 
-    if stream:
-        headers["Accept"] = "text/event-stream"
-        body["stream"] = True
-
     if environment:
         if body.get("context", None) is None:
             body["context"] = {"environments": [environment]}
         else:
             body["context"]["environments"] = [environment]
 
-    response = requests.post(url, json=body, headers=headers)
-    return response
+    if stream:
+        headers["Accept"] = "text/event-stream"
+        body["stream"] = True
+        return requests.post(url, json=body, headers=headers, stream=True)
+
+    return requests.post(url, json=body, headers=headers)

@@ -1,11 +1,9 @@
 from typing import Any, Dict, Optional
 
-from .cache import CacheStore
+from .exceptions import OrquestaException
 from .options import OrquestaClientOptions
-from .request import post, ENDPOINTS_API, METRICS_API
-from reactivex import create, Observable
-
-from .utils import extract_json
+from .request import ENDPOINTS_API, METRICS_API, post
+from .utils import extract_json, notify_error
 
 
 class OrquestaEndpointRequest:
@@ -77,9 +75,8 @@ class OrquestaEndpoint:
 
 
 class OrquestaEndpoints:
-    def __init__(self, options: OrquestaClientOptions, cache: CacheStore):
+    def __init__(self, options: OrquestaClientOptions):
         self.__options = options
-        self.__cache = cache
 
     def query(
         self,
@@ -91,6 +88,9 @@ class OrquestaEndpoints:
             body=request.to_dict(),
         )
 
+        if response.ok is None or response.status_code != 200:
+            notify_error(response)
+
         data = response.json()
 
         return OrquestaEndpoint(
@@ -100,35 +100,24 @@ class OrquestaEndpoints:
             trace_id=data.get("trace_id"),
         )
 
-    def stream(self, request: OrquestaEndpointRequest) -> Observable[OrquestaEndpoint]:
-        def handle_stream(observer, _):
-            with post(
-                url=ENDPOINTS_API,
-                api_key=self.__options.api_key,
-                body=request.to_dict(),
-                stream=True,
-            ) as response:
-                if response.ok is None or response.status_code != 200:
-                    observer.on_error(response.json())
-                    return
+    def stream(self, request: OrquestaEndpointRequest):
+        with post(
+            url=ENDPOINTS_API,
+            api_key=self.__options.api_key,
+            body=request.to_dict(),
+            stream=True,
+        ) as response:
+            if response.ok is None or response.status_code != 200:
+                notify_error(response)
 
-                for line in response.iter_lines():
-                    if line:
-                        data = extract_json(line)
+            for line in response.iter_lines():
+                if line:
+                    data = extract_json(line)
 
-                        if data.get("is_final") or "[DONE]" in line.decode("utf-8"):
-                            observer.on_completed()
-                            break
-
-                        if data:
-                            endpoint_chunk = OrquestaEndpoint(
-                                self.__options,
-                                content=data.get("content"),
-                                is_final=data.get("is_final"),
-                                trace_id=data.get("trace_id"),
-                            )
-                            observer.on_next(endpoint_chunk)
-
-        source = create(handle_stream)
-
-        return source
+                    if data:
+                        yield OrquestaEndpoint(
+                            self.__options,
+                            content=data.get("content"),
+                            is_final=data.get("is_final"),
+                            trace_id=data.get("trace_id"),
+                        )

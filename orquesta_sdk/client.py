@@ -9,6 +9,7 @@ from .remoteconfigs import OrquestaRemoteConfigs
 
 class OrquestaInvalidAPIException(BaseException):
     """Raised if the provider API key is invalid."""
+
     pass
 
 
@@ -20,6 +21,6 @@ class OrquestaClient:
         if not api_key:
             raise OrquestaInvalidAPIException("The provided API key is invalid.")
 
-        self.endpoints = OrquestaEndpoints(options, cache)
+        self.endpoints = OrquestaEndpoints(options)
         self.prompts = OrquestaPrompts(options, cache)
         self.remoteconfigs = OrquestaRemoteConfigs(options, cache)

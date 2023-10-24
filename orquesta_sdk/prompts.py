@@ -1,6 +1,8 @@
 import time
 from typing import Any, Dict, Optional
 
+from orquesta_sdk.utils import notify_error
+
 from .cache import CacheStore
 from .options import OrquestaClientOptions
 from .request import PROMPTS_API, post, METRICS_API
@@ -21,11 +23,11 @@ class OrquestaPromptRequest:
     """
 
     def __init__(
-            self,
-            key: str,
-            context: Optional[Dict[str, Any]] = None,
-            variables: Optional[Dict[str, Any]] = None,
-            metadata: Optional[Dict[str, Any]] = None
+        self,
+        key: str,
+        context: Optional[Dict[str, Any]] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ):
         """
         Initializes a new OrquestaPromptRequest instance.
@@ -70,10 +72,10 @@ class OrquestaPromptRequest:
 
 class OrquestaPromptMetricsEconomics:
     def __init__(
-            self,
-            prompt_tokens: Optional[int],
-            completion_tokens: int,
-            total_tokens: Optional[int],
+        self,
+        prompt_tokens: Optional[int],
+        completion_tokens: int,
+        total_tokens: Optional[int],
     ):
         """
         Initializes an instance of the OrquestaPromptMetricsEconomics class.
@@ -94,12 +96,12 @@ class OrquestaPromptMetricsEconomics:
 
 class OrquestaPromptMetrics:
     def __init__(
-            self,
-            score: Optional[float] = None,
-            latency: Optional[int] = None,
-            metadata: Optional[Dict[str, Any]] = None,
-            llm_response: Optional[str] = None,
-            economics: Optional[OrquestaPromptMetricsEconomics] = None,
+        self,
+        score: Optional[float] = None,
+        latency: Optional[int] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        llm_response: Optional[str] = None,
+        economics: Optional[OrquestaPromptMetricsEconomics] = None,
     ):
         self.score = score
         self.latency = latency
@@ -126,10 +128,10 @@ class OrquestaPromptMetrics:
 
 class OrquestaPrompt:
     def __init__(
-            self,
-            options: OrquestaClientOptions,
-            value: Any,
-            trace_id: Optional[str],
+        self,
+        options: OrquestaClientOptions,
+        value: Any,
+        trace_id: Optional[str],
     ):
         self.__options = options
         self.value = value
@@ -138,13 +140,9 @@ class OrquestaPrompt:
 
     def add_metrics(self, metrics: OrquestaPromptMetrics) -> None:
         body = metrics.to_dict()
-        body['trace_id'] = self.trace_id
+        body["trace_id"] = self.trace_id
 
-        return post(
-            api_key=self.__options.api_key,
-            url=METRICS_API,
-            body=body
-        )
+        return post(api_key=self.__options.api_key, url=METRICS_API, body=body)
 
 
 class OrquestaPrompts:
@@ -153,10 +151,9 @@ class OrquestaPrompts:
         self.__cache = cache
 
     def query(
-            self,
-            request: OrquestaPromptRequest,
+        self,
+        request: OrquestaPromptRequest,
     ) -> OrquestaPrompt:
-
         context = request.context or {}
 
         cached_result = self.__cache.get(request.key, context)
@@ -165,17 +162,18 @@ class OrquestaPrompts:
             return cached_result.result
 
         response = post(
-            url=PROMPTS_API,
-            api_key=self.__options.api_key,
-            body=request.to_dict()
+            url=PROMPTS_API, api_key=self.__options.api_key, body=request.to_dict()
         )
+
+        if response.ok is None or response.status_code != 200:
+            notify_error(response)
 
         data = response.json().get(request.key, {})
 
         prompt = OrquestaPrompt(
             options=self.__options,
             value=data.get("value"),
-            trace_id=data.get("trace_id")
+            trace_id=data.get("trace_id"),
         )
 
         if prompt.trace_id and prompt.value is not None:
