@@ -94,29 +94,14 @@ request = OrquestaEndpointRequest(
     metadata={ "customer_id": "Qwtqwty90281" },
 )
 
-endpoint_ref = None
+stream_generator = client.endpoints.stream(request)
 
-def handle_next(chunk):
-    endpoint_ref = chunk
-    print(f"Received {chunk.content}")
+for chunk in stream_generator:
+    print("Received data:", chunk.content)
 
-
-def handle_error(e):
-    print(f"Error Occurred: {e}")
-
-
-def handle_completed():
-    print("Stream completed!")
-
-
-stream = client.endpoints.stream(
-    request
-).subscribe(
-    on_next=handle_next,
-    on_error=handle_error,
-    on_completed=handle_completed,
-)
-
+    if chunk.is_final:
+        print("Stream is finished")
+        endpoint_ref = chunk
 ```
 
 ### Logging score and metadata for endpoints
