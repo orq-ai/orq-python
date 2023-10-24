@@ -139,7 +139,7 @@ The `query` method receives an object of type `OrquestaPromptRequest` as paramet
 
 ```python
 
-from orquesta_sdk.helpers import orquesta_openai_parameters_mapper
+from orquesta_sdk.prompts import OrquestaPromptRequest
 
 request = OrquestaPromptRequest(
     key="prompt_key",
@@ -151,8 +151,6 @@ request = OrquestaPromptRequest(
 prompt = client.prompts.query(
     request=request,
 )
-
-openai_api_parameters = orquesta_openai_parameters_mapper(prompt.value)
 ```
 
 #### Helper functions per LLM provider

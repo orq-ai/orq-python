@@ -12,7 +12,7 @@ import sys
 project = "orquesta_sdk"
 copyright = "2023, orquesta"
 author = "orquesta"
-release = "1.11.5"
+release = "1.11.6"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orquesta_sdk"
-version = "1.11.5"
+version = "1.11.6"
 description = "_LLM Operations and Integration Platform_"
 authors = ["Orquesta <info@orquesta.dev>"]
 classifiers = [
