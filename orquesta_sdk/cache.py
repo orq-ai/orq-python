@@ -1,13 +1,11 @@
 import time
 from typing import Any, Dict, Optional
 
-from .utils import are_object_equals
+from .util import are_object_equals
 
 
 class OrquestaCacheItem:
-    def __init__(
-        self, key: str, result, context: Dict[str, Any], created: int
-    ):
+    def __init__(self, key: str, result, context: Dict[str, Any], created: int):
         self.key = key
         self.result = result
         self.context = context

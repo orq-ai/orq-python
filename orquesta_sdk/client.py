@@ -13,7 +13,7 @@ class OrquestaInvalidAPIException(BaseException):
     pass
 
 
-class OrquestaClient:
+class Orquesta:
     def __init__(self, options: OrquestaClientOptions):
         cache = CacheStore(ttl=options.ttl)
         api_key = options.api_key or os.environ.get("ORQUESTA_API_KEY")

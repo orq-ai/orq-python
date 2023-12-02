@@ -2,8 +2,8 @@ from typing import Any, Dict, Optional
 
 from .exceptions import OrquestaException
 from .options import OrquestaClientOptions
-from .request import ENDPOINTS_API, METRICS_API, post
-from .utils import extract_json, notify_error
+from .http_client import ENDPOINTS_API, METRICS_API, post
+from .util import extract_json, notify_error
 
 
 class OrquestaEndpointRequest:

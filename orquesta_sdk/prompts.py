@@ -1,11 +1,11 @@
 import time
 from typing import Any, Dict, Optional
 
-from orquesta_sdk.utils import notify_error
+from orquesta_sdk.util import notify_error
 
 from .cache import CacheStore
 from .options import OrquestaClientOptions
-from .request import PROMPTS_API, post, METRICS_API
+from .http_client import PROMPTS_API, post, METRICS_API
 
 
 class OrquestaPromptRequest:

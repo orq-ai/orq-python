@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 
 from .cache import CacheStore
 from .options import OrquestaClientOptions
-from .request import REMOTE_CONFIGS_API, post, METRICS_API
+from .http_client import REMOTE_CONFIGS_API, post, METRICS_API
 
 
 class OrquestaRemoteConfigKind(Enum):
@@ -29,11 +29,11 @@ class OrquestaRemoteConfigRequest:
     """
 
     def __init__(
-            self,
-            key: str,
-            default_value: Any,
-            context: Optional[Dict[str, Any]] = None,
-            metadata: Optional[Dict[str, Any]] = None
+        self,
+        key: str,
+        default_value: Any,
+        context: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
     ):
         """
         Initializes a new OrquestaRemoteConfigRequest instance.
@@ -48,7 +48,9 @@ class OrquestaRemoteConfigRequest:
             None
         """
         self.key = key  # The configuration key
-        self.default_value = default_value  # The default value for the configuration key
+        self.default_value = (
+            default_value  # The default value for the configuration key
+        )
         self.context = context  # Additional context for the request
         self.metadata = metadata  # Metadata related to the request
 
@@ -89,11 +91,11 @@ class OrquestaRemoteConfigMetrics:
 
 class OrquestaRemoteConfig:
     def __init__(
-            self,
-            options: OrquestaClientOptions,
-            value: Any,
-            trace_id: Optional[str],
-            config_type: Optional[OrquestaRemoteConfigKind],
+        self,
+        options: OrquestaClientOptions,
+        value: Any,
+        trace_id: Optional[str],
+        config_type: Optional[OrquestaRemoteConfigKind],
     ):
         self.__options = options
         self.value = value
@@ -104,13 +106,9 @@ class OrquestaRemoteConfig:
     def add_metrics(self, metrics: OrquestaRemoteConfigMetrics) -> None:
         body = metrics.to_dict()
 
-        body['trace_id'] = self.trace_id
+        body["trace_id"] = self.trace_id
 
-        return post(
-            api_key=self.__options.api_key,
-            url=METRICS_API,
-            body=body
-        )
+        return post(api_key=self.__options.api_key, url=METRICS_API, body=body)
 
 
 class OrquestaRemoteConfigs:
@@ -118,11 +116,7 @@ class OrquestaRemoteConfigs:
         self.__options = options
         self.__cache = cache
 
-    def query(
-            self,
-            request: OrquestaRemoteConfigRequest
-    ) -> OrquestaRemoteConfig:
-
+    def query(self, request: OrquestaRemoteConfigRequest) -> OrquestaRemoteConfig:
         context = request.context or {}
 
         cached_result = self.__cache.get(request.key, context)
@@ -133,7 +127,7 @@ class OrquestaRemoteConfigs:
         response = post(
             url=REMOTE_CONFIGS_API,
             api_key=self.__options.api_key,
-            body=request.to_dict()
+            body=request.to_dict(),
         )
 
         data = response.json().get(request.key, {})
