@@ -7,7 +7,7 @@ from orquesta_sdk.http_client import post
 from orquesta_sdk.options import OrquestaClientOptions
 from orquesta_sdk.util import extract_json
 
-DEPLOYMENTS_API = "https://preview.orquesta.cloud/v2/deployments"
+DEPLOYMENTS_API = "https://api.orquesta.cloud/v2/deployments"
 
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
@@ -187,6 +187,13 @@ class Deployment(BaseDeployment):
         self.choices = [DeploymentDataChoice(choice) for choice in choices]
 
     def to_dict(self):
+        """
+        Converts the deployment object to a dictionary representation.
+
+        Returns:
+            dict: A dictionary representation of the deployment object.
+
+        """
         return {
             "id": self.id,
             "created": self.created,
@@ -370,8 +377,6 @@ class Deployments:
         self.__validate_params(
             key=key, context=context, variables=inputs, metadata=metadata
         )
-
-        stream = self.body_params.get("stream", False)
 
         response = post(
             url=INVOKE_URL,
