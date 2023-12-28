@@ -23,8 +23,9 @@ readme = "README.md"
 
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4.0.0"
+python = ">=3.8,<4.0.0"
 requests = "^2.28.2"
+httpx = "^0.25.2"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"

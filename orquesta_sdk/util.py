@@ -1,48 +1,42 @@
 import json
+from typing import Any, List, Dict
 
 from .exceptions import OrquestaException
-
-
-def are_object_equals(dict1, dict2):
-    if isinstance(dict1, dict) and isinstance(dict2, dict):
-        keys1 = sorted(dict1.keys())
-        keys2 = sorted(dict2.keys())
-
-        if keys1 != keys2:
-            return False
-
-        for key in keys1:
-            value1 = dict1[key]
-            value2 = dict2[key]
-
-            if isinstance(value1, dict) and isinstance(value2, dict):
-                if not are_object_equals(value1, value2):
-                    return False
-            elif value1 != value2:
-                return False
-
-        return True
-
-    return False
 
 
 def dict_cleanup(input_dict):
     return {k: v for k, v in input_dict.items() if v is not None}
 
 
-def extract_json(byte_string):
-    try:
-        decoded_string = byte_string.decode("utf-8")
-        if decoded_string.startswith("data: "):
-            json_str = decoded_string[6:]  # Remove the 'data: ' prefix
-            json_obj = json.loads(json_str)
-            return json_obj
-        else:
-            return None
-    except json.JSONDecodeError:
-        return None
-    except UnicodeDecodeError:
-        return None
+def extract_json(byte_string) -> List[Dict[str, Any]]:
+    results = []
+    brace_count = 0
+    current_object = ""
+    in_string = False
+
+    input_string = byte_string.decode("utf-8")
+    json_str = input_string[6:]  # Remove the 'data: ' prefix
+
+    for char in json_str:
+        if char == '"' and (len(current_object) == 0 or current_object[-1] != "\\"):
+            in_string = not in_string
+
+        if char == "{" and not in_string:
+            brace_count += 1
+        if char == "}" and not in_string:
+            brace_count -= 1
+
+        current_object += char
+
+        if brace_count == 0 and current_object != "":
+            try:
+                parsed = json.loads(current_object)
+                results.append(parsed)
+                current_object = ""
+            except json.JSONDecodeError:
+                continue
+
+    return results
 
 
 def notify_error(response):
