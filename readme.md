@@ -1,6 +1,6 @@
 <p align="left">
   <a href="https://orquesta.cloud" target="_blank">
-    <img src="https://raw.githubusercontent.com/orquestadev/orquesta-javascript/main/img/banner.png" alt="Orquesta"  height="84">
+    <img src="https://raw.githubusercontent.com/orquestadev/orquesta-node/main/img/banner.png" alt="Orquesta">
   </a>
 </p>
 
@@ -164,7 +164,3 @@ Methods:
 - <code>client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/main/orquesta_sdk/api_resources/deployments.ts#L306">get_config</a>({ ...params }) -> `DeploymentConfig`</code>
 - <code>client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L325">invoke</a>({ ...params }) -> `Deployment` </code>
 - <code>client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L359">invoke_with_stream</a>({ ...params }) -> `Generator[Deployment, Any, None]` </code>
-
-# Examples
-
-You can find more examples in the notebooks folder. In there we cover how to use the SDK in different scenarios to handle `text` models, `image` models and `tool calling`.
