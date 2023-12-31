@@ -4,7 +4,7 @@
   </a>
 </p>
 
-_LLM Operations and Integration Platform_
+Integrate and operate your products with the power of Large Language Models from a single collaboration platform. Conduct prompt engineering, experimentation, operations and monitoring across models, with full transparency on quality and costs.
 
 ![npm](https://img.shields.io/pypi/v/orquesta-sdk)
 
