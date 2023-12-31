@@ -1,6 +1,6 @@
 import requests
 
-from .version import __version__
+from .version import VERSION
 
 PROMPTS_API = "https://api.orquesta.cloud/v1/prompts"
 REMOTE_CONFIGS_API = "https://api.orquesta.cloud/v1/remoteconfigs"
@@ -10,11 +10,11 @@ METRICS_API = "https://api.orquesta.cloud/v1/metrics"
 
 def post(url: str, api_key: str, body: dict, stream=False, environment=None):
     headers = {
-        "X-SDK-Version": "@orquesta/python@{}".format(__version__),
+        "X-SDK-Version": "@orquesta/python@{}".format(VERSION),
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "User-Agent": "orquesta/{};python".format(__version__),
+        "User-Agent": "orquesta/{};python".format(VERSION),
     }
 
     if environment:

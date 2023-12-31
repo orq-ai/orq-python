@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orquesta_sdk"
-version = "1.11.6"
+version = '2.0.0rc1'
 description = "_LLM Operations and Integration Platform_"
 authors = ["Orquesta <info@orquesta.dev>"]
 classifiers = [
@@ -23,8 +23,10 @@ readme = "README.md"
 
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4.0.0"
+python = ">=3.9,<4.0.0"
 requests = "^2.28.2"
+httpx = "^0.25.2"
+
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -34,6 +36,10 @@ pytest-sugar = "^0.9.4"
 tox = "^3.24.4"
 tox-pyenv = "^1.1.0"
 pytest-watch = "^4.2.0"
+
+[tool.poetry.group.dev.dependencies]
+mkdocs = "^1.5.3"
+sphinx = "^7.2.6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

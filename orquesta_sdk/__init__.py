@@ -1,2 +1,2 @@
-from .client import OrquestaClient
+from .client import Orquesta
 from .options import OrquestaClientOptions

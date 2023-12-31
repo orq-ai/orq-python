@@ -1,26 +1,29 @@
 import os
 
-from .cache import CacheStore
-from .endpoints import OrquestaEndpoints
+from orquesta_sdk.exceptions import OrquestaInvalidAPIException
+
+from .api_resources.deployments import Deployments
 from .options import OrquestaClientOptions
-from .prompts import OrquestaPrompts
-from .remoteconfigs import OrquestaRemoteConfigs
 
 
-class OrquestaInvalidAPIException(BaseException):
-    """Raised if the provider API key is invalid."""
+class Orquesta:
+    """
+    Represents an Orquesta client.
 
-    pass
+    Args:
+        options (OrquestaClientOptions): The options for the Orquesta client.
 
+    Attributes:
+        deployments (Deployments): An instance of the Deployments class.
 
-class OrquestaClient:
+    Raises:
+        OrquestaInvalidAPIException: If the provided API key is invalid.
+    """
+
     def __init__(self, options: OrquestaClientOptions):
-        cache = CacheStore(ttl=options.ttl)
         api_key = options.api_key or os.environ.get("ORQUESTA_API_KEY")
 
-        if not api_key:
+        if api_key is None or len(api_key) == 0:
             raise OrquestaInvalidAPIException("The provided API key is invalid.")
 
-        self.endpoints = OrquestaEndpoints(options)
-        self.prompts = OrquestaPrompts(options, cache)
-        self.remoteconfigs = OrquestaRemoteConfigs(options, cache)
+        self.deployments = Deployments(options=options)

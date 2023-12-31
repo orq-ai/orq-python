@@ -1,0 +1,12 @@
+site_name: "Orquesta's Python SDK"
+
+theme:
+  name: "readthedocs"
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+
+sphinx:
+  configuration: source/conf.py
