@@ -284,7 +284,7 @@ class Deployments:
         self,
         key: str,
         context: Optional[Dict[str, Any]] = None,
-        variables: Optional[Dict[str, str]] = None,
+        inputs: Optional[Dict[str, str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
     ):
         if key is None:
@@ -297,15 +297,15 @@ class Deployments:
         if context is not None:
             self.body_params["context"] = context
 
-        if variables is not None:
-            self.body_params["variables"] = variables
+        if inputs is not None:
+            self.body_params["inputs"] = inputs
 
         if metadata is not None:
             self.body_params["metadata"] = metadata
 
     def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
-            key=key, context=context, variables=inputs, metadata=metadata
+            key=key, context=context, inputs=inputs, metadata=metadata
         )
 
         response = post(
@@ -339,7 +339,7 @@ class Deployments:
             `RequestException`: If the invocation request fails.
         """
         self.__validate_params(
-            key=key, context=context, variables=inputs, metadata=metadata
+            key=key, context=context, inputs=inputs, metadata=metadata
         )
 
         response = post(
@@ -375,7 +375,7 @@ class Deployments:
             `RequestException`: If the invocation request fails.
         """
         self.__validate_params(
-            key=key, context=context, variables=inputs, metadata=metadata
+            key=key, context=context, inputs=inputs, metadata=metadata
         )
 
         response = post(
