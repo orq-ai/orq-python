@@ -1,12 +1,15 @@
 import os
 
 from orquesta_sdk.exceptions import OrquestaInvalidAPIException
-
 from .api_resources.deployments import Deployments
+from .models import Store
 from .options import OrquestaClientOptions
 
 
 class Orquesta:
+    options = None
+    user = None
+
     """
     Represents an Orquesta client.
 
@@ -26,4 +29,15 @@ class Orquesta:
         if api_key is None or len(api_key) == 0:
             raise OrquestaInvalidAPIException("The provided API key is invalid.")
 
-        self.deployments = Deployments(options=options)
+        self.options = options
+        Store['api_key'] = api_key
+        Store['environment'] = options.environment
+
+    @property
+    def deployments(self):
+        return Deployments()
+
+    def set_user(self, id: str = None):
+        Store['user_info'] = {
+            "id": id
+        }

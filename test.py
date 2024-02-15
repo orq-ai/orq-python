@@ -6,6 +6,7 @@ from orquesta_sdk.exceptions import (
 
 from orquesta_sdk import Orquesta, OrquestaClientOptions
 from orquesta_sdk.util import parse_json
+from orquesta_sdk.models import Store, UserInfo
 
 
 class TestOrquesta(unittest.TestCase):
@@ -67,6 +68,30 @@ class TestOrquestaJsonParserUtil(unittest.TestCase):
         assert parse_json(input_string) == expected_output
 
         print("All test cases pass")
+
+
+class TestOrquestaModels(unittest.TestCase):
+
+
+    def store_creation_with_valid_data():
+        user_info = UserInfo(id=1)
+        store = Store(api_key="123456", environment="production", user_info=user_info)
+        assert store.api_key == "123456"
+        assert store.environment == "production"
+        assert store.user_info == user_info
+
+    def store_creation_with_no_environment():
+        user_info = UserInfo(id=1)
+        store = Store(api_key="123456", user_info=user_info)
+        assert store.api_key == "123456"
+        assert store.environment is None
+        assert store.user_info == user_info
+
+    def store_creation_with_no_user_info():
+        store = Store(api_key="123456", environment="production")
+        assert store.api_key == "123456"
+        assert store.environment == "production"
+        assert store.user_info is None
 
 
 if __name__ == "__main__":
