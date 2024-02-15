@@ -4,6 +4,7 @@ from typing import Any, List, Dict
 from .exceptions import OrquestaException
 
 
+
 def dict_cleanup(input_dict):
     return {k: v for k, v in input_dict.items() if v is not None}
 
