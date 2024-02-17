@@ -37,7 +37,11 @@ class Orquesta:
     def deployments(self):
         return Deployments()
 
-    def set_user(self, id: str = None):
+    def set_user(self, id = None):
         Store['user_info'] = {
             "id": id
         }
+
+client = Orquesta()
+
+client.set_user(id=2024)
