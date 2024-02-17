@@ -5,7 +5,7 @@ from orquesta_sdk.http_client import post
 from orquesta_sdk.models import Store
 from orquesta_sdk.util import extract_json
 
-DEPLOYMENTS_API = "https://preview.orquesta.cloud/v2/deployments"
+DEPLOYMENTS_API = "https://api.orquesta.cloud/v2/deployments"
 
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
