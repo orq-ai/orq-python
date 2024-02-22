@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orquesta_sdk"
-version = '2.0.5'
+version = '2.0.11'
 description = "Integrate and operate your products with the power of Large Language Models from a single collaboration platform. Conduct prompt engineering, experimentation, operations and monitoring across models, with full transparency on quality and costs."
 authors = ["Orquesta <info@orquesta.cloud>"]
 classifiers = [
@@ -11,12 +11,9 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries",
 ]
 readme = "README.md"

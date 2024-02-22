@@ -37,16 +37,16 @@ class BaseDeployment:
         self.id = event_id
 
     def add_metrics(
-            self,
-            feedback: Optional[DeploymentFeedback] = None,
-            usage: Optional[DeploymentUsage] = None,
-            performance: Optional[DeploymentPerformance] = None,
-            metadata: Optional[Dict] = None,
-            chain_id: Optional[str] = None,
-            conversation_id: Optional[str] = None,
-            user_id: Optional[str] = None,
-            messages: Optional[List[Dict[str, Any]]] = None,
-            choices: Optional[List[Dict[str, Any]]] = None,
+        self,
+        feedback: Optional[DeploymentFeedback] = None,
+        usage: Optional[DeploymentUsage] = None,
+        performance: Optional[DeploymentPerformance] = None,
+        metadata: Optional[Dict] = None,
+        chain_id: Optional[str] = None,
+        conversation_id: Optional[str] = None,
+        user_id: Optional[str] = None,
+        messages: Optional[List[Dict[str, Any]]] = None,
+        choices: Optional[List[Dict[str, Any]]] = None,
     ):
         body = {}
 
@@ -79,9 +79,9 @@ class BaseDeployment:
 
         response = post(
             url="{}/{}/metrics".format(DEPLOYMENTS_API, self.id),
-            api_key=Store['api_key'],
+            api_key=Store["api_key"],
             body=body,
-            environment=Store['environment'],
+            environment=Store["environment"],
         )
 
         if response.ok is None or response.status_code != 200:
@@ -169,8 +169,8 @@ class ToolCallFunction:
 
 class Deployment(BaseDeployment):
     def __init__(
-            self,
-            **params,
+        self,
+        **params,
     ):
         super().__init__(event_id=params.get("id"))
 
@@ -269,15 +269,18 @@ class Deployments:
     body_params = {}
 
     def __validate_params(
-            self,
-            key: str,
-            context: Optional[Dict[str, Any]] = None,
-            inputs: Optional[Dict[str, str]] = None,
-            metadata: Optional[Dict[str, Any]] = None,
-            chain_id: Optional[str] = None,
-            conversation_id: Optional[str] = None,
-            messages: Optional[List[Dict[str, Any]]] = None,
+        self,
+        key: str,
+        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Dict[str, str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        chain_id: Optional[str] = None,
+        conversation_id: Optional[str] = None,
+        messages: Optional[List[Dict[str, Any]]] = None,
     ):
+
+        self.body_params = {}
+
         if key is None:
             raise Exception(
                 "The deployment key is required. Please provide a deployment key."
@@ -303,7 +306,7 @@ class Deployments:
         if conversation_id is not None:
             self.body_params["conversation_id"] = conversation_id
 
-        user_info = Store.get('user_info')
+        user_info = Store.get("user_info")
 
         if user_info is not None and isinstance(user_info, dict):
             self.body_params["user_id"] = user_info.get("id")
@@ -316,8 +319,8 @@ class Deployments:
         response = post(
             url=GET_CONFIG_URL,
             body=self.body_params,
-            api_key=Store['api_key'],
-            environment=Store['environment'],
+            api_key=Store["api_key"],
+            environment=Store["environment"],
         )
 
         if response.ok is None or response.status_code != 200:
@@ -328,14 +331,14 @@ class Deployments:
         return DeploymentConfig(**params)
 
     def invoke(
-            self,
-            key: str,
-            context=None,
-            inputs=None,
-            metadata=None,
-            chain_id=None,
-            conversation_id=None,
-            messages=None,
+        self,
+        key: str,
+        context=None,
+        inputs=None,
+        metadata=None,
+        chain_id=None,
+        conversation_id=None,
+        messages=None,
     ):
         """
         Invokes a deployment with the specified key.
@@ -368,9 +371,10 @@ class Deployments:
 
         response = post(
             url=INVOKE_URL,
-            api_key=Store['api_key'],
+            api_key=Store["api_key"],
             body=self.body_params,
-            environment=Store['environment'],
+            stream=False,
+            environment=Store["environment"],
         )
 
         if response.ok is None or response.status_code != 200:
@@ -381,14 +385,14 @@ class Deployments:
         return Deployment(**params)
 
     def invoke_with_stream(
-            self,
-            key: str,
-            context=None,
-            inputs=None,
-            metadata=None,
-            chain_id=None,
-            conversation_id=None,
-            messages=None,
+        self,
+        key: str,
+        context=None,
+        inputs=None,
+        metadata=None,
+        chain_id=None,
+        conversation_id=None,
+        messages=None,
     ):
         """
         Invokes a deployment with the specified key and stream the response.
@@ -422,10 +426,10 @@ class Deployments:
 
         response = post(
             url=INVOKE_URL,
-            api_key=Store['api_key'],
+            api_key=Store["api_key"],
             body=self.body_params,
             stream=True,
-            environment=Store['environment'],
+            environment=Store["environment"],
         )
 
         if response.ok is None or response.status_code != 200:

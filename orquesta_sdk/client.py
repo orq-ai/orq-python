@@ -30,18 +30,12 @@ class Orquesta:
             raise OrquestaInvalidAPIException("The provided API key is invalid.")
 
         self.options = options
-        Store['api_key'] = api_key
-        Store['environment'] = options.environment
+        Store["api_key"] = api_key
+        Store["environment"] = options.environment
 
     @property
     def deployments(self):
         return Deployments()
 
-    def set_user(self, id = None):
-        Store['user_info'] = {
-            "id": id
-        }
-
-client = Orquesta()
-
-client.set_user(id=2024)
+    def set_user(self, id=None):
+        Store["user_info"] = {"id": id}

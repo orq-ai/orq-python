@@ -1,11 +1,10 @@
-from functools import lru_cache
-from typing import Optional
+from typing import Union
 
 from pydantic import BaseModel
 
 
 class UserInfo(BaseModel):
-    id: str | int
+    id: Union[str, int, None] = None
 
 
 Store = {}

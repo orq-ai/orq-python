@@ -43,7 +43,7 @@ master_doc = "index"
 # The short X.Y version.
 version = "2.0"
 
-release = "2.0.5"
+release = "2.0.11"
 language = "en"
 
 

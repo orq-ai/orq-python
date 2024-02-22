@@ -17,6 +17,8 @@ def post(url: str, api_key: str, body: dict, stream=False, environment=None):
         "User-Agent": "orquesta/{};python".format(VERSION),
     }
 
+    print("Is streaming", stream)
+
     if environment:
         if body.get("context", None) is None:
             body["context"] = {"environments": [environment]}
