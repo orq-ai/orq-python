@@ -1,36 +1,36 @@
 import unittest
 import os
-from orquesta_sdk.exceptions import (
-    OrquestaInvalidAPIException,
+from orq_ai_sdk.exceptions import (
+    OrqAIInvalidAPIException,
 )
 
-from orquesta_sdk import Orquesta, OrquestaClientOptions
-from orquesta_sdk.util import parse_json
-from orquesta_sdk.models import Store, UserInfo
+from orq_ai_sdk import Orq, OrqClientOptions
+from orq_ai_sdk.util import parse_json
+from orq_ai_sdk.models import Store, UserInfo
 
 
-class TestOrquesta(unittest.TestCase):
+class TestOrq(unittest.TestCase):
     def setUp(self):
-        self.valid_options = OrquestaClientOptions(api_key="valid_api_key")
+        self.valid_options = OrqClientOptions(api_key="valid_api_key")
 
     def test_init_with_valid_options(self):
-        orquesta = Orquesta(self.valid_options)
-        self.assertEqual(orquesta.deployments.options, self.valid_options)
+        client = Orq(self.valid_options)
+        self.assertEqual(client.deployments.options, self.valid_options)
 
     def test_init_with_no_api_key(self):
-        os.environ["ORQUESTA_API_KEY"] = ""
-        invalid_options = OrquestaClientOptions(api_key=None)
-        with self.assertRaises(OrquestaInvalidAPIException):
-            Orquesta(invalid_options)
+        os.environ["ORQ_API_KEY"] = ""
+        invalid_options = OrqClientOptions(api_key=None)
+        with self.assertRaises(OrqAIInvalidAPIException):
+            Orq(invalid_options)
 
     def test_init_with_api_key_in_env(self):
-        os.environ["ORQUESTA_API_KEY"] = "valid_api_key"
-        options = OrquestaClientOptions(api_key=None)
-        orquesta = Orquesta(options)
-        self.assertEqual(orquesta.deployments.options, options)
+        os.environ["ORQ_API_KEY"] = "valid_api_key"
+        options = OrqClientOptions(api_key=None)
+        client = Orq(options)
+        self.assertEqual(client.deployments.options, options)
 
 
-class TestOrquestaJsonParserUtil(unittest.TestCase):
+class TestOrqJsonParserUtil(unittest.TestCase):
     def test_parse_json(self):
         # Test case 1: Valid JSON object
         input_string = '{"name": "John", "age": 30}{"name": "John", "age": 30}'
@@ -70,8 +70,7 @@ class TestOrquestaJsonParserUtil(unittest.TestCase):
         print("All test cases pass")
 
 
-class TestOrquestaModels(unittest.TestCase):
-
+class TestOrqModels(unittest.TestCase):
 
     def store_creation_with_valid_data():
         user_info = UserInfo(id=1)

@@ -1,11 +1,12 @@
 from typing import Any, Dict, List
 
-from orquesta_sdk.exceptions import handle_request_exception
-from orquesta_sdk.http_client import post
-from orquesta_sdk.models import Store
-from orquesta_sdk.util import extract_json
+from orq_ai_sdk.exceptions import handle_request_exception
+from orq_ai_sdk.models import Store
+from orq_ai_sdk.util import extract_json
 
-DEPLOYMENTS_API = "https://api.orquesta.cloud/v2/deployments"
+from orq_ai_sdk.http_client import post_async, stream_async
+
+DEPLOYMENTS_API = "https://api.orq.ai/v2/deployments"
 
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
@@ -13,22 +14,22 @@ INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 from typing import Optional, TypedDict
 
 
-class DeploymentFeedback(TypedDict):
+class DeploymentFeedbackMetrics(TypedDict):
     score: int
 
 
-class DeploymentUsage(TypedDict):
+class DeploymentUsageMetrics(TypedDict):
     prompt_tokens: int
     completion_tokens: int
     total_tokens: Optional[int]
 
 
-class DeploymentPerformance(TypedDict):
+class DeploymentPerformanceMetrics(TypedDict):
     latency: Optional[float]
     time_to_first_token: Optional[float]
 
 
-class BaseDeployment:
+class AsyncBaseDeployment:
     def __init__(self, event_id: str):
         if event_id is None:
             raise Exception(
@@ -36,11 +37,11 @@ class BaseDeployment:
             )
         self.id = event_id
 
-    def add_metrics(
+    async def add_metrics(
         self,
-        feedback: Optional[DeploymentFeedback] = None,
-        usage: Optional[DeploymentUsage] = None,
-        performance: Optional[DeploymentPerformance] = None,
+        feedback: Optional[DeploymentFeedbackMetrics] = None,
+        usage: Optional[DeploymentUsageMetrics] = None,
+        performance: Optional[DeploymentPerformanceMetrics] = None,
         metadata: Optional[Dict] = None,
         chain_id: Optional[str] = None,
         conversation_id: Optional[str] = None,
@@ -77,21 +78,21 @@ class BaseDeployment:
         if choices is not None:
             body["choices"] = choices
 
-        response = post(
+        response = await post_async(
+            body=body,
             url="{}/{}/metrics".format(DEPLOYMENTS_API, self.id),
             api_key=Store["api_key"],
-            body=body,
             environment=Store["environment"],
         )
 
-        if response.ok is None or response.status_code != 200:
+        if response.is_error:
             handle_request_exception(response)
 
 
-class DeploymentDataChoice:
+class DeploymentGenerationChoice:
     def __init__(self, data: Dict[str, Any]):
         self.index = data.get("index", None)
-        self.message = DeploymentDataChoiceMessage(data["message"])
+        self.message = DeploymentGenerationChoiceMessage(data["message"])
         self.finish_reason = data.get("finish_reason", None)
 
     def to_dict(self):
@@ -102,7 +103,7 @@ class DeploymentDataChoice:
         }
 
 
-class DeploymentDataChoiceMessage:
+class DeploymentGenerationChoiceMessage:
     def __init__(self, data: Dict[str, Any]):
         self.role = data.get("role")
 
@@ -116,7 +117,7 @@ class DeploymentDataChoiceMessage:
             self.content = data.get("content", None)
 
             self.tool_calls = [
-                DeploymentDataChoiceToolCall(tool_call)
+                DeploymentGenerationChoiceToolCall(tool_call)
                 for tool_call in data.get("tool_calls", [])
             ]
 
@@ -138,7 +139,7 @@ class DeploymentDataChoiceMessage:
         return value
 
 
-class DeploymentDataChoiceToolCall:
+class DeploymentGenerationChoiceToolCall:
     def __init__(self, data: Dict[str, Any]):
         self.type = data["type"]
         self.function = ToolCallFunction(data["function"])
@@ -167,7 +168,7 @@ class ToolCallFunction:
         return value
 
 
-class Deployment(BaseDeployment):
+class DeploymentGeneration(AsyncBaseDeployment):
     def __init__(
         self,
         **params,
@@ -183,7 +184,7 @@ class Deployment(BaseDeployment):
         self.finalized = params.get("finalized", None)
         self.system_fingerprint = params.get("system_fingerprint", None)
         self.choices = [
-            DeploymentDataChoice(choice) for choice in params.get("choices", [])
+            DeploymentGenerationChoice(choice) for choice in params.get("choices", [])
         ]
 
     def to_dict(self):
@@ -207,7 +208,7 @@ class Deployment(BaseDeployment):
         }
 
 
-class DeploymentConfig(BaseDeployment):
+class DeploymentPromptConfig(AsyncBaseDeployment):
     """
     This class represents the configuration for a deployment.
 
@@ -265,8 +266,7 @@ class DeploymentConfig(BaseDeployment):
         return deployment_dict
 
 
-class Deployments:
-    body_params = {}
+class Deployment:
 
     def __validate_params(
         self,
@@ -311,26 +311,26 @@ class Deployments:
         if user_info is not None and isinstance(user_info, dict):
             self.body_params["user_id"] = user_info.get("id")
 
-    def get_config(self, key: str, context=None, inputs=None, metadata=None):
+    async def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
             key=key, context=context, inputs=inputs, metadata=metadata
         )
 
-        response = post(
+        response = await post_async(
             url=GET_CONFIG_URL,
             body=self.body_params,
             api_key=Store["api_key"],
             environment=Store["environment"],
         )
 
-        if response.ok is None or response.status_code != 200:
+        if response.is_error:
             handle_request_exception(response)
 
         params = response.json()
 
-        return DeploymentConfig(**params)
+        return DeploymentPromptConfig(**params)
 
-    def invoke(
+    async def invoke(
         self,
         key: str,
         context=None,
@@ -341,7 +341,7 @@ class Deployments:
         messages=None,
     ):
         """
-        Invokes a deployment with the specified key.
+        Invokes a deployment with the specified key using the async HTTP client.
 
         Args:
             :param key (str): The key of the deployment to invoke.
@@ -369,22 +369,21 @@ class Deployments:
             messages=messages,
         )
 
-        response = post(
+        response = await post_async(
             url=INVOKE_URL,
             api_key=Store["api_key"],
             body=self.body_params,
-            stream=False,
             environment=Store["environment"],
         )
 
-        if response.ok is None or response.status_code != 200:
+        if response.is_error:
             handle_request_exception(response)
 
         params = response.json()
 
-        return Deployment(**params)
+        return DeploymentGeneration(**params)
 
-    def invoke_with_stream(
+    async def invoke_with_stream(
         self,
         key: str,
         context=None,
@@ -395,25 +394,24 @@ class Deployments:
         messages=None,
     ):
         """
-        Invokes a deployment with the specified key and stream the response.
-
-        Streaming is not supported for model of type `image`.
+        Invokes a deployment with the specified key using the async HTTP client and stream the response.
 
         Args:
-            :param key (str): The key of the deployment to invoke.
-            :param context (dict, optional): The context to pass to the deployment. Defaults to None.
-            :param inputs (dict, optional): The input variables to pass to the deployment. Defaults to None.
-            :param metadata (dict, optional): Additional metadata to include with the invocation. Defaults to None.
-            :param chain_id (str, optional): The chain_id being executed. Defaults to None.
-            :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
-            :param messages (list, optional): The messages to send to the LLM with the template. Defaults to None.
+            key (str): The key parameter.
+            context (Optional): The context parameter. Defaults to None.
+            inputs (Optional): The inputs parameter. Defaults to None.
+            metadata (Optional): The metadata parameter. Defaults to None.
+            chain_id (Optional): The chain_id parameter. Defaults to None.
+            conversation_id (Optional): The conversation_id parameter. Defaults to None.
+            messages (Optional): The messages parameter. Defaults to None.
+
+        Yields:
+            Deployment: A deployment object.
 
         Returns:
-            `Deployment`: The invoked deployment.
-
-        Raises:
-            `RequestException`: If the invocation request fails.
+            None
         """
+
         self.__validate_params(
             key=key,
             context=context,
@@ -424,21 +422,14 @@ class Deployments:
             messages=messages,
         )
 
-        response = post(
+        async for response in stream_async(
             url=INVOKE_URL,
             api_key=Store["api_key"],
             body=self.body_params,
-            stream=True,
             environment=Store["environment"],
-        )
+        ):
+            data = extract_json(response)
 
-        if response.ok is None or response.status_code != 200:
-            handle_request_exception(response)
-
-        for line in response.iter_lines():
-            if line:
-                data = extract_json(line)
-
-                if data:
-                    for item in data:
-                        yield Deployment(**item)
+            if data:
+                for item in data:
+                    yield DeploymentGeneration(**item)
