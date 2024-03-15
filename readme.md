@@ -1,72 +1,86 @@
 <p align="left">
-  <a href="https://orquesta.cloud" target="_blank">
-    <img src="https://raw.githubusercontent.com/orquestadev/orquesta-node/main/img/banner.png" alt="Orquesta">
+  <a href="https://orq.ai" target="_blank">
+    <img src="https://asset.brandfetch.io/idtBhDRr2x/idcrPsCm4K.png" alt="Orq">
   </a>
 </p>
 
-Integrate and operate your products with the power of Large Language Models from a single collaboration platform.
-Conduct prompt engineering, experimentation, operations and monitoring across models, with full transparency on quality
-and costs.
+Build AI Applications from Playground to Production
 
-![npm](https://img.shields.io/pypi/v/orquesta-sdk)
+![npm](https://img.shields.io/pypi/v/orq-ai-sdk)
 
-# Orquesta Python SDK
+# Orq Python SDK
 
-## Contents
+The orq.ai Python library enables easy orq.ai REST API integration in Python 3.7+ apps, offering typed request/response elements and httpx-based sync/async clients
 
-- [Installation](#installation)
-- [Create a client instance](#createclient)
-- [Deployments](#Deployments)
-- [Logging](#logging)
+# Documentation
+
+The REST API documentation can be found on [docs.orq.ai](https://docs.orq.ai/reference/authentication).
 
 ## Installation
 
-<div id="installation"/>
-
 ```bash
-pip install orquesta-sdk
+# install from PyPI
+pip install orq-ai-sdk
 ```
 
-## Creating a client instance
+## Usage
 
-<div id="createclient"/>
-
-_You can get your workspace API key from the settings section in your Orquesta
-workspace. `https://my.orquesta.dev/<workspace>/settings/developers`_
-
-Initialize the Orquesta client with your API key:
+_You can get your workspace API key from the settings section in your Orq
+workspace. `https://my.orq.ai/<workspace>/settings/developers`_
 
 ```python
 import os
 
-from orquesta_sdk import Orquesta, OrquestaClientOptions
+from orq_ai_sdk import OrqAI
 
-api_key = os.environ.get("ORQUESTA_API_KEY", "__API_KEY__")
+client = OrqAI(
+   api_key=os.environ.get("ORQ_API_KEY", "__API_KEY__"),
+   environment="production"
+)
 
-options = OrquestaClientOptions(
-    api_key=api_key,
+generation = client.deployments.invoke(
+    key="customer_service",
+    context={"environments": "production", "country": "NLD"},
+    inputs={"firstname": "John", "city": "New York"},
+    metadata={"customer_id": "Qwtqwty90281"},
+)
+```
+
+## Async usage
+
+Simply import AsyncOrqAI instead of OrqAI and use await with each API call:
+
+```python
+import os
+import asyncio
+from orq_ai_sdk import AsyncOrqAI
+
+client = AsyncOrqAI(
+    api_key=os.environ.get("ORQ_API_KEY", "__API_KEY__"),
     environment="production"
 )
 
-client = Orquesta(options)
+
+async def main() -> None:
+    generation = client.deployments.invoke(
+        key="customer_service",
+        context={"environments": "production", "country": "NLD"},
+        inputs={"firstname": "John", "city": "New York"},
+        metadata={"customer_id": "Qwtqwty90281"},
+    )
+
+    print(generation.choices[0].message.content)
+
+asyncio.run(main())
 ```
-
-To configure connection settings when creating a client instance, use the `OrquestaClientOptions` class, which allows
-for the adjustment of the following parameters:
-
-`OrquestaClientOptions`
-
-- `api_key`: str - workspace API key to use for authentication.
-- `environment`: Optional[str] - it is recommended, though not required, to specify the environment for the client. This
-  ensures it is automatically added to the evaluation context.
 
 ## Deployments
 
 <div id="deployments"/>
 
-The Deployments API delivers text outputs, images or tool calls based on the configuration established within Orquesta
+The Deployments API delivers text outputs, images or tool calls based on the configuration established within Orq
 for your deployments. Additionally, this API supports streaming. To ensure ease of use and minimize errors, using the
-code snippets from the Orquesta Admin panel is highly recommended.
+code snippets from the Orq Admin panel is highly recommended.
 
 ### Invoke a deployment
 
@@ -86,14 +100,15 @@ print(deployment.choices[0].message.content)
 #### `invoke_with_stream()`
 
 ```python
-deployment = client.deployments.invoke_with_stream(
+stream = client.deployments.invoke_with_stream(
     key="customer_service",
     context={"environments": "production", "country": "NLD"},
     inputs={"firstname": "John", "city": "New York"},
     metadata={"customer_id": "Qwtqwty90281"},
 )
 
-for chunk in deployment:
+for chunk in stream:
+    print(chunk.choices[0].delta.content or "", end="")
     if chunk.is_final:
         print("Stream is finished")
 ```
@@ -101,7 +116,7 @@ for chunk in deployment:
 #### Adding messages as part of your request
 
 If you are using the `invoke` method, you can include `messages` in your request to the model. The `messages` property
-allows you to combine `chat_history` with the prompt configuration in Orquesta, or to directly send `messages` to the
+allows you to combine `chat_history` with the prompt configuration in Orq, or to directly send `messages` to the
 model if you are managing the prompt in your code.
 
 ```python
@@ -214,7 +229,7 @@ deployment.add_metrics(
 
 #### Logging the completion choices the model generated for the input prompt
 
-You can save the images generated by the model in Orquesta. If the image format is `base64` we always store it as
+You can save the images generated by the model in Orq. If the image format is `base64` we always store it as
 a `png`.
 
 ```python
@@ -258,28 +273,3 @@ deployment.add_metrics(
   ]
 )
 ```
-
-# Orquesta API
-
-## Deployments API
-
-Class:
-
-- <code><a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L277">
-  Deployments</a></code>
-- <code><a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L165">
-  Deployment</a></code>
-- <code><a href="https://github.com/orquestadev/orquesta-python/blob/main/orquesta_sdk/api_resources/deployments.ts#L209">
-  DeploymentConfig</a></code>
-
-Methods:
-
-- <code>
-  client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/main/orquesta_sdk/api_resources/deployments.ts#L306">
-  get_config</a>({ ...params }) -> `DeploymentConfig`</code>
-- <code>
-  client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L325">
-  invoke</a>({ ...params }) -> `Deployment` </code>
-- <code>
-  client.deployments.<a href="https://github.com/orquestadev/orquesta-python/blob/orquesta_sdk/api_resources/deployments.ts#L359">
-  invoke_with_stream</a>({ ...params }) -> `Generator[Deployment, Any, None]` </code>

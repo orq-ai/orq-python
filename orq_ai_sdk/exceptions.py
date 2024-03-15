@@ -1,13 +1,13 @@
-from requests import Response
+from httpx import Response
 
 
-class OrquestaInvalidAPIException(BaseException):
+class OrqAIInvalidAPIException(BaseException):
     """Raised if the provider API key is invalid."""
 
     pass
 
 
-class OrquestaException(Exception):
+class OrqAIException(Exception):
     """Exception raised for errors when interacting with deployments.
 
     Attributes:
@@ -45,15 +45,13 @@ def handle_request_exception(response: Response):
     try:
         error_json = response.json()
 
-        print(error_json)
-
-        raise OrquestaException(
+        raise OrqAIException(
             code=error_json.get("code", None),
             message=error_json.get("error", None),
             source=error_json.get("source", None),
         )
     except ValueError:
-        raise OrquestaException(
+        raise OrqAIException(
             code=None,
             message="An unknown error occurred.",
             source="unknown",

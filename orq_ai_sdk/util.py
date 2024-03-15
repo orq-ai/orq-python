@@ -1,8 +1,7 @@
 import json
 from typing import Any, List, Dict
 
-from .exceptions import OrquestaException
-
+from .exceptions import OrqAIException
 
 
 def dict_cleanup(input_dict):
@@ -46,7 +45,7 @@ def notify_error(response):
     if "error" not in error and "message" not in error:
         response.raise_for_status()
 
-    raise OrquestaException(
+    raise OrqAIException(
         name=error["name"],
         message=error["message"],
         provider_error_message=error.get("provider_error_message", None),
