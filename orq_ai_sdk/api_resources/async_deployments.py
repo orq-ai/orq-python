@@ -432,4 +432,6 @@ class Deployment:
 
             if data:
                 for item in data:
+                    if type(item) == "str":
+                        continue
                     yield DeploymentGeneration(**item)

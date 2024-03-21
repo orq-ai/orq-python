@@ -61,7 +61,7 @@ client = AsyncOrqAI(
 
 
 async def main() -> None:
-    generation = client.deployments.invoke(
+    generation = await client.deployments.invoke(
         key="customer_service",
         context={"environments": "production", "country": "NLD"},
         inputs={"firstname": "John", "city": "New York"},
@@ -86,7 +86,7 @@ code snippets from the Orq Admin panel is highly recommended.
 #### `invoke()`
 
 ```python
-deployment = client.deployments.invoke(
+deployment = await client.deployments.invoke(
     key="customer_service",
     context={"environments": "production", "country": "NLD"},
     inputs={"firstname": "John", "city": "New York"},
@@ -106,7 +106,7 @@ stream = client.deployments.invoke_with_stream(
     metadata={"customer_id": "Qwtqwty90281"},
 )
 
-for chunk in stream:
+await  for chunk in stream:
 
     if chunk.is_final:
         print("Stream is finished")
@@ -145,7 +145,7 @@ information to the deployment.
 
 ```python
 
-generation.add_metrics(
+await generation.add_metrics(
     chain_id="c4a75b53-62fa-401b-8e97-493f3d299316",
     conversation_id="ee7b0c8c-eeb2-43cf-83e9-a4a49f8f13ea",
     user_id="e3a202a6-461b-447c-abe2-018ba4d04cd0",

@@ -51,7 +51,11 @@ async def stream_async(url: str, api_key: str, body: dict, environment=None):
     body = build_body(environment, body)
     headers["Accept"] = "text/event-stream"
     body["stream"] = True
+    buffer = b""
     async with httpx.AsyncClient(timeout=300) as client:
         async with client.stream("POST", url, json=body, headers=headers) as response:
             async for chunk in response.aiter_bytes():
-                yield chunk
+                buffer += chunk
+                while b"\n\n" in buffer:
+                    event, buffer = buffer.split(b"\n\n", 1)
+                    yield event
