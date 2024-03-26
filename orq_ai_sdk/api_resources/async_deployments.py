@@ -277,6 +277,7 @@ class Deployment:
         chain_id: Optional[str] = None,
         conversation_id: Optional[str] = None,
         messages: Optional[List[Dict[str, Any]]] = None,
+        extra_params: Optional[Dict[str, Any]] = None,
     ):
 
         self.body_params = {}
@@ -305,6 +306,9 @@ class Deployment:
 
         if conversation_id is not None:
             self.body_params["conversation_id"] = conversation_id
+
+        if extra_params is not None:
+            self.body_params["extra_params"] = extra_params
 
         user_info = Store.get("user_info")
 
@@ -339,6 +343,7 @@ class Deployment:
         chain_id=None,
         conversation_id=None,
         messages=None,
+        extra_params=None,
     ):
         """
         Invokes a deployment with the specified key using the async HTTP client.
@@ -351,7 +356,7 @@ class Deployment:
             :param chain_id (str, optional): The chain_id being executed. Defaults to None.
             :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
-            :param user_input (str, optional): The user input to send to the LLM. Defaults to None.
+            :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -367,6 +372,7 @@ class Deployment:
             chain_id=chain_id,
             conversation_id=conversation_id,
             messages=messages,
+            extra_params=extra_params,
         )
 
         response = await post_async(
@@ -392,18 +398,20 @@ class Deployment:
         chain_id=None,
         conversation_id=None,
         messages=None,
+        extra_params=None,
     ):
         """
         Invokes a deployment with the specified key using the async HTTP client and stream the response.
 
         Args:
-            key (str): The key parameter.
-            context (Optional): The context parameter. Defaults to None.
-            inputs (Optional): The inputs parameter. Defaults to None.
-            metadata (Optional): The metadata parameter. Defaults to None.
-            chain_id (Optional): The chain_id parameter. Defaults to None.
-            conversation_id (Optional): The conversation_id parameter. Defaults to None.
-            messages (Optional): The messages parameter. Defaults to None.
+            :param key (str): The key parameter.
+            :param context (Optional): The context parameter. Defaults to None.
+            :param inputs (Optional): The inputs parameter. Defaults to None.
+            :param metadata (Optional): The metadata parameter. Defaults to None.
+            :param chain_id (Optional): The chain_id parameter. Defaults to None.
+            :param conversation_id (Optional): The conversation_id parameter. Defaults to None.
+            :param messages (Optional): The messages parameter. Defaults to None.
+            :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
         Yields:
             Deployment: A deployment object.
@@ -420,6 +428,7 @@ class Deployment:
             chain_id=chain_id,
             conversation_id=conversation_id,
             messages=messages,
+            extra_params=extra_params,
         )
 
         async for response in stream_async(

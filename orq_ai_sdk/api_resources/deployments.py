@@ -273,6 +273,7 @@ class Deployment:
         chain_id: Optional[str] = None,
         conversation_id: Optional[str] = None,
         messages: Optional[List[Dict[str, Any]]] = None,
+        extra_params: Optional[Dict[str, Any]] = None,
     ):
 
         self.body_params = {}
@@ -301,6 +302,9 @@ class Deployment:
 
         if conversation_id is not None:
             self.body_params["conversation_id"] = conversation_id
+
+        if extra_params is not None:
+            self.body_params["extra_params"] = extra_params
 
         user_info = Store.get("user_info")
 
@@ -335,6 +339,7 @@ class Deployment:
         chain_id=None,
         conversation_id=None,
         messages=None,
+        extra_params=None,
     ):
         """
         Invokes a deployment with the specified key.
@@ -347,7 +352,7 @@ class Deployment:
             :param chain_id (str, optional): The chain_id being executed. Defaults to None.
             :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
-            :param user_input (str, optional): The user input to send to the LLM. Defaults to None.
+            :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -363,6 +368,7 @@ class Deployment:
             chain_id=chain_id,
             conversation_id=conversation_id,
             messages=messages,
+            extra_params=extra_params,
         )
 
         response = post(
@@ -388,6 +394,7 @@ class Deployment:
         chain_id=None,
         conversation_id=None,
         messages=None,
+        extra_params=None,
     ):
         """
         Invokes a deployment with the specified key and stream the response.
@@ -402,6 +409,7 @@ class Deployment:
             :param chain_id (str, optional): The chain_id being executed. Defaults to None.
             :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the template. Defaults to None.
+            :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -417,6 +425,7 @@ class Deployment:
             chain_id=chain_id,
             conversation_id=conversation_id,
             messages=messages,
+            extra_params=extra_params,
         )
 
         for response in stream(
