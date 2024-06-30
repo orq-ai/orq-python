@@ -274,3 +274,7 @@ generation.add_metrics(
   ]
 )
 ```
+
+### API documentation
+
+[Feedback API](https://github.com/orquestadev/orquesta-python/blob/main/orq_ai_sdk/api_resources/feedback/README.md)

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - When `environments` property is set on the `context` the global `environment` value is overwriten.
 
-## [2.3.7] - 2024-06-30
+## [2.11.0] - 2024-06-30
 
 ### Added
 
