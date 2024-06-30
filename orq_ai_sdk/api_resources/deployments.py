@@ -1,11 +1,12 @@
 from typing import Any, Dict, List, Optional, TypedDict
 
+from orq_ai_sdk.constants import BASE_URL
 from orq_ai_sdk.exceptions import handle_request_exception
 from orq_ai_sdk.http_client import post, stream
 from orq_ai_sdk.models import Store
 from orq_ai_sdk.util import extract_json
 
-DEPLOYMENTS_API = "https://api.orq.ai/v2/deployments"
+DEPLOYMENTS_API = "{}/deployments".format(BASE_URL)
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 
@@ -76,7 +77,6 @@ class BaseDeployment:
 
         response = post(
             url="{}/{}/metrics".format(DEPLOYMENTS_API, self.id),
-            api_key=Store["api_key"],
             body=body,
             environment=Store["environment"],
         )
@@ -319,7 +319,6 @@ class Deployment:
         response = post(
             url=GET_CONFIG_URL,
             body=self.body_params,
-            api_key=Store["api_key"],
             environment=Store["environment"],
         )
 
@@ -371,9 +370,10 @@ class Deployment:
             extra_params=extra_params,
         )
 
+        print(INVOKE_URL)
+
         response = post(
             url=INVOKE_URL,
-            api_key=Store["api_key"],
             body=self.body_params,
             environment=Store["environment"],
         )
@@ -430,7 +430,6 @@ class Deployment:
 
         for response in stream(
             url=INVOKE_URL,
-            api_key=Store["api_key"],
             body=self.body_params,
             environment=Store["environment"],
         ):

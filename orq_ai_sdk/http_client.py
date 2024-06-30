@@ -1,5 +1,7 @@
 import httpx
 
+from orq_ai_sdk.models import Store
+
 from .version import VERSION
 
 
@@ -17,37 +19,41 @@ def build_body(environment, body):
     if environment:
         if body.get("context", None) is None:
             body["context"] = {"environments": [environment]}
-        else:
+        elif body["context"].get("environments", None) is None:
             body["context"]["environments"] = [environment]
     return body
 
 
-def post(url: str, api_key: str, body: dict, environment=None):
-    headers = build_headers(api_key)
+def post(url: str, body: dict, environment=None):
+    headers = build_headers(Store["api_key"])
     body = build_body(environment, body)
     return httpx.post(url, json=body, headers=headers, timeout=300)
 
 
-def stream(url: str, api_key: str, body: dict, environment=None):
-    headers = build_headers(api_key)
+def stream(url: str, body: dict, environment=None):
+    headers = build_headers(Store["api_key"])
     body = build_body(environment, body)
     headers["Accept"] = "text/event-stream"
     body["stream"] = True
+    buffer = b""
     with httpx.stream("POST", url, json=body, headers=headers, timeout=300) as response:
         for chunk in response.iter_bytes():
-            yield chunk
+            buffer += chunk
+            while b"\n\n" in buffer:
+                event, buffer = buffer.split(b"\n\n", 1)
+                yield event
 
 
-async def post_async(url: str, api_key: str, body: dict, environment=None):
-    headers = build_headers(api_key)
+async def post_async(url: str, body: dict, environment=None):
+    headers = build_headers(Store["api_key"])
     body = build_body(environment, body)
 
     async with httpx.AsyncClient(timeout=300) as client:
         return await client.post(url, json=body, headers=headers)
 
 
-async def stream_async(url: str, api_key: str, body: dict, environment=None):
-    headers = build_headers(api_key)
+async def stream_async(url: str, body: dict, environment=None):
+    headers = build_headers(Store["api_key"])
     body = build_body(environment, body)
     headers["Accept"] = "text/event-stream"
     body["stream"] = True

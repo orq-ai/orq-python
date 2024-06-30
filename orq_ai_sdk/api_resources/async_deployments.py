@@ -1,12 +1,13 @@
 from typing import Any, Dict, List
 
+from orq_ai_sdk.constants import BASE_URL
 from orq_ai_sdk.exceptions import handle_request_exception
 from orq_ai_sdk.models import Store
 from orq_ai_sdk.util import extract_json
 
 from orq_ai_sdk.http_client import post_async, stream_async
 
-DEPLOYMENTS_API = "https://api.orq.ai/v2/deployments"
+DEPLOYMENTS_API = "{}/deployments".format(BASE_URL)
 
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
@@ -81,7 +82,6 @@ class AsyncBaseDeployment:
         response = await post_async(
             body=body,
             url="{}/{}/metrics".format(DEPLOYMENTS_API, self.id),
-            api_key=Store["api_key"],
             environment=Store["environment"],
         )
 
@@ -323,7 +323,6 @@ class Deployment:
         response = await post_async(
             url=GET_CONFIG_URL,
             body=self.body_params,
-            api_key=Store["api_key"],
             environment=Store["environment"],
         )
 
@@ -377,7 +376,6 @@ class Deployment:
 
         response = await post_async(
             url=INVOKE_URL,
-            api_key=Store["api_key"],
             body=self.body_params,
             environment=Store["environment"],
         )
@@ -433,7 +431,6 @@ class Deployment:
 
         async for response in stream_async(
             url=INVOKE_URL,
-            api_key=Store["api_key"],
             body=self.body_params,
             environment=Store["environment"],
         ):

@@ -2,6 +2,7 @@ from typing import Optional
 
 from orq_ai_sdk.api_resources.async_deployments import Deployment as AsyncDeployment
 from orq_ai_sdk.api_resources.deployments import Deployment
+from orq_ai_sdk.api_resources.feedback.feedback import Feedback
 from orq_ai_sdk.exceptions import OrqAIInvalidAPIException
 from orq_ai_sdk.models import Store
 
@@ -46,6 +47,10 @@ class OrqAI:
     def deployments(self):
         return Deployment()
 
+    @property
+    def feedback(self):
+        return Feedback()
+
     def set_user(self, id=None):
         Store["user_info"] = {"id": id}
 
@@ -89,6 +94,10 @@ class AsyncOrqAI:
     @property
     def deployments(self):
         return AsyncDeployment()
+
+    @property
+    def feedback(self):
+        return Feedback()
 
     def set_user(self, id=None):
         Store["user_info"] = {"id": id}
