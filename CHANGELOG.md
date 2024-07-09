@@ -21,3 +21,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 - Centralize the `api_key` in the `Store` object to reuse it in all the API calls
+
+## [2.12.0] - 2024-07-09
+
+### Added
+
+- Added new message types: UserMessage and AssistantMessage
+
+### Changed
+
+- Messages now use utility classes to create the list the message objects
+
+```python
+# Before
+generation = client.deployments.invoke(
+    key="customer_service",
+    ...
+    messages=[{
+        "role": "user",
+        "content": "A customer is asking about the latest software update features. Generate a detailed and informative response highlighting the key new features and improvements in the latest update.",
+    }]
+)
+```
+
+```python
+# After
+from orq_ai_sdk.messages import UserMessage
+
+generation = client.deployments.invoke(
+    key="customer_service",
+    ...
+    messages=[
+        UserMessage(content="A customer is asking about the latest software update features. Generate a detailed and informative response highlighting the key new features and improvements in the latest update.")
+    ]
+)
+```

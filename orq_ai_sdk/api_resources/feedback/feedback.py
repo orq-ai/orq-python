@@ -61,14 +61,14 @@ class Feedback:
     ) -> FeedbackResponse:
         report = FeedbackReport(property=property, value=value, trace_id=trace_id)
         response = self.__create_feedback_request(report)
-        return FeedbackResponse.model_validate(response.json())
+        return FeedbackResponse(**response.json())
 
     async def areport(
         self, property: str, value: List[str], trace_id: str
     ) -> FeedbackResponse:
         report = FeedbackReport(property=property, value=value, trace_id=trace_id)
         response = self.__acreate_feedback_request(report)
-        return FeedbackResponse.model_validate(await response.json())
+        return FeedbackResponse(**await response.json())
 
     def correct(self, correction: str, trace_id: str) -> FeedbackCorrectionResponse:
         correction_payload = FeedbackReport(
@@ -77,7 +77,7 @@ class Feedback:
             trace_id=trace_id,
         )
         response = self.__create_feedback_request(correction_payload)
-        return FeedbackCorrectionResponse.model_validate(response.json())
+        return FeedbackCorrectionResponse(**response.json())
 
     async def acorrect(
         self, correction: str, trace_id: str
@@ -88,4 +88,4 @@ class Feedback:
             trace_id=trace_id,
         )
         response = await self.__acreate_feedback_request(correction_payload)
-        return FeedbackCorrectionResponse.model_validate(await response.json())
+        return FeedbackCorrectionResponse(await response.json())

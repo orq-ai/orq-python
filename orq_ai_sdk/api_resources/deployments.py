@@ -270,8 +270,7 @@ class Deployment:
         context: Optional[Dict[str, Any]] = None,
         inputs: Optional[Dict[str, str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
+        prefix_messages: Optional[List[Dict[str, Any]]] = None,
         messages: Optional[List[Dict[str, Any]]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
     ):
@@ -297,11 +296,8 @@ class Deployment:
         if messages is not None:
             self.body_params["messages"] = messages
 
-        if chain_id is not None:
-            self.body_params["chain_id"] = chain_id
-
-        if conversation_id is not None:
-            self.body_params["conversation_id"] = conversation_id
+        if prefix_messages is not None:
+            self.body_params["prefix_messages"] = prefix_messages
 
         if extra_params is not None:
             self.body_params["extra_params"] = extra_params
@@ -335,8 +331,7 @@ class Deployment:
         context=None,
         inputs=None,
         metadata=None,
-        chain_id=None,
-        conversation_id=None,
+        prefix_messages=None,
         messages=None,
         extra_params=None,
     ):
@@ -348,8 +343,7 @@ class Deployment:
             :param context (dict, optional): The context to pass to the deployment. Defaults to None.
             :param inputs (dict, optional): The input variables to pass to the deployment. Defaults to None.
             :param metadata (dict, optional): Additional metadata to include with the invocation. Defaults to None.
-            :param chain_id (str, optional): The chain_id being executed. Defaults to None.
-            :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
+            :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
@@ -364,8 +358,7 @@ class Deployment:
             context=context,
             inputs=inputs,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
+            prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
         )
@@ -391,8 +384,7 @@ class Deployment:
         context=None,
         inputs=None,
         metadata=None,
-        chain_id=None,
-        conversation_id=None,
+        prefix_messages=None,
         messages=None,
         extra_params=None,
     ):
@@ -406,8 +398,7 @@ class Deployment:
             :param context (dict, optional): The context to pass to the deployment. Defaults to None.
             :param inputs (dict, optional): The input variables to pass to the deployment. Defaults to None.
             :param metadata (dict, optional): Additional metadata to include with the invocation. Defaults to None.
-            :param chain_id (str, optional): The chain_id being executed. Defaults to None.
-            :param conversation_id (str, optional): The conversation_id being executed. Defaults to None.
+            :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
 
@@ -422,8 +413,7 @@ class Deployment:
             context=context,
             inputs=inputs,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
+            prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
         )
