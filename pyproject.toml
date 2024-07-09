@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orq_ai_sdk"
-version = '2.11.0'
+version = '2.12.0'
 description = "Integrate and operate your products with the power of Large Language Models from a single collaboration platform. Conduct prompt engineering, experimentation, operations and monitoring across models, with full transparency on quality and costs."
 authors = ["orq.ai <support@orq.ai>"]
 classifiers = [
