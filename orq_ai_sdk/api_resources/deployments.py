@@ -363,8 +363,6 @@ class Deployment:
             extra_params=extra_params,
         )
 
-        print(INVOKE_URL)
-
         response = post(
             url=INVOKE_URL,
             body=self.body_params,

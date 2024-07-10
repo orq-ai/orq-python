@@ -35,7 +35,6 @@ class TestOrqJsonParserUtil(unittest.TestCase):
         # Test case 1: Valid JSON object
         input_string = '{"name": "John", "age": 30}{"name": "John", "age": 30}'
         expected_output = {"name": "John", "age": 30}
-        print(parse_json(input_string))
         assert parse_json(input_string) == [expected_output, expected_output]
 
         # Test case 2: Valid JSON objects separated by whitespace
@@ -66,8 +65,6 @@ class TestOrqJsonParserUtil(unittest.TestCase):
         input_string = "This is a test string"
         expected_output = []
         assert parse_json(input_string) == expected_output
-
-        print("All test cases pass")
 
 
 class TestOrqModels(unittest.TestCase):
