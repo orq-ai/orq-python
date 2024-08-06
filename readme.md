@@ -10,7 +10,8 @@ Build AI Applications from Playground to Production
 
 # orq.ai Python SDK
 
-The orq.ai Python library enables easy orq.ai REST API integration in Python 3.7+ apps, offering typed request/response elements and httpx-based sync/async clients
+The orq.ai Python library enables easy orq.ai REST API integration in Python 3.7+ apps, offering typed request/response
+elements and httpx-based sync/async clients
 
 # Documentation
 
@@ -25,7 +26,8 @@ pip install orq-ai-sdk
 
 ## Usage
 
-_You can get your workspace API key from the settings section in your orq.ai workspace. `https://my.orq.ai/<workspace>/settings/developers`_
+_You can get your workspace API key from the settings section in your orq.ai
+workspace. `https://my.orq.ai/<workspace>/settings/developers`_
 
 ```python
 import os
@@ -33,8 +35,8 @@ import os
 from orq_ai_sdk import OrqAI
 
 client = OrqAI(
-   api_key=os.environ.get("ORQ_API_KEY", "__API_KEY__"),
-   environment="production"
+    api_key=os.environ.get("ORQ_API_KEY", "__API_KEY__"),
+    environment="production"
 )
 
 generation = client.deployments.invoke(
@@ -69,6 +71,7 @@ async def main() -> None:
     )
 
     print(generation.choices[0].message.content)
+
 
 asyncio.run(main())
 ```
@@ -106,7 +109,8 @@ stream = client.deployments.invoke_with_stream(
     metadata={"customer_id": "Qwtqwty90281"},
 )
 
-await  for chunk in stream:
+await
+for chunk in stream:
 
     if chunk.is_final:
         print("Stream is finished")
@@ -252,29 +256,33 @@ generation.add_metrics(
 
 ```python
 generation.add_metrics(
-  choices=[
-    {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": None,
-        "tool_calls": [
-          {
-            "type": "function",
-            "id": "call_pDBPMMacPXOtoWhTWibW1D94",
-            "function": {
-              "name": "get_weather",
-              "arguments": '{"location":"San Francisco, CA"}',
+    choices=[
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [
+                    {
+                        "type": "function",
+                        "id": "call_pDBPMMacPXOtoWhTWibW1D94",
+                        "function": {
+                            "name": "get_weather",
+                            "arguments": '{"location":"San Francisco, CA"}',
+                        },
+                    },
+                ],
             },
-          },
-        ],
-      },
-      "finish_reason": 'tool_calls',
-    }
-  ]
+            "finish_reason": 'tool_calls',
+        }
+    ]
 )
 ```
 
 ### API documentation
 
-[Feedback API](https://github.com/orquestadev/orquesta-python/blob/main/orq_ai_sdk/api_resources/feedback/README.md)
+[Contacts](https://github.com/orquestadev/orquesta-python/blob/main/orq_ai_sdk/api_resources/contacts/README.md)
+
+[Feedback](https://github.com/orquestadev/orquesta-python/blob/main/orq_ai_sdk/api_resources/feedback/README.md)
+
+[Webhooks](https://github.com/orquestadev/orquesta-python/blob/main/orq_ai_sdk/api_resources/webhooks/README.md)

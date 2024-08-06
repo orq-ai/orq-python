@@ -1,9 +1,13 @@
 from httpx import Response
 
 
+class SignatureVerificationException(BaseException):
+    """Raised if the webhook signature verification fails."""
+    pass
+
+
 class OrqAIInvalidAPIException(BaseException):
     """Raised if the provider API key is invalid."""
-
     pass
 
 

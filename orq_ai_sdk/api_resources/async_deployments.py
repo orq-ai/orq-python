@@ -7,10 +7,10 @@ from orq_ai_sdk.util import extract_json
 
 from orq_ai_sdk.http_client import post_async, stream_async
 
-DEPLOYMENTS_API = "{}/deployments".format(BASE_URL)
+DEPLOYMENTS_API = "{}/v2/deployments".format(BASE_URL)
 
-GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
-INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
+GET_CONFIG_URL = "{}/v2/get_config".format(DEPLOYMENTS_API)
+INVOKE_URL = "{}/v2/invoke".format(DEPLOYMENTS_API)
 
 from typing import Optional, TypedDict
 
@@ -305,11 +305,6 @@ class Deployment:
 
         if extra_params is not None:
             self.body_params["extra_params"] = extra_params
-
-        user_info = Store.get("user_info")
-
-        if user_info is not None and isinstance(user_info, dict):
-            self.body_params["user_id"] = user_info.get("id")
 
     async def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(

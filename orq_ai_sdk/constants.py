@@ -1,1 +1,1 @@
-BASE_URL = "https://api.orq.ai/v2"
+BASE_URL = "https://api.orq.ai"

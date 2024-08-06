@@ -1,18 +1,24 @@
 import httpx
 
 from orq_ai_sdk.models import Store
-
 from .version import VERSION
 
 
-def build_headers(api_key: str):
-    return {
+def build_headers():
+    headers = {
         "X-SDK-Version": "@orq.ai/python@{}".format(VERSION),
-        "Authorization": f"Bearer {api_key}",
+        "Authorization": "Bearer {}".format(Store["api_key"]),
         "Content-Type": "application/json",
         "Accept": "application/json",
         "User-Agent": "orq.ai/{};python".format(VERSION),
     }
+
+    contact_id = Store.get("contact_id")
+
+    if contact_id is not None:
+        headers["X-Orq-Contact-Id"] = str(contact_id)
+
+    return headers
 
 
 def build_body(environment, body):
@@ -25,13 +31,13 @@ def build_body(environment, body):
 
 
 def post(url: str, body: dict, environment=None):
-    headers = build_headers(Store["api_key"])
+    headers = build_headers()
     body = build_body(environment, body)
     return httpx.post(url, json=body, headers=headers, timeout=300)
 
 
 def stream(url: str, body: dict, environment=None):
-    headers = build_headers(Store["api_key"])
+    headers = build_headers()
     body = build_body(environment, body)
     headers["Accept"] = "text/event-stream"
     body["stream"] = True
@@ -45,7 +51,7 @@ def stream(url: str, body: dict, environment=None):
 
 
 async def post_async(url: str, body: dict, environment=None):
-    headers = build_headers(Store["api_key"])
+    headers = build_headers()
     body = build_body(environment, body)
 
     async with httpx.AsyncClient(timeout=300) as client:
@@ -53,7 +59,7 @@ async def post_async(url: str, body: dict, environment=None):
 
 
 async def stream_async(url: str, body: dict, environment=None):
-    headers = build_headers(Store["api_key"])
+    headers = build_headers()
     body = build_body(environment, body)
     headers["Accept"] = "text/event-stream"
     body["stream"] = True

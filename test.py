@@ -81,13 +81,11 @@ class TestOrqModels(unittest.TestCase):
         store = Store(api_key="123456", user_info=user_info)
         assert store.api_key == "123456"
         assert store.environment is None
-        assert store.user_info == user_info
 
     def store_creation_with_no_user_info():
         store = Store(api_key="123456", environment="production")
         assert store.api_key == "123456"
         assert store.environment == "production"
-        assert store.user_info is None
 
 
 if __name__ == "__main__":

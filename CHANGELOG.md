@@ -5,11 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [2.3.6] - 2024-05-10
+## [2.13.0] - 2024-08-03
 
 ### Added
 
-- When `environments` property is set on the `context` the global `environment` value is overwriten.
+- Added support for webhooks signature verification
+- Added support for the `contacts` API
+
+## [2.12.0] - 2024-07-09
+
+### Added
+
+- Added support for `prefix_messages` in deployments
 
 ## [2.11.0] - 2024-06-30
 
@@ -22,8 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Centralize the `api_key` in the `Store` object to reuse it in all the API calls
 
-## [2.12.0] - 2024-07-09
+
+
+
+## [2.3.6] - 2024-05-10
 
 ### Added
 
-- Added support for `prefix_messages` in deployments
+- When `environments` property is set on the `context` the global `environment` value is overwriten.
+

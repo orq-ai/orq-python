@@ -6,7 +6,7 @@ from orq_ai_sdk.http_client import post, stream
 from orq_ai_sdk.models import Store
 from orq_ai_sdk.util import extract_json
 
-DEPLOYMENTS_API = "{}/deployments".format(BASE_URL)
+DEPLOYMENTS_API = "{}/v2/deployments".format(BASE_URL)
 GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 
@@ -35,16 +35,16 @@ class BaseDeployment:
         self.id = event_id
 
     def add_metrics(
-        self,
-        feedback: Optional[DeploymentFeedbackMetrics] = None,
-        usage: Optional[DeploymentUsageMetrics] = None,
-        performance: Optional[DeploymentPerformanceMetrics] = None,
-        metadata: Optional[Dict] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
-        user_id: Optional[str] = None,
-        messages: Optional[List[Dict[str, Any]]] = None,
-        choices: Optional[List[Dict[str, Any]]] = None,
+            self,
+            feedback: Optional[DeploymentFeedbackMetrics] = None,
+            usage: Optional[DeploymentUsageMetrics] = None,
+            performance: Optional[DeploymentPerformanceMetrics] = None,
+            metadata: Optional[Dict] = None,
+            chain_id: Optional[str] = None,
+            conversation_id: Optional[str] = None,
+            user_id: Optional[str] = None,
+            messages: Optional[List[Dict[str, Any]]] = None,
+            choices: Optional[List[Dict[str, Any]]] = None,
     ):
         body = {}
 
@@ -166,8 +166,8 @@ class ToolCallFunction:
 
 class DeploymentGeneration(BaseDeployment):
     def __init__(
-        self,
-        **params,
+            self,
+            **params,
     ):
         super().__init__(event_id=params.get("id"))
 
@@ -265,14 +265,14 @@ class DeploymentPromptConfig(BaseDeployment):
 class Deployment:
 
     def __validate_params(
-        self,
-        key: str,
-        context: Optional[Dict[str, Any]] = None,
-        inputs: Optional[Dict[str, str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        prefix_messages: Optional[List[Dict[str, Any]]] = None,
-        messages: Optional[List[Dict[str, Any]]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
+            self,
+            key: str,
+            context: Optional[Dict[str, Any]] = None,
+            inputs: Optional[Dict[str, str]] = None,
+            metadata: Optional[Dict[str, Any]] = None,
+            prefix_messages: Optional[List[Dict[str, Any]]] = None,
+            messages: Optional[List[Dict[str, Any]]] = None,
+            extra_params: Optional[Dict[str, Any]] = None,
     ):
 
         self.body_params = {}
@@ -302,11 +302,6 @@ class Deployment:
         if extra_params is not None:
             self.body_params["extra_params"] = extra_params
 
-        user_info = Store.get("user_info")
-
-        if user_info is not None and isinstance(user_info, dict):
-            self.body_params["user_id"] = user_info.get("id")
-
     def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
             key=key, context=context, inputs=inputs, metadata=metadata
@@ -326,14 +321,14 @@ class Deployment:
         return DeploymentPromptConfig(**params)
 
     def invoke(
-        self,
-        key: str,
-        context=None,
-        inputs=None,
-        metadata=None,
-        prefix_messages=None,
-        messages=None,
-        extra_params=None,
+            self,
+            key: str,
+            context=None,
+            inputs=None,
+            metadata=None,
+            prefix_messages=None,
+            messages=None,
+            extra_params=None,
     ):
         """
         Invokes a deployment with the specified key.
@@ -377,14 +372,14 @@ class Deployment:
         return DeploymentGeneration(**params)
 
     def invoke_with_stream(
-        self,
-        key: str,
-        context=None,
-        inputs=None,
-        metadata=None,
-        prefix_messages=None,
-        messages=None,
-        extra_params=None,
+            self,
+            key: str,
+            context=None,
+            inputs=None,
+            metadata=None,
+            prefix_messages=None,
+            messages=None,
+            extra_params=None,
     ):
         """
         Invokes a deployment with the specified key and stream the response.
@@ -417,9 +412,9 @@ class Deployment:
         )
 
         for response in stream(
-            url=INVOKE_URL,
-            body=self.body_params,
-            environment=Store["environment"],
+                url=INVOKE_URL,
+                body=self.body_params,
+                environment=Store["environment"],
         ):
 
             data = extract_json(response)

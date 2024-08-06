@@ -5,9 +5,8 @@ from pydantic import BaseModel
 
 from orq_ai_sdk.constants import BASE_URL
 from orq_ai_sdk.http_client import post, post_async
-from orq_ai_sdk.models import Store
 
-FEEDBACK_POST = "feedback"
+FEEDBACK_POST = "/v2/feedback"
 
 
 class FeedbackReport(BaseModel):
