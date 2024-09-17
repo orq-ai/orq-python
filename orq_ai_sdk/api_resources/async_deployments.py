@@ -13,6 +13,56 @@ INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 from typing import Optional, TypedDict
 
 
+class DeploymentInvokeOptions(TypedDict):
+    """Options for the deployment invocation."""
+
+    include_retrievals: Optional[bool]
+    """Whether to include the retrieved knowledge chunks in the response"""
+
+
+class DeploymentRetrievalMetadata:
+    def __init__(self, data: Dict[str, Any]):
+        self.file_name = data["file_name"]
+        """Name of the retrieved document chunk"""
+
+        self.file_type = data["file_type"]
+        """Type of the retrieved document chunk"""
+
+        self.page_number = data.get("page_number", None)
+        """Page number of the retrieved document chunk. Only available for PDF files"""
+
+        self.search_score = data["search_score"]
+        """Search score of the retrieved document chunk"""
+
+        self.rerank_score = data.get("rerank_score", None)
+        """Rerank score of the retrieved document chunk"""
+
+    def to_dict(self):
+        return {
+            "file_name": self.file_name,
+            "file_type": self.file_type,
+            "page_number": self.page_number,
+            "search_score": self.search_score,
+            "rerank_score": self.rerank_score,
+        }
+
+
+class DeploymentRetrieval:
+    def __init__(self, data: Dict[str, Any]):
+
+        self.document = data["document"]
+        """Retrieved document chunk from the knowledge base"""
+
+        self.metadata = DeploymentRetrievalMetadata(data["metadata"])
+        """Metadata of the retrieved document chunk"""
+
+    def to_dict(self):
+        return {
+            "document": self.document,
+            "metadata": self.metadata.to_dict(),
+        }
+
+
 class DeploymentFeedbackMetrics(TypedDict):
     score: int
 
@@ -185,6 +235,10 @@ class DeploymentGeneration(AsyncBaseDeployment):
             DeploymentGenerationChoice(choice) for choice in params.get("choices", [])
         ]
 
+        self.retrievals = [
+            DeploymentRetrieval(retrieval) for retrieval in params.get("retrievals", [])
+        ]
+
     def to_dict(self):
         """
         Converts the deployment object to a dictionary representation.
@@ -203,6 +257,7 @@ class DeploymentGeneration(AsyncBaseDeployment):
             "finalized": self.finalized,
             "system_fingerprint": self.system_fingerprint,
             "choices": [choice.to_dict() for choice in self.choices],
+            "retrievals": [retrieval.to_dict() for retrieval in self.retrievals],
         }
 
 
@@ -275,6 +330,7 @@ class Deployment:
         prefix_messages: Optional[List[Dict[str, Any]]] = None,
         messages: Optional[List[Dict[str, Any]]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
+        invoke_options: Optional[DeploymentInvokeOptions] = None,
     ):
 
         self.body_params = {}
@@ -303,6 +359,9 @@ class Deployment:
 
         if extra_params is not None:
             self.body_params["extra_params"] = extra_params
+
+        if invoke_options is not None:
+            self.body_params["invoke_options"] = invoke_options
 
     async def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
@@ -343,6 +402,7 @@ class Deployment:
             :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
+            :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -358,6 +418,7 @@ class Deployment:
             prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
+            invoke_options=invoke_options,
         )
 
         response = await post_async(
@@ -382,6 +443,7 @@ class Deployment:
         prefix_messages=None,
         messages=None,
         extra_params=None,
+        invoke_options: Optional[DeploymentInvokeOptions] = None,
     ):
         """
         Invokes a deployment with the specified key using the async HTTP client and stream the response.
@@ -394,6 +456,7 @@ class Deployment:
             :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (Optional): The messages parameter. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
+            :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
 
         Yields:
             Deployment: A deployment object.
@@ -410,6 +473,7 @@ class Deployment:
             prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
+            invoke_options=invoke_options,
         )
 
         async for response in stream_async(

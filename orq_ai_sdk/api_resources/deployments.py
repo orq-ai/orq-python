@@ -11,6 +11,56 @@ GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
 INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 
 
+class DeploymentInvokeOptions(TypedDict):
+    """Options for the deployment invocation."""
+
+    include_retrievals: Optional[bool]
+    """Whether to include the retrieved knowledge chunks in the response"""
+
+
+class DeploymentRetrievalMetadata:
+    def __init__(self, data: Dict[str, Any]):
+        self.file_name = data["file_name"]
+        """Name of the retrieved document chunk"""
+
+        self.file_type = data["file_type"]
+        """Type of the retrieved document chunk"""
+
+        self.page_number = data.get("page_number", None)
+        """Page number of the retrieved document chunk. Only available for PDF files"""
+
+        self.search_score = data["search_score"]
+        """Search score of the retrieved document chunk"""
+
+        self.rerank_score = data.get("rerank_score", None)
+        """Rerank score of the retrieved document chunk"""
+
+    def to_dict(self):
+        return {
+            "file_name": self.file_name,
+            "file_type": self.file_type,
+            "page_number": self.page_number,
+            "search_score": self.search_score,
+            "rerank_score": self.rerank_score,
+        }
+
+
+class DeploymentRetrieval:
+    def __init__(self, data: Dict[str, Any]):
+
+        self.document = data["document"]
+        """Retrieved document chunk from the knowledge base"""
+
+        self.metadata = DeploymentRetrievalMetadata(data["metadata"])
+        """Metadata of the retrieved document chunk"""
+
+    def to_dict(self):
+        return {
+            "document": self.document,
+            "metadata": self.metadata.to_dict(),
+        }
+
+
 class DeploymentFeedbackMetrics(TypedDict):
     score: int
 
@@ -35,16 +85,16 @@ class BaseDeployment:
         self.id = event_id
 
     def add_metrics(
-            self,
-            feedback: Optional[DeploymentFeedbackMetrics] = None,
-            usage: Optional[DeploymentUsageMetrics] = None,
-            performance: Optional[DeploymentPerformanceMetrics] = None,
-            metadata: Optional[Dict] = None,
-            chain_id: Optional[str] = None,
-            conversation_id: Optional[str] = None,
-            user_id: Optional[str] = None,
-            messages: Optional[List[Dict[str, Any]]] = None,
-            choices: Optional[List[Dict[str, Any]]] = None,
+        self,
+        feedback: Optional[DeploymentFeedbackMetrics] = None,
+        usage: Optional[DeploymentUsageMetrics] = None,
+        performance: Optional[DeploymentPerformanceMetrics] = None,
+        metadata: Optional[Dict] = None,
+        chain_id: Optional[str] = None,
+        conversation_id: Optional[str] = None,
+        user_id: Optional[str] = None,
+        messages: Optional[List[Dict[str, Any]]] = None,
+        choices: Optional[List[Dict[str, Any]]] = None,
     ):
         body = {}
 
@@ -166,8 +216,8 @@ class ToolCallFunction:
 
 class DeploymentGeneration(BaseDeployment):
     def __init__(
-            self,
-            **params,
+        self,
+        **params,
     ):
         super().__init__(event_id=params.get("id"))
 
@@ -179,8 +229,13 @@ class DeploymentGeneration(BaseDeployment):
         self.is_final = params.get("is_final", None)
         self.finalized = params.get("finalized", None)
         self.system_fingerprint = params.get("system_fingerprint", None)
+
         self.choices = [
             DeploymentGenerationChoice(choice) for choice in params.get("choices", [])
+        ]
+
+        self.retrievals = [
+            DeploymentRetrieval(retrieval) for retrieval in params.get("retrievals", [])
         ]
 
     def to_dict(self):
@@ -201,6 +256,7 @@ class DeploymentGeneration(BaseDeployment):
             "finalized": self.finalized,
             "system_fingerprint": self.system_fingerprint,
             "choices": [choice.to_dict() for choice in self.choices],
+            "retrievals": [retrieval.to_dict() for retrieval in self.retrievals],
         }
 
 
@@ -265,14 +321,15 @@ class DeploymentPromptConfig(BaseDeployment):
 class Deployment:
 
     def __validate_params(
-            self,
-            key: str,
-            context: Optional[Dict[str, Any]] = None,
-            inputs: Optional[Dict[str, str]] = None,
-            metadata: Optional[Dict[str, Any]] = None,
-            prefix_messages: Optional[List[Dict[str, Any]]] = None,
-            messages: Optional[List[Dict[str, Any]]] = None,
-            extra_params: Optional[Dict[str, Any]] = None,
+        self,
+        key: str,
+        context: Optional[Dict[str, Any]] = None,
+        inputs: Optional[Dict[str, str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        prefix_messages: Optional[List[Dict[str, Any]]] = None,
+        messages: Optional[List[Dict[str, Any]]] = None,
+        extra_params: Optional[Dict[str, Any]] = None,
+        invoke_options: Optional[DeploymentInvokeOptions] = None,
     ):
 
         self.body_params = {}
@@ -302,6 +359,9 @@ class Deployment:
         if extra_params is not None:
             self.body_params["extra_params"] = extra_params
 
+        if invoke_options is not None:
+            self.body_params["invoke_options"] = invoke_options
+
     def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
             key=key, context=context, inputs=inputs, metadata=metadata
@@ -321,14 +381,15 @@ class Deployment:
         return DeploymentPromptConfig(**params)
 
     def invoke(
-            self,
-            key: str,
-            context=None,
-            inputs=None,
-            metadata=None,
-            prefix_messages=None,
-            messages=None,
-            extra_params=None,
+        self,
+        key: str,
+        context=None,
+        inputs=None,
+        metadata=None,
+        prefix_messages=None,
+        messages=None,
+        extra_params=None,
+        invoke_options: Optional[DeploymentInvokeOptions] = None,
     ):
         """
         Invokes a deployment with the specified key.
@@ -341,6 +402,7 @@ class Deployment:
             :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
+            :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -356,6 +418,7 @@ class Deployment:
             prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
+            invoke_options=invoke_options,
         )
 
         response = post(
@@ -372,14 +435,15 @@ class Deployment:
         return DeploymentGeneration(**params)
 
     def invoke_with_stream(
-            self,
-            key: str,
-            context=None,
-            inputs=None,
-            metadata=None,
-            prefix_messages=None,
-            messages=None,
-            extra_params=None,
+        self,
+        key: str,
+        context=None,
+        inputs=None,
+        metadata=None,
+        prefix_messages=None,
+        messages=None,
+        extra_params=None,
+        invoke_options: Optional[DeploymentInvokeOptions] = None,
     ):
         """
         Invokes a deployment with the specified key and stream the response.
@@ -394,6 +458,7 @@ class Deployment:
             :param prefix_messages (list, optional): A list of messages to include after the `System` message, but before the `User` and `Assistant` pairs configured in your deployment. Defaults to None.
             :param messages (list, optional): The messages to send to the LLM with the template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
+            :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -409,12 +474,13 @@ class Deployment:
             prefix_messages=prefix_messages,
             messages=messages,
             extra_params=extra_params,
+            invoke_options=invoke_options,
         )
 
         for response in stream(
-                url=INVOKE_URL,
-                body=self.body_params,
-                environment=Store["environment"],
+            url=INVOKE_URL,
+            body=self.body_params,
+            environment=Store["environment"],
         ):
 
             data = extract_json(response)
