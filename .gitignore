@@ -2,6 +2,7 @@
 private.txt
 .idea
 venv
+.venv
 dist
 build
 dist/
