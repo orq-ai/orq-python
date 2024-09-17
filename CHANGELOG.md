@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.13.1] - 2024-09-17
+
+### Fixed
+
+- Incorrect URL for the async methods of the Deployments API
+
 ## [2.13.0] - 2024-08-03
 
 ### Added
@@ -29,12 +35,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 - Centralize the `api_key` in the `Store` object to reuse it in all the API calls
 
-
-
-
 ## [2.3.6] - 2024-05-10
 
 ### Added
 
 - When `environments` property is set on the `context` the global `environment` value is overwriten.
-

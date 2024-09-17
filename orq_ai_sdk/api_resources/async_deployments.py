@@ -4,13 +4,11 @@ from orq_ai_sdk.constants import BASE_URL
 from orq_ai_sdk.exceptions import handle_request_exception
 from orq_ai_sdk.models import Store
 from orq_ai_sdk.util import extract_json
-
 from orq_ai_sdk.http_client import post_async, stream_async
 
 DEPLOYMENTS_API = "{}/v2/deployments".format(BASE_URL)
-
-GET_CONFIG_URL = "{}/v2/get_config".format(DEPLOYMENTS_API)
-INVOKE_URL = "{}/v2/invoke".format(DEPLOYMENTS_API)
+GET_CONFIG_URL = "{}/get_config".format(DEPLOYMENTS_API)
+INVOKE_URL = "{}/invoke".format(DEPLOYMENTS_API)
 
 from typing import Optional, TypedDict
 
