@@ -390,6 +390,7 @@ class Deployment:
         prefix_messages=None,
         messages=None,
         extra_params=None,
+        invoke_options=None,
     ):
         """
         Invokes a deployment with the specified key using the async HTTP client.
