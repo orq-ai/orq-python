@@ -330,6 +330,7 @@ class Deployment:
         messages: Optional[List[Dict[str, Any]]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
         invoke_options: Optional[DeploymentInvokeOptions] = None,
+        file_ids: Optional[List[str]] = None,
     ):
 
         self.body_params = {}
@@ -362,6 +363,9 @@ class Deployment:
         if invoke_options is not None:
             self.body_params["invoke_options"] = invoke_options
 
+        if file_ids is not None:
+            self.body_params["file_ids"] = file_ids
+
     def get_config(self, key: str, context=None, inputs=None, metadata=None):
         self.__validate_params(
             key=key, context=context, inputs=inputs, metadata=metadata
@@ -390,6 +394,7 @@ class Deployment:
         messages=None,
         extra_params=None,
         invoke_options: Optional[DeploymentInvokeOptions] = None,
+        file_ids: Optional[List[str]] = None,
     ):
         """
         Invokes a deployment with the specified key.
@@ -403,6 +408,7 @@ class Deployment:
             :param messages (list, optional): The messages to send to the LLM with the messages template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
             :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
+            :param file_ids (list, optional): A list of file ids to include with the invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -419,6 +425,7 @@ class Deployment:
             messages=messages,
             extra_params=extra_params,
             invoke_options=invoke_options,
+            file_ids=file_ids,
         )
 
         response = post(
@@ -444,6 +451,7 @@ class Deployment:
         messages=None,
         extra_params=None,
         invoke_options: Optional[DeploymentInvokeOptions] = None,
+        file_ids: Optional[List[str]] = None,
     ):
         """
         Invokes a deployment with the specified key and stream the response.
@@ -459,6 +467,7 @@ class Deployment:
             :param messages (list, optional): The messages to send to the LLM with the template. Defaults to None.
             :param extra_params (dict, optional): Additional parameters to include with the invocation. Defaults to None.
             :param invoke_options (dict, optional): Options for the deployment invocation. Defaults to None.
+            :param file_ids (list, optional): A list of file ids to include with the invocation. Defaults to None.
 
         Returns:
             `Deployment`: The invoked deployment.
@@ -475,6 +484,7 @@ class Deployment:
             messages=messages,
             extra_params=extra_params,
             invoke_options=invoke_options,
+            file_ids=file_ids,
         )
 
         for response in stream(
