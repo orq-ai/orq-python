@@ -1,0 +1,16 @@
+# RouterCompletionsResponseBody
+
+A response body that follows the official OpenAI schema
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `id`                                                                            | *str*                                                                           | :heavy_check_mark:                                                              | A unique identifier for the completion.                                         |
+| `choices`                                                                       | List[[models.RouterCompletionsChoices](../models/routercompletionschoices.md)]  | :heavy_check_mark:                                                              | The list of completion choices the model generated for the input prompt.        |
+| `created`                                                                       | *float*                                                                         | :heavy_check_mark:                                                              | The Unix timestamp (in seconds) of when the chat completion was created.        |
+| `model`                                                                         | *str*                                                                           | :heavy_check_mark:                                                              | The model used for the chat completion.                                         |
+| `system_fingerprint`                                                            | *str*                                                                           | :heavy_check_mark:                                                              | This fingerprint represents the backend configuration that the model runs with. |
+| `object`                                                                        | *str*                                                                           | :heavy_check_mark:                                                              | The object type                                                                 |
+| `usage`                                                                         | [models.RouterCompletionsUsage](../models/routercompletionsusage.md)            | :heavy_check_mark:                                                              | Usage statistics for the completion request.                                    |

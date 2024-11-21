@@ -1,0 +1,16 @@
+# ResponseBody1
+
+Represents a chat completion response returned by model, based on the provided input.
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `id`                                                                            | *str*                                                                           | :heavy_check_mark:                                                              | A unique identifier for the chat completion.                                    |
+| `choices`                                                                       | List[[models.ResponseBodyChoices](../models/responsebodychoices.md)]            | :heavy_check_mark:                                                              | A list of chat completion choices. Can be more than one if n is greater than 1. |
+| `created`                                                                       | *float*                                                                         | :heavy_check_mark:                                                              | The Unix timestamp (in seconds) of when the chat completion was created.        |
+| `model`                                                                         | *str*                                                                           | :heavy_check_mark:                                                              | The model used for the chat completion.                                         |
+| `system_fingerprint`                                                            | *str*                                                                           | :heavy_check_mark:                                                              | This fingerprint represents the backend configuration that the model runs with. |
+| `object`                                                                        | *str*                                                                           | :heavy_check_mark:                                                              | The object type                                                                 |
+| `usage`                                                                         | [models.ResponseBodyUsage](../models/responsebodyusage.md)                      | :heavy_check_mark:                                                              | Usage statistics for the completion request.                                    |
