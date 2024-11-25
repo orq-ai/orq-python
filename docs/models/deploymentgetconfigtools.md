@@ -1,9 +1,0 @@
-# DeploymentGetConfigTools
-
-
-## Fields
-
-| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                               | [models.DeploymentGetConfigDeploymentsResponse200Type](../models/deploymentgetconfigdeploymentsresponse200type.md)   | :heavy_check_mark:                                                                                                   | The type of the tool. Currently, only `function` is supported.                                                       |
-| `function`                                                                                                           | [models.DeploymentGetConfigDeploymentsResponseFunction](../models/deploymentgetconfigdeploymentsresponsefunction.md) | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |

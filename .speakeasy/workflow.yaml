@@ -1,34 +1,35 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    orq-prerelease-python:
+    orq-ai-sdk-prerelease-python:
         inputs:
             - location: ./openapi-prerelease.yaml
         registry:
-            location: registry.speakeasyapi.dev/orq/orq/orq-prerelease-python
-    orq-python:
+            location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python
+    orq-ai-sdk-python:
         inputs:
             - location: ./openapi.yaml
         registry:
-            location: registry.speakeasyapi.dev/orq/orq/orq-python
+            location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python
 targets:
-    orq-prerelease-python:
+    orq-ai-sdk-prerelease-python:
         target: typescript
-        source: orq-prerelease-python
+        source: orq-ai-sdk-prerelease-python
+        output: ./packages/orq-rc
         publish:
-            npm:
-                token: $npm_token
+            pypi:
+                token: $pypi_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/orq/orq/orq-prerelease-python-code-samples
+                location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python-code-samples
             blocking: false
-    orq-python:
+    orq-ai-sdk-python:
         target: typescript
-        source: orq-python
+        source: orq-ai-sdk-python
         publish:
-            npm:
-                token: $npm_token
+            pypi:
+                token: $pypi_token
         codeSamples:
             registry:
-                location: registry.speakeasyapi.dev/orq/orq/orq-python-code-samples
+                location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python-code-samples
             blocking: false
