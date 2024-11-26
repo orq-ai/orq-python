@@ -1,0 +1,46 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: Orq
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: false
+python:
+  version: 0.0.1
+  additionalDependencies:
+    dev: {}
+    main: {}
+  authors:
+    - Orq
+  clientServerStatusCodesAsErrors: true
+  defaultErrorName: APIError
+  description: Python Client SDK for the Orq API.
+  enumFormat: union
+  envVarPrefix: ORQ
+  fixFlags:
+    responseRequiredSep2024: false
+  flattenGlobalSecurity: true
+  flattenRequests: true
+  flatteningOrder: parameters-first
+  imports:
+    option: openapi
+    paths:
+      callbacks: ""
+      errors: ""
+      operations: ""
+      shared: ""
+      webhooks: ""
+  inputModelSuffix: input
+  maxMethodParams: 15
+  methodArguments: infer-optional-args
+  outputModelSuffix: output
+  packageName: orq-ai-sdk
+  responseFormat: flat
+  templateVersion: v2
