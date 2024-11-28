@@ -1,0 +1,54 @@
+speakeasyVersion: 1.448.2
+sources:
+    orq-ai-sdk-prerelease-python:
+        sourceNamespace: orq-ai-sdk-prerelease-python
+        sourceRevisionDigest: sha256:9fbf41881df9b57abb1e179969a90220e3a236215ae51b1b73d94dc119cf3cac
+        sourceBlobDigest: sha256:e0fc97516af3dd12bd9c3aac6559084afd7c89d4458319808ccc36f74576d2e8
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1732803349
+            - "2.0"
+targets:
+    orq-ai-sdk-prerelease-python:
+        source: orq-ai-sdk-prerelease-python
+        sourceNamespace: orq-ai-sdk-prerelease-python
+        sourceRevisionDigest: sha256:9fbf41881df9b57abb1e179969a90220e3a236215ae51b1b73d94dc119cf3cac
+        sourceBlobDigest: sha256:e0fc97516af3dd12bd9c3aac6559084afd7c89d4458319808ccc36f74576d2e8
+        codeSamplesNamespace: orq-ai-sdk-prerelease-python-code-samples
+        codeSamplesRevisionDigest: sha256:be2271d2ef50942f5f870aec96d20de2f1cf10e9e3a0f648f72a4e418fdc2292
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        orq-ai-sdk-prerelease-python:
+            inputs:
+                - location: ./openapi-prerelease.yaml
+            registry:
+                location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python
+        orq-ai-sdk-python:
+            inputs:
+                - location: ./openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python
+    targets:
+        orq-ai-sdk-prerelease-python:
+            target: python
+            source: orq-ai-sdk-prerelease-python
+            output: ./packages/orq-rc
+            publish:
+                pypi:
+                    token: $pypi_token
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python-code-samples
+                blocking: false
+        orq-ai-sdk-python:
+            target: python
+            source: orq-ai-sdk-python
+            publish:
+                pypi:
+                    token: $pypi_token
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python-code-samples
+                blocking: false
