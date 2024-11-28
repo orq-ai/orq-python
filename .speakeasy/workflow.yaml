@@ -13,7 +13,7 @@ sources:
             location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-python
 targets:
     orq-ai-sdk-prerelease-python:
-        target: typescript
+        target: python
         source: orq-ai-sdk-prerelease-python
         output: ./packages/orq-rc
         publish:
@@ -24,7 +24,7 @@ targets:
                 location: registry.speakeasyapi.dev/orq/orq/orq-ai-sdk-prerelease-python-code-samples
             blocking: false
     orq-ai-sdk-python:
-        target: typescript
+        target: python
         source: orq-ai-sdk-python
         publish:
             pypi:
