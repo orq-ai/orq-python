@@ -20,3 +20,4 @@
 | `FAL`         | fal           |
 | `LEONARDOAI`  | leonardoai    |
 | `NVIDIA`      | nvidia        |
+| `JINA`        | jina          |

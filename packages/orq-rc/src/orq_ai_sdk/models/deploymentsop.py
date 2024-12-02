@@ -119,7 +119,15 @@ class DeploymentsTools(BaseModel):
 
 
 DeploymentsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -372,6 +380,7 @@ DeploymentsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 DeploymentsDeploymentsRole = Literal[

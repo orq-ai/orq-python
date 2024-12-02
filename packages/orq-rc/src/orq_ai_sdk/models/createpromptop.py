@@ -15,7 +15,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 ModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -265,6 +273,7 @@ Provider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 CreatePromptRole = Literal[
@@ -502,7 +511,15 @@ class CreatePromptRequestBody(BaseModel):
 
 
 CreatePromptModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -755,6 +772,7 @@ CreatePromptProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 CreatePromptPromptsRole = Literal[

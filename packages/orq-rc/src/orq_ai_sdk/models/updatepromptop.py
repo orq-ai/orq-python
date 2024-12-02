@@ -19,7 +19,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 UpdatePromptModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -272,6 +280,7 @@ UpdatePromptProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptRole = Literal[
@@ -555,7 +564,15 @@ UpdatePromptResponseBodyOwner = TypeAliasType(
 
 
 UpdatePromptResponseBodyPromptsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -823,6 +840,7 @@ UpdatePromptResponseBodyPromptsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptResponseBodyPromptsRole = Literal[
@@ -1068,7 +1086,15 @@ class UpdatePromptResponseBodyPromptsMetadata(BaseModel):
 
 
 UpdatePromptResponseBodyPromptsResponse200ApplicationJSONModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -1378,6 +1404,7 @@ UpdatePromptResponseBodyPromptsResponse200ApplicationJSONProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptResponseBodyPromptsResponse200ApplicationJSONRole = Literal[
@@ -1787,7 +1814,7 @@ class ResponseBody3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1832,7 +1859,15 @@ ResponseBodyOwner = TypeAliasType("ResponseBodyOwner", Union[str, UpdatePromptOw
 
 
 UpdatePromptResponseBodyModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2096,6 +2131,7 @@ UpdatePromptResponseBodyProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptResponseBodyRole = Literal[
@@ -2336,7 +2372,15 @@ class UpdatePromptResponseBodyMetadata(BaseModel):
 
 
 UpdatePromptResponseBodyPromptsResponseModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2612,6 +2656,7 @@ UpdatePromptResponseBodyPromptsResponseProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptResponseBodyPromptsResponseRole = Literal[
@@ -2983,7 +3028,7 @@ class ResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -3026,7 +3071,15 @@ Owner = TypeAliasType("Owner", Union[str, Owner2])
 
 
 ResponseBodyModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -3282,6 +3335,7 @@ ResponseBodyProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 ResponseBodyRole = Literal[
@@ -3518,7 +3572,15 @@ class ResponseBodyMetadata(BaseModel):
 
 
 UpdatePromptResponseBodyPromptsResponse200ModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -3806,6 +3868,7 @@ UpdatePromptResponseBodyPromptsResponse200Provider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 UpdatePromptResponseBodyPromptsResponse200Role = Literal[
@@ -4187,7 +4250,7 @@ class ResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

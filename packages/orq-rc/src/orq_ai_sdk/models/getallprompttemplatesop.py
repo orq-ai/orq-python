@@ -150,7 +150,15 @@ GetAllPromptTemplatesItemsOwner = TypeAliasType(
 
 
 GetAllPromptTemplatesItemsPromptTemplatesModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -432,6 +440,7 @@ GetAllPromptTemplatesItemsPromptTemplatesProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesRole = Literal[
@@ -690,7 +699,15 @@ class GetAllPromptTemplatesItemsPromptTemplatesMetadata(BaseModel):
 
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200ApplicationJSONModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -1000,6 +1017,7 @@ GetAllPromptTemplatesItemsPromptTemplatesResponse200ApplicationJSONProvider = Li
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200ApplicationJSONRole = Literal[
@@ -1438,7 +1456,7 @@ class Items3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1483,7 +1501,15 @@ ItemsOwner = TypeAliasType("ItemsOwner", Union[str, GetAllPromptTemplatesOwner2]
 
 
 GetAllPromptTemplatesItemsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -1747,6 +1773,7 @@ GetAllPromptTemplatesItemsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptTemplatesItemsRole = Literal[
@@ -1992,7 +2019,15 @@ class GetAllPromptTemplatesItemsMetadata(BaseModel):
 
 
 GetAllPromptTemplatesItemsPromptTemplatesResponseModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2286,6 +2321,7 @@ GetAllPromptTemplatesItemsPromptTemplatesResponseProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponseRole = Literal[
@@ -2667,7 +2703,7 @@ class Items2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -2716,7 +2752,15 @@ GetAllPromptTemplatesItemsPromptTemplatesOwner = TypeAliasType(
 
 
 ItemsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2971,6 +3015,7 @@ ItemsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 ItemsRole = Literal[
@@ -3207,7 +3252,15 @@ class ItemsMetadata(BaseModel):
 
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200ModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -3509,6 +3562,7 @@ GetAllPromptTemplatesItemsPromptTemplatesResponse200Provider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200Role = Literal[
@@ -3913,7 +3967,7 @@ class Items1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

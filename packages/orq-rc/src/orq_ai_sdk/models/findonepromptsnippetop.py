@@ -44,7 +44,15 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwner = TypeAliasType(
 
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -342,6 +350,7 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponseProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponseRole = Literal[
@@ -619,7 +628,15 @@ class FindOnePromptSnippetResponseBodyPromptSnippetsResponseMetadata(BaseModel):
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelType = (
     Literal[
-        "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+        "chat",
+        "completion",
+        "embedding",
+        "vision",
+        "image",
+        "tts",
+        "stt",
+        "rerank",
+        "moderations",
     ]
 )
 r"""The type of the model"""
@@ -931,6 +948,7 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Provide
         "fal",
         "leonardoai",
         "nvidia",
+        "jina",
     ]
 )
 
@@ -1372,7 +1390,7 @@ class FindOnePromptSnippetResponseBody3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1421,7 +1439,15 @@ FindOnePromptSnippetResponseBodyPromptSnippetsOwner = TypeAliasType(
 
 
 FindOnePromptSnippetResponseBodyPromptSnippetsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -1693,6 +1719,7 @@ FindOnePromptSnippetResponseBodyPromptSnippetsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsRole = Literal[
@@ -1944,7 +1971,15 @@ class FindOnePromptSnippetResponseBodyPromptSnippetsMetadata(BaseModel):
 
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2246,6 +2281,7 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Provider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Role = Literal[
@@ -2651,7 +2687,7 @@ class FindOnePromptSnippetResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -2699,7 +2735,15 @@ FindOnePromptSnippetResponseBodyOwner = TypeAliasType(
 
 
 FindOnePromptSnippetResponseBodyModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2960,6 +3004,7 @@ FindOnePromptSnippetResponseBodyProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 FindOnePromptSnippetResponseBodyRole = Literal[
@@ -3201,7 +3246,15 @@ class FindOnePromptSnippetResponseBodyMetadata(BaseModel):
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelType = (
     Literal[
-        "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+        "chat",
+        "completion",
+        "embedding",
+        "vision",
+        "image",
+        "tts",
+        "stt",
+        "rerank",
+        "moderations",
     ]
 )
 r"""The type of the model"""
@@ -3513,6 +3566,7 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONProvider
         "fal",
         "leonardoai",
         "nvidia",
+        "jina",
     ]
 )
 
@@ -3947,7 +4001,7 @@ class FindOnePromptSnippetResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

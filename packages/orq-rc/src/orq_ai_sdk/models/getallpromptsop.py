@@ -160,7 +160,15 @@ GetAllPromptsItemsPromptsResponseOwner = TypeAliasType(
 
 
 GetAllPromptsItemsPromptsResponseModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -428,6 +436,7 @@ GetAllPromptsItemsPromptsResponseProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsPromptsResponseRole = Literal[
@@ -670,7 +679,15 @@ class GetAllPromptsItemsPromptsResponseMetadata(BaseModel):
 
 
 GetAllPromptsItemsPromptsResponse200ApplicationJSONResponseBodyModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -982,6 +999,7 @@ GetAllPromptsItemsPromptsResponse200ApplicationJSONResponseBodyProvider = Litera
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsPromptsResponse200ApplicationJSONResponseBodyRole = Literal[
@@ -1409,7 +1427,7 @@ class GetAllPromptsItems3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1456,7 +1474,15 @@ GetAllPromptsItemsPromptsOwner = TypeAliasType(
 
 
 GetAllPromptsItemsPromptsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -1715,6 +1741,7 @@ GetAllPromptsItemsPromptsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsPromptsRole = Literal[
@@ -1954,7 +1981,15 @@ class GetAllPromptsItemsPromptsMetadata(BaseModel):
 
 
 GetAllPromptsItemsPromptsResponse200ModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2224,6 +2259,7 @@ GetAllPromptsItemsPromptsResponse200Provider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsPromptsResponse200Role = Literal[
@@ -2594,7 +2630,7 @@ class GetAllPromptsItems2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -2641,7 +2677,15 @@ GetAllPromptsItemsOwner = TypeAliasType(
 
 
 GetAllPromptsItemsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -2895,6 +2939,7 @@ GetAllPromptsItemsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsRole = Literal[
@@ -3131,7 +3176,15 @@ class GetAllPromptsItemsMetadata(BaseModel):
 
 
 GetAllPromptsItemsPromptsResponse200ApplicationJSONModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -3425,6 +3478,7 @@ GetAllPromptsItemsPromptsResponse200ApplicationJSONProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 GetAllPromptsItemsPromptsResponse200ApplicationJSONRole = Literal[
@@ -3807,7 +3861,7 @@ class GetAllPromptsItems1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-11-26T10:00:21.083Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

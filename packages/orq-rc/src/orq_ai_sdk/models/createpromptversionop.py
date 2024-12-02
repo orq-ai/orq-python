@@ -16,7 +16,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 CreatePromptVersionModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -273,6 +281,7 @@ CreatePromptVersionProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 CreatePromptVersionRole = Literal[
@@ -526,7 +535,15 @@ class CreatePromptVersionRequest(BaseModel):
 
 
 CreatePromptVersionPromptsModelType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model"""
 
@@ -788,6 +805,7 @@ CreatePromptVersionPromptsProvider = Literal[
     "fal",
     "leonardoai",
     "nvidia",
+    "jina",
 ]
 
 CreatePromptVersionPromptsRole = Literal[

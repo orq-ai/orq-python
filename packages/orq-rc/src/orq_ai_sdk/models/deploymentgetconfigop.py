@@ -398,7 +398,15 @@ class DeploymentGetConfigRequestBody(BaseModel):
 
 
 DeploymentGetConfigDeploymentsResponseType = Literal[
-    "chat", "completion", "embedding", "vision", "image", "tts", "stt", "rerank"
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
 ]
 r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
