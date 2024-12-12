@@ -1,0 +1,10 @@
+# GetAllPromptsFilters2
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `type`                                                                                 | [models.GetAllPromptsFiltersPromptsType](../models/getallpromptsfilterspromptstype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `value`                                                                                | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `search_paths`                                                                         | List[*str*]                                                                            | :heavy_check_mark:                                                                     | N/A                                                                                    |

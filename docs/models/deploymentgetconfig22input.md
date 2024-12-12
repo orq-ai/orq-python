@@ -1,0 +1,11 @@
+# DeploymentGetConfig22Input
+
+The image part of the prompt message. Only supported with vision models.
+
+
+## Fields
+
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                             | [models.DeploymentGetConfig2DeploymentsRequestRequestBodyType](../models/deploymentgetconfig2deploymentsrequestrequestbodytype.md) | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `image_url`                                                                                                                        | [models.DeploymentGetConfig2ImageURL](../models/deploymentgetconfig2imageurl.md)                                                   | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |

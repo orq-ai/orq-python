@@ -1,0 +1,9 @@
+# GetAllPromptTemplatesResponseFormat1
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                             | [models.GetAllPromptTemplatesResponseFormatType](../models/getallprompttemplatesresponseformattype.md)             | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `json_schema`                                                                                                      | [models.GetAllPromptTemplatesResponseFormatJSONSchema](../models/getallprompttemplatesresponseformatjsonschema.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
