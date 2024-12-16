@@ -3,7 +3,7 @@
 import importlib.metadata
 
 __title__: str = "orq-ai-sdk"
-__version__: str = "1.31.1"
+__version__: str = "1.31.11"
 
 try:
     if __package__ is not None:

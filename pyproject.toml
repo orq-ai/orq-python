@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orq-ai-sdk"
-version = "1.31.1"
+version = "1.31.11"
 description = "Python Client SDK for the Orq API."
 authors = ["Orq",]
 readme = "README-PYPI.md"

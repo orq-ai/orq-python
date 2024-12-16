@@ -24,9 +24,10 @@ with Orq(
 
     res = orq.files.upload()
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -68,9 +69,10 @@ with Orq(
         },
     ], purpose="retrieval")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

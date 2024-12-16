@@ -26,9 +26,10 @@ with Orq(
 
     res = orq.deployments.all()
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -100,9 +101,10 @@ with Orq(
 
     res = orq.deployments.get_config(key="<key>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -152,11 +154,12 @@ with Orq(
 
     res = orq.deployments.invoke(key="<key>")
 
-    if res is not None:
-        with res as event_stream:
-            for event in event_stream:
-                # handle event
-                print(event, flush=True)
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
 
 ```
 

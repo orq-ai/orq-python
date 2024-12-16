@@ -22,4 +22,3 @@ The provider used to generate the response
 | `FAL`         | fal           |
 | `LEONARDOAI`  | leonardoai    |
 | `NVIDIA`      | nvidia        |
-| `JINA`        | jina          |

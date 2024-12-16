@@ -92,9 +92,10 @@ with Orq(
 
     res = orq.contacts.create(external_id="<id>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -113,9 +114,10 @@ async def main():
 
         res = await orq.contacts.create_async(external_id="<id>")
 
-        if res is not None:
-            # handle response
-            pass
+        assert res is not None
+
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```
@@ -143,9 +145,10 @@ with Orq(
 
     res = orq.contacts.create(external_id="<id>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Authentication [security] -->
@@ -181,27 +184,6 @@ with Orq(
 * [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
-### [prompt](docs/sdks/prompt/README.md)
-
-
-#### [prompt.snippets](docs/sdks/snippets/README.md)
-
-* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
-
-#### [prompt.templates](docs/sdks/templates/README.md)
-
-* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
-
-### [prompts](docs/sdks/prompts/README.md)
-
-* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
-* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
-* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
-* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
-* [update](docs/sdks/prompts/README.md#update) - Update a prompt
-* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
-* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
-
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 
 * [get_config](docs/sdks/remoteconfig/README.md#get_config) - Get Configurations
@@ -231,11 +213,12 @@ with Orq(
 
     res = orq.deployments.invoke(key="<key>")
 
-    if res is not None:
-        with res as event_stream:
-            for event in event_stream:
-                # handle event
-                print(event, flush=True)
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
 
 ```
 
@@ -264,9 +247,10 @@ with Orq(
 
     res = orq.files.upload()
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End File uploads [file-upload] -->
@@ -289,9 +273,10 @@ with Orq(
     res = orq.contacts.create(external_id="<id>",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -308,9 +293,10 @@ with Orq(
 
     res = orq.contacts.create(external_id="<id>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Retries [retries] -->
@@ -350,9 +336,10 @@ with Orq(
 
         res = orq.deployments.all()
 
-        if res is not None:
-            # handle response
-            pass
+        assert res is not None
+
+        # Handle response
+        print(res)
 
     except models.HonoAPIError as e:
         # handle e.data: models.HonoAPIErrorData
@@ -380,9 +367,10 @@ with Orq(
 
     res = orq.contacts.create(external_id="<id>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Server Selection [server] -->

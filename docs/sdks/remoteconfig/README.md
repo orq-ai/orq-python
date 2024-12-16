@@ -23,9 +23,10 @@ with Orq(
 
     res = orq.remoteconfig.get_config()
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

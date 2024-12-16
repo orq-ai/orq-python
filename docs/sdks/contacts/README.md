@@ -23,9 +23,10 @@ with Orq(
 
     res = orq.contacts.create(external_id="<id>")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
