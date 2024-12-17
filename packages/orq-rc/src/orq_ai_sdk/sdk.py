@@ -12,8 +12,6 @@ from orq_ai_sdk.contacts import Contacts
 from orq_ai_sdk.deployments_sdk import DeploymentsSDK
 from orq_ai_sdk.feedback import Feedback
 from orq_ai_sdk.files import Files
-from orq_ai_sdk.prompt import Prompt
-from orq_ai_sdk.prompts import Prompts
 from orq_ai_sdk.remoteconfig import Remoteconfig
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from typing import Any, Callable, Dict, Optional, Union
@@ -28,8 +26,6 @@ class Orq(BaseSDK):
     feedback: Feedback
     deployments: DeploymentsSDK
     files: Files
-    prompt: Prompt
-    prompts: Prompts
     remoteconfig: Remoteconfig
 
     def __init__(
@@ -115,8 +111,6 @@ class Orq(BaseSDK):
         self.feedback = Feedback(self.sdk_configuration)
         self.deployments = DeploymentsSDK(self.sdk_configuration)
         self.files = Files(self.sdk_configuration)
-        self.prompt = Prompt(self.sdk_configuration)
-        self.prompts = Prompts(self.sdk_configuration)
         self.remoteconfig = Remoteconfig(self.sdk_configuration)
 
     def __enter__(self):

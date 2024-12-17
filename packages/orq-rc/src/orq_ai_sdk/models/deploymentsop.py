@@ -118,7 +118,7 @@ class DeploymentsTools(BaseModel):
     id: Optional[float] = None
 
 
-DeploymentsModelType = Literal[
+ModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -151,13 +151,13 @@ class DeploymentsResponseFormat2(BaseModel):
 DeploymentsResponseFormatDeploymentsType = Literal["json_schema"]
 
 
-class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
+class ResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class DeploymentsResponseFormatJSONSchema(BaseModel):
+class ResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -167,13 +167,13 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
 
 class DeploymentsResponseFormat1TypedDict(TypedDict):
     type: DeploymentsResponseFormatDeploymentsType
-    json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
+    json_schema: ResponseFormatJSONSchemaTypedDict
 
 
 class DeploymentsResponseFormat1(BaseModel):
     type: DeploymentsResponseFormatDeploymentsType
 
-    json_schema: DeploymentsResponseFormatJSONSchema
+    json_schema: ResponseFormatJSONSchema
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(
@@ -211,7 +211,7 @@ DeploymentsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
 
-class DeploymentsModelParametersTypedDict(TypedDict):
+class ModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -230,7 +230,7 @@ class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format: NotRequired[DeploymentsFormat]
+    format_: NotRequired[DeploymentsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -253,7 +253,7 @@ class DeploymentsModelParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
 
 
-class DeploymentsModelParameters(BaseModel):
+class ModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -284,7 +284,9 @@ class DeploymentsModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format: Optional[DeploymentsFormat] = None
+    format_: Annotated[Optional[DeploymentsFormat], pydantic.Field(alias="format")] = (
+        None
+    )
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
@@ -526,26 +528,26 @@ class DeploymentsMessages(BaseModel):
     tool_calls: Optional[List[DeploymentsDeploymentsToolCalls]] = None
 
 
-class DeploymentsPromptConfigTypedDict(TypedDict):
+class PromptConfigTypedDict(TypedDict):
     tools: List[DeploymentsToolsTypedDict]
     model: str
-    model_type: DeploymentsModelType
+    model_type: ModelType
     r"""The type of the model"""
-    model_parameters: DeploymentsModelParametersTypedDict
+    model_parameters: ModelParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: DeploymentsProvider
     messages: List[DeploymentsMessagesTypedDict]
 
 
-class DeploymentsPromptConfig(BaseModel):
+class PromptConfig(BaseModel):
     tools: List[DeploymentsTools]
 
     model: str
 
-    model_type: DeploymentsModelType
+    model_type: ModelType
     r"""The type of the model"""
 
-    model_parameters: DeploymentsModelParameters
+    model_parameters: ModelParameters
     r"""Model Parameters: Not all parameters apply to every model"""
 
     provider: DeploymentsProvider
@@ -564,7 +566,7 @@ class DataTypedDict(TypedDict):
     r"""The deployment unique key"""
     description: str
     r"""An arbitrary string attached to the object. Often useful for displaying to users."""
-    prompt_config: DeploymentsPromptConfigTypedDict
+    prompt_config: PromptConfigTypedDict
     version: str
     r"""THe version of the deployment"""
 
@@ -585,7 +587,7 @@ class Data(BaseModel):
     description: str
     r"""An arbitrary string attached to the object. Often useful for displaying to users."""
 
-    prompt_config: DeploymentsPromptConfig
+    prompt_config: PromptConfig
 
     version: str
     r"""THe version of the deployment"""

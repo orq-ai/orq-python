@@ -19,7 +19,7 @@ class FileTypedDict(TypedDict):
 
 class File(BaseModel):
     file_name: Annotated[
-        str, pydantic.Field(alias="file"), FieldMetadata(multipart=True)
+        str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
 
     content: Annotated[
@@ -48,9 +48,7 @@ class FileUploadRequestBodyTypedDict(TypedDict):
 
 class FileUploadRequestBody(BaseModel):
     file: Annotated[
-        Optional[File],
-        pydantic.Field(alias=""),
-        FieldMetadata(multipart=MultipartFormMetadata(file=True)),
+        Optional[File], FieldMetadata(multipart=MultipartFormMetadata(file=True))
     ] = None
     r"""The file to be uploaded."""
 
@@ -91,5 +89,5 @@ class FileUploadResponseBody(BaseModel):
 
     file_name: str
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:45.101Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2024-12-16T16:28:54.131Z")
     r"""The date and time the resource was created"""

@@ -19,12 +19,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.remoteconfig.get_config()
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.remoteconfig.get_config()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

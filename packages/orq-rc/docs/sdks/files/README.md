@@ -20,12 +20,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.files.upload()
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.files.upload()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -58,17 +60,19 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.files.bulk_upload(files=[
+) as orq:
+
+    res = orq.files.bulk_upload(files=[
         {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
         },
     ], purpose="retrieval")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

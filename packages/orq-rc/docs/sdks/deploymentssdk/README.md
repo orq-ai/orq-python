@@ -22,12 +22,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.deployments.all()
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.deployments.all()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -62,8 +64,9 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    s.deployments.invalidate(deployment_id="e1106c66-dcfb-4003-a0e1-3c49405187d4")
+) as orq:
+
+    orq.deployments.invalidate(deployment_id="e1106c66-dcfb-4003-a0e1-3c49405187d4")
 
     # Use the SDK ...
 
@@ -94,12 +97,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.deployments.get_config(key="<key>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.deployments.get_config(key="<key>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -145,14 +150,16 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.deployments.invoke(key="<key>")
+) as orq:
 
-    if res is not None:
-        with res as event_stream:
-            for event in event_stream:
-                # handle event
-                print(event, flush=True)
+    res = orq.deployments.invoke(key="<key>")
+
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
 
 ```
 

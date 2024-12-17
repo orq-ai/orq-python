@@ -10,3 +10,4 @@ Indicates the type of model used to generate the response
 | `CHAT`       | chat         |
 | `COMPLETION` | completion   |
 | `IMAGE`      | image        |
+| `VISION`     | vision       |

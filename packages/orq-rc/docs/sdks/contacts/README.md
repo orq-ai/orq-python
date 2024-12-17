@@ -19,12 +19,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.contacts.create(external_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

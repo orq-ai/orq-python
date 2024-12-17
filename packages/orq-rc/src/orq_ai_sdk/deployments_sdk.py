@@ -8,7 +8,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.metrics import Metrics
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Mapping, Optional, Union
 
 
 class InvokeAcceptEnum(str, Enum):
@@ -35,6 +35,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentsResponseBody]:
         r"""List all deployments
 
@@ -45,6 +46,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -73,6 +75,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -129,6 +132,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentsResponseBody]:
         r"""List all deployments
 
@@ -139,6 +143,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -167,6 +172,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -222,6 +228,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Invalidates cache
 
@@ -231,6 +238,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -258,6 +266,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="*/*",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -307,6 +316,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ):
         r"""Invalidates cache
 
@@ -316,6 +326,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -343,6 +354,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="*/*",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -430,6 +442,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentGetConfigResponseBody]:
         r"""Get config
 
@@ -452,6 +465,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -499,6 +513,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody
@@ -593,6 +608,7 @@ class DeploymentsSDK(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentGetConfigResponseBody]:
         r"""Get config
 
@@ -615,6 +631,7 @@ class DeploymentsSDK(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -662,6 +679,7 @@ class DeploymentsSDK(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody
@@ -741,6 +759,7 @@ class DeploymentsSDK(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         accept_header_override: Optional[InvokeAcceptEnum] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentInvokeResponse]:
         r"""Invoke
 
@@ -765,6 +784,7 @@ class DeploymentsSDK(BaseSDK):
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param accept_header_override: Override the default accept header for this method
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -814,6 +834,7 @@ class DeploymentsSDK(BaseSDK):
             accept_header_value=accept_header_override.value
             if accept_header_override is not None
             else "application/json;q=1, text/event-stream;q=0",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Deployments
@@ -903,6 +924,7 @@ class DeploymentsSDK(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         accept_header_override: Optional[InvokeAcceptEnum] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.DeploymentInvokeResponse]:
         r"""Invoke
 
@@ -927,6 +949,7 @@ class DeploymentsSDK(BaseSDK):
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
         :param accept_header_override: Override the default accept header for this method
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -976,6 +999,7 @@ class DeploymentsSDK(BaseSDK):
             accept_header_value=accept_header_override.value
             if accept_header_override is not None
             else "application/json;q=1, text/event-stream;q=0",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.Deployments

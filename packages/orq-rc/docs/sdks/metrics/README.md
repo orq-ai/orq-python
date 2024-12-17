@@ -19,12 +19,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.deployments.metrics.create(id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.deployments.metrics.create(id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

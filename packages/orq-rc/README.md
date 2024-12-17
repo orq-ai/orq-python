@@ -88,12 +88,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.contacts.create(external_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 ```
 
 </br>
@@ -108,12 +110,14 @@ import os
 async def main():
     async with Orq(
         api_key=os.getenv("ORQ_API_KEY", ""),
-    ) as s:
-        res = await s.contacts.create_async(external_id="<id>")
+    ) as orq:
 
-        if res is not None:
-            # handle response
-            pass
+        res = await orq.contacts.create_async(external_id="<id>")
+
+        assert res is not None
+
+        # Handle response
+        print(res)
 
 asyncio.run(main())
 ```
@@ -137,12 +141,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.contacts.create(external_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Authentication [security] -->
@@ -178,27 +184,6 @@ with Orq(
 * [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
-### [prompt](docs/sdks/prompt/README.md)
-
-
-#### [prompt.snippets](docs/sdks/snippets/README.md)
-
-* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
-
-#### [prompt.templates](docs/sdks/templates/README.md)
-
-* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
-
-### [prompts](docs/sdks/prompts/README.md)
-
-* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
-* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
-* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
-* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
-* [update](docs/sdks/prompts/README.md#update) - Update a prompt
-* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
-* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
-
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 
 * [get_config](docs/sdks/remoteconfig/README.md#get_config) - Get Configurations
@@ -224,14 +209,16 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.deployments.invoke(key="<key>")
+) as orq:
 
-    if res is not None:
-        with res as event_stream:
-            for event in event_stream:
-                # handle event
-                print(event, flush=True)
+    res = orq.deployments.invoke(key="<key>")
+
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
 
 ```
 
@@ -256,12 +243,14 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.files.upload()
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.files.upload()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End File uploads [file-upload] -->
@@ -273,37 +262,41 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-from orq.utils import BackoffStrategy, RetryConfig
 from orq_ai_sdk import Orq
+from orq_ai_sdk.utils import BackoffStrategy, RetryConfig
 import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>",
+) as orq:
+
+    res = orq.contacts.create(external_id="<id>",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-from orq.utils import BackoffStrategy, RetryConfig
 from orq_ai_sdk import Orq
+from orq_ai_sdk.utils import BackoffStrategy, RetryConfig
 import os
 
 with Orq(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.contacts.create(external_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Retries [retries] -->
@@ -337,14 +330,16 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
+) as orq:
     res = None
     try:
-        res = s.deployments.all()
 
-        if res is not None:
-            # handle response
-            pass
+        res = orq.deployments.all()
+
+        assert res is not None
+
+        # Handle response
+        print(res)
 
     except models.HonoAPIError as e:
         # handle e.data: models.HonoAPIErrorData
@@ -368,12 +363,14 @@ import os
 with Orq(
     server_url="https://my.staging.orq.ai",
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.contacts.create(external_id="<id>")
+) as orq:
 
-    if res is not None:
-        # handle response
-        pass
+    res = orq.contacts.create(external_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Server Selection [server] -->

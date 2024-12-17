@@ -19,14 +19,16 @@ import os
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
-) as s:
-    res = s.feedback.create(field="rating", value=[
+) as orq:
+
+    res = orq.feedback.create(field="rating", value=[
         "good",
     ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
 
-    if res is not None:
-        # handle response
-        pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

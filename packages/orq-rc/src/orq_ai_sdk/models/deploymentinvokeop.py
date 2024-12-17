@@ -18,7 +18,7 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 DeploymentInvokeDeploymentsObject = Literal["chat", "completion", "image"]
 r"""Indicates the type of model used to generate the response"""
 
-DeploymentInvokeDeploymentsProvider = Literal[
+DeploymentInvokeProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -274,7 +274,7 @@ class DeploymentInvokeDeploymentsChoices(BaseModel):
         return m
 
 
-class DeploymentInvokeDeploymentsMetadataTypedDict(TypedDict):
+class DeploymentInvokeMetadataTypedDict(TypedDict):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
     file_name: str
@@ -289,7 +289,7 @@ class DeploymentInvokeDeploymentsMetadataTypedDict(TypedDict):
     r"""Rerank scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance. It is not accurate to assume a score of 0.9 means the document is 2x more relevant than a document with a score of 0.45"""
 
 
-class DeploymentInvokeDeploymentsMetadata(BaseModel):
+class DeploymentInvokeMetadata(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
     file_name: str
@@ -341,7 +341,7 @@ class DeploymentInvokeDeploymentsMetadata(BaseModel):
 class DeploymentInvokeRetrievalsTypedDict(TypedDict):
     document: str
     r"""Content of the retrieved chunk from the knowledge base"""
-    metadata: DeploymentInvokeDeploymentsMetadataTypedDict
+    metadata: DeploymentInvokeMetadataTypedDict
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
@@ -349,7 +349,7 @@ class DeploymentInvokeRetrievals(BaseModel):
     document: str
     r"""Content of the retrieved chunk from the knowledge base"""
 
-    metadata: DeploymentInvokeDeploymentsMetadata
+    metadata: DeploymentInvokeMetadata
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
@@ -362,7 +362,7 @@ class DeploymentInvokeDataTypedDict(TypedDict):
     r"""Indicates the type of model used to generate the response"""
     model: NotRequired[str]
     r"""The model used to generate the response"""
-    provider: NotRequired[DeploymentInvokeDeploymentsProvider]
+    provider: NotRequired[DeploymentInvokeProvider]
     r"""The provider used to generate the response"""
     is_final: NotRequired[bool]
     r"""Indicates if the response is the final response"""
@@ -393,7 +393,7 @@ class DeploymentInvokeData(BaseModel):
     model: Optional[str] = None
     r"""The model used to generate the response"""
 
-    provider: Optional[DeploymentInvokeDeploymentsProvider] = None
+    provider: Optional[DeploymentInvokeProvider] = None
     r"""The provider used to generate the response"""
 
     is_final: Optional[bool] = None
@@ -473,10 +473,10 @@ class DeploymentInvokeDeploymentsResponseBody(BaseModel):
     data: Optional[DeploymentInvokeData] = None
 
 
-DeploymentInvokeObject = Literal["chat", "completion", "image"]
+DeploymentInvokeObject = Literal["chat", "completion", "image", "vision"]
 r"""Indicates the type of model used to generate the response"""
 
-DeploymentInvokeProvider = Literal[
+Provider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -729,7 +729,7 @@ class DeploymentInvokeChoices(BaseModel):
         return m
 
 
-class DeploymentInvokeMetadataTypedDict(TypedDict):
+class MetadataTypedDict(TypedDict):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
     file_name: str
@@ -744,7 +744,7 @@ class DeploymentInvokeMetadataTypedDict(TypedDict):
     r"""Rerank scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance. It is not accurate to assume a score of 0.9 means the document is 2x more relevant than a document with a score of 0.45"""
 
 
-class DeploymentInvokeMetadata(BaseModel):
+class Metadata(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
     file_name: str
@@ -796,7 +796,7 @@ class DeploymentInvokeMetadata(BaseModel):
 class RetrievalsTypedDict(TypedDict):
     document: str
     r"""Content of the retrieved chunk from the knowledge base"""
-    metadata: DeploymentInvokeMetadataTypedDict
+    metadata: MetadataTypedDict
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
@@ -804,7 +804,7 @@ class Retrievals(BaseModel):
     document: str
     r"""Content of the retrieved chunk from the knowledge base"""
 
-    metadata: DeploymentInvokeMetadata
+    metadata: Metadata
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
@@ -819,7 +819,7 @@ class DeploymentInvokeResponseBodyTypedDict(TypedDict):
     r"""Indicates the type of model used to generate the response"""
     model: str
     r"""The model used to generate the response"""
-    provider: DeploymentInvokeProvider
+    provider: Provider
     r"""The provider used to generate the response"""
     is_final: bool
     r"""Indicates if the response is the final response"""
@@ -852,7 +852,7 @@ class DeploymentInvokeResponseBody(BaseModel):
     model: str
     r"""The model used to generate the response"""
 
-    provider: DeploymentInvokeProvider
+    provider: Provider
     r"""The provider used to generate the response"""
 
     is_final: bool
