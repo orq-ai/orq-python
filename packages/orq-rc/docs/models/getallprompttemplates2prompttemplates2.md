@@ -1,0 +1,11 @@
+# GetAllPromptTemplates2PromptTemplates2
+
+The image part of the prompt message. Only supported with vision models.
+
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                           | [models.GetAllPromptTemplates2PromptTemplatesResponse200Type](../models/getallprompttemplates2prompttemplatesresponse200type.md) | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |
+| `image_url`                                                                                                                      | [models.GetAllPromptTemplates2PromptTemplatesImageURL](../models/getallprompttemplates2prompttemplatesimageurl.md)               | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |

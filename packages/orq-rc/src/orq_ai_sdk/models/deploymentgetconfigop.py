@@ -560,33 +560,33 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
     tool_calls: Optional[List[DeploymentGetConfigDeploymentsResponseToolCalls]] = None
 
 
-Format = Literal["url", "b64_json", "text", "json_object"]
+DeploymentGetConfigFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-Quality = Literal["standard", "hd"]
+DeploymentGetConfigQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
 DeploymentGetConfigResponseFormatType = Literal["json_object"]
 
 
-class ResponseFormat2TypedDict(TypedDict):
+class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
     type: DeploymentGetConfigResponseFormatType
 
 
-class ResponseFormat2(BaseModel):
+class DeploymentGetConfigResponseFormat2(BaseModel):
     type: DeploymentGetConfigResponseFormatType
 
 
-ResponseFormatType = Literal["json_schema"]
+DeploymentGetConfigResponseFormatDeploymentsType = Literal["json_schema"]
 
 
-class JSONSchemaTypedDict(TypedDict):
+class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class JSONSchema(BaseModel):
+class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -594,19 +594,23 @@ class JSONSchema(BaseModel):
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class ResponseFormat1TypedDict(TypedDict):
-    type: ResponseFormatType
-    json_schema: JSONSchemaTypedDict
+class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
+    json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
 
 
-class ResponseFormat1(BaseModel):
-    type: ResponseFormatType
+class DeploymentGetConfigResponseFormat1(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
 
-    json_schema: JSONSchema
+    json_schema: DeploymentGetConfigResponseFormatJSONSchema
 
 
-ResponseFormatTypedDict = TypeAliasType(
-    "ResponseFormatTypedDict", Union[ResponseFormat2TypedDict, ResponseFormat1TypedDict]
+DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
+    "DeploymentGetConfigResponseFormatTypedDict",
+    Union[
+        DeploymentGetConfigResponseFormat2TypedDict,
+        DeploymentGetConfigResponseFormat1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -618,8 +622,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-ResponseFormat = TypeAliasType(
-    "ResponseFormat", Union[ResponseFormat2, ResponseFormat1]
+DeploymentGetConfigResponseFormat = TypeAliasType(
+    "DeploymentGetConfigResponseFormat",
+    Union[DeploymentGetConfigResponseFormat2, DeploymentGetConfigResponseFormat1],
 )
 r"""An object specifying the format that the model must output.
 
@@ -631,10 +636,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-PhotoRealVersion = Literal["v1", "v2"]
+DeploymentGetConfigPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-EncodingFormat = Literal["float", "base64"]
+DeploymentGetConfigEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
 
@@ -657,15 +662,15 @@ class ParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[Format]
+    format_: NotRequired[DeploymentGetConfigFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[Quality]
+    quality: NotRequired[DeploymentGetConfigQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[ResponseFormatTypedDict]]
+    response_format: NotRequired[Nullable[DeploymentGetConfigResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -674,9 +679,9 @@ class ParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[PhotoRealVersion]
+    photo_real_version: NotRequired[DeploymentGetConfigPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[EncodingFormat]
+    encoding_format: NotRequired[DeploymentGetConfigEncodingFormat]
     r"""The format to return the embeddings"""
 
 
@@ -711,20 +716,23 @@ class Parameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[Format], pydantic.Field(alias="format")] = None
+    format_: Annotated[
+        Optional[DeploymentGetConfigFormat], pydantic.Field(alias="format")
+    ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[Quality] = None
+    quality: Optional[DeploymentGetConfigQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[ResponseFormat], pydantic.Field(alias="responseFormat")
+        OptionalNullable[DeploymentGetConfigResponseFormat],
+        pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
 
@@ -736,11 +744,12 @@ class Parameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[PhotoRealVersion], pydantic.Field(alias="photoRealVersion")
+        Optional[DeploymentGetConfigPhotoRealVersion],
+        pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[EncodingFormat] = None
+    encoding_format: Optional[DeploymentGetConfigEncodingFormat] = None
     r"""The format to return the embeddings"""
 
     @model_serializer(mode="wrap")

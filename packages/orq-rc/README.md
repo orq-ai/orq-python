@@ -184,6 +184,27 @@ with Orq(
 * [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
+### [prompt](docs/sdks/prompt/README.md)
+
+
+#### [prompt.snippets](docs/sdks/snippets/README.md)
+
+* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
+
+#### [prompt.templates](docs/sdks/templates/README.md)
+
+* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
+
+### [prompts](docs/sdks/prompts/README.md)
+
+* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
+* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
+* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
+* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
+* [update](docs/sdks/prompts/README.md#update) - Update a prompt
+* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
+* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
+
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 
 * [get_config](docs/sdks/remoteconfig/README.md#get_config) - Get Configurations
