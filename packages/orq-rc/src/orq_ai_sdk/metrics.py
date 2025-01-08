@@ -85,7 +85,7 @@ class Metrics(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/deployments/{id}/metrics",
             base_url=base_url,
@@ -224,7 +224,7 @@ class Metrics(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/deployments/{id}/metrics",
             base_url=base_url,

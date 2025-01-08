@@ -54,7 +54,7 @@ class Templates(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/resources/prompts/templates/query",
             base_url=base_url,
@@ -162,7 +162,7 @@ class Templates(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/resources/prompts/templates/query",
             base_url=base_url,

@@ -27,3 +27,27 @@ value: models.GetAllPromptsFilters3 = /* values here */
 value: models.Filters4 = /* values here */
 ```
 
+### `models.Filters5`
+
+```python
+value: models.Filters5 = /* values here */
+```
+
+### `models.Six`
+
+```python
+value: models.Six = /* values here */
+```
+
+### `models.Seven`
+
+```python
+value: models.Seven = /* values here */
+```
+
+### `models.Eight`
+
+```python
+value: models.Eight = /* values here */
+```
+

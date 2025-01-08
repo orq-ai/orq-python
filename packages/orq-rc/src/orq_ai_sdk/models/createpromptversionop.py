@@ -466,6 +466,7 @@ class CreatePromptVersionMetadata(BaseModel):
 
 
 class CreatePromptVersionRequestBodyTypedDict(TypedDict):
+    id: str
     display_name: str
     prompt_config: CreatePromptVersionPromptConfigTypedDict
     metadata: CreatePromptVersionMetadataTypedDict
@@ -475,6 +476,8 @@ class CreatePromptVersionRequestBodyTypedDict(TypedDict):
 
 
 class CreatePromptVersionRequestBody(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
     display_name: str
 
     prompt_config: CreatePromptVersionPromptConfig
@@ -519,14 +522,16 @@ class CreatePromptVersionRequestBody(BaseModel):
 
 
 class CreatePromptVersionRequestTypedDict(TypedDict):
-    id: str
+    id_param: str
     r"""Prompt ID"""
     request_body: NotRequired[CreatePromptVersionRequestBodyTypedDict]
 
 
 class CreatePromptVersionRequest(BaseModel):
-    id: Annotated[
-        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    id_param: Annotated[
+        str,
+        pydantic.Field(alias="id"),
+        FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
     r"""Prompt ID"""
 

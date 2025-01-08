@@ -67,7 +67,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.create_version(id="<id>", display_name="Carolyne.Beahan71", prompt_config={
+    res = orq.prompts.create_version(id_param="<id>", id="<id>", display_name="Carolyne.Beahan71", prompt_config={
         "messages": [
             {
                 "role": "prompt",
@@ -92,7 +92,8 @@ with Orq(
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `id`                                                                                      | *str*                                                                                     | :heavy_check_mark:                                                                        | Prompt ID                                                                                 |
+| `id_param`                                                                                | *str*                                                                                     | :heavy_check_mark:                                                                        | Prompt ID                                                                                 |
+| `id`                                                                                      | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
 | `display_name`                                                                            | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
 | `prompt_config`                                                                           | [models.CreatePromptVersionPromptConfig](../../models/createpromptversionpromptconfig.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 | `metadata`                                                                                | [models.CreatePromptVersionMetadata](../../models/createpromptversionmetadata.md)         | :heavy_check_mark:                                                                        | N/A                                                                                       |
@@ -281,12 +282,10 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `page`                                                                                | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `limit`                                                                               | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `request_body`                                                                        | [Optional[models.GetAllPromptsRequestBody]](../../models/getallpromptsrequestbody.md) | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [models.GetAllPromptsRequestBody](../../models/getallpromptsrequestbody.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
 
 ### Response
 

@@ -473,7 +473,7 @@ class DeploymentInvokeDeploymentsResponseBody(BaseModel):
     data: Optional[DeploymentInvokeData] = None
 
 
-DeploymentInvokeObject = Literal["chat", "completion", "image"]
+DeploymentInvokeObject = Literal["chat", "completion", "image", "vision"]
 r"""Indicates the type of model used to generate the response"""
 
 DeploymentInvokeProvider = Literal[

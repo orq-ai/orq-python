@@ -166,7 +166,6 @@ with Orq(
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
 * [all](docs/sdks/deploymentssdk/README.md#all) - List all deployments
-* [invalidate](docs/sdks/deploymentssdk/README.md#invalidate) - Invalidates cache
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
 
@@ -181,6 +180,10 @@ with Orq(
 ### [files](docs/sdks/files/README.md)
 
 * [upload](docs/sdks/files/README.md#upload) - Upload file
+* [list](docs/sdks/files/README.md#list) - List all files
+* [get](docs/sdks/files/README.md#get) - Get file by ID
+* [update](docs/sdks/files/README.md#update) - Update file name
+* [delete](docs/sdks/files/README.md#delete) - Delete file
 * [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
