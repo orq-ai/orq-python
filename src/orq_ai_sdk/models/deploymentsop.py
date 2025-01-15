@@ -118,7 +118,7 @@ class DeploymentsTools(BaseModel):
     id: Optional[float] = None
 
 
-ModelType = Literal[
+DeploymentsModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -151,13 +151,13 @@ class DeploymentsResponseFormat2(BaseModel):
 DeploymentsResponseFormatDeploymentsType = Literal["json_schema"]
 
 
-class ResponseFormatJSONSchemaTypedDict(TypedDict):
+class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class ResponseFormatJSONSchema(BaseModel):
+class DeploymentsResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -167,13 +167,13 @@ class ResponseFormatJSONSchema(BaseModel):
 
 class DeploymentsResponseFormat1TypedDict(TypedDict):
     type: DeploymentsResponseFormatDeploymentsType
-    json_schema: ResponseFormatJSONSchemaTypedDict
+    json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
 
 
 class DeploymentsResponseFormat1(BaseModel):
     type: DeploymentsResponseFormatDeploymentsType
 
-    json_schema: ResponseFormatJSONSchema
+    json_schema: DeploymentsResponseFormatJSONSchema
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(
@@ -211,7 +211,7 @@ DeploymentsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
 
-class ModelParametersTypedDict(TypedDict):
+class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -253,7 +253,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
 
 
-class ModelParameters(BaseModel):
+class DeploymentsModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -528,26 +528,26 @@ class DeploymentsMessages(BaseModel):
     tool_calls: Optional[List[DeploymentsDeploymentsToolCalls]] = None
 
 
-class PromptConfigTypedDict(TypedDict):
+class DeploymentsPromptConfigTypedDict(TypedDict):
     tools: List[DeploymentsToolsTypedDict]
     model: str
-    model_type: ModelType
+    model_type: DeploymentsModelType
     r"""The type of the model"""
-    model_parameters: ModelParametersTypedDict
+    model_parameters: DeploymentsModelParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: DeploymentsProvider
     messages: List[DeploymentsMessagesTypedDict]
 
 
-class PromptConfig(BaseModel):
+class DeploymentsPromptConfig(BaseModel):
     tools: List[DeploymentsTools]
 
     model: str
 
-    model_type: ModelType
+    model_type: DeploymentsModelType
     r"""The type of the model"""
 
-    model_parameters: ModelParameters
+    model_parameters: DeploymentsModelParameters
     r"""Model Parameters: Not all parameters apply to every model"""
 
     provider: DeploymentsProvider
@@ -566,7 +566,7 @@ class DataTypedDict(TypedDict):
     r"""The deployment unique key"""
     description: str
     r"""An arbitrary string attached to the object. Often useful for displaying to users."""
-    prompt_config: PromptConfigTypedDict
+    prompt_config: DeploymentsPromptConfigTypedDict
     version: str
     r"""THe version of the deployment"""
 
@@ -587,7 +587,7 @@ class Data(BaseModel):
     description: str
     r"""An arbitrary string attached to the object. Often useful for displaying to users."""
 
-    prompt_config: PromptConfig
+    prompt_config: DeploymentsPromptConfig
 
     version: str
     r"""THe version of the deployment"""
@@ -599,6 +599,8 @@ class DeploymentsResponseBodyTypedDict(TypedDict):
     object: Object
     data: List[DataTypedDict]
     has_more: bool
+    first_id: Nullable[str]
+    last_id: Nullable[str]
 
 
 class DeploymentsResponseBody(BaseModel):
@@ -609,3 +611,37 @@ class DeploymentsResponseBody(BaseModel):
     data: List[Data]
 
     has_more: bool
+
+    first_id: Nullable[str]
+
+    last_id: Nullable[str]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["first_id", "last_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

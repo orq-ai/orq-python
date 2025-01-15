@@ -161,7 +161,6 @@ with Orq(
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
 * [all](docs/sdks/deploymentssdk/README.md#all) - List all deployments
-* [invalidate](docs/sdks/deploymentssdk/README.md#invalidate) - Invalidates cache
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
 
@@ -176,8 +175,33 @@ with Orq(
 ### [files](docs/sdks/files/README.md)
 
 * [upload](docs/sdks/files/README.md#upload) - Upload file
+* [list](docs/sdks/files/README.md#list) - List all files
+* [get](docs/sdks/files/README.md#get) - Get file by ID
+* [update](docs/sdks/files/README.md#update) - Update file name
+* [delete](docs/sdks/files/README.md#delete) - Delete file
 * [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
+
+### [prompt](docs/sdks/prompt/README.md)
+
+
+#### [prompt.snippets](docs/sdks/snippets/README.md)
+
+* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
+
+#### [prompt.templates](docs/sdks/templates/README.md)
+
+* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
+
+### [prompts](docs/sdks/prompts/README.md)
+
+* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
+* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
+* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
+* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
+* [update](docs/sdks/prompts/README.md#update) - Update a prompt
+* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
+* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
 
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 

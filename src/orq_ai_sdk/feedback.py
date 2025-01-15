@@ -49,7 +49,7 @@ class Feedback(BaseSDK):
             trace_id=trace_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/feedback",
             base_url=base_url,
@@ -148,7 +148,7 @@ class Feedback(BaseSDK):
             trace_id=trace_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/feedback",
             base_url=base_url,
