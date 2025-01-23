@@ -3047,7 +3047,7 @@ class Data3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -4251,7 +4251,7 @@ class Data2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -5446,7 +5446,7 @@ class Data1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
