@@ -45,7 +45,7 @@ class Prompts(BaseSDK):
             request = utils.unmarshal(request, Optional[models.CreatePromptRequestBody])
         request = cast(Optional[models.CreatePromptRequestBody], request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/resources/prompts",
             base_url=base_url,
@@ -89,7 +89,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -140,7 +145,7 @@ class Prompts(BaseSDK):
             request = utils.unmarshal(request, Optional[models.CreatePromptRequestBody])
         request = cast(Optional[models.CreatePromptRequestBody], request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/resources/prompts",
             base_url=base_url,
@@ -184,7 +189,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -202,6 +212,7 @@ class Prompts(BaseSDK):
     def create_version(
         self,
         *,
+        id_param: str,
         id: str,
         display_name: str,
         prompt_config: Union[
@@ -222,7 +233,8 @@ class Prompts(BaseSDK):
     ) -> Optional[models.CreatePromptVersionResponseBody]:
         r"""Create a new prompt version
 
-        :param id: Prompt ID
+        :param id_param: Prompt ID
+        :param id:
         :param display_name:
         :param prompt_config:
         :param metadata:
@@ -246,8 +258,9 @@ class Prompts(BaseSDK):
             base_url = server_url
 
         request = models.CreatePromptVersionRequest(
-            id=id,
+            id_param=id_param,
             request_body=models.CreatePromptVersionRequestBody(
+                id=id,
                 display_name=display_name,
                 description=description,
                 prompt_config=utils.get_pydantic_model(
@@ -261,7 +274,7 @@ class Prompts(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/resources/prompts/{id}/versions",
             base_url=base_url,
@@ -309,7 +322,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptVersionResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -327,6 +345,7 @@ class Prompts(BaseSDK):
     async def create_version_async(
         self,
         *,
+        id_param: str,
         id: str,
         display_name: str,
         prompt_config: Union[
@@ -347,7 +366,8 @@ class Prompts(BaseSDK):
     ) -> Optional[models.CreatePromptVersionResponseBody]:
         r"""Create a new prompt version
 
-        :param id: Prompt ID
+        :param id_param: Prompt ID
+        :param id:
         :param display_name:
         :param prompt_config:
         :param metadata:
@@ -371,8 +391,9 @@ class Prompts(BaseSDK):
             base_url = server_url
 
         request = models.CreatePromptVersionRequest(
-            id=id,
+            id_param=id_param,
             request_body=models.CreatePromptVersionRequestBody(
+                id=id,
                 display_name=display_name,
                 description=description,
                 prompt_config=utils.get_pydantic_model(
@@ -386,7 +407,7 @@ class Prompts(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/resources/prompts/{id}/versions",
             base_url=base_url,
@@ -434,7 +455,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptVersionResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -481,7 +507,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="DELETE",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -520,7 +546,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -567,7 +598,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="DELETE",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -606,7 +637,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -653,7 +689,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -692,7 +728,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -739,7 +780,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -778,7 +819,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -853,7 +899,7 @@ class Prompts(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PATCH",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -907,7 +953,12 @@ class Prompts(BaseSDK):
                 http_res.text, models.UpdatePromptPromptsResponseBodyData
             )
             raise models.UpdatePromptPromptsResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -982,7 +1033,7 @@ class Prompts(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PATCH",
             path="/v2/resources/prompts/{id}",
             base_url=base_url,
@@ -1036,7 +1087,12 @@ class Prompts(BaseSDK):
                 http_res.text, models.UpdatePromptPromptsResponseBodyData
             )
             raise models.UpdatePromptPromptsResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1083,7 +1139,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/v2/resources/prompts/{id}/duplicate",
             base_url=base_url,
@@ -1122,7 +1178,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1169,7 +1230,7 @@ class Prompts(BaseSDK):
             id=id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/v2/resources/prompts/{id}/duplicate",
             base_url=base_url,
@@ -1208,7 +1269,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1226,9 +1292,7 @@ class Prompts(BaseSDK):
     def get_all(
         self,
         *,
-        page: Optional[str] = None,
-        limit: Optional[str] = None,
-        request_body: Optional[
+        request: Optional[
             Union[
                 models.GetAllPromptsRequestBody,
                 models.GetAllPromptsRequestBodyTypedDict,
@@ -1241,9 +1305,7 @@ class Prompts(BaseSDK):
     ) -> Optional[models.GetAllPromptsResponseBody]:
         r"""Get all prompts
 
-        :param page:
-        :param limit:
-        :param request_body:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1260,15 +1322,13 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.GetAllPromptsRequest(
-            page=page,
-            limit=limit,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.GetAllPromptsRequestBody]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.GetAllPromptsRequestBody]
+            )
+        request = cast(Optional[models.GetAllPromptsRequestBody], request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/resources/prompts/query",
             base_url=base_url,
@@ -1282,11 +1342,7 @@ class Prompts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.GetAllPromptsRequestBody],
+                request, False, True, "json", Optional[models.GetAllPromptsRequestBody]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1316,7 +1372,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.GetAllPromptsResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1334,9 +1395,7 @@ class Prompts(BaseSDK):
     async def get_all_async(
         self,
         *,
-        page: Optional[str] = None,
-        limit: Optional[str] = None,
-        request_body: Optional[
+        request: Optional[
             Union[
                 models.GetAllPromptsRequestBody,
                 models.GetAllPromptsRequestBodyTypedDict,
@@ -1349,9 +1408,7 @@ class Prompts(BaseSDK):
     ) -> Optional[models.GetAllPromptsResponseBody]:
         r"""Get all prompts
 
-        :param page:
-        :param limit:
-        :param request_body:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1368,15 +1425,13 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.GetAllPromptsRequest(
-            page=page,
-            limit=limit,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[models.GetAllPromptsRequestBody]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.GetAllPromptsRequestBody]
+            )
+        request = cast(Optional[models.GetAllPromptsRequestBody], request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/resources/prompts/query",
             base_url=base_url,
@@ -1390,11 +1445,7 @@ class Prompts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.GetAllPromptsRequestBody],
+                request, False, True, "json", Optional[models.GetAllPromptsRequestBody]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1424,7 +1475,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.GetAllPromptsResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

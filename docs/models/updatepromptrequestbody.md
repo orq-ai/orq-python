@@ -1,0 +1,12 @@
+# UpdatePromptRequestBody
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `display_name`                                                                     | *Optional[str]*                                                                    | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `description`                                                                      | *OptionalNullable[str]*                                                            | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `prompt_config`                                                                    | [Optional[models.UpdatePromptPromptConfig]](../models/updatepromptpromptconfig.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `metadata`                                                                         | [Optional[models.UpdatePromptMetadata]](../models/updatepromptmetadata.md)         | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `key`                                                                              | *Optional[str]*                                                                    | :heavy_minus_sign:                                                                 | N/A                                                                                |

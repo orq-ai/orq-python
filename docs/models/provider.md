@@ -1,7 +1,5 @@
 # Provider
 
-The provider used to generate the response
-
 
 ## Values
 

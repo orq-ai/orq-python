@@ -1,0 +1,9 @@
+# CreatePromptResponseFormat1
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.CreatePromptResponseFormatPromptsType](../models/createpromptresponseformatpromptstype.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `json_schema`                                                                                      | [models.CreatePromptResponseFormatJSONSchema](../models/createpromptresponseformatjsonschema.md)   | :heavy_check_mark:                                                                                 | N/A                                                                                                |

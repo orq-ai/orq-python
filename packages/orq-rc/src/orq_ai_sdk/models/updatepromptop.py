@@ -283,6 +283,8 @@ UpdatePromptProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptRole = Literal[
@@ -845,6 +847,8 @@ UpdatePromptResponseBodyPromptsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptResponseBodyPromptsRole = Literal[
@@ -1410,6 +1414,8 @@ UpdatePromptResponseBodyPromptsResponse200ApplicationJSONProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptResponseBodyPromptsResponse200ApplicationJSONRole = Literal[
@@ -1819,7 +1825,7 @@ class ResponseBody3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -2139,6 +2145,8 @@ UpdatePromptResponseBodyProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptResponseBodyRole = Literal[
@@ -2667,6 +2675,8 @@ UpdatePromptResponseBodyPromptsResponseProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptResponseBodyPromptsResponseRole = Literal[
@@ -3038,7 +3048,7 @@ class ResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -3348,6 +3358,8 @@ ResponseBodyProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 ResponseBodyRole = Literal[
@@ -3884,6 +3896,8 @@ UpdatePromptResponseBodyPromptsResponse200Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 UpdatePromptResponseBodyPromptsResponse200Role = Literal[
@@ -4265,7 +4279,7 @@ class ResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:44.576Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

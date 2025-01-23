@@ -85,7 +85,7 @@ class Metrics(BaseSDK):
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/deployments/{id}/metrics",
             base_url=base_url,
@@ -133,7 +133,12 @@ class Metrics(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DeploymentCreateMetricResponseBody]
             )
-        if utils.match_response(http_res, ["400", "401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -224,7 +229,7 @@ class Metrics(BaseSDK):
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/deployments/{id}/metrics",
             base_url=base_url,
@@ -272,7 +277,12 @@ class Metrics(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.DeploymentCreateMetricResponseBody]
             )
-        if utils.match_response(http_res, ["400", "401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

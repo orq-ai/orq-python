@@ -35,7 +35,7 @@ class BulkFileUploadFiles(BaseModel):
     ] = None
 
 
-BulkFileUploadPurpose = Literal["retrieval"]
+BulkFileUploadPurpose = Literal["retrieval", "knowledge_datasource"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -52,7 +52,7 @@ class BulkFileUploadRequestBody(BaseModel):
     r"""The intended purpose of the uploaded file."""
 
 
-BulkFileUploadFilesPurpose = Literal["retrieval"]
+BulkFileUploadFilesPurpose = Literal["retrieval", "knowledge_datasource"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -62,8 +62,10 @@ class ResponseBodyTypedDict(TypedDict):
     r"""path to the file in the storage"""
     purpose: BulkFileUploadFilesPurpose
     r"""The intended purpose of the uploaded file."""
-    bytes: float
+    bytes_: float
     file_name: str
+    workspace_id: str
+    r"""The id of the resource"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
 
@@ -77,9 +79,12 @@ class ResponseBody(BaseModel):
     purpose: BulkFileUploadFilesPurpose
     r"""The intended purpose of the uploaded file."""
 
-    bytes: float
+    bytes_: Annotated[float, pydantic.Field(alias="bytes")]
 
     file_name: str
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2024-12-01T21:30:45.101Z")
+    workspace_id: str
+    r"""The id of the resource"""
+
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:49.299Z")
     r"""The date and time the resource was created"""

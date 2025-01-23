@@ -1,6 +1,6 @@
 # DeploymentsResponseBody
 
-List of deployments
+List all deployments
 
 
 ## Fields

@@ -274,6 +274,8 @@ Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptRole = Literal[
@@ -443,12 +445,12 @@ class PromptConfig(BaseModel):
     version: Optional[str] = None
 
 
-class MetadataTypedDict(TypedDict):
+class CreatePromptMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[str]]
     language: NotRequired[str]
 
 
-class Metadata(BaseModel):
+class CreatePromptMetadata(BaseModel):
     use_cases: Optional[List[str]] = None
 
     language: Optional[str] = None
@@ -462,7 +464,7 @@ class CreatePromptRequestBodyTypedDict(TypedDict):
     type: CreatePromptPromptsType
     description: NotRequired[Nullable[str]]
     prompt_config: NotRequired[PromptConfigTypedDict]
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[CreatePromptMetadataTypedDict]
     key: NotRequired[str]
 
 
@@ -475,7 +477,7 @@ class CreatePromptRequestBody(BaseModel):
 
     prompt_config: Optional[PromptConfig] = None
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[CreatePromptMetadata] = None
 
     key: Optional[str] = None
 
@@ -775,6 +777,8 @@ CreatePromptProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptPromptsRole = Literal[
@@ -999,12 +1003,12 @@ class CreatePromptPromptConfig(BaseModel):
         return m
 
 
-class CreatePromptMetadataTypedDict(TypedDict):
+class CreatePromptPromptsMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[str]]
     language: NotRequired[str]
 
 
-class CreatePromptMetadata(BaseModel):
+class CreatePromptPromptsMetadata(BaseModel):
     use_cases: Optional[List[str]] = None
 
     language: Optional[str] = None
@@ -1024,7 +1028,7 @@ class CreatePromptResponseBodyTypedDict(TypedDict):
     type: CreatePromptPromptsResponseType
     description: NotRequired[Nullable[str]]
     prompt_config: NotRequired[CreatePromptPromptConfigTypedDict]
-    metadata: NotRequired[CreatePromptMetadataTypedDict]
+    metadata: NotRequired[CreatePromptPromptsMetadataTypedDict]
     key: NotRequired[str]
 
 
@@ -1045,7 +1049,7 @@ class CreatePromptResponseBody(BaseModel):
 
     prompt_config: Optional[CreatePromptPromptConfig] = None
 
-    metadata: Optional[CreatePromptMetadata] = None
+    metadata: Optional[CreatePromptPromptsMetadata] = None
 
     key: Optional[str] = None
 

@@ -27,11 +27,12 @@ class DeploymentsSDK(BaseSDK):
     def _init_sdks(self):
         self.metrics = Metrics(self.sdk_configuration)
 
-    def all(
+    def list(
         self,
         *,
         limit: Optional[float] = 10,
-        after: Optional[str] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -42,7 +43,8 @@ class DeploymentsSDK(BaseSDK):
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `ed33dade-ae32-4959-8c5c-7ae4aad748b5`, your subsequent call can include `after=ed33dade-ae32-4959-8c5c-7ae4aad748b5` in order to fetch the next page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -61,10 +63,11 @@ class DeploymentsSDK(BaseSDK):
 
         request = models.DeploymentsRequest(
             limit=limit,
-            after=after,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/v2/deployments",
             base_url=base_url,
@@ -109,7 +112,12 @@ class DeploymentsSDK(BaseSDK):
         if utils.match_response(http_res, "500", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HonoAPIErrorData)
             raise models.HonoAPIError(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -124,11 +132,12 @@ class DeploymentsSDK(BaseSDK):
             http_res,
         )
 
-    async def all_async(
+    async def list_async(
         self,
         *,
         limit: Optional[float] = 10,
-        after: Optional[str] = None,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -139,7 +148,8 @@ class DeploymentsSDK(BaseSDK):
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param after: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `ed33dade-ae32-4959-8c5c-7ae4aad748b5`, your subsequent call can include `after=ed33dade-ae32-4959-8c5c-7ae4aad748b5` in order to fetch the next page of the list.
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -158,10 +168,11 @@ class DeploymentsSDK(BaseSDK):
 
         request = models.DeploymentsRequest(
             limit=limit,
-            after=after,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/v2/deployments",
             base_url=base_url,
@@ -206,7 +217,12 @@ class DeploymentsSDK(BaseSDK):
         if utils.match_response(http_res, "500", "application/json"):
             data = utils.unmarshal_json(http_res.text, models.HonoAPIErrorData)
             raise models.HonoAPIError(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -255,7 +271,7 @@ class DeploymentsSDK(BaseSDK):
             deployment_id=deployment_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="DELETE",
             path="/v2/deployments/invalidate/{deployment_id}",
             base_url=base_url,
@@ -294,7 +310,12 @@ class DeploymentsSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -343,7 +364,7 @@ class DeploymentsSDK(BaseSDK):
             deployment_id=deployment_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="DELETE",
             path="/v2/deployments/invalidate/{deployment_id}",
             base_url=base_url,
@@ -382,7 +403,12 @@ class DeploymentsSDK(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -422,17 +448,13 @@ class DeploymentsSDK(BaseSDK):
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
-        user_id: Optional[
+        extra_params: Optional[Dict[str, Any]] = None,
+        documents: Optional[
             Union[
-                models.DeploymentGetConfigUserID,
-                models.DeploymentGetConfigUserIDTypedDict,
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
-        deployment_id: Optional[str] = None,
-        deployment_variant_id: Optional[str] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
         invoke_options: Optional[
             Union[
                 models.DeploymentGetConfigInvokeOptions,
@@ -448,19 +470,15 @@ class DeploymentsSDK(BaseSDK):
 
         Retrieve the deployment configuration
 
-        :param key: The deployment id to invoke
+        :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
         :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param chain_id: Unique ID that identifies a chaining operation. This is useful for tracking a chain of completions across multiple
-        :param conversation_id: Unique ID that identifies a chat conversation. This is useful for tracking the same conversation across multiple requests
-        :param user_id: Unique ID that identifies a user. This is useful for tracking the same user across multiple requests
-        :param deployment_id: Unique ID that identifies a deployment entity.
-        :param deployment_variant_id: Unique ID that identifies a specific variant of a deployment.
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
+        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -491,18 +509,16 @@ class DeploymentsSDK(BaseSDK):
             ),
             file_ids=file_ids,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
-            user_id=user_id,
-            deployment_id=deployment_id,
-            deployment_variant_id=deployment_variant_id,
             extra_params=extra_params,
+            documents=utils.get_pydantic_model(
+                documents, Optional[List[models.DeploymentGetConfigDocuments]]
+            ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentGetConfigInvokeOptions]
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/deployments/get_config",
             base_url=base_url,
@@ -548,7 +564,12 @@ class DeploymentsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "204", "*"):
             return None
-        if utils.match_response(http_res, ["401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -588,17 +609,13 @@ class DeploymentsSDK(BaseSDK):
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
-        user_id: Optional[
+        extra_params: Optional[Dict[str, Any]] = None,
+        documents: Optional[
             Union[
-                models.DeploymentGetConfigUserID,
-                models.DeploymentGetConfigUserIDTypedDict,
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
-        deployment_id: Optional[str] = None,
-        deployment_variant_id: Optional[str] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
         invoke_options: Optional[
             Union[
                 models.DeploymentGetConfigInvokeOptions,
@@ -614,19 +631,15 @@ class DeploymentsSDK(BaseSDK):
 
         Retrieve the deployment configuration
 
-        :param key: The deployment id to invoke
+        :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
         :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param chain_id: Unique ID that identifies a chaining operation. This is useful for tracking a chain of completions across multiple
-        :param conversation_id: Unique ID that identifies a chat conversation. This is useful for tracking the same conversation across multiple requests
-        :param user_id: Unique ID that identifies a user. This is useful for tracking the same user across multiple requests
-        :param deployment_id: Unique ID that identifies a deployment entity.
-        :param deployment_variant_id: Unique ID that identifies a specific variant of a deployment.
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
+        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -657,18 +670,16 @@ class DeploymentsSDK(BaseSDK):
             ),
             file_ids=file_ids,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
-            user_id=user_id,
-            deployment_id=deployment_id,
-            deployment_variant_id=deployment_variant_id,
             extra_params=extra_params,
+            documents=utils.get_pydantic_model(
+                documents, Optional[List[models.DeploymentGetConfigDocuments]]
+            ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentGetConfigInvokeOptions]
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/deployments/get_config",
             base_url=base_url,
@@ -714,7 +725,12 @@ class DeploymentsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "204", "*"):
             return None
-        if utils.match_response(http_res, ["401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["401", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -746,12 +762,10 @@ class DeploymentsSDK(BaseSDK):
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
-        user_id: Optional[Union[models.UserID, models.UserIDTypedDict]] = None,
-        deployment_id: Optional[str] = None,
-        deployment_variant_id: Optional[str] = None,
         extra_params: Optional[Dict[str, Any]] = None,
+        documents: Optional[
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
+        ] = None,
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
@@ -765,7 +779,7 @@ class DeploymentsSDK(BaseSDK):
 
         Invoke a deployment with a given payload
 
-        :param key: The deployment id to invoke
+        :param key: The deployment key to invoke
         :param stream: If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message.
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
@@ -773,12 +787,8 @@ class DeploymentsSDK(BaseSDK):
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
         :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param chain_id: Unique ID that identifies a chaining operation. This is useful for tracking a chain of completions across multiple
-        :param conversation_id: Unique ID that identifies a chat conversation. This is useful for tracking the same conversation across multiple requests
-        :param user_id: Unique ID that identifies a user. This is useful for tracking the same user across multiple requests
-        :param deployment_id: Unique ID that identifies a deployment entity.
-        :param deployment_variant_id: Unique ID that identifies a specific variant of a deployment.
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
+        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -810,18 +820,16 @@ class DeploymentsSDK(BaseSDK):
             ),
             file_ids=file_ids,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
-            user_id=user_id,
-            deployment_id=deployment_id,
-            deployment_variant_id=deployment_variant_id,
             extra_params=extra_params,
+            documents=utils.get_pydantic_model(
+                documents, Optional[List[models.Documents]]
+            ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.InvokeOptions]
             ),
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/deployments/invoke",
             base_url=base_url,
@@ -879,7 +887,12 @@ class DeploymentsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "204", "*"):
             return None
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -911,12 +924,10 @@ class DeploymentsSDK(BaseSDK):
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
-        chain_id: Optional[str] = None,
-        conversation_id: Optional[str] = None,
-        user_id: Optional[Union[models.UserID, models.UserIDTypedDict]] = None,
-        deployment_id: Optional[str] = None,
-        deployment_variant_id: Optional[str] = None,
         extra_params: Optional[Dict[str, Any]] = None,
+        documents: Optional[
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
+        ] = None,
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
@@ -930,7 +941,7 @@ class DeploymentsSDK(BaseSDK):
 
         Invoke a deployment with a given payload
 
-        :param key: The deployment id to invoke
+        :param key: The deployment key to invoke
         :param stream: If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message.
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
@@ -938,12 +949,8 @@ class DeploymentsSDK(BaseSDK):
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
         :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param chain_id: Unique ID that identifies a chaining operation. This is useful for tracking a chain of completions across multiple
-        :param conversation_id: Unique ID that identifies a chat conversation. This is useful for tracking the same conversation across multiple requests
-        :param user_id: Unique ID that identifies a user. This is useful for tracking the same user across multiple requests
-        :param deployment_id: Unique ID that identifies a deployment entity.
-        :param deployment_variant_id: Unique ID that identifies a specific variant of a deployment.
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
+        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -975,18 +982,16 @@ class DeploymentsSDK(BaseSDK):
             ),
             file_ids=file_ids,
             metadata=metadata,
-            chain_id=chain_id,
-            conversation_id=conversation_id,
-            user_id=user_id,
-            deployment_id=deployment_id,
-            deployment_variant_id=deployment_variant_id,
             extra_params=extra_params,
+            documents=utils.get_pydantic_model(
+                documents, Optional[List[models.Documents]]
+            ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.InvokeOptions]
             ),
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/deployments/invoke",
             base_url=base_url,
@@ -1044,7 +1049,12 @@ class DeploymentsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "204", "*"):
             return None
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

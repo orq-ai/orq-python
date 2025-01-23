@@ -48,7 +48,7 @@ class Remoteconfig(BaseSDK):
             )
         request = cast(Optional[models.RemoteConfigsGetConfigRequestBody], request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/v2/remoteconfigs",
             base_url=base_url,
@@ -152,7 +152,7 @@ class Remoteconfig(BaseSDK):
             )
         request = cast(Optional[models.RemoteConfigsGetConfigRequestBody], request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/v2/remoteconfigs",
             base_url=base_url,
