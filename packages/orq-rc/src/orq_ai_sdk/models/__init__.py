@@ -1602,6 +1602,10 @@ from .getallprompttemplatesop import (
 )
 from .getonepromptop import GetOnePromptRequest, GetOnePromptRequestTypedDict
 from .honoapierror import HonoAPIError, HonoAPIErrorData
+from .invaliddeploymentop import (
+    InvalidDeploymentRequest,
+    InvalidDeploymentRequestTypedDict,
+)
 from .remoteconfigsgetconfigop import (
     RemoteConfigsGetConfigRequestBody,
     RemoteConfigsGetConfigRequestBodyTypedDict,
@@ -1938,6 +1942,7 @@ from .updatepromptop import (
     Versions,
     VersionsTypedDict,
 )
+
 
 __all__ = [
     "APIError",
@@ -3377,6 +3382,8 @@ __all__ = [
     "ImageURLTypedDict",
     "Inputs",
     "InputsTypedDict",
+    "InvalidDeploymentRequest",
+    "InvalidDeploymentRequestTypedDict",
     "InvokeOptions",
     "InvokeOptionsTypedDict",
     "Items",

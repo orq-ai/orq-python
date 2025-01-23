@@ -23,3 +23,5 @@ The provider used to generate the response
 | `LEONARDOAI`  | leonardoai    |
 | `NVIDIA`      | nvidia        |
 | `JINA`        | jina          |
+| `TOGETHERAI`  | togetherai    |
+| `ELEVENLABS`  | elevenlabs    |

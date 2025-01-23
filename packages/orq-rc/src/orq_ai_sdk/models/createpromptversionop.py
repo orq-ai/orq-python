@@ -284,6 +284,8 @@ CreatePromptVersionProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptVersionRole = Literal[
@@ -815,6 +817,8 @@ CreatePromptVersionPromptsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptVersionPromptsRole = Literal[

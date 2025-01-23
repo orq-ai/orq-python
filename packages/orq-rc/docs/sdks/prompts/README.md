@@ -67,7 +67,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.create_version(id_param="<id>", id="<id>", display_name="Carolyne.Beahan71", prompt_config={
+    res = orq.prompts.create_version(id_param="<value>", id="<id>", display_name="Carolyne.Beahan71", prompt_config={
         "messages": [
             {
                 "role": "prompt",

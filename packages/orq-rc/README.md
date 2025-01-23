@@ -160,7 +160,8 @@ with Orq(
 
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
-* [all](docs/sdks/deploymentssdk/README.md#all) - List all deployments
+* [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments
+* [invalidate](docs/sdks/deploymentssdk/README.md#invalidate) - Invalidates cache
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
 
@@ -230,7 +231,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>")
+    res = orq.deployments.invoke(key="<key>", stream=False)
 
     assert res is not None
 
@@ -334,7 +335,7 @@ By default, an API error will raise a models.APIError exception, which has the f
 | `.raw_response` | *httpx.Response* | The raw HTTP response |
 | `.body`         | *str*            | The response content  |
 
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `all_async` method may raise the following exceptions:
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `list_async` method may raise the following exceptions:
 
 | Error Type          | Status Code | Content Type     |
 | ------------------- | ----------- | ---------------- |
@@ -353,7 +354,7 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.all()
+        res = orq.deployments.list(limit=10)
 
         assert res is not None
 
@@ -380,7 +381,7 @@ from orq_ai_sdk import Orq
 import os
 
 with Orq(
-    server_url="https://my.staging.orq.ai",
+    server_url="https://my.orq.ai",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 

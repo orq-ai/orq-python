@@ -354,6 +354,8 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponseProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponseRole = Literal[
@@ -955,6 +957,8 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Provide
         "leonardoai",
         "nvidia",
         "jina",
+        "togetherai",
+        "elevenlabs",
     ]
 )
 
@@ -1396,7 +1400,7 @@ class FindOnePromptSnippetResponseBody3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1729,6 +1733,8 @@ FindOnePromptSnippetResponseBodyPromptSnippetsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsRole = Literal[
@@ -2294,6 +2300,8 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Role = Literal[
@@ -2699,7 +2707,7 @@ class FindOnePromptSnippetResponseBody2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -3019,6 +3027,8 @@ FindOnePromptSnippetResponseBodyProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 FindOnePromptSnippetResponseBodyRole = Literal[
@@ -3584,6 +3594,8 @@ FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONProvider
         "leonardoai",
         "nvidia",
         "jina",
+        "togetherai",
+        "elevenlabs",
     ]
 )
 
@@ -4018,7 +4030,7 @@ class FindOnePromptSnippetResponseBody1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

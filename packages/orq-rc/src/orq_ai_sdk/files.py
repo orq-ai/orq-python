@@ -93,7 +93,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileUploadResponseBody]
             )
-        if utils.match_response(http_res, ["400", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -192,7 +197,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileUploadResponseBody]
             )
-        if utils.match_response(http_res, ["400", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -211,7 +221,7 @@ class Files(BaseSDK):
         self,
         *,
         page: Optional[float] = None,
-        limit: Optional[float] = None,
+        limit: Optional[float] = 50,
         last_id: OptionalNullable[str] = UNSET,
         first_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -289,7 +299,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileListResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -308,7 +323,7 @@ class Files(BaseSDK):
         self,
         *,
         page: Optional[float] = None,
-        limit: Optional[float] = None,
+        limit: Optional[float] = 50,
         last_id: OptionalNullable[str] = UNSET,
         first_id: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -386,7 +401,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileListResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -474,7 +494,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileGetResponseBody]
             )
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -562,7 +587,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileGetResponseBody]
             )
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -662,7 +692,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileUpdateResponseBody]
             )
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -762,7 +797,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.FileUpdateResponseBody]
             )
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -848,7 +888,12 @@ class Files(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -934,7 +979,12 @@ class Files(BaseSDK):
 
         if utils.match_response(http_res, "204", "*"):
             return
-        if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1032,7 +1082,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[List[models.ResponseBody]]
             )
-        if utils.match_response(http_res, ["400", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1130,7 +1185,12 @@ class Files(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[List[models.ResponseBody]]
             )
-        if utils.match_response(http_res, ["400", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

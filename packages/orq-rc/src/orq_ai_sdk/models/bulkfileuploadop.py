@@ -86,5 +86,5 @@ class ResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.176Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:49.299Z")
     r"""The date and time the resource was created"""

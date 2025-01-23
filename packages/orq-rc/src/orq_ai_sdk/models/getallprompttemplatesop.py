@@ -444,6 +444,8 @@ GetAllPromptTemplatesItemsPromptTemplatesProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesRole = Literal[
@@ -1024,6 +1026,8 @@ GetAllPromptTemplatesItemsPromptTemplatesResponse200ApplicationJSONProvider = Li
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200ApplicationJSONRole = Literal[
@@ -1462,7 +1466,7 @@ class Items3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1782,6 +1786,8 @@ GetAllPromptTemplatesItemsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptTemplatesItemsRole = Literal[
@@ -2333,6 +2339,8 @@ GetAllPromptTemplatesItemsPromptTemplatesResponseProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponseRole = Literal[
@@ -2714,7 +2722,7 @@ class Items2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -3027,6 +3035,8 @@ ItemsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 ItemsRole = Literal[
@@ -3577,6 +3587,8 @@ GetAllPromptTemplatesItemsPromptTemplatesResponse200Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptTemplatesItemsPromptTemplatesResponse200Role = Literal[
@@ -3981,7 +3993,7 @@ class Items1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

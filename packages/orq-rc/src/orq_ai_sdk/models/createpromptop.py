@@ -274,6 +274,8 @@ Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptRole = Literal[
@@ -775,6 +777,8 @@ CreatePromptProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptPromptsRole = Literal[

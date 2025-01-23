@@ -493,6 +493,8 @@ DeploymentInvokeProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 r"""The provider used to generate the response"""
 

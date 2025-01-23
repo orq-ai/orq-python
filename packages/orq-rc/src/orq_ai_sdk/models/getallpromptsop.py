@@ -26,7 +26,7 @@ class PaginationTypedDict(TypedDict):
 class Pagination(BaseModel):
     page: Optional[float] = None
 
-    limit: Optional[float] = None
+    limit: Optional[float] = 50
 
     last_id: Annotated[OptionalNullable[str], pydantic.Field(alias="lastId")] = UNSET
 
@@ -2102,6 +2102,8 @@ GetAllPromptsDataPromptsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptsDataPromptsRole = Literal[
@@ -2650,6 +2652,8 @@ GetAllPromptsDataPromptsResponse200ApplicationJSONProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptsDataPromptsResponse200ApplicationJSONRole = Literal[
@@ -3043,7 +3047,7 @@ class Data3(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -3358,6 +3362,8 @@ GetAllPromptsDataProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptsDataRole = Literal[
@@ -3879,6 +3885,8 @@ GetAllPromptsDataPromptsResponseProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptsDataPromptsResponseRole = Literal[
@@ -4243,7 +4251,7 @@ class Data2(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -4549,6 +4557,8 @@ DataProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 DataRole = Literal[
@@ -5066,6 +5076,8 @@ GetAllPromptsDataPromptsResponse200Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 GetAllPromptsDataPromptsResponse200Role = Literal[
@@ -5434,7 +5446,7 @@ class Data1(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T06:57:48.285Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -5482,8 +5494,6 @@ class GetAllPromptsResponseBodyTypedDict(TypedDict):
     object: GetAllPromptsObject
     data: List[GetAllPromptsDataTypedDict]
     has_more: bool
-    first_id: Nullable[str]
-    last_id: Nullable[str]
 
 
 class GetAllPromptsResponseBody(BaseModel):
@@ -5494,37 +5504,3 @@ class GetAllPromptsResponseBody(BaseModel):
     data: List[GetAllPromptsData]
 
     has_more: bool
-
-    first_id: Nullable[str]
-
-    last_id: Nullable[str]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["first_id", "last_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
