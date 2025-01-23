@@ -62,7 +62,7 @@ class OrqClient():
             "Authorization": f"Bearer {self.api_key}"
         }
         
-        response = httpx.post(f"{self.api_url}/v2/traces-api/langchain", headers=headers, json=event.model_dump())
+        response = httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump())
 
 class OrqLangchainCallback(BaseCallbackHandler):
     """Base callback handler that can be used to handle callbacks from langchain."""
