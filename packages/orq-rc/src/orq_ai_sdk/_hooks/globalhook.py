@@ -20,10 +20,10 @@ class GlobalHook(BeforeRequestHook):
             payload = json.loads(raw_payload)
 
             if 'context' in payload and type(payload['context']) is dict:
-                payload['context']['environment'] = environment
+                payload['context']['environments'] = environment
             else:
                 payload['context'] = {
-                    'environment': environment
+                    'environments': environment
                 }
 
             data = json.dumps(payload).encode('utf-8')
