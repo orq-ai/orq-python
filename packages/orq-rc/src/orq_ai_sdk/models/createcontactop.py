@@ -10,9 +10,23 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
+import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class CreateContactGlobalsTypedDict(TypedDict):
+    contact_id: NotRequired[str]
+
+
+class CreateContactGlobals(BaseModel):
+    contact_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="contactId"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
 
 
 class CreateContactRequestBodyTypedDict(TypedDict):
@@ -134,7 +148,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T07:05:40.814Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

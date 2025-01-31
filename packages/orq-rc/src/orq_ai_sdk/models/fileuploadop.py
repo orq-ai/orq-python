@@ -5,10 +5,22 @@ from datetime import datetime
 import dateutil.parser
 import io
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, MultipartFormMetadata
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, MultipartFormMetadata
 import pydantic
 from typing import IO, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class FileUploadGlobalsTypedDict(TypedDict):
+    contact_id: NotRequired[str]
+
+
+class FileUploadGlobals(BaseModel):
+    contact_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="contactId"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
 
 
 class FileTypedDict(TypedDict):
@@ -94,5 +106,5 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:08.728Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T07:05:41.928Z")
     r"""The date and time the resource was created"""

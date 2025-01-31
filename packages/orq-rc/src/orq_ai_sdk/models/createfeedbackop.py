@@ -2,9 +2,22 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
 import pydantic
-from typing import List, Union
-from typing_extensions import Annotated, TypeAliasType, TypedDict
+from typing import List, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+class CreateFeedbackGlobalsTypedDict(TypedDict):
+    contact_id: NotRequired[str]
+
+
+class CreateFeedbackGlobals(BaseModel):
+    contact_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="contactId"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
 
 
 ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, List[str]])

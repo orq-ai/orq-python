@@ -8,10 +8,23 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+class DeploymentGetConfigGlobalsTypedDict(TypedDict):
+    contact_id: NotRequired[str]
+
+
+class DeploymentGetConfigGlobals(BaseModel):
+    contact_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="contactId"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
 
 
 DeploymentGetConfigInputsTypedDict = TypeAliasType(

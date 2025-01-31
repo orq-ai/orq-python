@@ -10,1821 +10,69 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class PaginationTypedDict(TypedDict):
-    page: NotRequired[float]
+class GetAllPromptsGlobalsTypedDict(TypedDict):
+    contact_id: NotRequired[str]
+
+
+class GetAllPromptsGlobals(BaseModel):
+    contact_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="contactId"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+
+
+class GetAllPromptsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
-    last_id: NotRequired[Nullable[str]]
-    first_id: NotRequired[Nullable[str]]
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    starting_after: NotRequired[str]
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    ending_before: NotRequired[str]
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-class Pagination(BaseModel):
-    page: Optional[float] = None
+class GetAllPromptsRequest(BaseModel):
+    limit: Annotated[
+        Optional[float],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 10
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
-    limit: Optional[float] = 50
-
-    last_id: Annotated[OptionalNullable[str], pydantic.Field(alias="lastId")] = UNSET
-
-    first_id: Annotated[OptionalNullable[str], pydantic.Field(alias="firstId")] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["page", "limit", "lastId", "firstId"]
-        nullable_fields = ["lastId", "firstId"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-Direction = Literal["asc", "desc"]
-r"""The direction to sort by"""
-
-
-class SortingPropsTypedDict(TypedDict):
-    key: str
-    r"""The path to sort by"""
-    direction: NotRequired[Direction]
-    r"""The direction to sort by"""
-
-
-class SortingProps(BaseModel):
-    key: str
-    r"""The path to sort by"""
-
-    direction: Optional[Direction] = None
-    r"""The direction to sort by"""
-
-
-GetAllPromptsOperator = Literal["and", "or"]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Operator = Literal["is"]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Type = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters85 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters84 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters83 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters82 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters81 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperatorsTypedDict = (
-    TypeAliasType(
-        "GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperatorsTypedDict",
-        Union[
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters81,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters82,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters83,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters84,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters85,
-        ],
-    )
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters81,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters82,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters83,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters84,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters85,
-    ],
-)
-
-
-class EightTypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Operator
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Type
-    name: str
-    path: str
-    value: NotRequired[bool]
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperatorsTypedDict]
-    ]
-
-
-class Eight(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Operator
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery8Type
-
-    name: str
-
-    path: str
-
-    value: Optional[bool] = False
-
-    hide_operators: Annotated[
-        Optional[
-            List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery8HideOperators]
-        ],
-        pydantic.Field(alias="hideOperators"),
+    starting_after: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
 
-
-GetAllPromptsOperator2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsOperator1 = Literal["is"]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OperatorTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OperatorTypedDict",
-    Union[GetAllPromptsOperator1, GetAllPromptsOperator2],
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Operator = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Operator",
-    Union[GetAllPromptsOperator1, GetAllPromptsOperator2],
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Type = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OptionsType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters74 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters73 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters72 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters71 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperatorsTypedDict = (
-    TypeAliasType(
-        "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperatorsTypedDict",
-        Union[
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters71,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters72,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters73,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters74,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters5,
-        ],
-    )
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters71,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters72,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters73,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters74,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters5,
-    ],
-)
-
-
-EvaluatorType = Literal[
-    "function_eval",
-    "http_eval",
-    "json_schema",
-    "llm_eval",
-    "python_eval",
-    "ragas",
-    "typescript_eval",
-]
-
-EvaluatorOutputType = Literal["boolean", "number", "string", "enum"]
-
-
-class GetAllPromptsFiltersPromptsOptionsTypedDict(TypedDict):
-    name: str
-    path: str
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OptionsType
-    id: str
-    evaluator_id: str
-    evaluator_type: EvaluatorType
-    evaluator_output_type: EvaluatorOutputType
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperatorsTypedDict]
-    ]
-
-
-class GetAllPromptsFiltersPromptsOptions(BaseModel):
-    name: str
-
-    path: str
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OptionsType
-
-    id: str
-
-    evaluator_id: Annotated[str, pydantic.Field(alias="evaluatorId")]
-
-    evaluator_type: Annotated[EvaluatorType, pydantic.Field(alias="evaluatorType")]
-
-    evaluator_output_type: Annotated[
-        EvaluatorOutputType, pydantic.Field(alias="evaluatorOutputType")
-    ]
-
-    hide_operators: Annotated[
-        Optional[
-            List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators]
-        ],
-        pydantic.Field(alias="hideOperators"),
+    ending_before: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters75 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters76 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters77 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters78 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters79 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1TypedDict = (
-    TypeAliasType(
-        "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1TypedDict",
-        Union[
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters79,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters78,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters77,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters76,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters75,
-        ],
-    )
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1 = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters79,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters78,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters77,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters76,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters75,
-    ],
-)
-
-
-class SevenTypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7OperatorTypedDict
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Type
-    selected_option_id: Nullable[str]
-    options: List[GetAllPromptsFiltersPromptsOptionsTypedDict]
-    name: str
-    path: str
-    value: NotRequired[Nullable[Any]]
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1TypedDict]
-    ]
-
-
-class Seven(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Operator
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery7Type
-
-    selected_option_id: Annotated[
-        Nullable[str], pydantic.Field(alias="selectedOptionId")
-    ]
-
-    options: List[GetAllPromptsFiltersPromptsOptions]
-
-    name: str
-
-    path: str
-
-    value: OptionalNullable[Any] = UNSET
-
-    hide_operators: Annotated[
-        Optional[
-            List[GetAllPromptsFiltersPromptsRequestRequestBodyQuery7HideOperators1]
-        ],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["value", "hideOperators"]
-        nullable_fields = ["selectedOptionId", "value"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-Operator5 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-Operator4 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-Operator3 = Literal["contains", "does_not_contain", "is_empty", "is_not_empty"]
-
-Operator2 = Literal["is", "is_not", "is_empty", "is_not_empty"]
-
-Operator1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OperatorTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OperatorTypedDict",
-    Union[Operator1, Operator2, Operator3, Operator4, Operator5],
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Operator = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Operator",
-    Union[Operator1, Operator2, Operator3, Operator4, Operator5],
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Type = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OptionsType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBody5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery3 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyHideOperatorsTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyHideOperatorsTypedDict",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery1,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery2,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery3,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery4,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody5,
-    ],
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyHideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyHideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery1,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery2,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery3,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery4,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody5,
-    ],
-)
-
-
-class GetAllPromptsFiltersOptionsTypedDict(TypedDict):
-    name: str
-    path: str
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OptionsType
-    id: str
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestRequestBodyHideOperatorsTypedDict]
-    ]
-
-
-class GetAllPromptsFiltersOptions(BaseModel):
-    name: str
-
-    path: str
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OptionsType
-
-    id: str
-
-    hide_operators: Annotated[
-        Optional[List[GetAllPromptsFiltersPromptsRequestRequestBodyHideOperators]],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters3 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperatorsTypedDict = (
-    TypeAliasType(
-        "GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperatorsTypedDict",
-        Union[
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters1,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters2,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters3,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters4,
-            GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery5,
-        ],
-    )
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters1,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters2,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters3,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQueryFilters4,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBodyQuery5,
-    ],
-)
-
-
-class SixTypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6OperatorTypedDict
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Type
-    options: List[GetAllPromptsFiltersOptionsTypedDict]
-    selected_option_id: Nullable[str]
-    name: str
-    path: str
-    value: NotRequired[Nullable[Any]]
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperatorsTypedDict]
-    ]
-
-
-class Six(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Operator
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQuery6Type
-
-    options: List[GetAllPromptsFiltersOptions]
-
-    selected_option_id: Annotated[
-        Nullable[str], pydantic.Field(alias="selectedOptionId")
-    ]
-
-    name: str
-
-    path: str
-
-    value: OptionalNullable[Any] = UNSET
-
-    hide_operators: Annotated[
-        Optional[List[GetAllPromptsFiltersPromptsRequestRequestBodyQueryHideOperators]],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["value", "hideOperators"]
-        nullable_fields = ["selectedOptionId", "value"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQueryOperator = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestRequestBodyQueryType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperatorsPromptsRequest5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBody4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBody3 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBody2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequestRequestBody1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsRequestHideOperatorsTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestHideOperatorsTypedDict",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody1,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody2,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody3,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody4,
-        GetAllPromptsHideOperatorsPromptsRequest5,
-    ],
-)
-
-
-GetAllPromptsFiltersPromptsRequestHideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsRequestHideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody1,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody2,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody3,
-        GetAllPromptsHideOperatorsPromptsRequestRequestBody4,
-        GetAllPromptsHideOperatorsPromptsRequest5,
-    ],
-)
-
-
-class Filters5TypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQueryOperator
-    value: Nullable[str]
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQueryType
-    name: str
-    path: str
-    hide_operators: NotRequired[
-        List[GetAllPromptsFiltersPromptsRequestHideOperatorsTypedDict]
-    ]
-
-
-class Filters5(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyQueryOperator
-
-    value: Nullable[str]
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyQueryType
-
-    name: str
-
-    path: str
-
-    hide_operators: Annotated[
-        Optional[List[GetAllPromptsFiltersPromptsRequestHideOperators]],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["hideOperators"]
-        nullable_fields = ["value"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyOperator = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersValueTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersValueTypedDict", Union[float, List[float]]
-)
-
-
-GetAllPromptsFiltersValue = TypeAliasType(
-    "GetAllPromptsFiltersValue", Union[float, List[float]]
-)
-
-
-GetAllPromptsFiltersPromptsRequestRequestBodyType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperatorsPrompts5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequest4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequest3 = Literal[
-    "is", "is_not", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPromptsRequest2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPromptsRequest1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersPromptsHideOperatorsTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersPromptsHideOperatorsTypedDict",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequest1,
-        GetAllPromptsHideOperatorsPromptsRequest2,
-        GetAllPromptsHideOperatorsPromptsRequest3,
-        GetAllPromptsHideOperatorsPromptsRequest4,
-        GetAllPromptsHideOperatorsPrompts5,
-    ],
-)
-
-
-GetAllPromptsFiltersPromptsHideOperators = TypeAliasType(
-    "GetAllPromptsFiltersPromptsHideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPromptsRequest1,
-        GetAllPromptsHideOperatorsPromptsRequest2,
-        GetAllPromptsHideOperatorsPromptsRequest3,
-        GetAllPromptsHideOperatorsPromptsRequest4,
-        GetAllPromptsHideOperatorsPrompts5,
-    ],
-)
-
-
-class Filters4TypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyOperator
-    value: Nullable[GetAllPromptsFiltersValueTypedDict]
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyType
-    name: str
-    path: str
-    hide_operators: NotRequired[List[GetAllPromptsFiltersPromptsHideOperatorsTypedDict]]
-
-
-class Filters4(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestRequestBodyOperator
-
-    value: Nullable[GetAllPromptsFiltersValue]
-
-    type: GetAllPromptsFiltersPromptsRequestRequestBodyType
-
-    name: str
-
-    path: str
-
-    hide_operators: Annotated[
-        Optional[List[GetAllPromptsFiltersPromptsHideOperators]],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["hideOperators"]
-        nullable_fields = ["value"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersPromptsRequestOperator = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-Unit2 = Literal["hours_ago", "minutes_ago"]
-
-Unit1 = Literal["day", "week", "month", "year"]
-
-UnitTypedDict = TypeAliasType("UnitTypedDict", Union[Unit1, Unit2])
-
-
-Unit = TypeAliasType("Unit", Union[Unit1, Unit2])
-
-
-RelativeTime = Literal[
-    "today", "yesterday", "one_week_ago", "one_month_ago", "custom_date"
-]
-
-FiltersDirection = Literal["present", "past"]
-
-
-class CriteriaTypedDict(TypedDict):
-    unit: NotRequired[UnitTypedDict]
-    count: NotRequired[Nullable[float]]
-    relative_time: NotRequired[RelativeTime]
-    custom_date: NotRequired[Nullable[str]]
-    direction: NotRequired[FiltersDirection]
-    start_date: NotRequired[Nullable[str]]
-    end_date: NotRequired[Nullable[str]]
-
-
-class Criteria(BaseModel):
-    unit: Optional[Unit] = None
-
-    count: OptionalNullable[float] = UNSET
-
-    relative_time: Annotated[
-        Optional[RelativeTime], pydantic.Field(alias="relativeTime")
-    ] = None
-
-    custom_date: Annotated[
-        OptionalNullable[str], pydantic.Field(alias="customDate")
-    ] = UNSET
-
-    direction: Optional[FiltersDirection] = None
-
-    start_date: Annotated[OptionalNullable[str], pydantic.Field(alias="startDate")] = (
-        UNSET
-    )
-
-    end_date: Annotated[OptionalNullable[str], pydantic.Field(alias="endDate")] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "unit",
-            "count",
-            "relativeTime",
-            "customDate",
-            "direction",
-            "startDate",
-            "endDate",
-        ]
-        nullable_fields = ["count", "customDate", "startDate", "endDate"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-Mode = Literal["date", "datetime"]
-
-
-class FiltersValueTypedDict(TypedDict):
-    criteria: Nullable[CriteriaTypedDict]
-    mode: Mode
-
-
-class FiltersValue(BaseModel):
-    criteria: Nullable[Criteria]
-
-    mode: Mode
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["criteria"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersPromptsRequestType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-GetAllPromptsHideOperators5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPrompts4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperatorsPrompts3 = Literal["is", "is_not", "is_empty", "is_not_empty"]
-
-GetAllPromptsHideOperatorsPrompts2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperatorsPrompts1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsFiltersHideOperatorsTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersHideOperatorsTypedDict",
-    Union[
-        GetAllPromptsHideOperatorsPrompts1,
-        GetAllPromptsHideOperatorsPrompts2,
-        GetAllPromptsHideOperatorsPrompts3,
-        GetAllPromptsHideOperatorsPrompts4,
-        GetAllPromptsHideOperators5,
-    ],
-)
-
-
-GetAllPromptsFiltersHideOperators = TypeAliasType(
-    "GetAllPromptsFiltersHideOperators",
-    Union[
-        GetAllPromptsHideOperatorsPrompts1,
-        GetAllPromptsHideOperatorsPrompts2,
-        GetAllPromptsHideOperatorsPrompts3,
-        GetAllPromptsHideOperatorsPrompts4,
-        GetAllPromptsHideOperators5,
-    ],
-)
-
-
-class GetAllPromptsFilters3TypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsRequestOperator
-    value: FiltersValueTypedDict
-    type: GetAllPromptsFiltersPromptsRequestType
-    name: str
-    path: str
-    hide_operators: NotRequired[List[GetAllPromptsFiltersHideOperatorsTypedDict]]
-
-
-class GetAllPromptsFilters3(BaseModel):
-    operator: GetAllPromptsFiltersPromptsRequestOperator
-
-    value: FiltersValue
-
-    type: GetAllPromptsFiltersPromptsRequestType
-
-    name: str
-
-    path: str
-
-    hide_operators: Annotated[
-        Optional[List[GetAllPromptsFiltersHideOperators]],
-        pydantic.Field(alias="hideOperators"),
-    ] = None
-
-
-GetAllPromptsFiltersPromptsOperator = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsFiltersPromptsType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-FiltersOptionsTypedDict = TypeAliasType("FiltersOptionsTypedDict", Union[str, float])
-
-
-FiltersOptions = TypeAliasType("FiltersOptions", Union[str, float])
-
-
-FiltersOptionsMapTypedDict = TypeAliasType(
-    "FiltersOptionsMapTypedDict", Union[str, float]
-)
-
-
-FiltersOptionsMap = TypeAliasType("FiltersOptionsMap", Union[str, float])
-
-
-HideOperators5 = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperators4 = Literal[
-    "contains", "does_not_contain", "is_empty", "is_not_empty"
-]
-
-GetAllPromptsHideOperators3 = Literal["is", "is_not", "is_empty", "is_not_empty"]
-
-GetAllPromptsHideOperators2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-GetAllPromptsHideOperators1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-FiltersHideOperatorsTypedDict = TypeAliasType(
-    "FiltersHideOperatorsTypedDict",
-    Union[
-        GetAllPromptsHideOperators1,
-        GetAllPromptsHideOperators2,
-        GetAllPromptsHideOperators3,
-        GetAllPromptsHideOperators4,
-        HideOperators5,
-    ],
-)
-
-
-FiltersHideOperators = TypeAliasType(
-    "FiltersHideOperators",
-    Union[
-        GetAllPromptsHideOperators1,
-        GetAllPromptsHideOperators2,
-        GetAllPromptsHideOperators3,
-        GetAllPromptsHideOperators4,
-        HideOperators5,
-    ],
-)
-
-
-class GetAllPromptsFilters2TypedDict(TypedDict):
-    operator: GetAllPromptsFiltersPromptsOperator
-    value: Nullable[List[Any]]
-    type: GetAllPromptsFiltersPromptsType
-    options: List[FiltersOptionsTypedDict]
-    name: str
-    path: str
-    options_map: NotRequired[Nullable[Dict[str, FiltersOptionsMapTypedDict]]]
-    image_url_map: NotRequired[Dict[str, str]]
-    hide_operators: NotRequired[List[FiltersHideOperatorsTypedDict]]
-
-
-class GetAllPromptsFilters2(BaseModel):
-    operator: GetAllPromptsFiltersPromptsOperator
-
-    value: Nullable[List[Any]]
-
-    type: GetAllPromptsFiltersPromptsType
-
-    options: List[FiltersOptions]
-
-    name: str
-
-    path: str
-
-    options_map: Annotated[
-        OptionalNullable[Dict[str, FiltersOptionsMap]],
-        pydantic.Field(alias="optionsMap"),
-    ] = UNSET
-
-    image_url_map: Annotated[
-        Optional[Dict[str, str]], pydantic.Field(alias="imageUrlMap")
-    ] = None
-
-    hide_operators: Annotated[
-        Optional[List[FiltersHideOperators]], pydantic.Field(alias="hideOperators")
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["optionsMap", "imageUrlMap", "hideOperators"]
-        nullable_fields = ["value", "optionsMap"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersOperator = Literal["is", "is_not", "is_empty", "is_not_empty"]
-
-GetAllPromptsFiltersType = Literal[
-    "string",
-    "multi-value-array",
-    "single-value-array",
-    "number",
-    "date",
-    "object",
-    "boolean",
-    "evaluator",
-]
-
-OptionsTypedDict = TypeAliasType("OptionsTypedDict", Union[str, float])
-
-
-Options = TypeAliasType("Options", Union[str, float])
-
-
-OptionsMapTypedDict = TypeAliasType("OptionsMapTypedDict", Union[str, float])
-
-
-OptionsMap = TypeAliasType("OptionsMap", Union[str, float])
-
-
-Five = Literal[
-    "is",
-    "is_before",
-    "is_on_or_before",
-    "is_between",
-    "is_relative_today",
-    "is_relative_time",
-    "is_empty",
-    "is_not_empty",
-]
-
-HideOperators4 = Literal["contains", "does_not_contain", "is_empty", "is_not_empty"]
-
-HideOperators3 = Literal["is", "is_not", "is_empty", "is_not_empty"]
-
-HideOperators2 = Literal[
-    "equals",
-    "is_not_equal",
-    "is_greater_than",
-    "is_less_than",
-    "is_greater_than_or_equal_to",
-    "is_less_than_or_equal_to",
-    "is_between",
-    "is_empty",
-    "is_not_empty",
-]
-
-HideOperators1 = Literal[
-    "is",
-    "is_not",
-    "contains",
-    "does_not_contain",
-    "starts_with",
-    "ends_with",
-    "is_empty",
-    "is_not_empty",
-]
-
-HideOperatorsTypedDict = TypeAliasType(
-    "HideOperatorsTypedDict",
-    Union[HideOperators1, HideOperators2, HideOperators3, HideOperators4, Five],
-)
-
-
-HideOperators = TypeAliasType(
-    "HideOperators",
-    Union[HideOperators1, HideOperators2, HideOperators3, HideOperators4, Five],
-)
-
-
-class GetAllPromptsFilters1TypedDict(TypedDict):
-    operator: GetAllPromptsFiltersOperator
-    type: GetAllPromptsFiltersType
-    options: List[OptionsTypedDict]
-    name: str
-    path: str
-    value: NotRequired[Any]
-    options_map: NotRequired[Nullable[Dict[str, OptionsMapTypedDict]]]
-    image_url_map: NotRequired[Dict[str, str]]
-    hide_operators: NotRequired[List[HideOperatorsTypedDict]]
-
-
-class GetAllPromptsFilters1(BaseModel):
-    operator: GetAllPromptsFiltersOperator
-
-    type: GetAllPromptsFiltersType
-
-    options: List[Options]
-
-    name: str
-
-    path: str
-
-    value: Optional[Any] = None
-
-    options_map: Annotated[
-        OptionalNullable[Dict[str, OptionsMap]], pydantic.Field(alias="optionsMap")
-    ] = UNSET
-
-    image_url_map: Annotated[
-        Optional[Dict[str, str]], pydantic.Field(alias="imageUrlMap")
-    ] = None
-
-    hide_operators: Annotated[
-        Optional[List[HideOperators]], pydantic.Field(alias="hideOperators")
-    ] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["value", "optionsMap", "imageUrlMap", "hideOperators"]
-        nullable_fields = ["optionsMap"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsFiltersTypedDict = TypeAliasType(
-    "GetAllPromptsFiltersTypedDict",
-    Union[
-        GetAllPromptsFilters3TypedDict,
-        Filters4TypedDict,
-        Filters5TypedDict,
-        EightTypedDict,
-        SixTypedDict,
-        SevenTypedDict,
-        GetAllPromptsFilters1TypedDict,
-        GetAllPromptsFilters2TypedDict,
-    ],
-)
-
-
-GetAllPromptsFilters = TypeAliasType(
-    "GetAllPromptsFilters",
-    Union[
-        GetAllPromptsFilters3,
-        Filters4,
-        Filters5,
-        Eight,
-        Six,
-        Seven,
-        GetAllPromptsFilters1,
-        GetAllPromptsFilters2,
-    ],
-)
-
-
-class QueryTypedDict(TypedDict):
-    operator: GetAllPromptsOperator
-    filters: NotRequired[List[GetAllPromptsFiltersTypedDict]]
-
-
-class Query(BaseModel):
-    operator: GetAllPromptsOperator
-
-    filters: Optional[List[GetAllPromptsFilters]] = None
-
-
-GetAllPromptsFiltersPromptsRequestRequestBody4Type = Literal["string_array"]
-
-GetAllPromptsFiltersPromptsRequestRequestBody4Operator = Literal["in"]
-
-
-class GetAllPromptsFilters4TypedDict(TypedDict):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody4Type
-    operator: GetAllPromptsFiltersPromptsRequestRequestBody4Operator
-    values: List[str]
-    path: str
-
-
-class GetAllPromptsFilters4(BaseModel):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody4Type
-
-    operator: GetAllPromptsFiltersPromptsRequestRequestBody4Operator
-
-    values: List[str]
-
-    path: str
-
-
-GetAllPromptsFiltersPromptsRequestRequestBody3Type = Literal["string"]
-
-GetAllPromptsFiltersPromptsRequestRequestBody3Operator = Literal["contains", "equals"]
-
-
-class GetAllPromptsFiltersPrompts3TypedDict(TypedDict):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody3Type
-    operator: GetAllPromptsFiltersPromptsRequestRequestBody3Operator
-    value: str
-    path: str
-
-
-class GetAllPromptsFiltersPrompts3(BaseModel):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody3Type
-
-    operator: GetAllPromptsFiltersPromptsRequestRequestBody3Operator
-
-    value: str
-
-    path: str
-
-
-GetAllPromptsFiltersPromptsRequestRequestBody2Type = Literal["search"]
-
-
-class GetAllPromptsFiltersPrompts2TypedDict(TypedDict):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody2Type
-    value: str
-    search_paths: List[str]
-
-
-class GetAllPromptsFiltersPrompts2(BaseModel):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody2Type
-
-    value: str
-
-    search_paths: Annotated[List[str], pydantic.Field(alias="searchPaths")]
-
-
-GetAllPromptsFiltersPromptsRequestRequestBody1Type = Literal["id"]
-
-
-class GetAllPromptsFiltersPrompts1TypedDict(TypedDict):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody1Type
-    id: str
-    path: str
-
-
-class GetAllPromptsFiltersPrompts1(BaseModel):
-    type: GetAllPromptsFiltersPromptsRequestRequestBody1Type
-
-    id: str
-
-    path: str
-
-
-GetAllPromptsPromptsFiltersTypedDict = TypeAliasType(
-    "GetAllPromptsPromptsFiltersTypedDict",
-    Union[
-        GetAllPromptsFiltersPrompts1TypedDict,
-        GetAllPromptsFiltersPrompts2TypedDict,
-        GetAllPromptsFiltersPrompts3TypedDict,
-        GetAllPromptsFilters4TypedDict,
-    ],
-)
-
-
-GetAllPromptsPromptsFilters = TypeAliasType(
-    "GetAllPromptsPromptsFilters",
-    Union[
-        GetAllPromptsFiltersPrompts1,
-        GetAllPromptsFiltersPrompts2,
-        GetAllPromptsFiltersPrompts3,
-        GetAllPromptsFilters4,
-    ],
-)
-
-
-class GetAllPromptsRequestBodyTypedDict(TypedDict):
-    filters: List[GetAllPromptsPromptsFiltersTypedDict]
-    pagination: NotRequired[PaginationTypedDict]
-    sorting_props: NotRequired[List[SortingPropsTypedDict]]
-    query: NotRequired[QueryTypedDict]
-    included_fields: NotRequired[Dict[str, str]]
-
-
-class GetAllPromptsRequestBody(BaseModel):
-    filters: List[GetAllPromptsPromptsFilters]
-
-    pagination: Optional[Pagination] = None
-
-    sorting_props: Annotated[
-        Optional[List[SortingProps]], pydantic.Field(alias="sortingProps")
-    ] = None
-
-    query: Optional[Query] = None
-
-    included_fields: Annotated[
-        Optional[Dict[str, str]], pydantic.Field(alias="includedFields")
-    ] = None
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
 GetAllPromptsObject = Literal["list"]
 
-GetAllPromptsOwnerPromptsResponse2 = Literal["vendor"]
+GetAllPromptsOwner2 = Literal["vendor"]
 
-GetAllPromptsDataPromptsOwnerTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsOwnerTypedDict",
-    Union[str, GetAllPromptsOwnerPromptsResponse2],
+GetAllPromptsOwnerTypedDict = TypeAliasType(
+    "GetAllPromptsOwnerTypedDict", Union[str, GetAllPromptsOwner2]
 )
 
 
-GetAllPromptsDataPromptsOwner = TypeAliasType(
-    "GetAllPromptsDataPromptsOwner", Union[str, GetAllPromptsOwnerPromptsResponse2]
+GetAllPromptsOwner = TypeAliasType(
+    "GetAllPromptsOwner", Union[str, GetAllPromptsOwner2]
 )
 
 
-GetAllPromptsDataPromptsModelType = Literal[
+GetAllPromptsModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -1837,37 +85,33 @@ GetAllPromptsDataPromptsModelType = Literal[
 ]
 r"""The type of the model"""
 
-GetAllPromptsDataPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
+GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-GetAllPromptsDataPromptsQuality = Literal["standard", "hd"]
+GetAllPromptsQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyType = Literal[
-    "json_object"
-]
+GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
 
 
-class GetAllPromptsResponseFormatPromptsResponse2TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyType
+class GetAllPromptsResponseFormat2TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsType
 
 
-class GetAllPromptsResponseFormatPromptsResponse2(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyType
+class GetAllPromptsResponseFormat2(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsType
 
 
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONType = Literal[
-    "json_schema"
-]
+GetAllPromptsResponseFormatType = Literal["json_schema"]
 
 
-class GetAllPromptsResponseFormatPromptsResponseJSONSchemaTypedDict(TypedDict):
+class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class GetAllPromptsResponseFormatPromptsResponseJSONSchema(BaseModel):
+class GetAllPromptsResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -1875,23 +119,20 @@ class GetAllPromptsResponseFormatPromptsResponseJSONSchema(BaseModel):
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class GetAllPromptsResponseFormatPromptsResponse1TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONType
-    json_schema: GetAllPromptsResponseFormatPromptsResponseJSONSchemaTypedDict
+class GetAllPromptsResponseFormat1TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatType
+    json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
 
 
-class GetAllPromptsResponseFormatPromptsResponse1(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONType
+class GetAllPromptsResponseFormat1(BaseModel):
+    type: GetAllPromptsResponseFormatType
 
-    json_schema: GetAllPromptsResponseFormatPromptsResponseJSONSchema
+    json_schema: GetAllPromptsResponseFormatJSONSchema
 
 
-GetAllPromptsDataPromptsResponseFormatTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseFormatTypedDict",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse2TypedDict,
-        GetAllPromptsResponseFormatPromptsResponse1TypedDict,
-    ],
+GetAllPromptsResponseFormatTypedDict = TypeAliasType(
+    "GetAllPromptsResponseFormatTypedDict",
+    Union[GetAllPromptsResponseFormat2TypedDict, GetAllPromptsResponseFormat1TypedDict],
 )
 r"""An object specifying the format that the model must output.
 
@@ -1903,12 +144,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetAllPromptsDataPromptsResponseFormat = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseFormat",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse2,
-        GetAllPromptsResponseFormatPromptsResponse1,
-    ],
+GetAllPromptsResponseFormat = TypeAliasType(
+    "GetAllPromptsResponseFormat",
+    Union[GetAllPromptsResponseFormat2, GetAllPromptsResponseFormat1],
 )
 r"""An object specifying the format that the model must output.
 
@@ -1920,14 +158,14 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetAllPromptsDataPromptsPhotoRealVersion = Literal["v1", "v2"]
+GetAllPromptsPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-GetAllPromptsDataPromptsEncodingFormat = Literal["float", "base64"]
+GetAllPromptsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
 
-class GetAllPromptsDataPromptsModelParametersTypedDict(TypedDict):
+class GetAllPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -1946,17 +184,15 @@ class GetAllPromptsDataPromptsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[GetAllPromptsDataPromptsFormat]
+    format_: NotRequired[GetAllPromptsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsDataPromptsQuality]
+    quality: NotRequired[GetAllPromptsQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[
-        Nullable[GetAllPromptsDataPromptsResponseFormatTypedDict]
-    ]
+    response_format: NotRequired[Nullable[GetAllPromptsResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -1965,13 +201,13 @@ class GetAllPromptsDataPromptsModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[GetAllPromptsDataPromptsPhotoRealVersion]
+    photo_real_version: NotRequired[GetAllPromptsPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[GetAllPromptsDataPromptsEncodingFormat]
+    encoding_format: NotRequired[GetAllPromptsEncodingFormat]
     r"""The format to return the embeddings"""
 
 
-class GetAllPromptsDataPromptsModelParameters(BaseModel):
+class GetAllPromptsModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -2003,21 +239,21 @@ class GetAllPromptsDataPromptsModelParameters(BaseModel):
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
     format_: Annotated[
-        Optional[GetAllPromptsDataPromptsFormat], pydantic.Field(alias="format")
+        Optional[GetAllPromptsFormat], pydantic.Field(alias="format")
     ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[GetAllPromptsDataPromptsQuality] = None
+    quality: Optional[GetAllPromptsQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[GetAllPromptsDataPromptsResponseFormat],
+        OptionalNullable[GetAllPromptsResponseFormat],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -2030,12 +266,12 @@ class GetAllPromptsDataPromptsModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[GetAllPromptsDataPromptsPhotoRealVersion],
+        Optional[GetAllPromptsPhotoRealVersion],
         pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[GetAllPromptsDataPromptsEncodingFormat] = None
+    encoding_format: Optional[GetAllPromptsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
     @model_serializer(mode="wrap")
@@ -2085,7 +321,7 @@ class GetAllPromptsDataPromptsModelParameters(BaseModel):
         return m
 
 
-GetAllPromptsDataPromptsProvider = Literal[
+GetAllPromptsProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -2106,7 +342,7 @@ GetAllPromptsDataPromptsProvider = Literal[
     "elevenlabs",
 ]
 
-GetAllPromptsDataPromptsRole = Literal[
+GetAllPromptsRole = Literal[
     "system",
     "assistant",
     "user",
@@ -2118,10 +354,10 @@ GetAllPromptsDataPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyType = Literal["image_url"]
+GetAllPrompts2PromptsType = Literal["image_url"]
 
 
-class GetAllPrompts2PromptsResponseImageURLTypedDict(TypedDict):
+class GetAllPrompts2ImageURLTypedDict(TypedDict):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
     id: NotRequired[str]
@@ -2130,7 +366,7 @@ class GetAllPrompts2PromptsResponseImageURLTypedDict(TypedDict):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class GetAllPrompts2PromptsResponseImageURL(BaseModel):
+class GetAllPrompts2ImageURL(BaseModel):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
 
@@ -2141,136 +377,135 @@ class GetAllPrompts2PromptsResponseImageURL(BaseModel):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class GetAllPrompts2PromptsResponse2TypedDict(TypedDict):
+class GetAllPrompts22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyType
-    image_url: GetAllPrompts2PromptsResponseImageURLTypedDict
+    type: GetAllPrompts2PromptsType
+    image_url: GetAllPrompts2ImageURLTypedDict
 
 
-class GetAllPrompts2PromptsResponse2(BaseModel):
+class GetAllPrompts22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyType
+    type: GetAllPrompts2PromptsType
 
-    image_url: GetAllPrompts2PromptsResponseImageURL
-
-
-GetAllPrompts2PromptsResponse200ApplicationJSONType = Literal["text"]
+    image_url: GetAllPrompts2ImageURL
 
 
-class GetAllPrompts2PromptsResponse1TypedDict(TypedDict):
+GetAllPrompts2Type = Literal["text"]
+
+
+class GetAllPrompts21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONType
+    type: GetAllPrompts2Type
     text: str
 
 
-class GetAllPrompts2PromptsResponse1(BaseModel):
+class GetAllPrompts21(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONType
+    type: GetAllPrompts2Type
 
     text: str
 
 
-GetAllPromptsContentPromptsResponse2TypedDict = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse2TypedDict",
-    Union[
-        GetAllPrompts2PromptsResponse1TypedDict, GetAllPrompts2PromptsResponse2TypedDict
-    ],
+GetAllPromptsContent2TypedDict = TypeAliasType(
+    "GetAllPromptsContent2TypedDict",
+    Union[GetAllPrompts21TypedDict, GetAllPrompts22TypedDict],
 )
 
 
-GetAllPromptsContentPromptsResponse2 = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse2",
-    Union[GetAllPrompts2PromptsResponse1, GetAllPrompts2PromptsResponse2],
+GetAllPromptsContent2 = TypeAliasType(
+    "GetAllPromptsContent2", Union[GetAllPrompts21, GetAllPrompts22]
 )
 
 
-GetAllPromptsDataPromptsContentTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsContentTypedDict",
-    Union[str, List[GetAllPromptsContentPromptsResponse2TypedDict]],
+GetAllPromptsContentTypedDict = TypeAliasType(
+    "GetAllPromptsContentTypedDict", Union[str, List[GetAllPromptsContent2TypedDict]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetAllPromptsDataPromptsContent = TypeAliasType(
-    "GetAllPromptsDataPromptsContent",
-    Union[str, List[GetAllPromptsContentPromptsResponse2]],
+GetAllPromptsContent = TypeAliasType(
+    "GetAllPromptsContent", Union[str, List[GetAllPromptsContent2]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetAllPromptsDataPromptsResponse200Type = Literal["function"]
+GetAllPromptsPromptsType = Literal["function"]
 
 
-class GetAllPromptsDataPromptsFunctionTypedDict(TypedDict):
+class GetAllPromptsFunctionTypedDict(TypedDict):
     name: str
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class GetAllPromptsDataPromptsFunction(BaseModel):
+class GetAllPromptsFunction(BaseModel):
     name: str
 
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class GetAllPromptsDataPromptsToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponse200Type
-    function: GetAllPromptsDataPromptsFunctionTypedDict
+class GetAllPromptsToolCallsTypedDict(TypedDict):
+    type: GetAllPromptsPromptsType
+    function: GetAllPromptsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
-class GetAllPromptsDataPromptsToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponse200Type
+class GetAllPromptsToolCalls(BaseModel):
+    type: GetAllPromptsPromptsType
 
-    function: GetAllPromptsDataPromptsFunction
+    function: GetAllPromptsFunction
 
     id: Optional[str] = None
 
     index: Optional[float] = None
 
 
-class GetAllPromptsDataPromptsMessagesTypedDict(TypedDict):
-    role: GetAllPromptsDataPromptsRole
+class GetAllPromptsMessagesTypedDict(TypedDict):
+    role: GetAllPromptsRole
     r"""The role of the prompt message"""
-    content: GetAllPromptsDataPromptsContentTypedDict
+    content: GetAllPromptsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[GetAllPromptsDataPromptsToolCallsTypedDict]]
+    tool_calls: NotRequired[List[GetAllPromptsToolCallsTypedDict]]
 
 
-class GetAllPromptsDataPromptsMessages(BaseModel):
-    role: GetAllPromptsDataPromptsRole
+class GetAllPromptsMessages(BaseModel):
+    role: GetAllPromptsRole
     r"""The role of the prompt message"""
 
-    content: GetAllPromptsDataPromptsContent
+    content: GetAllPromptsContent
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
-    tool_calls: Optional[List[GetAllPromptsDataPromptsToolCalls]] = None
+    tool_calls: Optional[List[GetAllPromptsToolCalls]] = None
 
 
-class GetAllPromptsDataPromptsPromptConfigTypedDict(TypedDict):
-    messages: List[GetAllPromptsDataPromptsMessagesTypedDict]
+class GetAllPromptsPromptConfigTypedDict(TypedDict):
+    r"""A list of messages compatible with the openAI schema"""
+
+    messages: List[GetAllPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsDataPromptsModelType]
+    model_type: NotRequired[GetAllPromptsModelType]
     r"""The type of the model"""
-    model_parameters: NotRequired[GetAllPromptsDataPromptsModelParametersTypedDict]
+    model_parameters: NotRequired[GetAllPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[GetAllPromptsDataPromptsProvider]
+    provider: NotRequired[GetAllPromptsProvider]
     integration_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     version: NotRequired[str]
 
 
-class GetAllPromptsDataPromptsPromptConfig(BaseModel):
-    messages: List[GetAllPromptsDataPromptsMessages]
+class GetAllPromptsPromptConfig(BaseModel):
+    r"""A list of messages compatible with the openAI schema"""
+
+    messages: List[GetAllPromptsMessages]
 
     stream: Optional[bool] = None
 
@@ -2279,13 +514,13 @@ class GetAllPromptsDataPromptsPromptConfig(BaseModel):
     model_db_id: Optional[str] = None
     r"""The id of the resource"""
 
-    model_type: Optional[GetAllPromptsDataPromptsModelType] = None
+    model_type: Optional[GetAllPromptsModelType] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[GetAllPromptsDataPromptsModelParameters] = None
+    model_parameters: Optional[GetAllPromptsModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[GetAllPromptsDataPromptsProvider] = None
+    provider: Optional[GetAllPromptsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -2332,18 +567,49 @@ class GetAllPromptsDataPromptsPromptConfig(BaseModel):
         return m
 
 
-class GetAllPromptsDataPromptsMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
+GetAllPromptsUseCases = Literal[
+    "Agents",
+    "Agents simulations",
+    "API interaction",
+    "Autonomous Agents",
+    "Chatbots",
+    "Classification",
+    "Code understanding",
+    "Code writing",
+    "Documents QA",
+    "Conversation",
+    "Extraction",
+    "Multi-modal",
+    "Self-checking",
+    "SQL",
+    "Summarization",
+    "Tagging",
+]
+
+GetAllPromptsLanguage = Literal[
+    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+]
+r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
-class GetAllPromptsDataPromptsMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
+class GetAllPromptsMetadataTypedDict(TypedDict):
+    use_cases: NotRequired[List[GetAllPromptsUseCases]]
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+    language: NotRequired[GetAllPromptsLanguage]
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[str] = None
+
+class GetAllPromptsMetadata(BaseModel):
+    use_cases: Optional[List[GetAllPromptsUseCases]] = None
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+
+    language: Optional[GetAllPromptsLanguage] = None
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
-GetAllPromptsDataPromptsResponse200ApplicationJSONModelType = Literal[
+GetAllPromptsType = Literal["prompt"]
+
+GetAllPromptsPromptsModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -2356,760 +622,10 @@ GetAllPromptsDataPromptsResponse200ApplicationJSONModelType = Literal[
 ]
 r"""The type of the model"""
 
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyFormat = Literal[
-    "url", "b64_json", "text", "json_object"
-]
+GetAllPromptsPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-GetAllPromptsDataPromptsResponse200ApplicationJSONQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3VersionsType = Literal[
-    "json_object"
-]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody2TypedDict(
-    TypedDict
-):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3VersionsType
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody2(
-    BaseModel
-):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3VersionsType
-
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3Type = (
-    Literal["json_schema"]
-)
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict(
-    TypedDict
-):
-    name: str
-    strict: bool
-    schema_: Dict[str, Any]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyJSONSchema(
-    BaseModel
-):
-    name: str
-
-    strict: bool
-
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody1TypedDict(
-    TypedDict
-):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3Type
-    json_schema: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody1(
-    BaseModel
-):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData3Type
-
-    json_schema: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyJSONSchema
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormatTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormatTypedDict",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody2TypedDict,
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody1TypedDict,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormat = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormat",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody2,
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBody1,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONPhotoRealVersion = Literal["v1", "v2"]
-r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONEncodingFormat = Literal[
-    "float", "base64"
-]
-r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONModelParametersTypedDict(
-    TypedDict
-):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    max_tokens: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_k: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_p: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    frequency_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    presence_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    num_images: NotRequired[float]
-    r"""Only supported on `image` models."""
-    seed: NotRequired[float]
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyFormat
-    ]
-    r"""Only supported on `image` models."""
-    dimensions: NotRequired[str]
-    r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsDataPromptsResponse200ApplicationJSONQuality]
-    r"""Only supported on `image` models."""
-    style: NotRequired[str]
-    r"""Only supported on `image` models."""
-    response_format: NotRequired[
-        Nullable[
-            GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormatTypedDict
-        ]
-    ]
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-    photo_real_version: NotRequired[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONPhotoRealVersion
-    ]
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONEncodingFormat
-    ]
-    r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONModelParameters(BaseModel):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: Optional[float] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    frequency_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="frequencyPenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    presence_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="presencePenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
-    r"""Only supported on `image` models."""
-
-    seed: Optional[float] = None
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-
-    format_: Annotated[
-        Optional[GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyFormat],
-        pydantic.Field(alias="format"),
-    ] = None
-    r"""Only supported on `image` models."""
-
-    dimensions: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    quality: Optional[GetAllPromptsDataPromptsResponse200ApplicationJSONQuality] = None
-    r"""Only supported on `image` models."""
-
-    style: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    response_format: Annotated[
-        OptionalNullable[
-            GetAllPromptsDataPromptsResponse200ApplicationJSONResponseFormat
-        ],
-        pydantic.Field(alias="responseFormat"),
-    ] = UNSET
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-
-    photo_real_version: Annotated[
-        Optional[GetAllPromptsDataPromptsResponse200ApplicationJSONPhotoRealVersion],
-        pydantic.Field(alias="photoRealVersion"),
-    ] = None
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-    encoding_format: Optional[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONEncodingFormat
-    ] = None
-    r"""The format to return the embeddings"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONProvider = Literal[
-    "cohere",
-    "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
-    "azure",
-    "aws",
-    "anyscale",
-    "perplexity",
-    "groq",
-    "fal",
-    "leonardoai",
-    "nvidia",
-    "jina",
-    "togetherai",
-    "elevenlabs",
-]
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3VersionsType = Literal[
-    "image_url"
-]
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyImageURLTypedDict(
-    TypedDict
-):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-    id: NotRequired[str]
-    r"""The orq.ai id of the image"""
-    detail: NotRequired[str]
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyImageURL(BaseModel):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-
-    id: Optional[str] = None
-    r"""The orq.ai id of the image"""
-
-    detail: Optional[str] = None
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody2TypedDict(TypedDict):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3VersionsType
-    image_url: (
-        GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyImageURLTypedDict
-    )
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody2(BaseModel):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3VersionsType
-
-    image_url: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyImageURL
-
-
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3Type = Literal["text"]
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody1TypedDict(TypedDict):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3Type
-    text: str
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody1(BaseModel):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData3Type
-
-    text: str
-
-
-GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2TypedDict = (
-    TypeAliasType(
-        "GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2TypedDict",
-        Union[
-            GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody1TypedDict,
-            GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody2TypedDict,
-        ],
-    )
-)
-
-
-GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2 = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2",
-    Union[
-        GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody1,
-        GetAllPrompts2PromptsResponse200ApplicationJSONResponseBody2,
-    ],
-)
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONContentTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ApplicationJSONContentTypedDict",
-    Union[
-        str,
-        List[
-            GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2TypedDict
-        ],
-    ],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONContent = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ApplicationJSONContent",
-    Union[
-        str, List[GetAllPromptsContentPromptsResponse200ApplicationJSONResponseBody2]
-    ],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody3Type = Literal[
-    "function"
-]
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONFunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONFunction(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody3Type
-    function: GetAllPromptsDataPromptsResponse200ApplicationJSONFunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody3Type
-
-    function: GetAllPromptsDataPromptsResponse200ApplicationJSONFunction
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONMessagesTypedDict(TypedDict):
-    role: GetAllPromptsDataPromptsResponse200ApplicationJSONRole
-    r"""The role of the prompt message"""
-    content: GetAllPromptsDataPromptsResponse200ApplicationJSONContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[
-        List[GetAllPromptsDataPromptsResponse200ApplicationJSONToolCallsTypedDict]
-    ]
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONMessages(BaseModel):
-    role: GetAllPromptsDataPromptsResponse200ApplicationJSONRole
-    r"""The role of the prompt message"""
-
-    content: GetAllPromptsDataPromptsResponse200ApplicationJSONContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-    tool_calls: Optional[
-        List[GetAllPromptsDataPromptsResponse200ApplicationJSONToolCalls]
-    ] = None
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONPromptConfigTypedDict(
-    TypedDict
-):
-    messages: List[GetAllPromptsDataPromptsResponse200ApplicationJSONMessagesTypedDict]
-    stream: NotRequired[bool]
-    model: NotRequired[str]
-    model_db_id: NotRequired[str]
-    r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsDataPromptsResponse200ApplicationJSONModelType]
-    r"""The type of the model"""
-    model_parameters: NotRequired[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONModelParametersTypedDict
-    ]
-    r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[GetAllPromptsDataPromptsResponse200ApplicationJSONProvider]
-    integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
-    version: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONPromptConfig(BaseModel):
-    messages: List[GetAllPromptsDataPromptsResponse200ApplicationJSONMessages]
-
-    stream: Optional[bool] = None
-
-    model: Optional[str] = None
-
-    model_db_id: Optional[str] = None
-    r"""The id of the resource"""
-
-    model_type: Optional[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONModelType
-    ] = None
-    r"""The type of the model"""
-
-    model_parameters: Optional[
-        GetAllPromptsDataPromptsResponse200ApplicationJSONModelParameters
-    ] = None
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    provider: Optional[GetAllPromptsDataPromptsResponse200ApplicationJSONProvider] = (
-        None
-    )
-
-    integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
-
-    version: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_db_id",
-            "model_type",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-        ]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponse200ApplicationJSONMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
-
-    language: Optional[str] = None
-
-
-class GetAllPromptsDataPromptsVersionsTypedDict(TypedDict):
-    r"""Prompt version model returned from the API"""
-
-    id: str
-    created_by_id: str
-    display_name: str
-    updated_by_id: str
-    prompt_config: (
-        GetAllPromptsDataPromptsResponse200ApplicationJSONPromptConfigTypedDict
-    )
-    metadata: GetAllPromptsDataPromptsResponse200ApplicationJSONMetadataTypedDict
-    commit: str
-    timestamp: str
-    description: NotRequired[Nullable[str]]
-
-
-class GetAllPromptsDataPromptsVersions(BaseModel):
-    r"""Prompt version model returned from the API"""
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    created_by_id: str
-
-    display_name: str
-
-    updated_by_id: str
-
-    prompt_config: GetAllPromptsDataPromptsResponse200ApplicationJSONPromptConfig
-
-    metadata: GetAllPromptsDataPromptsResponse200ApplicationJSONMetadata
-
-    commit: str
-
-    timestamp: str
-
-    description: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description"]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsDataPromptsType = Literal["template"]
-
-
-class Data3TypedDict(TypedDict):
-    r"""Prompt template model returned from the API"""
-
-    id: str
-    owner: GetAllPromptsDataPromptsOwnerTypedDict
-    domain_id: str
-    created_by_id: str
-    display_name: str
-    updated_by_id: str
-    prompt_config: GetAllPromptsDataPromptsPromptConfigTypedDict
-    metadata: GetAllPromptsDataPromptsMetadataTypedDict
-    versions: List[GetAllPromptsDataPromptsVersionsTypedDict]
-    type: GetAllPromptsDataPromptsType
-    description: NotRequired[Nullable[str]]
-    created: NotRequired[datetime]
-    r"""The date and time the resource was created"""
-    updated: NotRequired[datetime]
-    r"""The date and time the resource was last updated"""
-
-
-class Data3(BaseModel):
-    r"""Prompt template model returned from the API"""
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    owner: GetAllPromptsDataPromptsOwner
-
-    domain_id: str
-
-    created_by_id: str
-
-    display_name: str
-
-    updated_by_id: str
-
-    prompt_config: GetAllPromptsDataPromptsPromptConfig
-
-    metadata: GetAllPromptsDataPromptsMetadata
-
-    versions: List[GetAllPromptsDataPromptsVersions]
-
-    type: GetAllPromptsDataPromptsType
-
-    description: OptionalNullable[str] = UNSET
-
-    created: Optional[datetime] = None
-    r"""The date and time the resource was created"""
-
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
-    r"""The date and time the resource was last updated"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "created", "updated"]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsOwnerPrompts2 = Literal["vendor"]
-
-GetAllPromptsDataOwnerTypedDict = TypeAliasType(
-    "GetAllPromptsDataOwnerTypedDict", Union[str, GetAllPromptsOwnerPrompts2]
-)
-
-
-GetAllPromptsDataOwner = TypeAliasType(
-    "GetAllPromptsDataOwner", Union[str, GetAllPromptsOwnerPrompts2]
-)
-
-
-GetAllPromptsDataModelType = Literal[
-    "chat",
-    "completion",
-    "embedding",
-    "vision",
-    "image",
-    "tts",
-    "stt",
-    "rerank",
-    "moderations",
-]
-r"""The type of the model"""
-
-GetAllPromptsDataFormat = Literal["url", "b64_json", "text", "json_object"]
-r"""Only supported on `image` models."""
-
-GetAllPromptsDataQuality = Literal["standard", "hd"]
+GetAllPromptsPromptsQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
 GetAllPromptsResponseFormatPromptsResponse200Type = Literal["json_object"]
@@ -3151,8 +667,8 @@ class GetAllPromptsResponseFormatPrompts1(BaseModel):
     json_schema: GetAllPromptsResponseFormatPromptsJSONSchema
 
 
-GetAllPromptsDataResponseFormatTypedDict = TypeAliasType(
-    "GetAllPromptsDataResponseFormatTypedDict",
+GetAllPromptsPromptsResponseFormatTypedDict = TypeAliasType(
+    "GetAllPromptsPromptsResponseFormatTypedDict",
     Union[
         GetAllPromptsResponseFormatPrompts2TypedDict,
         GetAllPromptsResponseFormatPrompts1TypedDict,
@@ -3168,8 +684,8 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetAllPromptsDataResponseFormat = TypeAliasType(
-    "GetAllPromptsDataResponseFormat",
+GetAllPromptsPromptsResponseFormat = TypeAliasType(
+    "GetAllPromptsPromptsResponseFormat",
     Union[GetAllPromptsResponseFormatPrompts2, GetAllPromptsResponseFormatPrompts1],
 )
 r"""An object specifying the format that the model must output.
@@ -3182,14 +698,14 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetAllPromptsDataPhotoRealVersion = Literal["v1", "v2"]
+GetAllPromptsPromptsPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-GetAllPromptsDataEncodingFormat = Literal["float", "base64"]
+GetAllPromptsPromptsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
 
-class GetAllPromptsDataModelParametersTypedDict(TypedDict):
+class GetAllPromptsPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -3208,15 +724,15 @@ class GetAllPromptsDataModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[GetAllPromptsDataFormat]
+    format_: NotRequired[GetAllPromptsPromptsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsDataQuality]
+    quality: NotRequired[GetAllPromptsPromptsQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[GetAllPromptsDataResponseFormatTypedDict]]
+    response_format: NotRequired[Nullable[GetAllPromptsPromptsResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -3225,13 +741,13 @@ class GetAllPromptsDataModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[GetAllPromptsDataPhotoRealVersion]
+    photo_real_version: NotRequired[GetAllPromptsPromptsPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[GetAllPromptsDataEncodingFormat]
+    encoding_format: NotRequired[GetAllPromptsPromptsEncodingFormat]
     r"""The format to return the embeddings"""
 
 
-class GetAllPromptsDataModelParameters(BaseModel):
+class GetAllPromptsPromptsModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -3263,21 +779,21 @@ class GetAllPromptsDataModelParameters(BaseModel):
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
     format_: Annotated[
-        Optional[GetAllPromptsDataFormat], pydantic.Field(alias="format")
+        Optional[GetAllPromptsPromptsFormat], pydantic.Field(alias="format")
     ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[GetAllPromptsDataQuality] = None
+    quality: Optional[GetAllPromptsPromptsQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[GetAllPromptsDataResponseFormat],
+        OptionalNullable[GetAllPromptsPromptsResponseFormat],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -3290,12 +806,12 @@ class GetAllPromptsDataModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[GetAllPromptsDataPhotoRealVersion],
+        Optional[GetAllPromptsPromptsPhotoRealVersion],
         pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[GetAllPromptsDataEncodingFormat] = None
+    encoding_format: Optional[GetAllPromptsPromptsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
     @model_serializer(mode="wrap")
@@ -3345,7 +861,7 @@ class GetAllPromptsDataModelParameters(BaseModel):
         return m
 
 
-GetAllPromptsDataProvider = Literal[
+GetAllPromptsPromptsProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -3366,7 +882,7 @@ GetAllPromptsDataProvider = Literal[
     "elevenlabs",
 ]
 
-GetAllPromptsDataRole = Literal[
+GetAllPromptsPromptsRole = Literal[
     "system",
     "assistant",
     "user",
@@ -3446,88 +962,92 @@ GetAllPromptsContentPrompts2 = TypeAliasType(
 )
 
 
-GetAllPromptsDataContentTypedDict = TypeAliasType(
-    "GetAllPromptsDataContentTypedDict",
+GetAllPromptsPromptsContentTypedDict = TypeAliasType(
+    "GetAllPromptsPromptsContentTypedDict",
     Union[str, List[GetAllPromptsContentPrompts2TypedDict]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetAllPromptsDataContent = TypeAliasType(
-    "GetAllPromptsDataContent", Union[str, List[GetAllPromptsContentPrompts2]]
+GetAllPromptsPromptsContent = TypeAliasType(
+    "GetAllPromptsPromptsContent", Union[str, List[GetAllPromptsContentPrompts2]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetAllPromptsDataPromptsResponse200ApplicationJSONType = Literal["function"]
+GetAllPromptsPromptsResponseType = Literal["function"]
 
 
-class GetAllPromptsDataFunctionTypedDict(TypedDict):
+class GetAllPromptsPromptsFunctionTypedDict(TypedDict):
     name: str
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class GetAllPromptsDataFunction(BaseModel):
+class GetAllPromptsPromptsFunction(BaseModel):
     name: str
 
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class GetAllPromptsDataToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONType
-    function: GetAllPromptsDataFunctionTypedDict
+class GetAllPromptsPromptsToolCallsTypedDict(TypedDict):
+    type: GetAllPromptsPromptsResponseType
+    function: GetAllPromptsPromptsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
-class GetAllPromptsDataToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONType
+class GetAllPromptsPromptsToolCalls(BaseModel):
+    type: GetAllPromptsPromptsResponseType
 
-    function: GetAllPromptsDataFunction
+    function: GetAllPromptsPromptsFunction
 
     id: Optional[str] = None
 
     index: Optional[float] = None
 
 
-class GetAllPromptsDataMessagesTypedDict(TypedDict):
-    role: GetAllPromptsDataRole
+class GetAllPromptsPromptsMessagesTypedDict(TypedDict):
+    role: GetAllPromptsPromptsRole
     r"""The role of the prompt message"""
-    content: GetAllPromptsDataContentTypedDict
+    content: GetAllPromptsPromptsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[GetAllPromptsDataToolCallsTypedDict]]
+    tool_calls: NotRequired[List[GetAllPromptsPromptsToolCallsTypedDict]]
 
 
-class GetAllPromptsDataMessages(BaseModel):
-    role: GetAllPromptsDataRole
+class GetAllPromptsPromptsMessages(BaseModel):
+    role: GetAllPromptsPromptsRole
     r"""The role of the prompt message"""
 
-    content: GetAllPromptsDataContent
+    content: GetAllPromptsPromptsContent
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
-    tool_calls: Optional[List[GetAllPromptsDataToolCalls]] = None
+    tool_calls: Optional[List[GetAllPromptsPromptsToolCalls]] = None
 
 
-class GetAllPromptsDataPromptConfigTypedDict(TypedDict):
-    messages: List[GetAllPromptsDataMessagesTypedDict]
+class GetAllPromptsPromptsPromptConfigTypedDict(TypedDict):
+    r"""A list of messages compatible with the openAI schema"""
+
+    messages: List[GetAllPromptsPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsDataModelType]
+    model_type: NotRequired[GetAllPromptsPromptsModelType]
     r"""The type of the model"""
-    model_parameters: NotRequired[GetAllPromptsDataModelParametersTypedDict]
+    model_parameters: NotRequired[GetAllPromptsPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[GetAllPromptsDataProvider]
+    provider: NotRequired[GetAllPromptsPromptsProvider]
     integration_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     version: NotRequired[str]
 
 
-class GetAllPromptsDataPromptConfig(BaseModel):
-    messages: List[GetAllPromptsDataMessages]
+class GetAllPromptsPromptsPromptConfig(BaseModel):
+    r"""A list of messages compatible with the openAI schema"""
+
+    messages: List[GetAllPromptsPromptsMessages]
 
     stream: Optional[bool] = None
 
@@ -3536,13 +1056,13 @@ class GetAllPromptsDataPromptConfig(BaseModel):
     model_db_id: Optional[str] = None
     r"""The id of the resource"""
 
-    model_type: Optional[GetAllPromptsDataModelType] = None
+    model_type: Optional[GetAllPromptsPromptsModelType] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[GetAllPromptsDataModelParameters] = None
+    model_parameters: Optional[GetAllPromptsPromptsModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[GetAllPromptsDataProvider] = None
+    provider: Optional[GetAllPromptsPromptsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -3589,563 +1109,63 @@ class GetAllPromptsDataPromptConfig(BaseModel):
         return m
 
 
-class GetAllPromptsDataMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
-
-
-class GetAllPromptsDataMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
-
-    language: Optional[str] = None
-
-
-GetAllPromptsDataPromptsResponseModelType = Literal[
-    "chat",
-    "completion",
-    "embedding",
-    "vision",
-    "image",
-    "tts",
-    "stt",
-    "rerank",
-    "moderations",
-]
-r"""The type of the model"""
-
-GetAllPromptsDataPromptsResponse200Format = Literal[
-    "url", "b64_json", "text", "json_object"
-]
-r"""Only supported on `image` models."""
-
-GetAllPromptsDataPromptsResponseQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData2Type = (
-    Literal["json_object"]
-)
-
-
-class GetAllPromptsResponseFormatPromptsResponse2002TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData2Type
-
-
-class GetAllPromptsResponseFormatPromptsResponse2002(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData2Type
-
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyDataType = (
-    Literal["json_schema"]
-)
-
-
-class GetAllPromptsResponseFormatPromptsResponse200JSONSchemaTypedDict(TypedDict):
-    name: str
-    strict: bool
-    schema_: Dict[str, Any]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200JSONSchema(BaseModel):
-    name: str
-
-    strict: bool
-
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-
-
-class GetAllPromptsResponseFormatPromptsResponse2001TypedDict(TypedDict):
-    type: (
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyDataType
-    )
-    json_schema: GetAllPromptsResponseFormatPromptsResponse200JSONSchemaTypedDict
-
-
-class GetAllPromptsResponseFormatPromptsResponse2001(BaseModel):
-    type: (
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyDataType
-    )
-
-    json_schema: GetAllPromptsResponseFormatPromptsResponse200JSONSchema
-
-
-GetAllPromptsDataPromptsResponseResponseFormatTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseResponseFormatTypedDict",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse2002TypedDict,
-        GetAllPromptsResponseFormatPromptsResponse2001TypedDict,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponseResponseFormat = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseResponseFormat",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse2002,
-        GetAllPromptsResponseFormatPromptsResponse2001,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponsePhotoRealVersion = Literal["v1", "v2"]
-r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-GetAllPromptsDataPromptsResponseEncodingFormat = Literal["float", "base64"]
-r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponseModelParametersTypedDict(TypedDict):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    max_tokens: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_k: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_p: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    frequency_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    presence_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    num_images: NotRequired[float]
-    r"""Only supported on `image` models."""
-    seed: NotRequired[float]
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[GetAllPromptsDataPromptsResponse200Format]
-    r"""Only supported on `image` models."""
-    dimensions: NotRequired[str]
-    r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsDataPromptsResponseQuality]
-    r"""Only supported on `image` models."""
-    style: NotRequired[str]
-    r"""Only supported on `image` models."""
-    response_format: NotRequired[
-        Nullable[GetAllPromptsDataPromptsResponseResponseFormatTypedDict]
-    ]
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-    photo_real_version: NotRequired[GetAllPromptsDataPromptsResponsePhotoRealVersion]
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[GetAllPromptsDataPromptsResponseEncodingFormat]
-    r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponseModelParameters(BaseModel):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: Optional[float] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    frequency_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="frequencyPenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    presence_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="presencePenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
-    r"""Only supported on `image` models."""
-
-    seed: Optional[float] = None
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-
-    format_: Annotated[
-        Optional[GetAllPromptsDataPromptsResponse200Format],
-        pydantic.Field(alias="format"),
-    ] = None
-    r"""Only supported on `image` models."""
-
-    dimensions: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    quality: Optional[GetAllPromptsDataPromptsResponseQuality] = None
-    r"""Only supported on `image` models."""
-
-    style: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    response_format: Annotated[
-        OptionalNullable[GetAllPromptsDataPromptsResponseResponseFormat],
-        pydantic.Field(alias="responseFormat"),
-    ] = UNSET
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-
-    photo_real_version: Annotated[
-        Optional[GetAllPromptsDataPromptsResponsePhotoRealVersion],
-        pydantic.Field(alias="photoRealVersion"),
-    ] = None
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-    encoding_format: Optional[GetAllPromptsDataPromptsResponseEncodingFormat] = None
-    r"""The format to return the embeddings"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsDataPromptsResponseProvider = Literal[
-    "cohere",
-    "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
-    "azure",
-    "aws",
-    "anyscale",
-    "perplexity",
-    "groq",
-    "fal",
-    "leonardoai",
-    "nvidia",
-    "jina",
-    "togetherai",
-    "elevenlabs",
+GetAllPromptsPromptsUseCases = Literal[
+    "Agents",
+    "Agents simulations",
+    "API interaction",
+    "Autonomous Agents",
+    "Chatbots",
+    "Classification",
+    "Code understanding",
+    "Code writing",
+    "Documents QA",
+    "Conversation",
+    "Extraction",
+    "Multi-modal",
+    "Self-checking",
+    "SQL",
+    "Summarization",
+    "Tagging",
 ]
 
-GetAllPromptsDataPromptsResponseRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
+GetAllPromptsPromptsLanguage = Literal[
+    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
 ]
-r"""The role of the prompt message"""
+r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData2Type = Literal[
-    "image_url"
-]
 
+class GetAllPromptsPromptsMetadataTypedDict(TypedDict):
+    use_cases: NotRequired[List[GetAllPromptsPromptsUseCases]]
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+    language: NotRequired[GetAllPromptsPromptsLanguage]
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
-class GetAllPrompts2PromptsResponse200ImageURLTypedDict(TypedDict):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-    id: NotRequired[str]
-    r"""The orq.ai id of the image"""
-    detail: NotRequired[str]
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
+class GetAllPromptsPromptsMetadata(BaseModel):
+    use_cases: Optional[List[GetAllPromptsPromptsUseCases]] = None
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-class GetAllPrompts2PromptsResponse200ImageURL(BaseModel):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
+    language: Optional[GetAllPromptsPromptsLanguage] = None
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
-    id: Optional[str] = None
-    r"""The orq.ai id of the image"""
 
-    detail: Optional[str] = None
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2PromptsResponse2002TypedDict(TypedDict):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData2Type
-    image_url: GetAllPrompts2PromptsResponse200ImageURLTypedDict
-
-
-class GetAllPrompts2PromptsResponse2002(BaseModel):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData2Type
-
-    image_url: GetAllPrompts2PromptsResponse200ImageURL
-
-
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyDataType = Literal["text"]
-
-
-class GetAllPrompts2PromptsResponse2001TypedDict(TypedDict):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyDataType
-    text: str
-
-
-class GetAllPrompts2PromptsResponse2001(BaseModel):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyDataType
-
-    text: str
-
-
-GetAllPromptsContentPromptsResponse2002TypedDict = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse2002TypedDict",
-    Union[
-        GetAllPrompts2PromptsResponse2001TypedDict,
-        GetAllPrompts2PromptsResponse2002TypedDict,
-    ],
-)
-
-
-GetAllPromptsContentPromptsResponse2002 = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse2002",
-    Union[GetAllPrompts2PromptsResponse2001, GetAllPrompts2PromptsResponse2002],
-)
-
-
-GetAllPromptsDataPromptsResponseContentTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseContentTypedDict",
-    Union[str, List[GetAllPromptsContentPromptsResponse2002TypedDict]],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponseContent = TypeAliasType(
-    "GetAllPromptsDataPromptsResponseContent",
-    Union[str, List[GetAllPromptsContentPromptsResponse2002]],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyType = Literal["function"]
-
-
-class GetAllPromptsDataPromptsResponseFunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponseFunction(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponseToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyType
-    function: GetAllPromptsDataPromptsResponseFunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class GetAllPromptsDataPromptsResponseToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBodyType
-
-    function: GetAllPromptsDataPromptsResponseFunction
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class GetAllPromptsDataPromptsResponseMessagesTypedDict(TypedDict):
-    role: GetAllPromptsDataPromptsResponseRole
-    r"""The role of the prompt message"""
-    content: GetAllPromptsDataPromptsResponseContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[GetAllPromptsDataPromptsResponseToolCallsTypedDict]]
-
-
-class GetAllPromptsDataPromptsResponseMessages(BaseModel):
-    role: GetAllPromptsDataPromptsResponseRole
-    r"""The role of the prompt message"""
-
-    content: GetAllPromptsDataPromptsResponseContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-    tool_calls: Optional[List[GetAllPromptsDataPromptsResponseToolCalls]] = None
-
-
-class GetAllPromptsDataPromptsResponsePromptConfigTypedDict(TypedDict):
-    messages: List[GetAllPromptsDataPromptsResponseMessagesTypedDict]
-    stream: NotRequired[bool]
-    model: NotRequired[str]
-    model_db_id: NotRequired[str]
-    r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsDataPromptsResponseModelType]
-    r"""The type of the model"""
-    model_parameters: NotRequired[
-        GetAllPromptsDataPromptsResponseModelParametersTypedDict
-    ]
-    r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[GetAllPromptsDataPromptsResponseProvider]
-    integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
-    version: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponsePromptConfig(BaseModel):
-    messages: List[GetAllPromptsDataPromptsResponseMessages]
-
-    stream: Optional[bool] = None
-
-    model: Optional[str] = None
-
-    model_db_id: Optional[str] = None
-    r"""The id of the resource"""
-
-    model_type: Optional[GetAllPromptsDataPromptsResponseModelType] = None
-    r"""The type of the model"""
-
-    model_parameters: Optional[GetAllPromptsDataPromptsResponseModelParameters] = None
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    provider: Optional[GetAllPromptsDataPromptsResponseProvider] = None
-
-    integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
-
-    version: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_db_id",
-            "model_type",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-        ]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-class GetAllPromptsDataPromptsResponseMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponseMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
-
-    language: Optional[str] = None
-
-
-class GetAllPromptsDataVersionsTypedDict(TypedDict):
+class GetAllPromptsVersionsTypedDict(TypedDict):
     r"""Prompt version model returned from the API"""
 
     id: str
     created_by_id: str
     display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
     updated_by_id: str
-    prompt_config: GetAllPromptsDataPromptsResponsePromptConfigTypedDict
-    metadata: GetAllPromptsDataPromptsResponseMetadataTypedDict
-    commit: str
+    prompt_config: GetAllPromptsPromptsPromptConfigTypedDict
+    r"""A list of messages compatible with the openAI schema"""
+    metadata: GetAllPromptsPromptsMetadataTypedDict
     timestamp: str
     description: NotRequired[Nullable[str]]
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
 
-class GetAllPromptsDataVersions(BaseModel):
+class GetAllPromptsVersions(BaseModel):
     r"""Prompt version model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -4153,18 +1173,19 @@ class GetAllPromptsDataVersions(BaseModel):
     created_by_id: str
 
     display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
 
     updated_by_id: str
 
-    prompt_config: GetAllPromptsDataPromptsResponsePromptConfig
+    prompt_config: GetAllPromptsPromptsPromptConfig
+    r"""A list of messages compatible with the openAI schema"""
 
-    metadata: GetAllPromptsDataPromptsResponseMetadata
-
-    commit: str
+    metadata: GetAllPromptsPromptsMetadata
 
     timestamp: str
 
     description: OptionalNullable[str] = UNSET
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -4197,61 +1218,61 @@ class GetAllPromptsDataVersions(BaseModel):
         return m
 
 
-GetAllPromptsDataType = Literal["snippet"]
-
-
-class Data2TypedDict(TypedDict):
-    r"""Prompt snippet model returned from the API"""
+class GetAllPromptsDataTypedDict(TypedDict):
+    r"""Prompt model returned from the API"""
 
     id: str
-    owner: GetAllPromptsDataOwnerTypedDict
+    owner: GetAllPromptsOwnerTypedDict
     domain_id: str
     created_by_id: str
     display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
     updated_by_id: str
-    prompt_config: GetAllPromptsDataPromptConfigTypedDict
-    metadata: GetAllPromptsDataMetadataTypedDict
-    versions: List[GetAllPromptsDataVersionsTypedDict]
-    key: str
-    type: GetAllPromptsDataType
+    prompt_config: GetAllPromptsPromptConfigTypedDict
+    r"""A list of messages compatible with the openAI schema"""
+    metadata: GetAllPromptsMetadataTypedDict
+    type: GetAllPromptsType
+    versions: List[GetAllPromptsVersionsTypedDict]
     description: NotRequired[Nullable[str]]
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
     r"""The date and time the resource was last updated"""
 
 
-class Data2(BaseModel):
-    r"""Prompt snippet model returned from the API"""
+class GetAllPromptsData(BaseModel):
+    r"""Prompt model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    owner: GetAllPromptsDataOwner
+    owner: GetAllPromptsOwner
 
     domain_id: str
 
     created_by_id: str
 
     display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
 
     updated_by_id: str
 
-    prompt_config: GetAllPromptsDataPromptConfig
+    prompt_config: GetAllPromptsPromptConfig
+    r"""A list of messages compatible with the openAI schema"""
 
-    metadata: GetAllPromptsDataMetadata
+    metadata: GetAllPromptsMetadata
 
-    versions: List[GetAllPromptsDataVersions]
+    type: GetAllPromptsType
 
-    key: str
-
-    type: GetAllPromptsDataType
+    versions: List[GetAllPromptsVersions]
 
     description: OptionalNullable[str] = UNSET
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T07:05:40.814Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -4283,1209 +1304,6 @@ class Data2(BaseModel):
                 m[k] = val
 
         return m
-
-
-GetAllPromptsOwner2 = Literal["vendor"]
-
-DataOwnerTypedDict = TypeAliasType(
-    "DataOwnerTypedDict", Union[str, GetAllPromptsOwner2]
-)
-
-
-DataOwner = TypeAliasType("DataOwner", Union[str, GetAllPromptsOwner2])
-
-
-DataModelType = Literal[
-    "chat",
-    "completion",
-    "embedding",
-    "vision",
-    "image",
-    "tts",
-    "stt",
-    "rerank",
-    "moderations",
-]
-r"""The type of the model"""
-
-DataFormat = Literal["url", "b64_json", "text", "json_object"]
-r"""Only supported on `image` models."""
-
-DataQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
-GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
-
-
-class GetAllPromptsResponseFormat2TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsType
-
-
-class GetAllPromptsResponseFormat2(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsType
-
-
-GetAllPromptsResponseFormatType = Literal["json_schema"]
-
-
-class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
-    name: str
-    strict: bool
-    schema_: Dict[str, Any]
-
-
-class GetAllPromptsResponseFormatJSONSchema(BaseModel):
-    name: str
-
-    strict: bool
-
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-
-
-class GetAllPromptsResponseFormat1TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatType
-    json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
-
-
-class GetAllPromptsResponseFormat1(BaseModel):
-    type: GetAllPromptsResponseFormatType
-
-    json_schema: GetAllPromptsResponseFormatJSONSchema
-
-
-DataResponseFormatTypedDict = TypeAliasType(
-    "DataResponseFormatTypedDict",
-    Union[GetAllPromptsResponseFormat2TypedDict, GetAllPromptsResponseFormat1TypedDict],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-DataResponseFormat = TypeAliasType(
-    "DataResponseFormat",
-    Union[GetAllPromptsResponseFormat2, GetAllPromptsResponseFormat1],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-DataPhotoRealVersion = Literal["v1", "v2"]
-r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-DataEncodingFormat = Literal["float", "base64"]
-r"""The format to return the embeddings"""
-
-
-class DataModelParametersTypedDict(TypedDict):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    max_tokens: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_k: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_p: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    frequency_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    presence_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    num_images: NotRequired[float]
-    r"""Only supported on `image` models."""
-    seed: NotRequired[float]
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[DataFormat]
-    r"""Only supported on `image` models."""
-    dimensions: NotRequired[str]
-    r"""Only supported on `image` models."""
-    quality: NotRequired[DataQuality]
-    r"""Only supported on `image` models."""
-    style: NotRequired[str]
-    r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[DataResponseFormatTypedDict]]
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-    photo_real_version: NotRequired[DataPhotoRealVersion]
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[DataEncodingFormat]
-    r"""The format to return the embeddings"""
-
-
-class DataModelParameters(BaseModel):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: Optional[float] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    frequency_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="frequencyPenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    presence_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="presencePenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
-    r"""Only supported on `image` models."""
-
-    seed: Optional[float] = None
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-
-    format_: Annotated[Optional[DataFormat], pydantic.Field(alias="format")] = None
-    r"""Only supported on `image` models."""
-
-    dimensions: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    quality: Optional[DataQuality] = None
-    r"""Only supported on `image` models."""
-
-    style: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    response_format: Annotated[
-        OptionalNullable[DataResponseFormat], pydantic.Field(alias="responseFormat")
-    ] = UNSET
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-
-    photo_real_version: Annotated[
-        Optional[DataPhotoRealVersion], pydantic.Field(alias="photoRealVersion")
-    ] = None
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-    encoding_format: Optional[DataEncodingFormat] = None
-    r"""The format to return the embeddings"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DataProvider = Literal[
-    "cohere",
-    "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
-    "azure",
-    "aws",
-    "anyscale",
-    "perplexity",
-    "groq",
-    "fal",
-    "leonardoai",
-    "nvidia",
-    "jina",
-    "togetherai",
-    "elevenlabs",
-]
-
-DataRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-GetAllPrompts2PromptsType = Literal["image_url"]
-
-
-class GetAllPrompts2ImageURLTypedDict(TypedDict):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-    id: NotRequired[str]
-    r"""The orq.ai id of the image"""
-    detail: NotRequired[str]
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2ImageURL(BaseModel):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-
-    id: Optional[str] = None
-    r"""The orq.ai id of the image"""
-
-    detail: Optional[str] = None
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts22TypedDict(TypedDict):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsType
-    image_url: GetAllPrompts2ImageURLTypedDict
-
-
-class GetAllPrompts22(BaseModel):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsType
-
-    image_url: GetAllPrompts2ImageURL
-
-
-GetAllPrompts2Type = Literal["text"]
-
-
-class GetAllPrompts21TypedDict(TypedDict):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2Type
-    text: str
-
-
-class GetAllPrompts21(BaseModel):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2Type
-
-    text: str
-
-
-GetAllPromptsContent2TypedDict = TypeAliasType(
-    "GetAllPromptsContent2TypedDict",
-    Union[GetAllPrompts21TypedDict, GetAllPrompts22TypedDict],
-)
-
-
-GetAllPromptsContent2 = TypeAliasType(
-    "GetAllPromptsContent2", Union[GetAllPrompts21, GetAllPrompts22]
-)
-
-
-DataContentTypedDict = TypeAliasType(
-    "DataContentTypedDict", Union[str, List[GetAllPromptsContent2TypedDict]]
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-DataContent = TypeAliasType("DataContent", Union[str, List[GetAllPromptsContent2]])
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponseType = Literal["function"]
-
-
-class DataFunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DataFunction(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DataToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponseType
-    function: DataFunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class DataToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponseType
-
-    function: DataFunction
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class DataMessagesTypedDict(TypedDict):
-    role: DataRole
-    r"""The role of the prompt message"""
-    content: DataContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[DataToolCallsTypedDict]]
-
-
-class DataMessages(BaseModel):
-    role: DataRole
-    r"""The role of the prompt message"""
-
-    content: DataContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-    tool_calls: Optional[List[DataToolCalls]] = None
-
-
-class DataPromptConfigTypedDict(TypedDict):
-    messages: List[DataMessagesTypedDict]
-    stream: NotRequired[bool]
-    model: NotRequired[str]
-    model_db_id: NotRequired[str]
-    r"""The id of the resource"""
-    model_type: NotRequired[DataModelType]
-    r"""The type of the model"""
-    model_parameters: NotRequired[DataModelParametersTypedDict]
-    r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[DataProvider]
-    integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
-    version: NotRequired[str]
-
-
-class DataPromptConfig(BaseModel):
-    messages: List[DataMessages]
-
-    stream: Optional[bool] = None
-
-    model: Optional[str] = None
-
-    model_db_id: Optional[str] = None
-    r"""The id of the resource"""
-
-    model_type: Optional[DataModelType] = None
-    r"""The type of the model"""
-
-    model_parameters: Optional[DataModelParameters] = None
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    provider: Optional[DataProvider] = None
-
-    integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
-
-    version: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_db_id",
-            "model_type",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-        ]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-class DataMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
-
-
-class DataMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
-
-    language: Optional[str] = None
-
-
-GetAllPromptsDataPromptsResponse200ModelType = Literal[
-    "chat",
-    "completion",
-    "embedding",
-    "vision",
-    "image",
-    "tts",
-    "stt",
-    "rerank",
-    "moderations",
-]
-r"""The type of the model"""
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONFormat = Literal[
-    "url", "b64_json", "text", "json_object"
-]
-r"""Only supported on `image` models."""
-
-GetAllPromptsDataPromptsResponse200Quality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1VersionsType = Literal[
-    "json_object"
-]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON2TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1VersionsType
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON2(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1VersionsType
-
-
-GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1Type = (
-    Literal["json_schema"]
-)
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONJSONSchemaTypedDict(
-    TypedDict
-):
-    name: str
-    strict: bool
-    schema_: Dict[str, Any]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONJSONSchema(BaseModel):
-    name: str
-
-    strict: bool
-
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON1TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1Type
-    json_schema: (
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONJSONSchemaTypedDict
-    )
-
-
-class GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON1(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONResponseBodyData1Type
-
-    json_schema: GetAllPromptsResponseFormatPromptsResponse200ApplicationJSONJSONSchema
-
-
-GetAllPromptsDataPromptsResponse200ResponseFormatTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ResponseFormatTypedDict",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON2TypedDict,
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON1TypedDict,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponse200ResponseFormat = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ResponseFormat",
-    Union[
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON2,
-        GetAllPromptsResponseFormatPromptsResponse200ApplicationJSON1,
-    ],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-GetAllPromptsDataPromptsResponse200PhotoRealVersion = Literal["v1", "v2"]
-r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-GetAllPromptsDataPromptsResponse200EncodingFormat = Literal["float", "base64"]
-r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponse200ModelParametersTypedDict(TypedDict):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    max_tokens: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_k: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    top_p: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    frequency_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    presence_penalty: NotRequired[float]
-    r"""Only supported on `chat` and `completion` models."""
-    num_images: NotRequired[float]
-    r"""Only supported on `image` models."""
-    seed: NotRequired[float]
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[GetAllPromptsDataPromptsResponse200ApplicationJSONFormat]
-    r"""Only supported on `image` models."""
-    dimensions: NotRequired[str]
-    r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsDataPromptsResponse200Quality]
-    r"""Only supported on `image` models."""
-    style: NotRequired[str]
-    r"""Only supported on `image` models."""
-    response_format: NotRequired[
-        Nullable[GetAllPromptsDataPromptsResponse200ResponseFormatTypedDict]
-    ]
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-    photo_real_version: NotRequired[GetAllPromptsDataPromptsResponse200PhotoRealVersion]
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[GetAllPromptsDataPromptsResponse200EncodingFormat]
-    r"""The format to return the embeddings"""
-
-
-class GetAllPromptsDataPromptsResponse200ModelParameters(BaseModel):
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    temperature: Optional[float] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    frequency_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="frequencyPenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    presence_penalty: Annotated[
-        Optional[float], pydantic.Field(alias="presencePenalty")
-    ] = None
-    r"""Only supported on `chat` and `completion` models."""
-
-    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
-    r"""Only supported on `image` models."""
-
-    seed: Optional[float] = None
-    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-
-    format_: Annotated[
-        Optional[GetAllPromptsDataPromptsResponse200ApplicationJSONFormat],
-        pydantic.Field(alias="format"),
-    ] = None
-    r"""Only supported on `image` models."""
-
-    dimensions: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    quality: Optional[GetAllPromptsDataPromptsResponse200Quality] = None
-    r"""Only supported on `image` models."""
-
-    style: Optional[str] = None
-    r"""Only supported on `image` models."""
-
-    response_format: Annotated[
-        OptionalNullable[GetAllPromptsDataPromptsResponse200ResponseFormat],
-        pydantic.Field(alias="responseFormat"),
-    ] = UNSET
-    r"""An object specifying the format that the model must output.
-
-    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-    """
-
-    photo_real_version: Annotated[
-        Optional[GetAllPromptsDataPromptsResponse200PhotoRealVersion],
-        pydantic.Field(alias="photoRealVersion"),
-    ] = None
-    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-
-    encoding_format: Optional[GetAllPromptsDataPromptsResponse200EncodingFormat] = None
-    r"""The format to return the embeddings"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsDataPromptsResponse200Provider = Literal[
-    "cohere",
-    "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
-    "azure",
-    "aws",
-    "anyscale",
-    "perplexity",
-    "groq",
-    "fal",
-    "leonardoai",
-    "nvidia",
-    "jina",
-    "togetherai",
-    "elevenlabs",
-]
-
-GetAllPromptsDataPromptsResponse200Role = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1VersionsType = Literal[
-    "image_url"
-]
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONImageURLTypedDict(TypedDict):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-    id: NotRequired[str]
-    r"""The orq.ai id of the image"""
-    detail: NotRequired[str]
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSONImageURL(BaseModel):
-    url: str
-    r"""Either a URL of the image or the base64 encoded data URI."""
-
-    id: Optional[str] = None
-    r"""The orq.ai id of the image"""
-
-    detail: Optional[str] = None
-    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSON2TypedDict(TypedDict):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1VersionsType
-    image_url: GetAllPrompts2PromptsResponse200ApplicationJSONImageURLTypedDict
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSON2(BaseModel):
-    r"""The image part of the prompt message. Only supported with vision models."""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1VersionsType
-
-    image_url: GetAllPrompts2PromptsResponse200ApplicationJSONImageURL
-
-
-GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1Type = Literal["text"]
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSON1TypedDict(TypedDict):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1Type
-    text: str
-
-
-class GetAllPrompts2PromptsResponse200ApplicationJSON1(BaseModel):
-    r"""Text content part of a prompt message"""
-
-    type: GetAllPrompts2PromptsResponse200ApplicationJSONResponseBodyData1Type
-
-    text: str
-
-
-GetAllPromptsContentPromptsResponse200ApplicationJSON2TypedDict = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse200ApplicationJSON2TypedDict",
-    Union[
-        GetAllPrompts2PromptsResponse200ApplicationJSON1TypedDict,
-        GetAllPrompts2PromptsResponse200ApplicationJSON2TypedDict,
-    ],
-)
-
-
-GetAllPromptsContentPromptsResponse200ApplicationJSON2 = TypeAliasType(
-    "GetAllPromptsContentPromptsResponse200ApplicationJSON2",
-    Union[
-        GetAllPrompts2PromptsResponse200ApplicationJSON1,
-        GetAllPrompts2PromptsResponse200ApplicationJSON2,
-    ],
-)
-
-
-GetAllPromptsDataPromptsResponse200ContentTypedDict = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200ContentTypedDict",
-    Union[str, List[GetAllPromptsContentPromptsResponse200ApplicationJSON2TypedDict]],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponse200Content = TypeAliasType(
-    "GetAllPromptsDataPromptsResponse200Content",
-    Union[str, List[GetAllPromptsContentPromptsResponse200ApplicationJSON2]],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody1Type = Literal[
-    "function"
-]
-
-
-class GetAllPromptsDataPromptsResponse200FunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponse200Function(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class GetAllPromptsDataPromptsResponse200ToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody1Type
-    function: GetAllPromptsDataPromptsResponse200FunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class GetAllPromptsDataPromptsResponse200ToolCalls(BaseModel):
-    type: GetAllPromptsDataPromptsResponse200ApplicationJSONResponseBody1Type
-
-    function: GetAllPromptsDataPromptsResponse200Function
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class GetAllPromptsDataPromptsResponse200MessagesTypedDict(TypedDict):
-    role: GetAllPromptsDataPromptsResponse200Role
-    r"""The role of the prompt message"""
-    content: GetAllPromptsDataPromptsResponse200ContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[GetAllPromptsDataPromptsResponse200ToolCallsTypedDict]]
-
-
-class GetAllPromptsDataPromptsResponse200Messages(BaseModel):
-    role: GetAllPromptsDataPromptsResponse200Role
-    r"""The role of the prompt message"""
-
-    content: GetAllPromptsDataPromptsResponse200Content
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-    tool_calls: Optional[List[GetAllPromptsDataPromptsResponse200ToolCalls]] = None
-
-
-class GetAllPromptsDataPromptsResponse200PromptConfigTypedDict(TypedDict):
-    messages: List[GetAllPromptsDataPromptsResponse200MessagesTypedDict]
-    stream: NotRequired[bool]
-    model: NotRequired[str]
-    model_db_id: NotRequired[str]
-    r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsDataPromptsResponse200ModelType]
-    r"""The type of the model"""
-    model_parameters: NotRequired[
-        GetAllPromptsDataPromptsResponse200ModelParametersTypedDict
-    ]
-    r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[GetAllPromptsDataPromptsResponse200Provider]
-    integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
-    version: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponse200PromptConfig(BaseModel):
-    messages: List[GetAllPromptsDataPromptsResponse200Messages]
-
-    stream: Optional[bool] = None
-
-    model: Optional[str] = None
-
-    model_db_id: Optional[str] = None
-    r"""The id of the resource"""
-
-    model_type: Optional[GetAllPromptsDataPromptsResponse200ModelType] = None
-    r"""The type of the model"""
-
-    model_parameters: Optional[GetAllPromptsDataPromptsResponse200ModelParameters] = (
-        None
-    )
-    r"""Model Parameters: Not all parameters apply to every model"""
-
-    provider: Optional[GetAllPromptsDataPromptsResponse200Provider] = None
-
-    integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
-
-    version: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_db_id",
-            "model_type",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-        ]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-class GetAllPromptsDataPromptsResponse200MetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
-
-
-class GetAllPromptsDataPromptsResponse200Metadata(BaseModel):
-    use_cases: Optional[List[str]] = None
-
-    language: Optional[str] = None
-
-
-class DataVersionsTypedDict(TypedDict):
-    r"""Prompt version model returned from the API"""
-
-    id: str
-    created_by_id: str
-    display_name: str
-    updated_by_id: str
-    prompt_config: GetAllPromptsDataPromptsResponse200PromptConfigTypedDict
-    metadata: GetAllPromptsDataPromptsResponse200MetadataTypedDict
-    commit: str
-    timestamp: str
-    description: NotRequired[Nullable[str]]
-
-
-class DataVersions(BaseModel):
-    r"""Prompt version model returned from the API"""
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    created_by_id: str
-
-    display_name: str
-
-    updated_by_id: str
-
-    prompt_config: GetAllPromptsDataPromptsResponse200PromptConfig
-
-    metadata: GetAllPromptsDataPromptsResponse200Metadata
-
-    commit: str
-
-    timestamp: str
-
-    description: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description"]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DataType = Literal["prompt"]
-
-
-class Data1TypedDict(TypedDict):
-    r"""Prompt model returned from the API"""
-
-    id: str
-    owner: DataOwnerTypedDict
-    domain_id: str
-    created_by_id: str
-    display_name: str
-    updated_by_id: str
-    prompt_config: DataPromptConfigTypedDict
-    metadata: DataMetadataTypedDict
-    versions: List[DataVersionsTypedDict]
-    type: DataType
-    description: NotRequired[Nullable[str]]
-    created: NotRequired[datetime]
-    r"""The date and time the resource was created"""
-    updated: NotRequired[datetime]
-    r"""The date and time the resource was last updated"""
-
-
-class Data1(BaseModel):
-    r"""Prompt model returned from the API"""
-
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    owner: DataOwner
-
-    domain_id: str
-
-    created_by_id: str
-
-    display_name: str
-
-    updated_by_id: str
-
-    prompt_config: DataPromptConfig
-
-    metadata: DataMetadata
-
-    versions: List[DataVersions]
-
-    type: DataType
-
-    description: OptionalNullable[str] = UNSET
-
-    created: Optional[datetime] = None
-    r"""The date and time the resource was created"""
-
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-23T10:03:07.684Z")
-    r"""The date and time the resource was last updated"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "created", "updated"]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-GetAllPromptsDataTypedDict = TypeAliasType(
-    "GetAllPromptsDataTypedDict", Union[Data1TypedDict, Data3TypedDict, Data2TypedDict]
-)
-
-
-GetAllPromptsData = TypeAliasType("GetAllPromptsData", Union[Data1, Data3, Data2])
 
 
 class GetAllPromptsResponseBodyTypedDict(TypedDict):

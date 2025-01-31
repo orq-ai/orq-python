@@ -12,7 +12,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *orq-
 <!-- Start Summary [summary] -->
 ## Summary
 
-[Dev] orq.ai API: The Orquesta API
+[Dev] orq.ai API: orq.ai API documentation
 
 For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
 <!-- End Summary [summary] -->
@@ -32,6 +32,7 @@ For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
+  * [Resource Management](#resource-management)
   * [Debugging](#debugging)
 * [Development](#development)
   * [Maturity](#maturity)
@@ -41,6 +42,11 @@ For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
 
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
+
+> [!NOTE]
+> **Python version upgrade policy**
+>
+> Once a Python version reaches its [official end of life date](https://devguide.python.org/versions/), a 3-month grace period is provided for users to upgrade. Following this grace period, the minimum python version supported in the SDK will be updated.
 
 The SDK can be installed with either *pip* or *poetry* package managers.
 
@@ -161,9 +167,9 @@ with Orq(
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
 * [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments
-* [invalidate](docs/sdks/deploymentssdk/README.md#invalidate) - Invalidates cache
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
+* [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
@@ -178,31 +184,24 @@ with Orq(
 * [upload](docs/sdks/files/README.md#upload) - Upload file
 * [list](docs/sdks/files/README.md#list) - List all files
 * [get](docs/sdks/files/README.md#get) - Get file by ID
-* [update](docs/sdks/files/README.md#update) - Update file name
 * [delete](docs/sdks/files/README.md#delete) - Delete file
-* [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
-### [prompt](docs/sdks/prompt/README.md)
+### [prompt_snippets](docs/sdks/promptsnippets/README.md)
 
-
-#### [prompt.snippets](docs/sdks/snippets/README.md)
-
-* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
-
-#### [prompt.templates](docs/sdks/templates/README.md)
-
-* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
+* [create](docs/sdks/promptsnippets/README.md#create) - Create a prompt snippet
+* [update](docs/sdks/promptsnippets/README.md#update) - Update a prompt snippet
+* [delete](docs/sdks/promptsnippets/README.md#delete) - Delete a prompt snippet
+* [get](docs/sdks/promptsnippets/README.md#get) - Retrieve a prompt snippet
+* [get_by_key](docs/sdks/promptsnippets/README.md#get_by_key) - Retrieve a prompt snippet by key
 
 ### [prompts](docs/sdks/prompts/README.md)
 
-* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
-* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
-* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
-* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
+* [create](docs/sdks/prompts/README.md#create) - Create a prompt
 * [update](docs/sdks/prompts/README.md#update) - Update a prompt
-* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
-* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
+* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
+* [get](docs/sdks/prompts/README.md#get) - Retrieve a prompt
+* [list](docs/sdks/prompts/README.md#list) - List all prompts
 
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 
@@ -231,7 +230,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>", stream=False)
+    res = orq.deployments.stream(key="<key>")
 
     assert res is not None
 
@@ -354,7 +353,7 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list(limit=10)
+        res = orq.deployments.list()
 
         assert res is not None
 
@@ -475,6 +474,32 @@ class CustomClient(AsyncHttpClient):
 s = Orq(async_client=CustomClient(httpx.AsyncClient()))
 ```
 <!-- End Custom HTTP Client [http-client] -->
+
+<!-- Start Resource Management [resource-management] -->
+## Resource Management
+
+The `Orq` class implements the context manager protocol and registers a finalizer function to close the underlying sync and async HTTPX clients it uses under the hood. This will close HTTP connections, release memory and free up other resources held by the SDK. In short-lived Python programs and notebooks that make a few SDK method calls, resource management may not be a concern. However, in longer-lived programs, it is beneficial to create a single SDK instance via a [context manager][context-manager] and reuse it across the application.
+
+[context-manager]: https://docs.python.org/3/reference/datamodel.html#context-managers
+
+```python
+from orq_ai_sdk import Orq
+import os
+def main():
+    with Orq(
+        api_key=os.getenv("ORQ_API_KEY", ""),
+    ) as orq:
+        # Rest of application here...
+
+
+# Or when using async:
+async def amain():
+    async with Orq(
+        api_key=os.getenv("ORQ_API_KEY", ""),
+    ) as orq:
+        # Rest of application here...
+```
+<!-- End Resource Management [resource-management] -->
 
 <!-- Start Debugging [debug] -->
 ## Debugging

@@ -1,5 +1,7 @@
 # UpdatePromptPromptConfig
 
+A list of messages compatible with the openAI schema
+
 
 ## Fields
 
