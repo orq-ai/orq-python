@@ -25,7 +25,7 @@ class GlobalHook(BeforeRequestHook):
             else:
                 payload['stream'] = False
 
-            if 'context' in payload and type(payload['context']) is dict:
+            if 'context' in payload and isinstance(payload['context'], dict):
                 payload['context']['environments'] = environment
             else:
                 payload['context'] = {
