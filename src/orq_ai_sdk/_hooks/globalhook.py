@@ -1,3 +1,4 @@
+from typing import Union
 from .types import BeforeRequestContext, BeforeRequestHook
 
 import json
@@ -5,7 +6,7 @@ import httpx
 
 
 class GlobalHook(BeforeRequestHook):
-    def before_request(self, hook_ctx: BeforeRequestContext, request: httpx.Request) -> Union[requests.PreparedRequest, Exception]:
+    def before_request(self, hook_ctx: BeforeRequestContext, request: httpx.Request) -> Union[httpx.Request, Exception]:
         contact_id = request.headers['contactId']
 
         if contact_id:
@@ -18,6 +19,11 @@ class GlobalHook(BeforeRequestHook):
             del request.headers['environment']
             raw_payload = request.content.decode('utf-8')
             payload = json.loads(raw_payload)
+
+            if hook_ctx.operation_id == 'DeploymentStream':
+                payload['stream'] = True
+            else:
+                payload['stream'] = False
 
             if 'context' in payload and type(payload['context']) is dict:
                 payload['context']['environments'] = environment
