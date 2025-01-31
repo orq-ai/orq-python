@@ -569,7 +569,6 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        stream: Optional[bool] = False,
         inputs: Optional[
             Union[Dict[str, models.Inputs], Dict[str, models.InputsTypedDict]]
         ] = None,
@@ -599,7 +598,6 @@ class DeploymentsSDK(BaseSDK):
         Invoke a deployment with a given payload
 
         :param key: The deployment key to invoke
-        :param stream: If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message.
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
@@ -627,7 +625,6 @@ class DeploymentsSDK(BaseSDK):
 
         request = models.Deployments(
             key=key,
-            stream=stream,
             inputs=inputs,
             context=context,
             prefix_messages=utils.get_pydantic_model(
@@ -721,7 +718,6 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        stream: Optional[bool] = False,
         inputs: Optional[
             Union[Dict[str, models.Inputs], Dict[str, models.InputsTypedDict]]
         ] = None,
@@ -751,7 +747,6 @@ class DeploymentsSDK(BaseSDK):
         Invoke a deployment with a given payload
 
         :param key: The deployment key to invoke
-        :param stream: If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message.
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
         :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
@@ -779,7 +774,6 @@ class DeploymentsSDK(BaseSDK):
 
         request = models.Deployments(
             key=key,
-            stream=stream,
             inputs=inputs,
             context=context,
             prefix_messages=utils.get_pydantic_model(
