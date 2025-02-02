@@ -148,6 +148,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 FindOnePromptSnippetEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+FindOnePromptSnippetReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class FindOnePromptSnippetModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -189,6 +192,8 @@ class FindOnePromptSnippetModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[FindOnePromptSnippetEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[FindOnePromptSnippetReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class FindOnePromptSnippetModelParameters(BaseModel):
@@ -258,6 +263,12 @@ class FindOnePromptSnippetModelParameters(BaseModel):
     encoding_format: Optional[FindOnePromptSnippetEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[FindOnePromptSnippetReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -276,6 +287,7 @@ class FindOnePromptSnippetModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -695,6 +707,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 FindOnePromptSnippetPromptSnippetsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+FindOnePromptSnippetPromptSnippetsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class FindOnePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -738,6 +753,8 @@ class FindOnePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[FindOnePromptSnippetPromptSnippetsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[FindOnePromptSnippetPromptSnippetsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
@@ -808,6 +825,12 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
     encoding_format: Optional[FindOnePromptSnippetPromptSnippetsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[FindOnePromptSnippetPromptSnippetsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -826,6 +849,7 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -1275,7 +1299,7 @@ class FindOnePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T13:31:12.935Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-02T16:01:07.474Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

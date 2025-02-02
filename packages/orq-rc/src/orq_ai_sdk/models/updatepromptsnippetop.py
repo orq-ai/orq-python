@@ -130,6 +130,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 UpdatePromptSnippetEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+UpdatePromptSnippetReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class UpdatePromptSnippetModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -171,6 +174,8 @@ class UpdatePromptSnippetModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[UpdatePromptSnippetEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[UpdatePromptSnippetReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class UpdatePromptSnippetModelParameters(BaseModel):
@@ -240,6 +245,12 @@ class UpdatePromptSnippetModelParameters(BaseModel):
     encoding_format: Optional[UpdatePromptSnippetEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[UpdatePromptSnippetReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -258,6 +269,7 @@ class UpdatePromptSnippetModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -732,6 +744,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 UpdatePromptSnippetPromptSnippetsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+UpdatePromptSnippetPromptSnippetsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class UpdatePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -775,6 +790,8 @@ class UpdatePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[UpdatePromptSnippetPromptSnippetsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[UpdatePromptSnippetPromptSnippetsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class UpdatePromptSnippetPromptSnippetsModelParameters(BaseModel):
@@ -845,6 +862,12 @@ class UpdatePromptSnippetPromptSnippetsModelParameters(BaseModel):
     encoding_format: Optional[UpdatePromptSnippetPromptSnippetsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[UpdatePromptSnippetPromptSnippetsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -863,6 +886,7 @@ class UpdatePromptSnippetPromptSnippetsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -1292,6 +1316,11 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 UpdatePromptSnippetPromptSnippetsResponseEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+UpdatePromptSnippetPromptSnippetsResponseReasoningEffort = Literal[
+    "low", "medium", "high"
+]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class UpdatePromptSnippetPromptSnippetsResponseModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -1339,6 +1368,10 @@ class UpdatePromptSnippetPromptSnippetsResponseModelParametersTypedDict(TypedDic
         UpdatePromptSnippetPromptSnippetsResponseEncodingFormat
     ]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[
+        UpdatePromptSnippetPromptSnippetsResponseReasoningEffort
+    ]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class UpdatePromptSnippetPromptSnippetsResponseModelParameters(BaseModel):
@@ -1411,6 +1444,12 @@ class UpdatePromptSnippetPromptSnippetsResponseModelParameters(BaseModel):
     ] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[UpdatePromptSnippetPromptSnippetsResponseReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1429,6 +1468,7 @@ class UpdatePromptSnippetPromptSnippetsResponseModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -1889,7 +1929,7 @@ class UpdatePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T13:31:12.935Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-02T16:01:07.474Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

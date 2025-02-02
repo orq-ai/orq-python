@@ -164,6 +164,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 GetAllPromptsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+GetAllPromptsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class GetAllPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -205,6 +208,8 @@ class GetAllPromptsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[GetAllPromptsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[GetAllPromptsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class GetAllPromptsModelParameters(BaseModel):
@@ -274,6 +279,11 @@ class GetAllPromptsModelParameters(BaseModel):
     encoding_format: Optional[GetAllPromptsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[GetAllPromptsReasoningEffort], pydantic.Field(alias="reasoningEffort")
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -292,6 +302,7 @@ class GetAllPromptsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -704,6 +715,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 GetAllPromptsPromptsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+GetAllPromptsPromptsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class GetAllPromptsPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -745,6 +759,8 @@ class GetAllPromptsPromptsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[GetAllPromptsPromptsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[GetAllPromptsPromptsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class GetAllPromptsPromptsModelParameters(BaseModel):
@@ -814,6 +830,12 @@ class GetAllPromptsPromptsModelParameters(BaseModel):
     encoding_format: Optional[GetAllPromptsPromptsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[GetAllPromptsPromptsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -832,6 +854,7 @@ class GetAllPromptsPromptsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -1272,7 +1295,7 @@ class GetAllPromptsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-31T13:31:12.935Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-02T16:01:07.474Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -230,6 +230,9 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 DeploymentsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+DeploymentsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
 
 class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -271,6 +274,8 @@ class DeploymentsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[DeploymentsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[DeploymentsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class DeploymentsModelParameters(BaseModel):
@@ -339,6 +344,11 @@ class DeploymentsModelParameters(BaseModel):
     encoding_format: Optional[DeploymentsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
+    reasoning_effort: Annotated[
+        Optional[DeploymentsReasoningEffort], pydantic.Field(alias="reasoningEffort")
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -357,6 +367,7 @@ class DeploymentsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
