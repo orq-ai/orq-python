@@ -62,7 +62,7 @@ class OrqClient():
             "Authorization": f"Bearer {self.api_key}"
         }
         
-        response = httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump())
+        httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump())
 
 class OrqLangchainCallback(BaseCallbackHandler):
     """Base callback handler that can be used to handle callbacks from langchain."""
@@ -110,13 +110,14 @@ class OrqLangchainCallback(BaseCallbackHandler):
             "kwargs": kwargs,
         }, messages=normalize_messages, run_id=str(run_id))
         
+    # pylint: disable=unused-argument
     def on_llm_end(
         self,
         response: LLMResult,
         *,
         run_id: UUID,
         parent_run_id: Optional[UUID] = None,
-        **kwargs: Any,
+        **kwargs: Any
     ) -> Any:
         event: LlmEvent = self.events[str(run_id)]
         event.end_timestamp = get_iso_string()
