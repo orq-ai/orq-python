@@ -1329,7 +1329,7 @@ class FindOneByKeyPromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-03T06:31:29.908Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-04T13:37:25.030Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
