@@ -1207,8 +1207,6 @@ class FindOneByKeyPromptSnippetVersionsTypedDict(TypedDict):
     r"""Prompt version model returned from the API"""
 
     id: str
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
     prompt_config: FindOneByKeyPromptSnippetPromptSnippetsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: FindOneByKeyPromptSnippetPromptSnippetsMetadataTypedDict
@@ -1223,9 +1221,6 @@ class FindOneByKeyPromptSnippetVersions(BaseModel):
     r"""Prompt version model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
-
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
 
     prompt_config: FindOneByKeyPromptSnippetPromptSnippetsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
@@ -1279,8 +1274,6 @@ class FindOneByKeyPromptSnippetResponseBodyTypedDict(TypedDict):
     owner: FindOneByKeyPromptSnippetOwnerTypedDict
     domain_id: str
     key: str
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
     prompt_config: FindOneByKeyPromptSnippetPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: FindOneByKeyPromptSnippetMetadataTypedDict
@@ -1307,9 +1300,6 @@ class FindOneByKeyPromptSnippetResponseBody(BaseModel):
 
     key: str
 
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
-
     prompt_config: FindOneByKeyPromptSnippetPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
@@ -1329,7 +1319,7 @@ class FindOneByKeyPromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T12:50:57.727Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T18:57:06.512Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -533,8 +533,6 @@ class UpdatePromptSnippetMetadata(BaseModel):
 
 
 class UpdatePromptSnippetRequestBodyTypedDict(TypedDict):
-    display_name: NotRequired[str]
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
     description: NotRequired[Nullable[str]]
     r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     prompt_config: NotRequired[UpdatePromptSnippetPromptConfigTypedDict]
@@ -545,9 +543,6 @@ class UpdatePromptSnippetRequestBodyTypedDict(TypedDict):
 
 
 class UpdatePromptSnippetRequestBody(BaseModel):
-    display_name: Optional[str] = None
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
-
     description: OptionalNullable[str] = UNSET
     r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
@@ -561,13 +556,7 @@ class UpdatePromptSnippetRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "display_name",
-            "description",
-            "prompt_config",
-            "metadata",
-            "path",
-        ]
+        optional_fields = ["description", "prompt_config", "metadata", "path"]
         nullable_fields = ["description"]
         null_default_fields = []
 
@@ -1807,8 +1796,6 @@ class UpdatePromptSnippetVersionsTypedDict(TypedDict):
     r"""Prompt version model returned from the API"""
 
     id: str
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
     prompt_config: UpdatePromptSnippetPromptSnippetsResponsePromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: UpdatePromptSnippetPromptSnippetsResponseMetadataTypedDict
@@ -1823,9 +1810,6 @@ class UpdatePromptSnippetVersions(BaseModel):
     r"""Prompt version model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
-
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
 
     prompt_config: UpdatePromptSnippetPromptSnippetsResponsePromptConfig
     r"""A list of messages compatible with the openAI schema"""
@@ -1879,8 +1863,6 @@ class UpdatePromptSnippetResponseBodyTypedDict(TypedDict):
     owner: UpdatePromptSnippetOwnerTypedDict
     domain_id: str
     key: str
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
     prompt_config: UpdatePromptSnippetPromptSnippetsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: UpdatePromptSnippetPromptSnippetsMetadataTypedDict
@@ -1907,9 +1889,6 @@ class UpdatePromptSnippetResponseBody(BaseModel):
 
     key: str
 
-    display_name: str
-    r"""The prompt snippet’s name, meant to be displayable in the UI."""
-
     prompt_config: UpdatePromptSnippetPromptSnippetsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
@@ -1929,7 +1908,7 @@ class UpdatePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T12:50:57.727Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T18:57:06.512Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -233,7 +233,6 @@ class PromptSnippets(BaseSDK):
         self,
         *,
         id: str,
-        display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
             Union[
@@ -256,7 +255,6 @@ class PromptSnippets(BaseSDK):
         r"""Update a prompt snippet
 
         :param id: Prompt ID
-        :param display_name: The prompt snippet’s name, meant to be displayable in the UI.
         :param description: The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
@@ -280,7 +278,6 @@ class PromptSnippets(BaseSDK):
         request = models.UpdatePromptSnippetRequest(
             id=id,
             request_body=models.UpdatePromptSnippetRequestBody(
-                display_name=display_name,
                 description=description,
                 prompt_config=utils.get_pydantic_model(
                     prompt_config, Optional[models.UpdatePromptSnippetPromptConfig]
@@ -375,7 +372,6 @@ class PromptSnippets(BaseSDK):
         self,
         *,
         id: str,
-        display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
             Union[
@@ -398,7 +394,6 @@ class PromptSnippets(BaseSDK):
         r"""Update a prompt snippet
 
         :param id: Prompt ID
-        :param display_name: The prompt snippet’s name, meant to be displayable in the UI.
         :param description: The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
@@ -422,7 +417,6 @@ class PromptSnippets(BaseSDK):
         request = models.UpdatePromptSnippetRequest(
             id=id,
             request_body=models.UpdatePromptSnippetRequestBody(
-                display_name=display_name,
                 description=description,
                 prompt_config=utils.get_pydantic_model(
                     prompt_config, Optional[models.UpdatePromptSnippetPromptConfig]
