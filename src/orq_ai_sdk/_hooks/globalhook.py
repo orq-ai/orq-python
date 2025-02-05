@@ -7,13 +7,13 @@ import httpx
 
 class GlobalHook(BeforeRequestHook):
     def before_request(self, hook_ctx: BeforeRequestContext, request: httpx.Request) -> Union[httpx.Request, Exception]:
-        contact_id = request.headers['contactId']
+        contact_id = request.headers['contactid'] if 'contactid' in request.headers else None
 
         if contact_id:
-            del request.headers['contactId']
+            del request.headers['contactid']
             request.headers['X-ORQ-CONTACT-ID'] = contact_id
 
-        environment = request.headers['environment']
+        environment = request.headers['environment'] if 'environment' in request.headers else None
 
         if hook_ctx.operation_id in ["DeploymentInvoke", "DeploymentStream"] and environment:
             del request.headers['environment']
