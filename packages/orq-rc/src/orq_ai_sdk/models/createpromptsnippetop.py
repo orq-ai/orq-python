@@ -1831,7 +1831,7 @@ class CreatePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T19:04:45.364Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-05T22:03:39.496Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
