@@ -220,6 +220,7 @@ with Orq(
 
 ### [prompt_snippets](docs/sdks/promptsnippets/README.md)
 
+* [list](docs/sdks/promptsnippets/README.md#list) - List all prompts snippets
 * [create](docs/sdks/promptsnippets/README.md#create) - Create a prompt snippet
 * [update](docs/sdks/promptsnippets/README.md#update) - Update a prompt snippet
 * [delete](docs/sdks/promptsnippets/README.md#delete) - Delete a prompt snippet

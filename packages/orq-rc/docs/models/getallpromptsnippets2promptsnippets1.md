@@ -1,0 +1,11 @@
+# GetAllPromptSnippets2PromptSnippets1
+
+Text content part of a prompt message
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                 | [models.GetAllPromptSnippets2PromptSnippetsResponseType](../models/getallpromptsnippets2promptsnippetsresponsetype.md) | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `text`                                                                                                                 | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |

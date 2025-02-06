@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 3c918107b0172aff15f28fd78040a901
+  docChecksum: 03fc1e5d2b88086601451593cafa6b98
   docVersion: "2.0"
   speakeasyVersion: 1.484.1
   generationVersion: 2.503.2
-  releaseVersion: 3.1.0-rc.41
-  configChecksum: 44ced59693c3a361f01cb67d5ce3684e
+  releaseVersion: 3.1.0-rc.42
+  configChecksum: 45963b7be68ed761e13422438d622be0
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -598,6 +598,75 @@ generatedFiles:
   - docs/models/getallpromptsmetadata.md
   - docs/models/getallpromptsmodelparameters.md
   - docs/models/getallpromptsmodeltype.md
+  - docs/models/getallpromptsnippets21.md
+  - docs/models/getallpromptsnippets22.md
+  - docs/models/getallpromptsnippets2imageurl.md
+  - docs/models/getallpromptsnippets2promptsnippets1.md
+  - docs/models/getallpromptsnippets2promptsnippets2.md
+  - docs/models/getallpromptsnippets2promptsnippetsimageurl.md
+  - docs/models/getallpromptsnippets2promptsnippetsresponse200type.md
+  - docs/models/getallpromptsnippets2promptsnippetsresponsetype.md
+  - docs/models/getallpromptsnippets2promptsnippetstype.md
+  - docs/models/getallpromptsnippets2type.md
+  - docs/models/getallpromptsnippetscontent.md
+  - docs/models/getallpromptsnippetscontent2.md
+  - docs/models/getallpromptsnippetscontentpromptsnippets2.md
+  - docs/models/getallpromptsnippetsdata.md
+  - docs/models/getallpromptsnippetsencodingformat.md
+  - docs/models/getallpromptsnippetsformat.md
+  - docs/models/getallpromptsnippetsfunction.md
+  - docs/models/getallpromptsnippetsglobals.md
+  - docs/models/getallpromptsnippetslanguage.md
+  - docs/models/getallpromptsnippetsmessages.md
+  - docs/models/getallpromptsnippetsmetadata.md
+  - docs/models/getallpromptsnippetsmodelparameters.md
+  - docs/models/getallpromptsnippetsmodeltype.md
+  - docs/models/getallpromptsnippetsobject.md
+  - docs/models/getallpromptsnippetsowner.md
+  - docs/models/getallpromptsnippetsowner2.md
+  - docs/models/getallpromptsnippetsphotorealversion.md
+  - docs/models/getallpromptsnippetspromptconfig.md
+  - docs/models/getallpromptsnippetspromptsnippetscontent.md
+  - docs/models/getallpromptsnippetspromptsnippetsencodingformat.md
+  - docs/models/getallpromptsnippetspromptsnippetsformat.md
+  - docs/models/getallpromptsnippetspromptsnippetsfunction.md
+  - docs/models/getallpromptsnippetspromptsnippetslanguage.md
+  - docs/models/getallpromptsnippetspromptsnippetsmessages.md
+  - docs/models/getallpromptsnippetspromptsnippetsmetadata.md
+  - docs/models/getallpromptsnippetspromptsnippetsmodelparameters.md
+  - docs/models/getallpromptsnippetspromptsnippetsmodeltype.md
+  - docs/models/getallpromptsnippetspromptsnippetsphotorealversion.md
+  - docs/models/getallpromptsnippetspromptsnippetspromptconfig.md
+  - docs/models/getallpromptsnippetspromptsnippetsprovider.md
+  - docs/models/getallpromptsnippetspromptsnippetsquality.md
+  - docs/models/getallpromptsnippetspromptsnippetsreasoningeffort.md
+  - docs/models/getallpromptsnippetspromptsnippetsresponseformat.md
+  - docs/models/getallpromptsnippetspromptsnippetsresponsetype.md
+  - docs/models/getallpromptsnippetspromptsnippetsrole.md
+  - docs/models/getallpromptsnippetspromptsnippetstoolcalls.md
+  - docs/models/getallpromptsnippetspromptsnippetstype.md
+  - docs/models/getallpromptsnippetspromptsnippetsusecases.md
+  - docs/models/getallpromptsnippetsprovider.md
+  - docs/models/getallpromptsnippetsquality.md
+  - docs/models/getallpromptsnippetsreasoningeffort.md
+  - docs/models/getallpromptsnippetsrequest.md
+  - docs/models/getallpromptsnippetsresponsebody.md
+  - docs/models/getallpromptsnippetsresponseformat.md
+  - docs/models/getallpromptsnippetsresponseformat1.md
+  - docs/models/getallpromptsnippetsresponseformat2.md
+  - docs/models/getallpromptsnippetsresponseformatjsonschema.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippets1.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippets2.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippetsjsonschema.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippetsresponse200type.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippetsresponsetype.md
+  - docs/models/getallpromptsnippetsresponseformatpromptsnippetstype.md
+  - docs/models/getallpromptsnippetsresponseformattype.md
+  - docs/models/getallpromptsnippetsrole.md
+  - docs/models/getallpromptsnippetstoolcalls.md
+  - docs/models/getallpromptsnippetstype.md
+  - docs/models/getallpromptsnippetsusecases.md
+  - docs/models/getallpromptsnippetsversions.md
   - docs/models/getallpromptsobject.md
   - docs/models/getallpromptsowner.md
   - docs/models/getallpromptsowner2.md
@@ -948,6 +1017,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/fileuploadop.py
   - src/orq_ai_sdk/models/findonebykeypromptsnippetop.py
   - src/orq_ai_sdk/models/findonepromptsnippetop.py
+  - src/orq_ai_sdk/models/getallpromptsnippetsop.py
   - src/orq_ai_sdk/models/getallpromptsop.py
   - src/orq_ai_sdk/models/getonepromptop.py
   - src/orq_ai_sdk/models/honoapierror.py
@@ -1191,5 +1261,14 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "owner": "<value>", "domain_id": "d503ba01-c6c3-413a-aa11-ffaecb738c02", "key": "<key>", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}, {"role": "assistant", "content": "<value>"}]}, "metadata": {}, "created_by_id": "3a4481ea-ceae-46ac-8fda-98557035406a", "updated_by_id": "e6e205cf-72bf-4e7e-9187-63be7e18404b", "updated": "2025-01-31T07:05:40.814Z", "type": "snippet", "versions": []}
+  GetAllPromptSnippets:
+    speakeasy-default-get-all-prompt-snippets:
+      parameters:
+        query:
+          limit: 10
+        header: {}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "owner": "vendor", "domain_id": "a232aa0b-11b8-4a00-8571-e9e705d0e6e2", "key": "<key>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "exception", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}, "metadata": {}, "created_by_id": "8d6d4612-e0ae-4e1b-89dd-f121dc2a4c81", "updated_by_id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "vendor", "domain_id": "f6573e0a-6233-41ad-b7c0-7cc481991696", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": []}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://sorrowful-coil.biz"}}]}]}, "metadata": {}, "created_by_id": "36e08594-4ebc-4eb2-a7bd-4753d0a17c47", "updated_by_id": "e329a9ec-9793-48e1-aa63-0f5fe368082f", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "<value>", "domain_id": "e0874e78-3076-448e-9c2e-d7f3039dec6f", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "image_url", "image_url": {"url": "https://spherical-gerbil.org/"}}]}]}, "metadata": {}, "created_by_id": "7f7bcfa2-69af-4219-84d5-861b3fe5754c", "updated_by_id": "c551a92c-7431-4ddf-8193-e2177ab4c4d0", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "text", "text": "<value>"}]}, {"role": "correction", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "5b0dba7a-30fd-4263-bf0c-cec19e17aef2", "updated_by_id": "28695ca4-33b1-4104-bd1e-faebad1494b3", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "76b63f80-6d94-4b84-a3a1-ce423bc77dd5", "updated_by_id": "b42fcfa6-f3f7-4b3d-858e-e61458f7304a", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "e54f642e-86b7-4c60-b873-f569812ed552", "updated_by_id": "f7ffa2f9-aacd-4dda-a7da-dae8ecef9614", "timestamp": "<value>"}]}], "has_more": true}
 examplesVersion: 1.0.0
 generatedTests: {}
