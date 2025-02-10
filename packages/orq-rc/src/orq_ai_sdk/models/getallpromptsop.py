@@ -1176,14 +1176,12 @@ class GetAllPromptsVersionsTypedDict(TypedDict):
     r"""Prompt version model returned from the API"""
 
     id: str
-    created_by_id: str
-    display_name: str
-    r"""The prompt’s name, meant to be displayable in the UI."""
-    updated_by_id: str
     prompt_config: GetAllPromptsPromptsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: GetAllPromptsPromptsMetadataTypedDict
     timestamp: str
+    created_by_id: NotRequired[str]
+    updated_by_id: NotRequired[str]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
@@ -1193,13 +1191,6 @@ class GetAllPromptsVersions(BaseModel):
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    created_by_id: str
-
-    display_name: str
-    r"""The prompt’s name, meant to be displayable in the UI."""
-
-    updated_by_id: str
-
     prompt_config: GetAllPromptsPromptsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
@@ -1207,12 +1198,16 @@ class GetAllPromptsVersions(BaseModel):
 
     timestamp: str
 
+    created_by_id: Optional[str] = None
+
+    updated_by_id: Optional[str] = None
+
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["description"]
+        optional_fields = ["created_by_id", "updated_by_id", "description"]
         nullable_fields = ["description"]
         null_default_fields = []
 
@@ -1247,15 +1242,15 @@ class GetAllPromptsDataTypedDict(TypedDict):
     id: str
     owner: GetAllPromptsOwnerTypedDict
     domain_id: str
-    created_by_id: str
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
-    updated_by_id: str
     prompt_config: GetAllPromptsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     metadata: GetAllPromptsMetadataTypedDict
     type: GetAllPromptsType
     versions: List[GetAllPromptsVersionsTypedDict]
+    created_by_id: NotRequired[str]
+    updated_by_id: NotRequired[str]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     created: NotRequired[datetime]
@@ -1273,12 +1268,8 @@ class GetAllPromptsData(BaseModel):
 
     domain_id: str
 
-    created_by_id: str
-
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
-
-    updated_by_id: str
 
     prompt_config: GetAllPromptsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
@@ -1289,18 +1280,28 @@ class GetAllPromptsData(BaseModel):
 
     versions: List[GetAllPromptsVersions]
 
+    created_by_id: Optional[str] = None
+
+    updated_by_id: Optional[str] = None
+
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T14:13:16.580Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T14:20:21.534Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["description", "created", "updated"]
+        optional_fields = [
+            "created_by_id",
+            "updated_by_id",
+            "description",
+            "created",
+            "updated",
+        ]
         nullable_fields = ["description"]
         null_default_fields = []
 

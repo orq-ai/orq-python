@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 7968f08c2d29fa3228151ed0c01f98ac
+  docChecksum: b7f3962b4be0a9701638d7e7c24bd96f
   docVersion: "2.0"
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 3.1.0-rc.51
-  configChecksum: 385f3c26e5f072e9234835b3e381bacb
+  releaseVersion: 3.1.0-rc.52
+  configChecksum: 2116f276f48eed265d00eb4a72709b9c
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -1171,7 +1171,7 @@ examples:
         application/json: {"display_name": "Jed6", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "ulid-string", "owner": "<value>", "domain_id": "uuid-string", "created_by_id": "211a509a-3080-4a8e-9774-c2becc376917", "display_name": "string", "updated_by_id": "5e024985-613d-4e0e-ae80-3d56a1df9436", "description": "Sample description for the prompt", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}, {"role": "tool", "content": "<value>"}, {"role": "tool", "content": "<value>"}]}, "metadata": {}, "updated": "2025-01-31T07:05:40.814Z", "type": "prompt", "versions": [{"_id": "<id>", "created_by_id": "98bc19d4-c51e-499d-8ff4-2acbeff61bc5", "display_name": "Elenora23", "updated_by_id": "f75c24a1-6ac5-4e2b-abd7-e44f71b269f2", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "correction", "content": [{"type": "text", "text": "<value>"}, {"type": "image_url", "image_url": {"url": "https://tricky-countess.info"}}]}, {"role": "correction", "content": []}]}, "metadata": {}, "timestamp": "<value>"}]}
+          application/json: {"_id": "ulid-string", "owner": "<value>", "domain_id": "uuid-string", "created_by_id": "211a509a-3080-4a8e-9774-c2becc376917", "display_name": "string", "updated_by_id": "5e024985-613d-4e0e-ae80-3d56a1df9436", "description": "Sample description for the prompt", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}, {"role": "tool", "content": "<value>"}, {"role": "tool", "content": "<value>"}]}, "metadata": {}, "updated": "2025-01-31T07:05:40.814Z", "type": "prompt", "versions": [{"_id": "<id>", "created_by_id": "98bc19d4-c51e-499d-8ff4-2acbeff61bc5", "updated_by_id": "f75c24a1-6ac5-4e2b-abd7-e44f71b269f2", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "correction", "content": [{"type": "text", "text": "<value>"}, {"type": "image_url", "image_url": {"url": "https://tricky-countess.info"}}]}, {"role": "correction", "content": []}]}, "metadata": {}, "timestamp": "<value>"}]}
   CreatePromptVersion:
     speakeasy-default-create-prompt-version:
       parameters:
