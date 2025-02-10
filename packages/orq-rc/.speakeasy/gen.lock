@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 110f34b15015f53920bbf730bd2a83c9
+  docChecksum: 18e12cdef33e9cbf62b1dbda4b625bfb
   docVersion: "2.0"
-  speakeasyVersion: 1.487.1
+  speakeasyVersion: 1.488.0
   generationVersion: 2.506.0
-  releaseVersion: 3.1.0-rc.54
-  configChecksum: 740b9be4eef975cc300f3180befdb093
+  releaseVersion: 3.1.0-rc.55
+  configChecksum: 32bef416a135deaab605a5b1cd556c96
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -50,10 +50,8 @@ generatedFiles:
   - docs/models/choices.md
   - docs/models/content.md
   - docs/models/content2.md
-  - docs/models/createcontactglobals.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
-  - docs/models/createfeedbackglobals.md
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
@@ -63,30 +61,21 @@ generatedFiles:
   - docs/models/createprompt2prompts1.md
   - docs/models/createprompt2prompts2.md
   - docs/models/createprompt2promptsimageurl.md
-  - docs/models/createprompt2promptsresponse1.md
-  - docs/models/createprompt2promptsresponse2.md
-  - docs/models/createprompt2promptsresponse200applicationjsonresponsebodytype.md
-  - docs/models/createprompt2promptsresponse200applicationjsontype.md
   - docs/models/createprompt2promptsresponse200type.md
-  - docs/models/createprompt2promptsresponseimageurl.md
   - docs/models/createprompt2promptsresponsetype.md
   - docs/models/createprompt2promptstype.md
   - docs/models/createprompt2type.md
   - docs/models/createpromptcontent.md
   - docs/models/createpromptcontent2.md
   - docs/models/createpromptcontentprompts2.md
-  - docs/models/createpromptcontentpromptsresponse2.md
   - docs/models/createpromptencodingformat.md
   - docs/models/createpromptformat.md
   - docs/models/createpromptfunction.md
-  - docs/models/createpromptglobals.md
   - docs/models/createpromptlanguage.md
   - docs/models/createpromptmessages.md
   - docs/models/createpromptmetadata.md
   - docs/models/createpromptmodelparameters.md
   - docs/models/createpromptmodeltype.md
-  - docs/models/createpromptowner.md
-  - docs/models/createpromptowner2.md
   - docs/models/createpromptphotorealversion.md
   - docs/models/createpromptpromptconfig.md
   - docs/models/createpromptpromptscontent.md
@@ -103,27 +92,8 @@ generatedFiles:
   - docs/models/createpromptpromptsprovider.md
   - docs/models/createpromptpromptsquality.md
   - docs/models/createpromptpromptsreasoningeffort.md
-  - docs/models/createpromptpromptsresponse200format.md
-  - docs/models/createpromptpromptsresponse200type.md
-  - docs/models/createpromptpromptsresponsecontent.md
-  - docs/models/createpromptpromptsresponseencodingformat.md
   - docs/models/createpromptpromptsresponseformat.md
-  - docs/models/createpromptpromptsresponsefunction.md
-  - docs/models/createpromptpromptsresponselanguage.md
-  - docs/models/createpromptpromptsresponsemessages.md
-  - docs/models/createpromptpromptsresponsemetadata.md
-  - docs/models/createpromptpromptsresponsemodelparameters.md
-  - docs/models/createpromptpromptsresponsemodeltype.md
-  - docs/models/createpromptpromptsresponsephotorealversion.md
-  - docs/models/createpromptpromptsresponsepromptconfig.md
-  - docs/models/createpromptpromptsresponseprovider.md
-  - docs/models/createpromptpromptsresponsequality.md
-  - docs/models/createpromptpromptsresponsereasoningeffort.md
-  - docs/models/createpromptpromptsresponseresponseformat.md
-  - docs/models/createpromptpromptsresponserole.md
-  - docs/models/createpromptpromptsresponsetoolcalls.md
   - docs/models/createpromptpromptsresponsetype.md
-  - docs/models/createpromptpromptsresponseusecases.md
   - docs/models/createpromptpromptsrole.md
   - docs/models/createpromptpromptstoolcalls.md
   - docs/models/createpromptpromptstype.md
@@ -140,12 +110,7 @@ generatedFiles:
   - docs/models/createpromptresponseformatprompts1.md
   - docs/models/createpromptresponseformatprompts2.md
   - docs/models/createpromptresponseformatpromptsjsonschema.md
-  - docs/models/createpromptresponseformatpromptsresponse1.md
-  - docs/models/createpromptresponseformatpromptsresponse2.md
-  - docs/models/createpromptresponseformatpromptsresponse200applicationjsonresponsebodytype.md
-  - docs/models/createpromptresponseformatpromptsresponse200applicationjsontype.md
   - docs/models/createpromptresponseformatpromptsresponse200type.md
-  - docs/models/createpromptresponseformatpromptsresponsejsonschema.md
   - docs/models/createpromptresponseformatpromptsresponsetype.md
   - docs/models/createpromptresponseformatpromptstype.md
   - docs/models/createpromptresponseformattype.md
@@ -172,7 +137,6 @@ generatedFiles:
   - docs/models/createpromptsnippetencodingformat.md
   - docs/models/createpromptsnippetformat.md
   - docs/models/createpromptsnippetfunction.md
-  - docs/models/createpromptsnippetglobals.md
   - docs/models/createpromptsnippetlanguage.md
   - docs/models/createpromptsnippetmessages.md
   - docs/models/createpromptsnippetmetadata.md
@@ -231,11 +195,8 @@ generatedFiles:
   - docs/models/createprompttoolcalls.md
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
-  - docs/models/createpromptversions.md
   - docs/models/data.md
-  - docs/models/deletepromptglobals.md
   - docs/models/deletepromptrequest.md
-  - docs/models/deletepromptsnippetglobals.md
   - docs/models/deletepromptsnippetrequest.md
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
@@ -246,7 +207,6 @@ generatedFiles:
   - docs/models/deploymentcreatemetriccontent2.md
   - docs/models/deploymentcreatemetricfeedback.md
   - docs/models/deploymentcreatemetricfunction.md
-  - docs/models/deploymentcreatemetricglobals.md
   - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrole.md
   - docs/models/deploymentcreatemetricmessagerole.md
   - docs/models/deploymentcreatemetricmessages.md
@@ -293,7 +253,6 @@ generatedFiles:
   - docs/models/deploymentgetconfigencodingformat.md
   - docs/models/deploymentgetconfigformat.md
   - docs/models/deploymentgetconfigfunction.md
-  - docs/models/deploymentgetconfigglobals.md
   - docs/models/deploymentgetconfiginputs.md
   - docs/models/deploymentgetconfiginvokeoptions.md
   - docs/models/deploymentgetconfigmessages.md
@@ -351,7 +310,6 @@ generatedFiles:
   - docs/models/deploymentsencodingformat.md
   - docs/models/deploymentsformat.md
   - docs/models/deploymentsfunction.md
-  - docs/models/deploymentsglobals.md
   - docs/models/deploymentsmessages.md
   - docs/models/deploymentsmodelparameters.md
   - docs/models/deploymentsmodeltype.md
@@ -423,19 +381,15 @@ generatedFiles:
   - docs/models/documents.md
   - docs/models/encodingformat.md
   - docs/models/file.md
-  - docs/models/filedeleteglobals.md
   - docs/models/filedeleterequest.md
-  - docs/models/filegetglobals.md
   - docs/models/filegetpurpose.md
   - docs/models/filegetrequest.md
   - docs/models/filegetresponsebody.md
   - docs/models/filelistdata.md
-  - docs/models/filelistglobals.md
   - docs/models/filelistobject.md
   - docs/models/filelistpurpose.md
   - docs/models/filelistrequest.md
   - docs/models/filelistresponsebody.md
-  - docs/models/fileuploadglobals.md
   - docs/models/fileuploadpurpose.md
   - docs/models/fileuploadrequestbody.md
   - docs/models/fileuploadresponsebody.md
@@ -455,7 +409,6 @@ generatedFiles:
   - docs/models/findonebykeypromptsnippetencodingformat.md
   - docs/models/findonebykeypromptsnippetformat.md
   - docs/models/findonebykeypromptsnippetfunction.md
-  - docs/models/findonebykeypromptsnippetglobals.md
   - docs/models/findonebykeypromptsnippetlanguage.md
   - docs/models/findonebykeypromptsnippetmessages.md
   - docs/models/findonebykeypromptsnippetmetadata.md
@@ -522,7 +475,6 @@ generatedFiles:
   - docs/models/findonepromptsnippetencodingformat.md
   - docs/models/findonepromptsnippetformat.md
   - docs/models/findonepromptsnippetfunction.md
-  - docs/models/findonepromptsnippetglobals.md
   - docs/models/findonepromptsnippetlanguage.md
   - docs/models/findonepromptsnippetmessages.md
   - docs/models/findonepromptsnippetmetadata.md
@@ -578,21 +530,14 @@ generatedFiles:
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
   - docs/models/getallprompts2imageurl.md
-  - docs/models/getallprompts2prompts1.md
-  - docs/models/getallprompts2prompts2.md
-  - docs/models/getallprompts2promptsimageurl.md
-  - docs/models/getallprompts2promptsresponse200type.md
-  - docs/models/getallprompts2promptsresponsetype.md
   - docs/models/getallprompts2promptstype.md
   - docs/models/getallprompts2type.md
   - docs/models/getallpromptscontent.md
   - docs/models/getallpromptscontent2.md
-  - docs/models/getallpromptscontentprompts2.md
   - docs/models/getallpromptsdata.md
   - docs/models/getallpromptsencodingformat.md
   - docs/models/getallpromptsformat.md
   - docs/models/getallpromptsfunction.md
-  - docs/models/getallpromptsglobals.md
   - docs/models/getallpromptslanguage.md
   - docs/models/getallpromptsmessages.md
   - docs/models/getallpromptsmetadata.md
@@ -615,7 +560,6 @@ generatedFiles:
   - docs/models/getallpromptsnippetsencodingformat.md
   - docs/models/getallpromptsnippetsformat.md
   - docs/models/getallpromptsnippetsfunction.md
-  - docs/models/getallpromptsnippetsglobals.md
   - docs/models/getallpromptsnippetslanguage.md
   - docs/models/getallpromptsnippetsmessages.md
   - docs/models/getallpromptsnippetsmetadata.md
@@ -668,30 +612,9 @@ generatedFiles:
   - docs/models/getallpromptsnippetsusecases.md
   - docs/models/getallpromptsnippetsversions.md
   - docs/models/getallpromptsobject.md
-  - docs/models/getallpromptsowner.md
-  - docs/models/getallpromptsowner2.md
   - docs/models/getallpromptsphotorealversion.md
   - docs/models/getallpromptspromptconfig.md
-  - docs/models/getallpromptspromptscontent.md
-  - docs/models/getallpromptspromptsencodingformat.md
-  - docs/models/getallpromptspromptsformat.md
-  - docs/models/getallpromptspromptsfunction.md
-  - docs/models/getallpromptspromptslanguage.md
-  - docs/models/getallpromptspromptsmessages.md
-  - docs/models/getallpromptspromptsmetadata.md
-  - docs/models/getallpromptspromptsmodelparameters.md
-  - docs/models/getallpromptspromptsmodeltype.md
-  - docs/models/getallpromptspromptsphotorealversion.md
-  - docs/models/getallpromptspromptspromptconfig.md
-  - docs/models/getallpromptspromptsprovider.md
-  - docs/models/getallpromptspromptsquality.md
-  - docs/models/getallpromptspromptsreasoningeffort.md
-  - docs/models/getallpromptspromptsresponseformat.md
-  - docs/models/getallpromptspromptsresponsetype.md
-  - docs/models/getallpromptspromptsrole.md
-  - docs/models/getallpromptspromptstoolcalls.md
   - docs/models/getallpromptspromptstype.md
-  - docs/models/getallpromptspromptsusecases.md
   - docs/models/getallpromptsprovider.md
   - docs/models/getallpromptsquality.md
   - docs/models/getallpromptsreasoningeffort.md
@@ -701,20 +624,47 @@ generatedFiles:
   - docs/models/getallpromptsresponseformat1.md
   - docs/models/getallpromptsresponseformat2.md
   - docs/models/getallpromptsresponseformatjsonschema.md
-  - docs/models/getallpromptsresponseformatprompts1.md
-  - docs/models/getallpromptsresponseformatprompts2.md
-  - docs/models/getallpromptsresponseformatpromptsjsonschema.md
-  - docs/models/getallpromptsresponseformatpromptsresponse200type.md
-  - docs/models/getallpromptsresponseformatpromptsresponsetype.md
   - docs/models/getallpromptsresponseformatpromptstype.md
   - docs/models/getallpromptsresponseformattype.md
   - docs/models/getallpromptsrole.md
   - docs/models/getallpromptstoolcalls.md
   - docs/models/getallpromptstype.md
   - docs/models/getallpromptsusecases.md
-  - docs/models/getallpromptsversions.md
-  - docs/models/getonepromptglobals.md
   - docs/models/getonepromptrequest.md
+  - docs/models/getpromptversion21.md
+  - docs/models/getpromptversion22.md
+  - docs/models/getpromptversion2imageurl.md
+  - docs/models/getpromptversion2promptstype.md
+  - docs/models/getpromptversion2type.md
+  - docs/models/getpromptversioncontent.md
+  - docs/models/getpromptversioncontent2.md
+  - docs/models/getpromptversionencodingformat.md
+  - docs/models/getpromptversionformat.md
+  - docs/models/getpromptversionfunction.md
+  - docs/models/getpromptversionlanguage.md
+  - docs/models/getpromptversionmessages.md
+  - docs/models/getpromptversionmetadata.md
+  - docs/models/getpromptversionmodelparameters.md
+  - docs/models/getpromptversionmodeltype.md
+  - docs/models/getpromptversionphotorealversion.md
+  - docs/models/getpromptversionpromptconfig.md
+  - docs/models/getpromptversionpromptsresponsebody.md
+  - docs/models/getpromptversionpromptstype.md
+  - docs/models/getpromptversionprovider.md
+  - docs/models/getpromptversionquality.md
+  - docs/models/getpromptversionreasoningeffort.md
+  - docs/models/getpromptversionrequest.md
+  - docs/models/getpromptversionresponsebody.md
+  - docs/models/getpromptversionresponseformat.md
+  - docs/models/getpromptversionresponseformat1.md
+  - docs/models/getpromptversionresponseformat2.md
+  - docs/models/getpromptversionresponseformatjsonschema.md
+  - docs/models/getpromptversionresponseformatpromptstype.md
+  - docs/models/getpromptversionresponseformattype.md
+  - docs/models/getpromptversionrole.md
+  - docs/models/getpromptversiontoolcalls.md
+  - docs/models/getpromptversiontype.md
+  - docs/models/getpromptversionusecases.md
   - docs/models/honoapierror.md
   - docs/models/imageurl.md
   - docs/models/inputs.md
@@ -722,6 +672,41 @@ generatedFiles:
   - docs/models/invokeoptions.md
   - docs/models/jsonschema.md
   - docs/models/language.md
+  - docs/models/listpromptversions21.md
+  - docs/models/listpromptversions22.md
+  - docs/models/listpromptversions2imageurl.md
+  - docs/models/listpromptversions2promptstype.md
+  - docs/models/listpromptversions2type.md
+  - docs/models/listpromptversionscontent.md
+  - docs/models/listpromptversionscontent2.md
+  - docs/models/listpromptversionsdata.md
+  - docs/models/listpromptversionsencodingformat.md
+  - docs/models/listpromptversionsformat.md
+  - docs/models/listpromptversionsfunction.md
+  - docs/models/listpromptversionslanguage.md
+  - docs/models/listpromptversionsmessages.md
+  - docs/models/listpromptversionsmetadata.md
+  - docs/models/listpromptversionsmodelparameters.md
+  - docs/models/listpromptversionsmodeltype.md
+  - docs/models/listpromptversionsobject.md
+  - docs/models/listpromptversionsphotorealversion.md
+  - docs/models/listpromptversionspromptconfig.md
+  - docs/models/listpromptversionspromptstype.md
+  - docs/models/listpromptversionsprovider.md
+  - docs/models/listpromptversionsquality.md
+  - docs/models/listpromptversionsreasoningeffort.md
+  - docs/models/listpromptversionsrequest.md
+  - docs/models/listpromptversionsresponsebody.md
+  - docs/models/listpromptversionsresponseformat.md
+  - docs/models/listpromptversionsresponseformat1.md
+  - docs/models/listpromptversionsresponseformat2.md
+  - docs/models/listpromptversionsresponseformatjsonschema.md
+  - docs/models/listpromptversionsresponseformatpromptstype.md
+  - docs/models/listpromptversionsresponseformattype.md
+  - docs/models/listpromptversionsrole.md
+  - docs/models/listpromptversionstoolcalls.md
+  - docs/models/listpromptversionstype.md
+  - docs/models/listpromptversionsusecases.md
   - docs/models/message.md
   - docs/models/message1.md
   - docs/models/message2.md
@@ -747,7 +732,6 @@ generatedFiles:
   - docs/models/purpose.md
   - docs/models/quality.md
   - docs/models/reasoningeffort.md
-  - docs/models/remoteconfigsgetconfigglobals.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
   - docs/models/remoteconfigsgetconfigtype.md
@@ -774,30 +758,21 @@ generatedFiles:
   - docs/models/updateprompt2prompts1.md
   - docs/models/updateprompt2prompts2.md
   - docs/models/updateprompt2promptsimageurl.md
-  - docs/models/updateprompt2promptsresponse1.md
-  - docs/models/updateprompt2promptsresponse2.md
-  - docs/models/updateprompt2promptsresponse200applicationjsonresponsebodytype.md
-  - docs/models/updateprompt2promptsresponse200applicationjsontype.md
   - docs/models/updateprompt2promptsresponse200type.md
-  - docs/models/updateprompt2promptsresponseimageurl.md
   - docs/models/updateprompt2promptsresponsetype.md
   - docs/models/updateprompt2promptstype.md
   - docs/models/updateprompt2type.md
   - docs/models/updatepromptcontent.md
   - docs/models/updatepromptcontent2.md
   - docs/models/updatepromptcontentprompts2.md
-  - docs/models/updatepromptcontentpromptsresponse2.md
   - docs/models/updatepromptencodingformat.md
   - docs/models/updatepromptformat.md
   - docs/models/updatepromptfunction.md
-  - docs/models/updatepromptglobals.md
   - docs/models/updatepromptlanguage.md
   - docs/models/updatepromptmessages.md
   - docs/models/updatepromptmetadata.md
   - docs/models/updatepromptmodelparameters.md
   - docs/models/updatepromptmodeltype.md
-  - docs/models/updatepromptowner.md
-  - docs/models/updatepromptowner2.md
   - docs/models/updatepromptphotorealversion.md
   - docs/models/updatepromptpromptconfig.md
   - docs/models/updatepromptpromptscontent.md
@@ -814,28 +789,9 @@ generatedFiles:
   - docs/models/updatepromptpromptsprovider.md
   - docs/models/updatepromptpromptsquality.md
   - docs/models/updatepromptpromptsreasoningeffort.md
-  - docs/models/updatepromptpromptsresponse200format.md
-  - docs/models/updatepromptpromptsresponse200type.md
   - docs/models/updatepromptpromptsresponsebody.md
-  - docs/models/updatepromptpromptsresponsecontent.md
-  - docs/models/updatepromptpromptsresponseencodingformat.md
   - docs/models/updatepromptpromptsresponseformat.md
-  - docs/models/updatepromptpromptsresponsefunction.md
-  - docs/models/updatepromptpromptsresponselanguage.md
-  - docs/models/updatepromptpromptsresponsemessages.md
-  - docs/models/updatepromptpromptsresponsemetadata.md
-  - docs/models/updatepromptpromptsresponsemodelparameters.md
-  - docs/models/updatepromptpromptsresponsemodeltype.md
-  - docs/models/updatepromptpromptsresponsephotorealversion.md
-  - docs/models/updatepromptpromptsresponsepromptconfig.md
-  - docs/models/updatepromptpromptsresponseprovider.md
-  - docs/models/updatepromptpromptsresponsequality.md
-  - docs/models/updatepromptpromptsresponsereasoningeffort.md
-  - docs/models/updatepromptpromptsresponseresponseformat.md
-  - docs/models/updatepromptpromptsresponserole.md
-  - docs/models/updatepromptpromptsresponsetoolcalls.md
   - docs/models/updatepromptpromptsresponsetype.md
-  - docs/models/updatepromptpromptsresponseusecases.md
   - docs/models/updatepromptpromptsrole.md
   - docs/models/updatepromptpromptstoolcalls.md
   - docs/models/updatepromptpromptstype.md
@@ -853,12 +809,7 @@ generatedFiles:
   - docs/models/updatepromptresponseformatprompts1.md
   - docs/models/updatepromptresponseformatprompts2.md
   - docs/models/updatepromptresponseformatpromptsjsonschema.md
-  - docs/models/updatepromptresponseformatpromptsresponse1.md
-  - docs/models/updatepromptresponseformatpromptsresponse2.md
-  - docs/models/updatepromptresponseformatpromptsresponse200applicationjsonresponsebodytype.md
-  - docs/models/updatepromptresponseformatpromptsresponse200applicationjsontype.md
   - docs/models/updatepromptresponseformatpromptsresponse200type.md
-  - docs/models/updatepromptresponseformatpromptsresponsejsonschema.md
   - docs/models/updatepromptresponseformatpromptsresponsetype.md
   - docs/models/updatepromptresponseformatpromptstype.md
   - docs/models/updatepromptresponseformattype.md
@@ -885,7 +836,6 @@ generatedFiles:
   - docs/models/updatepromptsnippetencodingformat.md
   - docs/models/updatepromptsnippetformat.md
   - docs/models/updatepromptsnippetfunction.md
-  - docs/models/updatepromptsnippetglobals.md
   - docs/models/updatepromptsnippetlanguage.md
   - docs/models/updatepromptsnippetmessages.md
   - docs/models/updatepromptsnippetmetadata.md
@@ -964,7 +914,6 @@ generatedFiles:
   - docs/models/updateprompttoolcalls.md
   - docs/models/updateprompttype.md
   - docs/models/updatepromptusecases.md
-  - docs/models/updatepromptversions.md
   - docs/models/usage.md
   - docs/models/usecases.md
   - docs/models/utils/retryconfig.md
@@ -1020,9 +969,11 @@ generatedFiles:
   - src/orq_ai_sdk/models/getallpromptsnippetsop.py
   - src/orq_ai_sdk/models/getallpromptsop.py
   - src/orq_ai_sdk/models/getonepromptop.py
+  - src/orq_ai_sdk/models/getpromptversionop.py
   - src/orq_ai_sdk/models/honoapierror.py
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
+  - src/orq_ai_sdk/models/listpromptversionsop.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
   - src/orq_ai_sdk/models/security.py
   - src/orq_ai_sdk/models/updatepromptop.py
@@ -1171,7 +1122,7 @@ examples:
         application/json: {"display_name": "Jed6", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "ulid-string", "owner": "<value>", "domain_id": "uuid-string", "created_by_id": "211a509a-3080-4a8e-9774-c2becc376917", "display_name": "string", "updated_by_id": "5e024985-613d-4e0e-ae80-3d56a1df9436", "description": "Sample description for the prompt", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}, {"role": "tool", "content": "<value>"}, {"role": "tool", "content": "<value>"}]}, "metadata": {}, "updated": "2025-01-31T07:05:40.814Z", "type": "prompt", "versions": [{"_id": "<id>", "created_by_id": "98bc19d4-c51e-499d-8ff4-2acbeff61bc5", "updated_by_id": "f75c24a1-6ac5-4e2b-abd7-e44f71b269f2", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "correction", "content": [{"type": "text", "text": "<value>"}, {"type": "image_url", "image_url": {"url": "https://tricky-countess.info"}}]}, {"role": "correction", "content": []}]}, "metadata": {}, "timestamp": "<value>"}]}
+          application/json: {"_id": "ulid-string", "type": "prompt", "owner": "<value>", "domain_id": "uuid-string", "created": "<value>", "updated": "2025-01-31T07:05:40.814Z", "created_by_id": "211a509a-3080-4a8e-9774-c2becc376917", "updated_by_id": "5e024985-613d-4e0e-ae80-3d56a1df9436", "display_name": "string", "description": "Sample description for the prompt", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}, {"role": "tool", "content": "<value>"}, {"role": "tool", "content": "<value>"}]}, "metadata": {}}
   CreatePromptVersion:
     speakeasy-default-create-prompt-version:
       parameters:
@@ -1200,7 +1151,7 @@ examples:
         header: {}
       responses:
         "200":
-          application/json: {"_id": "<id>", "owner": "vendor", "domain_id": "5fa7f0e7-432c-4e47-acb6-0cc78135ddeb", "created_by_id": "5898c125-a190-471c-a556-2af6646dadb3", "display_name": "Dedric.Donnelly68", "updated_by_id": "450617e6-bb05-479d-86f9-464a3158c876", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "expected_output", "content": "<value>"}, {"role": "exception", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}]}, "metadata": {}, "updated": "2025-01-23T06:57:48.285Z", "type": "prompt", "versions": []}
+          application/json: {"_id": "<id>", "type": "prompt", "owner": "vendor", "domain_id": "5fa7f0e7-432c-4e47-acb6-0cc78135ddeb", "created": "<value>", "updated": "2025-01-23T06:57:48.285Z", "created_by_id": "5898c125-a190-471c-a556-2af6646dadb3", "updated_by_id": "450617e6-bb05-479d-86f9-464a3158c876", "display_name": "Dedric.Donnelly68", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "expected_output", "content": "<value>"}, {"role": "exception", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}]}, "metadata": {}}
         "404":
           application/json: {"message": "<value>"}
   DuplicatePrompt:
@@ -1216,7 +1167,7 @@ examples:
         header: {}
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "owner": "vendor", "domain_id": "a0790cc2-3f27-44a6-94b0-d278a6af50d6", "created_by_id": "38dd1fb9-371a-4928-9ec8-fb977295586d", "display_name": "Deborah44", "updated_by_id": "2ee924d2-79b2-4b77-aa95-f7873d9e4c49", "prompt_config": {"messages": [{"role": "expected_output", "content": []}, {"role": "prompt", "content": [{"type": "text", "text": "<value>"}]}]}, "metadata": {}, "updated": "2025-01-23T06:57:48.285Z", "type": "prompt", "versions": []}], "has_more": false}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "type": "prompt", "owner": "vendor", "domain_id": "a0790cc2-3f27-44a6-94b0-d278a6af50d6", "created": "<value>", "updated": "2025-01-23T06:57:48.285Z", "created_by_id": "38dd1fb9-371a-4928-9ec8-fb977295586d", "updated_by_id": "2ee924d2-79b2-4b77-aa95-f7873d9e4c49", "display_name": "Deborah44", "prompt_config": {"messages": [{"role": "expected_output", "content": []}, {"role": "prompt", "content": [{"type": "text", "text": "<value>"}]}]}, "metadata": {}}], "has_more": false}
   RemoteConfigsGetConfig:
     speakeasy-default-remote-configs-get-config:
       responses:
@@ -1270,5 +1221,26 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "<id>", "owner": "vendor", "domain_id": "a232aa0b-11b8-4a00-8571-e9e705d0e6e2", "key": "<key>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "exception", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}, "metadata": {}, "created_by_id": "8d6d4612-e0ae-4e1b-89dd-f121dc2a4c81", "updated_by_id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "vendor", "domain_id": "f6573e0a-6233-41ad-b7c0-7cc481991696", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": []}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://sorrowful-coil.biz"}}]}]}, "metadata": {}, "created_by_id": "36e08594-4ebc-4eb2-a7bd-4753d0a17c47", "updated_by_id": "e329a9ec-9793-48e1-aa63-0f5fe368082f", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "<value>", "domain_id": "e0874e78-3076-448e-9c2e-d7f3039dec6f", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "image_url", "image_url": {"url": "https://spherical-gerbil.org/"}}]}]}, "metadata": {}, "created_by_id": "7f7bcfa2-69af-4219-84d5-861b3fe5754c", "updated_by_id": "c551a92c-7431-4ddf-8193-e2177ab4c4d0", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "text", "text": "<value>"}]}, {"role": "correction", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "5b0dba7a-30fd-4263-bf0c-cec19e17aef2", "updated_by_id": "28695ca4-33b1-4104-bd1e-faebad1494b3", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "76b63f80-6d94-4b84-a3a1-ce423bc77dd5", "updated_by_id": "b42fcfa6-f3f7-4b3d-858e-e61458f7304a", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "e54f642e-86b7-4c60-b873-f569812ed552", "updated_by_id": "f7ffa2f9-aacd-4dda-a7da-dae8ecef9614", "timestamp": "<value>"}]}], "has_more": true}
+  ListPromptVersions:
+    speakeasy-default-list-prompt-versions:
+      parameters:
+        path:
+          prompt_id: "<id>"
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [], "has_more": true}
+  GetPromptVersion:
+    speakeasy-default-get-prompt-version:
+      parameters:
+        path:
+          prompt_id: "<id>"
+          version_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "type": "prompt", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}]}, "timestamp": "<value>"}
+        "404":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.0
 generatedTests: {}

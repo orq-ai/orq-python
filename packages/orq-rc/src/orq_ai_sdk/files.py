@@ -57,9 +57,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileUploadGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request,
@@ -164,9 +161,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileUploadGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request,
@@ -276,9 +270,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileListGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -381,9 +372,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileListGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -477,9 +465,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileGetGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -573,9 +558,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.FileGetGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -669,9 +651,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="*/*",
             http_headers=http_headers,
-            _globals=models.FileDeleteGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -763,9 +742,6 @@ class Files(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="*/*",
             http_headers=http_headers,
-            _globals=models.FileDeleteGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )

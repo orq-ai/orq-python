@@ -10,23 +10,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-class CreatePromptSnippetGlobalsTypedDict(TypedDict):
-    contact_id: NotRequired[str]
-
-
-class CreatePromptSnippetGlobals(BaseModel):
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
 
 
 ModelType = Literal[
@@ -1831,7 +1818,7 @@ class CreatePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T17:12:36.462Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T22:25:09.383Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

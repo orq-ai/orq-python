@@ -10,23 +10,11 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class FileListGlobalsTypedDict(TypedDict):
-    contact_id: NotRequired[str]
-
-
-class FileListGlobals(BaseModel):
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
 
 
 class FileListRequestTypedDict(TypedDict):
@@ -126,7 +114,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T17:12:37.531Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T22:25:10.468Z")
     r"""The date and time the resource was created"""
 
 

@@ -4,22 +4,10 @@ from __future__ import annotations
 from datetime import datetime
 import dateutil.parser
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class FileGetGlobalsTypedDict(TypedDict):
-    contact_id: NotRequired[str]
-
-
-class FileGetGlobals(BaseModel):
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
 
 
 class FileGetRequestTypedDict(TypedDict):
@@ -72,5 +60,5 @@ class FileGetResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T17:12:37.531Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T22:25:10.468Z")
     r"""The date and time the resource was created"""

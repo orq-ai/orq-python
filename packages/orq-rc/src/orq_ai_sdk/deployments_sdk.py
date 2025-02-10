@@ -73,9 +73,6 @@ class DeploymentsSDK(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentsGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -181,9 +178,6 @@ class DeploymentsSDK(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentsGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -344,9 +338,6 @@ class DeploymentsSDK(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentGetConfigGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody
@@ -508,9 +499,6 @@ class DeploymentsSDK(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
-            _globals=models.DeploymentGetConfigGlobals(
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody

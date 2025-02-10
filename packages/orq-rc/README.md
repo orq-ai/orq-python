@@ -229,11 +229,13 @@ with Orq(
 
 ### [prompts](docs/sdks/prompts/README.md)
 
-* [create](docs/sdks/prompts/README.md#create) - Create a prompt
 * [list](docs/sdks/prompts/README.md#list) - List all prompts
+* [create](docs/sdks/prompts/README.md#create) - Create a prompt
+* [retrieve](docs/sdks/prompts/README.md#retrieve) - Retrieve a prompt
 * [update](docs/sdks/prompts/README.md#update) - Update a prompt
 * [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
-* [get](docs/sdks/prompts/README.md#get) - Retrieve a prompt
+* [list_versions](docs/sdks/prompts/README.md#list_versions) - List all prompt versions
+* [get_version](docs/sdks/prompts/README.md#get_version) - Retrieve a prompt version
 
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 

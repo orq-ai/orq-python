@@ -2,22 +2,8 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
-import pydantic
 from typing import Any, Dict, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class RemoteConfigsGetConfigGlobalsTypedDict(TypedDict):
-    contact_id: NotRequired[str]
-
-
-class RemoteConfigsGetConfigGlobals(BaseModel):
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+from typing_extensions import NotRequired, TypedDict
 
 
 class RemoteConfigsGetConfigRequestBodyTypedDict(TypedDict):

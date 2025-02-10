@@ -2,22 +2,8 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, PathParamMetadata
-import pydantic
-from typing import Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class DeletePromptGlobalsTypedDict(TypedDict):
-    contact_id: NotRequired[str]
-
-
-class DeletePromptGlobals(BaseModel):
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from typing_extensions import Annotated, TypedDict
 
 
 class DeletePromptRequestTypedDict(TypedDict):

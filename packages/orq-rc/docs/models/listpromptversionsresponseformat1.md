@@ -1,0 +1,9 @@
+# ListPromptVersionsResponseFormat1
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                       | [models.ListPromptVersionsResponseFormatType](../models/listpromptversionsresponseformattype.md)             | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `json_schema`                                                                                                | [models.ListPromptVersionsResponseFormatJSONSchema](../models/listpromptversionsresponseformatjsonschema.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
