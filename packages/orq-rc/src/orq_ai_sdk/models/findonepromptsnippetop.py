@@ -1289,7 +1289,7 @@ class FindOnePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-08T16:48:28.255Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-10T06:48:04.659Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
