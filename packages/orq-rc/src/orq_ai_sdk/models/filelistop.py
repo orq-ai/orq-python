@@ -114,7 +114,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T08:40:50.235Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T09:01:53.453Z")
     r"""The date and time the resource was created"""
 
 
