@@ -49,13 +49,13 @@ class UpdatePromptResponseFormat2(BaseModel):
 UpdatePromptResponseFormatType = Literal["json_schema"]
 
 
-class UpdatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class ResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class UpdatePromptResponseFormatJSONSchema(BaseModel):
+class ResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -65,13 +65,13 @@ class UpdatePromptResponseFormatJSONSchema(BaseModel):
 
 class UpdatePromptResponseFormat1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatType
-    json_schema: UpdatePromptResponseFormatJSONSchemaTypedDict
+    json_schema: ResponseFormatJSONSchemaTypedDict
 
 
 class UpdatePromptResponseFormat1(BaseModel):
     type: UpdatePromptResponseFormatType
 
-    json_schema: UpdatePromptResponseFormatJSONSchema
+    json_schema: ResponseFormatJSONSchema
 
 
 UpdatePromptResponseFormatTypedDict = TypeAliasType(
@@ -658,13 +658,13 @@ class UpdatePromptResponseFormatPrompts2(BaseModel):
 UpdatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
 
 
-class UpdatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
+class UpdatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class UpdatePromptResponseFormatPromptsJSONSchema(BaseModel):
+class UpdatePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -674,13 +674,13 @@ class UpdatePromptResponseFormatPromptsJSONSchema(BaseModel):
 
 class UpdatePromptResponseFormatPrompts1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatPromptsResponseType
-    json_schema: UpdatePromptResponseFormatPromptsJSONSchemaTypedDict
+    json_schema: UpdatePromptResponseFormatJSONSchemaTypedDict
 
 
 class UpdatePromptResponseFormatPrompts1(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponseType
 
-    json_schema: UpdatePromptResponseFormatPromptsJSONSchema
+    json_schema: UpdatePromptResponseFormatJSONSchema
 
 
 UpdatePromptPromptsResponseFormatTypedDict = TypeAliasType(

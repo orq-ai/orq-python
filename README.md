@@ -212,20 +212,11 @@ with Orq(
 
 ### [files](docs/sdks/files/README.md)
 
-* [upload](docs/sdks/files/README.md#upload) - Upload file
+* [create](docs/sdks/files/README.md#create) - Create file
 * [list](docs/sdks/files/README.md#list) - List all files
-* [get](docs/sdks/files/README.md#get) - Get file by ID
+* [get](docs/sdks/files/README.md#get) - Retrieve a file
 * [delete](docs/sdks/files/README.md#delete) - Delete file
 
-
-### [prompt_snippets](docs/sdks/promptsnippets/README.md)
-
-* [list](docs/sdks/promptsnippets/README.md#list) - List all prompts snippets
-* [create](docs/sdks/promptsnippets/README.md#create) - Create a prompt snippet
-* [update](docs/sdks/promptsnippets/README.md#update) - Update a prompt snippet
-* [delete](docs/sdks/promptsnippets/README.md#delete) - Delete a prompt snippet
-* [get](docs/sdks/promptsnippets/README.md#get) - Retrieve a prompt snippet
-* [get_by_key](docs/sdks/promptsnippets/README.md#get_by_key) - Retrieve a prompt snippet by key
 
 ### [prompts](docs/sdks/prompts/README.md)
 
@@ -237,9 +228,9 @@ with Orq(
 * [list_versions](docs/sdks/prompts/README.md#list_versions) - List all prompt versions
 * [get_version](docs/sdks/prompts/README.md#get_version) - Retrieve a prompt version
 
-### [remoteconfig](docs/sdks/remoteconfig/README.md)
+### [remoteconfigs](docs/sdks/remoteconfigs/README.md)
 
-* [get_config](docs/sdks/remoteconfig/README.md#get_config) - Get Configurations
+* [retrieve](docs/sdks/remoteconfigs/README.md#retrieve) - Retrieve a remote config
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -298,7 +289,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.upload()
+    res = orq.files.create()
 
     assert res is not None
 
