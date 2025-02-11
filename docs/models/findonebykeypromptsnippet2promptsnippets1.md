@@ -1,0 +1,11 @@
+# FindOneByKeyPromptSnippet2PromptSnippets1
+
+Text content part of a prompt message
+
+
+## Fields
+
+| Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                           | [models.FindOneByKeyPromptSnippet2PromptSnippetsResponseType](../models/findonebykeypromptsnippet2promptsnippetsresponsetype.md) | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |
+| `text`                                                                                                                           | *str*                                                                                                                            | :heavy_check_mark:                                                                                                               | N/A                                                                                                                              |

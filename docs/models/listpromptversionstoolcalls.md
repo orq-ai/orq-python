@@ -1,0 +1,11 @@
+# ListPromptVersionsToolCalls
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `type`                                                                             | [models.ListPromptVersionsPromptsType](../models/listpromptversionspromptstype.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `function`                                                                         | [models.ListPromptVersionsFunction](../models/listpromptversionsfunction.md)       | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `id`                                                                               | *Optional[str]*                                                                    | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `index`                                                                            | *Optional[float]*                                                                  | :heavy_minus_sign:                                                                 | N/A                                                                                |

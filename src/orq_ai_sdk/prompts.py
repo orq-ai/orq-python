@@ -9,6 +9,208 @@ from typing import Any, Mapping, Optional, Union, cast
 
 
 class Prompts(BaseSDK):
+    def list(
+        self,
+        *,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.GetAllPromptsResponseBody]:
+        r"""List all prompts
+
+        Returns a list of your prompts. The prompts are returned sorted by creation date, with the most recent prompts appearing first
+
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.GetAllPromptsRequest(
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/v2/prompts",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="GetAllPrompts",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.GetAllPromptsResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def list_async(
+        self,
+        *,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.GetAllPromptsResponseBody]:
+        r"""List all prompts
+
+        Returns a list of your prompts. The prompts are returned sorted by creation date, with the most recent prompts appearing first
+
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.GetAllPromptsRequest(
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/v2/prompts",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="GetAllPrompts",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.GetAllPromptsResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
     def create(
         self,
         *,
@@ -22,7 +224,7 @@ class Prompts(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.CreatePromptResponseBody]:
-        r"""Create a new prompt
+        r"""Create a prompt
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -47,7 +249,7 @@ class Prompts(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/resources/prompts",
+            path="/v2/prompts",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -89,7 +291,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -117,7 +324,7 @@ class Prompts(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.CreatePromptResponseBody]:
-        r"""Create a new prompt
+        r"""Create a prompt
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -142,7 +349,7 @@ class Prompts(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/resources/prompts",
+            path="/v2/prompts",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -184,7 +391,12 @@ class Prompts(BaseSDK):
             return utils.unmarshal_json(
                 http_res.text, Optional[models.CreatePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -199,38 +411,20 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    def create_version(
+    def retrieve(
         self,
         *,
-        id_param: str,
         id: str,
-        display_name: str,
-        prompt_config: Union[
-            models.CreatePromptVersionPromptConfig,
-            models.CreatePromptVersionPromptConfigTypedDict,
-        ],
-        metadata: Union[
-            models.CreatePromptVersionMetadata,
-            models.CreatePromptVersionMetadataTypedDict,
-        ],
-        commit: str,
-        timestamp: str,
-        description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreatePromptVersionResponseBody]:
-        r"""Create a new prompt version
+    ) -> Optional[models.GetOnePromptResponseBody]:
+        r"""Retrieve a prompt
 
-        :param id_param: Prompt ID
-        :param id:
-        :param display_name:
-        :param prompt_config:
-        :param metadata:
-        :param commit:
-        :param timestamp:
-        :param description:
+        Retrieves a prompt object
+
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -247,26 +441,13 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.CreatePromptVersionRequest(
-            id_param=id_param,
-            request_body=models.CreatePromptVersionRequestBody(
-                id=id,
-                display_name=display_name,
-                description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, models.CreatePromptVersionPromptConfig
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, models.CreatePromptVersionMetadata
-                ),
-                commit=commit,
-                timestamp=timestamp,
-            ),
+        request = models.GetOnePromptRequest(
+            id=id,
         )
 
         req = self._build_request(
-            method="POST",
-            path="/v2/resources/prompts/{id}/versions",
+            method="GET",
+            path="/v2/prompts/{id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -277,13 +458,6 @@ class Prompts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.CreatePromptVersionRequestBody],
-            ),
             timeout_ms=timeout_ms,
         )
 
@@ -297,7 +471,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="CreatePromptVersion",
+                operation_id="GetOnePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -310,9 +484,14 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[models.CreatePromptVersionResponseBody]
+                http_res.text, Optional[models.GetOnePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -327,38 +506,20 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    async def create_version_async(
+    async def retrieve_async(
         self,
         *,
-        id_param: str,
         id: str,
-        display_name: str,
-        prompt_config: Union[
-            models.CreatePromptVersionPromptConfig,
-            models.CreatePromptVersionPromptConfigTypedDict,
-        ],
-        metadata: Union[
-            models.CreatePromptVersionMetadata,
-            models.CreatePromptVersionMetadataTypedDict,
-        ],
-        commit: str,
-        timestamp: str,
-        description: OptionalNullable[str] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreatePromptVersionResponseBody]:
-        r"""Create a new prompt version
+    ) -> Optional[models.GetOnePromptResponseBody]:
+        r"""Retrieve a prompt
 
-        :param id_param: Prompt ID
-        :param id:
-        :param display_name:
-        :param prompt_config:
-        :param metadata:
-        :param commit:
-        :param timestamp:
-        :param description:
+        Retrieves a prompt object
+
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -375,26 +536,149 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.CreatePromptVersionRequest(
-            id_param=id_param,
-            request_body=models.CreatePromptVersionRequestBody(
-                id=id,
-                display_name=display_name,
-                description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, models.CreatePromptVersionPromptConfig
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, models.CreatePromptVersionMetadata
-                ),
-                commit=commit,
-                timestamp=timestamp,
-            ),
+        request = models.GetOnePromptRequest(
+            id=id,
         )
 
         req = self._build_request_async(
-            method="POST",
-            path="/v2/resources/prompts/{id}/versions",
+            method="GET",
+            path="/v2/prompts/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="GetOnePrompt",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.GetOnePromptResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def update(
+        self,
+        *,
+        id: str,
+        owner: Optional[str] = None,
+        domain_id: Optional[str] = None,
+        created: Optional[str] = None,
+        updated: Optional[str] = None,
+        created_by_id: Optional[str] = None,
+        updated_by_id: Optional[str] = None,
+        display_name: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
+        prompt_config: Optional[
+            Union[
+                models.UpdatePromptPromptConfig,
+                models.UpdatePromptPromptConfigTypedDict,
+            ]
+        ] = None,
+        metadata: Optional[
+            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.UpdatePromptResponseBody]:
+        r"""Update a prompt
+
+        :param id: Unique identifier of the prompt
+        :param owner:
+        :param domain_id:
+        :param created:
+        :param updated:
+        :param created_by_id:
+        :param updated_by_id:
+        :param display_name: The prompt’s name, meant to be displayable in the UI.
+        :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
+        :param prompt_config: A list of messages compatible with the openAI schema
+        :param metadata:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.UpdatePromptRequest(
+            id=id,
+            request_body=models.UpdatePromptRequestBody(
+                owner=owner,
+                domain_id=domain_id,
+                created=created,
+                updated=updated,
+                created_by_id=created_by_id,
+                updated_by_id=updated_by_id,
+                display_name=display_name,
+                description=description,
+                prompt_config=utils.get_pydantic_model(
+                    prompt_config, Optional[models.UpdatePromptPromptConfig]
+                ),
+                metadata=utils.get_pydantic_model(
+                    metadata, Optional[models.UpdatePromptMetadata]
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/prompts/{id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -410,7 +694,156 @@ class Prompts(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.CreatePromptVersionRequestBody],
+                Optional[models.UpdatePromptRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="UpdatePrompt",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.UpdatePromptResponseBody]
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.UpdatePromptPromptsResponseBodyData
+            )
+            raise models.UpdatePromptPromptsResponseBody(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def update_async(
+        self,
+        *,
+        id: str,
+        owner: Optional[str] = None,
+        domain_id: Optional[str] = None,
+        created: Optional[str] = None,
+        updated: Optional[str] = None,
+        created_by_id: Optional[str] = None,
+        updated_by_id: Optional[str] = None,
+        display_name: Optional[str] = None,
+        description: OptionalNullable[str] = UNSET,
+        prompt_config: Optional[
+            Union[
+                models.UpdatePromptPromptConfig,
+                models.UpdatePromptPromptConfigTypedDict,
+            ]
+        ] = None,
+        metadata: Optional[
+            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.UpdatePromptResponseBody]:
+        r"""Update a prompt
+
+        :param id: Unique identifier of the prompt
+        :param owner:
+        :param domain_id:
+        :param created:
+        :param updated:
+        :param created_by_id:
+        :param updated_by_id:
+        :param display_name: The prompt’s name, meant to be displayable in the UI.
+        :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
+        :param prompt_config: A list of messages compatible with the openAI schema
+        :param metadata:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = models.UpdatePromptRequest(
+            id=id,
+            request_body=models.UpdatePromptRequestBody(
+                owner=owner,
+                domain_id=domain_id,
+                created=created,
+                updated=updated,
+                created_by_id=created_by_id,
+                updated_by_id=updated_by_id,
+                display_name=display_name,
+                description=description,
+                prompt_config=utils.get_pydantic_model(
+                    prompt_config, Optional[models.UpdatePromptPromptConfig]
+                ),
+                metadata=utils.get_pydantic_model(
+                    metadata, Optional[models.UpdatePromptMetadata]
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/prompts/{id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.UpdatePromptRequestBody],
             ),
             timeout_ms=timeout_ms,
         )
@@ -425,22 +858,33 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="CreatePromptVersion",
+                operation_id="UpdatePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            error_status_codes=["404", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[models.CreatePromptVersionResponseBody]
+                http_res.text, Optional[models.UpdatePromptResponseBody]
             )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, models.UpdatePromptPromptsResponseBodyData
+            )
+            raise models.UpdatePromptPromptsResponseBody(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -466,7 +910,7 @@ class Prompts(BaseSDK):
     ):
         r"""Delete a prompt
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -489,7 +933,7 @@ class Prompts(BaseSDK):
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/resources/prompts/{id}",
+            path="/v2/prompts/{id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -526,7 +970,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -552,7 +1001,7 @@ class Prompts(BaseSDK):
     ):
         r"""Delete a prompt
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -575,7 +1024,7 @@ class Prompts(BaseSDK):
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/resources/prompts/{id}",
+            path="/v2/prompts/{id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -612,7 +1061,12 @@ class Prompts(BaseSDK):
 
         if utils.match_response(http_res, "200", "*"):
             return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -627,18 +1081,26 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    def get_one(
+    def list_versions(
         self,
         *,
-        id: str,
+        prompt_id: str,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Get one prompt
+    ) -> Optional[models.ListPromptVersionsResponseBody]:
+        r"""List all prompt versions
 
-        :param id: Prompt ID
+        Returns a list of your prompt versions. The prompt versions are returned sorted by creation date, with the most recent prompt versions appearing first
+
+        :param prompt_id:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -655,13 +1117,16 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.GetOnePromptRequest(
-            id=id,
+        request = models.ListPromptVersionsRequest(
+            prompt_id=prompt_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/resources/prompts/{id}",
+            path="/v2/prompts/{prompt_id}/versions",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -669,7 +1134,7 @@ class Prompts(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -685,7 +1150,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="GetOnePrompt",
+                operation_id="ListPromptVersions",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -696,9 +1161,16 @@ class Prompts(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.ListPromptVersionsResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -713,18 +1185,26 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    async def get_one_async(
+    async def list_versions_async(
         self,
         *,
-        id: str,
+        prompt_id: str,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Get one prompt
+    ) -> Optional[models.ListPromptVersionsResponseBody]:
+        r"""List all prompt versions
 
-        :param id: Prompt ID
+        Returns a list of your prompt versions. The prompt versions are returned sorted by creation date, with the most recent prompt versions appearing first
+
+        :param prompt_id:
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -741,13 +1221,16 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.GetOnePromptRequest(
-            id=id,
+        request = models.ListPromptVersionsRequest(
+            prompt_id=prompt_id,
+            limit=limit,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/resources/prompts/{id}",
+            path="/v2/prompts/{prompt_id}/versions",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -755,7 +1238,7 @@ class Prompts(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -771,7 +1254,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="GetOnePrompt",
+                operation_id="ListPromptVersions",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -782,9 +1265,16 @@ class Prompts(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.ListPromptVersionsResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -799,35 +1289,22 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    def update(
+    def get_version(
         self,
         *,
-        id: str,
-        display_name: Optional[str] = None,
-        description: OptionalNullable[str] = UNSET,
-        prompt_config: Optional[
-            Union[
-                models.UpdatePromptPromptConfig,
-                models.UpdatePromptPromptConfigTypedDict,
-            ]
-        ] = None,
-        metadata: Optional[
-            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
-        ] = None,
-        key: Optional[str] = None,
+        prompt_id: str,
+        version_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdatePromptResponseBody]:
-        r"""Update a prompt
+    ) -> Optional[models.GetPromptVersionResponseBody]:
+        r"""Retrieve a prompt version
 
-        :param id: Prompt ID
-        :param display_name:
-        :param description:
-        :param prompt_config:
-        :param metadata:
-        :param key:
+        Retrieves a specific version of a prompt by its ID and version ID.
+
+        :param prompt_id: The unique identifier of the prompt
+        :param version_id: The unique identifier of the prompt version
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -844,24 +1321,14 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.UpdatePromptRequest(
-            id=id,
-            request_body=models.UpdatePromptRequestBody(
-                display_name=display_name,
-                description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, Optional[models.UpdatePromptPromptConfig]
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdatePromptMetadata]
-                ),
-                key=key,
-            ),
+        request = models.GetPromptVersionRequest(
+            prompt_id=prompt_id,
+            version_id=version_id,
         )
 
         req = self._build_request(
-            method="PATCH",
-            path="/v2/resources/prompts/{id}",
+            method="GET",
+            path="/v2/prompts/{prompt_id}/versions/{version_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -872,13 +1339,6 @@ class Prompts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.UpdatePromptRequestBody],
-            ),
             timeout_ms=timeout_ms,
         )
 
@@ -892,7 +1352,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="UpdatePrompt",
+                operation_id="GetPromptVersion",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -903,17 +1363,22 @@ class Prompts(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[models.UpdatePromptResponseBody]
+                http_res.text, Optional[models.GetPromptVersionResponseBody]
             )
         if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, models.UpdatePromptPromptsResponseBodyData
+            response_data = utils.unmarshal_json(
+                http_res.text, models.GetPromptVersionPromptsResponseBodyData
             )
-            raise models.UpdatePromptPromptsResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.GetPromptVersionPromptsResponseBody(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -928,35 +1393,22 @@ class Prompts(BaseSDK):
             http_res,
         )
 
-    async def update_async(
+    async def get_version_async(
         self,
         *,
-        id: str,
-        display_name: Optional[str] = None,
-        description: OptionalNullable[str] = UNSET,
-        prompt_config: Optional[
-            Union[
-                models.UpdatePromptPromptConfig,
-                models.UpdatePromptPromptConfigTypedDict,
-            ]
-        ] = None,
-        metadata: Optional[
-            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
-        ] = None,
-        key: Optional[str] = None,
+        prompt_id: str,
+        version_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdatePromptResponseBody]:
-        r"""Update a prompt
+    ) -> Optional[models.GetPromptVersionResponseBody]:
+        r"""Retrieve a prompt version
 
-        :param id: Prompt ID
-        :param display_name:
-        :param description:
-        :param prompt_config:
-        :param metadata:
-        :param key:
+        Retrieves a specific version of a prompt by its ID and version ID.
+
+        :param prompt_id: The unique identifier of the prompt
+        :param version_id: The unique identifier of the prompt version
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -973,24 +1425,14 @@ class Prompts(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = models.UpdatePromptRequest(
-            id=id,
-            request_body=models.UpdatePromptRequestBody(
-                display_name=display_name,
-                description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, Optional[models.UpdatePromptPromptConfig]
-                ),
-                metadata=utils.get_pydantic_model(
-                    metadata, Optional[models.UpdatePromptMetadata]
-                ),
-                key=key,
-            ),
+        request = models.GetPromptVersionRequest(
+            prompt_id=prompt_id,
+            version_id=version_id,
         )
 
         req = self._build_request_async(
-            method="PATCH",
-            path="/v2/resources/prompts/{id}",
+            method="GET",
+            path="/v2/prompts/{prompt_id}/versions/{version_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1001,13 +1443,6 @@ class Prompts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.UpdatePromptRequestBody],
-            ),
             timeout_ms=timeout_ms,
         )
 
@@ -1021,7 +1456,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="UpdatePrompt",
+                operation_id="GetPromptVersion",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -1032,385 +1467,22 @@ class Prompts(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[models.UpdatePromptResponseBody]
+                http_res.text, Optional[models.GetPromptVersionResponseBody]
             )
         if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, models.UpdatePromptPromptsResponseBodyData
+            response_data = utils.unmarshal_json(
+                http_res.text, models.GetPromptVersionPromptsResponseBodyData
             )
-            raise models.UpdatePromptPromptsResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+            raise models.GetPromptVersionPromptsResponseBody(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
             )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def duplicate(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Duplicate a prompt
-
-        :param id: Prompt ID
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        request = models.DuplicatePromptRequest(
-            id=id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/resources/prompts/{id}/duplicate",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                operation_id="DuplicatePrompt",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def duplicate_async(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Duplicate a prompt
-
-        :param id: Prompt ID
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        request = models.DuplicatePromptRequest(
-            id=id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/resources/prompts/{id}/duplicate",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                operation_id="DuplicatePrompt",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def get_all(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models.GetAllPromptsRequestBody,
-                models.GetAllPromptsRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllPromptsResponseBody]:
-        r"""Get all prompts
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.GetAllPromptsRequestBody]
-            )
-        request = cast(Optional[models.GetAllPromptsRequestBody], request)
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/resources/prompts/query",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetAllPromptsRequestBody]
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                operation_id="GetAllPrompts",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, Optional[models.GetAllPromptsResponseBody]
-            )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def get_all_async(
-        self,
-        *,
-        request: Optional[
-            Union[
-                models.GetAllPromptsRequestBody,
-                models.GetAllPromptsRequestBodyTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllPromptsResponseBody]:
-        r"""Get all prompts
-
-        :param request: The request object to send.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.GetAllPromptsRequestBody]
-            )
-        request = cast(Optional[models.GetAllPromptsRequestBody], request)
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/resources/prompts/query",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetAllPromptsRequestBody]
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                operation_id="GetAllPrompts",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, Optional[models.GetAllPromptsResponseBody]
-            )
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

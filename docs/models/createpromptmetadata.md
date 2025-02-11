@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `use_cases`        | List[*str*]        | :heavy_minus_sign: | N/A                |
-| `language`         | *Optional[str]*    | :heavy_minus_sign: | N/A                |
+| Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `use_cases`                                                                                                               | List[[models.CreatePromptUseCases](../models/createpromptusecases.md)]                                                    | :heavy_minus_sign:                                                                                                        | A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose |
+| `language`                                                                                                                | [Optional[models.CreatePromptLanguage]](../models/createpromptlanguage.md)                                                | :heavy_minus_sign:                                                                                                        | The language that the prompt is written in. Use this field to categorize the prompt for your own purpose                  |

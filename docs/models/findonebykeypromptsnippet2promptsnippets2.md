@@ -1,0 +1,11 @@
+# FindOneByKeyPromptSnippet2PromptSnippets2
+
+The image part of the prompt message. Only supported with vision models.
+
+
+## Fields
+
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                 | [models.FindOneByKeyPromptSnippet2PromptSnippetsResponse200Type](../models/findonebykeypromptsnippet2promptsnippetsresponse200type.md) | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `image_url`                                                                                                                            | [models.FindOneByKeyPromptSnippet2PromptSnippetsImageURL](../models/findonebykeypromptsnippet2promptsnippetsimageurl.md)               | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |

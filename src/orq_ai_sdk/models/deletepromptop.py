@@ -8,11 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class DeletePromptRequestTypedDict(TypedDict):
     id: str
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""
 
 
 class DeletePromptRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""

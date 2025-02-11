@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ModelType = Literal[
+CreatePromptModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -27,33 +27,33 @@ ModelType = Literal[
 ]
 r"""The type of the model"""
 
-Format = Literal["url", "b64_json", "text", "json_object"]
+CreatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-Quality = Literal["standard", "hd"]
+CreatePromptQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
-CreatePromptResponseFormatType = Literal["json_object"]
+CreatePromptResponseFormatPromptsType = Literal["json_object"]
 
 
-class ResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatType
+class CreatePromptResponseFormat2TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsType
 
 
-class ResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatType
+class CreatePromptResponseFormat2(BaseModel):
+    type: CreatePromptResponseFormatPromptsType
 
 
-ResponseFormatType = Literal["json_schema"]
+CreatePromptResponseFormatType = Literal["json_schema"]
 
 
-class JSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class JSONSchema(BaseModel):
+class CreatePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -61,19 +61,20 @@ class JSONSchema(BaseModel):
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class ResponseFormat1TypedDict(TypedDict):
-    type: ResponseFormatType
-    json_schema: JSONSchemaTypedDict
+class CreatePromptResponseFormat1TypedDict(TypedDict):
+    type: CreatePromptResponseFormatType
+    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
 
 
-class ResponseFormat1(BaseModel):
-    type: ResponseFormatType
+class CreatePromptResponseFormat1(BaseModel):
+    type: CreatePromptResponseFormatType
 
-    json_schema: JSONSchema
+    json_schema: CreatePromptResponseFormatJSONSchema
 
 
-ResponseFormatTypedDict = TypeAliasType(
-    "ResponseFormatTypedDict", Union[ResponseFormat2TypedDict, ResponseFormat1TypedDict]
+CreatePromptResponseFormatTypedDict = TypeAliasType(
+    "CreatePromptResponseFormatTypedDict",
+    Union[CreatePromptResponseFormat2TypedDict, CreatePromptResponseFormat1TypedDict],
 )
 r"""An object specifying the format that the model must output.
 
@@ -85,8 +86,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-ResponseFormat = TypeAliasType(
-    "ResponseFormat", Union[ResponseFormat2, ResponseFormat1]
+CreatePromptResponseFormat = TypeAliasType(
+    "CreatePromptResponseFormat",
+    Union[CreatePromptResponseFormat2, CreatePromptResponseFormat1],
 )
 r"""An object specifying the format that the model must output.
 
@@ -98,14 +100,17 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-PhotoRealVersion = Literal["v1", "v2"]
+CreatePromptPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-EncodingFormat = Literal["float", "base64"]
+CreatePromptEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+CreatePromptReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-class ModelParametersTypedDict(TypedDict):
+
+class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -124,15 +129,15 @@ class ModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[Format]
+    format_: NotRequired[CreatePromptFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[Quality]
+    quality: NotRequired[CreatePromptQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[ResponseFormatTypedDict]]
+    response_format: NotRequired[Nullable[CreatePromptResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -141,13 +146,15 @@ class ModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[PhotoRealVersion]
+    photo_real_version: NotRequired[CreatePromptPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[EncodingFormat]
+    encoding_format: NotRequired[CreatePromptEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[CreatePromptReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-class ModelParameters(BaseModel):
+class CreatePromptModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -178,20 +185,23 @@ class ModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[Format], pydantic.Field(alias="format")] = None
+    format_: Annotated[Optional[CreatePromptFormat], pydantic.Field(alias="format")] = (
+        None
+    )
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[Quality] = None
+    quality: Optional[CreatePromptQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[ResponseFormat], pydantic.Field(alias="responseFormat")
+        OptionalNullable[CreatePromptResponseFormat],
+        pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
 
@@ -203,12 +213,17 @@ class ModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[PhotoRealVersion], pydantic.Field(alias="photoRealVersion")
+        Optional[CreatePromptPhotoRealVersion], pydantic.Field(alias="photoRealVersion")
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[EncodingFormat] = None
+    encoding_format: Optional[CreatePromptEncodingFormat] = None
     r"""The format to return the embeddings"""
+
+    reasoning_effort: Annotated[
+        Optional[CreatePromptReasoningEffort], pydantic.Field(alias="reasoningEffort")
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -228,6 +243,7 @@ class ModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -257,7 +273,7 @@ class ModelParameters(BaseModel):
         return m
 
 
-Provider = Literal[
+CreatePromptProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -274,6 +290,8 @@ Provider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptRole = Literal[
@@ -413,75 +431,110 @@ class CreatePromptMessages(BaseModel):
     tool_calls: Optional[List[CreatePromptToolCalls]] = None
 
 
-class PromptConfigTypedDict(TypedDict):
+class CreatePromptPromptConfigTypedDict(TypedDict):
+    r"""A list of messages compatible with the openAI schema"""
+
     messages: List[CreatePromptMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_type: NotRequired[ModelType]
+    model_type: NotRequired[CreatePromptModelType]
     r"""The type of the model"""
-    model_parameters: NotRequired[ModelParametersTypedDict]
+    model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[Provider]
+    provider: NotRequired[CreatePromptProvider]
     version: NotRequired[str]
 
 
-class PromptConfig(BaseModel):
+class CreatePromptPromptConfig(BaseModel):
+    r"""A list of messages compatible with the openAI schema"""
+
     messages: List[CreatePromptMessages]
 
     stream: Optional[bool] = None
 
     model: Optional[str] = None
 
-    model_type: Optional[ModelType] = None
+    model_type: Optional[CreatePromptModelType] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[ModelParameters] = None
+    model_parameters: Optional[CreatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[Provider] = None
+    provider: Optional[CreatePromptProvider] = None
 
     version: Optional[str] = None
 
 
+CreatePromptUseCases = Literal[
+    "Agents",
+    "Agents simulations",
+    "API interaction",
+    "Autonomous Agents",
+    "Chatbots",
+    "Classification",
+    "Code understanding",
+    "Code writing",
+    "Documents QA",
+    "Conversation",
+    "Extraction",
+    "Multi-modal",
+    "Self-checking",
+    "SQL",
+    "Summarization",
+    "Tagging",
+]
+
+CreatePromptLanguage = Literal[
+    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+]
+r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+
 class CreatePromptMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
+    use_cases: NotRequired[List[CreatePromptUseCases]]
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+    language: NotRequired[CreatePromptLanguage]
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
 class CreatePromptMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
+    use_cases: Optional[List[CreatePromptUseCases]] = None
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[str] = None
-
-
-CreatePromptPromptsType = Literal["prompt", "snippet", "template"]
+    language: Optional[CreatePromptLanguage] = None
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
 class CreatePromptRequestBodyTypedDict(TypedDict):
     display_name: str
-    type: CreatePromptPromptsType
+    r"""The prompt’s name, meant to be displayable in the UI."""
+    prompt_config: CreatePromptPromptConfigTypedDict
+    r"""A list of messages compatible with the openAI schema"""
+    path: str
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     description: NotRequired[Nullable[str]]
-    prompt_config: NotRequired[PromptConfigTypedDict]
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[CreatePromptMetadataTypedDict]
-    key: NotRequired[str]
 
 
 class CreatePromptRequestBody(BaseModel):
     display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
 
-    type: CreatePromptPromptsType
+    prompt_config: CreatePromptPromptConfig
+    r"""A list of messages compatible with the openAI schema"""
+
+    path: str
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     description: OptionalNullable[str] = UNSET
-
-    prompt_config: Optional[PromptConfig] = None
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     metadata: Optional[CreatePromptMetadata] = None
 
-    key: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["description", "prompt_config", "metadata", "key"]
+        optional_fields = ["description", "metadata"]
         nullable_fields = ["description"]
         null_default_fields = []
 
@@ -510,7 +563,9 @@ class CreatePromptRequestBody(BaseModel):
         return m
 
 
-CreatePromptModelType = Literal[
+CreatePromptPromptsType = Literal["prompt"]
+
+CreatePromptPromptsModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -523,33 +578,33 @@ CreatePromptModelType = Literal[
 ]
 r"""The type of the model"""
 
-CreatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+CreatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-CreatePromptQuality = Literal["standard", "hd"]
+CreatePromptPromptsQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
-CreatePromptResponseFormatPromptsResponseType = Literal["json_object"]
+CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
 
 
-class CreatePromptResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsResponseType
+class CreatePromptResponseFormatPrompts2TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsResponse200Type
 
 
-class CreatePromptResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatPromptsResponseType
+class CreatePromptResponseFormatPrompts2(BaseModel):
+    type: CreatePromptResponseFormatPromptsResponse200Type
 
 
-CreatePromptResponseFormatPromptsType = Literal["json_schema"]
+CreatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
 
 
-class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class CreatePromptResponseFormatJSONSchema(BaseModel):
+class CreatePromptResponseFormatPromptsJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -557,20 +612,23 @@ class CreatePromptResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class CreatePromptResponseFormat1TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsType
-    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
+class CreatePromptResponseFormatPrompts1TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsResponseType
+    json_schema: CreatePromptResponseFormatPromptsJSONSchemaTypedDict
 
 
-class CreatePromptResponseFormat1(BaseModel):
-    type: CreatePromptResponseFormatPromptsType
+class CreatePromptResponseFormatPrompts1(BaseModel):
+    type: CreatePromptResponseFormatPromptsResponseType
 
-    json_schema: CreatePromptResponseFormatJSONSchema
+    json_schema: CreatePromptResponseFormatPromptsJSONSchema
 
 
-CreatePromptResponseFormatTypedDict = TypeAliasType(
-    "CreatePromptResponseFormatTypedDict",
-    Union[CreatePromptResponseFormat2TypedDict, CreatePromptResponseFormat1TypedDict],
+CreatePromptPromptsResponseFormatTypedDict = TypeAliasType(
+    "CreatePromptPromptsResponseFormatTypedDict",
+    Union[
+        CreatePromptResponseFormatPrompts2TypedDict,
+        CreatePromptResponseFormatPrompts1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -582,9 +640,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-CreatePromptResponseFormat = TypeAliasType(
-    "CreatePromptResponseFormat",
-    Union[CreatePromptResponseFormat2, CreatePromptResponseFormat1],
+CreatePromptPromptsResponseFormat = TypeAliasType(
+    "CreatePromptPromptsResponseFormat",
+    Union[CreatePromptResponseFormatPrompts2, CreatePromptResponseFormatPrompts1],
 )
 r"""An object specifying the format that the model must output.
 
@@ -596,14 +654,17 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-CreatePromptPhotoRealVersion = Literal["v1", "v2"]
+CreatePromptPromptsPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-CreatePromptEncodingFormat = Literal["float", "base64"]
+CreatePromptPromptsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
+CreatePromptPromptsReasoningEffort = Literal["low", "medium", "high"]
+r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-class CreatePromptModelParametersTypedDict(TypedDict):
+
+class CreatePromptPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -622,15 +683,15 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[CreatePromptFormat]
+    format_: NotRequired[CreatePromptPromptsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[CreatePromptQuality]
+    quality: NotRequired[CreatePromptPromptsQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[CreatePromptResponseFormatTypedDict]]
+    response_format: NotRequired[Nullable[CreatePromptPromptsResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -639,13 +700,15 @@ class CreatePromptModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[CreatePromptPhotoRealVersion]
+    photo_real_version: NotRequired[CreatePromptPromptsPhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[CreatePromptEncodingFormat]
+    encoding_format: NotRequired[CreatePromptPromptsEncodingFormat]
     r"""The format to return the embeddings"""
+    reasoning_effort: NotRequired[CreatePromptPromptsReasoningEffort]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-class CreatePromptModelParameters(BaseModel):
+class CreatePromptPromptsModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -676,22 +739,22 @@ class CreatePromptModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[CreatePromptFormat], pydantic.Field(alias="format")] = (
-        None
-    )
+    format_: Annotated[
+        Optional[CreatePromptPromptsFormat], pydantic.Field(alias="format")
+    ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[CreatePromptQuality] = None
+    quality: Optional[CreatePromptPromptsQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[CreatePromptResponseFormat],
+        OptionalNullable[CreatePromptPromptsResponseFormat],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -704,12 +767,19 @@ class CreatePromptModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[CreatePromptPhotoRealVersion], pydantic.Field(alias="photoRealVersion")
+        Optional[CreatePromptPromptsPhotoRealVersion],
+        pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[CreatePromptEncodingFormat] = None
+    encoding_format: Optional[CreatePromptPromptsEncodingFormat] = None
     r"""The format to return the embeddings"""
+
+    reasoning_effort: Annotated[
+        Optional[CreatePromptPromptsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
+    ] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -729,6 +799,7 @@ class CreatePromptModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
+            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -758,7 +829,7 @@ class CreatePromptModelParameters(BaseModel):
         return m
 
 
-CreatePromptProvider = Literal[
+CreatePromptPromptsProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -775,6 +846,8 @@ CreatePromptProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
+    "togetherai",
+    "elevenlabs",
 ]
 
 CreatePromptPromptsRole = Literal[
@@ -869,7 +942,7 @@ CreatePromptPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-CreatePromptPromptsResponse200Type = Literal["function"]
+CreatePromptPromptsResponseType = Literal["function"]
 
 
 class CreatePromptPromptsFunctionTypedDict(TypedDict):
@@ -886,14 +959,14 @@ class CreatePromptPromptsFunction(BaseModel):
 
 
 class CreatePromptPromptsToolCallsTypedDict(TypedDict):
-    type: CreatePromptPromptsResponse200Type
+    type: CreatePromptPromptsResponseType
     function: CreatePromptPromptsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class CreatePromptPromptsToolCalls(BaseModel):
-    type: CreatePromptPromptsResponse200Type
+    type: CreatePromptPromptsResponseType
 
     function: CreatePromptPromptsFunction
 
@@ -920,23 +993,27 @@ class CreatePromptPromptsMessages(BaseModel):
     tool_calls: Optional[List[CreatePromptPromptsToolCalls]] = None
 
 
-class CreatePromptPromptConfigTypedDict(TypedDict):
+class CreatePromptPromptsPromptConfigTypedDict(TypedDict):
+    r"""A list of messages compatible with the openAI schema"""
+
     messages: List[CreatePromptPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
-    model_type: NotRequired[CreatePromptModelType]
+    model_type: NotRequired[CreatePromptPromptsModelType]
     r"""The type of the model"""
-    model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
+    model_parameters: NotRequired[CreatePromptPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[CreatePromptProvider]
+    provider: NotRequired[CreatePromptPromptsProvider]
     integration_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     version: NotRequired[str]
 
 
-class CreatePromptPromptConfig(BaseModel):
+class CreatePromptPromptsPromptConfig(BaseModel):
+    r"""A list of messages compatible with the openAI schema"""
+
     messages: List[CreatePromptPromptsMessages]
 
     stream: Optional[bool] = None
@@ -946,13 +1023,13 @@ class CreatePromptPromptConfig(BaseModel):
     model_db_id: Optional[str] = None
     r"""The id of the resource"""
 
-    model_type: Optional[CreatePromptModelType] = None
+    model_type: Optional[CreatePromptPromptsModelType] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[CreatePromptModelParameters] = None
+    model_parameters: Optional[CreatePromptPromptsModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[CreatePromptProvider] = None
+    provider: Optional[CreatePromptPromptsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -999,59 +1076,99 @@ class CreatePromptPromptConfig(BaseModel):
         return m
 
 
+CreatePromptPromptsUseCases = Literal[
+    "Agents",
+    "Agents simulations",
+    "API interaction",
+    "Autonomous Agents",
+    "Chatbots",
+    "Classification",
+    "Code understanding",
+    "Code writing",
+    "Documents QA",
+    "Conversation",
+    "Extraction",
+    "Multi-modal",
+    "Self-checking",
+    "SQL",
+    "Summarization",
+    "Tagging",
+]
+
+CreatePromptPromptsLanguage = Literal[
+    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+]
+r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+
 class CreatePromptPromptsMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[str]]
-    language: NotRequired[str]
+    use_cases: NotRequired[List[CreatePromptPromptsUseCases]]
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+    language: NotRequired[CreatePromptPromptsLanguage]
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
 class CreatePromptPromptsMetadata(BaseModel):
-    use_cases: Optional[List[str]] = None
+    use_cases: Optional[List[CreatePromptPromptsUseCases]] = None
+    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[str] = None
-
-
-CreatePromptPromptsResponseType = Literal["prompt", "snippet", "template"]
+    language: Optional[CreatePromptPromptsLanguage] = None
+    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
 class CreatePromptResponseBodyTypedDict(TypedDict):
     r"""Prompt created."""
 
     id: str
-    r"""The id of the resource"""
-    display_name: str
+    type: CreatePromptPromptsType
+    owner: str
     domain_id: str
-    r"""The id of the resource"""
-    type: CreatePromptPromptsResponseType
+    created: str
+    updated: str
+    display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
+    prompt_config: CreatePromptPromptsPromptConfigTypedDict
+    r"""A list of messages compatible with the openAI schema"""
+    created_by_id: NotRequired[str]
+    updated_by_id: NotRequired[str]
     description: NotRequired[Nullable[str]]
-    prompt_config: NotRequired[CreatePromptPromptConfigTypedDict]
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[CreatePromptPromptsMetadataTypedDict]
-    key: NotRequired[str]
 
 
 class CreatePromptResponseBody(BaseModel):
     r"""Prompt created."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
-    r"""The id of the resource"""
 
-    display_name: str
+    type: CreatePromptPromptsType
+
+    owner: str
 
     domain_id: str
-    r"""The id of the resource"""
 
-    type: CreatePromptPromptsResponseType
+    created: str
+
+    updated: str
+
+    display_name: str
+    r"""The prompt’s name, meant to be displayable in the UI."""
+
+    prompt_config: CreatePromptPromptsPromptConfig
+    r"""A list of messages compatible with the openAI schema"""
+
+    created_by_id: Optional[str] = None
+
+    updated_by_id: Optional[str] = None
 
     description: OptionalNullable[str] = UNSET
-
-    prompt_config: Optional[CreatePromptPromptConfig] = None
+    r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     metadata: Optional[CreatePromptPromptsMetadata] = None
 
-    key: Optional[str] = None
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["description", "prompt_config", "metadata", "key"]
+        optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
         nullable_fields = ["description"]
         null_default_fields = []
 

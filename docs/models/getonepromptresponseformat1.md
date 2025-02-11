@@ -1,0 +1,9 @@
+# GetOnePromptResponseFormat1
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.GetOnePromptResponseFormatType](../models/getonepromptresponseformattype.md)             | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `json_schema`                                                                                    | [models.GetOnePromptResponseFormatJSONSchema](../models/getonepromptresponseformatjsonschema.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
