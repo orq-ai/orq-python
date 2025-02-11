@@ -5,17 +5,59 @@
 
 ### Available Operations
 
-* [create](#create) - Create a new prompt
-* [create_version](#create_version) - Create a new prompt version
-* [delete](#delete) - Delete a prompt
-* [get_one](#get_one) - Get one prompt
+* [list](#list) - List all prompts
+* [create](#create) - Create a prompt
+* [retrieve](#retrieve) - Retrieve a prompt
 * [update](#update) - Update a prompt
-* [duplicate](#duplicate) - Duplicate a prompt
-* [get_all](#get_all) - Get all prompts
+* [delete](#delete) - Delete a prompt
+* [list_versions](#list_versions) - List all prompt versions
+* [get_version](#get_version) - Retrieve a prompt version
+
+## list
+
+Returns a list of your prompts. The prompts are returned sorted by creation date, with the most recent prompts appearing first
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.prompts.list()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
+| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
+| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+
+### Response
+
+**[models.GetAllPromptsResponseBody](../../models/getallpromptsresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## create
 
-Create a new prompt
+Create a prompt
 
 ### Example Usage
 
@@ -29,7 +71,6 @@ with Orq(
 
     res = orq.prompts.create(request={
         "display_name": "Jed6",
-        "type": "snippet",
         "prompt_config": {
             "messages": [
                 {
@@ -61,6 +102,7 @@ with Orq(
                 },
             ],
         },
+        "path": "Customer Service/Billing/Refund",
     })
 
     assert res is not None
@@ -87,9 +129,9 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## create_version
+## retrieve
 
-Create a new prompt version
+Retrieves a prompt object
 
 ### Example Usage
 
@@ -101,19 +143,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.create_version(id_param="<value>", id="<id>", display_name="Carolyne.Beahan71", prompt_config={
-        "messages": [
-            {
-                "role": "prompt",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": "<value>",
-                    },
-                ],
-            },
-        ],
-    }, metadata={}, commit="<value>", timestamp="<value>")
+    res = orq.prompts.retrieve(id="<id>")
 
     assert res is not None
 
@@ -124,87 +154,14 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `id_param`                                                                                | *str*                                                                                     | :heavy_check_mark:                                                                        | Prompt ID                                                                                 |
-| `id`                                                                                      | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `display_name`                                                                            | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `prompt_config`                                                                           | [models.CreatePromptVersionPromptConfig](../../models/createpromptversionpromptconfig.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `metadata`                                                                                | [models.CreatePromptVersionMetadata](../../models/createpromptversionmetadata.md)         | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `commit`                                                                                  | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `timestamp`                                                                               | *str*                                                                                     | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `description`                                                                             | *OptionalNullable[str]*                                                                   | :heavy_minus_sign:                                                                        | N/A                                                                                       |
-| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the prompt                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[models.CreatePromptVersionResponseBody](../../models/createpromptversionresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## delete
-
-Delete a prompt
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.prompts.delete(id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Prompt ID                                                           |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## get_one
-
-Get one prompt
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    orq.prompts.get_one(id="<id>")
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Prompt ID                                                           |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+**[models.GetOnePromptResponseBody](../../models/getonepromptresponsebody.md)**
 
 ### Errors
 
@@ -237,15 +194,20 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `id`                                                                                  | *str*                                                                                 | :heavy_check_mark:                                                                    | Prompt ID                                                                             |
-| `display_name`                                                                        | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `description`                                                                         | *OptionalNullable[str]*                                                               | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `prompt_config`                                                                       | [Optional[models.UpdatePromptPromptConfig]](../../models/updatepromptpromptconfig.md) | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `metadata`                                                                            | [Optional[models.UpdatePromptMetadata]](../../models/updatepromptmetadata.md)         | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `key`                                                                                 | *Optional[str]*                                                                       | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |
+| Parameter                                                                                                                                                  | Type                                                                                                                                                       | Required                                                                                                                                                   | Description                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                       | *str*                                                                                                                                                      | :heavy_check_mark:                                                                                                                                         | Unique identifier of the prompt                                                                                                                            |
+| `owner`                                                                                                                                                    | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `domain_id`                                                                                                                                                | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `created`                                                                                                                                                  | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `updated`                                                                                                                                                  | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `created_by_id`                                                                                                                                            | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `updated_by_id`                                                                                                                                            | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `display_name`                                                                                                                                             | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | The prompt’s name, meant to be displayable in the UI.                                                                                                      |
+| `description`                                                                                                                                              | *OptionalNullable[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                         | The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose |
+| `prompt_config`                                                                                                                                            | [Optional[models.UpdatePromptPromptConfig]](../../models/updatepromptpromptconfig.md)                                                                      | :heavy_minus_sign:                                                                                                                                         | A list of messages compatible with the openAI schema                                                                                                       |
+| `metadata`                                                                                                                                                 | [Optional[models.UpdatePromptMetadata]](../../models/updatepromptmetadata.md)                                                                              | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
+| `retries`                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                           | :heavy_minus_sign:                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                        |
 
 ### Response
 
@@ -258,9 +220,9 @@ with Orq(
 | models.UpdatePromptPromptsResponseBody | 404                                    | application/json                       |
 | models.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
-## duplicate
+## delete
 
-Duplicate a prompt
+Delete a prompt
 
 ### Example Usage
 
@@ -272,7 +234,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.prompts.duplicate(id="<id>")
+    orq.prompts.delete(id="<id>")
 
     # Use the SDK ...
 
@@ -282,7 +244,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Prompt ID                                                           |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the prompt                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -291,9 +253,9 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## get_all
+## list_versions
 
-Get all prompts
+Returns a list of your prompt versions. The prompt versions are returned sorted by creation date, with the most recent prompt versions appearing first
 
 ### Example Usage
 
@@ -305,7 +267,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.get_all()
+    res = orq.prompts.list_versions(prompt_id="<id>")
 
     assert res is not None
 
@@ -316,17 +278,62 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `request`                                                                   | [models.GetAllPromptsRequestBody](../../models/getallpromptsrequestbody.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
-| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `prompt_id`                                                                                                                                                                                                                                                                                                                             | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
+| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
+| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
 
 ### Response
 
-**[models.GetAllPromptsResponseBody](../../models/getallpromptsresponsebody.md)**
+**[models.ListPromptVersionsResponseBody](../../models/listpromptversionsresponsebody.md)**
 
 ### Errors
 
 | Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_version
+
+Retrieves a specific version of a prompt by its ID and version ID.
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.prompts.get_version(prompt_id="<id>", version_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `prompt_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the prompt                                 |
+| `version_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the prompt version                         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetPromptVersionResponseBody](../../models/getpromptversionresponsebody.md)**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| models.GetPromptVersionPromptsResponseBody | 404                                        | application/json                           |
+| models.APIError                            | 4XX, 5XX                                   | \*/\*                                      |

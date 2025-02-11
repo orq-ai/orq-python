@@ -33,7 +33,7 @@ class FileListRequest(BaseModel):
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = 50
 
     last_id: Annotated[
         OptionalNullable[str],
@@ -114,7 +114,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.176Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T20:51:32.012Z")
     r"""The date and time the resource was created"""
 
 
@@ -124,8 +124,6 @@ class FileListResponseBodyTypedDict(TypedDict):
     object: FileListObject
     data: List[FileListDataTypedDict]
     has_more: bool
-    first_id: Nullable[str]
-    last_id: Nullable[str]
 
 
 class FileListResponseBody(BaseModel):
@@ -136,37 +134,3 @@ class FileListResponseBody(BaseModel):
     data: List[FileListData]
 
     has_more: bool
-
-    first_id: Nullable[str]
-
-    last_id: Nullable[str]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["first_id", "last_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m

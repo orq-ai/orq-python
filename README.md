@@ -12,7 +12,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *orq-
 <!-- Start Summary [summary] -->
 ## Summary
 
-[Dev] orq.ai API: The Orquesta API
+[Dev] orq.ai API: orq.ai API documentation
 
 For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
 <!-- End Summary [summary] -->
@@ -197,9 +197,10 @@ with Orq(
 
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
-* [all](docs/sdks/deploymentssdk/README.md#all) - List all deployments
+* [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
+* [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
@@ -214,31 +215,27 @@ with Orq(
 * [upload](docs/sdks/files/README.md#upload) - Upload file
 * [list](docs/sdks/files/README.md#list) - List all files
 * [get](docs/sdks/files/README.md#get) - Get file by ID
-* [update](docs/sdks/files/README.md#update) - Update file name
 * [delete](docs/sdks/files/README.md#delete) - Delete file
-* [bulk_upload](docs/sdks/files/README.md#bulk_upload) - Bulk upload file
 
 
-### [prompt](docs/sdks/prompt/README.md)
+### [prompt_snippets](docs/sdks/promptsnippets/README.md)
 
-
-#### [prompt.snippets](docs/sdks/snippets/README.md)
-
-* [find_one](docs/sdks/snippets/README.md#find_one) - Get one prompt snippet
-
-#### [prompt.templates](docs/sdks/templates/README.md)
-
-* [get_all](docs/sdks/templates/README.md#get_all) - Get all prompt templates
+* [list](docs/sdks/promptsnippets/README.md#list) - List all prompts snippets
+* [create](docs/sdks/promptsnippets/README.md#create) - Create a prompt snippet
+* [update](docs/sdks/promptsnippets/README.md#update) - Update a prompt snippet
+* [delete](docs/sdks/promptsnippets/README.md#delete) - Delete a prompt snippet
+* [get](docs/sdks/promptsnippets/README.md#get) - Retrieve a prompt snippet
+* [get_by_key](docs/sdks/promptsnippets/README.md#get_by_key) - Retrieve a prompt snippet by key
 
 ### [prompts](docs/sdks/prompts/README.md)
 
-* [create](docs/sdks/prompts/README.md#create) - Create a new prompt
-* [create_version](docs/sdks/prompts/README.md#create_version) - Create a new prompt version
-* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
-* [get_one](docs/sdks/prompts/README.md#get_one) - Get one prompt
+* [list](docs/sdks/prompts/README.md#list) - List all prompts
+* [create](docs/sdks/prompts/README.md#create) - Create a prompt
+* [retrieve](docs/sdks/prompts/README.md#retrieve) - Retrieve a prompt
 * [update](docs/sdks/prompts/README.md#update) - Update a prompt
-* [duplicate](docs/sdks/prompts/README.md#duplicate) - Duplicate a prompt
-* [get_all](docs/sdks/prompts/README.md#get_all) - Get all prompts
+* [delete](docs/sdks/prompts/README.md#delete) - Delete a prompt
+* [list_versions](docs/sdks/prompts/README.md#list_versions) - List all prompt versions
+* [get_version](docs/sdks/prompts/README.md#get_version) - Retrieve a prompt version
 
 ### [remoteconfig](docs/sdks/remoteconfig/README.md)
 
@@ -267,7 +264,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.invoke(key="<key>")
+    res = orq.deployments.stream(key="<key>")
 
     assert res is not None
 
@@ -371,7 +368,7 @@ By default, an API error will raise a models.APIError exception, which has the f
 | `.raw_response` | *httpx.Response* | The raw HTTP response |
 | `.body`         | *str*            | The response content  |
 
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `all_async` method may raise the following exceptions:
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `list_async` method may raise the following exceptions:
 
 | Error Type          | Status Code | Content Type     |
 | ------------------- | ----------- | ---------------- |
@@ -390,7 +387,7 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.all()
+        res = orq.deployments.list()
 
         assert res is not None
 
