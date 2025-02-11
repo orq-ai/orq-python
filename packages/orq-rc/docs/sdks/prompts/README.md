@@ -143,9 +143,12 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.prompts.retrieve(id="<id>")
+    res = orq.prompts.retrieve(id="<id>")
 
-    # Use the SDK ...
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -153,8 +156,12 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Prompt ID                                                           |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the prompt                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetOnePromptResponseBody](../../models/getonepromptresponsebody.md)**
 
 ### Errors
 
@@ -189,7 +196,7 @@ with Orq(
 
 | Parameter                                                                                                                                                  | Type                                                                                                                                                       | Required                                                                                                                                                   | Description                                                                                                                                                |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                       | *str*                                                                                                                                                      | :heavy_check_mark:                                                                                                                                         | Prompt ID                                                                                                                                                  |
+| `id`                                                                                                                                                       | *str*                                                                                                                                                      | :heavy_check_mark:                                                                                                                                         | Unique identifier of the prompt                                                                                                                            |
 | `owner`                                                                                                                                                    | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
 | `domain_id`                                                                                                                                                | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
 | `created`                                                                                                                                                  | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
@@ -237,7 +244,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Prompt ID                                                           |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the prompt                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors

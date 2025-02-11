@@ -446,7 +446,7 @@ class PromptSnippets(BaseSDK):
     ) -> Optional[models.UpdatePromptSnippetResponseBody]:
         r"""Update a prompt snippet
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param description: The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
@@ -582,7 +582,7 @@ class PromptSnippets(BaseSDK):
     ) -> Optional[models.UpdatePromptSnippetResponseBody]:
         r"""Update a prompt snippet
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param description: The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
@@ -704,7 +704,7 @@ class PromptSnippets(BaseSDK):
     ):
         r"""Delete a prompt snippet
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -795,7 +795,7 @@ class PromptSnippets(BaseSDK):
     ):
         r"""Delete a prompt snippet
 
-        :param id: Prompt ID
+        :param id: Unique identifier of the prompt
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

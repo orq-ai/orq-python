@@ -570,7 +570,7 @@ class UpdatePromptSnippetRequestBody(BaseModel):
 
 class UpdatePromptSnippetRequestTypedDict(TypedDict):
     id: str
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""
     request_body: NotRequired[UpdatePromptSnippetRequestBodyTypedDict]
 
 
@@ -578,7 +578,7 @@ class UpdatePromptSnippetRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""
 
     request_body: Annotated[
         Optional[UpdatePromptSnippetRequestBody],
@@ -1891,7 +1891,7 @@ class UpdatePromptSnippetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T14:53:39.526Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T15:57:59.882Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

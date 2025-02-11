@@ -591,7 +591,7 @@ class UpdatePromptRequestBody(BaseModel):
 
 class UpdatePromptRequestTypedDict(TypedDict):
     id: str
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""
     request_body: NotRequired[UpdatePromptRequestBodyTypedDict]
 
 
@@ -599,7 +599,7 @@ class UpdatePromptRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Prompt ID"""
+    r"""Unique identifier of the prompt"""
 
     request_body: Annotated[
         Optional[UpdatePromptRequestBody],
