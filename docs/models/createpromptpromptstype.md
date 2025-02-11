@@ -3,6 +3,8 @@
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PROMPT` | prompt   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `PROMPT`   | prompt     |
+| `SNIPPET`  | snippet    |
+| `TEMPLATE` | template   |

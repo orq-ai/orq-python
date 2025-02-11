@@ -9,29 +9,468 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
-import pydantic
+from orq_ai_sdk.utils import eventstreaming
 from pydantic import model_serializer
 from typing import Any, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-class DeploymentInvokeGlobalsTypedDict(TypedDict):
-    environment: NotRequired[str]
-    contact_id: NotRequired[str]
+DeploymentInvokeDeploymentsObject = Literal["chat", "completion", "image"]
+r"""Indicates the type of model used to generate the response"""
+
+DeploymentInvokeDeploymentsProvider = Literal[
+    "cohere",
+    "openai",
+    "anthropic",
+    "huggingface",
+    "replicate",
+    "google",
+    "google-ai",
+    "azure",
+    "aws",
+    "anyscale",
+    "perplexity",
+    "groq",
+    "fal",
+    "leonardoai",
+    "nvidia",
+]
+r"""The provider used to generate the response"""
+
+DeploymentInvokeMessageDeploymentsResponse200TextEventStreamRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
 
 
-class DeploymentInvokeGlobals(BaseModel):
-    environment: Annotated[
-        Optional[str],
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+class DeploymentInvokeMessage3TypedDict(TypedDict):
+    role: DeploymentInvokeMessageDeploymentsResponse200TextEventStreamRole
+    r"""The role of the prompt message"""
+    url: str
 
-    contact_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="contactId"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+
+class DeploymentInvokeMessage3(BaseModel):
+    role: DeploymentInvokeMessageDeploymentsResponse200TextEventStreamRole
+    r"""The role of the prompt message"""
+
+    url: str
+
+
+DeploymentInvokeMessageDeploymentsResponse200Role = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+
+class DeploymentInvokeMessageDeployments2TypedDict(TypedDict):
+    role: DeploymentInvokeMessageDeploymentsResponse200Role
+    r"""The role of the prompt message"""
+    content: Nullable[str]
+
+
+class DeploymentInvokeMessageDeployments2(BaseModel):
+    role: DeploymentInvokeMessageDeploymentsResponse200Role
+    r"""The role of the prompt message"""
+
+    content: Nullable[str]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+DeploymentInvokeMessageDeploymentsResponse200TextEventStreamResponseBodyRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+DeploymentInvokeMessageDeploymentsType = Literal["function"]
+
+
+class DeploymentInvokeMessageDeploymentsFunctionTypedDict(TypedDict):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class DeploymentInvokeMessageDeploymentsFunction(BaseModel):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class DeploymentInvokeMessageDeploymentsToolCallsTypedDict(TypedDict):
+    type: DeploymentInvokeMessageDeploymentsType
+    function: DeploymentInvokeMessageDeploymentsFunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class DeploymentInvokeMessageDeploymentsToolCalls(BaseModel):
+    type: DeploymentInvokeMessageDeploymentsType
+
+    function: DeploymentInvokeMessageDeploymentsFunction
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class DeploymentInvokeMessageDeployments1TypedDict(TypedDict):
+    role: DeploymentInvokeMessageDeploymentsResponse200TextEventStreamResponseBodyRole
+    r"""The role of the prompt message"""
+    tool_calls: List[DeploymentInvokeMessageDeploymentsToolCallsTypedDict]
+    content: NotRequired[Nullable[str]]
+
+
+class DeploymentInvokeMessageDeployments1(BaseModel):
+    role: DeploymentInvokeMessageDeploymentsResponse200TextEventStreamResponseBodyRole
+    r"""The role of the prompt message"""
+
+    tool_calls: List[DeploymentInvokeMessageDeploymentsToolCalls]
+
+    content: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["content"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+DeploymentInvokeDeploymentsMessageTypedDict = TypeAliasType(
+    "DeploymentInvokeDeploymentsMessageTypedDict",
+    Union[
+        DeploymentInvokeMessageDeployments2TypedDict,
+        DeploymentInvokeMessage3TypedDict,
+        DeploymentInvokeMessageDeployments1TypedDict,
+    ],
+)
+
+
+DeploymentInvokeDeploymentsMessage = TypeAliasType(
+    "DeploymentInvokeDeploymentsMessage",
+    Union[
+        DeploymentInvokeMessageDeployments2,
+        DeploymentInvokeMessage3,
+        DeploymentInvokeMessageDeployments1,
+    ],
+)
+
+
+class DeploymentInvokeDeploymentsChoicesTypedDict(TypedDict):
+    index: float
+    message: NotRequired[DeploymentInvokeDeploymentsMessageTypedDict]
+    finish_reason: NotRequired[Nullable[str]]
+
+
+class DeploymentInvokeDeploymentsChoices(BaseModel):
+    index: float
+
+    message: Optional[DeploymentInvokeDeploymentsMessage] = None
+
+    finish_reason: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["message", "finish_reason"]
+        nullable_fields = ["finish_reason"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DeploymentInvokeDeploymentsMetadataTypedDict(TypedDict):
+    r"""Metadata of the retrieved chunk from the knowledge base"""
+
+    file_name: str
+    r"""Name of the file"""
+    page_number: Nullable[float]
+    r"""Page number of the chunk"""
+    file_type: str
+    r"""Type of the file"""
+    search_score: float
+    r"""Search scores are normalized to be in the range [0, 1]. Search score is calculated based on `[Cosine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity)` algorithm. Scores close to 1 indicate the document is closer to the query, and scores closer to 0 indicate the document is farther from the query."""
+    rerank_score: NotRequired[float]
+    r"""Rerank scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance. It is not accurate to assume a score of 0.9 means the document is 2x more relevant than a document with a score of 0.45"""
+
+
+class DeploymentInvokeDeploymentsMetadata(BaseModel):
+    r"""Metadata of the retrieved chunk from the knowledge base"""
+
+    file_name: str
+    r"""Name of the file"""
+
+    page_number: Nullable[float]
+    r"""Page number of the chunk"""
+
+    file_type: str
+    r"""Type of the file"""
+
+    search_score: float
+    r"""Search scores are normalized to be in the range [0, 1]. Search score is calculated based on `[Cosine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity)` algorithm. Scores close to 1 indicate the document is closer to the query, and scores closer to 0 indicate the document is farther from the query."""
+
+    rerank_score: Optional[float] = None
+    r"""Rerank scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance. It is not accurate to assume a score of 0.9 means the document is 2x more relevant than a document with a score of 0.45"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["rerank_score"]
+        nullable_fields = ["page_number"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DeploymentInvokeRetrievalsTypedDict(TypedDict):
+    document: str
+    r"""Content of the retrieved chunk from the knowledge base"""
+    metadata: DeploymentInvokeDeploymentsMetadataTypedDict
+    r"""Metadata of the retrieved chunk from the knowledge base"""
+
+
+class DeploymentInvokeRetrievals(BaseModel):
+    document: str
+    r"""Content of the retrieved chunk from the knowledge base"""
+
+    metadata: DeploymentInvokeDeploymentsMetadata
+    r"""Metadata of the retrieved chunk from the knowledge base"""
+
+
+class DeploymentInvokeDataTypedDict(TypedDict):
+    id: NotRequired[str]
+    r"""A unique identifier for the response. Can be used to add metrics to the transaction."""
+    created: NotRequired[datetime]
+    r"""A timestamp indicating when the object was created. Usually in a standardized format like ISO 8601"""
+    object: NotRequired[DeploymentInvokeDeploymentsObject]
+    r"""Indicates the type of model used to generate the response"""
+    model: NotRequired[str]
+    r"""The model used to generate the response"""
+    provider: NotRequired[DeploymentInvokeDeploymentsProvider]
+    r"""The provider used to generate the response"""
+    is_final: NotRequired[bool]
+    r"""Indicates if the response is the final response"""
+    integration_id: NotRequired[str]
+    r"""Indicates integration id used to generate the response"""
+    finalized: NotRequired[datetime]
+    r"""A timestamp indicating when the object was finalized. Usually in a standardized format like ISO 8601"""
+    system_fingerprint: NotRequired[Nullable[str]]
+    r"""Provider backed system fingerprint."""
+    choices: NotRequired[List[DeploymentInvokeDeploymentsChoicesTypedDict]]
+    r"""A list of choices generated by the model"""
+    retrievals: NotRequired[List[DeploymentInvokeRetrievalsTypedDict]]
+    r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
+    provider_response: NotRequired[Any]
+    r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
+
+
+class DeploymentInvokeData(BaseModel):
+    id: Optional[str] = None
+    r"""A unique identifier for the response. Can be used to add metrics to the transaction."""
+
+    created: Optional[datetime] = None
+    r"""A timestamp indicating when the object was created. Usually in a standardized format like ISO 8601"""
+
+    object: Optional[DeploymentInvokeDeploymentsObject] = None
+    r"""Indicates the type of model used to generate the response"""
+
+    model: Optional[str] = None
+    r"""The model used to generate the response"""
+
+    provider: Optional[DeploymentInvokeDeploymentsProvider] = None
+    r"""The provider used to generate the response"""
+
+    is_final: Optional[bool] = None
+    r"""Indicates if the response is the final response"""
+
+    integration_id: Optional[str] = None
+    r"""Indicates integration id used to generate the response"""
+
+    finalized: Optional[datetime] = None
+    r"""A timestamp indicating when the object was finalized. Usually in a standardized format like ISO 8601"""
+
+    system_fingerprint: OptionalNullable[str] = UNSET
+    r"""Provider backed system fingerprint."""
+
+    choices: Optional[List[DeploymentInvokeDeploymentsChoices]] = None
+    r"""A list of choices generated by the model"""
+
+    retrievals: Optional[List[DeploymentInvokeRetrievals]] = None
+    r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
+
+    provider_response: Optional[Any] = None
+    r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "id",
+            "created",
+            "object",
+            "model",
+            "provider",
+            "is_final",
+            "integration_id",
+            "finalized",
+            "system_fingerprint",
+            "choices",
+            "retrievals",
+            "provider_response",
+        ]
+        nullable_fields = ["system_fingerprint"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DeploymentInvokeDeploymentsResponseBodyTypedDict(TypedDict):
+    r"""Response from the gateway"""
+
+    data: NotRequired[DeploymentInvokeDataTypedDict]
+
+
+class DeploymentInvokeDeploymentsResponseBody(BaseModel):
+    r"""Response from the gateway"""
+
+    data: Optional[DeploymentInvokeData] = None
 
 
 DeploymentInvokeObject = Literal["chat", "completion", "image", "vision"]
@@ -54,8 +493,6 @@ DeploymentInvokeProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
-    "togetherai",
-    "elevenlabs",
 ]
 r"""The provider used to generate the response"""
 
@@ -474,3 +911,31 @@ class DeploymentInvokeResponseBody(BaseModel):
                 m[k] = val
 
         return m
+
+
+DeploymentInvokeResponseTypedDict = TypeAliasType(
+    "DeploymentInvokeResponseTypedDict",
+    Union[
+        DeploymentInvokeResponseBodyTypedDict,
+        Union[
+            eventstreaming.EventStream[
+                DeploymentInvokeDeploymentsResponseBodyTypedDict
+            ],
+            eventstreaming.EventStreamAsync[
+                DeploymentInvokeDeploymentsResponseBodyTypedDict
+            ],
+        ],
+    ],
+)
+
+
+DeploymentInvokeResponse = TypeAliasType(
+    "DeploymentInvokeResponse",
+    Union[
+        DeploymentInvokeResponseBody,
+        Union[
+            eventstreaming.EventStream[DeploymentInvokeDeploymentsResponseBody],
+            eventstreaming.EventStreamAsync[DeploymentInvokeDeploymentsResponseBody],
+        ],
+    ],
+)

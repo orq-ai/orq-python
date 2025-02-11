@@ -21,5 +21,3 @@
 | `LEONARDOAI`  | leonardoai    |
 | `NVIDIA`      | nvidia        |
 | `JINA`        | jina          |
-| `TOGETHERAI`  | togetherai    |
-| `ELEVENLABS`  | elevenlabs    |

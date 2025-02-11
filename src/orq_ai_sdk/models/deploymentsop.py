@@ -18,10 +18,8 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 class DeploymentsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
-    starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
-    ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    after: NotRequired[str]
+    r"""A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `ed33dade-ae32-4959-8c5c-7ae4aad748b5`, your subsequent call can include `after=ed33dade-ae32-4959-8c5c-7ae4aad748b5` in order to fetch the next page of the list."""
 
 
 class DeploymentsRequest(BaseModel):
@@ -31,17 +29,11 @@ class DeploymentsRequest(BaseModel):
     ] = 10
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
-    starting_after: Annotated[
+    after: Annotated[
         Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
-
-    ending_before: Annotated[
-        Optional[str],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    r"""A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `ed33dade-ae32-4959-8c5c-7ae4aad748b5`, your subsequent call can include `after=ed33dade-ae32-4959-8c5c-7ae4aad748b5` in order to fetch the next page of the list."""
 
 
 Object = Literal["list"]
@@ -218,9 +210,6 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 DeploymentsEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
-DeploymentsReasoningEffort = Literal["low", "medium", "high"]
-r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
-
 
 class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -262,8 +251,6 @@ class DeploymentsModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[DeploymentsEncodingFormat]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[DeploymentsReasoningEffort]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
 class DeploymentsModelParameters(BaseModel):
@@ -332,11 +319,6 @@ class DeploymentsModelParameters(BaseModel):
     encoding_format: Optional[DeploymentsEncodingFormat] = None
     r"""The format to return the embeddings"""
 
-    reasoning_effort: Annotated[
-        Optional[DeploymentsReasoningEffort], pydantic.Field(alias="reasoningEffort")
-    ] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -355,7 +337,6 @@ class DeploymentsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
-            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -402,8 +383,6 @@ DeploymentsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
-    "togetherai",
-    "elevenlabs",
 ]
 
 DeploymentsDeploymentsRole = Literal[
@@ -615,18 +594,54 @@ class Data(BaseModel):
 
 
 class DeploymentsResponseBodyTypedDict(TypedDict):
-    r"""List all deployments"""
+    r"""List of deployments"""
 
     object: Object
     data: List[DataTypedDict]
     has_more: bool
+    first_id: Nullable[str]
+    last_id: Nullable[str]
 
 
 class DeploymentsResponseBody(BaseModel):
-    r"""List all deployments"""
+    r"""List of deployments"""
 
     object: Object
 
     data: List[Data]
 
     has_more: bool
+
+    first_id: Nullable[str]
+
+    last_id: Nullable[str]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["first_id", "last_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m

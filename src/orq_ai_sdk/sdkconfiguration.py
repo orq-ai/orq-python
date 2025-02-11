@@ -11,7 +11,6 @@ from .httpclient import AsyncHttpClient, HttpClient
 from .utils import Logger, RetryConfig, remove_suffix
 from dataclasses import dataclass
 from orq_ai_sdk import models
-from orq_ai_sdk.models import internal
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from pydantic import Field
 from typing import Callable, Dict, Optional, Tuple, Union
@@ -28,7 +27,6 @@ class SDKConfiguration:
     client: HttpClient
     async_client: AsyncHttpClient
     debug_logger: Logger
-    globals: internal.Globals
     security: Optional[Union[models.Security, Callable[[], models.Security]]] = None
     server_url: Optional[str] = ""
     server_idx: Optional[int] = 0

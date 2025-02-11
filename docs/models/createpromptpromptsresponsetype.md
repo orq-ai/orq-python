@@ -5,4 +5,6 @@
 
 | Name       | Value      |
 | ---------- | ---------- |
-| `FUNCTION` | function   |
+| `PROMPT`   | prompt     |
+| `SNIPPET`  | snippet    |
+| `TEMPLATE` | template   |

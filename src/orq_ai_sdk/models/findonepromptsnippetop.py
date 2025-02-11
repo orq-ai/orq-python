@@ -18,30 +18,32 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class FindOnePromptSnippetRequestTypedDict(TypedDict):
-    id: str
-    r"""Prompt ID"""
+    key: str
+    r"""Prompt Snippet Key"""
 
 
 class FindOnePromptSnippetRequest(BaseModel):
-    id: Annotated[
+    key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""Prompt ID"""
+    r"""Prompt Snippet Key"""
 
 
-FindOnePromptSnippetOwner2 = Literal["vendor"]
+FindOnePromptSnippetOwnerPromptSnippetsResponse2 = Literal["vendor"]
 
-FindOnePromptSnippetOwnerTypedDict = TypeAliasType(
-    "FindOnePromptSnippetOwnerTypedDict", Union[str, FindOnePromptSnippetOwner2]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwnerTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwnerTypedDict",
+    Union[str, FindOnePromptSnippetOwnerPromptSnippetsResponse2],
 )
 
 
-FindOnePromptSnippetOwner = TypeAliasType(
-    "FindOnePromptSnippetOwner", Union[str, FindOnePromptSnippetOwner2]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwner = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwner",
+    Union[str, FindOnePromptSnippetOwnerPromptSnippetsResponse2],
 )
 
 
-FindOnePromptSnippetModelType = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -54,33 +56,43 @@ FindOnePromptSnippetModelType = Literal[
 ]
 r"""The type of the model"""
 
-FindOnePromptSnippetFormat = Literal["url", "b64_json", "text", "json_object"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Format = Literal[
+    "url", "b64_json", "text", "json_object"
+]
 r"""Only supported on `image` models."""
 
-FindOnePromptSnippetQuality = Literal["standard", "hd"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseQuality = Literal[
+    "standard", "hd"
+]
 r"""Only supported on `image` models."""
 
-FindOnePromptSnippetResponseFormatPromptSnippetsType = Literal["json_object"]
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyType = Literal[
+    "json_object"
+]
 
 
-class FindOnePromptSnippetResponseFormat2TypedDict(TypedDict):
-    type: FindOnePromptSnippetResponseFormatPromptSnippetsType
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyType
 
 
-class FindOnePromptSnippetResponseFormat2(BaseModel):
-    type: FindOnePromptSnippetResponseFormatPromptSnippetsType
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2(BaseModel):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyType
 
 
-FindOnePromptSnippetResponseFormatType = Literal["json_schema"]
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONType = (
+    Literal["json_schema"]
+)
 
 
-class FindOnePromptSnippetResponseFormatJSONSchemaTypedDict(TypedDict):
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponseJSONSchemaTypedDict(
+    TypedDict
+):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class FindOnePromptSnippetResponseFormatJSONSchema(BaseModel):
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponseJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -88,22 +100,43 @@ class FindOnePromptSnippetResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class FindOnePromptSnippetResponseFormat1TypedDict(TypedDict):
-    type: FindOnePromptSnippetResponseFormatType
-    json_schema: FindOnePromptSnippetResponseFormatJSONSchemaTypedDict
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse1TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONType
+    json_schema: (
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponseJSONSchemaTypedDict
+    )
 
 
-class FindOnePromptSnippetResponseFormat1(BaseModel):
-    type: FindOnePromptSnippetResponseFormatType
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse1(BaseModel):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONType
 
-    json_schema: FindOnePromptSnippetResponseFormatJSONSchema
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponseJSONSchema
 
 
-FindOnePromptSnippetResponseFormatTypedDict = TypeAliasType(
-    "FindOnePromptSnippetResponseFormatTypedDict",
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormatTypedDict = (
+    TypeAliasType(
+        "FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormatTypedDict",
+        Union[
+            FindOnePromptSnippetResponseFormatPromptSnippetsResponse2TypedDict,
+            FindOnePromptSnippetResponseFormatPromptSnippetsResponse1TypedDict,
+        ],
+    )
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormat",
     Union[
-        FindOnePromptSnippetResponseFormat2TypedDict,
-        FindOnePromptSnippetResponseFormat1TypedDict,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse2,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse1,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -116,31 +149,20 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-FindOnePromptSnippetResponseFormat = TypeAliasType(
-    "FindOnePromptSnippetResponseFormat",
-    Union[FindOnePromptSnippetResponseFormat2, FindOnePromptSnippetResponseFormat1],
-)
-r"""An object specifying the format that the model must output.
-
-Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
-
-Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
-
-Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
-"""
-
-
-FindOnePromptSnippetPhotoRealVersion = Literal["v1", "v2"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponsePhotoRealVersion = Literal[
+    "v1", "v2"
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-FindOnePromptSnippetEncodingFormat = Literal["float", "base64"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseEncodingFormat = Literal[
+    "float", "base64"
+]
 r"""The format to return the embeddings"""
 
-FindOnePromptSnippetReasoningEffort = Literal["low", "medium", "high"]
-r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-
-class FindOnePromptSnippetModelParametersTypedDict(TypedDict):
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelParametersTypedDict(
+    TypedDict
+):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -159,15 +181,21 @@ class FindOnePromptSnippetModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[FindOnePromptSnippetFormat]
+    format_: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Format
+    ]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[FindOnePromptSnippetQuality]
+    quality: NotRequired[FindOnePromptSnippetResponseBodyPromptSnippetsResponseQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[FindOnePromptSnippetResponseFormatTypedDict]]
+    response_format: NotRequired[
+        Nullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormatTypedDict
+        ]
+    ]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -176,15 +204,17 @@ class FindOnePromptSnippetModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[FindOnePromptSnippetPhotoRealVersion]
+    photo_real_version: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponsePhotoRealVersion
+    ]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[FindOnePromptSnippetEncodingFormat]
+    encoding_format: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseEncodingFormat
+    ]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[FindOnePromptSnippetReasoningEffort]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-class FindOnePromptSnippetModelParameters(BaseModel):
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -216,21 +246,26 @@ class FindOnePromptSnippetModelParameters(BaseModel):
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
     format_: Annotated[
-        Optional[FindOnePromptSnippetFormat], pydantic.Field(alias="format")
+        Optional[FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Format],
+        pydantic.Field(alias="format"),
     ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[FindOnePromptSnippetQuality] = None
+    quality: Optional[FindOnePromptSnippetResponseBodyPromptSnippetsResponseQuality] = (
+        None
+    )
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[FindOnePromptSnippetResponseFormat],
+        OptionalNullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponseResponseFormat
+        ],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -243,19 +278,17 @@ class FindOnePromptSnippetModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[FindOnePromptSnippetPhotoRealVersion],
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponsePhotoRealVersion
+        ],
         pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[FindOnePromptSnippetEncodingFormat] = None
-    r"""The format to return the embeddings"""
-
-    reasoning_effort: Annotated[
-        Optional[FindOnePromptSnippetReasoningEffort],
-        pydantic.Field(alias="reasoningEffort"),
+    encoding_format: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseEncodingFormat
     ] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    r"""The format to return the embeddings"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -275,7 +308,6 @@ class FindOnePromptSnippetModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
-            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -305,7 +337,7 @@ class FindOnePromptSnippetModelParameters(BaseModel):
         return m
 
 
-FindOnePromptSnippetProvider = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -322,11 +354,9 @@ FindOnePromptSnippetProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
-    "togetherai",
-    "elevenlabs",
 ]
 
-FindOnePromptSnippetRole = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseRole = Literal[
     "system",
     "assistant",
     "user",
@@ -338,10 +368,12 @@ FindOnePromptSnippetRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-FindOnePromptSnippet2PromptSnippetsType = Literal["image_url"]
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyType = Literal[
+    "image_url"
+]
 
 
-class FindOnePromptSnippet2ImageURLTypedDict(TypedDict):
+class FindOnePromptSnippet2PromptSnippetsResponseImageURLTypedDict(TypedDict):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
     id: NotRequired[str]
@@ -350,7 +382,7 @@ class FindOnePromptSnippet2ImageURLTypedDict(TypedDict):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class FindOnePromptSnippet2ImageURL(BaseModel):
+class FindOnePromptSnippet2PromptSnippetsResponseImageURL(BaseModel):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
 
@@ -361,137 +393,162 @@ class FindOnePromptSnippet2ImageURL(BaseModel):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class FindOnePromptSnippet22TypedDict(TypedDict):
+class FindOnePromptSnippet2PromptSnippetsResponse2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: FindOnePromptSnippet2PromptSnippetsType
-    image_url: FindOnePromptSnippet2ImageURLTypedDict
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyType
+    image_url: FindOnePromptSnippet2PromptSnippetsResponseImageURLTypedDict
 
 
-class FindOnePromptSnippet22(BaseModel):
+class FindOnePromptSnippet2PromptSnippetsResponse2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: FindOnePromptSnippet2PromptSnippetsType
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyType
 
-    image_url: FindOnePromptSnippet2ImageURL
-
-
-FindOnePromptSnippet2Type = Literal["text"]
+    image_url: FindOnePromptSnippet2PromptSnippetsResponseImageURL
 
 
-class FindOnePromptSnippet21TypedDict(TypedDict):
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONType = Literal["text"]
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: FindOnePromptSnippet2Type
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONType
     text: str
 
 
-class FindOnePromptSnippet21(BaseModel):
+class FindOnePromptSnippet2PromptSnippetsResponse1(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: FindOnePromptSnippet2Type
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONType
 
     text: str
 
 
-FindOnePromptSnippetContent2TypedDict = TypeAliasType(
-    "FindOnePromptSnippetContent2TypedDict",
-    Union[FindOnePromptSnippet21TypedDict, FindOnePromptSnippet22TypedDict],
+FindOnePromptSnippetContentPromptSnippetsResponse2TypedDict = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse2TypedDict",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse1TypedDict,
+        FindOnePromptSnippet2PromptSnippetsResponse2TypedDict,
+    ],
 )
 
 
-FindOnePromptSnippetContent2 = TypeAliasType(
-    "FindOnePromptSnippetContent2",
-    Union[FindOnePromptSnippet21, FindOnePromptSnippet22],
+FindOnePromptSnippetContentPromptSnippetsResponse2 = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse2",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse1,
+        FindOnePromptSnippet2PromptSnippetsResponse2,
+    ],
 )
 
 
-FindOnePromptSnippetContentTypedDict = TypeAliasType(
-    "FindOnePromptSnippetContentTypedDict",
-    Union[str, List[FindOnePromptSnippetContent2TypedDict]],
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseContentTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseContentTypedDict",
+    Union[str, List[FindOnePromptSnippetContentPromptSnippetsResponse2TypedDict]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-FindOnePromptSnippetContent = TypeAliasType(
-    "FindOnePromptSnippetContent", Union[str, List[FindOnePromptSnippetContent2]]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseContent = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseContent",
+    Union[str, List[FindOnePromptSnippetContentPromptSnippetsResponse2]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-FindOnePromptSnippetPromptSnippetsType = Literal["function"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONType = Literal[
+    "function"
+]
 
 
-class FindOnePromptSnippetFunctionTypedDict(TypedDict):
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseFunctionTypedDict(
+    TypedDict
+):
     name: str
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class FindOnePromptSnippetFunction(BaseModel):
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseFunction(BaseModel):
     name: str
 
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class FindOnePromptSnippetToolCallsTypedDict(TypedDict):
-    type: FindOnePromptSnippetPromptSnippetsType
-    function: FindOnePromptSnippetFunctionTypedDict
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseToolCallsTypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONType
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponseFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
-class FindOnePromptSnippetToolCalls(BaseModel):
-    type: FindOnePromptSnippetPromptSnippetsType
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseToolCalls(BaseModel):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONType
 
-    function: FindOnePromptSnippetFunction
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponseFunction
 
     id: Optional[str] = None
 
     index: Optional[float] = None
 
 
-class FindOnePromptSnippetMessagesTypedDict(TypedDict):
-    role: FindOnePromptSnippetRole
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseMessagesTypedDict(
+    TypedDict
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponseRole
     r"""The role of the prompt message"""
-    content: FindOnePromptSnippetContentTypedDict
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponseContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[FindOnePromptSnippetToolCallsTypedDict]]
+    tool_calls: NotRequired[
+        List[FindOnePromptSnippetResponseBodyPromptSnippetsResponseToolCallsTypedDict]
+    ]
 
 
-class FindOnePromptSnippetMessages(BaseModel):
-    role: FindOnePromptSnippetRole
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseMessages(BaseModel):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponseRole
     r"""The role of the prompt message"""
 
-    content: FindOnePromptSnippetContent
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponseContent
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
-    tool_calls: Optional[List[FindOnePromptSnippetToolCalls]] = None
+    tool_calls: Optional[
+        List[FindOnePromptSnippetResponseBodyPromptSnippetsResponseToolCalls]
+    ] = None
 
 
-class FindOnePromptSnippetPromptConfigTypedDict(TypedDict):
-    r"""A list of messages compatible with the openAI schema"""
-
-    messages: List[FindOnePromptSnippetMessagesTypedDict]
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponsePromptConfigTypedDict(
+    TypedDict
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseMessagesTypedDict
+    ]
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
-    model_type: NotRequired[FindOnePromptSnippetModelType]
+    model_type: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelType
+    ]
     r"""The type of the model"""
-    model_parameters: NotRequired[FindOnePromptSnippetModelParametersTypedDict]
+    model_parameters: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelParametersTypedDict
+    ]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[FindOnePromptSnippetProvider]
+    provider: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseProvider
+    ]
     integration_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     version: NotRequired[str]
 
 
-class FindOnePromptSnippetPromptConfig(BaseModel):
-    r"""A list of messages compatible with the openAI schema"""
-
-    messages: List[FindOnePromptSnippetMessages]
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponsePromptConfig(BaseModel):
+    messages: List[FindOnePromptSnippetResponseBodyPromptSnippetsResponseMessages]
 
     stream: Optional[bool] = None
 
@@ -500,13 +557,19 @@ class FindOnePromptSnippetPromptConfig(BaseModel):
     model_db_id: Optional[str] = None
     r"""The id of the resource"""
 
-    model_type: Optional[FindOnePromptSnippetModelType] = None
+    model_type: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelType
+    ] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[FindOnePromptSnippetModelParameters] = None
+    model_parameters: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseModelParameters
+    ] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[FindOnePromptSnippetProvider] = None
+    provider: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseProvider
+    ] = None
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -553,49 +616,835 @@ class FindOnePromptSnippetPromptConfig(BaseModel):
         return m
 
 
-FindOnePromptSnippetUseCases = Literal[
-    "Agents",
-    "Agents simulations",
-    "API interaction",
-    "Autonomous Agents",
-    "Chatbots",
-    "Classification",
-    "Code understanding",
-    "Code writing",
-    "Documents QA",
-    "Conversation",
-    "Extraction",
-    "Multi-modal",
-    "Self-checking",
-    "SQL",
-    "Summarization",
-    "Tagging",
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseMetadataTypedDict(
+    TypedDict
+):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseMetadata(BaseModel):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelType = (
+    Literal[
+        "chat",
+        "completion",
+        "embedding",
+        "vision",
+        "image",
+        "tts",
+        "stt",
+        "rerank",
+        "moderations",
+    ]
+)
+r"""The type of the model"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Format = (
+    Literal["url", "b64_json", "text", "json_object"]
+)
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Quality = (
+    Literal["standard", "hd"]
+)
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType = Literal[
+    "json_object"
 ]
 
-FindOnePromptSnippetLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType
+
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3Type = Literal[
+    "json_schema"
 ]
-r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
-class FindOnePromptSnippetMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[FindOnePromptSnippetUseCases]]
-    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[FindOnePromptSnippetLanguage]
-    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict(
+    TypedDict
+):
+    name: str
+    strict: bool
+    schema_: Dict[str, Any]
 
 
-class FindOnePromptSnippetMetadata(BaseModel):
-    use_cases: Optional[List[FindOnePromptSnippetUseCases]] = None
-    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyJSONSchema(
+    BaseModel
+):
+    name: str
 
-    language: Optional[FindOnePromptSnippetLanguage] = None
-    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+    strict: bool
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-FindOnePromptSnippetType = Literal["snippet"]
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1TypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3Type
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict
 
-FindOnePromptSnippetPromptSnippetsModelType = Literal[
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody3Type
+
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBodyJSONSchema
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormatTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormatTypedDict",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormat",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PhotoRealVersion = Literal[
+    "v1", "v2"
+]
+r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3EncodingFormat = Literal[
+    "float", "base64"
+]
+r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelParametersTypedDict(
+    TypedDict
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    max_tokens: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_k: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_p: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    frequency_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    presence_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    num_images: NotRequired[float]
+    r"""Only supported on `image` models."""
+    seed: NotRequired[float]
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+    format_: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Format
+    ]
+    r"""Only supported on `image` models."""
+    dimensions: NotRequired[str]
+    r"""Only supported on `image` models."""
+    quality: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Quality
+    ]
+    r"""Only supported on `image` models."""
+    style: NotRequired[str]
+    r"""Only supported on `image` models."""
+    response_format: NotRequired[
+        Nullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormatTypedDict
+        ]
+    ]
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+    photo_real_version: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PhotoRealVersion
+    ]
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+    encoding_format: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3EncodingFormat
+    ]
+    r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelParameters(
+    BaseModel
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: Optional[float] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    frequency_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="frequencyPenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    presence_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="presencePenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
+    r"""Only supported on `image` models."""
+
+    seed: Optional[float] = None
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+
+    format_: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Format
+        ],
+        pydantic.Field(alias="format"),
+    ] = None
+    r"""Only supported on `image` models."""
+
+    dimensions: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    quality: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Quality
+    ] = None
+    r"""Only supported on `image` models."""
+
+    style: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    response_format: Annotated[
+        OptionalNullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ResponseFormat
+        ],
+        pydantic.Field(alias="responseFormat"),
+    ] = UNSET
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+
+    photo_real_version: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PhotoRealVersion
+        ],
+        pydantic.Field(alias="photoRealVersion"),
+    ] = None
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+    encoding_format: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3EncodingFormat
+    ] = None
+    r"""The format to return the embeddings"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "temperature",
+            "maxTokens",
+            "topK",
+            "topP",
+            "frequencyPenalty",
+            "presencePenalty",
+            "numImages",
+            "seed",
+            "format",
+            "dimensions",
+            "quality",
+            "style",
+            "responseFormat",
+            "photoRealVersion",
+            "encoding_format",
+        ]
+        nullable_fields = ["responseFormat"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Provider = (
+    Literal[
+        "cohere",
+        "openai",
+        "anthropic",
+        "huggingface",
+        "replicate",
+        "google",
+        "google-ai",
+        "azure",
+        "aws",
+        "anyscale",
+        "perplexity",
+        "groq",
+        "fal",
+        "leonardoai",
+        "nvidia",
+        "jina",
+    ]
+)
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Role = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType = Literal[
+    "image_url"
+]
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyImageURLTypedDict(
+    TypedDict
+):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+    id: NotRequired[str]
+    r"""The orq.ai id of the image"""
+    detail: NotRequired[str]
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyImageURL(
+    BaseModel
+):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+
+    id: Optional[str] = None
+    r"""The orq.ai id of the image"""
+
+    detail: Optional[str] = None
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict(
+    TypedDict
+):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType
+    image_url: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyImageURLTypedDict
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2(
+    BaseModel
+):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3VersionsType
+
+    image_url: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBodyImageURL
+
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3Type = (
+    Literal["text"]
+)
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1TypedDict(
+    TypedDict
+):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3Type
+    text: str
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1(
+    BaseModel
+):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody3Type
+
+    text: str
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1TypedDict,
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict,
+    ],
+)
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2 = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1,
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2,
+    ],
+)
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ContentTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ContentTypedDict",
+    Union[
+        str,
+        List[
+            FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2TypedDict
+        ],
+    ],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Content = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Content",
+    Union[
+        str,
+        List[
+            FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSONResponseBody2
+        ],
+    ],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Type = Literal[
+    "function"
+]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3FunctionTypedDict(
+    TypedDict
+):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Function(
+    BaseModel
+):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ToolCallsTypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Type
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3FunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ToolCalls(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Type
+
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Function
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3MessagesTypedDict(
+    TypedDict
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Role
+    r"""The role of the prompt message"""
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ContentTypedDict
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    tool_calls: NotRequired[
+        List[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ToolCallsTypedDict
+        ]
+    ]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Messages(
+    BaseModel
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Role
+    r"""The role of the prompt message"""
+
+    content: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Content
+    )
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+    tool_calls: Optional[
+        List[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ToolCalls
+        ]
+    ] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PromptConfigTypedDict(
+    TypedDict
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3MessagesTypedDict
+    ]
+    stream: NotRequired[bool]
+    model: NotRequired[str]
+    model_db_id: NotRequired[str]
+    r"""The id of the resource"""
+    model_type: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelType
+    ]
+    r"""The type of the model"""
+    model_parameters: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelParametersTypedDict
+    ]
+    r"""Model Parameters: Not all parameters apply to every model"""
+    provider: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Provider
+    ]
+    integration_id: NotRequired[Nullable[str]]
+    r"""The id of the resource"""
+    version: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PromptConfig(
+    BaseModel
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Messages
+    ]
+
+    stream: Optional[bool] = None
+
+    model: Optional[str] = None
+
+    model_db_id: Optional[str] = None
+    r"""The id of the resource"""
+
+    model_type: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelType
+    ] = None
+    r"""The type of the model"""
+
+    model_parameters: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3ModelParameters
+    ] = None
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    provider: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Provider
+    ] = None
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""The id of the resource"""
+
+    version: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_db_id",
+            "model_type",
+            "model_parameters",
+            "provider",
+            "integration_id",
+            "version",
+        ]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3MetadataTypedDict(
+    TypedDict
+):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Metadata(
+    BaseModel
+):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseVersionsTypedDict(
+    TypedDict
+):
+    r"""Prompt version model returned from the API"""
+
+    id: str
+    created_by_id: str
+    display_name: str
+    updated_by_id: str
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PromptConfigTypedDict
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3MetadataTypedDict
+    commit: str
+    timestamp: str
+    description: NotRequired[Nullable[str]]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponseVersions(BaseModel):
+    r"""Prompt version model returned from the API"""
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    created_by_id: str
+
+    display_name: str
+
+    updated_by_id: str
+
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3PromptConfig
+
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON3Metadata
+
+    commit: str
+
+    timestamp: str
+
+    description: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description"]
+        nullable_fields = ["description"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseType = Literal["template"]
+
+
+class FindOnePromptSnippetResponseBody3TypedDict(TypedDict):
+    r"""Prompt template model returned from the API"""
+
+    id: str
+    owner: FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwnerTypedDict
+    domain_id: str
+    created_by_id: str
+    display_name: str
+    updated_by_id: str
+    prompt_config: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponsePromptConfigTypedDict
+    )
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponseMetadataTypedDict
+    versions: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponseVersionsTypedDict
+    ]
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponseType
+    description: NotRequired[Nullable[str]]
+    created: NotRequired[datetime]
+    r"""The date and time the resource was created"""
+    updated: NotRequired[datetime]
+    r"""The date and time the resource was last updated"""
+
+
+class FindOnePromptSnippetResponseBody3(BaseModel):
+    r"""Prompt template model returned from the API"""
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    owner: FindOnePromptSnippetResponseBodyPromptSnippetsResponseOwner
+
+    domain_id: str
+
+    created_by_id: str
+
+    display_name: str
+
+    updated_by_id: str
+
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponsePromptConfig
+
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponseMetadata
+
+    versions: List[FindOnePromptSnippetResponseBodyPromptSnippetsResponseVersions]
+
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponseType
+
+    description: OptionalNullable[str] = UNSET
+
+    created: Optional[datetime] = None
+    r"""The date and time the resource was created"""
+
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    r"""The date and time the resource was last updated"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "created", "updated"]
+        nullable_fields = ["description"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetOwnerPromptSnippets2 = Literal["vendor"]
+
+FindOnePromptSnippetResponseBodyPromptSnippetsOwnerTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsOwnerTypedDict",
+    Union[str, FindOnePromptSnippetOwnerPromptSnippets2],
+)
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsOwner = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsOwner",
+    Union[str, FindOnePromptSnippetOwnerPromptSnippets2],
+)
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -608,12 +1457,12 @@ FindOnePromptSnippetPromptSnippetsModelType = Literal[
 ]
 r"""The type of the model"""
 
-FindOnePromptSnippetPromptSnippetsFormat = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsFormat = Literal[
     "url", "b64_json", "text", "json_object"
 ]
 r"""Only supported on `image` models."""
 
-FindOnePromptSnippetPromptSnippetsQuality = Literal["standard", "hd"]
+FindOnePromptSnippetResponseBodyPromptSnippetsQuality = Literal["standard", "hd"]
 r"""Only supported on `image` models."""
 
 FindOnePromptSnippetResponseFormatPromptSnippetsResponse200Type = Literal["json_object"]
@@ -655,8 +1504,8 @@ class FindOnePromptSnippetResponseFormatPromptSnippets1(BaseModel):
     json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsJSONSchema
 
 
-FindOnePromptSnippetPromptSnippetsResponseFormatTypedDict = TypeAliasType(
-    "FindOnePromptSnippetPromptSnippetsResponseFormatTypedDict",
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormatTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormatTypedDict",
     Union[
         FindOnePromptSnippetResponseFormatPromptSnippets2TypedDict,
         FindOnePromptSnippetResponseFormatPromptSnippets1TypedDict,
@@ -672,8 +1521,8 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-FindOnePromptSnippetPromptSnippetsResponseFormat = TypeAliasType(
-    "FindOnePromptSnippetPromptSnippetsResponseFormat",
+FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormat",
     Union[
         FindOnePromptSnippetResponseFormatPromptSnippets2,
         FindOnePromptSnippetResponseFormatPromptSnippets1,
@@ -689,17 +1538,16 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-FindOnePromptSnippetPromptSnippetsPhotoRealVersion = Literal["v1", "v2"]
+FindOnePromptSnippetResponseBodyPromptSnippetsPhotoRealVersion = Literal["v1", "v2"]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-FindOnePromptSnippetPromptSnippetsEncodingFormat = Literal["float", "base64"]
+FindOnePromptSnippetResponseBodyPromptSnippetsEncodingFormat = Literal[
+    "float", "base64"
+]
 r"""The format to return the embeddings"""
 
-FindOnePromptSnippetPromptSnippetsReasoningEffort = Literal["low", "medium", "high"]
-r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-
-class FindOnePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
+class FindOnePromptSnippetResponseBodyPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -718,16 +1566,16 @@ class FindOnePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[FindOnePromptSnippetPromptSnippetsFormat]
+    format_: NotRequired[FindOnePromptSnippetResponseBodyPromptSnippetsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[FindOnePromptSnippetPromptSnippetsQuality]
+    quality: NotRequired[FindOnePromptSnippetResponseBodyPromptSnippetsQuality]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
     response_format: NotRequired[
-        Nullable[FindOnePromptSnippetPromptSnippetsResponseFormatTypedDict]
+        Nullable[FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormatTypedDict]
     ]
     r"""An object specifying the format that the model must output.
 
@@ -737,15 +1585,17 @@ class FindOnePromptSnippetPromptSnippetsModelParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[FindOnePromptSnippetPromptSnippetsPhotoRealVersion]
+    photo_real_version: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsPhotoRealVersion
+    ]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[FindOnePromptSnippetPromptSnippetsEncodingFormat]
+    encoding_format: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsEncodingFormat
+    ]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[FindOnePromptSnippetPromptSnippetsReasoningEffort]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
+class FindOnePromptSnippetResponseBodyPromptSnippetsModelParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -777,7 +1627,7 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
     format_: Annotated[
-        Optional[FindOnePromptSnippetPromptSnippetsFormat],
+        Optional[FindOnePromptSnippetResponseBodyPromptSnippetsFormat],
         pydantic.Field(alias="format"),
     ] = None
     r"""Only supported on `image` models."""
@@ -785,14 +1635,14 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[FindOnePromptSnippetPromptSnippetsQuality] = None
+    quality: Optional[FindOnePromptSnippetResponseBodyPromptSnippetsQuality] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[FindOnePromptSnippetPromptSnippetsResponseFormat],
+        OptionalNullable[FindOnePromptSnippetResponseBodyPromptSnippetsResponseFormat],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -805,19 +1655,15 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[FindOnePromptSnippetPromptSnippetsPhotoRealVersion],
+        Optional[FindOnePromptSnippetResponseBodyPromptSnippetsPhotoRealVersion],
         pydantic.Field(alias="photoRealVersion"),
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[FindOnePromptSnippetPromptSnippetsEncodingFormat] = None
-    r"""The format to return the embeddings"""
-
-    reasoning_effort: Annotated[
-        Optional[FindOnePromptSnippetPromptSnippetsReasoningEffort],
-        pydantic.Field(alias="reasoningEffort"),
+    encoding_format: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsEncodingFormat
     ] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    r"""The format to return the embeddings"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -837,7 +1683,6 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
             "responseFormat",
             "photoRealVersion",
             "encoding_format",
-            "reasoningEffort",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -867,7 +1712,7 @@ class FindOnePromptSnippetPromptSnippetsModelParameters(BaseModel):
         return m
 
 
-FindOnePromptSnippetPromptSnippetsProvider = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsProvider = Literal[
     "cohere",
     "openai",
     "anthropic",
@@ -884,11 +1729,9 @@ FindOnePromptSnippetPromptSnippetsProvider = Literal[
     "leonardoai",
     "nvidia",
     "jina",
-    "togetherai",
-    "elevenlabs",
 ]
 
-FindOnePromptSnippetPromptSnippetsRole = Literal[
+FindOnePromptSnippetResponseBodyPromptSnippetsRole = Literal[
     "system",
     "assistant",
     "user",
@@ -971,95 +1814,97 @@ FindOnePromptSnippetContentPromptSnippets2 = TypeAliasType(
 )
 
 
-FindOnePromptSnippetPromptSnippetsContentTypedDict = TypeAliasType(
-    "FindOnePromptSnippetPromptSnippetsContentTypedDict",
+FindOnePromptSnippetResponseBodyPromptSnippetsContentTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsContentTypedDict",
     Union[str, List[FindOnePromptSnippetContentPromptSnippets2TypedDict]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-FindOnePromptSnippetPromptSnippetsContent = TypeAliasType(
-    "FindOnePromptSnippetPromptSnippetsContent",
+FindOnePromptSnippetResponseBodyPromptSnippetsContent = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsContent",
     Union[str, List[FindOnePromptSnippetContentPromptSnippets2]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-FindOnePromptSnippetPromptSnippetsResponseType = Literal["function"]
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2Type = Literal[
+    "function"
+]
 
 
-class FindOnePromptSnippetPromptSnippetsFunctionTypedDict(TypedDict):
+class FindOnePromptSnippetResponseBodyPromptSnippetsFunctionTypedDict(TypedDict):
     name: str
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class FindOnePromptSnippetPromptSnippetsFunction(BaseModel):
+class FindOnePromptSnippetResponseBodyPromptSnippetsFunction(BaseModel):
     name: str
 
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class FindOnePromptSnippetPromptSnippetsToolCallsTypedDict(TypedDict):
-    type: FindOnePromptSnippetPromptSnippetsResponseType
-    function: FindOnePromptSnippetPromptSnippetsFunctionTypedDict
+class FindOnePromptSnippetResponseBodyPromptSnippetsToolCallsTypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2Type
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
-class FindOnePromptSnippetPromptSnippetsToolCalls(BaseModel):
-    type: FindOnePromptSnippetPromptSnippetsResponseType
+class FindOnePromptSnippetResponseBodyPromptSnippetsToolCalls(BaseModel):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2Type
 
-    function: FindOnePromptSnippetPromptSnippetsFunction
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsFunction
 
     id: Optional[str] = None
 
     index: Optional[float] = None
 
 
-class FindOnePromptSnippetPromptSnippetsMessagesTypedDict(TypedDict):
-    role: FindOnePromptSnippetPromptSnippetsRole
+class FindOnePromptSnippetResponseBodyPromptSnippetsMessagesTypedDict(TypedDict):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsRole
     r"""The role of the prompt message"""
-    content: FindOnePromptSnippetPromptSnippetsContentTypedDict
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[FindOnePromptSnippetPromptSnippetsToolCallsTypedDict]]
+    tool_calls: NotRequired[
+        List[FindOnePromptSnippetResponseBodyPromptSnippetsToolCallsTypedDict]
+    ]
 
 
-class FindOnePromptSnippetPromptSnippetsMessages(BaseModel):
-    role: FindOnePromptSnippetPromptSnippetsRole
+class FindOnePromptSnippetResponseBodyPromptSnippetsMessages(BaseModel):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsRole
     r"""The role of the prompt message"""
 
-    content: FindOnePromptSnippetPromptSnippetsContent
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsContent
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
-    tool_calls: Optional[List[FindOnePromptSnippetPromptSnippetsToolCalls]] = None
+    tool_calls: Optional[
+        List[FindOnePromptSnippetResponseBodyPromptSnippetsToolCalls]
+    ] = None
 
 
-class FindOnePromptSnippetPromptSnippetsPromptConfigTypedDict(TypedDict):
-    r"""A list of messages compatible with the openAI schema"""
-
-    messages: List[FindOnePromptSnippetPromptSnippetsMessagesTypedDict]
+class FindOnePromptSnippetResponseBodyPromptSnippetsPromptConfigTypedDict(TypedDict):
+    messages: List[FindOnePromptSnippetResponseBodyPromptSnippetsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
-    model_type: NotRequired[FindOnePromptSnippetPromptSnippetsModelType]
+    model_type: NotRequired[FindOnePromptSnippetResponseBodyPromptSnippetsModelType]
     r"""The type of the model"""
     model_parameters: NotRequired[
-        FindOnePromptSnippetPromptSnippetsModelParametersTypedDict
+        FindOnePromptSnippetResponseBodyPromptSnippetsModelParametersTypedDict
     ]
     r"""Model Parameters: Not all parameters apply to every model"""
-    provider: NotRequired[FindOnePromptSnippetPromptSnippetsProvider]
+    provider: NotRequired[FindOnePromptSnippetResponseBodyPromptSnippetsProvider]
     integration_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     version: NotRequired[str]
 
 
-class FindOnePromptSnippetPromptSnippetsPromptConfig(BaseModel):
-    r"""A list of messages compatible with the openAI schema"""
-
-    messages: List[FindOnePromptSnippetPromptSnippetsMessages]
+class FindOnePromptSnippetResponseBodyPromptSnippetsPromptConfig(BaseModel):
+    messages: List[FindOnePromptSnippetResponseBodyPromptSnippetsMessages]
 
     stream: Optional[bool] = None
 
@@ -1068,13 +1913,15 @@ class FindOnePromptSnippetPromptSnippetsPromptConfig(BaseModel):
     model_db_id: Optional[str] = None
     r"""The id of the resource"""
 
-    model_type: Optional[FindOnePromptSnippetPromptSnippetsModelType] = None
+    model_type: Optional[FindOnePromptSnippetResponseBodyPromptSnippetsModelType] = None
     r"""The type of the model"""
 
-    model_parameters: Optional[FindOnePromptSnippetPromptSnippetsModelParameters] = None
+    model_parameters: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsModelParameters
+    ] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
-    provider: Optional[FindOnePromptSnippetPromptSnippetsProvider] = None
+    provider: Optional[FindOnePromptSnippetResponseBodyPromptSnippetsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -1121,78 +1968,651 @@ class FindOnePromptSnippetPromptSnippetsPromptConfig(BaseModel):
         return m
 
 
-FindOnePromptSnippetPromptSnippetsUseCases = Literal[
-    "Agents",
-    "Agents simulations",
-    "API interaction",
-    "Autonomous Agents",
-    "Chatbots",
-    "Classification",
-    "Code understanding",
-    "Code writing",
-    "Documents QA",
-    "Conversation",
-    "Extraction",
-    "Multi-modal",
-    "Self-checking",
-    "SQL",
-    "Summarization",
-    "Tagging",
+class FindOnePromptSnippetResponseBodyPromptSnippetsMetadataTypedDict(TypedDict):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsMetadata(BaseModel):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelType = Literal[
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
+]
+r"""The type of the model"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFormat = (
+    Literal["url", "b64_json", "text", "json_object"]
+)
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Quality = Literal[
+    "standard", "hd"
+]
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType = Literal[
+    "json_object"
 ]
 
-FindOnePromptSnippetPromptSnippetsLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2002TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2002(BaseModel):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType
+
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2Type = Literal[
+    "json_schema"
 ]
-r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
-class FindOnePromptSnippetPromptSnippetsMetadataTypedDict(TypedDict):
-    use_cases: NotRequired[List[FindOnePromptSnippetPromptSnippetsUseCases]]
-    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[FindOnePromptSnippetPromptSnippetsLanguage]
-    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200JSONSchemaTypedDict(
+    TypedDict
+):
+    name: str
+    strict: bool
+    schema_: Dict[str, Any]
 
 
-class FindOnePromptSnippetPromptSnippetsMetadata(BaseModel):
-    use_cases: Optional[List[FindOnePromptSnippetPromptSnippetsUseCases]] = None
-    r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200JSONSchema(BaseModel):
+    name: str
 
-    language: Optional[FindOnePromptSnippetPromptSnippetsLanguage] = None
-    r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+    strict: bool
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
 
-class FindOnePromptSnippetVersionsTypedDict(TypedDict):
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2001TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2Type
+    json_schema: (
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200JSONSchemaTypedDict
+    )
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse2001(BaseModel):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody2Type
+
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200JSONSchema
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormatTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormatTypedDict",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse2002TypedDict,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse2001TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormat",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse2002,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse2001,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PhotoRealVersion = Literal[
+    "v1", "v2"
+]
+r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200EncodingFormat = Literal[
+    "float", "base64"
+]
+r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelParametersTypedDict(
+    TypedDict
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    max_tokens: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_k: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_p: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    frequency_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    presence_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    num_images: NotRequired[float]
+    r"""Only supported on `image` models."""
+    seed: NotRequired[float]
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+    format_: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFormat
+    ]
+    r"""Only supported on `image` models."""
+    dimensions: NotRequired[str]
+    r"""Only supported on `image` models."""
+    quality: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Quality
+    ]
+    r"""Only supported on `image` models."""
+    style: NotRequired[str]
+    r"""Only supported on `image` models."""
+    response_format: NotRequired[
+        Nullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormatTypedDict
+        ]
+    ]
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+    photo_real_version: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PhotoRealVersion
+    ]
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+    encoding_format: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200EncodingFormat
+    ]
+    r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelParameters(
+    BaseModel
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: Optional[float] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    frequency_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="frequencyPenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    presence_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="presencePenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
+    r"""Only supported on `image` models."""
+
+    seed: Optional[float] = None
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+
+    format_: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFormat
+        ],
+        pydantic.Field(alias="format"),
+    ] = None
+    r"""Only supported on `image` models."""
+
+    dimensions: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    quality: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Quality
+    ] = None
+    r"""Only supported on `image` models."""
+
+    style: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    response_format: Annotated[
+        OptionalNullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ResponseFormat
+        ],
+        pydantic.Field(alias="responseFormat"),
+    ] = UNSET
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+
+    photo_real_version: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PhotoRealVersion
+        ],
+        pydantic.Field(alias="photoRealVersion"),
+    ] = None
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+    encoding_format: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200EncodingFormat
+    ] = None
+    r"""The format to return the embeddings"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "temperature",
+            "maxTokens",
+            "topK",
+            "topP",
+            "frequencyPenalty",
+            "presencePenalty",
+            "numImages",
+            "seed",
+            "format",
+            "dimensions",
+            "quality",
+            "style",
+            "responseFormat",
+            "photoRealVersion",
+            "encoding_format",
+        ]
+        nullable_fields = ["responseFormat"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Provider = Literal[
+    "cohere",
+    "openai",
+    "anthropic",
+    "huggingface",
+    "replicate",
+    "google",
+    "google-ai",
+    "azure",
+    "aws",
+    "anyscale",
+    "perplexity",
+    "groq",
+    "fal",
+    "leonardoai",
+    "nvidia",
+    "jina",
+]
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Role = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType = Literal[
+    "image_url"
+]
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ImageURLTypedDict(TypedDict):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+    id: NotRequired[str]
+    r"""The orq.ai id of the image"""
+    detail: NotRequired[str]
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ImageURL(BaseModel):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+
+    id: Optional[str] = None
+    r"""The orq.ai id of the image"""
+
+    detail: Optional[str] = None
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse2002TypedDict(TypedDict):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType
+    image_url: FindOnePromptSnippet2PromptSnippetsResponse200ImageURLTypedDict
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse2002(BaseModel):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2VersionsType
+
+    image_url: FindOnePromptSnippet2PromptSnippetsResponse200ImageURL
+
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2Type = (
+    Literal["text"]
+)
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse2001TypedDict(TypedDict):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2Type
+    text: str
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse2001(BaseModel):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody2Type
+
+    text: str
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse2002TypedDict = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse2002TypedDict",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse2001TypedDict,
+        FindOnePromptSnippet2PromptSnippetsResponse2002TypedDict,
+    ],
+)
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse2002 = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse2002",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse2001,
+        FindOnePromptSnippet2PromptSnippetsResponse2002,
+    ],
+)
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ContentTypedDict = (
+    TypeAliasType(
+        "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ContentTypedDict",
+        Union[
+            str, List[FindOnePromptSnippetContentPromptSnippetsResponse2002TypedDict]
+        ],
+    )
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Content = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Content",
+    Union[str, List[FindOnePromptSnippetContentPromptSnippetsResponse2002]],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2VersionsType = Literal[
+    "function"
+]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200FunctionTypedDict(
+    TypedDict
+):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Function(BaseModel):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ToolCallsTypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2VersionsType
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200FunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ToolCalls(BaseModel):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON2VersionsType
+
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Function
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200MessagesTypedDict(
+    TypedDict
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Role
+    r"""The role of the prompt message"""
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ContentTypedDict
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    tool_calls: NotRequired[
+        List[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ToolCallsTypedDict
+        ]
+    ]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Messages(BaseModel):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Role
+    r"""The role of the prompt message"""
+
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Content
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+    tool_calls: Optional[
+        List[FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ToolCalls]
+    ] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PromptConfigTypedDict(
+    TypedDict
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200MessagesTypedDict
+    ]
+    stream: NotRequired[bool]
+    model: NotRequired[str]
+    model_db_id: NotRequired[str]
+    r"""The id of the resource"""
+    model_type: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelType
+    ]
+    r"""The type of the model"""
+    model_parameters: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelParametersTypedDict
+    ]
+    r"""Model Parameters: Not all parameters apply to every model"""
+    provider: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Provider
+    ]
+    integration_id: NotRequired[Nullable[str]]
+    r"""The id of the resource"""
+    version: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PromptConfig(BaseModel):
+    messages: List[FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Messages]
+
+    stream: Optional[bool] = None
+
+    model: Optional[str] = None
+
+    model_db_id: Optional[str] = None
+    r"""The id of the resource"""
+
+    model_type: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelType
+    ] = None
+    r"""The type of the model"""
+
+    model_parameters: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ModelParameters
+    ] = None
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    provider: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Provider
+    ] = None
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""The id of the resource"""
+
+    version: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_db_id",
+            "model_type",
+            "model_parameters",
+            "provider",
+            "integration_id",
+            "version",
+        ]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200MetadataTypedDict(
+    TypedDict
+):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Metadata(BaseModel):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsVersionsTypedDict(TypedDict):
     r"""Prompt version model returned from the API"""
 
     id: str
-    prompt_config: FindOnePromptSnippetPromptSnippetsPromptConfigTypedDict
-    r"""A list of messages compatible with the openAI schema"""
-    metadata: FindOnePromptSnippetPromptSnippetsMetadataTypedDict
     created_by_id: str
+    display_name: str
     updated_by_id: str
+    prompt_config: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PromptConfigTypedDict
+    )
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200MetadataTypedDict
+    commit: str
     timestamp: str
     description: NotRequired[Nullable[str]]
-    r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
 
-class FindOnePromptSnippetVersions(BaseModel):
+class FindOnePromptSnippetResponseBodyPromptSnippetsVersions(BaseModel):
     r"""Prompt version model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    prompt_config: FindOnePromptSnippetPromptSnippetsPromptConfig
-    r"""A list of messages compatible with the openAI schema"""
-
-    metadata: FindOnePromptSnippetPromptSnippetsMetadata
-
     created_by_id: str
 
+    display_name: str
+
     updated_by_id: str
+
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200PromptConfig
+
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Metadata
+
+    commit: str
 
     timestamp: str
 
     description: OptionalNullable[str] = UNSET
-    r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1225,59 +2645,61 @@ class FindOnePromptSnippetVersions(BaseModel):
         return m
 
 
-class FindOnePromptSnippetResponseBodyTypedDict(TypedDict):
+FindOnePromptSnippetResponseBodyPromptSnippetsType = Literal["snippet"]
+
+
+class FindOnePromptSnippetResponseBody2TypedDict(TypedDict):
     r"""Prompt snippet model returned from the API"""
 
     id: str
-    owner: FindOnePromptSnippetOwnerTypedDict
+    owner: FindOnePromptSnippetResponseBodyPromptSnippetsOwnerTypedDict
     domain_id: str
-    key: str
-    prompt_config: FindOnePromptSnippetPromptConfigTypedDict
-    r"""A list of messages compatible with the openAI schema"""
-    metadata: FindOnePromptSnippetMetadataTypedDict
     created_by_id: str
+    display_name: str
     updated_by_id: str
-    type: FindOnePromptSnippetType
-    versions: List[FindOnePromptSnippetVersionsTypedDict]
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsPromptConfigTypedDict
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsMetadataTypedDict
+    versions: List[FindOnePromptSnippetResponseBodyPromptSnippetsVersionsTypedDict]
+    key: str
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsType
     description: NotRequired[Nullable[str]]
-    r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
     r"""The date and time the resource was last updated"""
 
 
-class FindOnePromptSnippetResponseBody(BaseModel):
+class FindOnePromptSnippetResponseBody2(BaseModel):
     r"""Prompt snippet model returned from the API"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    owner: FindOnePromptSnippetOwner
+    owner: FindOnePromptSnippetResponseBodyPromptSnippetsOwner
 
     domain_id: str
 
-    key: str
-
-    prompt_config: FindOnePromptSnippetPromptConfig
-    r"""A list of messages compatible with the openAI schema"""
-
-    metadata: FindOnePromptSnippetMetadata
-
     created_by_id: str
+
+    display_name: str
 
     updated_by_id: str
 
-    type: FindOnePromptSnippetType
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsPromptConfig
 
-    versions: List[FindOnePromptSnippetVersions]
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsMetadata
+
+    versions: List[FindOnePromptSnippetResponseBodyPromptSnippetsVersions]
+
+    key: str
+
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsType
 
     description: OptionalNullable[str] = UNSET
-    r"""The prompt snippet’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-11T17:53:37.707Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1309,3 +2731,1344 @@ class FindOnePromptSnippetResponseBody(BaseModel):
                 m[k] = val
 
         return m
+
+
+FindOnePromptSnippetOwner2 = Literal["vendor"]
+
+FindOnePromptSnippetResponseBodyOwnerTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyOwnerTypedDict",
+    Union[str, FindOnePromptSnippetOwner2],
+)
+
+
+FindOnePromptSnippetResponseBodyOwner = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyOwner", Union[str, FindOnePromptSnippetOwner2]
+)
+
+
+FindOnePromptSnippetResponseBodyModelType = Literal[
+    "chat",
+    "completion",
+    "embedding",
+    "vision",
+    "image",
+    "tts",
+    "stt",
+    "rerank",
+    "moderations",
+]
+r"""The type of the model"""
+
+FindOnePromptSnippetResponseBodyFormat = Literal[
+    "url", "b64_json", "text", "json_object"
+]
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseBodyQuality = Literal["standard", "hd"]
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseFormatPromptSnippetsType = Literal["json_object"]
+
+
+class FindOnePromptSnippetResponseFormat2TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsType
+
+
+class FindOnePromptSnippetResponseFormat2(BaseModel):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsType
+
+
+FindOnePromptSnippetResponseFormatType = Literal["json_schema"]
+
+
+class FindOnePromptSnippetResponseFormatJSONSchemaTypedDict(TypedDict):
+    name: str
+    strict: bool
+    schema_: Dict[str, Any]
+
+
+class FindOnePromptSnippetResponseFormatJSONSchema(BaseModel):
+    name: str
+
+    strict: bool
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+
+class FindOnePromptSnippetResponseFormat1TypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseFormatType
+    json_schema: FindOnePromptSnippetResponseFormatJSONSchemaTypedDict
+
+
+class FindOnePromptSnippetResponseFormat1(BaseModel):
+    type: FindOnePromptSnippetResponseFormatType
+
+    json_schema: FindOnePromptSnippetResponseFormatJSONSchema
+
+
+FindOnePromptSnippetResponseBodyResponseFormatTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyResponseFormatTypedDict",
+    Union[
+        FindOnePromptSnippetResponseFormat2TypedDict,
+        FindOnePromptSnippetResponseFormat1TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyResponseFormat",
+    Union[FindOnePromptSnippetResponseFormat2, FindOnePromptSnippetResponseFormat1],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPhotoRealVersion = Literal["v1", "v2"]
+r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+FindOnePromptSnippetResponseBodyEncodingFormat = Literal["float", "base64"]
+r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyModelParametersTypedDict(TypedDict):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    max_tokens: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_k: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_p: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    frequency_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    presence_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    num_images: NotRequired[float]
+    r"""Only supported on `image` models."""
+    seed: NotRequired[float]
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+    format_: NotRequired[FindOnePromptSnippetResponseBodyFormat]
+    r"""Only supported on `image` models."""
+    dimensions: NotRequired[str]
+    r"""Only supported on `image` models."""
+    quality: NotRequired[FindOnePromptSnippetResponseBodyQuality]
+    r"""Only supported on `image` models."""
+    style: NotRequired[str]
+    r"""Only supported on `image` models."""
+    response_format: NotRequired[
+        Nullable[FindOnePromptSnippetResponseBodyResponseFormatTypedDict]
+    ]
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+    photo_real_version: NotRequired[FindOnePromptSnippetResponseBodyPhotoRealVersion]
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+    encoding_format: NotRequired[FindOnePromptSnippetResponseBodyEncodingFormat]
+    r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyModelParameters(BaseModel):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: Optional[float] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    frequency_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="frequencyPenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    presence_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="presencePenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
+    r"""Only supported on `image` models."""
+
+    seed: Optional[float] = None
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+
+    format_: Annotated[
+        Optional[FindOnePromptSnippetResponseBodyFormat], pydantic.Field(alias="format")
+    ] = None
+    r"""Only supported on `image` models."""
+
+    dimensions: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    quality: Optional[FindOnePromptSnippetResponseBodyQuality] = None
+    r"""Only supported on `image` models."""
+
+    style: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    response_format: Annotated[
+        OptionalNullable[FindOnePromptSnippetResponseBodyResponseFormat],
+        pydantic.Field(alias="responseFormat"),
+    ] = UNSET
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+
+    photo_real_version: Annotated[
+        Optional[FindOnePromptSnippetResponseBodyPhotoRealVersion],
+        pydantic.Field(alias="photoRealVersion"),
+    ] = None
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+    encoding_format: Optional[FindOnePromptSnippetResponseBodyEncodingFormat] = None
+    r"""The format to return the embeddings"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "temperature",
+            "maxTokens",
+            "topK",
+            "topP",
+            "frequencyPenalty",
+            "presencePenalty",
+            "numImages",
+            "seed",
+            "format",
+            "dimensions",
+            "quality",
+            "style",
+            "responseFormat",
+            "photoRealVersion",
+            "encoding_format",
+        ]
+        nullable_fields = ["responseFormat"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyProvider = Literal[
+    "cohere",
+    "openai",
+    "anthropic",
+    "huggingface",
+    "replicate",
+    "google",
+    "google-ai",
+    "azure",
+    "aws",
+    "anyscale",
+    "perplexity",
+    "groq",
+    "fal",
+    "leonardoai",
+    "nvidia",
+    "jina",
+]
+
+FindOnePromptSnippetResponseBodyRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+FindOnePromptSnippet2PromptSnippetsType = Literal["image_url"]
+
+
+class FindOnePromptSnippet2ImageURLTypedDict(TypedDict):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+    id: NotRequired[str]
+    r"""The orq.ai id of the image"""
+    detail: NotRequired[str]
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2ImageURL(BaseModel):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+
+    id: Optional[str] = None
+    r"""The orq.ai id of the image"""
+
+    detail: Optional[str] = None
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet22TypedDict(TypedDict):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsType
+    image_url: FindOnePromptSnippet2ImageURLTypedDict
+
+
+class FindOnePromptSnippet22(BaseModel):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsType
+
+    image_url: FindOnePromptSnippet2ImageURL
+
+
+FindOnePromptSnippet2Type = Literal["text"]
+
+
+class FindOnePromptSnippet21TypedDict(TypedDict):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2Type
+    text: str
+
+
+class FindOnePromptSnippet21(BaseModel):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2Type
+
+    text: str
+
+
+FindOnePromptSnippetContent2TypedDict = TypeAliasType(
+    "FindOnePromptSnippetContent2TypedDict",
+    Union[FindOnePromptSnippet21TypedDict, FindOnePromptSnippet22TypedDict],
+)
+
+
+FindOnePromptSnippetContent2 = TypeAliasType(
+    "FindOnePromptSnippetContent2",
+    Union[FindOnePromptSnippet21, FindOnePromptSnippet22],
+)
+
+
+FindOnePromptSnippetResponseBodyContentTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyContentTypedDict",
+    Union[str, List[FindOnePromptSnippetContent2TypedDict]],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyContent = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyContent",
+    Union[str, List[FindOnePromptSnippetContent2]],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Type = Literal["function"]
+
+
+class FindOnePromptSnippetResponseBodyFunctionTypedDict(TypedDict):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyFunction(BaseModel):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyToolCallsTypedDict(TypedDict):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Type
+    function: FindOnePromptSnippetResponseBodyFunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class FindOnePromptSnippetResponseBodyToolCalls(BaseModel):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200Type
+
+    function: FindOnePromptSnippetResponseBodyFunction
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class FindOnePromptSnippetResponseBodyMessagesTypedDict(TypedDict):
+    role: FindOnePromptSnippetResponseBodyRole
+    r"""The role of the prompt message"""
+    content: FindOnePromptSnippetResponseBodyContentTypedDict
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    tool_calls: NotRequired[List[FindOnePromptSnippetResponseBodyToolCallsTypedDict]]
+
+
+class FindOnePromptSnippetResponseBodyMessages(BaseModel):
+    role: FindOnePromptSnippetResponseBodyRole
+    r"""The role of the prompt message"""
+
+    content: FindOnePromptSnippetResponseBodyContent
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+    tool_calls: Optional[List[FindOnePromptSnippetResponseBodyToolCalls]] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptConfigTypedDict(TypedDict):
+    messages: List[FindOnePromptSnippetResponseBodyMessagesTypedDict]
+    stream: NotRequired[bool]
+    model: NotRequired[str]
+    model_db_id: NotRequired[str]
+    r"""The id of the resource"""
+    model_type: NotRequired[FindOnePromptSnippetResponseBodyModelType]
+    r"""The type of the model"""
+    model_parameters: NotRequired[
+        FindOnePromptSnippetResponseBodyModelParametersTypedDict
+    ]
+    r"""Model Parameters: Not all parameters apply to every model"""
+    provider: NotRequired[FindOnePromptSnippetResponseBodyProvider]
+    integration_id: NotRequired[Nullable[str]]
+    r"""The id of the resource"""
+    version: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptConfig(BaseModel):
+    messages: List[FindOnePromptSnippetResponseBodyMessages]
+
+    stream: Optional[bool] = None
+
+    model: Optional[str] = None
+
+    model_db_id: Optional[str] = None
+    r"""The id of the resource"""
+
+    model_type: Optional[FindOnePromptSnippetResponseBodyModelType] = None
+    r"""The type of the model"""
+
+    model_parameters: Optional[FindOnePromptSnippetResponseBodyModelParameters] = None
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    provider: Optional[FindOnePromptSnippetResponseBodyProvider] = None
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""The id of the resource"""
+
+    version: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_db_id",
+            "model_type",
+            "model_parameters",
+            "provider",
+            "integration_id",
+            "version",
+        ]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class FindOnePromptSnippetResponseBodyMetadataTypedDict(TypedDict):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyMetadata(BaseModel):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelType = (
+    Literal[
+        "chat",
+        "completion",
+        "embedding",
+        "vision",
+        "image",
+        "tts",
+        "stt",
+        "rerank",
+        "moderations",
+    ]
+)
+r"""The type of the model"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Format = (
+    Literal["url", "b64_json", "text", "json_object"]
+)
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONQuality = (
+    Literal["standard", "hd"]
+)
+r"""Only supported on `image` models."""
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType = Literal[
+    "json_object"
+]
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON2TypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON2(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType
+
+
+FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1Type = Literal[
+    "json_schema"
+]
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONJSONSchemaTypedDict(
+    TypedDict
+):
+    name: str
+    strict: bool
+    schema_: Dict[str, Any]
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONJSONSchema(
+    BaseModel
+):
+    name: str
+
+    strict: bool
+
+    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON1TypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1Type
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONJSONSchemaTypedDict
+
+
+class FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON1(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONResponseBody1Type
+
+    json_schema: FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSONJSONSchema
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormatTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormatTypedDict",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON2TypedDict,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON1TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormat = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormat",
+    Union[
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON2,
+        FindOnePromptSnippetResponseFormatPromptSnippetsResponse200ApplicationJSON1,
+    ],
+)
+r"""An object specifying the format that the model must output.
+
+Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+"""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPhotoRealVersion = Literal[
+    "v1", "v2"
+]
+r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONEncodingFormat = Literal[
+    "float", "base64"
+]
+r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelParametersTypedDict(
+    TypedDict
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    max_tokens: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_k: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    top_p: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    frequency_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    presence_penalty: NotRequired[float]
+    r"""Only supported on `chat` and `completion` models."""
+    num_images: NotRequired[float]
+    r"""Only supported on `image` models."""
+    seed: NotRequired[float]
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+    format_: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Format
+    ]
+    r"""Only supported on `image` models."""
+    dimensions: NotRequired[str]
+    r"""Only supported on `image` models."""
+    quality: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONQuality
+    ]
+    r"""Only supported on `image` models."""
+    style: NotRequired[str]
+    r"""Only supported on `image` models."""
+    response_format: NotRequired[
+        Nullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormatTypedDict
+        ]
+    ]
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+    photo_real_version: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPhotoRealVersion
+    ]
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+    encoding_format: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONEncodingFormat
+    ]
+    r"""The format to return the embeddings"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelParameters(
+    BaseModel
+):
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    temperature: Optional[float] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    max_tokens: Annotated[Optional[float], pydantic.Field(alias="maxTokens")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_k: Annotated[Optional[float], pydantic.Field(alias="topK")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    top_p: Annotated[Optional[float], pydantic.Field(alias="topP")] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    frequency_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="frequencyPenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    presence_penalty: Annotated[
+        Optional[float], pydantic.Field(alias="presencePenalty")
+    ] = None
+    r"""Only supported on `chat` and `completion` models."""
+
+    num_images: Annotated[Optional[float], pydantic.Field(alias="numImages")] = None
+    r"""Only supported on `image` models."""
+
+    seed: Optional[float] = None
+    r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
+
+    format_: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Format
+        ],
+        pydantic.Field(alias="format"),
+    ] = None
+    r"""Only supported on `image` models."""
+
+    dimensions: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    quality: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONQuality
+    ] = None
+    r"""Only supported on `image` models."""
+
+    style: Optional[str] = None
+    r"""Only supported on `image` models."""
+
+    response_format: Annotated[
+        OptionalNullable[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONResponseFormat
+        ],
+        pydantic.Field(alias="responseFormat"),
+    ] = UNSET
+    r"""An object specifying the format that the model must output.
+
+    Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
+
+    Setting to `{ \"type\": \"json_object\" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+
+    Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
+    """
+
+    photo_real_version: Annotated[
+        Optional[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPhotoRealVersion
+        ],
+        pydantic.Field(alias="photoRealVersion"),
+    ] = None
+    r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
+
+    encoding_format: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONEncodingFormat
+    ] = None
+    r"""The format to return the embeddings"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "temperature",
+            "maxTokens",
+            "topK",
+            "topP",
+            "frequencyPenalty",
+            "presencePenalty",
+            "numImages",
+            "seed",
+            "format",
+            "dimensions",
+            "quality",
+            "style",
+            "responseFormat",
+            "photoRealVersion",
+            "encoding_format",
+        ]
+        nullable_fields = ["responseFormat"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONProvider = (
+    Literal[
+        "cohere",
+        "openai",
+        "anthropic",
+        "huggingface",
+        "replicate",
+        "google",
+        "google-ai",
+        "azure",
+        "aws",
+        "anyscale",
+        "perplexity",
+        "groq",
+        "fal",
+        "leonardoai",
+        "nvidia",
+        "jina",
+    ]
+)
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType = Literal[
+    "image_url"
+]
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONImageURLTypedDict(
+    TypedDict
+):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+    id: NotRequired[str]
+    r"""The orq.ai id of the image"""
+    detail: NotRequired[str]
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONImageURL(BaseModel):
+    url: str
+    r"""Either a URL of the image or the base64 encoded data URI."""
+
+    id: Optional[str] = None
+    r"""The orq.ai id of the image"""
+
+    detail: Optional[str] = None
+    r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON2TypedDict(
+    TypedDict
+):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType
+    image_url: (
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONImageURLTypedDict
+    )
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON2(BaseModel):
+    r"""The image part of the prompt message. Only supported with vision models."""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1VersionsType
+
+    image_url: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONImageURL
+
+
+FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1Type = (
+    Literal["text"]
+)
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON1TypedDict(
+    TypedDict
+):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1Type
+    text: str
+
+
+class FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON1(BaseModel):
+    r"""Text content part of a prompt message"""
+
+    type: FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSONResponseBody1Type
+
+    text: str
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2TypedDict = (
+    TypeAliasType(
+        "FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2TypedDict",
+        Union[
+            FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON1TypedDict,
+            FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON2TypedDict,
+        ],
+    )
+)
+
+
+FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2 = TypeAliasType(
+    "FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2",
+    Union[
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON1,
+        FindOnePromptSnippet2PromptSnippetsResponse200ApplicationJSON2,
+    ],
+)
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContentTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContentTypedDict",
+    Union[
+        str,
+        List[
+            FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2TypedDict
+        ],
+    ],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContent = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContent",
+    Union[
+        str, List[FindOnePromptSnippetContentPromptSnippetsResponse200ApplicationJSON2]
+    ],
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+
+FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Type = Literal[
+    "function"
+]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFunctionTypedDict(
+    TypedDict
+):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFunction(
+    BaseModel
+):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONToolCallsTypedDict(
+    TypedDict
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Type
+    function: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONToolCalls(
+    BaseModel
+):
+    type: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSON1Type
+
+    function: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONFunction
+    )
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMessagesTypedDict(
+    TypedDict
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONRole
+    r"""The role of the prompt message"""
+    content: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContentTypedDict
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    tool_calls: NotRequired[
+        List[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONToolCallsTypedDict
+        ]
+    ]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMessages(
+    BaseModel
+):
+    role: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONRole
+    r"""The role of the prompt message"""
+
+    content: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONContent
+    )
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+
+    tool_calls: Optional[
+        List[
+            FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONToolCalls
+        ]
+    ] = None
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPromptConfigTypedDict(
+    TypedDict
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMessagesTypedDict
+    ]
+    stream: NotRequired[bool]
+    model: NotRequired[str]
+    model_db_id: NotRequired[str]
+    r"""The id of the resource"""
+    model_type: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelType
+    ]
+    r"""The type of the model"""
+    model_parameters: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelParametersTypedDict
+    ]
+    r"""Model Parameters: Not all parameters apply to every model"""
+    provider: NotRequired[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONProvider
+    ]
+    integration_id: NotRequired[Nullable[str]]
+    r"""The id of the resource"""
+    version: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPromptConfig(
+    BaseModel
+):
+    messages: List[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMessages
+    ]
+
+    stream: Optional[bool] = None
+
+    model: Optional[str] = None
+
+    model_db_id: Optional[str] = None
+    r"""The id of the resource"""
+
+    model_type: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelType
+    ] = None
+    r"""The type of the model"""
+
+    model_parameters: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONModelParameters
+    ] = None
+    r"""Model Parameters: Not all parameters apply to every model"""
+
+    provider: Optional[
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONProvider
+    ] = None
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""The id of the resource"""
+
+    version: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_db_id",
+            "model_type",
+            "model_parameters",
+            "provider",
+            "integration_id",
+            "version",
+        ]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMetadataTypedDict(
+    TypedDict
+):
+    use_cases: NotRequired[List[str]]
+    language: NotRequired[str]
+
+
+class FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMetadata(
+    BaseModel
+):
+    use_cases: Optional[List[str]] = None
+
+    language: Optional[str] = None
+
+
+class FindOnePromptSnippetResponseBodyVersionsTypedDict(TypedDict):
+    r"""Prompt version model returned from the API"""
+
+    id: str
+    created_by_id: str
+    display_name: str
+    updated_by_id: str
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPromptConfigTypedDict
+    metadata: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMetadataTypedDict
+    commit: str
+    timestamp: str
+    description: NotRequired[Nullable[str]]
+
+
+class FindOnePromptSnippetResponseBodyVersions(BaseModel):
+    r"""Prompt version model returned from the API"""
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    created_by_id: str
+
+    display_name: str
+
+    updated_by_id: str
+
+    prompt_config: FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONPromptConfig
+
+    metadata: (
+        FindOnePromptSnippetResponseBodyPromptSnippetsResponse200ApplicationJSONMetadata
+    )
+
+    commit: str
+
+    timestamp: str
+
+    description: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description"]
+        nullable_fields = ["description"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyType = Literal["prompt"]
+
+
+class FindOnePromptSnippetResponseBody1TypedDict(TypedDict):
+    r"""Prompt model returned from the API"""
+
+    id: str
+    owner: FindOnePromptSnippetResponseBodyOwnerTypedDict
+    domain_id: str
+    created_by_id: str
+    display_name: str
+    updated_by_id: str
+    prompt_config: FindOnePromptSnippetResponseBodyPromptConfigTypedDict
+    metadata: FindOnePromptSnippetResponseBodyMetadataTypedDict
+    versions: List[FindOnePromptSnippetResponseBodyVersionsTypedDict]
+    type: FindOnePromptSnippetResponseBodyType
+    description: NotRequired[Nullable[str]]
+    created: NotRequired[datetime]
+    r"""The date and time the resource was created"""
+    updated: NotRequired[datetime]
+    r"""The date and time the resource was last updated"""
+
+
+class FindOnePromptSnippetResponseBody1(BaseModel):
+    r"""Prompt model returned from the API"""
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    owner: FindOnePromptSnippetResponseBodyOwner
+
+    domain_id: str
+
+    created_by_id: str
+
+    display_name: str
+
+    updated_by_id: str
+
+    prompt_config: FindOnePromptSnippetResponseBodyPromptConfig
+
+    metadata: FindOnePromptSnippetResponseBodyMetadata
+
+    versions: List[FindOnePromptSnippetResponseBodyVersions]
+
+    type: FindOnePromptSnippetResponseBodyType
+
+    description: OptionalNullable[str] = UNSET
+
+    created: Optional[datetime] = None
+    r"""The date and time the resource was created"""
+
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-01-02T13:55:01.056Z")
+    r"""The date and time the resource was last updated"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "created", "updated"]
+        nullable_fields = ["description"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+FindOnePromptSnippetResponseBodyTypedDict = TypeAliasType(
+    "FindOnePromptSnippetResponseBodyTypedDict",
+    Union[
+        FindOnePromptSnippetResponseBody1TypedDict,
+        FindOnePromptSnippetResponseBody3TypedDict,
+        FindOnePromptSnippetResponseBody2TypedDict,
+    ],
+)
+r"""Prompt snippet retrieved."""
+
+
+FindOnePromptSnippetResponseBody = TypeAliasType(
+    "FindOnePromptSnippetResponseBody",
+    Union[
+        FindOnePromptSnippetResponseBody1,
+        FindOnePromptSnippetResponseBody3,
+        FindOnePromptSnippetResponseBody2,
+    ],
+)
+r"""Prompt snippet retrieved."""

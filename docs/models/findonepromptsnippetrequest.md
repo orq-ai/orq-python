@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *str*              | :heavy_check_mark: | Prompt ID          |
+| `key`              | *str*              | :heavy_check_mark: | Prompt Snippet Key |

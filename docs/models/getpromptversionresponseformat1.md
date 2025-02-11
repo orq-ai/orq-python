@@ -1,9 +1,0 @@
-# GetPromptVersionResponseFormat1
-
-
-## Fields
-
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                   | [models.GetPromptVersionResponseFormatType](../models/getpromptversionresponseformattype.md)             | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `json_schema`                                                                                            | [models.GetPromptVersionResponseFormatJSONSchema](../models/getpromptversionresponseformatjsonschema.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

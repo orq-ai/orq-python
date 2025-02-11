@@ -326,6 +326,8 @@ class DeploymentsTypedDict(TypedDict):
 
     key: str
     r"""The deployment key to invoke"""
+    stream: NotRequired[bool]
+    r"""If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message."""
     inputs: NotRequired[Dict[str, InputsTypedDict]]
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
     context: NotRequired[Dict[str, Any]]
@@ -350,6 +352,9 @@ class Deployments(BaseModel):
 
     key: str
     r"""The deployment key to invoke"""
+
+    stream: Optional[bool] = False
+    r"""If set, partial message content will be sent. Tokens will be sent as data-only `server-sent events` as they become available, with the stream terminated by a `data: [DONE]` message."""
 
     inputs: Optional[Dict[str, Inputs]] = None
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
