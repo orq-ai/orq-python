@@ -75,6 +75,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetAllPrompts",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -176,6 +177,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetAllPrompts",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -276,6 +278,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreatePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -376,6 +379,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="CreatePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -471,6 +475,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetOnePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -566,6 +571,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetOnePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -709,6 +715,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdatePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -858,6 +865,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="UpdatePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -957,6 +965,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeletePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -1048,6 +1057,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeletePrompt",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -1150,6 +1160,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="ListPromptVersions",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -1254,6 +1265,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="ListPromptVersions",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -1352,6 +1364,7 @@ class Prompts(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetPromptVersion",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -1456,6 +1469,7 @@ class Prompts(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="GetPromptVersion",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
