@@ -9,7 +9,7 @@ from typing import Mapping, Optional, Union, cast
 
 
 class Files(BaseSDK):
-    def upload(
+    def create(
         self,
         *,
         request: Union[
@@ -20,7 +20,7 @@ class Files(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.FileUploadResponseBody]:
-        r"""Upload file
+        r"""Create file
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/post_v2-deployments-get-config).
 
@@ -78,6 +78,7 @@ class Files(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileUpload",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -113,7 +114,7 @@ class Files(BaseSDK):
             http_res,
         )
 
-    async def upload_async(
+    async def create_async(
         self,
         *,
         request: Union[
@@ -124,7 +125,7 @@ class Files(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.FileUploadResponseBody]:
-        r"""Upload file
+        r"""Create file
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/post_v2-deployments-get-config).
 
@@ -182,6 +183,7 @@ class Files(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileUpload",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -220,10 +222,9 @@ class Files(BaseSDK):
     def list(
         self,
         *,
-        page: Optional[float] = None,
-        limit: Optional[float] = 50,
-        last_id: OptionalNullable[str] = UNSET,
-        first_id: OptionalNullable[str] = UNSET,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -231,10 +232,11 @@ class Files(BaseSDK):
     ) -> Optional[models.FileListResponseBody]:
         r"""List all files
 
-        :param page:
-        :param limit:
-        :param last_id:
-        :param first_id:
+        Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -252,10 +254,9 @@ class Files(BaseSDK):
             base_url = server_url
 
         request = models.FileListRequest(
-            page=page,
             limit=limit,
-            last_id=last_id,
-            first_id=first_id,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
         req = self._build_request(
@@ -284,6 +285,7 @@ class Files(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileList",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -322,10 +324,9 @@ class Files(BaseSDK):
     async def list_async(
         self,
         *,
-        page: Optional[float] = None,
-        limit: Optional[float] = 50,
-        last_id: OptionalNullable[str] = UNSET,
-        first_id: OptionalNullable[str] = UNSET,
+        limit: Optional[float] = 10,
+        starting_after: Optional[str] = None,
+        ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -333,10 +334,11 @@ class Files(BaseSDK):
     ) -> Optional[models.FileListResponseBody]:
         r"""List all files
 
-        :param page:
-        :param limit:
-        :param last_id:
-        :param first_id:
+        Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
+
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
+        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
+        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -354,10 +356,9 @@ class Files(BaseSDK):
             base_url = server_url
 
         request = models.FileListRequest(
-            page=page,
             limit=limit,
-            last_id=last_id,
-            first_id=first_id,
+            starting_after=starting_after,
+            ending_before=ending_before,
         )
 
         req = self._build_request_async(
@@ -386,6 +387,7 @@ class Files(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileList",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -430,7 +432,9 @@ class Files(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.FileGetResponseBody]:
-        r"""Get file by ID
+        r"""Retrieve a file
+
+        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object
 
         :param file_id: The ID of the file
         :param retries: Override the default retry configuration for this method
@@ -479,6 +483,7 @@ class Files(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileGet",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -523,7 +528,9 @@ class Files(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.FileGetResponseBody]:
-        r"""Get file by ID
+        r"""Retrieve a file
+
+        Retrieves the details of an existing file object. After you supply a unique file ID, orq.ai returns the corresponding file object
 
         :param file_id: The ID of the file
         :param retries: Override the default retry configuration for this method
@@ -572,6 +579,7 @@ class Files(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileGet",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -665,6 +673,7 @@ class Files(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileDelete",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -756,6 +765,7 @@ class Files(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="FileDelete",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
