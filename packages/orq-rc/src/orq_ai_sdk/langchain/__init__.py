@@ -121,12 +121,29 @@ class OrqLangchainCallback(BaseCallbackHandler):
     ) -> Any:
         event: LlmEvent = self.events[str(run_id)]
         event.end_timestamp = get_iso_string()
-        token_usage = response.llm_output['token_usage']
-        event.usage = LlmUsage(input_tokens=token_usage['prompt_tokens'], output_tokens=token_usage['completion_tokens'])
+
+        input_tokens = 0
+        output_tokens = 0
+
+        if 'token_usage' in response.llm_output:
+            token_usage = response.llm_output['token_usage']
+            input_tokens = token_usage['prompt_tokens']
+            output_tokens = token_usage['completion_tokens']
+        elif 'usage' in response.llm_output:
+            token_usage = response.llm_output['usage']
+            input_tokens = token_usage['input_tokens']
+            output_tokens = token_usage['output_tokens']
+
+        event.usage = LlmUsage(input_tokens=input_tokens, output_tokens=output_tokens)
         event.response_choices = []
 
         for index, choice in enumerate(response.generations[0]):
-            event.response_choices.append(Choice(index=index, message=ChoiceMessage(role=LlmRole.SYSTEM, content=choice.text), finish_reason=choice.generation_info['finish_reason']))
+            finish_reason = None
+
+            if 'generation_info' in choice:
+                finish_reason = choice.generation_info['finish_reason']
+
+            event.response_choices.append(Choice(index=index, message=ChoiceMessage(role=LlmRole.SYSTEM, content=choice.text), finish_reason=finish_reason))
 
         self.orq_client.log_event(event)
 
