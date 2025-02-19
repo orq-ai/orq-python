@@ -40,6 +40,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.FileUploadRequestBody)
@@ -145,6 +147,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, models.FileUploadRequestBody)
@@ -252,6 +256,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileListRequest(
             limit=limit,
@@ -354,6 +360,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileListRequest(
             limit=limit,
@@ -452,6 +460,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileGetRequest(
             file_id=file_id,
@@ -548,6 +558,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileGetRequest(
             file_id=file_id,
@@ -642,6 +654,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileDeleteRequest(
             file_id=file_id,
@@ -734,6 +748,8 @@ class Files(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.FileDeleteRequest(
             file_id=file_id,
