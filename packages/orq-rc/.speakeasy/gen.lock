@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: f57abc7b899e829790b075c008cf666c
+  docChecksum: 293e8b502b8ca3f6cf9d7f792b8009a2
   docVersion: "2.0"
   speakeasyVersion: 1.495.1
   generationVersion: 2.515.4
-  releaseVersion: 3.2.0-rc.8
-  configChecksum: 13f7a800cc6729814bcce637b9712e84
+  releaseVersion: 3.2.0-rc.9
+  configChecksum: 39b56f5279e93e0fd78e4d2f28582e84
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -338,7 +338,6 @@ generatedFiles:
   - docs/models/getpromptversionphotorealversion.md
   - docs/models/getpromptversionpromptconfig.md
   - docs/models/getpromptversionpromptsresponsebody.md
-  - docs/models/getpromptversionpromptstype.md
   - docs/models/getpromptversionprovider.md
   - docs/models/getpromptversionquality.md
   - docs/models/getpromptversionreasoningeffort.md
@@ -380,7 +379,6 @@ generatedFiles:
   - docs/models/listpromptversionsobject.md
   - docs/models/listpromptversionsphotorealversion.md
   - docs/models/listpromptversionspromptconfig.md
-  - docs/models/listpromptversionspromptstype.md
   - docs/models/listpromptversionsprovider.md
   - docs/models/listpromptversionsquality.md
   - docs/models/listpromptversionsreasoningeffort.md
@@ -821,7 +819,7 @@ examples:
           version_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "type": "prompt", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}]}, "timestamp": "<value>"}
+          application/json: {"_id": "<id>", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}]}, "timestamp": "<value>"}
         "404":
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.0

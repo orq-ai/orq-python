@@ -51,8 +51,6 @@ class GetPromptVersionPromptsResponseBody(Exception):
         return utils.marshal_json(self.data, GetPromptVersionPromptsResponseBodyData)
 
 
-GetPromptVersionType = Literal["prompt"]
-
 GetPromptVersionModelType = Literal[
     "chat",
     "completion",
@@ -430,7 +428,7 @@ GetPromptVersionContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetPromptVersionPromptsType = Literal["function"]
+GetPromptVersionType = Literal["function"]
 
 
 class GetPromptVersionFunctionTypedDict(TypedDict):
@@ -447,14 +445,14 @@ class GetPromptVersionFunction(BaseModel):
 
 
 class GetPromptVersionToolCallsTypedDict(TypedDict):
-    type: GetPromptVersionPromptsType
+    type: GetPromptVersionType
     function: GetPromptVersionFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class GetPromptVersionToolCalls(BaseModel):
-    type: GetPromptVersionPromptsType
+    type: GetPromptVersionType
 
     function: GetPromptVersionFunction
 
@@ -608,7 +606,6 @@ class GetPromptVersionResponseBodyTypedDict(TypedDict):
     r"""Prompt version retrieved successfully."""
 
     id: str
-    type: GetPromptVersionType
     prompt_config: GetPromptVersionPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     timestamp: str
@@ -623,8 +620,6 @@ class GetPromptVersionResponseBody(BaseModel):
     r"""Prompt version retrieved successfully."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
-
-    type: GetPromptVersionType
 
     prompt_config: GetPromptVersionPromptConfig
     r"""A list of messages compatible with the openAI schema"""

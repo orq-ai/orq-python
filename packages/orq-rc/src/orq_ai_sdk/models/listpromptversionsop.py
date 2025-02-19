@@ -51,8 +51,6 @@ class ListPromptVersionsRequest(BaseModel):
 
 ListPromptVersionsObject = Literal["list"]
 
-ListPromptVersionsType = Literal["prompt"]
-
 ListPromptVersionsModelType = Literal[
     "chat",
     "completion",
@@ -430,7 +428,7 @@ ListPromptVersionsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-ListPromptVersionsPromptsType = Literal["function"]
+ListPromptVersionsType = Literal["function"]
 
 
 class ListPromptVersionsFunctionTypedDict(TypedDict):
@@ -447,14 +445,14 @@ class ListPromptVersionsFunction(BaseModel):
 
 
 class ListPromptVersionsToolCallsTypedDict(TypedDict):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
     function: ListPromptVersionsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class ListPromptVersionsToolCalls(BaseModel):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
 
     function: ListPromptVersionsFunction
 
@@ -606,7 +604,6 @@ class ListPromptVersionsMetadata(BaseModel):
 
 class ListPromptVersionsDataTypedDict(TypedDict):
     id: str
-    type: ListPromptVersionsType
     prompt_config: ListPromptVersionsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     timestamp: str
@@ -619,8 +616,6 @@ class ListPromptVersionsDataTypedDict(TypedDict):
 
 class ListPromptVersionsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
-
-    type: ListPromptVersionsType
 
     prompt_config: ListPromptVersionsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
