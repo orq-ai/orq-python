@@ -1,4 +1,4 @@
-# UpdatePromptPromptsResponseFormat
+# CreatePromptPromptsResponseFormat
 
 An object specifying the format that the model must output. 
 
@@ -11,15 +11,15 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 ## Supported Types
 
-### `models.UpdatePromptResponseFormatPrompts1`
+### `models.CreatePromptResponseFormatPrompts1`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts1 = /* values here */
+value: models.CreatePromptResponseFormatPrompts1 = /* values here */
 ```
 
-### `models.UpdatePromptResponseFormatPrompts2`
+### `models.CreatePromptResponseFormatPrompts2`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts2 = /* values here */
+value: models.CreatePromptResponseFormatPrompts2 = /* values here */
 ```
 

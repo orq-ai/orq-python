@@ -1,4 +1,4 @@
-# UpdatePromptPromptsFormat
+# CreatePromptPromptsFormat
 
 Only supported on `image` models.
 

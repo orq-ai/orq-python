@@ -1,8 +1,8 @@
-# UpdatePromptResponseFormatPrompts2
+# CreatePromptResponseFormatPrompts2
 
 
 ## Fields
 
 | Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                                   | [models.UpdatePromptResponseFormatPromptsResponse200Type](../models/updatepromptresponseformatpromptsresponse200type.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |
+| `type`                                                                                                                   | [models.CreatePromptResponseFormatPromptsResponse200Type](../models/createpromptresponseformatpromptsresponse200type.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |

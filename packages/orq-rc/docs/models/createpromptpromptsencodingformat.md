@@ -1,4 +1,4 @@
-# UpdatePromptPromptsEncodingFormat
+# CreatePromptPromptsEncodingFormat
 
 The format to return the embeddings
 
