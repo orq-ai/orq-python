@@ -1,0 +1,10 @@
+# UpdateDatapointRequest
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `dataset_id`                                                                           | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `datapoint_id`                                                                         | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `request_body`                                                                         | [Optional[models.UpdateDatapointRequestBody]](../models/updatedatapointrequestbody.md) | :heavy_minus_sign:                                                                     | N/A                                                                                    |

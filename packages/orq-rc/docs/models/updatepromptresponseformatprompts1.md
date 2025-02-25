@@ -1,9 +1,0 @@
-# UpdatePromptResponseFormatPrompts1
-
-
-## Fields
-
-| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                             | [models.UpdatePromptResponseFormatPromptsResponseType](../models/updatepromptresponseformatpromptsresponsetype.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
-| `json_schema`                                                                                                      | [models.UpdatePromptResponseFormatPromptsJSONSchema](../models/updatepromptresponseformatpromptsjsonschema.md)     | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

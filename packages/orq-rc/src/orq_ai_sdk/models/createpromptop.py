@@ -47,13 +47,13 @@ class CreatePromptResponseFormat2(BaseModel):
 CreatePromptResponseFormatType = Literal["json_schema"]
 
 
-class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class ResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class CreatePromptResponseFormatJSONSchema(BaseModel):
+class ResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -63,13 +63,13 @@ class CreatePromptResponseFormatJSONSchema(BaseModel):
 
 class CreatePromptResponseFormat1TypedDict(TypedDict):
     type: CreatePromptResponseFormatType
-    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
+    json_schema: ResponseFormatJSONSchemaTypedDict
 
 
 class CreatePromptResponseFormat1(BaseModel):
     type: CreatePromptResponseFormatType
 
-    json_schema: CreatePromptResponseFormatJSONSchema
+    json_schema: ResponseFormatJSONSchema
 
 
 CreatePromptResponseFormatTypedDict = TypeAliasType(
@@ -152,6 +152,8 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[CreatePromptReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    budget_tokens: NotRequired[float]
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
 
 class CreatePromptModelParameters(BaseModel):
@@ -225,6 +227,11 @@ class CreatePromptModelParameters(BaseModel):
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+    budget_tokens: Annotated[Optional[float], pydantic.Field(alias="budgetTokens")] = (
+        None
+    )
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -244,6 +251,7 @@ class CreatePromptModelParameters(BaseModel):
             "photoRealVersion",
             "encoding_format",
             "reasoningEffort",
+            "budgetTokens",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -598,13 +606,13 @@ class CreatePromptResponseFormatPrompts2(BaseModel):
 CreatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
 
 
-class CreatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     strict: bool
     schema_: Dict[str, Any]
 
 
-class CreatePromptResponseFormatPromptsJSONSchema(BaseModel):
+class CreatePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     strict: bool
@@ -614,13 +622,13 @@ class CreatePromptResponseFormatPromptsJSONSchema(BaseModel):
 
 class CreatePromptResponseFormatPrompts1TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsResponseType
-    json_schema: CreatePromptResponseFormatPromptsJSONSchemaTypedDict
+    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
 
 
 class CreatePromptResponseFormatPrompts1(BaseModel):
     type: CreatePromptResponseFormatPromptsResponseType
 
-    json_schema: CreatePromptResponseFormatPromptsJSONSchema
+    json_schema: CreatePromptResponseFormatJSONSchema
 
 
 CreatePromptPromptsResponseFormatTypedDict = TypeAliasType(
@@ -706,6 +714,8 @@ class CreatePromptPromptsModelParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[CreatePromptPromptsReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    budget_tokens: NotRequired[float]
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
 
 class CreatePromptPromptsModelParameters(BaseModel):
@@ -781,6 +791,11 @@ class CreatePromptPromptsModelParameters(BaseModel):
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+    budget_tokens: Annotated[Optional[float], pydantic.Field(alias="budgetTokens")] = (
+        None
+    )
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -800,6 +815,7 @@ class CreatePromptPromptsModelParameters(BaseModel):
             "photoRealVersion",
             "encoding_format",
             "reasoningEffort",
+            "budgetTokens",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []

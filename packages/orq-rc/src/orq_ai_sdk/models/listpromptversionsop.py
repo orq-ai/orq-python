@@ -51,8 +51,6 @@ class ListPromptVersionsRequest(BaseModel):
 
 ListPromptVersionsObject = Literal["list"]
 
-ListPromptVersionsType = Literal["prompt"]
-
 ListPromptVersionsModelType = Literal[
     "chat",
     "completion",
@@ -194,6 +192,8 @@ class ListPromptVersionsModelParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[ListPromptVersionsReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    budget_tokens: NotRequired[float]
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
 
 class ListPromptVersionsModelParameters(BaseModel):
@@ -269,6 +269,11 @@ class ListPromptVersionsModelParameters(BaseModel):
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+    budget_tokens: Annotated[Optional[float], pydantic.Field(alias="budgetTokens")] = (
+        None
+    )
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -288,6 +293,7 @@ class ListPromptVersionsModelParameters(BaseModel):
             "photoRealVersion",
             "encoding_format",
             "reasoningEffort",
+            "budgetTokens",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -430,7 +436,7 @@ ListPromptVersionsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-ListPromptVersionsPromptsType = Literal["function"]
+ListPromptVersionsType = Literal["function"]
 
 
 class ListPromptVersionsFunctionTypedDict(TypedDict):
@@ -447,14 +453,14 @@ class ListPromptVersionsFunction(BaseModel):
 
 
 class ListPromptVersionsToolCallsTypedDict(TypedDict):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
     function: ListPromptVersionsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class ListPromptVersionsToolCalls(BaseModel):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
 
     function: ListPromptVersionsFunction
 
@@ -606,7 +612,6 @@ class ListPromptVersionsMetadata(BaseModel):
 
 class ListPromptVersionsDataTypedDict(TypedDict):
     id: str
-    type: ListPromptVersionsType
     prompt_config: ListPromptVersionsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     timestamp: str
@@ -619,8 +624,6 @@ class ListPromptVersionsDataTypedDict(TypedDict):
 
 class ListPromptVersionsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
-
-    type: ListPromptVersionsType
 
     prompt_config: ListPromptVersionsPromptConfig
     r"""A list of messages compatible with the openAI schema"""

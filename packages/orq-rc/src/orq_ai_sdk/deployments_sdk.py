@@ -6,7 +6,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.metrics import Metrics
 from orq_ai_sdk.types import OptionalNullable, UNSET
-from orq_ai_sdk.utils import eventstreaming, get_security_from_env
+from orq_ai_sdk.utils import get_security_from_env
 from typing import Any, Dict, List, Mapping, Optional, Union
 
 
@@ -54,6 +54,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentsRequest(
             limit=limit,
@@ -87,6 +89,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="Deployments",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -159,6 +162,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentsRequest(
             limit=limit,
@@ -192,6 +197,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="Deployments",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -303,6 +309,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentGetConfigRequestBody(
             key=key,
@@ -355,6 +363,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -464,6 +473,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentGetConfigRequestBody(
             key=key,
@@ -516,6 +527,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -610,6 +622,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.Deployments(
             key=key,
@@ -665,6 +679,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeploymentInvoke",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -759,6 +774,8 @@ class DeploymentsSDK(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = models.Deployments(
             key=key,
@@ -814,6 +831,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="DeploymentInvoke",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
@@ -831,340 +849,6 @@ class DeploymentsSDK(BaseSDK):
             )
         if utils.match_response(http_res, "204", "*"):
             return None
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def stream(
-        self,
-        *,
-        key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentStreamInputs],
-                Dict[str, models.DeploymentStreamInputsTypedDict],
-            ]
-        ] = None,
-        context: Optional[Dict[str, Any]] = None,
-        prefix_messages: Optional[
-            Union[
-                List[models.DeploymentStreamPrefixMessages],
-                List[models.DeploymentStreamPrefixMessagesTypedDict],
-            ]
-        ] = None,
-        messages: Optional[
-            Union[
-                List[models.DeploymentStreamMessages],
-                List[models.DeploymentStreamMessagesTypedDict],
-            ]
-        ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
-        documents: Optional[
-            Union[
-                List[models.DeploymentStreamDocuments],
-                List[models.DeploymentStreamDocumentsTypedDict],
-            ]
-        ] = None,
-        invoke_options: Optional[
-            Union[
-                models.DeploymentStreamInvokeOptions,
-                models.DeploymentStreamInvokeOptionsTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStream[models.DeploymentStreamResponseBody]]:
-        r"""Stream
-
-        Stream deployment generation. Only supported for completions and chat completions.
-
-        :param key: The deployment key to invoke
-        :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
-        :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
-        :param messages: A list of messages to send to the deployment.
-        :param file_ids: A list of file IDs that are associated with the deployment request.
-        :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
-        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
-        :param invoke_options:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        request = models.DeploymentStreamRequestBody(
-            key=key,
-            inputs=inputs,
-            context=context,
-            prefix_messages=utils.get_pydantic_model(
-                prefix_messages, Optional[List[models.DeploymentStreamPrefixMessages]]
-            ),
-            messages=utils.get_pydantic_model(
-                messages, Optional[List[models.DeploymentStreamMessages]]
-            ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
-            documents=utils.get_pydantic_model(
-                documents, Optional[List[models.DeploymentStreamDocuments]]
-            ),
-            invoke_options=utils.get_pydantic_model(
-                invoke_options, Optional[models.DeploymentStreamInvokeOptions]
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/v2/deployments/stream",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="text/event-stream",
-            http_headers=http_headers,
-            _globals=models.DeploymentStreamGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeploymentStreamRequestBody
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                operation_id="DeploymentStream",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            stream=True,
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "text/event-stream"):
-            return eventstreaming.EventStream(
-                http_res,
-                lambda raw: utils.unmarshal_json(
-                    raw, models.DeploymentStreamResponseBody
-                ),
-                sentinel="[DONE]",
-            )
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise models.APIError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def stream_async(
-        self,
-        *,
-        key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentStreamInputs],
-                Dict[str, models.DeploymentStreamInputsTypedDict],
-            ]
-        ] = None,
-        context: Optional[Dict[str, Any]] = None,
-        prefix_messages: Optional[
-            Union[
-                List[models.DeploymentStreamPrefixMessages],
-                List[models.DeploymentStreamPrefixMessagesTypedDict],
-            ]
-        ] = None,
-        messages: Optional[
-            Union[
-                List[models.DeploymentStreamMessages],
-                List[models.DeploymentStreamMessagesTypedDict],
-            ]
-        ] = None,
-        file_ids: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        extra_params: Optional[Dict[str, Any]] = None,
-        documents: Optional[
-            Union[
-                List[models.DeploymentStreamDocuments],
-                List[models.DeploymentStreamDocumentsTypedDict],
-            ]
-        ] = None,
-        invoke_options: Optional[
-            Union[
-                models.DeploymentStreamInvokeOptions,
-                models.DeploymentStreamInvokeOptionsTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStreamAsync[models.DeploymentStreamResponseBody]]:
-        r"""Stream
-
-        Stream deployment generation. Only supported for completions and chat completions.
-
-        :param key: The deployment key to invoke
-        :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
-        :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
-        :param messages: A list of messages to send to the deployment.
-        :param file_ids: A list of file IDs that are associated with the deployment request.
-        :param metadata: Key-value pairs that you want to attach to the log generated by this request.
-        :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
-        :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
-        :param invoke_options:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-
-        request = models.DeploymentStreamRequestBody(
-            key=key,
-            inputs=inputs,
-            context=context,
-            prefix_messages=utils.get_pydantic_model(
-                prefix_messages, Optional[List[models.DeploymentStreamPrefixMessages]]
-            ),
-            messages=utils.get_pydantic_model(
-                messages, Optional[List[models.DeploymentStreamMessages]]
-            ),
-            file_ids=file_ids,
-            metadata=metadata,
-            extra_params=extra_params,
-            documents=utils.get_pydantic_model(
-                documents, Optional[List[models.DeploymentStreamDocuments]]
-            ),
-            invoke_options=utils.get_pydantic_model(
-                invoke_options, Optional[models.DeploymentStreamInvokeOptions]
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/v2/deployments/stream",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="text/event-stream",
-            http_headers=http_headers,
-            _globals=models.DeploymentStreamGlobals(
-                environment=self.sdk_configuration.globals.environment,
-                contact_id=self.sdk_configuration.globals.contact_id,
-            ),
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeploymentStreamRequestBody
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                operation_id="DeploymentStream",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            stream=True,
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "text/event-stream"):
-            return eventstreaming.EventStreamAsync(
-                http_res,
-                lambda raw: utils.unmarshal_json(
-                    raw, models.DeploymentStreamResponseBody
-                ),
-                sentinel="[DONE]",
-            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError(

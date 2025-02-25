@@ -6,10 +6,10 @@
 ### Available Operations
 
 * [list](#list) - List all prompts
-* [create](#create) - Create a prompt
 * [retrieve](#retrieve) - Retrieve a prompt
 * [update](#update) - Update a prompt
 * [delete](#delete) - Delete a prompt
+* [create](#create) - Create a prompt
 * [list_versions](#list_versions) - List all prompt versions
 * [get_version](#get_version) - Retrieve a prompt version
 
@@ -48,80 +48,6 @@ with Orq(
 ### Response
 
 **[models.GetAllPromptsResponseBody](../../models/getallpromptsresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## create
-
-Create a prompt
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.prompts.create(request={
-        "display_name": "Jed6",
-        "prompt_config": {
-            "messages": [
-                {
-                    "role": "system",
-                    "content": "<value>",
-                },
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": "https://well-worn-formation.biz",
-                            },
-                        },
-                        {
-                            "type": "text",
-                            "text": "<value>",
-                        },
-                        {
-                            "type": "text",
-                            "text": "<value>",
-                        },
-                    ],
-                },
-                {
-                    "role": "assistant",
-                    "content": "<value>",
-                },
-            ],
-        },
-        "path": "Customer Service/Billing/Refund",
-    })
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `request`                                                                 | [models.CreatePromptRequestBody](../../models/createpromptrequestbody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
-| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
-
-### Response
-
-**[models.CreatePromptResponseBody](../../models/createpromptresponsebody.md)**
 
 ### Errors
 
@@ -205,7 +131,7 @@ with Orq(
 | `updated_by_id`                                                                                                                                            | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
 | `display_name`                                                                                                                                             | *Optional[str]*                                                                                                                                            | :heavy_minus_sign:                                                                                                                                         | The prompt’s name, meant to be displayable in the UI.                                                                                                      |
 | `description`                                                                                                                                              | *OptionalNullable[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                         | The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose |
-| `prompt_config`                                                                                                                                            | [Optional[models.UpdatePromptPromptConfig]](../../models/updatepromptpromptconfig.md)                                                                      | :heavy_minus_sign:                                                                                                                                         | A list of messages compatible with the openAI schema                                                                                                       |
+| `prompt_config`                                                                                                                                            | [Optional[models.PromptConfig]](../../models/promptconfig.md)                                                                                              | :heavy_minus_sign:                                                                                                                                         | A list of messages compatible with the openAI schema                                                                                                       |
 | `metadata`                                                                                                                                                 | [Optional[models.UpdatePromptMetadata]](../../models/updatepromptmetadata.md)                                                                              | :heavy_minus_sign:                                                                                                                                         | N/A                                                                                                                                                        |
 | `retries`                                                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                           | :heavy_minus_sign:                                                                                                                                         | Configuration to override the default retry behavior of the client.                                                                                        |
 
@@ -246,6 +172,80 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the prompt                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## create
+
+Create a prompt
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.prompts.create(request={
+        "display_name": "Jed6",
+        "prompt_config": {
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "<value>",
+                },
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": "https://well-worn-formation.biz",
+                            },
+                        },
+                        {
+                            "type": "text",
+                            "text": "<value>",
+                        },
+                        {
+                            "type": "text",
+                            "text": "<value>",
+                        },
+                    ],
+                },
+                {
+                    "role": "assistant",
+                    "content": "<value>",
+                },
+            ],
+        },
+        "path": "Customer Service/Billing/Refund",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `request`                                                                 | [models.CreatePromptRequestBody](../../models/createpromptrequestbody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
+| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
+
+### Response
+
+**[models.CreatePromptResponseBody](../../models/createpromptresponsebody.md)**
 
 ### Errors
 
