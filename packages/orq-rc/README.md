@@ -194,6 +194,21 @@ with Orq(
 
 * [create](docs/sdks/contacts/README.md#create) - Update user information
 
+### [datasets](docs/sdks/datasets/README.md)
+
+* [list](docs/sdks/datasets/README.md#list) - List datasets
+* [create](docs/sdks/datasets/README.md#create) - Create a dataset
+* [retrieve](docs/sdks/datasets/README.md#retrieve) - Retrieve a dataset
+* [update](docs/sdks/datasets/README.md#update) - Update a dataset
+* [delete](docs/sdks/datasets/README.md#delete) - Delete a dataset
+* [list_datapoints](docs/sdks/datasets/README.md#list_datapoints) - List datapoints
+* [create_datapoint](docs/sdks/datasets/README.md#create_datapoint) - Create a datapoint
+* [retrieve_datapoint](docs/sdks/datasets/README.md#retrieve_datapoint) - Retrieve a datapoint
+* [update_datapoint](docs/sdks/datasets/README.md#update_datapoint) - Update a datapoint
+* [delete_datapoint](docs/sdks/datasets/README.md#delete_datapoint) - Delete a datapoint
+* [create_datapoints](docs/sdks/datasets/README.md#create_datapoints) - Create multiple datapoints
+* [clear](docs/sdks/datasets/README.md#clear) - Delete all datapoints
+
 ### [deployments](docs/sdks/deploymentssdk/README.md)
 
 * [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments

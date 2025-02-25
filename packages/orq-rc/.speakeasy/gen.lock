@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 46902c82f00390a0774d4f5489dad5fa
+  docChecksum: 6cf4ac024897337c30d2c1b57385c9aa
   docVersion: "2.0"
-  speakeasyVersion: 1.501.1
-  generationVersion: 2.522.5
-  releaseVersion: 3.2.0-rc.11
-  configChecksum: 09c4e725f401943028d8a44cf6bb703a
+  speakeasyVersion: 1.502.0
+  generationVersion: 2.524.1
+  releaseVersion: 3.2.0-rc.12
+  configChecksum: cdb7bf291deb432a450a0e0763991243
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -45,11 +45,68 @@ generatedFiles:
   - .python-version
   - .vscode/settings.json
   - USAGE.md
+  - docs/models/bulkcreatedatapoints21.md
+  - docs/models/bulkcreatedatapoints22.md
+  - docs/models/bulkcreatedatapoints2datasets1.md
+  - docs/models/bulkcreatedatapoints2datasets2.md
+  - docs/models/bulkcreatedatapoints2datasetsimageurl.md
+  - docs/models/bulkcreatedatapoints2datasetsresponse200type.md
+  - docs/models/bulkcreatedatapoints2datasetsresponsetype.md
+  - docs/models/bulkcreatedatapoints2datasetstype.md
+  - docs/models/bulkcreatedatapoints2imageurl.md
+  - docs/models/bulkcreatedatapoints2type.md
+  - docs/models/bulkcreatedatapointscontent.md
+  - docs/models/bulkcreatedatapointscontent2.md
+  - docs/models/bulkcreatedatapointscontentdatasets2.md
+  - docs/models/bulkcreatedatapointsdatasetscontent.md
+  - docs/models/bulkcreatedatapointsdatasetsfunction.md
+  - docs/models/bulkcreatedatapointsdatasetsmessages.md
+  - docs/models/bulkcreatedatapointsdatasetsrole.md
+  - docs/models/bulkcreatedatapointsdatasetstoolcalls.md
+  - docs/models/bulkcreatedatapointsdatasetstype.md
+  - docs/models/bulkcreatedatapointsfunction.md
+  - docs/models/bulkcreatedatapointsmessages.md
+  - docs/models/bulkcreatedatapointsrequest.md
+  - docs/models/bulkcreatedatapointsrequestbody.md
+  - docs/models/bulkcreatedatapointsrole.md
+  - docs/models/bulkcreatedatapointstoolcalls.md
+  - docs/models/bulkcreatedatapointstype.md
   - docs/models/choices.md
+  - docs/models/cleardatasetrequest.md
   - docs/models/content.md
   - docs/models/content2.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
+  - docs/models/createdatasetitem21.md
+  - docs/models/createdatasetitem22.md
+  - docs/models/createdatasetitem2datasets1.md
+  - docs/models/createdatasetitem2datasets2.md
+  - docs/models/createdatasetitem2datasetsimageurl.md
+  - docs/models/createdatasetitem2datasetsresponse200type.md
+  - docs/models/createdatasetitem2datasetsresponsetype.md
+  - docs/models/createdatasetitem2datasetstype.md
+  - docs/models/createdatasetitem2imageurl.md
+  - docs/models/createdatasetitem2type.md
+  - docs/models/createdatasetitemcontent.md
+  - docs/models/createdatasetitemcontent2.md
+  - docs/models/createdatasetitemcontentdatasets2.md
+  - docs/models/createdatasetitemdatasetscontent.md
+  - docs/models/createdatasetitemdatasetsfunction.md
+  - docs/models/createdatasetitemdatasetsmessages.md
+  - docs/models/createdatasetitemdatasetsrole.md
+  - docs/models/createdatasetitemdatasetstoolcalls.md
+  - docs/models/createdatasetitemdatasetstype.md
+  - docs/models/createdatasetitemfunction.md
+  - docs/models/createdatasetitemmessages.md
+  - docs/models/createdatasetitemrequest.md
+  - docs/models/createdatasetitemrequestbody.md
+  - docs/models/createdatasetitemresponsebody.md
+  - docs/models/createdatasetitemrole.md
+  - docs/models/createdatasetitemtoolcalls.md
+  - docs/models/createdatasetitemtype.md
+  - docs/models/createdatasetmetadata.md
+  - docs/models/createdatasetrequestbody.md
+  - docs/models/createdatasetresponsebody.md
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
@@ -101,6 +158,8 @@ generatedFiles:
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
   - docs/models/data.md
+  - docs/models/deletedatapointrequest.md
+  - docs/models/deletedatasetrequest.md
   - docs/models/deletepromptrequest.md
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
@@ -358,8 +417,30 @@ generatedFiles:
   - docs/models/inputs.md
   - docs/models/internal/globals.md
   - docs/models/invokeoptions.md
+  - docs/models/items.md
   - docs/models/jsonschema.md
   - docs/models/language.md
+  - docs/models/listdatasetdatapoints21.md
+  - docs/models/listdatasetdatapoints22.md
+  - docs/models/listdatasetdatapoints2datasetstype.md
+  - docs/models/listdatasetdatapoints2imageurl.md
+  - docs/models/listdatasetdatapoints2type.md
+  - docs/models/listdatasetdatapointscontent.md
+  - docs/models/listdatasetdatapointscontent2.md
+  - docs/models/listdatasetdatapointsdata.md
+  - docs/models/listdatasetdatapointsfunction.md
+  - docs/models/listdatasetdatapointsmessages.md
+  - docs/models/listdatasetdatapointsobject.md
+  - docs/models/listdatasetdatapointsrequest.md
+  - docs/models/listdatasetdatapointsresponsebody.md
+  - docs/models/listdatasetdatapointsrole.md
+  - docs/models/listdatasetdatapointstoolcalls.md
+  - docs/models/listdatasetdatapointstype.md
+  - docs/models/listdatasetsdata.md
+  - docs/models/listdatasetsmetadata.md
+  - docs/models/listdatasetsobject.md
+  - docs/models/listdatasetsrequest.md
+  - docs/models/listdatasetsresponsebody.md
   - docs/models/listpromptversions21.md
   - docs/models/listpromptversions22.md
   - docs/models/listpromptversions2imageurl.md
@@ -420,12 +501,30 @@ generatedFiles:
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
   - docs/models/remoteconfigsgetconfigtype.md
+  - docs/models/responsebody.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
   - docs/models/responseformatjsonschema.md
   - docs/models/responseformattype.md
   - docs/models/retrievals.md
+  - docs/models/retrievedatapoint21.md
+  - docs/models/retrievedatapoint22.md
+  - docs/models/retrievedatapoint2datasetstype.md
+  - docs/models/retrievedatapoint2imageurl.md
+  - docs/models/retrievedatapoint2type.md
+  - docs/models/retrievedatapointcontent.md
+  - docs/models/retrievedatapointcontent2.md
+  - docs/models/retrievedatapointfunction.md
+  - docs/models/retrievedatapointmessages.md
+  - docs/models/retrievedatapointrequest.md
+  - docs/models/retrievedatapointresponsebody.md
+  - docs/models/retrievedatapointrole.md
+  - docs/models/retrievedatapointtoolcalls.md
+  - docs/models/retrievedatapointtype.md
+  - docs/models/retrievedatasetmetadata.md
+  - docs/models/retrievedatasetrequest.md
+  - docs/models/retrievedatasetresponsebody.md
   - docs/models/role.md
   - docs/models/security.md
   - docs/models/three.md
@@ -437,6 +536,37 @@ generatedFiles:
   - docs/models/twoimageurl.md
   - docs/models/twotype.md
   - docs/models/type.md
+  - docs/models/updatedatapoint21.md
+  - docs/models/updatedatapoint22.md
+  - docs/models/updatedatapoint2datasets1.md
+  - docs/models/updatedatapoint2datasets2.md
+  - docs/models/updatedatapoint2datasetsimageurl.md
+  - docs/models/updatedatapoint2datasetsresponse200type.md
+  - docs/models/updatedatapoint2datasetsresponsetype.md
+  - docs/models/updatedatapoint2datasetstype.md
+  - docs/models/updatedatapoint2imageurl.md
+  - docs/models/updatedatapoint2type.md
+  - docs/models/updatedatapointcontent.md
+  - docs/models/updatedatapointcontent2.md
+  - docs/models/updatedatapointcontentdatasets2.md
+  - docs/models/updatedatapointdatasetscontent.md
+  - docs/models/updatedatapointdatasetsfunction.md
+  - docs/models/updatedatapointdatasetsmessages.md
+  - docs/models/updatedatapointdatasetsrole.md
+  - docs/models/updatedatapointdatasetstoolcalls.md
+  - docs/models/updatedatapointdatasetstype.md
+  - docs/models/updatedatapointfunction.md
+  - docs/models/updatedatapointmessages.md
+  - docs/models/updatedatapointrequest.md
+  - docs/models/updatedatapointrequestbody.md
+  - docs/models/updatedatapointresponsebody.md
+  - docs/models/updatedatapointrole.md
+  - docs/models/updatedatapointtoolcalls.md
+  - docs/models/updatedatapointtype.md
+  - docs/models/updatedatasetmetadata.md
+  - docs/models/updatedatasetrequest.md
+  - docs/models/updatedatasetrequestbody.md
+  - docs/models/updatedatasetresponsebody.md
   - docs/models/updateprompt21.md
   - docs/models/updateprompt22.md
   - docs/models/updateprompt2imageurl.md
@@ -506,6 +636,7 @@ generatedFiles:
   - docs/models/utils/retryconfig.md
   - docs/models/value.md
   - docs/sdks/contacts/README.md
+  - docs/sdks/datasets/README.md
   - docs/sdks/deploymentssdk/README.md
   - docs/sdks/feedback/README.md
   - docs/sdks/files/README.md
@@ -526,6 +657,7 @@ generatedFiles:
   - src/orq_ai_sdk/_version.py
   - src/orq_ai_sdk/basesdk.py
   - src/orq_ai_sdk/contacts.py
+  - src/orq_ai_sdk/datasets.py
   - src/orq_ai_sdk/deployments_sdk.py
   - src/orq_ai_sdk/feedback.py
   - src/orq_ai_sdk/files.py
@@ -533,9 +665,15 @@ generatedFiles:
   - src/orq_ai_sdk/metrics.py
   - src/orq_ai_sdk/models/__init__.py
   - src/orq_ai_sdk/models/apierror.py
+  - src/orq_ai_sdk/models/bulkcreatedatapointsop.py
+  - src/orq_ai_sdk/models/cleardatasetop.py
   - src/orq_ai_sdk/models/createcontactop.py
+  - src/orq_ai_sdk/models/createdatasetitemop.py
+  - src/orq_ai_sdk/models/createdatasetop.py
   - src/orq_ai_sdk/models/createfeedbackop.py
   - src/orq_ai_sdk/models/createpromptop.py
+  - src/orq_ai_sdk/models/deletedatapointop.py
+  - src/orq_ai_sdk/models/deletedatasetop.py
   - src/orq_ai_sdk/models/deletepromptop.py
   - src/orq_ai_sdk/models/deploymentcreatemetricop.py
   - src/orq_ai_sdk/models/deploymentgetconfigop.py
@@ -552,9 +690,15 @@ generatedFiles:
   - src/orq_ai_sdk/models/honoapierror.py
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
+  - src/orq_ai_sdk/models/listdatasetdatapointsop.py
+  - src/orq_ai_sdk/models/listdatasetsop.py
   - src/orq_ai_sdk/models/listpromptversionsop.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
+  - src/orq_ai_sdk/models/retrievedatapointop.py
+  - src/orq_ai_sdk/models/retrievedatasetop.py
   - src/orq_ai_sdk/models/security.py
+  - src/orq_ai_sdk/models/updatedatapointop.py
+  - src/orq_ai_sdk/models/updatedatasetop.py
   - src/orq_ai_sdk/models/updatepromptop.py
   - src/orq_ai_sdk/prompts.py
   - src/orq_ai_sdk/py.typed
@@ -822,5 +966,69 @@ examples:
           application/json: {"_id": "<id>", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}]}, "timestamp": "<value>"}
         "404":
           application/json: {"message": "<value>"}
+  ListDatasets:
+    speakeasy-default-list-datasets:
+      parameters:
+        query:
+          limit: 10
+  CreateDataset:
+    speakeasy-default-create-dataset:
+      requestBody:
+        application/json: {"display_name": "Jed6", "path": "Customer Service/Billing/Refund"}
+  RetrieveDataset:
+    speakeasy-default-retrieve-dataset:
+      parameters:
+        path:
+          dataset_id: "<id>"
+  UpdateDataset:
+    speakeasy-default-update-dataset:
+      parameters:
+        path:
+          dataset_id: "<id>"
+  DeleteDataset:
+    speakeasy-default-delete-dataset:
+      parameters:
+        path:
+          dataset_id: "<id>"
+  ListDatasetDatapoints:
+    speakeasy-default-list-dataset-datapoints:
+      parameters:
+        path:
+          dataset_id: "<id>"
+        query:
+          limit: 10
+  CreateDatasetItem:
+    speakeasy-default-create-dataset-item:
+      parameters:
+        path:
+          dataset_id: "<id>"
+  RetrieveDatapoint:
+    speakeasy-default-retrieve-datapoint:
+      parameters:
+        path:
+          dataset_id: "<id>"
+          datapoint_id: "<id>"
+  UpdateDatapoint:
+    speakeasy-default-update-datapoint:
+      parameters:
+        path:
+          dataset_id: "<id>"
+          datapoint_id: "<id>"
+  DeleteDatapoint:
+    speakeasy-default-delete-datapoint:
+      parameters:
+        path:
+          dataset_id: "<id>"
+          datapoint_id: "<id>"
+  BulkCreateDatapoints:
+    speakeasy-default-bulk-create-datapoints:
+      parameters:
+        path:
+          dataset_id: "<id>"
+  ClearDataset:
+    speakeasy-default-clear-dataset:
+      parameters:
+        path:
+          dataset_id: "<id>"
 examplesVersion: 1.0.0
 generatedTests: {}

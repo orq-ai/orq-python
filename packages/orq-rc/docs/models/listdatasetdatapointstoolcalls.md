@@ -1,0 +1,11 @@
+# ListDatasetDatapointsToolCalls
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `type`                                                                             | [models.ListDatasetDatapointsType](../models/listdatasetdatapointstype.md)         | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `function`                                                                         | [models.ListDatasetDatapointsFunction](../models/listdatasetdatapointsfunction.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `id`                                                                               | *Optional[str]*                                                                    | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `index`                                                                            | *Optional[float]*                                                                  | :heavy_minus_sign:                                                                 | N/A                                                                                |
