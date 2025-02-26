@@ -141,11 +141,22 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     elif isinstance(message, SystemMessage):
                         normalize_messages.append(ChoiceMessage(role=LlmRole.SYSTEM, content=message.content))
 
-            self.events[str(run_id)] = LlmEvent(parameters={
-                "serialized": serialized,
-                "metadata": metadata,
-                "kwargs": kwargs,
-            }, messages=normalize_messages, run_id=str(run_id), parent_run_id=str(parent_run_id))
+            trace_id = None
+
+            if str(parent_run_id):
+                self.get_chain_trace_id(str(parent_run_id))
+
+            self.events[str(run_id)] = LlmEvent(
+                parameters={
+                    "serialized": serialized,
+                    "metadata": metadata,
+                    "kwargs": kwargs,
+                },
+                messages=normalize_messages,
+                run_id=str(run_id),
+                parent_run_id=str(parent_run_id),
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Chat model start error: {e}")
         
@@ -215,13 +226,24 @@ class OrqLangchainCallback(BaseCallbackHandler):
             else:
                 this.chain_parent_id_mappers[str(run_id)] = None
 
+            trace_id = None
 
-            self.events[str(run_id)] = ChainEvent(parameters={
-                "serialized": serialized,
-                "metadata": metadata,
-                "kwargs": kwargs,
-                "tags": tags
-            }, inputs=inputs, run_id=str(run_id), parent_run_id=str(parent_run_id))
+            if str(parent_run_id):
+                self.get_chain_trace_id(str(parent_run_id))
+
+
+            self.events[str(run_id)] = ChainEvent(
+                parameters={
+                    "serialized": serialized,
+                    "metadata": metadata,
+                    "kwargs": kwargs,
+                    "tags": tags
+                },
+                inputs=inputs,
+                run_id=str(run_id),
+                parent_run_id=str(parent_run_id),
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Chain start error: {e}")
 
@@ -255,12 +277,23 @@ class OrqLangchainCallback(BaseCallbackHandler):
         **kwargs: Any,
     ) -> None:
         try:
-            self.events[str(run_id)] = RetrievalEvent(parameters={
-                "serialized": serialized,
-                "tags": tags,
-                "metadata": metadata,
-                "kwargs": kwargs,
-            }, query= query, run_id=str(run_id), parent_run_id=str(parent_run_id))
+            trace_id = None
+
+            if str(parent_run_id):
+                self.get_chain_trace_id(str(parent_run_id))
+
+            self.events[str(run_id)] = RetrievalEvent(
+                parameters={
+                    "serialized": serialized,
+                    "tags": tags,
+                    "metadata": metadata,
+                    "kwargs": kwargs,
+                },
+                query= query,
+                run_id=str(run_id),
+                parent_run_id=str(parent_run_id),
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Retriever start error: {e}")
 
@@ -292,9 +325,20 @@ class OrqLangchainCallback(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         try:
-            self.events[str(run_id)] = AgentEvent(parameters={
-                "kwargs": kwargs,
-            }, action= action, run_id=str(run_id), parent_run_id=str(parent_run_id))
+            trace_id = None
+
+            if str(parent_run_id):
+                self.get_chain_trace_id(str(parent_run_id))
+
+            self.events[str(run_id)] = AgentEvent(
+                    parameters={
+                    "kwargs": kwargs,
+                },
+                action= action,
+                run_id=str(run_id),
+                parent_run_id=str(parent_run_id),
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Agent action error: {e}")
 
@@ -328,12 +372,23 @@ class OrqLangchainCallback(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         try:
-            self.events[str(run_id)] = ToolEvent(parameters={
-                "kwargs": kwargs,
-                "tags": tags,
-                "metadata": metadata,
-                "serialized": serialized,
-            }, input_str= input_str, run_id=str(run_id), parent_run_id=str(parent_run_id))
+            trace_id = None
+
+            if str(parent_run_id):
+                self.get_chain_trace_id(str(parent_run_id))
+
+            self.events[str(run_id)] = ToolEvent(
+                    parameters={
+                    "kwargs": kwargs,
+                    "tags": tags,
+                    "metadata": metadata,
+                    "serialized": serialized,
+                },
+                input_str= input_str,
+                run_id=str(run_id),
+                parent_run_id=str(parent_run_id),
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Tool start error: {e}")
 
