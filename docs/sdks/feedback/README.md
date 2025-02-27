@@ -17,6 +17,7 @@ Submit feedback for the LLM transaction via the API
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:

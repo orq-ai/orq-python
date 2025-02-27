@@ -118,6 +118,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -140,6 +141,7 @@ from orq_ai_sdk import Orq
 import os
 
 async def main():
+
     async with Orq(
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
@@ -170,6 +172,7 @@ To authenticate with the API the `api_key` parameter must be set when initializi
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -251,6 +254,7 @@ underlying connection when the context is exited.
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -285,6 +289,7 @@ Certain SDK methods accept file objects as part of a request body or multi-part 
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -310,6 +315,7 @@ from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import BackoffStrategy, RetryConfig
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -329,6 +335,7 @@ If you'd like to override the default retry strategy for all operations that sup
 from orq_ai_sdk import Orq
 from orq_ai_sdk.utils import BackoffStrategy, RetryConfig
 import os
+
 
 with Orq(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
@@ -372,6 +379,7 @@ When custom error responses are specified for an operation, the SDK may also rai
 from orq_ai_sdk import Orq, models
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -399,10 +407,11 @@ with Orq(
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     server_url="https://my.orq.ai",
@@ -511,6 +520,7 @@ The `Orq` class implements the context manager protocol and registers a finalize
 from orq_ai_sdk import Orq
 import os
 def main():
+
     with Orq(
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
@@ -519,6 +529,7 @@ def main():
 
 # Or when using async:
 async def amain():
+
     async with Orq(
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:

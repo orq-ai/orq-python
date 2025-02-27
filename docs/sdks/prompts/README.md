@@ -23,6 +23,7 @@ Returns a list of your prompts. The prompts are returned sorted by creation date
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -64,6 +65,7 @@ Create a prompt
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -139,6 +141,7 @@ Retrieves a prompt object
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -178,6 +181,7 @@ Update a prompt
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -230,6 +234,7 @@ Delete a prompt
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -262,6 +267,7 @@ Returns a list of your prompt versions. The prompt versions are returned sorted 
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -305,6 +311,7 @@ Retrieves a specific version of a prompt by its ID and version ID.
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),

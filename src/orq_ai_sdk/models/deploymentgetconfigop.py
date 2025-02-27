@@ -695,6 +695,8 @@ class ParametersTypedDict(TypedDict):
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[DeploymentGetConfigReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    budget_tokens: NotRequired[float]
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
 
 class Parameters(BaseModel):
@@ -770,6 +772,11 @@ class Parameters(BaseModel):
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+    budget_tokens: Annotated[Optional[float], pydantic.Field(alias="budgetTokens")] = (
+        None
+    )
+    r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -789,6 +796,7 @@ class Parameters(BaseModel):
             "photoRealVersion",
             "encoding_format",
             "reasoningEffort",
+            "budgetTokens",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
