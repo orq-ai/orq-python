@@ -28,6 +28,7 @@ Retrieves a paginated list of datasets for the current workspace. Results can be
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -69,6 +70,7 @@ Creates a new dataset in the specified project.
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -113,6 +115,7 @@ Retrieves a specific dataset by its unique identifier
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -153,6 +156,7 @@ Update a dataset
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -196,6 +200,7 @@ Permanently deletes a dataset and all its datapoints. This action is irreversibl
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -228,6 +233,7 @@ Retrieves a paginated list of datapoints from a specific dataset.
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -272,6 +278,7 @@ Creates a new datapoint in the specified dataset.
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -315,6 +322,7 @@ Retrieves a datapoint object
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -356,6 +364,7 @@ Update a datapoint
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -402,6 +411,7 @@ Permanently deletes a specific datapoint from a dataset.
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -436,6 +446,7 @@ Create multiple datapoints at once.
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -479,6 +490,7 @@ Delete all datapoints from a dataset. This action is irreversible.
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
