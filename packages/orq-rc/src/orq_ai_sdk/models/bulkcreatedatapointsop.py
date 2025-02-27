@@ -387,5 +387,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-27T10:11:59.979Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-02-27T12:53:43.888Z")
     r"""The date and time the resource was last updated"""
