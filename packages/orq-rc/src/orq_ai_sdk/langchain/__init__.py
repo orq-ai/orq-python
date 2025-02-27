@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from enum import Enum
-from pydantic import BaseModel, Field
-from typing import Any, Dict, List, Optional, Sequence, Union
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, Dict, List, Literal, Optional, Sequence, Union
 from uuid import UUID
 
 import httpx
@@ -49,8 +49,8 @@ class Choice(BaseModel):
 
 class BaseEvent(BaseModel):
     type: EventType
-    parent_run_id: Optional[str] = None
-    run_id: str
+    parent_run_id: Optional[UUID] = None
+    run_id: UUID
     start_timestamp: str = Field(default_factory=get_iso_string)
     end_timestamp: Optional[str] = None
     parameters: Optional[dict] = {}
@@ -88,12 +88,12 @@ class OrqClient():
         self.api_key = api_key
         self.api_url = api_url
 
-    def log_event(self, event: Union[LlmEvent, RetrievalEvent, ChainEvent, ToolEvent, AgentEvent]):
+    def log_event(self, event: Union[LlmEvent, RetrievalEvent]):
         headers = {
             "Authorization": f"Bearer {self.api_key}"
         }
         
-        httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump())
+        httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump(mode="json", exclude_none=True))
 
 class OrqLangchainCallback(BaseCallbackHandler):
     """Base callback handler that can be used to handle callbacks from langchain."""
@@ -109,15 +109,27 @@ class OrqLangchainCallback(BaseCallbackHandler):
         prompts: List[str],
         *,
         run_id: UUID,
+        parent_run_id: Optional[UUID] = None,
         metadata: Optional[Dict[str, Any]] = None,
         **kwargs: Any,
     ) -> Any:
         try:
-            self.events[str(run_id)] = LlmEvent(parameters={
-                "serialized": serialized,
-                "metadata": metadata,
-                "kwargs": kwargs,
-            }, prompts=prompts, run_id=str(run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
+
+            self.events[str(run_id)] = LlmEvent(
+                parameters={
+                    "serialized": serialized,
+                    "metadata": metadata,
+                    "kwargs": kwargs,
+                },
+                prompts=prompts,
+                run_id=run_id,
+                parent_run_id=parent_run_id,
+                trace_id=trace_id
+            )
         except Exception as e:
             print(f"Llm start error: {e}")
 
@@ -143,8 +155,10 @@ class OrqLangchainCallback(BaseCallbackHandler):
 
             trace_id = None
 
-            if str(parent_run_id):
-                self.get_chain_trace_id(str(parent_run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
 
             self.events[str(run_id)] = LlmEvent(
                 parameters={
@@ -153,8 +167,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     "kwargs": kwargs,
                 },
                 messages=normalize_messages,
-                run_id=str(run_id),
-                parent_run_id=str(parent_run_id),
+                run_id=run_id,
+                parent_run_id=parent_run_id,
                 trace_id=trace_id
             )
         except Exception as e:
@@ -200,13 +214,13 @@ class OrqLangchainCallback(BaseCallbackHandler):
         except Exception as e:
             print(f"Llm end error: {e}")
 
-    def get_chain_trace_id(run_id: str):
-        parent_run_id = this.chain_parent_id_mappers[run_id]
+    def get_chain_trace_id(self, run_id: str):
+        parent_run_id = self.chain_parent_id_mappers[run_id] if run_id in self.chain_parent_id_mappers else None
 
-        if not parent_run_id:
+        if parent_run_id == None:
             return run_id
 
-        return get_chain_trace_id(this.chain_parent_id_mappers[run_id])
+        return self.get_chain_trace_id(self.chain_parent_id_mappers[run_id])
 
 
     def on_chain_start(
@@ -222,14 +236,16 @@ class OrqLangchainCallback(BaseCallbackHandler):
     ) -> Any:
         try:
             if parent_run_id:
-                this.chain_parent_id_mappers[str(run_id)] = str(parent_run_id)
+                self.chain_parent_id_mappers[str(run_id)] = str(parent_run_id)
             else:
-                this.chain_parent_id_mappers[str(run_id)] = None
+                self.chain_parent_id_mappers[str(run_id)] = None
 
             trace_id = None
 
-            if str(parent_run_id):
-                self.get_chain_trace_id(str(parent_run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
 
 
             self.events[str(run_id)] = ChainEvent(
@@ -240,8 +256,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     "tags": tags
                 },
                 inputs=inputs,
-                run_id=str(run_id),
-                parent_run_id=str(parent_run_id),
+                run_id=run_id,
+                parent_run_id=parent_run_id,
                 trace_id=trace_id
             )
         except Exception as e:
@@ -279,8 +295,10 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             trace_id = None
 
-            if str(parent_run_id):
-                self.get_chain_trace_id(str(parent_run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
 
             self.events[str(run_id)] = RetrievalEvent(
                 parameters={
@@ -290,8 +308,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     "kwargs": kwargs,
                 },
                 query= query,
-                run_id=str(run_id),
-                parent_run_id=str(parent_run_id),
+                run_id=run_id,
+                parent_run_id=parent_run_id,
                 trace_id=trace_id
             )
         except Exception as e:
@@ -327,16 +345,18 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             trace_id = None
 
-            if str(parent_run_id):
-                self.get_chain_trace_id(str(parent_run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
 
             self.events[str(run_id)] = AgentEvent(
                     parameters={
                     "kwargs": kwargs,
                 },
                 action= action,
-                run_id=str(run_id),
-                parent_run_id=str(parent_run_id),
+                run_id=run_id,
+                parent_run_id=parent_run_id,
                 trace_id=trace_id
             )
         except Exception as e:
@@ -374,8 +394,10 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             trace_id = None
 
-            if str(parent_run_id):
-                self.get_chain_trace_id(str(parent_run_id))
+            if parent_run_id:
+                trace_id = self.get_chain_trace_id(str(parent_run_id))
+            else:
+                trace_id = str(run_id)
 
             self.events[str(run_id)] = ToolEvent(
                     parameters={
@@ -385,8 +407,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
                     "serialized": serialized,
                 },
                 input_str= input_str,
-                run_id=str(run_id),
-                parent_run_id=str(parent_run_id),
+                run_id=run_id,
+                parent_run_id=parent_run_id,
                 trace_id=trace_id
             )
         except Exception as e:
