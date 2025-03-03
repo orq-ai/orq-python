@@ -129,7 +129,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
         if parent_run_id == None:
             return run_id
 
-        return self.__get_chain_trace_id(self.parent_id_mappers[run_id])
+        return self.__get_trace_id_from_mapper(self.parent_id_mappers[run_id])
 
     def on_llm_start(
         self,
