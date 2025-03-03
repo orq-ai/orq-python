@@ -89,7 +89,7 @@ class OrqClient():
         self.api_key = api_key
         self.api_url = api_url
 
-    def log_event(self, event: Union[LlmEvent, RetrievalEvent]):
+    def log_event(self, event: Union[AgentEvent, ChainEvent, LlmEvent, RetrievalEvent, ToolEvent]):
         headers = {
             "Authorization": f"Bearer {self.api_key}"
         }
