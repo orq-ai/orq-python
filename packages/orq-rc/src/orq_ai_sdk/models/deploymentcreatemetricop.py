@@ -491,17 +491,12 @@ class DeploymentCreateMetricRequest(BaseModel):
 class DeploymentCreateMetricResponseBodyTypedDict(TypedDict):
     r"""Successful operation"""
 
-    code: float
-    r"""The status code of the request"""
     success: bool
     r"""Whether the request was successful"""
 
 
 class DeploymentCreateMetricResponseBody(BaseModel):
     r"""Successful operation"""
-
-    code: float
-    r"""The status code of the request"""
 
     success: bool
     r"""Whether the request was successful"""
