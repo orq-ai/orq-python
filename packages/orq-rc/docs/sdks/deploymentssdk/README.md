@@ -19,6 +19,7 @@ Returns a list of your deployments. The deployments are returned sorted by creat
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -61,6 +62,7 @@ Retrieve the deployment configuration
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -110,6 +112,7 @@ Invoke a deployment with a given payload
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),

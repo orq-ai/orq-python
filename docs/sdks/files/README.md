@@ -20,6 +20,7 @@ Files are used to upload documents that can be used with features like [Deployme
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -59,6 +60,7 @@ Returns a list of the files that your account has access to. orq.ai sorts and re
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
@@ -102,6 +104,7 @@ Retrieves the details of an existing file object. After you supply a unique file
 from orq_ai_sdk import Orq
 import os
 
+
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
@@ -141,6 +144,7 @@ Delete file
 ```python
 from orq_ai_sdk import Orq
 import os
+
 
 with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),

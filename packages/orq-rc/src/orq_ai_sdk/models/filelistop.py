@@ -41,7 +41,7 @@ class FileListRequest(BaseModel):
 
 FileListObject = Literal["list"]
 
-FileListPurpose = Literal["retrieval", "knowledge_datasource"]
+FileListPurpose = Literal["retrieval", "knowledge_datasource", "batch"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -75,7 +75,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-02-25T12:28:13.397Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-03T11:13:51.206Z")
     r"""The date and time the resource was created"""
 
 
