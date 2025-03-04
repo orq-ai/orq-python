@@ -421,8 +421,8 @@ class Prompts(BaseSDK):
         domain_id: Optional[str] = None,
         created: Optional[str] = None,
         updated: Optional[str] = None,
-        created_by_id: Optional[str] = None,
-        updated_by_id: Optional[str] = None,
+        created_by_id: OptionalNullable[str] = UNSET,
+        updated_by_id: OptionalNullable[str] = UNSET,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
@@ -570,8 +570,8 @@ class Prompts(BaseSDK):
         domain_id: Optional[str] = None,
         created: Optional[str] = None,
         updated: Optional[str] = None,
-        created_by_id: Optional[str] = None,
-        updated_by_id: Optional[str] = None,
+        created_by_id: OptionalNullable[str] = UNSET,
+        updated_by_id: OptionalNullable[str] = UNSET,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
