@@ -9,9 +9,9 @@
 value: models.DeploymentGetConfig21 = /* values here */
 ```
 
-### `models.DeploymentGetConfig22Input`
+### `models.DeploymentGetConfig22`
 
 ```python
-value: models.DeploymentGetConfig22Input = /* values here */
+value: models.DeploymentGetConfig22 = /* values here */
 ```
 

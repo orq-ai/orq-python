@@ -29,7 +29,7 @@ ModelType = Literal[
 ]
 r"""The type of the model"""
 
-Format = Literal["url", "b64_json", "text", "json_object"]
+UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
 Quality = Literal["standard", "hd"]
@@ -129,7 +129,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[Format]
+    format_: NotRequired[UpdatePromptFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -187,7 +187,9 @@ class ModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[Format], pydantic.Field(alias="format")] = None
+    format_: Annotated[Optional[UpdatePromptFormat], pydantic.Field(alias="format")] = (
+        None
+    )
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
@@ -641,7 +643,7 @@ UpdatePromptModelType = Literal[
 ]
 r"""The type of the model"""
 
-UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+UpdatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
 UpdatePromptQuality = Literal["standard", "hd"]
@@ -743,7 +745,7 @@ class UpdatePromptModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[UpdatePromptFormat]
+    format_: NotRequired[UpdatePromptPromptsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -801,9 +803,9 @@ class UpdatePromptModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[UpdatePromptFormat], pydantic.Field(alias="format")] = (
-        None
-    )
+    format_: Annotated[
+        Optional[UpdatePromptPromptsFormat], pydantic.Field(alias="format")
+    ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None

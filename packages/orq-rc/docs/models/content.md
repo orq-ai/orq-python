@@ -1,6 +1,6 @@
 # Content
 
-The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. 
+The contents of the user message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message. Either the text content of the message or an a
 value: str = /* values here */
 ```
 
-### `List[models.Two]`
+### `List[models.Content2]`
 
 ```python
-value: List[models.Two] = /* values here */
+value: List[models.Content2] = /* values here */
 ```
 

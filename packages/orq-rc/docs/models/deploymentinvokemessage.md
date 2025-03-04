@@ -15,9 +15,9 @@ value: models.DeploymentInvokeMessage1 = /* values here */
 value: models.DeploymentInvokeMessage2 = /* values here */
 ```
 
-### `models.Message3`
+### `models.DeploymentInvokeMessage3`
 
 ```python
-value: models.Message3 = /* values here */
+value: models.DeploymentInvokeMessage3 = /* values here */
 ```
 
