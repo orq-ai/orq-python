@@ -1,10 +1,10 @@
 from datetime import datetime, timezone
 from enum import Enum
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, Dict, List, Literal, Optional, Sequence, Union
+from pydantic import BaseModel, Field # pylint: disable=import-error
+from typing import Any, Dict, List, Optional, Sequence, Union
 from uuid import UUID
 
-import httpx
+import httpx # pylint: disable=import-error
 
 try:
     from langchain.callbacks.base import BaseCallbackHandler # type: ignore
@@ -20,16 +20,16 @@ def get_iso_string():
     # Get current datetime in UTC, timezone-aware
     current_utc_datetime = datetime.now(timezone.utc)
     # Format it to ISO 8601 string with 'Z' indicating UTC
-    return current_utc_datetime.isoformat(timespec="milliseconds").replace(
+    return current_utc_datetime.isoformat(timespec="microseconds").replace(
         "+00:00", "Z"
     )
 
 class EventType(str, Enum):
-    Agent = "agent"
-    Chain = "chain"
+    AGENT = "agent"
+    CHAIN = "chain"
     LLM = "llm"
-    Retrieval = "retrieval"
-    Tool = "tool"
+    RETRIEVAL = "retrieval"
+    TOOL = "tool"
 
 class LlmRole(str, Enum):
     SYSTEM = "system"
@@ -58,12 +58,12 @@ class BaseEvent(BaseModel):
     trace_id: Optional[str] = None
 
 class AgentEvent(BaseEvent):
-    type: EventType = EventType.Agent
+    type: EventType = EventType.AGENT
     action: AgentAction
     finish: AgentFinish = None
 
 class ChainEvent(BaseEvent):
-    type: EventType = EventType.Chain
+    type: EventType = EventType.CHAIN
     inputs: dict = {}
     outputs: dict = {}
 
@@ -75,12 +75,12 @@ class LlmEvent(BaseEvent):
     usage: Optional[LlmUsage] = None
 
 class RetrievalEvent(BaseEvent):
-    type: EventType = EventType.Retrieval
+    type: EventType = EventType.RETRIEVAL
     query: str
     documents: List[dict] = []
 
 class ToolEvent(BaseEvent):
-    type: EventType = EventType.Tool
+    type: EventType = EventType.TOOL
     input_str: str
     output: str = ""
 
@@ -94,7 +94,7 @@ class OrqClient():
             "Authorization": f"Bearer {self.api_key}"
         }
 
-        status = httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump(mode="json", exclude_none=True))
+        httpx.post(f"{self.api_url}/v2/traces/langchain", headers=headers, json=event.model_dump(mode="json", exclude_none=True))
 
 class Events:
     agents: Dict[str, List[AgentEvent]] = {}
@@ -126,7 +126,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
     def __get_trace_id_from_mapper(self, run_id: str):
         parent_run_id = self.parent_id_mappers[run_id] if run_id in self.parent_id_mappers else None
 
-        if parent_run_id == None:
+        if parent_run_id is None:
             return run_id
 
         return self.__get_trace_id_from_mapper(self.parent_id_mappers[run_id])
@@ -355,7 +355,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             self.__map_parent_id(run_id, parent_run_id)
 
-            if not str(run_id) in self.events.agents:
+            if str(run_id) not in self.events.agents:
                 self.events.agents[str(run_id)] = []
 
             self.events.agents[str(run_id)].append(AgentEvent(
