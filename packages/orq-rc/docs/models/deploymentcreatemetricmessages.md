@@ -1,10 +1,35 @@
 # DeploymentCreateMetricMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.DeploymentCreateMetricRole](../models/deploymentcreatemetricrole.md)                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.DeploymentCreateMetricContent](../models/deploymentcreatemetriccontent.md)                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.DeploymentCreateMetricToolCalls](../models/deploymentcreatemetrictoolcalls.md)]                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.DeploymentCreateMetricMessages1`
+
+```python
+value: models.DeploymentCreateMetricMessages1 = /* values here */
+```
+
+### `models.DeploymentCreateMetricMessages2`
+
+```python
+value: models.DeploymentCreateMetricMessages2 = /* values here */
+```
+
+### `models.DeploymentCreateMetricMessages3`
+
+```python
+value: models.DeploymentCreateMetricMessages3 = /* values here */
+```
+
+### `models.DeploymentCreateMetricMessages4`
+
+```python
+value: models.DeploymentCreateMetricMessages4 = /* values here */
+```
+
+### `models.DeploymentCreateMetricMessages5`
+
+```python
+value: models.DeploymentCreateMetricMessages5 = /* values here */
+```
+

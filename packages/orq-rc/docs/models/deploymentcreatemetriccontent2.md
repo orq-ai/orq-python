@@ -15,3 +15,9 @@ value: models.DeploymentCreateMetric21 = /* values here */
 value: models.DeploymentCreateMetric22 = /* values here */
 ```
 
+### `models.DeploymentCreateMetric23`
+
+```python
+value: models.DeploymentCreateMetric23 = /* values here */
+```
+

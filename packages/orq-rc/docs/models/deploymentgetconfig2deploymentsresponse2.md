@@ -1,0 +1,11 @@
+# DeploymentGetConfig2DeploymentsResponse2
+
+The image part of the prompt message. Only supported with vision models.
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                 | [models.DeploymentGetConfig2DeploymentsResponse200Type](../models/deploymentgetconfig2deploymentsresponse200type.md)   | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `image_url`                                                                                                            | [models.DeploymentGetConfig2DeploymentsResponseImageURL](../models/deploymentgetconfig2deploymentsresponseimageurl.md) | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |

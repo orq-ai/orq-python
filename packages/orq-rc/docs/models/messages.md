@@ -1,10 +1,35 @@
 # Messages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.DeploymentsRole](../models/deploymentsrole.md)                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.DeploymentsContent](../models/deploymentscontent.md)                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.DeploymentsToolCalls](../models/deploymentstoolcalls.md)]                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.Messages1`
+
+```python
+value: models.Messages1 = /* values here */
+```
+
+### `models.Messages2`
+
+```python
+value: models.Messages2 = /* values here */
+```
+
+### `models.Messages3`
+
+```python
+value: models.Messages3 = /* values here */
+```
+
+### `models.Messages4`
+
+```python
+value: models.Messages4 = /* values here */
+```
+
+### `models.Messages5`
+
+```python
+value: models.Messages5 = /* values here */
+```
+

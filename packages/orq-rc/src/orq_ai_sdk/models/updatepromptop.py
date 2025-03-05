@@ -29,7 +29,7 @@ ModelType = Literal[
 ]
 r"""The type of the model"""
 
-Format = Literal["url", "b64_json", "text", "json_object"]
+UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
 Quality = Literal["standard", "hd"]
@@ -129,7 +129,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[Format]
+    format_: NotRequired[UpdatePromptFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -187,7 +187,9 @@ class ModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[Format], pydantic.Field(alias="format")] = None
+    format_: Annotated[Optional[UpdatePromptFormat], pydantic.Field(alias="format")] = (
+        None
+    )
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
@@ -515,8 +517,8 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     domain_id: NotRequired[str]
     created: NotRequired[str]
     updated: NotRequired[str]
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     display_name: NotRequired[str]
     r"""The prompt’s name, meant to be displayable in the UI."""
     description: NotRequired[Nullable[str]]
@@ -535,9 +537,9 @@ class UpdatePromptRequestBody(BaseModel):
 
     updated: Optional[str] = None
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     display_name: Optional[str] = None
     r"""The prompt’s name, meant to be displayable in the UI."""
@@ -564,7 +566,7 @@ class UpdatePromptRequestBody(BaseModel):
             "prompt_config",
             "metadata",
         ]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -641,7 +643,7 @@ UpdatePromptModelType = Literal[
 ]
 r"""The type of the model"""
 
-UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+UpdatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
 UpdatePromptQuality = Literal["standard", "hd"]
@@ -743,7 +745,7 @@ class UpdatePromptModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     seed: NotRequired[float]
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
-    format_: NotRequired[UpdatePromptFormat]
+    format_: NotRequired[UpdatePromptPromptsFormat]
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -801,9 +803,9 @@ class UpdatePromptModelParameters(BaseModel):
     seed: Optional[float] = None
     r"""Best effort deterministic seed for the model. Currently only OpenAI models support these"""
 
-    format_: Annotated[Optional[UpdatePromptFormat], pydantic.Field(alias="format")] = (
-        None
-    )
+    format_: Annotated[
+        Optional[UpdatePromptPromptsFormat], pydantic.Field(alias="format")
+    ] = None
     r"""Only supported on `image` models."""
 
     dimensions: Optional[str] = None
@@ -1195,8 +1197,8 @@ class UpdatePromptResponseBodyTypedDict(TypedDict):
     r"""The prompt’s name, meant to be displayable in the UI."""
     prompt_config: UpdatePromptPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[UpdatePromptPromptsMetadataTypedDict]
@@ -1223,9 +1225,9 @@ class UpdatePromptResponseBody(BaseModel):
     prompt_config: UpdatePromptPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
@@ -1235,7 +1237,7 @@ class UpdatePromptResponseBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)

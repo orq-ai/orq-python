@@ -1,13 +1,11 @@
 # Format
 
-Only supported on `image` models.
+The format of the encoded audio data. Currently supports `wav` and `mp3`.
 
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `B64_JSON`    | b64_json      |
-| `TEXT`        | text          |
-| `JSON_OBJECT` | json_object   |
+| Name  | Value |
+| ----- | ----- |
+| `MP3` | mp3   |
+| `WAV` | wav   |
