@@ -1,10 +1,35 @@
 # PrefixMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.Role](../models/role.md)                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.Content](../models/content.md)                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.ToolCalls](../models/toolcalls.md)]                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.DeveloperMessage`
+
+```python
+value: models.DeveloperMessage = /* values here */
+```
+
+### `models.SystemMessage`
+
+```python
+value: models.SystemMessage = /* values here */
+```
+
+### `models.UserMessage`
+
+```python
+value: models.UserMessage = /* values here */
+```
+
+### `models.AssistantMessage`
+
+```python
+value: models.AssistantMessage = /* values here */
+```
+
+### `models.ToolMessage`
+
+```python
+value: models.ToolMessage = /* values here */
+```
+

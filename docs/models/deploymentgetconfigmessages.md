@@ -1,10 +1,35 @@
 # DeploymentGetConfigMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.DeploymentGetConfigRole](../models/deploymentgetconfigrole.md)                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.DeploymentGetConfigContent](../models/deploymentgetconfigcontent.md)                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.DeploymentGetConfigToolCalls](../models/deploymentgetconfigtoolcalls.md)]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.DeploymentGetConfigMessagesDeveloperMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesDeveloperMessage = /* values here */
+```
+
+### `models.DeploymentGetConfigMessagesSystemMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesSystemMessage = /* values here */
+```
+
+### `models.DeploymentGetConfigMessagesUserMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesUserMessage = /* values here */
+```
+
+### `models.DeploymentGetConfigMessagesAssistantMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesAssistantMessage = /* values here */
+```
+
+### `models.DeploymentGetConfigMessagesToolMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesToolMessage = /* values here */
+```
+

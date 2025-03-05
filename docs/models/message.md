@@ -15,9 +15,9 @@ value: models.Message1 = /* values here */
 value: models.Message2 = /* values here */
 ```
 
-### `models.Three`
+### `models.Message3`
 
 ```python
-value: models.Three = /* values here */
+value: models.Message3 = /* values here */
 ```
 

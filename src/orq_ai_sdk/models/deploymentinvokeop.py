@@ -72,13 +72,13 @@ DeploymentInvokeMessageDeploymentsRole = Literal[
 r"""The role of the prompt message"""
 
 
-class Message3TypedDict(TypedDict):
+class DeploymentInvokeMessage3TypedDict(TypedDict):
     role: DeploymentInvokeMessageDeploymentsRole
     r"""The role of the prompt message"""
     url: str
 
 
-class Message3(BaseModel):
+class DeploymentInvokeMessage3(BaseModel):
     role: DeploymentInvokeMessageDeploymentsRole
     r"""The role of the prompt message"""
 
@@ -236,7 +236,7 @@ DeploymentInvokeMessageTypedDict = TypeAliasType(
     "DeploymentInvokeMessageTypedDict",
     Union[
         DeploymentInvokeMessage2TypedDict,
-        Message3TypedDict,
+        DeploymentInvokeMessage3TypedDict,
         DeploymentInvokeMessage1TypedDict,
     ],
 )
@@ -244,7 +244,7 @@ DeploymentInvokeMessageTypedDict = TypeAliasType(
 
 DeploymentInvokeMessage = TypeAliasType(
     "DeploymentInvokeMessage",
-    Union[DeploymentInvokeMessage2, Message3, DeploymentInvokeMessage1],
+    Union[DeploymentInvokeMessage2, DeploymentInvokeMessage3, DeploymentInvokeMessage1],
 )
 
 

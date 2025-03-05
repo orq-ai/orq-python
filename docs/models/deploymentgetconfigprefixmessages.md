@@ -1,10 +1,35 @@
 # DeploymentGetConfigPrefixMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.DeploymentGetConfigDeploymentsRole](../models/deploymentgetconfigdeploymentsrole.md)                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.DeploymentGetConfigContentInput](../models/deploymentgetconfigcontentinput.md)                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.DeploymentGetConfigDeploymentsToolCalls](../models/deploymentgetconfigdeploymentstoolcalls.md)]                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.PrefixMessagesDeveloperMessage`
+
+```python
+value: models.PrefixMessagesDeveloperMessage = /* values here */
+```
+
+### `models.PrefixMessagesSystemMessage`
+
+```python
+value: models.PrefixMessagesSystemMessage = /* values here */
+```
+
+### `models.PrefixMessagesUserMessage`
+
+```python
+value: models.PrefixMessagesUserMessage = /* values here */
+```
+
+### `models.PrefixMessagesAssistantMessage`
+
+```python
+value: models.PrefixMessagesAssistantMessage = /* values here */
+```
+
+### `models.PrefixMessagesToolMessage`
+
+```python
+value: models.PrefixMessagesToolMessage = /* values here */
+```
+

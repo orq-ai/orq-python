@@ -46,10 +46,10 @@ class DeploymentsRequest(BaseModel):
 
 Object = Literal["list"]
 
-DeploymentsDeploymentsType = Literal["function"]
+DeploymentsType = Literal["function"]
 r"""The type of the tool. Currently, only `function` is supported."""
 
-DeploymentsDeploymentsResponse200Type = Literal["object"]
+DeploymentsDeploymentsResponseType = Literal["object"]
 
 
 class DeploymentsParametersTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class DeploymentsParametersTypedDict(TypedDict):
     Omitting `parameters` defines a function with an empty parameter list.
     """
 
-    type: DeploymentsDeploymentsResponse200Type
+    type: DeploymentsDeploymentsResponseType
     properties: Dict[str, Any]
     required: NotRequired[List[str]]
     additional_properties: NotRequired[bool]
@@ -70,7 +70,7 @@ class DeploymentsParameters(BaseModel):
     Omitting `parameters` defines a function with an empty parameter list.
     """
 
-    type: DeploymentsDeploymentsResponse200Type
+    type: DeploymentsDeploymentsResponseType
 
     properties: Dict[str, Any]
 
@@ -81,7 +81,7 @@ class DeploymentsParameters(BaseModel):
     ] = None
 
 
-class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
+class DeploymentsFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     parameters: DeploymentsParametersTypedDict
@@ -94,7 +94,7 @@ class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
     strict: NotRequired[bool]
 
 
-class DeploymentsDeploymentsFunction(BaseModel):
+class DeploymentsFunction(BaseModel):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -111,17 +111,17 @@ class DeploymentsDeploymentsFunction(BaseModel):
 
 
 class DeploymentsToolsTypedDict(TypedDict):
-    type: DeploymentsDeploymentsType
+    type: DeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
-    function: DeploymentsDeploymentsFunctionTypedDict
+    function: DeploymentsFunctionTypedDict
     id: NotRequired[float]
 
 
 class DeploymentsTools(BaseModel):
-    type: DeploymentsDeploymentsType
+    type: DeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
 
-    function: DeploymentsDeploymentsFunction
+    function: DeploymentsFunction
 
     id: Optional[float] = None
 
@@ -414,7 +414,7 @@ DeploymentsProvider = Literal[
     "elevenlabs",
 ]
 
-DeploymentsDeploymentsRole = Literal[
+DeploymentsRole = Literal[
     "system",
     "assistant",
     "user",
@@ -482,57 +482,57 @@ class Deployments21(BaseModel):
     text: str
 
 
-DeploymentsContent2TypedDict = TypeAliasType(
-    "DeploymentsContent2TypedDict",
+DeploymentsContentDeployments2TypedDict = TypeAliasType(
+    "DeploymentsContentDeployments2TypedDict",
     Union[Deployments21TypedDict, Deployments2Deployments2TypedDict],
 )
 
 
-DeploymentsContent2 = TypeAliasType(
-    "DeploymentsContent2", Union[Deployments21, Deployments2Deployments2]
+DeploymentsContentDeployments2 = TypeAliasType(
+    "DeploymentsContentDeployments2", Union[Deployments21, Deployments2Deployments2]
 )
 
 
-DeploymentsDeploymentsContentTypedDict = TypeAliasType(
-    "DeploymentsDeploymentsContentTypedDict",
-    Union[str, List[DeploymentsContent2TypedDict]],
-)
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-
-
-DeploymentsDeploymentsContent = TypeAliasType(
-    "DeploymentsDeploymentsContent", Union[str, List[DeploymentsContent2]]
+DeploymentsContentTypedDict = TypeAliasType(
+    "DeploymentsContentTypedDict",
+    Union[str, List[DeploymentsContentDeployments2TypedDict]],
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-DeploymentsDeploymentsResponseType = Literal["function"]
+DeploymentsContent = TypeAliasType(
+    "DeploymentsContent", Union[str, List[DeploymentsContentDeployments2]]
+)
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-class DeploymentsDeploymentsResponseFunctionTypedDict(TypedDict):
+DeploymentsDeploymentsType = Literal["function"]
+
+
+class DeploymentsDeploymentsFunctionTypedDict(TypedDict):
     name: str
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class DeploymentsDeploymentsResponseFunction(BaseModel):
+class DeploymentsDeploymentsFunction(BaseModel):
     name: str
 
     arguments: str
     r"""JSON string arguments for the functions"""
 
 
-class DeploymentsDeploymentsToolCallsTypedDict(TypedDict):
-    type: DeploymentsDeploymentsResponseType
-    function: DeploymentsDeploymentsResponseFunctionTypedDict
+class DeploymentsToolCallsTypedDict(TypedDict):
+    type: DeploymentsDeploymentsType
+    function: DeploymentsDeploymentsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
-class DeploymentsDeploymentsToolCalls(BaseModel):
-    type: DeploymentsDeploymentsResponseType
+class DeploymentsToolCalls(BaseModel):
+    type: DeploymentsDeploymentsType
 
-    function: DeploymentsDeploymentsResponseFunction
+    function: DeploymentsDeploymentsFunction
 
     id: Optional[str] = None
 
@@ -540,21 +540,21 @@ class DeploymentsDeploymentsToolCalls(BaseModel):
 
 
 class DeploymentsMessagesTypedDict(TypedDict):
-    role: DeploymentsDeploymentsRole
+    role: DeploymentsRole
     r"""The role of the prompt message"""
-    content: DeploymentsDeploymentsContentTypedDict
+    content: DeploymentsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
-    tool_calls: NotRequired[List[DeploymentsDeploymentsToolCallsTypedDict]]
+    tool_calls: NotRequired[List[DeploymentsToolCallsTypedDict]]
 
 
 class DeploymentsMessages(BaseModel):
-    role: DeploymentsDeploymentsRole
+    role: DeploymentsRole
     r"""The role of the prompt message"""
 
-    content: DeploymentsDeploymentsContent
+    content: DeploymentsContent
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
-    tool_calls: Optional[List[DeploymentsDeploymentsToolCalls]] = None
+    tool_calls: Optional[List[DeploymentsToolCalls]] = None
 
 
 class DeploymentsPromptConfigTypedDict(TypedDict):

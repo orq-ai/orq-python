@@ -1,11 +1,9 @@
 # One
 
-Text content part of a prompt message
-
 
 ## Fields
 
-| Field                                                    | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `type`                                                   | [models.Deployments2Type](../models/deployments2type.md) | :heavy_check_mark:                                       | N/A                                                      |
-| `text`                                                   | *str*                                                    | :heavy_check_mark:                                       | N/A                                                      |
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `type`                                                                                 | [models.Deployments2PrefixMessages3Type](../models/deployments2prefixmessages3type.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `text`                                                                                 | *str*                                                                                  | :heavy_check_mark:                                                                     | N/A                                                                                    |

@@ -1,17 +1,10 @@
 # Role
 
-The role of the prompt message
+The role of the messages author, in this case  `developer`.
 
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `SYSTEM`          | system            |
-| `ASSISTANT`       | assistant         |
-| `USER`            | user              |
-| `EXCEPTION`       | exception         |
-| `TOOL`            | tool              |
-| `PROMPT`          | prompt            |
-| `CORRECTION`      | correction        |
-| `EXPECTED_OUTPUT` | expected_output   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `DEVELOPER` | developer   |
