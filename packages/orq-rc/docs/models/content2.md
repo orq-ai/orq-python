@@ -3,21 +3,15 @@
 
 ## Supported Types
 
-### `models.Two1`
+### `models.TextContentPart`
 
 ```python
-value: models.Two1 = /* values here */
+value: models.TextContentPart = /* values here */
 ```
 
-### `models.Two2`
+### `models.RefusalContentPart`
 
 ```python
-value: models.Two2 = /* values here */
-```
-
-### `models.Two3`
-
-```python
-value: models.Two3 = /* values here */
+value: models.RefusalContentPart = /* values here */
 ```
 

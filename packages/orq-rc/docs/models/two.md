@@ -1,10 +1,23 @@
 # Two
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `role`                                                                                                                       | [models.PrefixMessagesRole](../models/prefixmessagesrole.md)                                                                 | :heavy_check_mark:                                                                                                           | The role of the messages author, in this case `system`.                                                                      |
-| `content`                                                                                                                    | *str*                                                                                                                        | :heavy_check_mark:                                                                                                           | The contents of the system message.                                                                                          |
-| `name`                                                                                                                       | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | An optional name for the participant. Provides the model information to differentiate between participants of the same role. |
+### `models.One`
+
+```python
+value: models.One = /* values here */
+```
+
+### `models.Two2`
+
+```python
+value: models.Two2 = /* values here */
+```
+
+### `models.Three`
+
+```python
+value: models.Three = /* values here */
+```
+

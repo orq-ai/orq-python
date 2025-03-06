@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.Messages1`
+### `models.MessagesDeveloperMessage`
 
 ```python
-value: models.Messages1 = /* values here */
+value: models.MessagesDeveloperMessage = /* values here */
 ```
 
-### `models.Messages2`
+### `models.MessagesSystemMessage`
 
 ```python
-value: models.Messages2 = /* values here */
+value: models.MessagesSystemMessage = /* values here */
 ```
 
-### `models.Messages3`
+### `models.MessagesUserMessage`
 
 ```python
-value: models.Messages3 = /* values here */
+value: models.MessagesUserMessage = /* values here */
 ```
 
-### `models.Messages4`
+### `models.MessagesAssistantMessage`
 
 ```python
-value: models.Messages4 = /* values here */
+value: models.MessagesAssistantMessage = /* values here */
 ```
 
-### `models.Messages5`
+### `models.MessagesToolMessage`
 
 ```python
-value: models.Messages5 = /* values here */
+value: models.MessagesToolMessage = /* values here */
 ```
 

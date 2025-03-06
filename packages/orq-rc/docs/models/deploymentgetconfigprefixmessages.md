@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.PrefixMessages1`
+### `models.PrefixMessagesDeveloperMessage`
 
 ```python
-value: models.PrefixMessages1 = /* values here */
+value: models.PrefixMessagesDeveloperMessage = /* values here */
 ```
 
-### `models.PrefixMessages2`
+### `models.PrefixMessagesSystemMessage`
 
 ```python
-value: models.PrefixMessages2 = /* values here */
+value: models.PrefixMessagesSystemMessage = /* values here */
 ```
 
-### `models.PrefixMessages3`
+### `models.PrefixMessagesUserMessage`
 
 ```python
-value: models.PrefixMessages3 = /* values here */
+value: models.PrefixMessagesUserMessage = /* values here */
 ```
 
-### `models.PrefixMessages4`
+### `models.PrefixMessagesAssistantMessage`
 
 ```python
-value: models.PrefixMessages4 = /* values here */
+value: models.PrefixMessagesAssistantMessage = /* values here */
 ```
 
-### `models.PrefixMessages5`
+### `models.PrefixMessagesToolMessage`
 
 ```python
-value: models.PrefixMessages5 = /* values here */
+value: models.PrefixMessagesToolMessage = /* values here */
 ```
 

@@ -3,21 +3,15 @@
 
 ## Supported Types
 
-### `models.Deployments2Messages1`
+### `models.TwoTextContentPart`
 
 ```python
-value: models.Deployments2Messages1 = /* values here */
+value: models.TwoTextContentPart = /* values here */
 ```
 
-### `models.Deployments2Messages2`
+### `models.TwoRefusalContentPart`
 
 ```python
-value: models.Deployments2Messages2 = /* values here */
-```
-
-### `models.Deployments23`
-
-```python
-value: models.Deployments23 = /* values here */
+value: models.TwoRefusalContentPart = /* values here */
 ```
 

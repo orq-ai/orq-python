@@ -94,5 +94,5 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-05T18:46:01.581Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-06T10:07:28.545Z")
     r"""The date and time the resource was created"""

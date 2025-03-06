@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetricMessages1`
+### `models.DeploymentCreateMetricMessagesDeveloperMessage`
 
 ```python
-value: models.DeploymentCreateMetricMessages1 = /* values here */
+value: models.DeploymentCreateMetricMessagesDeveloperMessage = /* values here */
 ```
 
-### `models.DeploymentCreateMetricMessages2`
+### `models.DeploymentCreateMetricMessagesSystemMessage`
 
 ```python
-value: models.DeploymentCreateMetricMessages2 = /* values here */
+value: models.DeploymentCreateMetricMessagesSystemMessage = /* values here */
 ```
 
-### `models.DeploymentCreateMetricMessages3`
+### `models.DeploymentCreateMetricMessagesUserMessage`
 
 ```python
-value: models.DeploymentCreateMetricMessages3 = /* values here */
+value: models.DeploymentCreateMetricMessagesUserMessage = /* values here */
 ```
 
-### `models.DeploymentCreateMetricMessages4`
+### `models.DeploymentCreateMetricMessagesAssistantMessage`
 
 ```python
-value: models.DeploymentCreateMetricMessages4 = /* values here */
+value: models.DeploymentCreateMetricMessagesAssistantMessage = /* values here */
 ```
 
-### `models.DeploymentCreateMetricMessages5`
+### `models.DeploymentCreateMetricMessagesToolMessage`
 
 ```python
-value: models.DeploymentCreateMetricMessages5 = /* values here */
+value: models.DeploymentCreateMetricMessagesToolMessage = /* values here */
 ```
 

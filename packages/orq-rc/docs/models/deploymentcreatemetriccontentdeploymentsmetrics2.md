@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics1`
+### `models.DeploymentCreateMetric2TextContentPart`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics1 = /* values here */
+value: models.DeploymentCreateMetric2TextContentPart = /* values here */
 ```
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics2`
+### `models.DeploymentCreateMetric2RefusalContentPart`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics2 = /* values here */
+value: models.DeploymentCreateMetric2RefusalContentPart = /* values here */
 ```
 

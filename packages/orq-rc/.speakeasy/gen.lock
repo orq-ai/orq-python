@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: a648112db727bb95b4ef0db25007aba0
+  docChecksum: 9884f8667721b4b43275a8f10a72728a
   docVersion: "2.0"
-  speakeasyVersion: 1.509.1
-  generationVersion: 2.539.1
-  releaseVersion: 3.2.0-rc.28
-  configChecksum: db1442dd33e43214e2b2ad96b6fdaecf
+  speakeasyVersion: 1.510.0
+  generationVersion: 2.541.0
+  releaseVersion: 3.2.0-rc.29
+  configChecksum: c7963a3598c7e9e9472b9fc90496d2f1
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -45,6 +45,7 @@ generatedFiles:
   - .python-version
   - .vscode/settings.json
   - USAGE.md
+  - docs/models/assistantmessage.md
   - docs/models/audio.md
   - docs/models/bulkcreatedatapoints21.md
   - docs/models/bulkcreatedatapoints22.md
@@ -180,8 +181,6 @@ generatedFiles:
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
   - docs/models/deploymentcreatemetric23.md
-  - docs/models/deploymentcreatemetric2deploymentsmetrics1.md
-  - docs/models/deploymentcreatemetric2deploymentsmetrics2.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodymessagestype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodytype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequesttype.md
@@ -190,6 +189,8 @@ generatedFiles:
   - docs/models/deploymentcreatemetric2format.md
   - docs/models/deploymentcreatemetric2imageurl.md
   - docs/models/deploymentcreatemetric2inputaudio.md
+  - docs/models/deploymentcreatemetric2refusalcontentpart.md
+  - docs/models/deploymentcreatemetric2textcontentpart.md
   - docs/models/deploymentcreatemetric2type.md
   - docs/models/deploymentcreatemetriccontent2.md
   - docs/models/deploymentcreatemetriccontentdeploymentsmetrics2.md
@@ -197,11 +198,7 @@ generatedFiles:
   - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrole.md
   - docs/models/deploymentcreatemetricmessagerole.md
   - docs/models/deploymentcreatemetricmessages.md
-  - docs/models/deploymentcreatemetricmessages1.md
-  - docs/models/deploymentcreatemetricmessages2.md
-  - docs/models/deploymentcreatemetricmessages3.md
-  - docs/models/deploymentcreatemetricmessages4.md
-  - docs/models/deploymentcreatemetricmessages5.md
+  - docs/models/deploymentcreatemetricmessagesassistantmessage.md
   - docs/models/deploymentcreatemetricmessagesaudio.md
   - docs/models/deploymentcreatemetricmessagescontent.md
   - docs/models/deploymentcreatemetricmessagesdeploymentsmetricscontent.md
@@ -210,10 +207,14 @@ generatedFiles:
   - docs/models/deploymentcreatemetricmessagesdeploymentsmetricsrequestrequestbodyrole.md
   - docs/models/deploymentcreatemetricmessagesdeploymentsmetricsrequestrole.md
   - docs/models/deploymentcreatemetricmessagesdeploymentsmetricsrole.md
+  - docs/models/deploymentcreatemetricmessagesdevelopermessage.md
   - docs/models/deploymentcreatemetricmessagesfunction.md
   - docs/models/deploymentcreatemetricmessagesrole.md
+  - docs/models/deploymentcreatemetricmessagessystemmessage.md
   - docs/models/deploymentcreatemetricmessagestoolcalls.md
+  - docs/models/deploymentcreatemetricmessagestoolmessage.md
   - docs/models/deploymentcreatemetricmessagestype.md
+  - docs/models/deploymentcreatemetricmessagesusermessage.md
   - docs/models/deploymentcreatemetricrequest.md
   - docs/models/deploymentcreatemetricrequestbody.md
   - docs/models/deploymentcreatemetricresponsebody.md
@@ -227,10 +228,7 @@ generatedFiles:
   - docs/models/deploymentgetconfig2deploymentsformat.md
   - docs/models/deploymentgetconfig2deploymentsimageurl.md
   - docs/models/deploymentgetconfig2deploymentsinputaudio.md
-  - docs/models/deploymentgetconfig2deploymentsrequest1.md
-  - docs/models/deploymentgetconfig2deploymentsrequest2.md
-  - docs/models/deploymentgetconfig2deploymentsrequestrequestbody1.md
-  - docs/models/deploymentgetconfig2deploymentsrequestrequestbody2.md
+  - docs/models/deploymentgetconfig2deploymentsrefusalcontentpart.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages3type.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages4contenttype.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages4type.md
@@ -244,11 +242,14 @@ generatedFiles:
   - docs/models/deploymentgetconfig2deploymentsresponse200type.md
   - docs/models/deploymentgetconfig2deploymentsresponseimageurl.md
   - docs/models/deploymentgetconfig2deploymentsresponsetype.md
+  - docs/models/deploymentgetconfig2deploymentstextcontentpart.md
   - docs/models/deploymentgetconfig2deploymentstype.md
   - docs/models/deploymentgetconfig2detail.md
   - docs/models/deploymentgetconfig2format.md
   - docs/models/deploymentgetconfig2imageurl.md
   - docs/models/deploymentgetconfig2inputaudio.md
+  - docs/models/deploymentgetconfig2refusalcontentpart.md
+  - docs/models/deploymentgetconfig2textcontentpart.md
   - docs/models/deploymentgetconfig2type.md
   - docs/models/deploymentgetconfigcontent.md
   - docs/models/deploymentgetconfigcontent2.md
@@ -267,11 +268,7 @@ generatedFiles:
   - docs/models/deploymentgetconfiginputs.md
   - docs/models/deploymentgetconfiginvokeoptions.md
   - docs/models/deploymentgetconfigmessages.md
-  - docs/models/deploymentgetconfigmessages1.md
-  - docs/models/deploymentgetconfigmessages2.md
-  - docs/models/deploymentgetconfigmessages3.md
-  - docs/models/deploymentgetconfigmessages4.md
-  - docs/models/deploymentgetconfigmessages5.md
+  - docs/models/deploymentgetconfigmessagesassistantmessage.md
   - docs/models/deploymentgetconfigmessagesaudio.md
   - docs/models/deploymentgetconfigmessagescontent.md
   - docs/models/deploymentgetconfigmessagesdeploymentscontent.md
@@ -280,10 +277,14 @@ generatedFiles:
   - docs/models/deploymentgetconfigmessagesdeploymentsrequestrequestbodyrole.md
   - docs/models/deploymentgetconfigmessagesdeploymentsrequestrole.md
   - docs/models/deploymentgetconfigmessagesdeploymentsrole.md
+  - docs/models/deploymentgetconfigmessagesdevelopermessage.md
   - docs/models/deploymentgetconfigmessagesfunction.md
   - docs/models/deploymentgetconfigmessagesrole.md
+  - docs/models/deploymentgetconfigmessagessystemmessage.md
   - docs/models/deploymentgetconfigmessagestoolcalls.md
+  - docs/models/deploymentgetconfigmessagestoolmessage.md
   - docs/models/deploymentgetconfigmessagestype.md
+  - docs/models/deploymentgetconfigmessagesusermessage.md
   - docs/models/deploymentgetconfigmetadata.md
   - docs/models/deploymentgetconfigphotorealversion.md
   - docs/models/deploymentgetconfigprefixmessages.md
@@ -327,18 +328,12 @@ generatedFiles:
   - docs/models/deployments.md
   - docs/models/deployments21.md
   - docs/models/deployments22.md
-  - docs/models/deployments23.md
-  - docs/models/deployments2deployments1.md
   - docs/models/deployments2deployments2.md
   - docs/models/deployments2deploymentsresponsetype.md
   - docs/models/deployments2deploymentstype.md
   - docs/models/deployments2imageurl.md
-  - docs/models/deployments2messages1.md
-  - docs/models/deployments2messages2.md
   - docs/models/deployments2messages3contenttype.md
   - docs/models/deployments2messages3type.md
-  - docs/models/deployments2messages41.md
-  - docs/models/deployments2messages42.md
   - docs/models/deployments2messages4contenttype.md
   - docs/models/deployments2messages4type.md
   - docs/models/deployments2messagestype.md
@@ -350,7 +345,6 @@ generatedFiles:
   - docs/models/deploymentscontent2.md
   - docs/models/deploymentscontentdeployments2.md
   - docs/models/deploymentscontentmessages2.md
-  - docs/models/deploymentscontentmessages42.md
   - docs/models/deploymentsdeploymentsfunction.md
   - docs/models/deploymentsdeploymentsresponsetype.md
   - docs/models/deploymentsdeploymentstype.md
@@ -389,6 +383,7 @@ generatedFiles:
   - docs/models/deploymentstools.md
   - docs/models/deploymentstype.md
   - docs/models/detail.md
+  - docs/models/developermessage.md
   - docs/models/documents.md
   - docs/models/encodingformat.md
   - docs/models/file.md
@@ -404,9 +399,7 @@ generatedFiles:
   - docs/models/fileuploadpurpose.md
   - docs/models/fileuploadrequestbody.md
   - docs/models/fileuploadresponsebody.md
-  - docs/models/five.md
   - docs/models/format_.md
-  - docs/models/four.md
   - docs/models/function.md
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
@@ -580,17 +573,17 @@ generatedFiles:
   - docs/models/messagefunction.md
   - docs/models/messagerole.md
   - docs/models/messages.md
-  - docs/models/messages1.md
-  - docs/models/messages2.md
-  - docs/models/messages3.md
-  - docs/models/messages4.md
-  - docs/models/messages5.md
+  - docs/models/messagesassistantmessage.md
   - docs/models/messagesaudio.md
   - docs/models/messagescontent.md
+  - docs/models/messagesdevelopermessage.md
   - docs/models/messagesfunction.md
   - docs/models/messagesrole.md
+  - docs/models/messagessystemmessage.md
   - docs/models/messagestoolcalls.md
+  - docs/models/messagestoolmessage.md
   - docs/models/messagestype.md
+  - docs/models/messagesusermessage.md
   - docs/models/messagetoolcalls.md
   - docs/models/messagetype.md
   - docs/models/metadata.md
@@ -602,22 +595,23 @@ generatedFiles:
   - docs/models/performance.md
   - docs/models/photorealversion.md
   - docs/models/prefixmessages.md
-  - docs/models/prefixmessages1.md
-  - docs/models/prefixmessages2.md
-  - docs/models/prefixmessages3.md
-  - docs/models/prefixmessages4.md
-  - docs/models/prefixmessages5.md
+  - docs/models/prefixmessagesassistantmessage.md
   - docs/models/prefixmessagesaudio.md
   - docs/models/prefixmessagescontent.md
+  - docs/models/prefixmessagesdevelopermessage.md
   - docs/models/prefixmessagesfunction.md
   - docs/models/prefixmessagesrole.md
+  - docs/models/prefixmessagessystemmessage.md
   - docs/models/prefixmessagestoolcalls.md
+  - docs/models/prefixmessagestoolmessage.md
   - docs/models/prefixmessagestype.md
+  - docs/models/prefixmessagesusermessage.md
   - docs/models/promptconfig.md
   - docs/models/provider.md
   - docs/models/purpose.md
   - docs/models/quality.md
   - docs/models/reasoningeffort.md
+  - docs/models/refusalcontentpart.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
   - docs/models/remoteconfigsgetconfigtype.md
@@ -647,8 +641,11 @@ generatedFiles:
   - docs/models/retrievedatasetresponsebody.md
   - docs/models/role.md
   - docs/models/security.md
+  - docs/models/systemmessage.md
+  - docs/models/textcontentpart.md
   - docs/models/three.md
   - docs/models/toolcalls.md
+  - docs/models/toolmessage.md
   - docs/models/tools.md
   - docs/models/two.md
   - docs/models/two1.md
@@ -658,6 +655,8 @@ generatedFiles:
   - docs/models/twoformat.md
   - docs/models/twoimageurl.md
   - docs/models/twoinputaudio.md
+  - docs/models/tworefusalcontentpart.md
+  - docs/models/twotextcontentpart.md
   - docs/models/twotype.md
   - docs/models/type.md
   - docs/models/updatedatapoint21.md
@@ -743,6 +742,7 @@ generatedFiles:
   - docs/models/updatepromptusecases.md
   - docs/models/usage.md
   - docs/models/usecases.md
+  - docs/models/usermessage.md
   - docs/models/utils/retryconfig.md
   - docs/models/value.md
   - docs/sdks/contacts/README.md
@@ -758,7 +758,7 @@ generatedFiles:
   - py.typed
   - pylintrc
   - pyproject.toml
-  - scripts/prepare-readme.py
+  - scripts/prepare_readme.py
   - scripts/publish.sh
   - src/orq_ai_sdk/__init__.py
   - src/orq_ai_sdk/_hooks/__init__.py

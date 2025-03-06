@@ -467,14 +467,14 @@ class Deployments2Deployments2(BaseModel):
 Deployments2DeploymentsType = Literal["text"]
 
 
-class Deployments2Deployments1TypedDict(TypedDict):
+class Deployments21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
     type: Deployments2DeploymentsType
     text: str
 
 
-class Deployments2Deployments1(BaseModel):
+class Deployments21(BaseModel):
     r"""Text content part of a prompt message"""
 
     type: Deployments2DeploymentsType
@@ -484,13 +484,12 @@ class Deployments2Deployments1(BaseModel):
 
 DeploymentsContentDeployments2TypedDict = TypeAliasType(
     "DeploymentsContentDeployments2TypedDict",
-    Union[Deployments2Deployments1TypedDict, Deployments2Deployments2TypedDict],
+    Union[Deployments21TypedDict, Deployments2Deployments2TypedDict],
 )
 
 
 DeploymentsContentDeployments2 = TypeAliasType(
-    "DeploymentsContentDeployments2",
-    Union[Deployments2Deployments1, Deployments2Deployments2],
+    "DeploymentsContentDeployments2", Union[Deployments21, Deployments2Deployments2]
 )
 
 

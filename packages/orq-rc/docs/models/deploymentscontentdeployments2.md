@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.Deployments2Deployments1`
+### `models.Deployments21`
 
 ```python
-value: models.Deployments2Deployments1 = /* values here */
+value: models.Deployments21 = /* values here */
 ```
 
 ### `models.Deployments2Deployments2`
