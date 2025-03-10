@@ -12,6 +12,7 @@ class Prompts(BaseSDK):
     def list(
         self,
         *,
+        sort: Optional[models.GetAllPromptsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -24,6 +25,7 @@ class Prompts(BaseSDK):
 
         Returns a list of your prompts. The prompts are returned sorted by creation date, with the most recent prompts appearing first
 
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -46,6 +48,7 @@ class Prompts(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAllPromptsRequest(
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -116,6 +119,7 @@ class Prompts(BaseSDK):
     async def list_async(
         self,
         *,
+        sort: Optional[models.GetAllPromptsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -128,6 +132,7 @@ class Prompts(BaseSDK):
 
         Returns a list of your prompts. The prompts are returned sorted by creation date, with the most recent prompts appearing first
 
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -150,6 +155,7 @@ class Prompts(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAllPromptsRequest(
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -1109,6 +1115,7 @@ class Prompts(BaseSDK):
         self,
         *,
         prompt_id: str,
+        sort: Optional[models.ListPromptVersionsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -1122,6 +1129,7 @@ class Prompts(BaseSDK):
         Returns a list of your prompt versions. The prompt versions are returned sorted by creation date, with the most recent prompt versions appearing first
 
         :param prompt_id:
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1145,6 +1153,7 @@ class Prompts(BaseSDK):
 
         request = models.ListPromptVersionsRequest(
             prompt_id=prompt_id,
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -1216,6 +1225,7 @@ class Prompts(BaseSDK):
         self,
         *,
         prompt_id: str,
+        sort: Optional[models.ListPromptVersionsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -1229,6 +1239,7 @@ class Prompts(BaseSDK):
         Returns a list of your prompt versions. The prompt versions are returned sorted by creation date, with the most recent prompt versions appearing first
 
         :param prompt_id:
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1252,6 +1263,7 @@ class Prompts(BaseSDK):
 
         request = models.ListPromptVersionsRequest(
             prompt_id=prompt_id,
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,

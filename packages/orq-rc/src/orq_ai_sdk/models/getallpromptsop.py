@@ -15,7 +15,13 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+GetAllPromptsQueryParamSort = Literal["asc", "desc"]
+r"""List sorting preference."""
+
+
 class GetAllPromptsRequestTypedDict(TypedDict):
+    sort: NotRequired[GetAllPromptsQueryParamSort]
+    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -25,6 +31,12 @@ class GetAllPromptsRequestTypedDict(TypedDict):
 
 
 class GetAllPromptsRequest(BaseModel):
+    sort: Annotated[
+        Optional[GetAllPromptsQueryParamSort],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = "asc"
+    r"""List sorting preference."""
+
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
