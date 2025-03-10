@@ -59,238 +59,6 @@ DeploymentInvokeProvider = Literal[
 ]
 r"""The provider used to generate the response"""
 
-DeploymentInvokeMessageDeploymentsRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-
-class DeploymentInvokeMessage3TypedDict(TypedDict):
-    role: DeploymentInvokeMessageDeploymentsRole
-    r"""The role of the prompt message"""
-    url: str
-
-
-class DeploymentInvokeMessage3(BaseModel):
-    role: DeploymentInvokeMessageDeploymentsRole
-    r"""The role of the prompt message"""
-
-    url: str
-
-
-DeploymentInvokeMessageRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-
-class DeploymentInvokeMessage2TypedDict(TypedDict):
-    role: DeploymentInvokeMessageRole
-    r"""The role of the prompt message"""
-    content: Nullable[str]
-
-
-class DeploymentInvokeMessage2(BaseModel):
-    role: DeploymentInvokeMessageRole
-    r"""The role of the prompt message"""
-
-    content: Nullable[str]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["content"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DeploymentInvokeMessageDeploymentsResponseRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-DeploymentInvokeMessageType = Literal["function"]
-
-
-class DeploymentInvokeMessageFunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DeploymentInvokeMessageFunction(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DeploymentInvokeMessageToolCallsTypedDict(TypedDict):
-    type: DeploymentInvokeMessageType
-    function: DeploymentInvokeMessageFunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class DeploymentInvokeMessageToolCalls(BaseModel):
-    type: DeploymentInvokeMessageType
-
-    function: DeploymentInvokeMessageFunction
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class DeploymentInvokeMessage1TypedDict(TypedDict):
-    role: DeploymentInvokeMessageDeploymentsResponseRole
-    r"""The role of the prompt message"""
-    tool_calls: List[DeploymentInvokeMessageToolCallsTypedDict]
-    content: NotRequired[Nullable[str]]
-
-
-class DeploymentInvokeMessage1(BaseModel):
-    role: DeploymentInvokeMessageDeploymentsResponseRole
-    r"""The role of the prompt message"""
-
-    tool_calls: List[DeploymentInvokeMessageToolCalls]
-
-    content: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["content"]
-        nullable_fields = ["content"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DeploymentInvokeMessageTypedDict = TypeAliasType(
-    "DeploymentInvokeMessageTypedDict",
-    Union[
-        DeploymentInvokeMessage2TypedDict,
-        DeploymentInvokeMessage3TypedDict,
-        DeploymentInvokeMessage1TypedDict,
-    ],
-)
-
-
-DeploymentInvokeMessage = TypeAliasType(
-    "DeploymentInvokeMessage",
-    Union[DeploymentInvokeMessage2, DeploymentInvokeMessage3, DeploymentInvokeMessage1],
-)
-
-
-class DeploymentInvokeChoicesTypedDict(TypedDict):
-    index: float
-    message: NotRequired[DeploymentInvokeMessageTypedDict]
-    finish_reason: NotRequired[Nullable[str]]
-
-
-class DeploymentInvokeChoices(BaseModel):
-    index: float
-
-    message: Optional[DeploymentInvokeMessage] = None
-
-    finish_reason: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["message", "finish_reason"]
-        nullable_fields = ["finish_reason"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in self.model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
 
 class DeploymentInvokeMetadataTypedDict(TypedDict):
     r"""Metadata of the retrieved chunk from the knowledge base"""
@@ -371,8 +139,248 @@ class Retrievals(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
+DeploymentInvokeMessageDeploymentsType = Literal["image"]
+
+DeploymentInvokeMessageDeploymentsRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+
+class Message3TypedDict(TypedDict):
+    type: DeploymentInvokeMessageDeploymentsType
+    role: DeploymentInvokeMessageDeploymentsRole
+    r"""The role of the prompt message"""
+    url: str
+
+
+class Message3(BaseModel):
+    type: DeploymentInvokeMessageDeploymentsType
+
+    role: DeploymentInvokeMessageDeploymentsRole
+    r"""The role of the prompt message"""
+
+    url: str
+
+
+DeploymentInvokeMessageType = Literal["content"]
+
+DeploymentInvokeMessageRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+
+class Message2TypedDict(TypedDict):
+    type: DeploymentInvokeMessageType
+    role: DeploymentInvokeMessageRole
+    r"""The role of the prompt message"""
+    content: Nullable[str]
+
+
+class Message2(BaseModel):
+    type: DeploymentInvokeMessageType
+
+    role: DeploymentInvokeMessageRole
+    r"""The role of the prompt message"""
+
+    content: Nullable[str]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+MessageType = Literal["tool_calls"]
+
+MessageRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+DeploymentInvokeMessageDeploymentsResponseType = Literal["function"]
+
+
+class MessageFunctionTypedDict(TypedDict):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class MessageFunction(BaseModel):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class MessageToolCallsTypedDict(TypedDict):
+    type: DeploymentInvokeMessageDeploymentsResponseType
+    function: MessageFunctionTypedDict
+    id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class MessageToolCalls(BaseModel):
+    type: DeploymentInvokeMessageDeploymentsResponseType
+
+    function: MessageFunction
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class Message1TypedDict(TypedDict):
+    type: MessageType
+    role: MessageRole
+    r"""The role of the prompt message"""
+    tool_calls: List[MessageToolCallsTypedDict]
+    content: NotRequired[Nullable[str]]
+
+
+class Message1(BaseModel):
+    type: MessageType
+
+    role: MessageRole
+    r"""The role of the prompt message"""
+
+    tool_calls: List[MessageToolCalls]
+
+    content: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["content"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+MessageTypedDict = TypeAliasType(
+    "MessageTypedDict", Union[Message2TypedDict, Message3TypedDict, Message1TypedDict]
+)
+
+
+Message = TypeAliasType("Message", Union[Message2, Message3, Message1])
+
+
+class DeploymentInvokeChoicesTypedDict(TypedDict):
+    index: float
+    message: MessageTypedDict
+    finish_reason: NotRequired[Nullable[str]]
+
+
+class DeploymentInvokeChoices(BaseModel):
+    index: float
+
+    message: Message
+
+    finish_reason: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["finish_reason"]
+        nullable_fields = ["finish_reason"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in self.model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
 class DeploymentInvokeResponseBodyTypedDict(TypedDict):
-    r"""Response from the gateway"""
+    r"""Successful operation"""
 
     id: str
     r"""A unique identifier for the response. Can be used to add metrics to the transaction."""
@@ -401,7 +409,7 @@ class DeploymentInvokeResponseBodyTypedDict(TypedDict):
 
 
 class DeploymentInvokeResponseBody(BaseModel):
-    r"""Response from the gateway"""
+    r"""Successful operation"""
 
     id: str
     r"""A unique identifier for the response. Can be used to add metrics to the transaction."""

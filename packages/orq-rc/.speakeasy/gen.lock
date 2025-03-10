@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 3d9350b0f0910908b08af6c8ec69ce97
+  docChecksum: e6f38a61e7132fa1917c2de32e4da075
   docVersion: "2.0"
-  speakeasyVersion: 1.513.5
-  generationVersion: 2.545.4
-  releaseVersion: 3.2.0-rc.35
-  configChecksum: 7de486e8e8cba8c0d842610e2da62f5b
+  speakeasyVersion: 1.513.6
+  generationVersion: 2.545.7
+  releaseVersion: 3.2.0-rc.36
+  configChecksum: cb1d2cc738d5e8c7045ab2efdf6023e7
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -74,6 +74,17 @@ generatedFiles:
   - docs/models/bulkcreatedatapointstoolcalls.md
   - docs/models/bulkcreatedatapointstype.md
   - docs/models/choices.md
+  - docs/models/choicesassistantmessage.md
+  - docs/models/choicesaudio.md
+  - docs/models/choicescontent.md
+  - docs/models/choicesdevelopermessage.md
+  - docs/models/choicesfunction.md
+  - docs/models/choicesrole.md
+  - docs/models/choicessystemmessage.md
+  - docs/models/choicestoolcalls.md
+  - docs/models/choicestoolmessage.md
+  - docs/models/choicestype.md
+  - docs/models/choicesusermessage.md
   - docs/models/cleardatasetrequest.md
   - docs/models/content.md
   - docs/models/content2.md
@@ -181,9 +192,23 @@ generatedFiles:
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
   - docs/models/deploymentcreatemetric23.md
+  - docs/models/deploymentcreatemetric2deploymentsmetrics1.md
+  - docs/models/deploymentcreatemetric2deploymentsmetrics2.md
+  - docs/models/deploymentcreatemetric2deploymentsmetrics3.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsdetail.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsformat.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsimageurl.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsinputaudio.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrefusalcontentpart.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices3contenttype.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices3type.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices4contenttype.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices4type.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoicestype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodymessagestype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodytype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequesttype.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricstextcontentpart.md
   - docs/models/deploymentcreatemetric2deploymentsmetricstype.md
   - docs/models/deploymentcreatemetric2detail.md
   - docs/models/deploymentcreatemetric2format.md
@@ -192,13 +217,17 @@ generatedFiles:
   - docs/models/deploymentcreatemetric2refusalcontentpart.md
   - docs/models/deploymentcreatemetric2textcontentpart.md
   - docs/models/deploymentcreatemetric2type.md
+  - docs/models/deploymentcreatemetricchoicescontent.md
+  - docs/models/deploymentcreatemetricchoicesdeploymentsmetricscontent.md
+  - docs/models/deploymentcreatemetricchoicesdeploymentsmetricsrequestrequestbodyrole.md
+  - docs/models/deploymentcreatemetricchoicesdeploymentsmetricsrequestrole.md
+  - docs/models/deploymentcreatemetricchoicesdeploymentsmetricsrole.md
+  - docs/models/deploymentcreatemetricchoicesrole.md
   - docs/models/deploymentcreatemetriccontent2.md
   - docs/models/deploymentcreatemetriccontentdeploymentsmetrics2.md
+  - docs/models/deploymentcreatemetriccontentdeploymentsmetricsrequest2.md
+  - docs/models/deploymentcreatemetriccontentdeploymentsmetricsrequestrequestbody2.md
   - docs/models/deploymentcreatemetricfeedback.md
-  - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrequesttype.md
-  - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrole.md
-  - docs/models/deploymentcreatemetricmessagedeploymentsmetricstype.md
-  - docs/models/deploymentcreatemetricmessagerole.md
   - docs/models/deploymentcreatemetricmessages.md
   - docs/models/deploymentcreatemetricmessagesassistantmessage.md
   - docs/models/deploymentcreatemetricmessagesaudio.md
@@ -217,7 +246,6 @@ generatedFiles:
   - docs/models/deploymentcreatemetricmessagestoolmessage.md
   - docs/models/deploymentcreatemetricmessagestype.md
   - docs/models/deploymentcreatemetricmessagesusermessage.md
-  - docs/models/deploymentcreatemetricmessagetype.md
   - docs/models/deploymentcreatemetricrequest.md
   - docs/models/deploymentcreatemetricrequestbody.md
   - docs/models/deploymentcreatemetricresponsebody.md
@@ -314,15 +342,10 @@ generatedFiles:
   - docs/models/deploymentgetconfigtype.md
   - docs/models/deploymentinvokechoices.md
   - docs/models/deploymentinvokeglobals.md
-  - docs/models/deploymentinvokemessage.md
-  - docs/models/deploymentinvokemessage1.md
-  - docs/models/deploymentinvokemessage2.md
-  - docs/models/deploymentinvokemessage3.md
-  - docs/models/deploymentinvokemessagedeploymentsresponserole.md
+  - docs/models/deploymentinvokemessagedeploymentsresponsetype.md
   - docs/models/deploymentinvokemessagedeploymentsrole.md
-  - docs/models/deploymentinvokemessagefunction.md
+  - docs/models/deploymentinvokemessagedeploymentstype.md
   - docs/models/deploymentinvokemessagerole.md
-  - docs/models/deploymentinvokemessagetoolcalls.md
   - docs/models/deploymentinvokemessagetype.md
   - docs/models/deploymentinvokemetadata.md
   - docs/models/deploymentinvokeobject.md
@@ -886,7 +909,7 @@ examples:
         application/json: {"key": "<key>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "created": "2024-02-27T07:01:10.482Z", "object": "completion", "model": "El Camino", "provider": "cohere", "is_final": false, "choices": [{"index": 1729.12}, {"index": 3047.15}]}
+          application/json: {"id": "<id>", "created": "2024-02-27T07:01:10.482Z", "object": "completion", "model": "El Camino", "provider": "cohere", "is_final": false, "choices": [{"index": 1729.12, "message": {"type": "content", "role": "exception", "content": "<value>"}}, {"index": 3047.15, "message": {"type": "content", "role": "system", "content": "<value>"}}]}
   DeploymentCreateMetric:
     speakeasy-default-deployment-create-metric:
       parameters:

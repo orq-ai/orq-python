@@ -1,4 +1,6 @@
-# DeploymentCreateMetricMessageType
+# ChoicesType
+
+The type of the tool. Currently, only `function` is supported.
 
 
 ## Values

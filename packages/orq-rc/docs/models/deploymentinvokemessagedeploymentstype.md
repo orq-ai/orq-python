@@ -1,4 +1,4 @@
-# DeploymentCreateMetricMessageDeploymentsMetricsRequestType
+# DeploymentInvokeMessageDeploymentsType
 
 
 ## Values
