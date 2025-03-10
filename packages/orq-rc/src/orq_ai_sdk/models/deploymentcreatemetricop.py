@@ -492,6 +492,8 @@ DeploymentCreateMetricMessages = TypeAliasType(
 )
 
 
+DeploymentCreateMetricMessageDeploymentsMetricsRequestType = Literal["image"]
+
 DeploymentCreateMetricMessageDeploymentsMetricsRole = Literal[
     "system",
     "assistant",
@@ -506,17 +508,22 @@ r"""The role of the prompt message"""
 
 
 class Message3TypedDict(TypedDict):
+    type: DeploymentCreateMetricMessageDeploymentsMetricsRequestType
     role: DeploymentCreateMetricMessageDeploymentsMetricsRole
     r"""The role of the prompt message"""
     url: str
 
 
 class Message3(BaseModel):
+    type: DeploymentCreateMetricMessageDeploymentsMetricsRequestType
+
     role: DeploymentCreateMetricMessageDeploymentsMetricsRole
     r"""The role of the prompt message"""
 
     url: str
 
+
+DeploymentCreateMetricMessageDeploymentsMetricsType = Literal["content"]
 
 DeploymentCreateMetricMessageRole = Literal[
     "system",
@@ -532,12 +539,15 @@ r"""The role of the prompt message"""
 
 
 class Message2TypedDict(TypedDict):
+    type: DeploymentCreateMetricMessageDeploymentsMetricsType
     role: DeploymentCreateMetricMessageRole
     r"""The role of the prompt message"""
     content: Nullable[str]
 
 
 class Message2(BaseModel):
+    type: DeploymentCreateMetricMessageDeploymentsMetricsType
+
     role: DeploymentCreateMetricMessageRole
     r"""The role of the prompt message"""
 
@@ -574,6 +584,8 @@ class Message2(BaseModel):
         return m
 
 
+MessageType = Literal["tool_calls"]
+
 MessageRole = Literal[
     "system",
     "assistant",
@@ -586,7 +598,7 @@ MessageRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-MessageType = Literal["function"]
+DeploymentCreateMetricMessageType = Literal["function"]
 
 
 class MessageFunctionTypedDict(TypedDict):
@@ -603,14 +615,14 @@ class MessageFunction(BaseModel):
 
 
 class MessageToolCallsTypedDict(TypedDict):
-    type: MessageType
+    type: DeploymentCreateMetricMessageType
     function: MessageFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class MessageToolCalls(BaseModel):
-    type: MessageType
+    type: DeploymentCreateMetricMessageType
 
     function: MessageFunction
 
@@ -620,6 +632,7 @@ class MessageToolCalls(BaseModel):
 
 
 class Message1TypedDict(TypedDict):
+    type: MessageType
     role: MessageRole
     r"""The role of the prompt message"""
     tool_calls: List[MessageToolCallsTypedDict]
@@ -627,6 +640,8 @@ class Message1TypedDict(TypedDict):
 
 
 class Message1(BaseModel):
+    type: MessageType
+
     role: MessageRole
     r"""The role of the prompt message"""
 
@@ -675,20 +690,20 @@ Message = TypeAliasType("Message", Union[Message2, Message3, Message1])
 
 class ChoicesTypedDict(TypedDict):
     index: float
-    message: NotRequired[MessageTypedDict]
+    message: MessageTypedDict
     finish_reason: NotRequired[Nullable[str]]
 
 
 class Choices(BaseModel):
     index: float
 
-    message: Optional[Message] = None
+    message: Message
 
     finish_reason: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["message", "finish_reason"]
+        optional_fields = ["finish_reason"]
         nullable_fields = ["finish_reason"]
         null_default_fields = []
 

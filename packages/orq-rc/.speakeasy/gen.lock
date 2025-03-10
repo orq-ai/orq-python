@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: e7a6e8febafb3a32cef791a79fd7a221
+  docChecksum: 3d9350b0f0910908b08af6c8ec69ce97
   docVersion: "2.0"
   speakeasyVersion: 1.513.5
   generationVersion: 2.545.4
-  releaseVersion: 3.2.0-rc.34
-  configChecksum: c24b1a04ab9a0ea18f6b35fd248cfc63
+  releaseVersion: 3.2.0-rc.35
+  configChecksum: 7de486e8e8cba8c0d842610e2da62f5b
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -195,7 +195,9 @@ generatedFiles:
   - docs/models/deploymentcreatemetriccontent2.md
   - docs/models/deploymentcreatemetriccontentdeploymentsmetrics2.md
   - docs/models/deploymentcreatemetricfeedback.md
+  - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrequesttype.md
   - docs/models/deploymentcreatemetricmessagedeploymentsmetricsrole.md
+  - docs/models/deploymentcreatemetricmessagedeploymentsmetricstype.md
   - docs/models/deploymentcreatemetricmessagerole.md
   - docs/models/deploymentcreatemetricmessages.md
   - docs/models/deploymentcreatemetricmessagesassistantmessage.md
@@ -215,6 +217,7 @@ generatedFiles:
   - docs/models/deploymentcreatemetricmessagestoolmessage.md
   - docs/models/deploymentcreatemetricmessagestype.md
   - docs/models/deploymentcreatemetricmessagesusermessage.md
+  - docs/models/deploymentcreatemetricmessagetype.md
   - docs/models/deploymentcreatemetricrequest.md
   - docs/models/deploymentcreatemetricrequestbody.md
   - docs/models/deploymentcreatemetricresponsebody.md
