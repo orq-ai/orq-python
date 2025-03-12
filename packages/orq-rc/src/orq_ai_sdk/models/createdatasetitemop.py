@@ -380,5 +380,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-12T08:05:44.240Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-12T09:11:18.701Z")
     r"""The date and time the resource was last updated"""
