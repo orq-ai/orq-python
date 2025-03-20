@@ -24,6 +24,7 @@ class DeploymentsSDK(BaseSDK):
     def list(
         self,
         *,
+        sort: Optional[models.Sort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -36,6 +37,7 @@ class DeploymentsSDK(BaseSDK):
 
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
 
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -58,6 +60,7 @@ class DeploymentsSDK(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentsRequest(
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -132,6 +135,7 @@ class DeploymentsSDK(BaseSDK):
     async def list_async(
         self,
         *,
+        sort: Optional[models.Sort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -144,6 +148,7 @@ class DeploymentsSDK(BaseSDK):
 
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
 
+        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -166,6 +171,7 @@ class DeploymentsSDK(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeploymentsRequest(
+            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,

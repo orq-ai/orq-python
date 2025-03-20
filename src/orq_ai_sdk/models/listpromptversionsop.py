@@ -15,8 +15,14 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+ListPromptVersionsQueryParamSort = Literal["asc", "desc"]
+r"""List sorting preference."""
+
+
 class ListPromptVersionsRequestTypedDict(TypedDict):
     prompt_id: str
+    sort: NotRequired[ListPromptVersionsQueryParamSort]
+    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -29,6 +35,12 @@ class ListPromptVersionsRequest(BaseModel):
     prompt_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+
+    sort: Annotated[
+        Optional[ListPromptVersionsQueryParamSort],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = "asc"
+    r"""List sorting preference."""
 
     limit: Annotated[
         Optional[float],
@@ -50,8 +62,6 @@ class ListPromptVersionsRequest(BaseModel):
 
 
 ListPromptVersionsObject = Literal["list"]
-
-ListPromptVersionsType = Literal["prompt"]
 
 ListPromptVersionsModelType = Literal[
     "chat",
@@ -438,7 +448,7 @@ ListPromptVersionsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-ListPromptVersionsPromptsType = Literal["function"]
+ListPromptVersionsType = Literal["function"]
 
 
 class ListPromptVersionsFunctionTypedDict(TypedDict):
@@ -455,14 +465,14 @@ class ListPromptVersionsFunction(BaseModel):
 
 
 class ListPromptVersionsToolCallsTypedDict(TypedDict):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
     function: ListPromptVersionsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class ListPromptVersionsToolCalls(BaseModel):
-    type: ListPromptVersionsPromptsType
+    type: ListPromptVersionsType
 
     function: ListPromptVersionsFunction
 
@@ -614,12 +624,11 @@ class ListPromptVersionsMetadata(BaseModel):
 
 class ListPromptVersionsDataTypedDict(TypedDict):
     id: str
-    type: ListPromptVersionsType
     prompt_config: ListPromptVersionsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     timestamp: str
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[ListPromptVersionsMetadataTypedDict]
@@ -628,16 +637,14 @@ class ListPromptVersionsDataTypedDict(TypedDict):
 class ListPromptVersionsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    type: ListPromptVersionsType
-
     prompt_config: ListPromptVersionsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
     timestamp: str
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
@@ -647,7 +654,7 @@ class ListPromptVersionsData(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)

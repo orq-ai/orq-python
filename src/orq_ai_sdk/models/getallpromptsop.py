@@ -15,7 +15,13 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+GetAllPromptsQueryParamSort = Literal["asc", "desc"]
+r"""List sorting preference."""
+
+
 class GetAllPromptsRequestTypedDict(TypedDict):
+    sort: NotRequired[GetAllPromptsQueryParamSort]
+    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -25,6 +31,12 @@ class GetAllPromptsRequestTypedDict(TypedDict):
 
 
 class GetAllPromptsRequest(BaseModel):
+    sort: Annotated[
+        Optional[GetAllPromptsQueryParamSort],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = "asc"
+    r"""List sorting preference."""
+
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -613,8 +625,8 @@ class GetAllPromptsDataTypedDict(TypedDict):
     r"""The prompt’s name, meant to be displayable in the UI."""
     prompt_config: GetAllPromptsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[GetAllPromptsMetadataTypedDict]
@@ -639,9 +651,9 @@ class GetAllPromptsData(BaseModel):
     prompt_config: GetAllPromptsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
@@ -651,7 +663,7 @@ class GetAllPromptsData(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)

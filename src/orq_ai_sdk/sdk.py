@@ -9,6 +9,7 @@ import httpx
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import SDKHooks
 from orq_ai_sdk.contacts import Contacts
+from orq_ai_sdk.datasets import Datasets
 from orq_ai_sdk.deployments_sdk import DeploymentsSDK
 from orq_ai_sdk.feedback import Feedback
 from orq_ai_sdk.files import Files
@@ -31,6 +32,7 @@ class Orq(BaseSDK):
     files: Files
     prompts: Prompts
     remoteconfigs: Remoteconfigs
+    datasets: Datasets
 
     def __init__(
         self,
@@ -144,6 +146,7 @@ class Orq(BaseSDK):
         self.files = Files(self.sdk_configuration)
         self.prompts = Prompts(self.sdk_configuration)
         self.remoteconfigs = Remoteconfigs(self.sdk_configuration)
+        self.datasets = Datasets(self.sdk_configuration)
 
     def __enter__(self):
         return self

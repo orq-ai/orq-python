@@ -132,7 +132,7 @@ class Audio(BaseModel):
 
 
 Type = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class FunctionTypedDict(TypedDict):
@@ -154,7 +154,7 @@ class ToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: Type
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: FunctionTypedDict
 
 
@@ -163,7 +163,7 @@ class ToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: Type
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: Function
 
@@ -532,7 +532,7 @@ class MessagesAudio(BaseModel):
 
 
 MessagesType = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class MessagesFunctionTypedDict(TypedDict):
@@ -554,7 +554,7 @@ class MessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: MessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: MessagesFunctionTypedDict
 
 
@@ -563,7 +563,7 @@ class MessagesToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: MessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: MessagesFunction
 

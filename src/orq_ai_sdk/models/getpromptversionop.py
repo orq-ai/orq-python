@@ -51,8 +51,6 @@ class GetPromptVersionPromptsResponseBody(Exception):
         return utils.marshal_json(self.data, GetPromptVersionPromptsResponseBodyData)
 
 
-GetPromptVersionType = Literal["prompt"]
-
 GetPromptVersionModelType = Literal[
     "chat",
     "completion",
@@ -438,7 +436,7 @@ GetPromptVersionContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetPromptVersionPromptsType = Literal["function"]
+GetPromptVersionType = Literal["function"]
 
 
 class GetPromptVersionFunctionTypedDict(TypedDict):
@@ -455,14 +453,14 @@ class GetPromptVersionFunction(BaseModel):
 
 
 class GetPromptVersionToolCallsTypedDict(TypedDict):
-    type: GetPromptVersionPromptsType
+    type: GetPromptVersionType
     function: GetPromptVersionFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class GetPromptVersionToolCalls(BaseModel):
-    type: GetPromptVersionPromptsType
+    type: GetPromptVersionType
 
     function: GetPromptVersionFunction
 
@@ -616,12 +614,11 @@ class GetPromptVersionResponseBodyTypedDict(TypedDict):
     r"""Prompt version retrieved successfully."""
 
     id: str
-    type: GetPromptVersionType
     prompt_config: GetPromptVersionPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
     timestamp: str
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[GetPromptVersionMetadataTypedDict]
@@ -632,16 +629,14 @@ class GetPromptVersionResponseBody(BaseModel):
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    type: GetPromptVersionType
-
     prompt_config: GetPromptVersionPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
     timestamp: str
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
@@ -651,7 +646,7 @@ class GetPromptVersionResponseBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)

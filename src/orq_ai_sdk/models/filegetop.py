@@ -22,7 +22,7 @@ class FileGetRequest(BaseModel):
     r"""The ID of the file"""
 
 
-FileGetPurpose = Literal["retrieval", "knowledge_datasource"]
+FileGetPurpose = Literal["retrieval", "knowledge_datasource", "batch"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -60,5 +60,5 @@ class FileGetResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-14T11:26:07.853Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-20T14:51:12.367Z")
     r"""The date and time the resource was created"""

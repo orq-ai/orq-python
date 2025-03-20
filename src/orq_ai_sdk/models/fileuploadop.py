@@ -35,7 +35,7 @@ class File(BaseModel):
     ] = None
 
 
-Purpose = Literal["retrieval", "knowledge_datasource"]
+Purpose = Literal["retrieval", "knowledge_datasource", "batch"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -56,7 +56,7 @@ class FileUploadRequestBody(BaseModel):
     r"""The intended purpose of the uploaded file."""
 
 
-FileUploadPurpose = Literal["retrieval", "knowledge_datasource"]
+FileUploadPurpose = Literal["retrieval", "knowledge_datasource", "batch"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -94,5 +94,5 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-14T11:26:07.853Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-20T14:51:12.367Z")
     r"""The date and time the resource was created"""

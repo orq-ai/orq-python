@@ -1,6 +1,6 @@
 # DeploymentInvokeResponseBody
 
-Response from the gateway
+Successful operation
 
 
 ## Fields

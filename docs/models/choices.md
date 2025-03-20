@@ -1,10 +1,35 @@
 # Choices
 
 
-## Fields
+## Supported Types
 
-| Field                                            | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `index`                                          | *float*                                          | :heavy_check_mark:                               | N/A                                              |
-| `message`                                        | [Optional[models.Message]](../models/message.md) | :heavy_minus_sign:                               | N/A                                              |
-| `finish_reason`                                  | *OptionalNullable[str]*                          | :heavy_minus_sign:                               | N/A                                              |
+### `models.ChoicesDeveloperMessage`
+
+```python
+value: models.ChoicesDeveloperMessage = /* values here */
+```
+
+### `models.ChoicesSystemMessage`
+
+```python
+value: models.ChoicesSystemMessage = /* values here */
+```
+
+### `models.ChoicesUserMessage`
+
+```python
+value: models.ChoicesUserMessage = /* values here */
+```
+
+### `models.ChoicesAssistantMessage`
+
+```python
+value: models.ChoicesAssistantMessage = /* values here */
+```
+
+### `models.ChoicesToolMessage`
+
+```python
+value: models.ChoicesToolMessage = /* values here */
+```
+

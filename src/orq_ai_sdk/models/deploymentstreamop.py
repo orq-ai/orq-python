@@ -166,7 +166,7 @@ class DeploymentStreamPrefixMessagesAudio(BaseModel):
 
 
 DeploymentStreamPrefixMessagesType = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class DeploymentStreamPrefixMessagesFunctionTypedDict(TypedDict):
@@ -188,7 +188,7 @@ class DeploymentStreamPrefixMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: DeploymentStreamPrefixMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentStreamPrefixMessagesFunctionTypedDict
 
 
@@ -197,7 +197,7 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: DeploymentStreamPrefixMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentStreamPrefixMessagesFunction
 
@@ -593,7 +593,7 @@ class DeploymentStreamMessagesAudio(BaseModel):
 
 
 DeploymentStreamMessagesType = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class DeploymentStreamMessagesFunctionTypedDict(TypedDict):
@@ -615,7 +615,7 @@ class DeploymentStreamMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: DeploymentStreamMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentStreamMessagesFunctionTypedDict
 
 
@@ -624,7 +624,7 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: DeploymentStreamMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentStreamMessagesFunction
 
@@ -1453,12 +1453,12 @@ class DeploymentStreamData(BaseModel):
 
 
 class DeploymentStreamResponseBodyTypedDict(TypedDict):
-    r"""Response from the gateway"""
+    r"""Successful operation"""
 
     data: NotRequired[DeploymentStreamDataTypedDict]
 
 
 class DeploymentStreamResponseBody(BaseModel):
-    r"""Response from the gateway"""
+    r"""Successful operation"""
 
     data: Optional[DeploymentStreamData] = None

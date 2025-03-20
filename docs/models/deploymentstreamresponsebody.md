@@ -1,6 +1,6 @@
 # DeploymentStreamResponseBody
 
-Response from the gateway
+Successful operation
 
 
 ## Fields

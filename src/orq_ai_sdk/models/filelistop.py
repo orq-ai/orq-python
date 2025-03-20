@@ -10,7 +10,13 @@ from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
+QueryParamSort = Literal["asc", "desc"]
+r"""List sorting preference."""
+
+
 class FileListRequestTypedDict(TypedDict):
+    sort: NotRequired[QueryParamSort]
+    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -20,6 +26,12 @@ class FileListRequestTypedDict(TypedDict):
 
 
 class FileListRequest(BaseModel):
+    sort: Annotated[
+        Optional[QueryParamSort],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = "asc"
+    r"""List sorting preference."""
+
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -41,7 +53,7 @@ class FileListRequest(BaseModel):
 
 FileListObject = Literal["list"]
 
-FileListPurpose = Literal["retrieval", "knowledge_datasource"]
+FileListPurpose = Literal["retrieval", "knowledge_datasource", "batch"]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -75,7 +87,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-14T11:26:07.853Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-03-20T14:51:12.367Z")
     r"""The date and time the resource was created"""
 
 

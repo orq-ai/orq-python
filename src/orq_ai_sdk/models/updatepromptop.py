@@ -520,8 +520,8 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     domain_id: NotRequired[str]
     created: NotRequired[str]
     updated: NotRequired[str]
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     display_name: NotRequired[str]
     r"""The prompt’s name, meant to be displayable in the UI."""
     description: NotRequired[Nullable[str]]
@@ -540,9 +540,9 @@ class UpdatePromptRequestBody(BaseModel):
 
     updated: Optional[str] = None
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     display_name: Optional[str] = None
     r"""The prompt’s name, meant to be displayable in the UI."""
@@ -569,7 +569,7 @@ class UpdatePromptRequestBody(BaseModel):
             "prompt_config",
             "metadata",
         ]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -1205,8 +1205,8 @@ class UpdatePromptResponseBodyTypedDict(TypedDict):
     r"""The prompt’s name, meant to be displayable in the UI."""
     prompt_config: UpdatePromptPromptsPromptConfigTypedDict
     r"""A list of messages compatible with the openAI schema"""
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[UpdatePromptPromptsMetadataTypedDict]
@@ -1233,9 +1233,9 @@ class UpdatePromptResponseBody(BaseModel):
     prompt_config: UpdatePromptPromptsPromptConfig
     r"""A list of messages compatible with the openAI schema"""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     description: OptionalNullable[str] = UNSET
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
@@ -1245,7 +1245,7 @@ class UpdatePromptResponseBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["description"]
+        nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []
 
         serialized = handler(self)

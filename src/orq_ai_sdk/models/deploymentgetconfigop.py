@@ -145,7 +145,7 @@ class PrefixMessagesAudio(BaseModel):
 
 
 PrefixMessagesType = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class PrefixMessagesFunctionTypedDict(TypedDict):
@@ -167,7 +167,7 @@ class PrefixMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: PrefixMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: PrefixMessagesFunctionTypedDict
 
 
@@ -176,7 +176,7 @@ class PrefixMessagesToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: PrefixMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: PrefixMessagesFunction
 
@@ -583,7 +583,7 @@ class DeploymentGetConfigMessagesAudio(BaseModel):
 
 
 DeploymentGetConfigMessagesType = Literal["function"]
-r"""The type of the tool. Currently, only `5` is supported."""
+r"""The type of the tool. Currently, only `function` is supported."""
 
 
 class DeploymentGetConfigMessagesFunctionTypedDict(TypedDict):
@@ -605,7 +605,7 @@ class DeploymentGetConfigMessagesToolCallsTypedDict(TypedDict):
     id: str
     r"""The ID of the tool call."""
     type: DeploymentGetConfigMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigMessagesFunctionTypedDict
 
 
@@ -614,7 +614,7 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
     r"""The ID of the tool call."""
 
     type: DeploymentGetConfigMessagesType
-    r"""The type of the tool. Currently, only `5` is supported."""
+    r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentGetConfigMessagesFunction
 
