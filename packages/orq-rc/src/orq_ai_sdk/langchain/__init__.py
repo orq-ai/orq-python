@@ -124,7 +124,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
         
         return str(run_id)
 
-    def __get_trace_id_from_mapper(self, run_id: str | None):
+    def __get_trace_id_from_mapper(self, run_id: Optional[str] = None):
         parent_run_id = self.parent_id_mappers[run_id] if run_id in self.parent_id_mappers else None
 
         if parent_run_id is None:
