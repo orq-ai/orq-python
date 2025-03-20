@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: cd66db7b8fdbc42107ced0a507fcf1a2
+  docChecksum: 2cf5c4395fbe199985510b649c63a342
   docVersion: "2.0"
-  speakeasyVersion: 1.517.3
-  generationVersion: 2.548.6
-  releaseVersion: 3.2.0-rc.48
-  configChecksum: dd28ab1343901f7c240a3ed0fc9e312c
+  speakeasyVersion: 1.521.0
+  generationVersion: 2.558.2
+  releaseVersion: 3.2.0-rc.62
+  configChecksum: a388002ee28ff9662e21ec9407f9286f
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.12.3
+    core: 5.12.4
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -38,6 +38,8 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.1
+    serverEvents: 1.0.7
+    serverEventsSentinels: 0.1.0
     unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
@@ -407,6 +409,97 @@ generatedFiles:
   - docs/models/deploymentsrole.md
   - docs/models/deploymentstoolcalls.md
   - docs/models/deploymentstools.md
+  - docs/models/deploymentstream21.md
+  - docs/models/deploymentstream22.md
+  - docs/models/deploymentstream23.md
+  - docs/models/deploymentstream2deployments1.md
+  - docs/models/deploymentstream2deployments2.md
+  - docs/models/deploymentstream2deployments3.md
+  - docs/models/deploymentstream2deploymentsdetail.md
+  - docs/models/deploymentstream2deploymentsformat.md
+  - docs/models/deploymentstream2deploymentsimageurl.md
+  - docs/models/deploymentstream2deploymentsinputaudio.md
+  - docs/models/deploymentstream2deploymentsrefusalcontentpart.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessages3contenttype.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessages3type.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessages4contenttype.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessages4type.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessagestype.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodyprefixmessagestype.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodytype.md
+  - docs/models/deploymentstream2deploymentsrequesttype.md
+  - docs/models/deploymentstream2deploymentstextcontentpart.md
+  - docs/models/deploymentstream2deploymentstype.md
+  - docs/models/deploymentstream2detail.md
+  - docs/models/deploymentstream2format.md
+  - docs/models/deploymentstream2imageurl.md
+  - docs/models/deploymentstream2inputaudio.md
+  - docs/models/deploymentstream2refusalcontentpart.md
+  - docs/models/deploymentstream2textcontentpart.md
+  - docs/models/deploymentstream2type.md
+  - docs/models/deploymentstreamchoices.md
+  - docs/models/deploymentstreamcontent2.md
+  - docs/models/deploymentstreamcontentdeployments2.md
+  - docs/models/deploymentstreamcontentdeploymentsrequest2.md
+  - docs/models/deploymentstreamcontentdeploymentsrequestrequestbody2.md
+  - docs/models/deploymentstreamdata.md
+  - docs/models/deploymentstreamdeploymentsmetadata.md
+  - docs/models/deploymentstreamdocuments.md
+  - docs/models/deploymentstreamglobals.md
+  - docs/models/deploymentstreaminputs.md
+  - docs/models/deploymentstreaminvokeoptions.md
+  - docs/models/deploymentstreammessage.md
+  - docs/models/deploymentstreammessage1.md
+  - docs/models/deploymentstreammessage2.md
+  - docs/models/deploymentstreammessage3.md
+  - docs/models/deploymentstreammessagedeploymentsresponserole.md
+  - docs/models/deploymentstreammessagedeploymentsrole.md
+  - docs/models/deploymentstreammessagefunction.md
+  - docs/models/deploymentstreammessagerole.md
+  - docs/models/deploymentstreammessages.md
+  - docs/models/deploymentstreammessagesassistantmessage.md
+  - docs/models/deploymentstreammessagesaudio.md
+  - docs/models/deploymentstreammessagescontent.md
+  - docs/models/deploymentstreammessagesdeploymentscontent.md
+  - docs/models/deploymentstreammessagesdeploymentsrequestcontent.md
+  - docs/models/deploymentstreammessagesdeploymentsrequestrequestbody5role.md
+  - docs/models/deploymentstreammessagesdeploymentsrequestrequestbodyrole.md
+  - docs/models/deploymentstreammessagesdeploymentsrequestrole.md
+  - docs/models/deploymentstreammessagesdeploymentsrole.md
+  - docs/models/deploymentstreammessagesdevelopermessage.md
+  - docs/models/deploymentstreammessagesfunction.md
+  - docs/models/deploymentstreammessagesrole.md
+  - docs/models/deploymentstreammessagessystemmessage.md
+  - docs/models/deploymentstreammessagestoolcalls.md
+  - docs/models/deploymentstreammessagestoolmessage.md
+  - docs/models/deploymentstreammessagestype.md
+  - docs/models/deploymentstreammessagesusermessage.md
+  - docs/models/deploymentstreammessagetoolcalls.md
+  - docs/models/deploymentstreammessagetype.md
+  - docs/models/deploymentstreammetadata.md
+  - docs/models/deploymentstreamobject.md
+  - docs/models/deploymentstreamprefixmessages.md
+  - docs/models/deploymentstreamprefixmessagesassistantmessage.md
+  - docs/models/deploymentstreamprefixmessagesaudio.md
+  - docs/models/deploymentstreamprefixmessagescontent.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentscontent.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentsrequestcontent.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentsrequestrequestbody5role.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentsrequestrequestbodyrole.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentsrequestrole.md
+  - docs/models/deploymentstreamprefixmessagesdeploymentsrole.md
+  - docs/models/deploymentstreamprefixmessagesdevelopermessage.md
+  - docs/models/deploymentstreamprefixmessagesfunction.md
+  - docs/models/deploymentstreamprefixmessagesrole.md
+  - docs/models/deploymentstreamprefixmessagessystemmessage.md
+  - docs/models/deploymentstreamprefixmessagestoolcalls.md
+  - docs/models/deploymentstreamprefixmessagestoolmessage.md
+  - docs/models/deploymentstreamprefixmessagestype.md
+  - docs/models/deploymentstreamprefixmessagesusermessage.md
+  - docs/models/deploymentstreamprovider.md
+  - docs/models/deploymentstreamrequestbody.md
+  - docs/models/deploymentstreamresponsebody.md
+  - docs/models/deploymentstreamretrievals.md
   - docs/models/deploymentstype.md
   - docs/models/detail.md
   - docs/models/developermessage.md
@@ -822,6 +915,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/deploymentinvokeop.py
   - src/orq_ai_sdk/models/deployments.py
   - src/orq_ai_sdk/models/deploymentsop.py
+  - src/orq_ai_sdk/models/deploymentstreamop.py
   - src/orq_ai_sdk/models/filedeleteop.py
   - src/orq_ai_sdk/models/filegetop.py
   - src/orq_ai_sdk/models/filelistop.py

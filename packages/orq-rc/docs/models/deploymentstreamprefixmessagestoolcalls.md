@@ -1,0 +1,10 @@
+# DeploymentStreamPrefixMessagesToolCalls
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                 | *str*                                                                                                | :heavy_check_mark:                                                                                   | The ID of the tool call.                                                                             |
+| `type`                                                                                               | [models.DeploymentStreamPrefixMessagesType](../models/deploymentstreamprefixmessagestype.md)         | :heavy_check_mark:                                                                                   | The type of the tool. Currently, only `function` is supported.                                       |
+| `function`                                                                                           | [models.DeploymentStreamPrefixMessagesFunction](../models/deploymentstreamprefixmessagesfunction.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

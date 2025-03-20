@@ -109,7 +109,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-13T22:21:45.672Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-20T11:35:14.966Z")
     r"""The date and time the resource was last updated"""
 
 

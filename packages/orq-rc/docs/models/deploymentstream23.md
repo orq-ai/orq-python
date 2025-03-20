@@ -1,0 +1,9 @@
+# DeploymentStream23
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [models.DeploymentStream2DeploymentsRequestType](../models/deploymentstream2deploymentsrequesttype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `input_audio`                                                                                          | [models.DeploymentStream2InputAudio](../models/deploymentstream2inputaudio.md)                         | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

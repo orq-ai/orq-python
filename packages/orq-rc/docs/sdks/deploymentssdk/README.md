@@ -8,6 +8,7 @@
 * [list](#list) - List all deployments
 * [get_config](#get_config) - Get config
 * [invoke](#invoke) - Invoke
+* [stream](#stream) - Stream
 
 ## list
 
@@ -147,6 +148,58 @@ with Orq(
 ### Response
 
 **[models.DeploymentInvokeResponseBody](../../models/deploymentinvokeresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## stream
+
+Stream deployment generation. Only supported for completions and chat completions.
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.deployments.stream(key="<key>")
+
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                              | Type                                                                                                                                                                                                                   | Required                                                                                                                                                                                                               | Description                                                                                                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                                                                                                                  | *str*                                                                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                     | The deployment key to invoke                                                                                                                                                                                           |
+| `inputs`                                                                                                                                                                                                               | Dict[str, [models.DeploymentStreamInputs](../../models/deploymentstreaminputs.md)]                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                     | Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.                                                                     |
+| `context`                                                                                                                                                                                                              | Dict[str, *Any*]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                     | Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.                              |
+| `prefix_messages`                                                                                                                                                                                                      | List[[models.DeploymentStreamPrefixMessages](../../models/deploymentstreamprefixmessages.md)]                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                     | A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.                                                                                  |
+| `messages`                                                                                                                                                                                                             | List[[models.DeploymentStreamMessages](../../models/deploymentstreammessages.md)]                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                     | A list of messages to send to the deployment.                                                                                                                                                                          |
+| `file_ids`                                                                                                                                                                                                             | List[*str*]                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                     | A list of file IDs that are associated with the deployment request.                                                                                                                                                    |
+| `metadata`                                                                                                                                                                                                             | Dict[str, *Any*]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                     | Key-value pairs that you want to attach to the log generated by this request.                                                                                                                                          |
+| `extra_params`                                                                                                                                                                                                         | Dict[str, *Any*]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                     | Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration. |
+| `documents`                                                                                                                                                                                                            | List[[models.DeploymentStreamDocuments](../../models/deploymentstreamdocuments.md)]                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                     | A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.                                                               |
+| `invoke_options`                                                                                                                                                                                                       | [Optional[models.DeploymentStreamInvokeOptions]](../../models/deploymentstreaminvokeoptions.md)                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                    |
+| `retries`                                                                                                                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                     | Configuration to override the default retry behavior of the client.                                                                                                                                                    |
+
+### Response
+
+**[Union[eventstreaming.EventStream[models.DeploymentStreamResponseBody], eventstreaming.EventStreamAsync[models.DeploymentStreamResponseBody]]](../../models/.md)**
 
 ### Errors
 

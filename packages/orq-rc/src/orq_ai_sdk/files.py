@@ -22,7 +22,7 @@ class Files(BaseSDK):
     ) -> Optional[models.FileUploadResponseBody]:
         r"""Create file
 
-        Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/post_v2-deployments-get-config).
+        Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -129,7 +129,7 @@ class Files(BaseSDK):
     ) -> Optional[models.FileUploadResponseBody]:
         r"""Create file
 
-        Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/post_v2-deployments-get-config).
+        Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method

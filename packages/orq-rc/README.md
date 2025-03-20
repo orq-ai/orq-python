@@ -26,6 +26,7 @@ For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [Server-sent event streaming](#server-sent-event-streaming)
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
@@ -217,6 +218,7 @@ with Orq(
 * [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
+* [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
@@ -250,6 +252,43 @@ with Orq(
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Server-sent event streaming [eventstream] -->
+## Server-sent event streaming
+
+[Server-sent events][mdn-sse] are used to stream content from certain
+operations. These operations will expose the stream as [Generator][generator] that
+can be consumed using a simple `for` loop. The loop will
+terminate when the server no longer has any events to send and closes the
+underlying connection.  
+
+The stream is also a [Context Manager][context-manager] and can be used with the `with` statement and will close the
+underlying connection when the context is exited.
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.deployments.stream(key="<key>")
+
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
+
+```
+
+[mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+[generator]: https://book.pythontips.com/en/latest/generators.html
+[context-manager]: https://book.pythontips.com/en/latest/context_managers.html
+<!-- End Server-sent event streaming [eventstream] -->
 
 <!-- Start File uploads [file-upload] -->
 ## File uploads

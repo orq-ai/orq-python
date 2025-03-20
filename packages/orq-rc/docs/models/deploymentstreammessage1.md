@@ -1,0 +1,10 @@
+# DeploymentStreamMessage1
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `role`                                                                                         | [models.DeploymentStreamMessageRole](../models/deploymentstreammessagerole.md)                 | :heavy_check_mark:                                                                             | The role of the prompt message                                                                 |
+| `tool_calls`                                                                                   | List[[models.DeploymentStreamMessageToolCalls](../models/deploymentstreammessagetoolcalls.md)] | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `content`                                                                                      | *OptionalNullable[str]*                                                                        | :heavy_minus_sign:                                                                             | N/A                                                                                            |
