@@ -115,7 +115,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
         if parent_run_id:
             self.parent_id_mappers[str(run_id)] = str(parent_run_id)
         else:
-            self.parent_id_mappers[str(run_id)] = "" # Use empty string instead of None to maintain str type compatibility
+            # Use empty string instead of None to maintain str type compatibility
+            self.parent_id_mappers[str(run_id)] = ""
 
     def __get_trace_id(self, run_id: UUID, parent_run_id: Optional[UUID] = None):
         if parent_run_id:
