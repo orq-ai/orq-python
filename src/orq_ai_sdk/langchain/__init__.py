@@ -109,14 +109,14 @@ class OrqLangchainCallback(BaseCallbackHandler):
     def __init__(self, api_key: str, api_url = "https://my.orq.ai"):
         self.events = Events()
         self.orq_client = OrqClient(api_key, api_url)
-        self.parent_id_mappers: Dict[str, str] = {}
+        self.parent_id_mappers: Dict[str, Optional[str | None]] = {}
 
     def __map_parent_id(self, run_id: UUID, parent_run_id: Optional[UUID] = None):
         if parent_run_id:
             self.parent_id_mappers[str(run_id)] = str(parent_run_id)
         else:
             # Use empty string instead of None to maintain str type compatibility
-            self.parent_id_mappers[str(run_id)] = ""
+            self.parent_id_mappers[str(run_id)] = None
 
     def __get_trace_id(self, run_id: UUID, parent_run_id: Optional[UUID] = None):
         if parent_run_id:
