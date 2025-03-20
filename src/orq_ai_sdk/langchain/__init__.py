@@ -115,7 +115,8 @@ class OrqLangchainCallback(BaseCallbackHandler):
         if parent_run_id:
             self.parent_id_mappers[str(run_id)] = str(parent_run_id)
         else:
-            self.parent_id_mappers[str(run_id)] = None
+            # Use empty string instead of None to maintain str type compatibility
+            self.parent_id_mappers[str(run_id)] = ""
 
     def __get_trace_id(self, run_id: UUID, parent_run_id: Optional[UUID] = None):
         if parent_run_id:
@@ -338,7 +339,7 @@ class OrqLangchainCallback(BaseCallbackHandler):
         try:
             event: RetrievalEvent = self.events.retrievals[str(run_id)]
             event.end_timestamp = get_iso_string()
-            event.documents = documents
+            event.documents = [doc.dict() if hasattr(doc, 'dict') else {'page_content': doc.page_content, 'metadata': doc.metadata} for doc in documents]
 
             self.orq_client.log_event(event)
         except Exception as e:
