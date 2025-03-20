@@ -15,8 +15,8 @@ class GlobalHook(BeforeRequestHook):
 
         environment = request.headers['environment'] if 'environment' in request.headers else None
 
-        if hook_ctx.operation_id in ["DeploymentInvoke", "DeploymentStream", "DeploymentGetConfig"] and environment:
-            del request.headers['environment']
+        if hook_ctx.operation_id in ["DeploymentInvoke", "DeploymentStream", "DeploymentGetConfig"]:
+            
             raw_payload = request.content.decode('utf-8')
             payload = json.loads(raw_payload)
 
@@ -25,12 +25,14 @@ class GlobalHook(BeforeRequestHook):
             else:
                 payload['stream'] = False
 
-            if 'context' in payload and isinstance(payload['context'], dict):
-                payload['context']['environments'] = environment
-            else:
-                payload['context'] = {
-                    'environments': environment
-                }
+            if environment:
+                del request.headers['environment']
+                if 'context' in payload and isinstance(payload['context'], dict):
+                    payload['context']['environments'] = environment
+                else:
+                    payload['context'] = {
+                        'environments': environment
+                    }
 
             data = json.dumps(payload).encode('utf-8')
 
@@ -40,3 +42,4 @@ class GlobalHook(BeforeRequestHook):
             return httpx.Request(method=request.method, url=request.url, extensions=request.extensions, headers=request.headers, content=data)
 
         return request
+
