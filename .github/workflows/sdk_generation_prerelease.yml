@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      - packages/orq-rc/.speakeasy/gen.yaml
-      - packages/orq-rc/src/orq_ai_sdk/langchain/*
-      - packages/orq-rc/src/orq_ai_sdk/llamaindex/*
+    - 'packages/orq-rc/.speakeasy/gen.yaml'
+    - 'packages/orq-rc/src/orq_ai_sdk/langchain/**/*'
+    - 'packages/orq-rc/src/orq_ai_sdk/llamaindex/**/*'
 
 jobs:
   publish:
