@@ -8,6 +8,8 @@ on:
     - 'packages/orq-rc/.speakeasy/gen.yaml'
     - 'packages/orq-rc/src/orq_ai_sdk/langchain/**/*'
     - 'packages/orq-rc/src/orq_ai_sdk/llamaindex/**/*'
+  workflow_dispatch:
+    # Add manual trigger capability
 
 jobs:
   publish:
