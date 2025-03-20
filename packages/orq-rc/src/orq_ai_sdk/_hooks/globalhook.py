@@ -15,7 +15,7 @@ class GlobalHook(BeforeRequestHook):
 
         environment = request.headers['environment'] if 'environment' in request.headers else None
 
-        if hook_ctx.operation_id in ["DeploymentInvoke", "DeploymentStream"] and environment:
+        if hook_ctx.operation_id in ["DeploymentInvoke", "DeploymentStream", "DeploymentGetConfig"] and environment:
             del request.headers['environment']
             raw_payload = request.content.decode('utf-8')
             payload = json.loads(raw_payload)
