@@ -1,4 +1,4 @@
-# CreatePromptPromptsLanguage
+# UpdatePromptPromptsLanguage
 
 The language that the prompt is written in. Use this field to categorize the prompt for your own purpose
 

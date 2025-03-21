@@ -1,4 +1,4 @@
-# CreatePromptPromptsQuality
+# UpdatePromptPromptsQuality
 
 Only supported on `image` models.
 

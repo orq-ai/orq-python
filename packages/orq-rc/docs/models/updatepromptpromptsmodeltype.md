@@ -1,4 +1,4 @@
-# CreatePromptPromptsModelType
+# UpdatePromptPromptsModelType
 
 The type of the model
 

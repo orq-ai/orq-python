@@ -1,4 +1,4 @@
-# CreatePromptResponseFormatPromptsResponse200Type
+# UpdatePromptResponseFormatPromptsResponse200Type
 
 
 ## Values

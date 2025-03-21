@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 2cf5c4395fbe199985510b649c63a342
+  docChecksum: 3e079926894a56d336e53a90b7c7ce09
   docVersion: "2.0"
-  speakeasyVersion: 1.521.0
-  generationVersion: 2.558.2
-  releaseVersion: 3.2.0-rc.62
-  configChecksum: a388002ee28ff9662e21ec9407f9286f
+  speakeasyVersion: 1.521.1
+  generationVersion: 2.558.5
+  releaseVersion: 3.3.0-rc.1
+  configChecksum: d1cf58eac96ac9d029f652b61cc062be
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -149,25 +149,14 @@ generatedFiles:
   - docs/models/createpromptphotorealversion.md
   - docs/models/createpromptpromptconfig.md
   - docs/models/createpromptpromptscontent.md
-  - docs/models/createpromptpromptsencodingformat.md
   - docs/models/createpromptpromptsformat.md
   - docs/models/createpromptpromptsfunction.md
-  - docs/models/createpromptpromptslanguage.md
   - docs/models/createpromptpromptsmessages.md
   - docs/models/createpromptpromptsmetadata.md
-  - docs/models/createpromptpromptsmodelparameters.md
-  - docs/models/createpromptpromptsmodeltype.md
-  - docs/models/createpromptpromptsphotorealversion.md
-  - docs/models/createpromptpromptspromptconfig.md
-  - docs/models/createpromptpromptsprovider.md
-  - docs/models/createpromptpromptsquality.md
-  - docs/models/createpromptpromptsreasoningeffort.md
-  - docs/models/createpromptpromptsresponseformat.md
   - docs/models/createpromptpromptsresponsetype.md
   - docs/models/createpromptpromptsrole.md
   - docs/models/createpromptpromptstoolcalls.md
   - docs/models/createpromptpromptstype.md
-  - docs/models/createpromptpromptsusecases.md
   - docs/models/createpromptprovider.md
   - docs/models/createpromptquality.md
   - docs/models/createpromptreasoningeffort.md
@@ -177,9 +166,6 @@ generatedFiles:
   - docs/models/createpromptresponseformat1.md
   - docs/models/createpromptresponseformat2.md
   - docs/models/createpromptresponseformatjsonschema.md
-  - docs/models/createpromptresponseformatprompts1.md
-  - docs/models/createpromptresponseformatprompts2.md
-  - docs/models/createpromptresponseformatpromptsresponse200type.md
   - docs/models/createpromptresponseformatpromptsresponsetype.md
   - docs/models/createpromptresponseformatpromptstype.md
   - docs/models/createpromptresponseformattype.md
@@ -839,15 +825,26 @@ generatedFiles:
   - docs/models/updatepromptphotorealversion.md
   - docs/models/updatepromptpromptconfig.md
   - docs/models/updatepromptpromptscontent.md
+  - docs/models/updatepromptpromptsencodingformat.md
   - docs/models/updatepromptpromptsformat.md
   - docs/models/updatepromptpromptsfunction.md
+  - docs/models/updatepromptpromptslanguage.md
   - docs/models/updatepromptpromptsmessages.md
   - docs/models/updatepromptpromptsmetadata.md
+  - docs/models/updatepromptpromptsmodelparameters.md
+  - docs/models/updatepromptpromptsmodeltype.md
+  - docs/models/updatepromptpromptsphotorealversion.md
+  - docs/models/updatepromptpromptspromptconfig.md
+  - docs/models/updatepromptpromptsprovider.md
+  - docs/models/updatepromptpromptsquality.md
+  - docs/models/updatepromptpromptsreasoningeffort.md
   - docs/models/updatepromptpromptsresponsebody.md
+  - docs/models/updatepromptpromptsresponseformat.md
   - docs/models/updatepromptpromptsresponsetype.md
   - docs/models/updatepromptpromptsrole.md
   - docs/models/updatepromptpromptstoolcalls.md
   - docs/models/updatepromptpromptstype.md
+  - docs/models/updatepromptpromptsusecases.md
   - docs/models/updatepromptprovider.md
   - docs/models/updatepromptquality.md
   - docs/models/updatepromptreasoningeffort.md
@@ -858,6 +855,9 @@ generatedFiles:
   - docs/models/updatepromptresponseformat1.md
   - docs/models/updatepromptresponseformat2.md
   - docs/models/updatepromptresponseformatjsonschema.md
+  - docs/models/updatepromptresponseformatprompts1.md
+  - docs/models/updatepromptresponseformatprompts2.md
+  - docs/models/updatepromptresponseformatpromptsresponse200type.md
   - docs/models/updatepromptresponseformatpromptsresponsetype.md
   - docs/models/updatepromptresponseformatpromptstype.md
   - docs/models/updatepromptresponseformattype.md
