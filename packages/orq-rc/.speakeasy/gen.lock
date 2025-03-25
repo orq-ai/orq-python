@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 3e079926894a56d336e53a90b7c7ce09
+  docChecksum: e8cbd88b56c9ea99b04c7318808bff8c
   docVersion: "2.0"
-  speakeasyVersion: 1.521.1
-  generationVersion: 2.558.5
-  releaseVersion: 3.3.0-rc.1
-  configChecksum: d1cf58eac96ac9d029f652b61cc062be
+  speakeasyVersion: 1.523.2
+  generationVersion: 2.560.1
+  releaseVersion: 3.3.0-rc.7
+  configChecksum: 2e25dc396263981ee0c272799700111a
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -528,7 +528,6 @@ generatedFiles:
   - docs/models/getallpromptspromptstype.md
   - docs/models/getallpromptsprovider.md
   - docs/models/getallpromptsquality.md
-  - docs/models/getallpromptsqueryparamsort.md
   - docs/models/getallpromptsreasoningeffort.md
   - docs/models/getallpromptsrequest.md
   - docs/models/getallpromptsresponsebody.md
@@ -628,7 +627,6 @@ generatedFiles:
   - docs/models/listdatasetdatapointsfunction.md
   - docs/models/listdatasetdatapointsmessages.md
   - docs/models/listdatasetdatapointsobject.md
-  - docs/models/listdatasetdatapointsqueryparamsort.md
   - docs/models/listdatasetdatapointsrequest.md
   - docs/models/listdatasetdatapointsresponsebody.md
   - docs/models/listdatasetdatapointsrole.md
@@ -637,7 +635,6 @@ generatedFiles:
   - docs/models/listdatasetsdata.md
   - docs/models/listdatasetsmetadata.md
   - docs/models/listdatasetsobject.md
-  - docs/models/listdatasetsqueryparamsort.md
   - docs/models/listdatasetsrequest.md
   - docs/models/listdatasetsresponsebody.md
   - docs/models/listpromptversions21.md
@@ -661,7 +658,6 @@ generatedFiles:
   - docs/models/listpromptversionspromptconfig.md
   - docs/models/listpromptversionsprovider.md
   - docs/models/listpromptversionsquality.md
-  - docs/models/listpromptversionsqueryparamsort.md
   - docs/models/listpromptversionsreasoningeffort.md
   - docs/models/listpromptversionsrequest.md
   - docs/models/listpromptversionsresponsebody.md
@@ -719,7 +715,6 @@ generatedFiles:
   - docs/models/provider.md
   - docs/models/purpose.md
   - docs/models/quality.md
-  - docs/models/queryparamsort.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
@@ -751,7 +746,6 @@ generatedFiles:
   - docs/models/retrievedatasetresponsebody.md
   - docs/models/role.md
   - docs/models/security.md
-  - docs/models/sort.md
   - docs/models/systemmessage.md
   - docs/models/textcontentpart.md
   - docs/models/three.md

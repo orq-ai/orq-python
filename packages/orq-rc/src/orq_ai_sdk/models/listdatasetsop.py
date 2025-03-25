@@ -10,13 +10,7 @@ from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-ListDatasetsQueryParamSort = Literal["asc", "desc"]
-r"""List sorting preference."""
-
-
 class ListDatasetsRequestTypedDict(TypedDict):
-    sort: NotRequired[ListDatasetsQueryParamSort]
-    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -26,12 +20,6 @@ class ListDatasetsRequestTypedDict(TypedDict):
 
 
 class ListDatasetsRequest(BaseModel):
-    sort: Annotated[
-        Optional[ListDatasetsQueryParamSort],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "asc"
-    r"""List sorting preference."""
-
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -109,7 +97,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-21T10:08:06.343Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-25T10:15:15.421Z")
     r"""The date and time the resource was last updated"""
 
 
