@@ -11,24 +11,38 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+StatusTypedDict = TypeAliasType("StatusTypedDict", Union[List[str], str])
+r"""Filter datasources by status."""
+
+
+Status = TypeAliasType("Status", Union[List[str], str])
+r"""Filter datasources by status."""
 
 
 class ListDatasourcesRequestTypedDict(TypedDict):
     knowledge_id: str
+    r"""Unique identifier of the knowledge base"""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    q: NotRequired[str]
+    r"""Search query to find datasources by name."""
+    status: NotRequired[StatusTypedDict]
+    r"""Filter datasources by status."""
 
 
 class ListDatasourcesRequest(BaseModel):
     knowledge_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Unique identifier of the knowledge base"""
 
     limit: Annotated[
         Optional[float],
@@ -47,6 +61,18 @@ class ListDatasourcesRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+
+    q: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Search query to find datasources by name."""
+
+    status: Annotated[
+        Optional[Status],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter datasources by status."""
 
 
 ListDatasourcesObject = Literal["list"]
@@ -99,7 +125,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQBZHPBE7D8M0PHNY5C8ABD0"
+        "01JQCTRB531JQVNWM64H1NSW6S"
     )
     r"""The id of the resource"""
 

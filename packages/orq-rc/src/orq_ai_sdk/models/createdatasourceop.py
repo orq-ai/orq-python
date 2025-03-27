@@ -174,7 +174,9 @@ class CreateDatasourceRequest(BaseModel):
     ]
 
 
-Status = Literal["pending", "processing", "completed", "failed", "queued"]
+CreateDatasourceStatus = Literal[
+    "pending", "processing", "completed", "failed", "queued"
+]
 
 
 class CreateDatasourceResponseBodyTypedDict(TypedDict):
@@ -182,7 +184,7 @@ class CreateDatasourceResponseBodyTypedDict(TypedDict):
 
     display_name: str
     r"""The display name of the datasource. Normally the name of the uploaded file"""
-    status: Status
+    status: CreateDatasourceStatus
     created: str
     r"""The date and time the datasource was created"""
     updated: str
@@ -209,7 +211,7 @@ class CreateDatasourceResponseBody(BaseModel):
     display_name: str
     r"""The display name of the datasource. Normally the name of the uploaded file"""
 
-    status: Status
+    status: CreateDatasourceStatus
 
     created: str
     r"""The date and time the datasource was created"""
@@ -224,7 +226,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQBZHPBF4F8J8W10J4E7KGSY"
+        "01JQCTRB55NRQE9TA5CZ38G32M"
     )
     r"""The id of the resource"""
 

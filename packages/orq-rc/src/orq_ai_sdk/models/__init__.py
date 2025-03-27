@@ -149,7 +149,7 @@ from .createdatasourceop import (
     CreateDatasourceRequestTypedDict,
     CreateDatasourceResponseBody,
     CreateDatasourceResponseBodyTypedDict,
-    Status,
+    CreateDatasourceStatus,
 )
 from .createfeedbackop import (
     CreateFeedbackRequestBody,
@@ -1230,6 +1230,8 @@ from .listchunksop import (
     ListChunksResponseBody,
     ListChunksResponseBodyTypedDict,
     ListChunksStatus,
+    QueryParamStatus,
+    QueryParamStatusTypedDict,
 )
 from .listdatasetdatapointsop import (
     ListDatasetDatapoints21,
@@ -1280,6 +1282,8 @@ from .listdatasourcesop import (
     ListDatasourcesResponseBody,
     ListDatasourcesResponseBodyTypedDict,
     ListDatasourcesStatus,
+    Status,
+    StatusTypedDict,
 )
 from .listknowledgebasesop import (
     ListKnowledgeBasesData,
@@ -1865,6 +1869,7 @@ __all__ = [
     "CreateDatasourceRequestTypedDict",
     "CreateDatasourceResponseBody",
     "CreateDatasourceResponseBodyTypedDict",
+    "CreateDatasourceStatus",
     "CreateFeedbackRequestBody",
     "CreateFeedbackRequestBodyTypedDict",
     "CreateFeedbackResponseBody",
@@ -2955,6 +2960,8 @@ __all__ = [
     "Provider",
     "Purpose",
     "Quality",
+    "QueryParamStatus",
+    "QueryParamStatusTypedDict",
     "ReasoningEffort",
     "RefusalContentPart",
     "RefusalContentPartTypedDict",
@@ -3073,6 +3080,7 @@ __all__ = [
     "Security",
     "SecurityTypedDict",
     "Status",
+    "StatusTypedDict",
     "SystemMessage",
     "SystemMessageTypedDict",
     "TextContentPart",

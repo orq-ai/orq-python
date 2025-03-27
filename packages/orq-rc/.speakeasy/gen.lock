@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 3f2a965188ca58ad9002265d43d3848a
+  docChecksum: a0310192dd786f8a23469a5c48817a99
   docVersion: "2.0"
-  speakeasyVersion: 1.525.0
+  speakeasyVersion: 1.525.1
   generationVersion: 2.562.2
-  releaseVersion: 3.3.0-rc.12
-  configChecksum: 87c31221d77d0aebb2a815cc44219880
+  releaseVersion: 3.3.0-rc.13
+  configChecksum: 388eb4439d87e3362d089d684db891fe
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -136,6 +136,7 @@ generatedFiles:
   - docs/models/createdatasourcerequest.md
   - docs/models/createdatasourcerequestbody.md
   - docs/models/createdatasourceresponsebody.md
+  - docs/models/createdatasourcestatus.md
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
@@ -823,6 +824,7 @@ generatedFiles:
   - docs/models/provider.md
   - docs/models/purpose.md
   - docs/models/quality.md
+  - docs/models/queryparamstatus.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
@@ -1586,6 +1588,7 @@ examples:
           knowledge_id: "<id>"
         query:
           limit: 10
+          status: "completed"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Mohammad_Brakus85", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 792.15}, {"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Ricky53", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8596.21}], "has_more": false}
@@ -1631,6 +1634,7 @@ examples:
           datasource_id: "<id>"
         query:
           limit: 10
+          status: "completed"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "processing", "created": "<value>", "updated": "<value>"}, {"_id": "<id>", "text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>"}], "has_more": false}
