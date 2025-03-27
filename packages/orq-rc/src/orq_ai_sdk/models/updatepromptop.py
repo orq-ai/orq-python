@@ -492,6 +492,9 @@ UpdatePromptUseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 UpdatePromptLanguage = Literal[
@@ -1169,6 +1172,9 @@ UpdatePromptPromptsUseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 UpdatePromptPromptsLanguage = Literal[

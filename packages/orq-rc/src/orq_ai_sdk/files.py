@@ -3,18 +3,17 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import Mapping, Optional, Union
 
 
 class Files(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.FileUploadRequestBody, models.FileUploadRequestBodyTypedDict
-        ] = models.FileUploadRequestBody(),
+        file: Union[models.File, models.FileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -24,7 +23,8 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
-        :param request: The request object to send.
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -43,9 +43,10 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FileUploadRequestBody)
-        request = cast(models.FileUploadRequestBody, request)
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.File),
+            purpose=purpose,
+        )
 
         req = self._build_request(
             method="POST",
@@ -61,11 +62,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "multipart",
-                Optional[models.FileUploadRequestBody],
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -82,7 +79,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileUpload",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -119,9 +116,8 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.FileUploadRequestBody, models.FileUploadRequestBodyTypedDict
-        ] = models.FileUploadRequestBody(),
+        file: Union[models.File, models.FileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -131,7 +127,8 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
-        :param request: The request object to send.
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -150,9 +147,10 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FileUploadRequestBody)
-        request = cast(models.FileUploadRequestBody, request)
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.File),
+            purpose=purpose,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -168,11 +166,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "multipart",
-                Optional[models.FileUploadRequestBody],
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -189,7 +183,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileUpload",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -293,7 +287,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileList",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -397,7 +391,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileList",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -495,7 +489,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileGet",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -593,7 +587,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileGet",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -689,7 +683,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileDelete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -783,7 +777,7 @@ class Files(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="FileDelete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

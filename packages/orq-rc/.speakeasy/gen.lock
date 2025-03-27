@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: f883461260f5a5adc78009b6558c8466
+  docChecksum: 3f2a965188ca58ad9002265d43d3848a
   docVersion: "2.0"
-  speakeasyVersion: 1.523.2
-  generationVersion: 2.560.1
-  releaseVersion: 3.3.0-rc.11
-  configChecksum: 32a1ef47eb50f2563414a7edd8580e43
+  speakeasyVersion: 1.525.0
+  generationVersion: 2.562.2
+  releaseVersion: 3.3.0-rc.12
+  configChecksum: 87c31221d77d0aebb2a815cc44219880
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -87,9 +87,19 @@ generatedFiles:
   - docs/models/choicestoolmessage.md
   - docs/models/choicestype.md
   - docs/models/choicesusermessage.md
+  - docs/models/chunkingcleanupoptions.md
+  - docs/models/chunkingconfiguration.md
+  - docs/models/chunkingconfiguration1.md
+  - docs/models/chunkingconfiguration2.md
+  - docs/models/chunkingconfigurationtype.md
+  - docs/models/chunkingoptions.md
   - docs/models/cleardatasetrequest.md
   - docs/models/content.md
   - docs/models/content2.md
+  - docs/models/createchunkknowledgemetadata.md
+  - docs/models/createchunkmetadata.md
+  - docs/models/createchunkrequest.md
+  - docs/models/createchunkresponsebody.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
   - docs/models/createdatasetitem21.md
@@ -122,9 +132,44 @@ generatedFiles:
   - docs/models/createdatasetmetadata.md
   - docs/models/createdatasetrequestbody.md
   - docs/models/createdatasetresponsebody.md
+  - docs/models/createdatasourcechunkingconfigurationtype.md
+  - docs/models/createdatasourcerequest.md
+  - docs/models/createdatasourcerequestbody.md
+  - docs/models/createdatasourceresponsebody.md
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
+  - docs/models/createknowledgemetadata.md
+  - docs/models/createknowledgerequestbody.md
+  - docs/models/createknowledgeresponsebody.md
+  - docs/models/createknowledgeretrievalsettings.md
+  - docs/models/createknowledgeretrievalsettings1.md
+  - docs/models/createknowledgeretrievalsettings2.md
+  - docs/models/createknowledgeretrievalsettings3.md
+  - docs/models/createknowledgeretrievalsettingsknowledgemodelparameters.md
+  - docs/models/createknowledgeretrievalsettingsknowledgemodeltype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeprovider.md
+  - docs/models/createknowledgeretrievalsettingsknowledgererankconfig.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200applicationjsonmodelparameters.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200applicationjsonmodeltype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200applicationjsonprovider.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200applicationjsontype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200modelparameters.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200modeltype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200provider.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200rerankconfig.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponse200type.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponsemodelparameters.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponsemodeltype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponseprovider.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponsererankconfig.md
+  - docs/models/createknowledgeretrievalsettingsknowledgeresponsetype.md
+  - docs/models/createknowledgeretrievalsettingsknowledgetype.md
+  - docs/models/createknowledgeretrievalsettingsmodelparameters.md
+  - docs/models/createknowledgeretrievalsettingsmodeltype.md
+  - docs/models/createknowledgeretrievalsettingsprovider.md
+  - docs/models/createknowledgeretrievalsettingsrerankconfig.md
+  - docs/models/createknowledgeretrievalsettingstype.md
   - docs/models/createprompt21.md
   - docs/models/createprompt22.md
   - docs/models/createprompt2imageurl.md
@@ -174,8 +219,11 @@ generatedFiles:
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
   - docs/models/data.md
+  - docs/models/deletechunkrequest.md
   - docs/models/deletedatapointrequest.md
   - docs/models/deletedatasetrequest.md
+  - docs/models/deletedatasourcerequest.md
+  - docs/models/deleteknowledgerequest.md
   - docs/models/deletepromptrequest.md
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
@@ -491,6 +539,7 @@ generatedFiles:
   - docs/models/developermessage.md
   - docs/models/documents.md
   - docs/models/encodingformat.md
+  - docs/models/errors.md
   - docs/models/file.md
   - docs/models/filedeleterequest.md
   - docs/models/filegetpurpose.md
@@ -541,6 +590,30 @@ generatedFiles:
   - docs/models/getallpromptstoolcalls.md
   - docs/models/getallpromptstype.md
   - docs/models/getallpromptsusecases.md
+  - docs/models/getonefileuploadurlrequest.md
+  - docs/models/getonefileuploadurlresponsebody.md
+  - docs/models/getoneknowledgemetadata.md
+  - docs/models/getoneknowledgerequest.md
+  - docs/models/getoneknowledgeresponsebody.md
+  - docs/models/getoneknowledgeretrievalsettings.md
+  - docs/models/getoneknowledgeretrievalsettings1.md
+  - docs/models/getoneknowledgeretrievalsettings2.md
+  - docs/models/getoneknowledgeretrievalsettings3.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgemodelparameters.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgemodeltype.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeprovider.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgererankconfig.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeresponsemodelparameters.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeresponsemodeltype.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeresponseprovider.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeresponsererankconfig.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgeresponsetype.md
+  - docs/models/getoneknowledgeretrievalsettingsknowledgetype.md
+  - docs/models/getoneknowledgeretrievalsettingsmodelparameters.md
+  - docs/models/getoneknowledgeretrievalsettingsmodeltype.md
+  - docs/models/getoneknowledgeretrievalsettingsprovider.md
+  - docs/models/getoneknowledgeretrievalsettingsrerankconfig.md
+  - docs/models/getoneknowledgeretrievalsettingstype.md
   - docs/models/getoneprompt21.md
   - docs/models/getoneprompt22.md
   - docs/models/getoneprompt2imageurl.md
@@ -616,6 +689,11 @@ generatedFiles:
   - docs/models/items.md
   - docs/models/jsonschema.md
   - docs/models/language.md
+  - docs/models/listchunksdata.md
+  - docs/models/listchunksobject.md
+  - docs/models/listchunksrequest.md
+  - docs/models/listchunksresponsebody.md
+  - docs/models/listchunksstatus.md
   - docs/models/listdatasetdatapoints21.md
   - docs/models/listdatasetdatapoints22.md
   - docs/models/listdatasetdatapoints2datasetstype.md
@@ -637,6 +715,35 @@ generatedFiles:
   - docs/models/listdatasetsobject.md
   - docs/models/listdatasetsrequest.md
   - docs/models/listdatasetsresponsebody.md
+  - docs/models/listdatasourcesdata.md
+  - docs/models/listdatasourcesobject.md
+  - docs/models/listdatasourcesrequest.md
+  - docs/models/listdatasourcesresponsebody.md
+  - docs/models/listdatasourcesstatus.md
+  - docs/models/listknowledgebasesdata.md
+  - docs/models/listknowledgebasesmetadata.md
+  - docs/models/listknowledgebasesobject.md
+  - docs/models/listknowledgebasesrequest.md
+  - docs/models/listknowledgebasesresponsebody.md
+  - docs/models/listknowledgebasesretrievalsettings.md
+  - docs/models/listknowledgebasesretrievalsettings1.md
+  - docs/models/listknowledgebasesretrievalsettings2.md
+  - docs/models/listknowledgebasesretrievalsettings3.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgemodelparameters.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgemodeltype.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeprovider.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgererankconfig.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeresponsemodelparameters.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeresponsemodeltype.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeresponseprovider.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeresponsererankconfig.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgeresponsetype.md
+  - docs/models/listknowledgebasesretrievalsettingsknowledgetype.md
+  - docs/models/listknowledgebasesretrievalsettingsmodelparameters.md
+  - docs/models/listknowledgebasesretrievalsettingsmodeltype.md
+  - docs/models/listknowledgebasesretrievalsettingsprovider.md
+  - docs/models/listknowledgebasesretrievalsettingsrerankconfig.md
+  - docs/models/listknowledgebasesretrievalsettingstype.md
   - docs/models/listpromptversions21.md
   - docs/models/listpromptversions22.md
   - docs/models/listpromptversions2imageurl.md
@@ -711,6 +818,7 @@ generatedFiles:
   - docs/models/prefixmessagestoolmessage.md
   - docs/models/prefixmessagestype.md
   - docs/models/prefixmessagesusermessage.md
+  - docs/models/processingattempts.md
   - docs/models/promptconfig.md
   - docs/models/provider.md
   - docs/models/purpose.md
@@ -720,13 +828,33 @@ generatedFiles:
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
   - docs/models/remoteconfigsgetconfigtype.md
+  - docs/models/requestbody.md
+  - docs/models/rerankconfig.md
   - docs/models/responsebody.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
   - docs/models/responseformatjsonschema.md
   - docs/models/responseformattype.md
+  - docs/models/retrievalconfig.md
+  - docs/models/retrievalconfig1.md
+  - docs/models/retrievalconfig2.md
+  - docs/models/retrievalconfig3.md
+  - docs/models/retrievalconfigmodelparameters.md
+  - docs/models/retrievalconfigmodeltype.md
+  - docs/models/retrievalconfigprovider.md
+  - docs/models/retrievalconfigrerankconfig.md
+  - docs/models/retrievalconfigtype.md
   - docs/models/retrievals.md
+  - docs/models/retrievalsettings.md
+  - docs/models/retrievalsettings1.md
+  - docs/models/retrievalsettings2.md
+  - docs/models/retrievalsettings3.md
+  - docs/models/retrievalsettingsmodelparameters.md
+  - docs/models/retrievalsettingsmodeltype.md
+  - docs/models/retrievalsettingsprovider.md
+  - docs/models/retrievalsettingsrerankconfig.md
+  - docs/models/retrievalsettingstype.md
   - docs/models/retrievedatapoint21.md
   - docs/models/retrievedatapoint22.md
   - docs/models/retrievedatapoint2datasetstype.md
@@ -744,8 +872,27 @@ generatedFiles:
   - docs/models/retrievedatasetmetadata.md
   - docs/models/retrievedatasetrequest.md
   - docs/models/retrievedatasetresponsebody.md
+  - docs/models/retrievedatasourcerequest.md
+  - docs/models/retrievedatasourceresponsebody.md
+  - docs/models/retrievedatasourcestatus.md
   - docs/models/role.md
+  - docs/models/searchknowledgedocuments.md
+  - docs/models/searchknowledgemetadata.md
+  - docs/models/searchknowledgerequest.md
+  - docs/models/searchknowledgerequestbody.md
+  - docs/models/searchknowledgeresponsebody.md
+  - docs/models/searchknowledgeretrievalconfigknowledgemodelparameters.md
+  - docs/models/searchknowledgeretrievalconfigknowledgemodeltype.md
+  - docs/models/searchknowledgeretrievalconfigknowledgeprovider.md
+  - docs/models/searchknowledgeretrievalconfigknowledgetype.md
+  - docs/models/searchknowledgeretrievalconfigmodelparameters.md
+  - docs/models/searchknowledgeretrievalconfigmodeltype.md
+  - docs/models/searchknowledgeretrievalconfigprovider.md
+  - docs/models/searchknowledgeretrievalconfigrerankconfig.md
+  - docs/models/searchknowledgeretrievalconfigrerankconfiginput.md
+  - docs/models/searchknowledgeretrievalconfigtype.md
   - docs/models/security.md
+  - docs/models/status.md
   - docs/models/systemmessage.md
   - docs/models/textcontentpart.md
   - docs/models/three.md
@@ -764,6 +911,11 @@ generatedFiles:
   - docs/models/twotextcontentpart.md
   - docs/models/twotype.md
   - docs/models/type.md
+  - docs/models/updatechunkmetadata.md
+  - docs/models/updatechunkrequest.md
+  - docs/models/updatechunkrequestbody.md
+  - docs/models/updatechunkresponsebody.md
+  - docs/models/updatechunkstatus.md
   - docs/models/updatedatapoint21.md
   - docs/models/updatedatapoint22.md
   - docs/models/updatedatapoint2datasets1.md
@@ -795,6 +947,48 @@ generatedFiles:
   - docs/models/updatedatasetrequest.md
   - docs/models/updatedatasetrequestbody.md
   - docs/models/updatedatasetresponsebody.md
+  - docs/models/updateknowledgeknowledgeretrievalsettings.md
+  - docs/models/updateknowledgemetadata.md
+  - docs/models/updateknowledgerequest.md
+  - docs/models/updateknowledgerequestbody.md
+  - docs/models/updateknowledgeresponsebody.md
+  - docs/models/updateknowledgeretrievalsettings.md
+  - docs/models/updateknowledgeretrievalsettings1.md
+  - docs/models/updateknowledgeretrievalsettings2.md
+  - docs/models/updateknowledgeretrievalsettings3.md
+  - docs/models/updateknowledgeretrievalsettingsknowledge1.md
+  - docs/models/updateknowledgeretrievalsettingsknowledge2.md
+  - docs/models/updateknowledgeretrievalsettingsknowledge3.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgemodelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgemodeltype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeprovider.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgerequestmodelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgerequestmodeltype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgerequestprovider.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgerequesttype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgererankconfig.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgererankconfiginput.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200applicationjsonmodelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200applicationjsonmodeltype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200applicationjsonprovider.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200applicationjsontype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200modelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200modeltype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200provider.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200rerankconfig.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponse200type.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponsemodelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponsemodeltype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponseprovider.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponsererankconfig.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgeresponsetype.md
+  - docs/models/updateknowledgeretrievalsettingsknowledgetype.md
+  - docs/models/updateknowledgeretrievalsettingsmodelparameters.md
+  - docs/models/updateknowledgeretrievalsettingsmodeltype.md
+  - docs/models/updateknowledgeretrievalsettingsprovider.md
+  - docs/models/updateknowledgeretrievalsettingsrerankconfig.md
+  - docs/models/updateknowledgeretrievalsettingsrerankconfiginput.md
+  - docs/models/updateknowledgeretrievalsettingstype.md
   - docs/models/updateprompt21.md
   - docs/models/updateprompt22.md
   - docs/models/updateprompt2imageurl.md
@@ -869,6 +1063,7 @@ generatedFiles:
   - docs/sdks/deploymentssdk/README.md
   - docs/sdks/feedback/README.md
   - docs/sdks/files/README.md
+  - docs/sdks/knowledge/README.md
   - docs/sdks/metrics/README.md
   - docs/sdks/orq/README.md
   - docs/sdks/prompts/README.md
@@ -891,18 +1086,25 @@ generatedFiles:
   - src/orq_ai_sdk/feedback.py
   - src/orq_ai_sdk/files.py
   - src/orq_ai_sdk/httpclient.py
+  - src/orq_ai_sdk/knowledge.py
   - src/orq_ai_sdk/metrics.py
   - src/orq_ai_sdk/models/__init__.py
   - src/orq_ai_sdk/models/apierror.py
   - src/orq_ai_sdk/models/bulkcreatedatapointsop.py
   - src/orq_ai_sdk/models/cleardatasetop.py
+  - src/orq_ai_sdk/models/createchunkop.py
   - src/orq_ai_sdk/models/createcontactop.py
   - src/orq_ai_sdk/models/createdatasetitemop.py
   - src/orq_ai_sdk/models/createdatasetop.py
+  - src/orq_ai_sdk/models/createdatasourceop.py
   - src/orq_ai_sdk/models/createfeedbackop.py
+  - src/orq_ai_sdk/models/createknowledgeop.py
   - src/orq_ai_sdk/models/createpromptop.py
+  - src/orq_ai_sdk/models/deletechunkop.py
   - src/orq_ai_sdk/models/deletedatapointop.py
   - src/orq_ai_sdk/models/deletedatasetop.py
+  - src/orq_ai_sdk/models/deletedatasourceop.py
+  - src/orq_ai_sdk/models/deleteknowledgeop.py
   - src/orq_ai_sdk/models/deletepromptop.py
   - src/orq_ai_sdk/models/deploymentcreatemetricop.py
   - src/orq_ai_sdk/models/deploymentgetconfigop.py
@@ -915,20 +1117,29 @@ generatedFiles:
   - src/orq_ai_sdk/models/filelistop.py
   - src/orq_ai_sdk/models/fileuploadop.py
   - src/orq_ai_sdk/models/getallpromptsop.py
+  - src/orq_ai_sdk/models/getonefileuploadurlop.py
+  - src/orq_ai_sdk/models/getoneknowledgeop.py
   - src/orq_ai_sdk/models/getonepromptop.py
   - src/orq_ai_sdk/models/getpromptversionop.py
   - src/orq_ai_sdk/models/honoapierror.py
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
+  - src/orq_ai_sdk/models/listchunksop.py
   - src/orq_ai_sdk/models/listdatasetdatapointsop.py
   - src/orq_ai_sdk/models/listdatasetsop.py
+  - src/orq_ai_sdk/models/listdatasourcesop.py
+  - src/orq_ai_sdk/models/listknowledgebasesop.py
   - src/orq_ai_sdk/models/listpromptversionsop.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
   - src/orq_ai_sdk/models/retrievedatapointop.py
   - src/orq_ai_sdk/models/retrievedatasetop.py
+  - src/orq_ai_sdk/models/retrievedatasourceop.py
+  - src/orq_ai_sdk/models/searchknowledgeop.py
   - src/orq_ai_sdk/models/security.py
+  - src/orq_ai_sdk/models/updatechunkop.py
   - src/orq_ai_sdk/models/updatedatapointop.py
   - src/orq_ai_sdk/models/updatedatasetop.py
+  - src/orq_ai_sdk/models/updateknowledgeop.py
   - src/orq_ai_sdk/models/updatepromptop.py
   - src/orq_ai_sdk/prompts.py
   - src/orq_ai_sdk/py.typed
@@ -1011,6 +1222,8 @@ examples:
           application/json: {"success": false}
   FileUpload:
     speakeasy-default-file-upload:
+      requestBody:
+        multipart/form-data: {"file": {}, "purpose": "retrieval"}
       responses:
         "200":
           application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 5459.09, "file_name": "example.file", "workspace_id": "86a45479-10a2-4b98-9aab-61ec65fc41d9", "created": "2025-01-23T06:57:49.299Z"}
@@ -1304,5 +1517,139 @@ examples:
       parameters:
         path:
           dataset_id: "<id>"
+  ListKnowledgeBases:
+    speakeasy-default-list-knowledge-bases:
+      parameters:
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "created_by_id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "A8", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "hybrid_search", "top_k": 5, "threshold": 0}, "update_by_id": "2766718d-6d46-412e-80ae-e1b9ddf121dc", "updated": "<value>"}, {"_id": "<id>", "created_by_id": "a4c8104f-b451-4a70-acfc-8fe07fbc60ab", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "Element", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "vector_search", "top_k": 5, "threshold": 0}, "update_by_id": "d5611ff6-573e-40a6-a233-1ad7c07cc481", "updated": "<value>"}, {"_id": "<id>", "created_by_id": "91696ebd-834b-47d8-bc22-36e085944ebc", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "Model 3", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "vector_search", "top_k": 5, "threshold": 0}, "update_by_id": "7bd4753d-0a17-4c47-88e3-29a9ec97938e", "updated": "<value>"}], "has_more": false}
+  CreateKnowledge:
+    speakeasy-default-create-knowledge:
+      requestBody:
+        application/json: {"key": "<key>", "model": "Fiesta", "path": "Customer Service/Billing/Refund"}
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "created_by_id": "a621cf02-1cd9-4cf5-8403-315211a509a3", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "Fortwo", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "vector_search", "top_k": 5, "threshold": 0}, "update_by_id": "a8e774c2-becc-4376-b917-75e024985613", "updated": "<value>"}
+  GetOneKnowledge:
+    speakeasy-default-get-one-knowledge:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "created_by_id": "5e5518a2-d0ce-4221-9a70-713be839d998", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "Model X", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "keyword_search", "top_k": 5, "threshold": 0}, "update_by_id": "eebcc212-7fd4-4729-a78c-0f6ee88aad22", "updated": "<value>"}
+  UpdateKnowledge:
+    speakeasy-default-update-knowledge:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+      requestBody:
+        application/json: {"path": "Customer Service/Billing/Refund"}
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "created_by_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "created": "<value>", "key": "<key>", "metadata": {"word_count": 0, "document_count": 0, "sentences_count": 0}, "model": "Model S", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"type": "keyword_search", "top_k": 5, "threshold": 0}, "update_by_id": "5898c125-a190-471c-a556-2af6646dadb3", "updated": "<value>"}
+  DeleteKnowledge:
+    speakeasy-default-delete-knowledge:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+  SearchKnowledge:
+    speakeasy-default-search-knowledge:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+      requestBody:
+        application/json: {"query": "<value>"}
+      responses:
+        "200":
+          application/json: {"knowledge_id": "<id>", "documents": [{"id": "<id>", "text": "<value>", "metadata": {"datasource_id": "<id>", "chunk_id": "<id>", "file_name": "example.file", "file_type": "audio"}, "score": 1894.3}], "knowledge_key": "<value>", "query": "<value>"}
+  GetOneFileUploadUrl:
+    speakeasy-default-get-one-file-upload-url:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+        query:
+          fileName: "example.file"
+          contentType: "<value>"
+          datasourceId: "<id>"
+      responses:
+        "200":
+          application/json: {"objectName": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  ListDatasources:
+    speakeasy-default-list-datasources:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Mohammad_Brakus85", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 792.15}, {"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Ricky53", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8596.21}], "has_more": false}
+  CreateDatasource:
+    speakeasy-default-create-datasource:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+      requestBody:
+        application/json: {}
+      responses:
+        "200":
+          application/json: {"_id": "01JQBZHPBF4F8J8W10J4E7KGSY", "display_name": "Pamela.Greenfelder49", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 1636.76}
+  RetrieveDatasource:
+    speakeasy-default-retrieve-datasource:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+          datasource_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "01JQBZHPBFCFVKJD2QCDQHQQ4F", "display_name": "Justice38", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 6087.16}
+  DeleteDatasource:
+    speakeasy-default-delete-datasource:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+          datasource_id: "<id>"
+  CreateChunk:
+    speakeasy-default-create-chunk:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+          datasource_id: "<id>"
+      responses:
+        "200":
+          application/json: [{"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQBZHPBHPHSGY1R7BRZ06802", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}, {"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}, {"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQBZHPBHPHSGY1R7BRZ06802", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}, {"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}, {"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQBZHPBHPHSGY1R7BRZ06802", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}]
+  ListChunks:
+    speakeasy-default-list-chunks:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+          datasource_id: "<id>"
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "processing", "created": "<value>", "updated": "<value>"}, {"_id": "<id>", "text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>"}], "has_more": false}
+  UpdateChunk:
+    speakeasy-default-update-chunk:
+      parameters:
+        path:
+          chunk_id: "<id>"
+          datasource_id: "<id>"
+          knowledge_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "text": "<value>", "enabled": true, "status": "pending", "created": "<value>", "updated": "<value>"}
+  DeleteChunk:
+    speakeasy-default-delete-chunk:
+      parameters:
+        path:
+          chunk_id: "<id>"
+          datasource_id: "<id>"
+          knowledge_id: "<id>"
 examplesVersion: 1.0.0
 generatedTests: {}

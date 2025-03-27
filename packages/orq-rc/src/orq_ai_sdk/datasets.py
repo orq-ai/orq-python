@@ -79,7 +79,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -183,7 +183,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -291,7 +291,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -399,7 +399,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -497,7 +497,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -599,7 +599,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -713,7 +713,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -827,7 +827,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -929,7 +929,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1025,7 +1025,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1130,7 +1130,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1237,7 +1237,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1360,7 +1360,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1483,7 +1483,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1584,7 +1584,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1689,7 +1689,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1817,7 +1817,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1945,7 +1945,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2050,7 +2050,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2153,7 +2153,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2265,7 +2265,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="BulkCreateDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2375,7 +2375,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="BulkCreateDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2473,7 +2473,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ClearDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2569,7 +2569,7 @@ class Datasets(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ClearDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

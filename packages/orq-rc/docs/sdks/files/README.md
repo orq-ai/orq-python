@@ -25,7 +25,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.create()
+    res = orq.files.create(file={
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    })
 
     assert res is not None
 
@@ -36,10 +39,11 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `request`                                                             | [models.FileUploadRequestBody](../../models/fileuploadrequestbody.md) | :heavy_check_mark:                                                    | The request object to use for the request.                            |
-| `retries`                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)      | :heavy_minus_sign:                                                    | Configuration to override the default retry behavior of the client.   |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `file`                                                              | [models.File](../../models/file.md)                                 | :heavy_check_mark:                                                  | The file to be uploaded.                                            |
+| `purpose`                                                           | [Optional[models.Purpose]](../../models/purpose.md)                 | :heavy_minus_sign:                                                  | The intended purpose of the uploaded file.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 

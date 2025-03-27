@@ -579,6 +579,9 @@ GetAllPromptsUseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 GetAllPromptsLanguage = Literal[

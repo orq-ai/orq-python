@@ -487,6 +487,9 @@ UseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 Language = Literal[
@@ -1101,6 +1104,9 @@ CreatePromptUseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 CreatePromptLanguage = Literal[

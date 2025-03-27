@@ -587,6 +587,9 @@ GetPromptVersionUseCases = Literal[
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
+    "Sentiment analysis",
 ]
 
 GetPromptVersionLanguage = Literal[
