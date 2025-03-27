@@ -82,7 +82,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetAllPrompts",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -189,7 +189,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetAllPrompts",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -292,7 +292,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreatePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -395,7 +395,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreatePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -493,7 +493,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOnePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -591,7 +591,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOnePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -737,7 +737,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdatePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -889,7 +889,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdatePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -991,7 +991,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeletePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1085,7 +1085,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeletePrompt",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1193,7 +1193,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListPromptVersions",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1303,7 +1303,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListPromptVersions",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1404,7 +1404,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetPromptVersion",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1511,7 +1511,7 @@ class Prompts(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetPromptVersion",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
