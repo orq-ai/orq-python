@@ -91,7 +91,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="Deployments",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -199,7 +199,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="Deployments",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -365,7 +365,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -529,7 +529,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -681,7 +681,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentInvoke",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -833,7 +833,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentInvoke",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1000,7 +1000,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentStream",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1170,7 +1170,7 @@ class DeploymentsSDK(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeploymentStream",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

@@ -79,7 +79,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListKnowledgeBases",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -183,7 +183,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListKnowledgeBases",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -298,7 +298,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -413,7 +413,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -511,7 +511,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOneKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -609,7 +609,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOneKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -734,7 +734,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -859,7 +859,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -957,7 +957,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1053,7 +1053,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1166,7 +1166,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="SearchKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1281,7 +1281,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="SearchKnowledge",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1386,7 +1386,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOneFileUploadUrl",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1495,7 +1495,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="GetOneFileUploadUrl",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1610,7 +1610,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasources",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1721,7 +1721,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListDatasources",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1839,7 +1839,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1957,7 +1957,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2056,7 +2056,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2155,7 +2155,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="RetrieveDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2256,7 +2256,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2355,7 +2355,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteDatasource",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2466,7 +2466,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2579,7 +2579,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="CreateChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2695,7 +2695,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListChunks",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2811,7 +2811,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="ListChunks",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2935,7 +2935,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3059,7 +3059,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="UpdateChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3161,7 +3161,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3261,7 +3261,7 @@ class Knowledge(BaseSDK):
             hook_ctx=HookContext(
                 base_url=base_url or "",
                 operation_id="DeleteChunk",
-                oauth2_scopes=None,
+                oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
