@@ -1,4 +1,4 @@
-# RerankConfig
+# ListKnowledgeBasesRerankConfig
 
 The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision.
 

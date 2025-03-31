@@ -1,6 +1,6 @@
 [project]
 name = "orq-ai-sdk"
-version = "3.3.0-rc.14"
+version = "3.3.0-rc.15"
 description = "Python Client SDK for the Orq API."
 authors = [{ name = "Orq" },]
 readme = "README-PYPI.md"

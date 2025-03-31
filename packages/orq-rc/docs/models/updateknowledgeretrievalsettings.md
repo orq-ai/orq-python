@@ -1,23 +1,13 @@
 # UpdateKnowledgeRetrievalSettings
 
+The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
 
-## Supported Types
 
-### `models.UpdateKnowledgeRetrievalSettings1`
+## Fields
 
-```python
-value: models.UpdateKnowledgeRetrievalSettings1 = /* values here */
-```
-
-### `models.UpdateKnowledgeRetrievalSettings2`
-
-```python
-value: models.UpdateKnowledgeRetrievalSettings2 = /* values here */
-```
-
-### `models.UpdateKnowledgeRetrievalSettings3`
-
-```python
-value: models.UpdateKnowledgeRetrievalSettings3 = /* values here */
-```
-
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `retrieval_type`                                                                                                                         | [Optional[models.UpdateKnowledgeRetrievalType]](../models/updateknowledgeretrievaltype.md)                                               | :heavy_minus_sign:                                                                                                                       | The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy.               |
+| `top_k`                                                                                                                                  | *Optional[int]*                                                                                                                          | :heavy_minus_sign:                                                                                                                       | The number of results to return from the search.                                                                                         |
+| `threshold`                                                                                                                              | *Optional[float]*                                                                                                                        | :heavy_minus_sign:                                                                                                                       | The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned |
+| `rerank_config`                                                                                                                          | [Optional[models.UpdateKnowledgeRerankConfig]](../models/updateknowledgererankconfig.md)                                                 | :heavy_minus_sign:                                                                                                                       | The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision.          |
