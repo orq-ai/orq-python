@@ -532,6 +532,8 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     prompt_config: NotRequired[UpdatePromptPromptConfigTypedDict]
     r"""A list of messages compatible with the openAI schema"""
     metadata: NotRequired[UpdatePromptMetadataTypedDict]
+    path: NotRequired[str]
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
 
 class UpdatePromptRequestBody(BaseModel):
@@ -558,6 +560,9 @@ class UpdatePromptRequestBody(BaseModel):
 
     metadata: Optional[UpdatePromptMetadata] = None
 
+    path: Optional[str] = None
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -571,6 +576,7 @@ class UpdatePromptRequestBody(BaseModel):
             "description",
             "prompt_config",
             "metadata",
+            "path",
         ]
         nullable_fields = ["created_by_id", "updated_by_id", "description"]
         null_default_fields = []

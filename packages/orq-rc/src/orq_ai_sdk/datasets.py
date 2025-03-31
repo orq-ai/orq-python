@@ -641,7 +641,9 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        display_name: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -652,7 +654,9 @@ class Datasets(BaseSDK):
         Update a dataset
 
         :param dataset_id:
-        :param display_name:
+        :param display_name: The display name of the dataset
+        :param project_id: The unique identifier of the project it belongs to
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -675,6 +679,8 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             request_body=models.UpdateDatasetRequestBody(
                 display_name=display_name,
+                project_id=project_id,
+                path=path,
             ),
         )
 
@@ -755,7 +761,9 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        display_name: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -766,7 +774,9 @@ class Datasets(BaseSDK):
         Update a dataset
 
         :param dataset_id:
-        :param display_name:
+        :param display_name: The display name of the dataset
+        :param project_id: The unique identifier of the project it belongs to
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -789,6 +799,8 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             request_body=models.UpdateDatasetRequestBody(
                 display_name=display_name,
+                project_id=project_id,
+                path=path,
             ),
         )
 

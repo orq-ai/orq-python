@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 057ca26e63492be780680bbb308f45ed
+  docChecksum: 6e7ad3e77acebf1ac94dc74b3b362287
   docVersion: "2.0"
-  speakeasyVersion: 1.526.1
-  generationVersion: 2.563.0
-  releaseVersion: 3.3.0-rc.16
-  configChecksum: da9a7c0f1cf067f58fb71bde28556051
+  speakeasyVersion: 1.526.6
+  generationVersion: 2.563.1
+  releaseVersion: 3.3.0-rc.17
+  configChecksum: bcf2a2266d31b09bc7cd740e4915f2ae
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -1217,6 +1217,8 @@ examples:
         path:
           id: "<id>"
         header: {}
+      requestBody:
+        application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "vendor", "domain_id": "5fa7f0e7-432c-4e47-acb6-0cc78135ddeb", "created": "<value>", "updated": "2025-01-23T06:57:48.285Z", "created_by_id": "5898c125-a190-471c-a556-2af6646dadb3", "updated_by_id": "450617e6-bb05-479d-86f9-464a3158c876", "display_name": "Dedric.Donnelly68", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "expected_output", "content": "<value>"}, {"role": "exception", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}]}, "metadata": {}}
@@ -1343,6 +1345,8 @@ examples:
       parameters:
         path:
           dataset_id: "<id>"
+      requestBody:
+        application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
           application/json: {"_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "display_name": "Merlin_Harber", "project_id": "c125a190-71c5-4562-9af6-646dadb3a343", "workspace_id": "a2450617-e6bb-4057-99d6-f9464a3158c8", "metadata": {"total_versions": 4160.23, "datapoints_count": 587.04}, "updated": "2025-02-27T08:02:43.136Z"}

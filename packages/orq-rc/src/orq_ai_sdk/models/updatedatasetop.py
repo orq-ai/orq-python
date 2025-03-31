@@ -11,11 +11,23 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class UpdateDatasetRequestBodyTypedDict(TypedDict):
-    display_name: str
+    display_name: NotRequired[str]
+    r"""The display name of the dataset"""
+    project_id: NotRequired[str]
+    r"""The unique identifier of the project it belongs to"""
+    path: NotRequired[str]
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
 
 class UpdateDatasetRequestBody(BaseModel):
-    display_name: str
+    display_name: Optional[str] = None
+    r"""The display name of the dataset"""
+
+    project_id: Optional[str] = None
+    r"""The unique identifier of the project it belongs to"""
+
+    path: Optional[str] = None
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
 
 class UpdateDatasetRequestTypedDict(TypedDict):
@@ -103,5 +115,5 @@ class UpdateDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-31T09:03:03.105Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-03-31T17:17:52.525Z")
     r"""The date and time the resource was last updated"""

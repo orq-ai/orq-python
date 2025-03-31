@@ -640,6 +640,7 @@ class Prompts(BaseSDK):
         metadata: Optional[
             Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
         ] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -658,6 +659,7 @@ class Prompts(BaseSDK):
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -693,6 +695,7 @@ class Prompts(BaseSDK):
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdatePromptMetadata]
                 ),
+                path=path,
             ),
         )
 
@@ -792,6 +795,7 @@ class Prompts(BaseSDK):
         metadata: Optional[
             Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
         ] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -810,6 +814,7 @@ class Prompts(BaseSDK):
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
         :param prompt_config: A list of messages compatible with the openAI schema
         :param metadata:
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -845,6 +850,7 @@ class Prompts(BaseSDK):
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdatePromptMetadata]
                 ),
+                path=path,
             ),
         )
 
