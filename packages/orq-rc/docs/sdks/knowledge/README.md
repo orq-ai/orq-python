@@ -15,10 +15,12 @@
 * [create_datasource](#create_datasource) - Create a new datasource
 * [retrieve_datasource](#retrieve_datasource) - Retrieve a datasource
 * [delete_datasource](#delete_datasource) - Deletes a datasource
+* [update_datasource](#update_datasource) - Update a datasource
 * [create_chunks](#create_chunks) - Create chunks for a datasource
 * [list_chunks](#list_chunks) - List all chunks for a datasource
 * [update_chunk](#update_chunk) - Update a chunk
 * [delete_chunk](#delete_chunk) - Delete a chunk
+* [retrieve_chunk](#retrieve_chunk) - Retrieve a chunk
 
 ## list
 
@@ -438,6 +440,49 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
+## update_datasource
+
+Update a datasource
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.update_datasource(knowledge_id="<id>", datasource_id="<id>", display_name="Haylee_Braun")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `display_name`                                                      | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.UpdateDatasourceResponseBody](../../models/updatedatasourceresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
 ## create_chunks
 
 Create chunks for a datasource
@@ -603,6 +648,49 @@ with Orq(
 | `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the data source                            |
 | `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## retrieve_chunk
+
+Retrieve a chunk
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.retrieve_chunk(chunk_id="<id>", datasource_id="<id>", knowledge_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `chunk_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the chunk                                  |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the data source                            |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetOneChunkResponseBody](../../models/getonechunkresponsebody.md)**
 
 ### Errors
 

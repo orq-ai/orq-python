@@ -8,21 +8,30 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class RetrieveDatasourceRequestTypedDict(TypedDict):
+class UpdateDatasourceRequestBodyTypedDict(TypedDict):
+    display_name: str
+
+
+class UpdateDatasourceRequestBody(BaseModel):
+    display_name: str
+
+
+class UpdateDatasourceRequestTypedDict(TypedDict):
     knowledge_id: str
     r"""The unique identifier of the knowledge base"""
     datasource_id: str
     r"""The unique identifier of the datasource."""
+    request_body: UpdateDatasourceRequestBodyTypedDict
 
 
-class RetrieveDatasourceRequest(BaseModel):
+class UpdateDatasourceRequest(BaseModel):
     knowledge_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
@@ -33,18 +42,23 @@ class RetrieveDatasourceRequest(BaseModel):
     ]
     r"""The unique identifier of the datasource."""
 
+    request_body: Annotated[
+        UpdateDatasourceRequestBody,
+        FieldMetadata(request=RequestMetadata(media_type="application/json")),
+    ]
 
-RetrieveDatasourceStatus = Literal[
+
+UpdateDatasourceStatus = Literal[
     "pending", "processing", "completed", "failed", "queued"
 ]
 
 
-class RetrieveDatasourceResponseBodyTypedDict(TypedDict):
-    r"""Datasource successfully retrieved"""
+class UpdateDatasourceResponseBodyTypedDict(TypedDict):
+    r"""Datasource successfully updated"""
 
     display_name: str
     r"""The display name of the datasource. Normally the name of the uploaded file"""
-    status: RetrieveDatasourceStatus
+    status: UpdateDatasourceStatus
     created: str
     r"""The date and time the datasource was created"""
     updated: str
@@ -65,13 +79,13 @@ class RetrieveDatasourceResponseBodyTypedDict(TypedDict):
     r"""The id of the resource"""
 
 
-class RetrieveDatasourceResponseBody(BaseModel):
-    r"""Datasource successfully retrieved"""
+class UpdateDatasourceResponseBody(BaseModel):
+    r"""Datasource successfully updated"""
 
     display_name: str
     r"""The display name of the datasource. Normally the name of the uploaded file"""
 
-    status: RetrieveDatasourceStatus
+    status: UpdateDatasourceStatus
 
     created: str
     r"""The date and time the datasource was created"""
@@ -86,7 +100,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQRGTRHBFWGJ9B5H1APFV8RB"
+        "01JQRGTRHCJ0H0AWDXZTGNZCJE"
     )
     r"""The id of the resource"""
 

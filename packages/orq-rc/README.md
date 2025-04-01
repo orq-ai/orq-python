@@ -247,10 +247,12 @@ with Orq(
 * [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
 * [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource
 * [delete_datasource](docs/sdks/knowledge/README.md#delete_datasource) - Deletes a datasource
+* [update_datasource](docs/sdks/knowledge/README.md#update_datasource) - Update a datasource
 * [create_chunks](docs/sdks/knowledge/README.md#create_chunks) - Create chunks for a datasource
 * [list_chunks](docs/sdks/knowledge/README.md#list_chunks) - List all chunks for a datasource
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
+* [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
 
 
 ### [prompts](docs/sdks/prompts/README.md)

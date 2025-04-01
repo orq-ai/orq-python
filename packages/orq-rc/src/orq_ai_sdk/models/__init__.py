@@ -1022,6 +1022,13 @@ from .getallpromptsop import (
     GetAllPromptsType,
     GetAllPromptsUseCases,
 )
+from .getonechunkop import (
+    GetOneChunkRequest,
+    GetOneChunkRequestTypedDict,
+    GetOneChunkResponseBody,
+    GetOneChunkResponseBodyTypedDict,
+    GetOneChunkStatus,
+)
 from .getoneknowledgeop import (
     GetOneKnowledgeRequest,
     GetOneKnowledgeRequestTypedDict,
@@ -1429,6 +1436,15 @@ from .updatedatasetop import (
     UpdateDatasetRequestTypedDict,
     UpdateDatasetResponseBody,
     UpdateDatasetResponseBodyTypedDict,
+)
+from .updatedatasourceop import (
+    UpdateDatasourceRequest,
+    UpdateDatasourceRequestBody,
+    UpdateDatasourceRequestBodyTypedDict,
+    UpdateDatasourceRequestTypedDict,
+    UpdateDatasourceResponseBody,
+    UpdateDatasourceResponseBodyTypedDict,
+    UpdateDatasourceStatus,
 )
 from .updateknowledgeop import (
     UpdateKnowledgeKnowledgeRerankConfig,
@@ -2389,6 +2405,11 @@ __all__ = [
     "GetAllPromptsToolCallsTypedDict",
     "GetAllPromptsType",
     "GetAllPromptsUseCases",
+    "GetOneChunkRequest",
+    "GetOneChunkRequestTypedDict",
+    "GetOneChunkResponseBody",
+    "GetOneChunkResponseBodyTypedDict",
+    "GetOneChunkStatus",
     "GetOneKnowledgeRequest",
     "GetOneKnowledgeRequestTypedDict",
     "GetOneKnowledgeRerankConfig",
@@ -2912,6 +2933,13 @@ __all__ = [
     "UpdateDatasetRequestTypedDict",
     "UpdateDatasetResponseBody",
     "UpdateDatasetResponseBodyTypedDict",
+    "UpdateDatasourceRequest",
+    "UpdateDatasourceRequestBody",
+    "UpdateDatasourceRequestBodyTypedDict",
+    "UpdateDatasourceRequestTypedDict",
+    "UpdateDatasourceResponseBody",
+    "UpdateDatasourceResponseBodyTypedDict",
+    "UpdateDatasourceStatus",
     "UpdateKnowledgeKnowledgeRerankConfig",
     "UpdateKnowledgeKnowledgeRerankConfigTypedDict",
     "UpdateKnowledgeKnowledgeRetrievalSettings",
