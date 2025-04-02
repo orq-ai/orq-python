@@ -571,25 +571,26 @@ class GetPromptVersionPromptConfig(BaseModel):
 
 
 GetPromptVersionUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
     "Translation (document)",
     "Translation (sentences)",
-    "Sentiment analysis",
 ]
 
 GetPromptVersionLanguage = Literal[

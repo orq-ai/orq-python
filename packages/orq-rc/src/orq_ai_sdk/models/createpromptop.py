@@ -471,25 +471,26 @@ class PromptConfig(BaseModel):
 
 
 UseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
     "Translation (document)",
     "Translation (sentences)",
-    "Sentiment analysis",
 ]
 
 Language = Literal[
@@ -1088,25 +1089,26 @@ class CreatePromptPromptConfig(BaseModel):
 
 
 CreatePromptUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
     "Translation (document)",
     "Translation (sentences)",
-    "Sentiment analysis",
 ]
 
 CreatePromptLanguage = Literal[

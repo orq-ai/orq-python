@@ -476,25 +476,26 @@ class UpdatePromptPromptConfig(BaseModel):
 
 
 UpdatePromptUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
     "Translation (document)",
     "Translation (sentences)",
-    "Sentiment analysis",
 ]
 
 UpdatePromptLanguage = Literal[
@@ -1162,25 +1163,26 @@ class UpdatePromptPromptsPromptConfig(BaseModel):
 
 
 UpdatePromptPromptsUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
     "Translation (document)",
     "Translation (sentences)",
-    "Sentiment analysis",
 ]
 
 UpdatePromptPromptsLanguage = Literal[
