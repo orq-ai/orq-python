@@ -86,7 +86,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQV7RHARKMSCW878M5WCH432"
+        "01JQX6VH42AX28VD96R07ZCD7H"
     )
     r"""The id of the resource"""
 
@@ -118,7 +118,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

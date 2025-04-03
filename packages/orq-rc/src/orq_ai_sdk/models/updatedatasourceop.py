@@ -100,7 +100,7 @@ class UpdateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQV7RHAT17RW4W0TA46VWDAW"
+        "01JQX6VH43CPQXTA10SNXAYWHD"
     )
     r"""The id of the resource"""
 
@@ -132,7 +132,7 @@ class UpdateDatasourceResponseBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

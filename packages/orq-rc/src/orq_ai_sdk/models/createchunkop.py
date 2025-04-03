@@ -154,7 +154,7 @@ class CreateChunkKnowledgeMetadata(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -257,7 +257,7 @@ class CreateChunkResponseBody(BaseModel):
     updated_by_id: str
     r"""The unique identifier of the user who updated the chunk"""
 
-    id: Optional[str] = "chunk_01JQV7RHAVTVDWP4NRVXP8ZREG"
+    id: Optional[str] = "chunk_01JQX6VH4453RCASNQK7637KZN"
     r"""Unique identifier for the element"""
 
     enabled: Optional[bool] = True

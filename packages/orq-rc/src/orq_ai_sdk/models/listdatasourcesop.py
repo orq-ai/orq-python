@@ -125,7 +125,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQV7RHAQT4NVF4K934V0FP1X"
+        "01JQX6VH41E9RXTZ40A7K4CM93"
     )
     r"""The id of the resource"""
 
@@ -157,7 +157,7 @@ class ListDatasourcesData(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
