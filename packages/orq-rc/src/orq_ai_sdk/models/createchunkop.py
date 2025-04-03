@@ -257,7 +257,7 @@ class CreateChunkResponseBody(BaseModel):
     updated_by_id: str
     r"""The unique identifier of the user who updated the chunk"""
 
-    id: Optional[str] = "chunk_01JQXAPP6BB08ZBQTAAJH3DEQ9"
+    id: Optional[str] = "chunk_01JQXCHH4ZW01QSCSAC4T8GKJB"
     r"""Unique identifier for the element"""
 
     enabled: Optional[bool] = True
