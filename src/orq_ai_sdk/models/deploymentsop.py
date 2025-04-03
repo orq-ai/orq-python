@@ -15,13 +15,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Sort = Literal["asc", "desc"]
-r"""List sorting preference."""
-
-
 class DeploymentsRequestTypedDict(TypedDict):
-    sort: NotRequired[Sort]
-    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -31,12 +25,6 @@ class DeploymentsRequestTypedDict(TypedDict):
 
 
 class DeploymentsRequest(BaseModel):
-    sort: Annotated[
-        Optional[Sort],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "asc"
-    r"""List sorting preference."""
-
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -384,7 +372,7 @@ class DeploymentsModelParameters(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

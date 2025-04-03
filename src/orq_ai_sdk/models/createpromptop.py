@@ -257,7 +257,7 @@ class ModelParameters(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -471,22 +471,26 @@ class PromptConfig(BaseModel):
 
 
 UseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
 ]
 
 Language = Literal[
@@ -547,7 +551,7 @@ class CreatePromptRequestBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -816,7 +820,7 @@ class CreatePromptModelParameters(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -1063,7 +1067,7 @@ class CreatePromptPromptConfig(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -1085,22 +1089,26 @@ class CreatePromptPromptConfig(BaseModel):
 
 
 CreatePromptUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
 ]
 
 CreatePromptLanguage = Literal[
@@ -1184,7 +1192,7 @@ class CreatePromptResponseBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

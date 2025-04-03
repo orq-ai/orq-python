@@ -15,14 +15,8 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ListPromptVersionsQueryParamSort = Literal["asc", "desc"]
-r"""List sorting preference."""
-
-
 class ListPromptVersionsRequestTypedDict(TypedDict):
     prompt_id: str
-    sort: NotRequired[ListPromptVersionsQueryParamSort]
-    r"""List sorting preference."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -35,12 +29,6 @@ class ListPromptVersionsRequest(BaseModel):
     prompt_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-
-    sort: Annotated[
-        Optional[ListPromptVersionsQueryParamSort],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = "asc"
-    r"""List sorting preference."""
 
     limit: Annotated[
         Optional[float],
@@ -314,7 +302,7 @@ class ListPromptVersionsModelParameters(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -561,7 +549,7 @@ class ListPromptVersionsPromptConfig(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -583,22 +571,26 @@ class ListPromptVersionsPromptConfig(BaseModel):
 
 
 ListPromptVersionsUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
 ]
 
 ListPromptVersionsLanguage = Literal[
@@ -661,7 +653,7 @@ class ListPromptVersionsData(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

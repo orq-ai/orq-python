@@ -275,7 +275,7 @@ class GetOnePromptModelParameters(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -521,7 +521,7 @@ class GetOnePromptPromptConfig(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -543,22 +543,26 @@ class GetOnePromptPromptConfig(BaseModel):
 
 
 GetOnePromptUseCases = Literal[
-    "Agents",
     "Agents simulations",
+    "Agents",
     "API interaction",
     "Autonomous Agents",
     "Chatbots",
     "Classification",
     "Code understanding",
     "Code writing",
-    "Documents QA",
     "Conversation",
+    "Documents QA",
+    "Evaluation",
     "Extraction",
     "Multi-modal",
     "Self-checking",
+    "Sentiment analysis",
     "SQL",
     "Summarization",
     "Tagging",
+    "Translation (document)",
+    "Translation (sentences)",
 ]
 
 GetOnePromptLanguage = Literal[
@@ -642,7 +646,7 @@ class GetOnePromptResponseBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

@@ -1,0 +1,20 @@
+# CreateDatasourceResponseBody
+
+Datasource successfully created
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `display_name`                                                             | *str*                                                                      | :heavy_check_mark:                                                         | The display name of the datasource. Normally the name of the uploaded file |
+| `status`                                                                   | [models.CreateDatasourceStatus](../models/createdatasourcestatus.md)       | :heavy_check_mark:                                                         | N/A                                                                        |
+| `created`                                                                  | *str*                                                                      | :heavy_check_mark:                                                         | The date and time the datasource was created                               |
+| `updated`                                                                  | *str*                                                                      | :heavy_check_mark:                                                         | The date and time the datasource was updated                               |
+| `knowledge_id`                                                             | *str*                                                                      | :heavy_check_mark:                                                         | The unique identifier of the knowledge base                                |
+| `chunks_count`                                                             | *float*                                                                    | :heavy_check_mark:                                                         | The number of chunks in the datasource                                     |
+| `id`                                                                       | *Optional[str]*                                                            | :heavy_minus_sign:                                                         | The id of the resource                                                     |
+| `description`                                                              | *Optional[str]*                                                            | :heavy_minus_sign:                                                         | The description of the knowledge base                                      |
+| `file_id`                                                                  | *OptionalNullable[str]*                                                    | :heavy_minus_sign:                                                         | The unique identifier of the file used to create the datasource.           |
+| `created_by_id`                                                            | *Optional[str]*                                                            | :heavy_minus_sign:                                                         | The id of the resource                                                     |
+| `update_by_id`                                                             | *Optional[str]*                                                            | :heavy_minus_sign:                                                         | The id of the resource                                                     |

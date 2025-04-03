@@ -12,7 +12,6 @@ class Datasets(BaseSDK):
     def list(
         self,
         *,
-        sort: Optional[models.ListDatasetsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -25,7 +24,6 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -48,7 +46,6 @@ class Datasets(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListDatasetsRequest(
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -119,7 +116,6 @@ class Datasets(BaseSDK):
     async def list_async(
         self,
         *,
-        sort: Optional[models.ListDatasetsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -132,7 +128,6 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
 
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -155,7 +150,6 @@ class Datasets(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListDatasetsRequest(
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -647,7 +641,9 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        display_name: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -658,7 +654,9 @@ class Datasets(BaseSDK):
         Update a dataset
 
         :param dataset_id:
-        :param display_name:
+        :param display_name: The display name of the dataset
+        :param project_id: The unique identifier of the project it belongs to
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -681,6 +679,8 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             request_body=models.UpdateDatasetRequestBody(
                 display_name=display_name,
+                project_id=project_id,
+                path=path,
             ),
         )
 
@@ -761,7 +761,9 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        display_name: str,
+        display_name: Optional[str] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -772,7 +774,9 @@ class Datasets(BaseSDK):
         Update a dataset
 
         :param dataset_id:
-        :param display_name:
+        :param display_name: The display name of the dataset
+        :param project_id: The unique identifier of the project it belongs to
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -795,6 +799,8 @@ class Datasets(BaseSDK):
             dataset_id=dataset_id,
             request_body=models.UpdateDatasetRequestBody(
                 display_name=display_name,
+                project_id=project_id,
+                path=path,
             ),
         )
 
@@ -1067,7 +1073,6 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        sort: Optional[models.ListDatasetDatapointsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -1081,7 +1086,6 @@ class Datasets(BaseSDK):
         Retrieves a paginated list of datapoints from a specific dataset.
 
         :param dataset_id:
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1105,7 +1109,6 @@ class Datasets(BaseSDK):
 
         request = models.ListDatasetDatapointsRequest(
             dataset_id=dataset_id,
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -1177,7 +1180,6 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        sort: Optional[models.ListDatasetDatapointsQueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -1191,7 +1193,6 @@ class Datasets(BaseSDK):
         Retrieves a paginated list of datapoints from a specific dataset.
 
         :param dataset_id:
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1215,7 +1216,6 @@ class Datasets(BaseSDK):
 
         request = models.ListDatasetDatapointsRequest(
             dataset_id=dataset_id,
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,

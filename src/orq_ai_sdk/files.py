@@ -3,18 +3,17 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import Mapping, Optional, Union
 
 
 class Files(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.FileUploadRequestBody, models.FileUploadRequestBodyTypedDict
-        ] = models.FileUploadRequestBody(),
+        file: Union[models.File, models.FileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -24,7 +23,8 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
-        :param request: The request object to send.
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -43,9 +43,10 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FileUploadRequestBody)
-        request = cast(models.FileUploadRequestBody, request)
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.File),
+            purpose=purpose,
+        )
 
         req = self._build_request(
             method="POST",
@@ -61,11 +62,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "multipart",
-                Optional[models.FileUploadRequestBody],
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -119,9 +116,8 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.FileUploadRequestBody, models.FileUploadRequestBodyTypedDict
-        ] = models.FileUploadRequestBody(),
+        file: Union[models.File, models.FileTypedDict],
+        purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -131,7 +127,8 @@ class Files(BaseSDK):
 
         Files are used to upload documents that can be used with features like [Deployments](https://docs.orq.ai/reference/deploymentinvoke-1).
 
-        :param request: The request object to send.
+        :param file: The file to be uploaded.
+        :param purpose: The intended purpose of the uploaded file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -150,9 +147,10 @@ class Files(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FileUploadRequestBody)
-        request = cast(models.FileUploadRequestBody, request)
+        request = models.FileUploadRequestBody(
+            file=utils.get_pydantic_model(file, models.File),
+            purpose=purpose,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -168,11 +166,7 @@ class Files(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "multipart",
-                Optional[models.FileUploadRequestBody],
+                request, False, False, "multipart", models.FileUploadRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -226,7 +220,6 @@ class Files(BaseSDK):
     def list(
         self,
         *,
-        sort: Optional[models.QueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -239,7 +232,6 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -262,7 +254,6 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileListRequest(
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -333,7 +324,6 @@ class Files(BaseSDK):
     async def list_async(
         self,
         *,
-        sort: Optional[models.QueryParamSort] = "asc",
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -346,7 +336,6 @@ class Files(BaseSDK):
 
         Returns a list of the files that your account has access to. orq.ai sorts and returns the files by their creation dates, placing the most recently created files at the top.
 
-        :param sort: List sorting preference.
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -369,7 +358,6 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileListRequest(
-            sort=sort,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,

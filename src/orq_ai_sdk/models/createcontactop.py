@@ -63,7 +63,7 @@ class CreateContactRequestBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)
@@ -134,7 +134,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-04-01T11:31:10.958Z")
+    updated: Optional[datetime] = dateutil.parser.isoparse("2025-04-03T19:41:53.128Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -155,7 +155,7 @@ class CreateContactResponseBody(BaseModel):
 
         m = {}
 
-        for n, f in self.model_fields.items():
+        for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
             serialized.pop(k, None)

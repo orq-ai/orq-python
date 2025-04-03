@@ -40,16 +40,14 @@ r"""The intended purpose of the uploaded file."""
 
 
 class FileUploadRequestBodyTypedDict(TypedDict):
-    file: NotRequired[FileTypedDict]
+    file: FileTypedDict
     r"""The file to be uploaded."""
     purpose: NotRequired[Purpose]
     r"""The intended purpose of the uploaded file."""
 
 
 class FileUploadRequestBody(BaseModel):
-    file: Annotated[
-        Optional[File], FieldMetadata(multipart=MultipartFormMetadata(file=True))
-    ] = None
+    file: Annotated[File, FieldMetadata(multipart=MultipartFormMetadata(file=True))]
     r"""The file to be uploaded."""
 
     purpose: Annotated[Optional[Purpose], FieldMetadata(multipart=True)] = "retrieval"
@@ -94,5 +92,5 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-04-01T11:31:12.079Z")
+    created: Optional[datetime] = dateutil.parser.isoparse("2025-04-03T19:41:54.685Z")
     r"""The date and time the resource was created"""

@@ -235,6 +235,25 @@ with Orq(
 * [get](docs/sdks/files/README.md#get) - Retrieve a file
 * [delete](docs/sdks/files/README.md#delete) - Delete file
 
+### [knowledge](docs/sdks/knowledge/README.md)
+
+* [list](docs/sdks/knowledge/README.md#list) - List all knowledge bases
+* [create](docs/sdks/knowledge/README.md#create) - Create a knowledge
+* [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
+* [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
+* [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
+* [search](docs/sdks/knowledge/README.md#search) - Retrieves the documents used for retrieval
+* [list_datasources](docs/sdks/knowledge/README.md#list_datasources) - List all datasources
+* [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
+* [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource
+* [delete_datasource](docs/sdks/knowledge/README.md#delete_datasource) - Deletes a datasource
+* [update_datasource](docs/sdks/knowledge/README.md#update_datasource) - Update a datasource
+* [create_chunks](docs/sdks/knowledge/README.md#create_chunks) - Create chunks for a datasource
+* [list_chunks](docs/sdks/knowledge/README.md#list_chunks) - List all chunks for a datasource
+* [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
+* [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
+* [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
+
 
 ### [prompts](docs/sdks/prompts/README.md)
 
@@ -309,7 +328,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.create()
+    res = orq.files.create(file={
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    })
 
     assert res is not None
 
