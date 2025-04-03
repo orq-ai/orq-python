@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: ab03e9d28f047d983438b50df8c276c3
+  docChecksum: f56cbfb13ce2ecaed22fc461be26dd33
   docVersion: "2.0"
   speakeasyVersion: 1.528.1
   generationVersion: 2.565.1
-  releaseVersion: 3.3.0
-  configChecksum: c026420d47aaa8d3972cf2eaf39000ff
+  releaseVersion: 3.3.1
+  configChecksum: 6df1548a3a8241f427d465b78bed0432
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
@@ -95,10 +95,10 @@ generatedFiles:
   - docs/models/cleardatasetrequest.md
   - docs/models/content.md
   - docs/models/content2.md
-  - docs/models/createchunkknowledgemetadata.md
   - docs/models/createchunkmetadata.md
   - docs/models/createchunkrequest.md
   - docs/models/createchunkresponsebody.md
+  - docs/models/createchunkstatus.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
   - docs/models/createdatasetitem21.md
@@ -513,7 +513,6 @@ generatedFiles:
   - docs/models/developermessage.md
   - docs/models/documents.md
   - docs/models/encodingformat.md
-  - docs/models/errors.md
   - docs/models/file.md
   - docs/models/filedeleterequest.md
   - docs/models/filegetpurpose.md
@@ -759,7 +758,6 @@ generatedFiles:
   - docs/models/prefixmessagestoolmessage.md
   - docs/models/prefixmessagestype.md
   - docs/models/prefixmessagesusermessage.md
-  - docs/models/processingattempts.md
   - docs/models/promptconfig.md
   - docs/models/provider.md
   - docs/models/purpose.md
@@ -1512,7 +1510,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: [{"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQYJSBSRYKECXYPB02KAAFGW", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}, {"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}, {"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQYJSBSRYKECXYPB02KAAFGW", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}, {"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}, {"knowledge_id": "<id>", "workspace_id": "<id>", "data_source_id": "<id>", "id": "chunk_01JQYJSBSRYKECXYPB02KAAFGW", "text": "<value>", "enabled": true, "processing_attempts": [{"id": "<id>", "started_at": "<value>"}], "created": "<value>", "updated": "<value>", "created_by_id": "<id>", "updated_by_id": "<id>"}]
+          application/json: [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "queued", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "failed", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "failed", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}]
   ListChunks:
     speakeasy-default-list-chunks:
       parameters:
