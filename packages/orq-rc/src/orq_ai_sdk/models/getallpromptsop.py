@@ -59,7 +59,7 @@ GetAllPromptsModelType = Literal[
     "rerank",
     "moderations",
 ]
-r"""The type of the model"""
+r"""The modality of the model"""
 
 GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
@@ -488,7 +488,7 @@ class GetAllPromptsPromptConfigTypedDict(TypedDict):
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
     model_type: NotRequired[GetAllPromptsModelType]
-    r"""The type of the model"""
+    r"""The modality of the model"""
     model_parameters: NotRequired[GetAllPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetAllPromptsProvider]
@@ -510,7 +510,7 @@ class GetAllPromptsPromptConfig(BaseModel):
     r"""The id of the resource"""
 
     model_type: Optional[GetAllPromptsModelType] = None
-    r"""The type of the model"""
+    r"""The modality of the model"""
 
     model_parameters: Optional[GetAllPromptsModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -594,7 +594,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class GetAllPromptsMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[GetAllPromptsUseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[GetAllPromptsLanguage]
+    language: NotRequired[Nullable[GetAllPromptsLanguage]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -602,8 +602,38 @@ class GetAllPromptsMetadata(BaseModel):
     use_cases: Optional[List[GetAllPromptsUseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[GetAllPromptsLanguage] = None
+    language: OptionalNullable[GetAllPromptsLanguage] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["use_cases", "language"]
+        nullable_fields = ["language"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class GetAllPromptsDataTypedDict(TypedDict):

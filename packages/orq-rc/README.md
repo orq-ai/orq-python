@@ -123,7 +123,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.post_v2_traces_sessions_count()
 
     assert res is not None
 
@@ -146,7 +146,7 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.contacts.create_async(external_id="<id>")
+        res = await orq.post_v2_traces_sessions_count_async()
 
         assert res is not None
 
@@ -178,7 +178,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.post_v2_traces_sessions_count()
 
     assert res is not None
 
@@ -242,7 +242,6 @@ with Orq(
 * [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
 * [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
 * [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
-* [search](docs/sdks/knowledge/README.md#search) - Retrieves the documents used for retrieval
 * [list_datasources](docs/sdks/knowledge/README.md#list_datasources) - List all datasources
 * [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
 * [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource
@@ -254,6 +253,27 @@ with Orq(
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
 
+### [memory_stores](docs/sdks/memorystores/README.md)
+
+* [list](docs/sdks/memorystores/README.md#list) - List memory stores
+* [create](docs/sdks/memorystores/README.md#create) - Create memory store
+* [retrieve](docs/sdks/memorystores/README.md#retrieve) - Retrieve memory store
+* [update](docs/sdks/memorystores/README.md#update) - Update memory store
+* [delete](docs/sdks/memorystores/README.md#delete) - Delete memory store
+* [list_memories](docs/sdks/memorystores/README.md#list_memories) - List all memories
+* [create_memory](docs/sdks/memorystores/README.md#create_memory) - Create a new memory
+* [retrieve_memory](docs/sdks/memorystores/README.md#retrieve_memory) - Retrieve a specific memory
+* [update_memory](docs/sdks/memorystores/README.md#update_memory) - Update a specific memory
+* [delete_memory](docs/sdks/memorystores/README.md#delete_memory) - Delete a specific memory
+* [list_documents](docs/sdks/memorystores/README.md#list_documents) - List all documents for a memory
+* [create_document](docs/sdks/memorystores/README.md#create_document) - Create a new memory document
+* [retrieve_document](docs/sdks/memorystores/README.md#retrieve_document) - Retrieve a specific memory document
+* [update_document](docs/sdks/memorystores/README.md#update_document) - Update a specific memory document
+* [delete_document](docs/sdks/memorystores/README.md#delete_document) - Delete a specific memory document
+
+### [Orq SDK](docs/sdks/orq/README.md)
+
+* [post_v2_traces_sessions_count](docs/sdks/orq/README.md#post_v2_traces_sessions_count) - Get total count of sessions
 
 ### [prompts](docs/sdks/prompts/README.md)
 
@@ -268,6 +288,22 @@ with Orq(
 ### [remoteconfigs](docs/sdks/remoteconfigs/README.md)
 
 * [retrieve](docs/sdks/remoteconfigs/README.md#retrieve) - Retrieve a remote config
+
+### [sessions](docs/sdks/sessions/README.md)
+
+* [create](docs/sdks/sessions/README.md#create) - Create Trace Session
+* [delete](docs/sdks/sessions/README.md#delete) - Delete Trace Session
+* [get](docs/sdks/sessions/README.md#get) - Get Trace Session
+* [update](docs/sdks/sessions/README.md#update) - Update Trace Session
+* [list](docs/sdks/sessions/README.md#list) - List sessions
+
+### [tools](docs/sdks/tools/README.md)
+
+* [list](docs/sdks/tools/README.md#list) - List tools
+* [create](docs/sdks/tools/README.md#create) - Create tool
+* [update](docs/sdks/tools/README.md#update) - Update tool
+* [delete](docs/sdks/tools/README.md#delete) - Delete tool
+* [retrieve](docs/sdks/tools/README.md#retrieve) - Retrieve tool
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -357,7 +393,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>",
+    res = orq.post_v2_traces_sessions_count(,
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     assert res is not None
@@ -379,7 +415,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.post_v2_traces_sessions_count()
 
     assert res is not None
 
@@ -455,7 +491,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.post_v2_traces_sessions_count()
 
     assert res is not None
 

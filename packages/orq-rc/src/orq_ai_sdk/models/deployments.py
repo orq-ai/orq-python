@@ -171,7 +171,7 @@ class ToolCalls(BaseModel):
 class AssistantMessageTypedDict(TypedDict):
     role: DeploymentsPrefixMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[PrefixMessagesContentTypedDict]
+    content: NotRequired[Nullable[PrefixMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -187,7 +187,7 @@ class AssistantMessage(BaseModel):
     role: DeploymentsPrefixMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[PrefixMessagesContent] = None
+    content: OptionalNullable[PrefixMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -205,7 +205,7 @@ class AssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -571,7 +571,7 @@ class MessagesToolCalls(BaseModel):
 class MessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentsMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[DeploymentsMessagesContentTypedDict]
+    content: NotRequired[Nullable[DeploymentsMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -587,7 +587,7 @@ class MessagesAssistantMessage(BaseModel):
     role: DeploymentsMessages4Role
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentsMessagesContent] = None
+    content: OptionalNullable[DeploymentsMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -605,7 +605,7 @@ class MessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -871,11 +871,31 @@ class Documents(BaseModel):
 class InvokeOptionsTypedDict(TypedDict):
     include_retrievals: NotRequired[bool]
     r"""Whether to include the retrieved knowledge chunks in the response."""
+    mock_response: NotRequired[str]
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
 
 
 class InvokeOptions(BaseModel):
     include_retrievals: Optional[bool] = False
     r"""Whether to include the retrieved knowledge chunks in the response."""
+
+    mock_response: Optional[str] = None
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
+
+
+class ThreadTypedDict(TypedDict):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+    tags: NotRequired[List[str]]
+    r"""Optional tags to differentiate or categorize threads"""
+
+
+class Thread(BaseModel):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+
+    tags: Optional[List[str]] = None
+    r"""Optional tags to differentiate or categorize threads"""
 
 
 class DeploymentsTypedDict(TypedDict):
@@ -900,6 +920,7 @@ class DeploymentsTypedDict(TypedDict):
     documents: NotRequired[List[DocumentsTypedDict]]
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
     invoke_options: NotRequired[InvokeOptionsTypedDict]
+    thread: NotRequired[ThreadTypedDict]
 
 
 class Deployments(BaseModel):
@@ -933,3 +954,5 @@ class Deployments(BaseModel):
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
 
     invoke_options: Optional[InvokeOptions] = None
+
+    thread: Optional[Thread] = None

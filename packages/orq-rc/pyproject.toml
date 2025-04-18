@@ -1,6 +1,6 @@
 [project]
 name = "orq-ai-sdk"
-version = "3.4.0-rc.0"
+version = "3.4.0-rc.37"
 description = "Python Client SDK for the Orq API."
 authors = [{ name = "Orq" },]
 readme = "README-PYPI.md"
@@ -8,7 +8,7 @@ requires-python = ">=3.9"
 dependencies = [
     "eval-type-backport >=0.2.0",
     "httpx >=0.28.1",
-    "pydantic >=2.10.3",
+    "pydantic >=2.11.2",
     "python-dateutil >=2.8.2",
     "typing-inspection >=0.4.0",
 ]
@@ -27,7 +27,7 @@ include = ["py.typed", "src/orq_ai_sdk/py.typed"]
 in-project = true
 
 [tool.poetry.group.dev.dependencies]
-mypy = "==1.14.1"
+mypy = "==1.15.0"
 pylint = "==3.2.3"
 types-python-dateutil = "^2.9.0.20240316"
 

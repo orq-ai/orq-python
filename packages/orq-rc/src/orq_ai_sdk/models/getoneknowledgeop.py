@@ -52,6 +52,20 @@ class GetOneKnowledgeRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
+class GetOneKnowledgeAgenticRagConfigTypedDict(TypedDict):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class GetOneKnowledgeAgenticRagConfig(BaseModel):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
 class GetOneKnowledgeRetrievalSettingsTypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
@@ -61,8 +75,10 @@ class GetOneKnowledgeRetrievalSettingsTypedDict(TypedDict):
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[GetOneKnowledgeRerankConfigTypedDict]
+    rerank_config: NotRequired[Nullable[GetOneKnowledgeRerankConfigTypedDict]]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    agentic_rag_config: NotRequired[Nullable[GetOneKnowledgeAgenticRagConfigTypedDict]]
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
 class GetOneKnowledgeRetrievalSettings(BaseModel):
@@ -77,8 +93,47 @@ class GetOneKnowledgeRetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: Optional[GetOneKnowledgeRerankConfig] = None
+    rerank_config: OptionalNullable[GetOneKnowledgeRerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    agentic_rag_config: OptionalNullable[GetOneKnowledgeAgenticRagConfig] = UNSET
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "retrieval_type",
+            "top_k",
+            "threshold",
+            "rerank_config",
+            "agentic_rag_config",
+        ]
+        nullable_fields = ["rerank_config", "agentic_rag_config"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class GetOneKnowledgeResponseBodyTypedDict(TypedDict):

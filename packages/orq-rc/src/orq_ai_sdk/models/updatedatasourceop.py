@@ -73,9 +73,9 @@ class UpdateDatasourceResponseBodyTypedDict(TypedDict):
     r"""The description of the knowledge base"""
     file_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the file used to create the datasource."""
-    created_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    update_by_id: NotRequired[str]
+    update_by_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
 
 
@@ -100,7 +100,7 @@ class UpdateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01JQYPMWQKKZEW8DE5A9GZASYP"
+        "01JS405PPDJGQ5VRBVA4SDWB4V"
     )
     r"""The id of the resource"""
 
@@ -110,10 +110,10 @@ class UpdateDatasourceResponseBody(BaseModel):
     file_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the file used to create the datasource."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    update_by_id: Optional[str] = None
+    update_by_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
     @model_serializer(mode="wrap")
@@ -125,7 +125,7 @@ class UpdateDatasourceResponseBody(BaseModel):
             "created_by_id",
             "update_by_id",
         ]
-        nullable_fields = ["file_id"]
+        nullable_fields = ["file_id", "created_by_id", "update_by_id"]
         null_default_fields = []
 
         serialized = handler(self)

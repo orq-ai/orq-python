@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 33aab983291384b75f392f42732333d0
+  docChecksum: 511bac26e46e10a474939592116711f2
   docVersion: "2.0"
-  speakeasyVersion: 1.528.1
-  generationVersion: 2.565.1
-  releaseVersion: 3.4.0-rc.0
-  configChecksum: 4f11ab1bef59bd6449cceb961779ffaf
+  speakeasyVersion: 1.535.1
+  generationVersion: 2.585.2
+  releaseVersion: 3.4.0-rc.37
+  configChecksum: 91cb6610fb3fc47e4e41f38b1435ce54
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.12.5
+    core: 5.14.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -47,8 +47,12 @@ generatedFiles:
   - .python-version
   - .vscode/settings.json
   - USAGE.md
+  - docs/models/agenticragconfig.md
+  - docs/models/arguments.md
   - docs/models/assistantmessage.md
   - docs/models/audio.md
+  - docs/models/billing.md
+  - docs/models/blueprint.md
   - docs/models/bulkcreatedatapoints21.md
   - docs/models/bulkcreatedatapoints22.md
   - docs/models/bulkcreatedatapoints2datasets1.md
@@ -140,11 +144,39 @@ generatedFiles:
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
+  - docs/models/createknowledgeagenticragconfig.md
   - docs/models/createknowledgerequestbody.md
   - docs/models/createknowledgererankconfig.md
   - docs/models/createknowledgeresponsebody.md
   - docs/models/createknowledgeretrievalsettings.md
   - docs/models/createknowledgeretrievaltype.md
+  - docs/models/creatememorydocumentrequest.md
+  - docs/models/creatememorydocumentrequestbody.md
+  - docs/models/creatememorydocumentresponsebody.md
+  - docs/models/creatememoryrequest.md
+  - docs/models/creatememoryrequestbody.md
+  - docs/models/creatememoryresponsebody.md
+  - docs/models/creatememorystoreembeddingconfig.md
+  - docs/models/creatememorystoremodel.md
+  - docs/models/creatememorystoremodel1.md
+  - docs/models/creatememorystoremodel10.md
+  - docs/models/creatememorystoremodel11.md
+  - docs/models/creatememorystoremodel12.md
+  - docs/models/creatememorystoremodel13.md
+  - docs/models/creatememorystoremodel14.md
+  - docs/models/creatememorystoremodel15.md
+  - docs/models/creatememorystoremodel16.md
+  - docs/models/creatememorystoremodel17.md
+  - docs/models/creatememorystoremodel2.md
+  - docs/models/creatememorystoremodel3.md
+  - docs/models/creatememorystoremodel4.md
+  - docs/models/creatememorystoremodel5.md
+  - docs/models/creatememorystoremodel6.md
+  - docs/models/creatememorystoremodel7.md
+  - docs/models/creatememorystoremodel8.md
+  - docs/models/creatememorystoremodel9.md
+  - docs/models/creatememorystorerequestbody.md
+  - docs/models/creatememorystoreresponsebody.md
   - docs/models/createprompt21.md
   - docs/models/createprompt22.md
   - docs/models/createprompt2imageurl.md
@@ -193,13 +225,49 @@ generatedFiles:
   - docs/models/createprompttoolcalls.md
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
+  - docs/models/createsessionbilling.md
+  - docs/models/createsessionrequestbody.md
+  - docs/models/createsessionresponsebody.md
+  - docs/models/createsessionsessionsusage.md
+  - docs/models/createsessionusage.md
+  - docs/models/createtoolrequestbody.md
+  - docs/models/createtoolrequestbodystatus.md
+  - docs/models/createtoolrequestbodytoolsrequesttype.md
+  - docs/models/createtoolrequestbodytoolsstatus.md
+  - docs/models/createtoolrequestbodytoolstype.md
+  - docs/models/createtoolrequestbodytype.md
+  - docs/models/createtoolresponsebody.md
+  - docs/models/createtoolresponsebodystatus.md
+  - docs/models/createtoolresponsebodytoolsresponsetype.md
+  - docs/models/createtoolresponsebodytoolsstatus.md
+  - docs/models/createtoolresponsebodytoolstype.md
+  - docs/models/createtoolresponsebodytype.md
+  - docs/models/criteria.md
   - docs/models/data.md
+  - docs/models/data1.md
+  - docs/models/data2.md
+  - docs/models/data3.md
+  - docs/models/dataarguments.md
+  - docs/models/datablueprint.md
+  - docs/models/datadefaultvalue.md
+  - docs/models/datafunction.md
+  - docs/models/datahttp.md
+  - docs/models/datajsonschema.md
+  - docs/models/datamethod.md
+  - docs/models/datastatus.md
+  - docs/models/datatype.md
+  - docs/models/defaultvalue.md
   - docs/models/deletechunkrequest.md
   - docs/models/deletedatapointrequest.md
   - docs/models/deletedatasetrequest.md
   - docs/models/deletedatasourcerequest.md
   - docs/models/deleteknowledgerequest.md
+  - docs/models/deletememorydocumentrequest.md
+  - docs/models/deletememoryrequest.md
+  - docs/models/deletememorystorerequest.md
   - docs/models/deletepromptrequest.md
+  - docs/models/deletesessionrequest.md
+  - docs/models/deletetoolrequest.md
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
   - docs/models/deploymentcreatemetric23.md
@@ -349,7 +417,9 @@ generatedFiles:
   - docs/models/deploymentgetconfigresponseformatjsonschema.md
   - docs/models/deploymentgetconfigresponseformattype.md
   - docs/models/deploymentgetconfigrole.md
+  - docs/models/deploymentgetconfigthread.md
   - docs/models/deploymentgetconfigtoolcalls.md
+  - docs/models/deploymentgetconfigtools.md
   - docs/models/deploymentgetconfigtype.md
   - docs/models/deploymentinvokechoices.md
   - docs/models/deploymentinvokeglobals.md
@@ -509,11 +579,19 @@ generatedFiles:
   - docs/models/deploymentstreamrequestbody.md
   - docs/models/deploymentstreamresponsebody.md
   - docs/models/deploymentstreamretrievals.md
+  - docs/models/deploymentstreamthread.md
   - docs/models/deploymentstype.md
   - docs/models/detail.md
   - docs/models/developermessage.md
+  - docs/models/direction.md
   - docs/models/documents.md
+  - docs/models/eight.md
+  - docs/models/eleven.md
+  - docs/models/embeddingconfig.md
   - docs/models/encodingformat.md
+  - docs/models/evaluatoroutputtype.md
+  - docs/models/evaluatortype.md
+  - docs/models/fifteen.md
   - docs/models/file.md
   - docs/models/filedeleterequest.md
   - docs/models/filegetpurpose.md
@@ -527,8 +605,64 @@ generatedFiles:
   - docs/models/fileuploadpurpose.md
   - docs/models/fileuploadrequestbody.md
   - docs/models/fileuploadresponsebody.md
+  - docs/models/filters.md
+  - docs/models/filters1.md
+  - docs/models/filters2.md
+  - docs/models/filters3.md
+  - docs/models/filters4.md
+  - docs/models/filters5.md
+  - docs/models/filters6.md
+  - docs/models/filters7.md
+  - docs/models/filters8.md
+  - docs/models/filterscriteria.md
+  - docs/models/filtersdirection.md
+  - docs/models/filtersevaluatoroutputtype.md
+  - docs/models/filtersevaluatortype.md
+  - docs/models/filtershideoperators.md
+  - docs/models/filtersmode.md
+  - docs/models/filtersoperator.md
+  - docs/models/filtersoptions.md
+  - docs/models/filtersoptionsmap.md
+  - docs/models/filtersrelativetime.md
+  - docs/models/filterstype.md
+  - docs/models/filtersunit.md
+  - docs/models/filtersvalue.md
+  - docs/models/five.md
   - docs/models/format_.md
+  - docs/models/four.md
+  - docs/models/fourteen.md
   - docs/models/function.md
+  - docs/models/getallmemoriesdata.md
+  - docs/models/getallmemoriesobject.md
+  - docs/models/getallmemoriesrequest.md
+  - docs/models/getallmemoriesresponsebody.md
+  - docs/models/getallmemorydocumentsdata.md
+  - docs/models/getallmemorydocumentsobject.md
+  - docs/models/getallmemorydocumentsrequest.md
+  - docs/models/getallmemorydocumentsresponsebody.md
+  - docs/models/getallmemorystoresdata.md
+  - docs/models/getallmemorystoresembeddingconfig.md
+  - docs/models/getallmemorystoresmodel.md
+  - docs/models/getallmemorystoresmodel1.md
+  - docs/models/getallmemorystoresmodel10.md
+  - docs/models/getallmemorystoresmodel11.md
+  - docs/models/getallmemorystoresmodel12.md
+  - docs/models/getallmemorystoresmodel13.md
+  - docs/models/getallmemorystoresmodel14.md
+  - docs/models/getallmemorystoresmodel15.md
+  - docs/models/getallmemorystoresmodel16.md
+  - docs/models/getallmemorystoresmodel17.md
+  - docs/models/getallmemorystoresmodel2.md
+  - docs/models/getallmemorystoresmodel3.md
+  - docs/models/getallmemorystoresmodel4.md
+  - docs/models/getallmemorystoresmodel5.md
+  - docs/models/getallmemorystoresmodel6.md
+  - docs/models/getallmemorystoresmodel7.md
+  - docs/models/getallmemorystoresmodel8.md
+  - docs/models/getallmemorystoresmodel9.md
+  - docs/models/getallmemorystoresobject.md
+  - docs/models/getallmemorystoresrequest.md
+  - docs/models/getallmemorystoresresponsebody.md
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
   - docs/models/getallprompts2imageurl.md
@@ -564,9 +698,19 @@ generatedFiles:
   - docs/models/getallpromptstoolcalls.md
   - docs/models/getallpromptstype.md
   - docs/models/getallpromptsusecases.md
+  - docs/models/getalltoolsdata.md
+  - docs/models/getalltoolsdatastatus.md
+  - docs/models/getalltoolsdatatoolsresponsetype.md
+  - docs/models/getalltoolsdatatoolsstatus.md
+  - docs/models/getalltoolsdatatoolstype.md
+  - docs/models/getalltoolsdatatype.md
+  - docs/models/getalltoolsobject.md
+  - docs/models/getalltoolsrequest.md
+  - docs/models/getalltoolsresponsebody.md
   - docs/models/getonechunkrequest.md
   - docs/models/getonechunkresponsebody.md
   - docs/models/getonechunkstatus.md
+  - docs/models/getoneknowledgeagenticragconfig.md
   - docs/models/getoneknowledgerequest.md
   - docs/models/getoneknowledgererankconfig.md
   - docs/models/getoneknowledgeresponsebody.md
@@ -638,7 +782,18 @@ generatedFiles:
   - docs/models/getpromptversiontoolcalls.md
   - docs/models/getpromptversiontype.md
   - docs/models/getpromptversionusecases.md
+  - docs/models/getsessionbilling.md
+  - docs/models/getsessionrequest.md
+  - docs/models/getsessionresponsebody.md
+  - docs/models/getsessionusage.md
+  - docs/models/hideoperators.md
+  - docs/models/hideoperators1.md
+  - docs/models/hideoperators2.md
+  - docs/models/hideoperators3.md
+  - docs/models/hideoperators4.md
+  - docs/models/hideoperators5.md
   - docs/models/honoapierror.md
+  - docs/models/http.md
   - docs/models/imageurl.md
   - docs/models/inputaudio.md
   - docs/models/inputs.md
@@ -678,6 +833,7 @@ generatedFiles:
   - docs/models/listdatasourcesrequest.md
   - docs/models/listdatasourcesresponsebody.md
   - docs/models/listdatasourcesstatus.md
+  - docs/models/listknowledgebasesagenticragconfig.md
   - docs/models/listknowledgebasesdata.md
   - docs/models/listknowledgebasesobject.md
   - docs/models/listknowledgebasesrequest.md
@@ -719,6 +875,97 @@ generatedFiles:
   - docs/models/listpromptversionstoolcalls.md
   - docs/models/listpromptversionstype.md
   - docs/models/listpromptversionsusecases.md
+  - docs/models/listsessionsbilling.md
+  - docs/models/listsessionsdata.md
+  - docs/models/listsessionsfilters.md
+  - docs/models/listsessionsfilters1.md
+  - docs/models/listsessionsfilters2.md
+  - docs/models/listsessionsfilters3.md
+  - docs/models/listsessionsfilters4.md
+  - docs/models/listsessionsfiltershideoperators.md
+  - docs/models/listsessionsfiltersoperator.md
+  - docs/models/listsessionsfiltersoptions.md
+  - docs/models/listsessionsfilterssessionshideoperators.md
+  - docs/models/listsessionsfilterssessionsoperator.md
+  - docs/models/listsessionsfilterssessionsoptions.md
+  - docs/models/listsessionsfilterssessionsrequesthideoperators.md
+  - docs/models/listsessionsfilterssessionsrequestoperator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody1type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody2type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody3operator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody3type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody4operator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbody4type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyhideoperators.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyoperator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery6type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery7hideoperators.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery7hideoperators1.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery7operator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery7optionstype.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery7type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery8hideoperators.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery8operator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquery8type.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyqueryhideoperators.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyqueryoperator.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodyquerytype.md
+  - docs/models/listsessionsfilterssessionsrequestrequestbodytype.md
+  - docs/models/listsessionsfilterssessionsrequesttype.md
+  - docs/models/listsessionsfilterssessionstype.md
+  - docs/models/listsessionsfilterstype.md
+  - docs/models/listsessionsfiltersvalue.md
+  - docs/models/listsessionshideoperators1.md
+  - docs/models/listsessionshideoperators2.md
+  - docs/models/listsessionshideoperators3.md
+  - docs/models/listsessionshideoperators4.md
+  - docs/models/listsessionshideoperators5.md
+  - docs/models/listsessionshideoperatorssessions1.md
+  - docs/models/listsessionshideoperatorssessions2.md
+  - docs/models/listsessionshideoperatorssessions3.md
+  - docs/models/listsessionshideoperatorssessions4.md
+  - docs/models/listsessionshideoperatorssessions5.md
+  - docs/models/listsessionshideoperatorssessionsrequest1.md
+  - docs/models/listsessionshideoperatorssessionsrequest2.md
+  - docs/models/listsessionshideoperatorssessionsrequest3.md
+  - docs/models/listsessionshideoperatorssessionsrequest4.md
+  - docs/models/listsessionshideoperatorssessionsrequest5.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbody1.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbody2.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbody3.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbody4.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbody5.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyquery1.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyquery2.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyquery3.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyquery4.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyquery5.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters1.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters2.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters3.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters4.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters5.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters71.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters710.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters72.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters73.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters74.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters75.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters76.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters77.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters78.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters79.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters81.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters82.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters83.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters84.md
+  - docs/models/listsessionshideoperatorssessionsrequestrequestbodyqueryfilters85.md
+  - docs/models/listsessionsobject.md
+  - docs/models/listsessionsoperator1.md
+  - docs/models/listsessionsoperator2.md
+  - docs/models/listsessionsrequestbody.md
+  - docs/models/listsessionsresponsebody.md
+  - docs/models/listsessionsusage.md
   - docs/models/message.md
   - docs/models/message1.md
   - docs/models/message2.md
@@ -740,13 +987,166 @@ generatedFiles:
   - docs/models/messagetoolcalls.md
   - docs/models/messagetype.md
   - docs/models/metadata.md
+  - docs/models/method.md
+  - docs/models/mode.md
+  - docs/models/model.md
+  - docs/models/model1.md
+  - docs/models/model10.md
+  - docs/models/model11.md
+  - docs/models/model12.md
+  - docs/models/model13.md
+  - docs/models/model14.md
+  - docs/models/model15.md
+  - docs/models/model16.md
+  - docs/models/model17.md
+  - docs/models/model2.md
+  - docs/models/model3.md
+  - docs/models/model4.md
+  - docs/models/model5.md
+  - docs/models/model6.md
+  - docs/models/model7.md
+  - docs/models/model8.md
+  - docs/models/model9.md
   - docs/models/modelparameters.md
   - docs/models/modeltype.md
+  - docs/models/nine.md
   - docs/models/object.md
   - docs/models/one.md
+  - docs/models/operator.md
+  - docs/models/operator1.md
+  - docs/models/operator2.md
+  - docs/models/operator3.md
+  - docs/models/operator4.md
+  - docs/models/operator5.md
+  - docs/models/options.md
+  - docs/models/optionsmap.md
+  - docs/models/pagination.md
   - docs/models/parameters.md
   - docs/models/performance.md
   - docs/models/photorealversion.md
+  - docs/models/postv2tracessessionscountdirection.md
+  - docs/models/postv2tracessessionscountfilters.md
+  - docs/models/postv2tracessessionscountfilters1.md
+  - docs/models/postv2tracessessionscountfilters2.md
+  - docs/models/postv2tracessessionscountfilters3.md
+  - docs/models/postv2tracessessionscountfilters4.md
+  - docs/models/postv2tracessessionscountfilters5.md
+  - docs/models/postv2tracessessionscountfilters6.md
+  - docs/models/postv2tracessessionscountfilters7.md
+  - docs/models/postv2tracessessionscountfilters8.md
+  - docs/models/postv2tracessessionscountfiltersdirection.md
+  - docs/models/postv2tracessessionscountfiltershideoperators.md
+  - docs/models/postv2tracessessionscountfiltersoperator.md
+  - docs/models/postv2tracessessionscountfiltersoptions.md
+  - docs/models/postv2tracessessionscountfiltersoptionsmap.md
+  - docs/models/postv2tracessessionscountfiltersrequest1.md
+  - docs/models/postv2tracessessionscountfiltersrequest2.md
+  - docs/models/postv2tracessessionscountfiltersrequest3.md
+  - docs/models/postv2tracessessionscountfiltersrequest4.md
+  - docs/models/postv2tracessessionscountfiltersrequesthideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestoperator.md
+  - docs/models/postv2tracessessionscountfiltersrequestoptions.md
+  - docs/models/postv2tracessessionscountfiltersrequestoptionsmap.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody1type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody2type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody3operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody3type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody4operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbody4type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyhideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyoperator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyoptions.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery5hideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery5operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery5type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery6hideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery6hideoperators1.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery6operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery6optionstype.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery6type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery7hideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery7hideoperators1.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery7operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery7optionstype.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery7type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery8hideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery8operator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquery8type.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyqueryhideoperators.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyqueryoperator.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyqueryoptions.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodyquerytype.md
+  - docs/models/postv2tracessessionscountfiltersrequestrequestbodytype.md
+  - docs/models/postv2tracessessionscountfiltersrequesttype.md
+  - docs/models/postv2tracessessionscountfiltersrequestvalue.md
+  - docs/models/postv2tracessessionscountfilterstype.md
+  - docs/models/postv2tracessessionscountfiltersvalue.md
+  - docs/models/postv2tracessessionscounthideoperators1.md
+  - docs/models/postv2tracessessionscounthideoperators2.md
+  - docs/models/postv2tracessessionscounthideoperators3.md
+  - docs/models/postv2tracessessionscounthideoperators4.md
+  - docs/models/postv2tracessessionscounthideoperators5.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequest1.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequest2.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequest3.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequest4.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequest5.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbody1.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbody2.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbody3.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbody4.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbody5.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyquery1.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyquery2.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyquery3.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyquery4.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyquery5.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters1.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters2.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters3.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters4.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters5.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters61.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters610.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters62.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters63.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters64.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters65.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters66.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters67.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters68.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters69.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters71.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters710.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters72.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters73.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters74.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters75.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters76.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters77.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters78.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters79.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters81.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters82.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters83.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters84.md
+  - docs/models/postv2tracessessionscounthideoperatorsrequestrequestbodyqueryfilters85.md
+  - docs/models/postv2tracessessionscountoperator.md
+  - docs/models/postv2tracessessionscountoperator1.md
+  - docs/models/postv2tracessessionscountoperator2.md
+  - docs/models/postv2tracessessionscountoperator3.md
+  - docs/models/postv2tracessessionscountoperator4.md
+  - docs/models/postv2tracessessionscountoperator5.md
+  - docs/models/postv2tracessessionscountoperatorrequest1.md
+  - docs/models/postv2tracessessionscountoperatorrequest2.md
+  - docs/models/postv2tracessessionscountpagination.md
+  - docs/models/postv2tracessessionscountquery.md
+  - docs/models/postv2tracessessionscountrequestbody.md
+  - docs/models/postv2tracessessionscountrequestfilters.md
+  - docs/models/postv2tracessessionscountresponsebody.md
+  - docs/models/postv2tracessessionscountsortingprops.md
+  - docs/models/postv2tracessessionscountunit1.md
+  - docs/models/postv2tracessessionscountunit2.md
   - docs/models/prefixmessages.md
   - docs/models/prefixmessagesassistantmessage.md
   - docs/models/prefixmessagesaudio.md
@@ -763,29 +1163,46 @@ generatedFiles:
   - docs/models/provider.md
   - docs/models/purpose.md
   - docs/models/quality.md
+  - docs/models/query.md
   - docs/models/queryparamstatus.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
+  - docs/models/relativetime.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
   - docs/models/remoteconfigsgetconfigtype.md
   - docs/models/requestbody.md
+  - docs/models/requestbody1.md
+  - docs/models/requestbody2.md
+  - docs/models/requestbody3.md
+  - docs/models/requestbodyarguments.md
+  - docs/models/requestbodyblueprint.md
+  - docs/models/requestbodydefaultvalue.md
+  - docs/models/requestbodyfunction.md
+  - docs/models/requestbodyhttp.md
+  - docs/models/requestbodyjsonschema.md
+  - docs/models/requestbodymethod.md
+  - docs/models/requestbodystatus.md
+  - docs/models/requestbodytype.md
   - docs/models/rerankconfig.md
   - docs/models/responsebody.md
+  - docs/models/responsebody1.md
+  - docs/models/responsebody2.md
+  - docs/models/responsebody3.md
+  - docs/models/responsebodyarguments.md
+  - docs/models/responsebodyblueprint.md
+  - docs/models/responsebodydefaultvalue.md
+  - docs/models/responsebodyfunction.md
+  - docs/models/responsebodyhttp.md
+  - docs/models/responsebodyjsonschema.md
+  - docs/models/responsebodymethod.md
+  - docs/models/responsebodystatus.md
+  - docs/models/responsebodytype.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
   - docs/models/responseformatjsonschema.md
   - docs/models/responseformattype.md
-  - docs/models/retrievalconfig.md
-  - docs/models/retrievalconfig1.md
-  - docs/models/retrievalconfig2.md
-  - docs/models/retrievalconfig3.md
-  - docs/models/retrievalconfigmodelparameters.md
-  - docs/models/retrievalconfigmodeltype.md
-  - docs/models/retrievalconfigprovider.md
-  - docs/models/retrievalconfigrerankconfig.md
-  - docs/models/retrievalconfigtype.md
   - docs/models/retrievals.md
   - docs/models/retrievalsettings.md
   - docs/models/retrievaltype.md
@@ -809,30 +1226,67 @@ generatedFiles:
   - docs/models/retrievedatasourcerequest.md
   - docs/models/retrievedatasourceresponsebody.md
   - docs/models/retrievedatasourcestatus.md
+  - docs/models/retrievememorydocumentrequest.md
+  - docs/models/retrievememorydocumentresponsebody.md
+  - docs/models/retrievememoryrequest.md
+  - docs/models/retrievememoryresponsebody.md
+  - docs/models/retrievememorystoreembeddingconfig.md
+  - docs/models/retrievememorystoremodel.md
+  - docs/models/retrievememorystoremodel1.md
+  - docs/models/retrievememorystoremodel10.md
+  - docs/models/retrievememorystoremodel11.md
+  - docs/models/retrievememorystoremodel12.md
+  - docs/models/retrievememorystoremodel13.md
+  - docs/models/retrievememorystoremodel14.md
+  - docs/models/retrievememorystoremodel15.md
+  - docs/models/retrievememorystoremodel16.md
+  - docs/models/retrievememorystoremodel17.md
+  - docs/models/retrievememorystoremodel2.md
+  - docs/models/retrievememorystoremodel3.md
+  - docs/models/retrievememorystoremodel4.md
+  - docs/models/retrievememorystoremodel5.md
+  - docs/models/retrievememorystoremodel6.md
+  - docs/models/retrievememorystoremodel7.md
+  - docs/models/retrievememorystoremodel8.md
+  - docs/models/retrievememorystoremodel9.md
+  - docs/models/retrievememorystorerequest.md
+  - docs/models/retrievememorystoreresponsebody.md
+  - docs/models/retrievetoolrequest.md
+  - docs/models/retrievetoolresponsebody.md
+  - docs/models/retrievetoolresponsebody1.md
+  - docs/models/retrievetoolresponsebody2.md
+  - docs/models/retrievetoolresponsebody3.md
+  - docs/models/retrievetoolresponsebodyarguments.md
+  - docs/models/retrievetoolresponsebodyblueprint.md
+  - docs/models/retrievetoolresponsebodydefaultvalue.md
+  - docs/models/retrievetoolresponsebodyfunction.md
+  - docs/models/retrievetoolresponsebodyhttp.md
+  - docs/models/retrievetoolresponsebodyjsonschema.md
+  - docs/models/retrievetoolresponsebodymethod.md
+  - docs/models/retrievetoolresponsebodystatus.md
+  - docs/models/retrievetoolresponsebodytoolsresponse200type.md
+  - docs/models/retrievetoolresponsebodytoolsresponsestatus.md
+  - docs/models/retrievetoolresponsebodytoolsresponsetype.md
+  - docs/models/retrievetoolresponsebodytoolsstatus.md
+  - docs/models/retrievetoolresponsebodytoolstype.md
+  - docs/models/retrievetoolresponsebodytype.md
   - docs/models/role.md
-  - docs/models/searchknowledgedocuments.md
-  - docs/models/searchknowledgemetadata.md
-  - docs/models/searchknowledgerequest.md
-  - docs/models/searchknowledgerequestbody.md
-  - docs/models/searchknowledgeresponsebody.md
-  - docs/models/searchknowledgeretrievalconfigknowledgemodelparameters.md
-  - docs/models/searchknowledgeretrievalconfigknowledgemodeltype.md
-  - docs/models/searchknowledgeretrievalconfigknowledgeprovider.md
-  - docs/models/searchknowledgeretrievalconfigknowledgetype.md
-  - docs/models/searchknowledgeretrievalconfigmodelparameters.md
-  - docs/models/searchknowledgeretrievalconfigmodeltype.md
-  - docs/models/searchknowledgeretrievalconfigprovider.md
-  - docs/models/searchknowledgeretrievalconfigrerankconfig.md
-  - docs/models/searchknowledgeretrievalconfigrerankconfiginput.md
-  - docs/models/searchknowledgeretrievalconfigtype.md
   - docs/models/security.md
+  - docs/models/seven.md
+  - docs/models/seventeen.md
+  - docs/models/six.md
+  - docs/models/sixteen.md
+  - docs/models/sortingprops.md
   - docs/models/status.md
   - docs/models/systemmessage.md
+  - docs/models/ten.md
   - docs/models/textcontentpart.md
+  - docs/models/thirteen.md
+  - docs/models/thread.md
   - docs/models/three.md
   - docs/models/toolcalls.md
   - docs/models/toolmessage.md
-  - docs/models/tools.md
+  - docs/models/twelve.md
   - docs/models/two.md
   - docs/models/two1.md
   - docs/models/two2.md
@@ -845,6 +1299,9 @@ generatedFiles:
   - docs/models/twotextcontentpart.md
   - docs/models/twotype.md
   - docs/models/type.md
+  - docs/models/unit.md
+  - docs/models/unit1.md
+  - docs/models/unit2.md
   - docs/models/updatechunkmetadata.md
   - docs/models/updatechunkrequest.md
   - docs/models/updatechunkrequestbody.md
@@ -885,6 +1342,8 @@ generatedFiles:
   - docs/models/updatedatasourcerequestbody.md
   - docs/models/updatedatasourceresponsebody.md
   - docs/models/updatedatasourcestatus.md
+  - docs/models/updateknowledgeagenticragconfig.md
+  - docs/models/updateknowledgeknowledgeagenticragconfig.md
   - docs/models/updateknowledgeknowledgererankconfig.md
   - docs/models/updateknowledgeknowledgeretrievalsettings.md
   - docs/models/updateknowledgeknowledgeretrievaltype.md
@@ -894,6 +1353,22 @@ generatedFiles:
   - docs/models/updateknowledgeresponsebody.md
   - docs/models/updateknowledgeretrievalsettings.md
   - docs/models/updateknowledgeretrievaltype.md
+  - docs/models/updatememorydocumentrequest.md
+  - docs/models/updatememorydocumentrequestbody.md
+  - docs/models/updatememorydocumentresponsebody.md
+  - docs/models/updatememoryrequest.md
+  - docs/models/updatememoryrequestbody.md
+  - docs/models/updatememoryresponsebody.md
+  - docs/models/updatememorystoreembeddingconfig.md
+  - docs/models/updatememorystorememorystoresembeddingconfig.md
+  - docs/models/updatememorystoremodel.md
+  - docs/models/updatememorystoremodel1.md
+  - docs/models/updatememorystoremodel2.md
+  - docs/models/updatememorystoremodel3.md
+  - docs/models/updatememorystoreprovider.md
+  - docs/models/updatememorystorerequest.md
+  - docs/models/updatememorystorerequestbody.md
+  - docs/models/updatememorystoreresponsebody.md
   - docs/models/updateprompt21.md
   - docs/models/updateprompt22.md
   - docs/models/updateprompt2imageurl.md
@@ -958,6 +1433,45 @@ generatedFiles:
   - docs/models/updateprompttoolcalls.md
   - docs/models/updateprompttype.md
   - docs/models/updatepromptusecases.md
+  - docs/models/updatesessionbilling.md
+  - docs/models/updatesessionrequest.md
+  - docs/models/updatesessionrequestbody.md
+  - docs/models/updatesessionresponsebody.md
+  - docs/models/updatesessionsessionsbilling.md
+  - docs/models/updatesessionsessionsusage.md
+  - docs/models/updatesessionusage.md
+  - docs/models/updatetoolrequest.md
+  - docs/models/updatetoolrequestbody.md
+  - docs/models/updatetoolrequestbody1.md
+  - docs/models/updatetoolrequestbody2.md
+  - docs/models/updatetoolrequestbody3.md
+  - docs/models/updatetoolrequestbodyfunction.md
+  - docs/models/updatetoolrequestbodyjsonschema.md
+  - docs/models/updatetoolrequestbodystatus.md
+  - docs/models/updatetoolrequestbodytoolsrequest3type.md
+  - docs/models/updatetoolrequestbodytoolsrequeststatus.md
+  - docs/models/updatetoolrequestbodytoolsrequesttype.md
+  - docs/models/updatetoolrequestbodytoolsstatus.md
+  - docs/models/updatetoolrequestbodytoolstype.md
+  - docs/models/updatetoolrequestbodytype.md
+  - docs/models/updatetoolresponsebody.md
+  - docs/models/updatetoolresponsebody1.md
+  - docs/models/updatetoolresponsebody2.md
+  - docs/models/updatetoolresponsebody3.md
+  - docs/models/updatetoolresponsebodyarguments.md
+  - docs/models/updatetoolresponsebodyblueprint.md
+  - docs/models/updatetoolresponsebodydefaultvalue.md
+  - docs/models/updatetoolresponsebodyfunction.md
+  - docs/models/updatetoolresponsebodyhttp.md
+  - docs/models/updatetoolresponsebodyjsonschema.md
+  - docs/models/updatetoolresponsebodymethod.md
+  - docs/models/updatetoolresponsebodystatus.md
+  - docs/models/updatetoolresponsebodytoolsresponse200type.md
+  - docs/models/updatetoolresponsebodytoolsresponsestatus.md
+  - docs/models/updatetoolresponsebodytoolsresponsetype.md
+  - docs/models/updatetoolresponsebodytoolsstatus.md
+  - docs/models/updatetoolresponsebodytoolstype.md
+  - docs/models/updatetoolresponsebodytype.md
   - docs/models/usage.md
   - docs/models/usecases.md
   - docs/models/usermessage.md
@@ -969,10 +1483,13 @@ generatedFiles:
   - docs/sdks/feedback/README.md
   - docs/sdks/files/README.md
   - docs/sdks/knowledge/README.md
+  - docs/sdks/memorystores/README.md
   - docs/sdks/metrics/README.md
   - docs/sdks/orq/README.md
   - docs/sdks/prompts/README.md
   - docs/sdks/remoteconfigs/README.md
+  - docs/sdks/sessions/README.md
+  - docs/sdks/tools/README.md
   - poetry.toml
   - py.typed
   - pylintrc
@@ -992,6 +1509,7 @@ generatedFiles:
   - src/orq_ai_sdk/files.py
   - src/orq_ai_sdk/httpclient.py
   - src/orq_ai_sdk/knowledge.py
+  - src/orq_ai_sdk/memorystores.py
   - src/orq_ai_sdk/metrics.py
   - src/orq_ai_sdk/models/__init__.py
   - src/orq_ai_sdk/models/apierror.py
@@ -1004,13 +1522,23 @@ generatedFiles:
   - src/orq_ai_sdk/models/createdatasourceop.py
   - src/orq_ai_sdk/models/createfeedbackop.py
   - src/orq_ai_sdk/models/createknowledgeop.py
+  - src/orq_ai_sdk/models/creatememorydocumentop.py
+  - src/orq_ai_sdk/models/creatememoryop.py
+  - src/orq_ai_sdk/models/creatememorystoreop.py
   - src/orq_ai_sdk/models/createpromptop.py
+  - src/orq_ai_sdk/models/createsessionop.py
+  - src/orq_ai_sdk/models/createtoolop.py
   - src/orq_ai_sdk/models/deletechunkop.py
   - src/orq_ai_sdk/models/deletedatapointop.py
   - src/orq_ai_sdk/models/deletedatasetop.py
   - src/orq_ai_sdk/models/deletedatasourceop.py
   - src/orq_ai_sdk/models/deleteknowledgeop.py
+  - src/orq_ai_sdk/models/deletememorydocumentop.py
+  - src/orq_ai_sdk/models/deletememoryop.py
+  - src/orq_ai_sdk/models/deletememorystoreop.py
   - src/orq_ai_sdk/models/deletepromptop.py
+  - src/orq_ai_sdk/models/deletesessionop.py
+  - src/orq_ai_sdk/models/deletetoolop.py
   - src/orq_ai_sdk/models/deploymentcreatemetricop.py
   - src/orq_ai_sdk/models/deploymentgetconfigop.py
   - src/orq_ai_sdk/models/deploymentinvokeop.py
@@ -1021,11 +1549,16 @@ generatedFiles:
   - src/orq_ai_sdk/models/filegetop.py
   - src/orq_ai_sdk/models/filelistop.py
   - src/orq_ai_sdk/models/fileuploadop.py
+  - src/orq_ai_sdk/models/getallmemoriesop.py
+  - src/orq_ai_sdk/models/getallmemorydocumentsop.py
+  - src/orq_ai_sdk/models/getallmemorystoresop.py
   - src/orq_ai_sdk/models/getallpromptsop.py
+  - src/orq_ai_sdk/models/getalltoolsop.py
   - src/orq_ai_sdk/models/getonechunkop.py
   - src/orq_ai_sdk/models/getoneknowledgeop.py
   - src/orq_ai_sdk/models/getonepromptop.py
   - src/orq_ai_sdk/models/getpromptversionop.py
+  - src/orq_ai_sdk/models/getsessionop.py
   - src/orq_ai_sdk/models/honoapierror.py
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
@@ -1035,23 +1568,35 @@ generatedFiles:
   - src/orq_ai_sdk/models/listdatasourcesop.py
   - src/orq_ai_sdk/models/listknowledgebasesop.py
   - src/orq_ai_sdk/models/listpromptversionsop.py
+  - src/orq_ai_sdk/models/listsessionsop.py
+  - src/orq_ai_sdk/models/post_v2_traces_sessions_countop.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
   - src/orq_ai_sdk/models/retrievedatapointop.py
   - src/orq_ai_sdk/models/retrievedatasetop.py
   - src/orq_ai_sdk/models/retrievedatasourceop.py
-  - src/orq_ai_sdk/models/searchknowledgeop.py
+  - src/orq_ai_sdk/models/retrievememorydocumentop.py
+  - src/orq_ai_sdk/models/retrievememoryop.py
+  - src/orq_ai_sdk/models/retrievememorystoreop.py
+  - src/orq_ai_sdk/models/retrievetoolop.py
   - src/orq_ai_sdk/models/security.py
   - src/orq_ai_sdk/models/updatechunkop.py
   - src/orq_ai_sdk/models/updatedatapointop.py
   - src/orq_ai_sdk/models/updatedatasetop.py
   - src/orq_ai_sdk/models/updatedatasourceop.py
   - src/orq_ai_sdk/models/updateknowledgeop.py
+  - src/orq_ai_sdk/models/updatememorydocumentop.py
+  - src/orq_ai_sdk/models/updatememoryop.py
+  - src/orq_ai_sdk/models/updatememorystoreop.py
   - src/orq_ai_sdk/models/updatepromptop.py
+  - src/orq_ai_sdk/models/updatesessionop.py
+  - src/orq_ai_sdk/models/updatetoolop.py
   - src/orq_ai_sdk/prompts.py
   - src/orq_ai_sdk/py.typed
   - src/orq_ai_sdk/remoteconfigs.py
   - src/orq_ai_sdk/sdk.py
   - src/orq_ai_sdk/sdkconfiguration.py
+  - src/orq_ai_sdk/sessions.py
+  - src/orq_ai_sdk/tools.py
   - src/orq_ai_sdk/types/__init__.py
   - src/orq_ai_sdk/types/basemodel.py
   - src/orq_ai_sdk/utils/__init__.py
@@ -1070,13 +1615,18 @@ generatedFiles:
   - src/orq_ai_sdk/utils/url.py
   - src/orq_ai_sdk/utils/values.py
 examples:
+  post_/v2/traces/sessions/count:
+    speakeasy-default-post-/v2-/traces/sessions/count:
+      responses:
+        "200":
+          application/json: {"count": 265.24}
   CreateContact:
     speakeasy-default-create-contact:
       requestBody:
         application/json: {"external_id": "<id>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-01-23T06:57:48.285Z"}
+          application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}
   CreateFeedback:
     "":
       requestBody:
@@ -1089,18 +1639,11 @@ examples:
       parameters:
         query:
           limit: 10
-          sort: "asc"
-        header: {}
       responses:
         "200":
           application/json: {"object": "list", "data": [{"id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created": "<value>", "updated": "<value>", "key": "<key>", "description": "brook cleverly blossom", "prompt_config": {"tools": [{"type": "function", "function": {"name": "<value>", "parameters": {"type": "object", "properties": {"key": "<value>", "key1": "<value>"}}}}, {"type": "function", "function": {"name": "<value>", "parameters": {"type": "object", "properties": {"key": "<value>", "key1": "<value>", "key2": "<value>"}}}}], "model": "Prius", "model_type": "moderations", "model_parameters": {}, "provider": "openai", "messages": []}, "version": "<value>"}, {"id": "1dc2a4c8-104f-4b45-91a7-0cfc8fe07fbc", "created": "<value>", "updated": "<value>", "key": "<key>", "description": "inasmuch irritably finally", "prompt_config": {"tools": [], "model": "Camaro", "model_type": "completion", "model_parameters": {}, "provider": "fal", "messages": [{"role": "exception", "content": []}, {"role": "exception", "content": [{"type": "text", "text": "<value>"}, {"type": "image_url", "image_url": {"url": "https://parched-merit.com/"}}, {"type": "text", "text": "<value>"}]}, {"role": "tool", "content": "<value>"}]}, "version": "<value>"}, {"id": "ebd834b7-d8c2-4236-be08-5944ebceb27b", "created": "<value>", "updated": "<value>", "key": "<key>", "description": "along energetic oddball pasta thread", "prompt_config": {"tools": [], "model": "Element", "model_type": "image", "model_parameters": {}, "provider": "cohere", "messages": [{"role": "assistant", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "expected_output", "content": "<value>"}]}, "version": "<value>"}], "has_more": false}
         "500":
           application/json: {"message": "<value>"}
-  InvalidDeployment:
-    speakeasy-default-invalid-deployment:
-      parameters:
-        path:
-          deployment_id: "e1106c66-dcfb-4003-a0e1-3c49405187d4"
   DeploymentGetConfig:
     speakeasy-default-deployment-get-config:
       requestBody:
@@ -1114,107 +1657,69 @@ examples:
         application/json: {"key": "<key>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "created": "2024-02-27T07:01:10.482Z", "object": "completion", "model": "El Camino", "provider": "cohere", "is_final": false, "choices": [{"index": 1729.12, "message": {"type": "content", "role": "exception", "content": "<value>"}}, {"index": 3047.15, "message": {"type": "content", "role": "system", "content": "<value>"}}]}
+          application/json: {"id": "<id>", "created": "2024-02-27T07:01:10.482Z", "object": "completion", "model": "El Camino", "provider": "cohere", "is_final": false, "choices": [{"index": 1729.12, "message": {"type": "tool_calls", "role": "correction", "tool_calls": [{"type": "function", "function": {"name": "<value>", "arguments": "<value>"}}, {"type": "function", "function": {"name": "<value>", "arguments": "<value>"}}, {"type": "function", "function": {"name": "<value>", "arguments": "<value>"}}]}}, {"index": 5278.02, "message": {"type": "content", "role": "assistant", "content": "<value>"}}]}
+  DeploymentStream:
+    speakeasy-default-deployment-stream:
+      requestBody:
+        application/json: {"key": "<key>"}
   DeploymentCreateMetric:
     speakeasy-default-deployment-create-metric:
       parameters:
         path:
           id: "<id>"
-        header: {}
       requestBody:
         application/json: {}
       responses:
         "200":
-          application/json: {"success": false}
+          application/json: {"success": true}
   FileUpload:
     speakeasy-default-file-upload:
       requestBody:
         multipart/form-data: {"file": {}, "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 5459.09, "file_name": "example.file", "workspace_id": "86a45479-10a2-4b98-9aab-61ec65fc41d9", "created": "2025-01-23T06:57:49.299Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 6384.24, "file_name": "example.file", "workspace_id": "621cf021-cd9c-4f54-a033-15211a509a30", "created": "2025-04-18T08:27:44.844Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
         query:
-          limit: 50
-          sort: "asc"
-        header: {}
+          limit: 10
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 6783.17, "file_name": "example.file", "workspace_id": "232aa0b1-1b8a-4005-b71e-9e705d0e6e21", "created": "2025-01-23T06:57:49.299Z"}, {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 4602.76, "file_name": "example.file", "workspace_id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created": "2025-01-23T06:57:49.299Z"}, {"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 5446.51, "file_name": "example.file", "workspace_id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "created": "2025-01-23T06:57:49.299Z"}], "has_more": true}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 6783.17, "file_name": "example.file", "workspace_id": "232aa0b1-1b8a-4005-b71e-9e705d0e6e21", "created": "2025-04-18T08:27:44.844Z"}, {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 4602.76, "file_name": "example.file", "workspace_id": "66718d6d-4612-4e0a-9ee1-b9ddf121dc2a", "created": "2025-04-18T08:27:44.844Z"}, {"_id": "<id>", "object_name": "<value>", "purpose": "batch", "bytes": 5446.51, "file_name": "example.file", "workspace_id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "created": "2025-04-18T08:27:44.844Z"}], "has_more": true}
   FileGet:
     speakeasy-default-file-get:
       parameters:
         path:
           file_id: "<id>"
-        header: {}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 5588.34, "file_name": "example.file", "workspace_id": "88f7743e-7c13-4518-9c6b-985523c4bcbe", "created": "2025-01-23T06:57:49.299Z"}
-  FileUpdate:
-    speakeasy-default-file-update:
-      parameters:
-        path:
-          file_id: "<id>"
-      responses:
-        "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 5971.29, "file_name": "example.file", "workspace_id": "5fa7f0e7-432c-4e47-acb6-0cc78135ddeb", "created": "2025-01-23T06:57:49.299Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "batch", "bytes": 5588.34, "file_name": "example.file", "workspace_id": "88f7743e-7c13-4518-9c6b-985523c4bcbe", "created": "2025-04-18T08:27:44.844Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
         path:
           file_id: "<id>"
-        header: {}
-  BulkFileUpload:
-    speakeasy-default-bulk-file-upload:
-      requestBody:
-        multipart/form-data: {"files": [{"": "x-file: example.file"}], "purpose": "knowledge_datasource"}
-      responses:
-        "200":
-          application/json: [{"_id": "<id>", "object_name": "<value>", "purpose": "knowledge_datasource", "bytes": 561.36, "file_name": "example.file", "workspace_id": "8e47db82-990a-4d91-a419-bf47b9b93cdc", "created": "2025-01-23T06:57:49.299Z"}, {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 752.63, "file_name": "example.file", "workspace_id": "70e45001-5f4b-4f03-8f58-a7d13443cb8d", "created": "2025-01-23T06:57:49.299Z"}]
-  GetAllPromptTemplates:
-    speakeasy-default-get-all-prompt-templates:
-      responses:
-        "200":
-          application/json: {"count": 4610.08, "items": []}
-  FindOnePromptSnippet:
-    speakeasy-default-find-one-prompt-snippet:
+  GetAllPrompts:
+    speakeasy-default-get-all-prompts:
       parameters:
-        path:
-          key: "<key>"
-          id: "<id>"
-        header: {}
+        query:
+          limit: 10
       responses:
         "200":
-          application/json: {"_id": "<id>", "owner": "<value>", "domain_id": "c65b0e01-cb71-4bcd-a060-93e7d5b8c93b", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}]}, "metadata": {}, "created_by_id": "7b3823c9-eca7-4b78-a2fc-964f7b3c1870", "updated_by_id": "defaa7aa-3da5-41f8-af17-3dfced0ec663", "updated": "2025-01-23T06:57:48.285Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "expected_output", "content": [{"type": "image_url", "image_url": {"url": "https://filthy-siege.biz/"}}, {"type": "image_url", "image_url": {"url": "https://chilly-shadowbox.name"}}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}, "metadata": {}, "created_by_id": "f7014378-d751-45c5-b131-8b1a39e685a4", "updated_by_id": "490937c7-9db3-47d3-b124-67063626b8af", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://strange-doing.net"}}]}, {"role": "user", "content": [{"type": "text", "text": "<value>"}]}, {"role": "expected_output", "content": []}]}, "metadata": {}, "created_by_id": "4ee58ee2-19fe-4f51-a1a8-15cc8ea9e661", "updated_by_id": "c3552bea-e34a-482d-9f52-2e81306d8147", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "24a51bb0-6b66-4b48-9ad5-6c47af968ae4", "updated_by_id": "733ae14d-fdb3-4131-bd5b-8472235c4b22", "timestamp": "<value>"}]}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "created": "<value>", "updated": "<value>", "display_name": "Aracely.Collins", "prompt_config": {"messages": [{"role": "system", "content": [{"type": "text", "text": "<value>"}, {"type": "image_url", "image_url": {"url": "https://imaginative-cap.biz/"}}, {"type": "image_url", "image_url": {"url": "https://practical-trick.org/"}}]}]}}, {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "1b9ddf12-1dc2-4a4c-a810-4fb451a70cfc", "created": "<value>", "updated": "<value>", "display_name": "Uriah99", "prompt_config": {"messages": [{"role": "exception", "content": "<value>"}, {"role": "prompt", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "correction", "content": "<value>"}]}}, {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "611ff657-3e0a-4623-831a-d7c07cc48199", "created": "<value>", "updated": "<value>", "display_name": "Greta74", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "prompt", "content": "<value>"}]}}], "has_more": false}
   CreatePrompt:
     speakeasy-default-create-prompt:
       requestBody:
         application/json: {"display_name": "Jed6", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "ulid-string", "type": "prompt", "owner": "<value>", "domain_id": "uuid-string", "created": "<value>", "updated": "2025-01-31T07:05:40.814Z", "created_by_id": "211a509a-3080-4a8e-9774-c2becc376917", "updated_by_id": "5e024985-613d-4e0e-ae80-3d56a1df9436", "display_name": "string", "description": "Sample description for the prompt", "prompt_config": {"messages": [{"role": "correction", "content": "<value>"}, {"role": "tool", "content": "<value>"}, {"role": "tool", "content": "<value>"}]}, "metadata": {}}
-  CreatePromptVersion:
-    speakeasy-default-create-prompt-version:
-      parameters:
-        path:
-          id: "<value>"
-      responses:
-        "200":
-          application/json: {"_id": "<id>", "display_name": "Carolyne.Beahan71", "prompt_config": {"messages": [{"role": "prompt", "content": "<value>"}, {"role": "prompt", "content": [{"type": "image_url", "image_url": {"url": "https://superior-nudge.biz"}}]}]}, "metadata": {}, "commit": "<value>", "timestamp": "<value>"}
-  DeletePrompt:
-    speakeasy-default-delete-prompt:
-      parameters:
-        path:
-          id: "<id>"
-        header: {}
+          application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "5211a509-a308-40a8-9e77-4c2becc37691", "created": "<value>", "updated": "<value>", "display_name": "Jennifer.Walsh12", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}}
   GetOnePrompt:
     speakeasy-default-get-one-prompt:
       parameters:
         path:
           id: "<id>"
-        header: {}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "5e5518a2-d0ce-4221-9a70-713be839d998", "created": "<value>", "updated": "<value>", "display_name": "Nathen72", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "assistant", "content": "<value>"}, {"role": "expected_output", "content": [{"type": "text", "text": "<value>"}]}]}}
@@ -1223,82 +1728,18 @@ examples:
       parameters:
         path:
           id: "<id>"
-        header: {}
       requestBody:
         application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "type": "prompt", "owner": "vendor", "domain_id": "5fa7f0e7-432c-4e47-acb6-0cc78135ddeb", "created": "<value>", "updated": "2025-01-23T06:57:48.285Z", "created_by_id": "5898c125-a190-471c-a556-2af6646dadb3", "updated_by_id": "450617e6-bb05-479d-86f9-464a3158c876", "display_name": "Dedric.Donnelly68", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "expected_output", "content": "<value>"}, {"role": "exception", "content": [{"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}]}, "metadata": {}}
+          application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "created": "<value>", "updated": "<value>", "display_name": "Merlin_Harber", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "user", "content": []}, {"role": "tool", "content": "<value>"}]}}
         "404":
           application/json: {"message": "<value>"}
-  DuplicatePrompt:
-    speakeasy-default-duplicate-prompt:
+  DeletePrompt:
+    speakeasy-default-delete-prompt:
       parameters:
         path:
           id: "<id>"
-  GetAllPrompts:
-    speakeasy-default-get-all-prompts:
-      parameters:
-        query:
-          limit: 10
-          sort: "asc"
-        header: {}
-      responses:
-        "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "type": "prompt", "owner": "vendor", "domain_id": "a0790cc2-3f27-44a6-94b0-d278a6af50d6", "created": "<value>", "updated": "2025-01-23T06:57:48.285Z", "created_by_id": "38dd1fb9-371a-4928-9ec8-fb977295586d", "updated_by_id": "2ee924d2-79b2-4b77-aa95-f7873d9e4c49", "display_name": "Deborah44", "prompt_config": {"messages": [{"role": "expected_output", "content": []}, {"role": "prompt", "content": [{"type": "text", "text": "<value>"}]}]}, "metadata": {}}], "has_more": false}
-  RemoteConfigsGetConfig:
-    speakeasy-default-remote-configs-get-config:
-      responses:
-        "200":
-          application/json: {"type": "boolean"}
-  DeploymentStream:
-    speakeasy-default-deployment-stream:
-      requestBody:
-        application/json: {"key": "<key>"}
-  CreatePromptSnippet:
-    speakeasy-default-create-prompt-snippet:
-      requestBody:
-        application/json: {"key": "<key>", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Customer Service/Billing/Refund"}
-      responses:
-        "200":
-          application/json: {"_id": "<id>", "owner": "<value>", "domain_id": "211a509a-3080-4a8e-9774-c2becc376917", "key": "<key>", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "de0ee803-d56a-41df-a943-6bfd39494798", "updated_by_id": "c19d4c51-e99d-4ff4-b2ac-beff61bc5243", "updated": "2025-01-31T07:05:40.814Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "4a16ac5e-2bbd-47e4-b4f7-1b269f29f35d", "updated_by_id": "93cdd36d-f3be-4e39-9ab4-18fe7b549643", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "user", "content": "<value>"}, {"role": "expected_output", "content": [{"type": "image_url", "image_url": {"url": "https://somber-folklore.net"}}, {"type": "image_url", "image_url": {"url": "https://massive-coordination.info"}}]}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "85ddcfa1-9798-455b-89b3-b98454f4714c", "updated_by_id": "33b171cc-241b-43c6-b6f1-5fb8064acb27", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "expected_output", "content": "<value>"}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://actual-wriggler.net"}}]}]}, "metadata": {}, "created_by_id": "d63cfb5a-874e-4409-87e3-b7c7404672a4", "updated_by_id": "945adfaa-9050-44b7-8e19-72b7a28d01d8", "timestamp": "<value>"}]}
-  UpdatePromptSnippet:
-    speakeasy-default-update-prompt-snippet:
-      parameters:
-        path:
-          id: "<id>"
-        header: {}
-      requestBody:
-        application/json: {"path": "Customer Service/Billing/Refund"}
-      responses:
-        "200":
-          application/json: {"_id": "<id>", "owner": "vendor", "domain_id": "95fa7f0e-7432-4ce4-a7cb-60cc78135dde", "key": "<key>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "25a19071-c556-42af-8664-6dadb3a3435a", "updated_by_id": "450617e6-bb05-479d-86f9-464a3158c876", "updated": "2025-01-31T07:05:40.814Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "exception", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "8b26dfcc-1ec8-41c2-92f4-7d2c2cb916f6", "updated_by_id": "c94a48a1-04fb-4c58-b37b-3ed84e5ce88b", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "c1e8b353-3cc7-4b37-942b-57cb678aab93", "updated_by_id": "09537507-3c30-45b6-9708-2690c28596b3", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "2014d94e-3c92-454b-89b8-262985ea5428", "updated_by_id": "a9506420-2252-498c-8854-5fc553a48aa2", "timestamp": "<value>"}]}
-        "404":
-          application/json: {"message": "<value>"}
-  DeletePromptSnippet:
-    speakeasy-default-delete-prompt-snippet:
-      parameters:
-        path:
-          id: "<id>"
-        header: {}
-  FindOneByKeyPromptSnippet:
-    speakeasy-default-find-one-by-key-prompt-snippet:
-      parameters:
-        path:
-          key: "<key>"
-        header: {}
-      responses:
-        "200":
-          application/json: {"_id": "<id>", "owner": "<value>", "domain_id": "d503ba01-c6c3-413a-aa11-ffaecb738c02", "key": "<key>", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}, {"role": "assistant", "content": "<value>"}]}, "metadata": {}, "created_by_id": "3a4481ea-ceae-46ac-8fda-98557035406a", "updated_by_id": "e6e205cf-72bf-4e7e-9187-63be7e18404b", "updated": "2025-01-31T07:05:40.814Z", "type": "snippet", "versions": []}
-  GetAllPromptSnippets:
-    speakeasy-default-get-all-prompt-snippets:
-      parameters:
-        query:
-          limit: 10
-        header: {}
-      responses:
-        "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "owner": "vendor", "domain_id": "a232aa0b-11b8-4a00-8571-e9e705d0e6e2", "key": "<key>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "exception", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}, "metadata": {}, "created_by_id": "8d6d4612-e0ae-4e1b-89dd-f121dc2a4c81", "updated_by_id": "4fb451a7-0cfc-48fe-807f-bc60ab960d56", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "vendor", "domain_id": "f6573e0a-6233-41ad-b7c0-7cc481991696", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": []}, {"role": "user", "content": [{"type": "image_url", "image_url": {"url": "https://sorrowful-coil.biz"}}]}]}, "metadata": {}, "created_by_id": "36e08594-4ebc-4eb2-a7bd-4753d0a17c47", "updated_by_id": "e329a9ec-9793-48e1-aa63-0f5fe368082f", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": []}, {"_id": "<id>", "owner": "<value>", "domain_id": "e0874e78-3076-448e-9c2e-d7f3039dec6f", "key": "<key>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "image_url", "image_url": {"url": "https://spherical-gerbil.org/"}}]}]}, "metadata": {}, "created_by_id": "7f7bcfa2-69af-4219-84d5-861b3fe5754c", "updated_by_id": "c551a92c-7431-4ddf-8193-e2177ab4c4d0", "updated": "2025-02-06T14:05:20.313Z", "type": "snippet", "versions": [{"_id": "<id>", "prompt_config": {"messages": [{"role": "correction", "content": [{"type": "text", "text": "<value>"}]}, {"role": "correction", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "5b0dba7a-30fd-4263-bf0c-cec19e17aef2", "updated_by_id": "28695ca4-33b1-4104-bd1e-faebad1494b3", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": []}, "metadata": {}, "created_by_id": "76b63f80-6d94-4b84-a3a1-ce423bc77dd5", "updated_by_id": "b42fcfa6-f3f7-4b3d-858e-e61458f7304a", "timestamp": "<value>"}, {"_id": "<id>", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "system", "content": "<value>"}]}, "metadata": {}, "created_by_id": "e54f642e-86b7-4c60-b873-f569812ed552", "updated_by_id": "f7ffa2f9-aacd-4dda-a7da-dae8ecef9614", "timestamp": "<value>"}]}], "has_more": true}
   ListPromptVersions:
     speakeasy-default-list-prompt-versions:
       parameters:
@@ -1306,7 +1747,6 @@ examples:
           prompt_id: "<id>"
         query:
           limit: 10
-          sort: "asc"
       responses:
         "200":
           application/json: {"object": "list", "data": [], "has_more": true}
@@ -1321,22 +1761,199 @@ examples:
           application/json: {"_id": "<id>", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}]}, "timestamp": "<value>"}
         "404":
           application/json: {"message": "<value>"}
+  RemoteConfigsGetConfig:
+    speakeasy-default-remote-configs-get-config:
+      responses:
+        "200":
+          application/json: {"type": "integer"}
+  GetAllMemoryStores:
+    speakeasy-default-get-all-memory-stores:
+      parameters:
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "key": "<key>", "description": "yuck accountability pish likewise excepting unimpressively quickly", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "jina/jina-clip-v2"}}, {"_id": "<id>", "key": "<key>", "description": "boom however when uh-huh madly unless brightly for dead meh", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "jina/jina-embeddings-v2-base-zh"}}, {"_id": "<id>", "key": "<key>", "description": "down dramatic damp inasmuch unlined monthly lampoon colligate linear", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "jina/jina-clip-v1"}}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
+  CreateMemoryStore:
+    speakeasy-default-create-memory-store:
+      requestBody:
+        application/json: {"key": "<key>", "embedding_config": {"model": "google-ai/text-embedding-004"}, "description": "delightfully fumigate convection though zowie up bulky electronics", "path": "Customer Service/Billing/Refund"}
+      responses:
+        "201":
+          application/json: {"_id": "<id>", "key": "<key>", "description": "tackle unabashedly mentor early miserly stealthily without", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "jina/jina-embeddings-v3"}}
+        "400":
+          application/json: {"message": "<value>"}
+  RetrieveMemoryStore:
+    speakeasy-default-retrieve-memory-store:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "key": "<key>", "description": "huzzah blissfully ouch pleasing serpentine", "created": "<value>", "updated": "<value>", "embedding_config": {"model": "jina/jina-embeddings-v2-base-code"}}
+        "401":
+          application/json: {"message": "<value>"}
+  UpdateMemoryStore:
+    speakeasy-default-update-memory-store:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+      requestBody:
+        application/json: {"embedding_config": {"model": "jina/jina-embeddings-v2-base-de"}, "description": "technician eulogise whereas till mild than during", "path": "Customer Service/Billing/Refund"}
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "key": "<key>", "project_id": "<id>", "description": "gosh frantically belabor past", "created": "<value>", "updated": "<value>", "embedding_config": {"model_id": "0579d6f9-464a-4315-98c8-760f50e178a7", "provider": "cohere"}}
+  DeleteMemoryStore:
+    speakeasy-default-delete-memory-store:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+  GetAllMemories:
+    speakeasy-default-get-all-memories:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {"key": "<value>", "key1": "<value>"}, "workspace_id": "<id>"}, {"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "workspace_id": "<id>"}, {"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {}, "workspace_id": "<id>"}], "has_more": true}
+  CreateMemory:
+    speakeasy-default-create-memory:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+      responses:
+        "201":
+          application/json: {"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {"key": "<value>", "key1": "<value>"}, "workspace_id": "<id>"}
+  RetrieveMemory:
+    speakeasy-default-retrieve-memory:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {"key": "<value>"}, "workspace_id": "<id>"}
+  UpdateMemory:
+    speakeasy-default-update-memory:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "entity_id": "<id>", "created": "<value>", "updated": "<value>", "store_id": "<id>", "tags": {}, "workspace_id": "<id>"}
+  DeleteMemory:
+    speakeasy-default-delete-memory:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+  GetAllMemoryDocuments:
+    speakeasy-default-get-all-memory-documents:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "memory_id": "<id>", "store_id": "<id>", "text": "<value>", "created": "<value>", "updated": "<value>", "workspace_id": "<id>"}], "has_more": false}
+  CreateMemoryDocument:
+    speakeasy-default-create-memory-document:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+      responses:
+        "201":
+          application/json: {"_id": "<id>", "memory_id": "<id>", "store_id": "<id>", "text": "<value>", "created": "<value>", "updated": "<value>", "workspace_id": "<id>"}
+  RetrieveMemoryDocument:
+    speakeasy-default-retrieve-memory-document:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+          document_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "memory_id": "<id>", "store_id": "<id>", "text": "<value>", "created": "<value>", "updated": "<value>", "workspace_id": "<id>"}
+  UpdateMemoryDocument:
+    speakeasy-default-update-memory-document:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+          document_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "memory_id": "<id>", "store_id": "<id>", "text": "<value>", "created": "<value>", "updated": "<value>", "workspace_id": "<id>"}
+  DeleteMemoryDocument:
+    speakeasy-default-delete-memory-document:
+      parameters:
+        path:
+          memory_store_key: "<value>"
+          memory_id: "<id>"
+          document_id: "<id>"
+  GetAllTools:
+    speakeasy-default-get-all-tools:
+      parameters:
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "tool_01JS405PKDDH1XEE9Y8FS3D1YK", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "mmm avalanche jungle unto meanwhile beside tromp worth", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "live", "version_hash": "<value>", "type": "json_schema", "json_schema": {"name": "<value>", "schema": {}, "strict": false}}, {"_id": "tool_01JS405PKAKZHSKTHGFMHEBD8W", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "bide along memorise ruin apparatus window quicker snuggle behind", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "pending", "version_hash": "<value>", "type": "function", "function": {"name": "<value>"}}, {"_id": "tool_01JS405PKAKZHSKTHGFMHEBD8W", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "regarding times uselessly toothpick silently aftermath never", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "published", "version_hash": "<value>", "type": "function", "function": {"name": "<value>"}}], "has_more": true}
+        "401":
+          application/json: {"message": "<value>"}
+  CreateTool:
+    speakeasy-default-create-tool:
+      requestBody:
+        application/json: {"path": "Customer Service/Billing/Refund", "key": "<key>", "description": "delightfully fumigate convection though zowie up bulky electronics", "status": "pending", "version_hash": "<value>", "type": "json_schema", "json_schema": {"name": "<value>", "schema": {"key": "<value>", "key1": "<value>"}, "strict": false}}
+      responses:
+        "200":
+          application/json: {"_id": "tool_01JS405PKJM9CHCJ12V6T8QCQ9", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "while till lazily than clear-cut whoever", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "pending", "version_hash": "<value>", "type": "function", "function": {"name": "<value>"}}
+  UpdateTool:
+    speakeasy-default-update-tool:
+      parameters:
+        path:
+          tool_key: "<value>"
+      requestBody:
+        application/json: {"path": "Customer Service/Billing/Refund", "status": "pending", "version_hash": "<value>", "type": "orq_http"}
+      responses:
+        "200":
+          application/json: {"_id": "tool_01JS405PKZPDBM7DE9C59WSRQH", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "happily scowl mostly rekindle bleak from that qualified cycle woot", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "live", "version_hash": "<value>", "type": "json_schema", "json_schema": {"name": "<value>", "schema": {"key": "<value>"}, "strict": false}}
+  DeleteTool:
+    speakeasy-default-delete-tool:
+      parameters:
+        path:
+          tool_key: "<value>"
+  RetrieveTool:
+    speakeasy-default-retrieve-tool:
+      parameters:
+        path:
+          tool_key: "<value>"
+      responses:
+        "200":
+          application/json: {"_id": "tool_01JS405PMM4BPNSCW61WEV7ZZW", "path": "Customer Service/Billing/Refund", "key": "<key>", "description": "throughout quickly tabletop multicolored spirited gosh sandbar offend than mispronounce", "project_id": "<id>", "workspace_id": "<id>", "created": "<value>", "updated": "<value>", "status": "live", "version_hash": "<value>", "type": "json_schema", "json_schema": {"name": "<value>", "schema": {"key": "<value>"}, "strict": false}}
   ListDatasets:
     speakeasy-default-list-datasets:
       parameters:
         query:
           limit: 10
-          sort: "asc"
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "display_name": "Aracely.Collins", "project_id": "718d6d46-12e0-4aee-a1b9-ddf121dc2a4c", "workspace_id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "metadata": {"total_versions": 4063.91, "datapoints_count": 791.69}, "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "1ff6573e-0a62-4331-aad7-c07cc4819916", "display_name": "Germaine_Rohan50", "project_id": "4b7d8c22-36e0-4859-b44e-bceb27bd4753", "workspace_id": "0a17c478-e329-4a9e-bc97-938e1a630f5f", "metadata": {"total_versions": 2333.58, "datapoints_count": 4159.3}, "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "8082fa02-e087-44e7-8830-7648ec2ed7f3", "display_name": "Clinton_Sipes", "project_id": "f45d97b2-c5d7-4f7b-9cfa-269af2194d58", "workspace_id": "1b3fe575-4c0c-4551-8a92-c7431ddf193e", "metadata": {"total_versions": 1073.35, "datapoints_count": 4955.38}, "updated": "2025-02-27T08:02:43.136Z"}], "has_more": true}
+          application/json: {"object": "list", "data": [{"_id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "display_name": "Aracely.Collins", "project_id": "718d6d46-12e0-4aee-a1b9-ddf121dc2a4c", "workspace_id": "104fb451-a70c-4fc8-9fe0-7fbc60ab960d", "metadata": {"total_versions": 4063.91, "datapoints_count": 791.69}, "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "1ff6573e-0a62-4331-aad7-c07cc4819916", "display_name": "Germaine_Rohan50", "project_id": "4b7d8c22-36e0-4859-b44e-bceb27bd4753", "workspace_id": "0a17c478-e329-4a9e-bc97-938e1a630f5f", "metadata": {"total_versions": 2333.58, "datapoints_count": 4159.3}, "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "8082fa02-e087-44e7-8830-7648ec2ed7f3", "display_name": "Clinton_Sipes", "project_id": "f45d97b2-c5d7-4f7b-9cfa-269af2194d58", "workspace_id": "1b3fe575-4c0c-4551-8a92-c7431ddf193e", "metadata": {"total_versions": 1073.35, "datapoints_count": 4955.38}, "updated": "2025-04-18T08:27:42.154Z"}], "has_more": true}
   CreateDataset:
     speakeasy-default-create-dataset:
       requestBody:
         application/json: {"display_name": "Jed6", "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "7a621cf0-21cd-49cf-8540-3315211a509a", "display_name": "Adrienne55", "project_id": "774c2bec-c376-4917-b75e-024985613de0", "workspace_id": "e803d56a-1df9-4436-bbfd-39494798bc19", "metadata": {"total_versions": 2773.21, "datapoints_count": 7703.7}, "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "f021cd9c-f540-4331-b521-1a509a3080a8", "display_name": "Izabella13", "project_id": "ecc37691-775e-4024-9985-613de0ee803d", "workspace_id": "6a1df943-6bfd-4394-a947-98bc19d4c51e", "metadata": {"total_versions": 5694.59, "datapoints_count": 8142.22}, "updated": "2025-04-18T08:27:42.154Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -1344,7 +1961,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "5e5518a2-d0ce-4221-9a70-713be839d998", "display_name": "Nathen72", "project_id": "c2127fd4-7297-48c0-9f6e-e88aad22b98b", "workspace_id": "0ca835bb-f82d-4f30-8b17-d07263d38994", "metadata": {"total_versions": 6728.15, "datapoints_count": 560.91}, "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "5e5518a2-d0ce-4221-9a70-713be839d998", "display_name": "Nathen72", "project_id": "c2127fd4-7297-48c0-9f6e-e88aad22b98b", "workspace_id": "0ca835bb-f82d-4f30-8b17-d07263d38994", "metadata": {"total_versions": 6728.15, "datapoints_count": 560.91}, "updated": "2025-04-18T08:27:42.154Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -1356,7 +1973,7 @@ examples:
         application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "display_name": "Merlin_Harber", "project_id": "c125a190-71c5-4562-9af6-646dadb3a343", "workspace_id": "a2450617-e6bb-4057-99d6-f9464a3158c8", "metadata": {"total_versions": 4160.23, "datapoints_count": 587.04}, "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "display_name": "Merlin_Harber", "project_id": "c125a190-71c5-4562-9af6-646dadb3a343", "workspace_id": "a2450617-e6bb-4057-99d6-f9464a3158c8", "metadata": {"total_versions": 4160.23, "datapoints_count": 587.04}, "updated": "2025-04-18T08:27:42.154Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -1371,10 +1988,9 @@ examples:
           dataset_id: "<id>"
         query:
           limit: 10
-          sort: "asc"
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}], "has_more": false}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}], "has_more": false}
   CreateDatasetItem:
     speakeasy-default-create-dataset-item:
       parameters:
@@ -1382,7 +1998,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}
   RetrieveDatapoint:
     speakeasy-default-retrieve-datapoint:
       parameters:
@@ -1391,7 +2007,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -1402,7 +2018,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -1421,7 +2037,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: [{"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-02-27T08:02:43.136Z"}]
+          application/json: [{"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}, {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-04-18T08:27:42.154Z"}]
   ClearDataset:
     speakeasy-default-clear-dataset:
       parameters:
@@ -1434,14 +2050,14 @@ examples:
           limit: 10
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "A8", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "8a232aa0-b11b-48a0-8057-1e9e705d0e6e", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Element", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "a4c8104f-b451-4a70-acfc-8fe07fbc60ab", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Model 3", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "91696ebd-834b-47d8-bc22-36e085944ebc", "updated": "<value>"}], "has_more": false}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Golf", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Mercielago", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Beetle", "path": "Customer Service/Billing/Refund", "updated": "<value>"}], "has_more": true}
   CreateKnowledge:
     speakeasy-default-create-knowledge:
       requestBody:
         application/json: {"key": "<key>", "embedding_model": "<value>", "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fortwo", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "a621cf02-1cd9-4cf5-8403-315211a509a3", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fiesta", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   GetOneKnowledge:
     speakeasy-default-get-one-knowledge:
       parameters:
@@ -1449,7 +2065,7 @@ examples:
           knowledge_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Model X", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "5e5518a2-d0ce-4221-9a70-713be839d998", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Durango", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   UpdateKnowledge:
     speakeasy-default-update-knowledge:
       parameters:
@@ -1459,36 +2075,12 @@ examples:
         application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Model S", "path": "Customer Service/Billing/Refund", "retrieval_settings": {"retrieval_type": "hybrid_search", "top_k": 5, "threshold": 0}, "created_by_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Sentra", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   DeleteKnowledge:
     speakeasy-default-delete-knowledge:
       parameters:
         path:
           knowledge_id: "<id>"
-  SearchKnowledge:
-    speakeasy-default-search-knowledge:
-      parameters:
-        path:
-          knowledge_id: "<id>"
-      requestBody:
-        application/json: {"query": "<value>"}
-      responses:
-        "200":
-          application/json: {"knowledge_id": "<id>", "documents": [{"id": "<id>", "text": "<value>", "metadata": {"datasource_id": "<id>", "chunk_id": "<id>", "file_name": "example.file", "file_type": "audio"}, "score": 1894.3}], "knowledge_key": "<value>", "query": "<value>"}
-  GetOneFileUploadUrl:
-    speakeasy-default-get-one-file-upload-url:
-      parameters:
-        path:
-          knowledge_id: "<id>"
-        query:
-          fileName: "example.file"
-          contentType: "<value>"
-          datasourceId: "<id>"
-      responses:
-        "200":
-          application/json: {"objectName": "<value>"}
-        "500":
-          application/json: {"message": "<value>"}
   ListDatasources:
     speakeasy-default-list-datasources:
       parameters:
@@ -1499,7 +2091,7 @@ examples:
           status: "completed"
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Mohammad_Brakus85", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 792.15}, {"_id": "01JQBZHPBE7D8M0PHNY5C8ABD0", "display_name": "Ricky53", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8596.21}], "has_more": false}
+          application/json: {"object": "list", "data": [{"_id": "01JS405PPAEMGYNR030WY1RKFV", "display_name": "Elias_Towne", "status": "pending", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8313.41}, {"_id": "01JS405PPAEMGYNR030WY1RKFV", "display_name": "Norval77", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8331.66}], "has_more": false}
   CreateDatasource:
     speakeasy-default-create-datasource:
       parameters:
@@ -1509,7 +2101,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01JQBZHPBF4F8J8W10J4E7KGSY", "display_name": "Pamela.Greenfelder49", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 1636.76}
+          application/json: {"_id": "01JS405PPCVN5WFK58AW5EAD1Y", "display_name": "Pamela.Greenfelder49", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 1636.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -1518,13 +2110,24 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01JQBZHPBFCFVKJD2QCDQHQQ4F", "display_name": "Justice38", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 6087.16}
+          application/json: {"_id": "01JS405PPBJJVN0CTFQ1BCXPX7", "display_name": "Justice38", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 6087.16}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
         path:
           knowledge_id: "<id>"
           datasource_id: "<id>"
+  UpdateDatasource:
+    speakeasy-default-update-datasource:
+      parameters:
+        path:
+          knowledge_id: "<id>"
+          datasource_id: "<id>"
+      requestBody:
+        application/json: {"display_name": "Haylee_Braun"}
+      responses:
+        "200":
+          application/json: {"_id": "01JS405PPDJGQ5VRBVA4SDWB4V", "display_name": "Alfred_Ullrich68", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 7179.8}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -1533,7 +2136,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "queued", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "failed", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "failed", "created": "<value>", "updated": "<value>", "created_by_id": "<id>"}]
+          application/json: [{"_id": "<id>", "text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "completed", "created": "<value>", "updated": "<value>"}, {"_id": "<id>", "text": "<value>", "enabled": true, "status": "queued", "created": "<value>", "updated": "<value>"}]
   ListChunks:
     speakeasy-default-list-chunks:
       parameters:
@@ -1545,7 +2148,7 @@ examples:
           status: "completed"
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "processing", "created": "<value>", "updated": "<value>"}, {"_id": "<id>", "text": "<value>", "enabled": false, "status": "failed", "created": "<value>", "updated": "<value>"}], "has_more": false}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "text": "<value>", "enabled": true, "status": "completed", "created": "<value>", "updated": "<value>"}], "has_more": false}
   UpdateChunk:
     speakeasy-default-update-chunk:
       parameters:
@@ -1563,17 +2166,6 @@ examples:
           chunk_id: "<id>"
           datasource_id: "<id>"
           knowledge_id: "<id>"
-  UpdateDatasource:
-    speakeasy-default-update-datasource:
-      parameters:
-        path:
-          knowledge_id: "<id>"
-          datasource_id: "<id>"
-      requestBody:
-        application/json: {"display_name": "Haylee_Braun"}
-      responses:
-        "200":
-          application/json: {"_id": "01JQRGTRHCJ0H0AWDXZTGNZCJE", "display_name": "Alfred_Ullrich68", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 7179.8}
   GetOneChunk:
     speakeasy-default-get-one-chunk:
       parameters:
@@ -1584,5 +2176,43 @@ examples:
       responses:
         "200":
           application/json: {"_id": "<id>", "text": "<value>", "enabled": true, "status": "failed", "created": "<value>", "updated": "<value>"}
-examplesVersion: 1.0.0
+  CreateSession:
+    speakeasy-default-create-session:
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "external_id": "<id>", "duration": 4865.89, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 4174.58, "output_cost": 1343.65, "total_cost": 690.25}, "usage": {"prompt_tokens": 7964.74, "completion_tokens": 9510.62, "total_tokens": 0.86}, "traces_count": 1697.27, "tags": [], "workspace_id": "<id>"}
+  DeleteSession:
+    speakeasy-default-delete-session:
+      parameters:
+        path:
+          session_id: "<id>"
+      responses:
+        "404":
+          application/json: {"message": "<value>"}
+  GetSession:
+    speakeasy-default-get-session:
+      parameters:
+        path:
+          session_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "external_id": "<id>", "duration": 7003.47, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 5442.21, "output_cost": 5212.35, "total_cost": 9699.61}, "usage": {"prompt_tokens": 4580.49, "completion_tokens": 4508.24, "total_tokens": 2627.95}, "traces_count": 2134.57, "tags": ["<value>", "<value>", "<value>"], "workspace_id": "<id>"}
+        "404":
+          application/json: {"message": "<value>"}
+  UpdateSession:
+    speakeasy-default-update-session:
+      parameters:
+        path:
+          session_id: "<id>"
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "external_id": "<id>", "duration": 8574.78, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 3446.2, "output_cost": 9914.64, "total_cost": 6276.9}, "usage": {"prompt_tokens": 4888.52, "completion_tokens": 9840.08, "total_tokens": 540.62}, "traces_count": 8965.01, "tags": ["<value>"], "workspace_id": "<id>"}
+        "404":
+          application/json: {"message": "<value>"}
+  ListSessions:
+    speakeasy-default-list-sessions:
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"_id": "<id>", "external_id": "<id>", "duration": 5472.72, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 1777.06, "output_cost": 2297.16, "total_cost": 1528.37}, "usage": {"prompt_tokens": 6355.32, "completion_tokens": 6393.87, "total_tokens": 175.77}, "traces_count": 7183.03, "tags": [], "workspace_id": "<id>"}, {"_id": "<id>", "external_id": "<id>", "duration": 685.04, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 5098.83, "output_cost": 6339.11, "total_cost": 74.68}, "usage": {"prompt_tokens": 546.07, "completion_tokens": 3677.45, "total_tokens": 4857.29}, "traces_count": 732.27, "tags": ["<value>", "<value>", "<value>"], "workspace_id": "<id>"}, {"_id": "<id>", "external_id": "<id>", "duration": 5674.45, "contact_ids": ["<value>", "<value>", "<value>"], "billing": {"input_cost": 4900.78, "output_cost": 516.81, "total_cost": 3225.96}, "usage": {"prompt_tokens": 8605.96, "completion_tokens": 182.78, "total_tokens": 8971.96}, "traces_count": 4243.67, "tags": ["<value>", "<value>", "<value>"], "workspace_id": "<id>"}], "has_more": true}
+examplesVersion: 1.0.1
 generatedTests: {}

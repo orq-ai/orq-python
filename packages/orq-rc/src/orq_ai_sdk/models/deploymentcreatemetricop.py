@@ -226,7 +226,7 @@ class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
-        DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict
+        Nullable[DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict]
     ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -243,7 +243,9 @@ class DeploymentCreateMetricMessagesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentCreateMetricMessagesDeploymentsMetricsContent] = None
+    content: OptionalNullable[
+        DeploymentCreateMetricMessagesDeploymentsMetricsContent
+    ] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -261,7 +263,7 @@ class DeploymentCreateMetricMessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -669,7 +671,7 @@ class ChoicesToolCalls(BaseModel):
 class ChoicesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[DeploymentCreateMetricChoicesContentTypedDict]
+    content: NotRequired[Nullable[DeploymentCreateMetricChoicesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -685,7 +687,7 @@ class ChoicesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentCreateMetricChoicesContent] = None
+    content: OptionalNullable[DeploymentCreateMetricChoicesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -703,7 +705,7 @@ class ChoicesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)

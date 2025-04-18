@@ -185,7 +185,7 @@ class PrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
     r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
-        DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict
+        Nullable[DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict]
     ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -202,7 +202,9 @@ class PrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentGetConfigPrefixMessagesDeploymentsRequestContent] = None
+    content: OptionalNullable[
+        DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
+    ] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -220,7 +222,7 @@ class PrefixMessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -622,7 +624,7 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[DeploymentGetConfigMessagesContentTypedDict]
+    content: NotRequired[Nullable[DeploymentGetConfigMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -638,7 +640,7 @@ class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentGetConfigMessagesContent] = None
+    content: OptionalNullable[DeploymentGetConfigMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -656,7 +658,7 @@ class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -935,11 +937,31 @@ class DeploymentGetConfigDocuments(BaseModel):
 class DeploymentGetConfigInvokeOptionsTypedDict(TypedDict):
     include_retrievals: NotRequired[bool]
     r"""Whether to include the retrieved knowledge chunks in the response."""
+    mock_response: NotRequired[str]
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
 
 
 class DeploymentGetConfigInvokeOptions(BaseModel):
     include_retrievals: Optional[bool] = False
     r"""Whether to include the retrieved knowledge chunks in the response."""
+
+    mock_response: Optional[str] = None
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
+
+
+class DeploymentGetConfigThreadTypedDict(TypedDict):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+    tags: NotRequired[List[str]]
+    r"""Optional tags to differentiate or categorize threads"""
+
+
+class DeploymentGetConfigThread(BaseModel):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+
+    tags: Optional[List[str]] = None
+    r"""Optional tags to differentiate or categorize threads"""
 
 
 class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
@@ -962,6 +984,7 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     documents: NotRequired[List[DeploymentGetConfigDocumentsTypedDict]]
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
     invoke_options: NotRequired[DeploymentGetConfigInvokeOptionsTypedDict]
+    thread: NotRequired[DeploymentGetConfigThreadTypedDict]
 
 
 class DeploymentGetConfigRequestBody(BaseModel):
@@ -993,6 +1016,8 @@ class DeploymentGetConfigRequestBody(BaseModel):
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
 
     invoke_options: Optional[DeploymentGetConfigInvokeOptions] = None
+
+    thread: Optional[DeploymentGetConfigThread] = None
 
 
 DeploymentGetConfigType = Literal[
@@ -1448,13 +1473,13 @@ class DeploymentGetConfigFunction(BaseModel):
     """
 
 
-class ToolsTypedDict(TypedDict):
+class DeploymentGetConfigToolsTypedDict(TypedDict):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigFunctionTypedDict
 
 
-class Tools(BaseModel):
+class DeploymentGetConfigTools(BaseModel):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
 
@@ -1477,7 +1502,7 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
-    tools: NotRequired[List[ToolsTypedDict]]
+    tools: NotRequired[List[DeploymentGetConfigToolsTypedDict]]
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""
 
 
@@ -1504,5 +1529,5 @@ class DeploymentGetConfigResponseBody(BaseModel):
     type: Optional[DeploymentGetConfigType] = None
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
-    tools: Optional[List[Tools]] = None
+    tools: Optional[List[DeploymentGetConfigTools]] = None
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""

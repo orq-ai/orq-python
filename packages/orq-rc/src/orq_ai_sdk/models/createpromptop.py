@@ -25,7 +25,7 @@ ModelType = Literal[
     "rerank",
     "moderations",
 ]
-r"""The type of the model"""
+r"""The modality of the model"""
 
 CreatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
@@ -443,7 +443,7 @@ class PromptConfigTypedDict(TypedDict):
     stream: NotRequired[bool]
     model: NotRequired[str]
     model_type: NotRequired[ModelType]
-    r"""The type of the model"""
+    r"""The modality of the model"""
     model_parameters: NotRequired[ModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[Provider]
@@ -460,7 +460,7 @@ class PromptConfig(BaseModel):
     model: Optional[str] = None
 
     model_type: Optional[ModelType] = None
-    r"""The type of the model"""
+    r"""The modality of the model"""
 
     model_parameters: Optional[ModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -502,7 +502,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class CreatePromptMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[UseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[Language]
+    language: NotRequired[Nullable[Language]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -510,8 +510,38 @@ class CreatePromptMetadata(BaseModel):
     use_cases: Optional[List[UseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[Language] = None
+    language: OptionalNullable[Language] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["use_cases", "language"]
+        nullable_fields = ["language"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreatePromptRequestBodyTypedDict(TypedDict):
@@ -585,7 +615,7 @@ CreatePromptModelType = Literal[
     "rerank",
     "moderations",
 ]
-r"""The type of the model"""
+r"""The modality of the model"""
 
 CreatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
@@ -1014,7 +1044,7 @@ class CreatePromptPromptConfigTypedDict(TypedDict):
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
     model_type: NotRequired[CreatePromptModelType]
-    r"""The type of the model"""
+    r"""The modality of the model"""
     model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[CreatePromptProvider]
@@ -1036,7 +1066,7 @@ class CreatePromptPromptConfig(BaseModel):
     r"""The id of the resource"""
 
     model_type: Optional[CreatePromptModelType] = None
-    r"""The type of the model"""
+    r"""The modality of the model"""
 
     model_parameters: Optional[CreatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -1120,7 +1150,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class CreatePromptPromptsMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[CreatePromptUseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[CreatePromptLanguage]
+    language: NotRequired[Nullable[CreatePromptLanguage]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -1128,8 +1158,38 @@ class CreatePromptPromptsMetadata(BaseModel):
     use_cases: Optional[List[CreatePromptUseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[CreatePromptLanguage] = None
+    language: OptionalNullable[CreatePromptLanguage] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["use_cases", "language"]
+        nullable_fields = ["language"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreatePromptResponseBodyTypedDict(TypedDict):

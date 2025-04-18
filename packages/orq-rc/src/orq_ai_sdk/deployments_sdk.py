@@ -275,6 +275,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
+        thread: Optional[
+            Union[
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -294,6 +300,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -331,6 +338,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentGetConfigInvokeOptions]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.DeploymentGetConfigThread]
             ),
         )
 
@@ -439,6 +449,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
+        thread: Optional[
+            Union[
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -458,6 +474,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -495,6 +512,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentGetConfigInvokeOptions]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.DeploymentGetConfigThread]
             ),
         )
 
@@ -588,6 +608,7 @@ class DeploymentsSDK(BaseSDK):
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -607,6 +628,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -644,6 +666,7 @@ class DeploymentsSDK(BaseSDK):
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.InvokeOptions]
             ),
+            thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
         )
 
         req = self._build_request(
@@ -740,6 +763,7 @@ class DeploymentsSDK(BaseSDK):
         invoke_options: Optional[
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -759,6 +783,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -796,6 +821,7 @@ class DeploymentsSDK(BaseSDK):
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.InvokeOptions]
             ),
+            thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
         )
 
         req = self._build_request_async(
@@ -907,6 +933,9 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
+        thread: Optional[
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -926,6 +955,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -962,6 +992,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentStreamInvokeOptions]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.DeploymentStreamThread]
             ),
         )
 
@@ -1077,6 +1110,9 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
+        thread: Optional[
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1096,6 +1132,7 @@ class DeploymentsSDK(BaseSDK):
         :param extra_params: Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration.
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
+        :param thread:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1132,6 +1169,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             invoke_options=utils.get_pydantic_model(
                 invoke_options, Optional[models.DeploymentStreamInvokeOptions]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.DeploymentStreamThread]
             ),
         )
 
