@@ -18,14 +18,14 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class CreateChunkMetadataTypedDict(TypedDict):
     r"""Metadata of the chunk"""
 
-    page_number: NotRequired[float]
+    page_number: NotRequired[int]
     r"""In case you are using PDFs, Word, PowerPoint, etc. this is the page number of the chunk."""
 
 
 class CreateChunkMetadata(BaseModel):
     r"""Metadata of the chunk"""
 
-    page_number: Optional[float] = None
+    page_number: Optional[int] = None
     r"""In case you are using PDFs, Word, PowerPoint, etc. this is the page number of the chunk."""
 
 

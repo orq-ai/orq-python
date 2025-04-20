@@ -62,7 +62,7 @@ GetPromptVersionModelType = Literal[
     "rerank",
     "moderations",
 ]
-r"""The type of the model"""
+r"""The modality of the model"""
 
 GetPromptVersionFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
@@ -496,7 +496,7 @@ class GetPromptVersionPromptConfigTypedDict(TypedDict):
     model_db_id: NotRequired[str]
     r"""The id of the resource"""
     model_type: NotRequired[GetPromptVersionModelType]
-    r"""The type of the model"""
+    r"""The modality of the model"""
     model_parameters: NotRequired[GetPromptVersionModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetPromptVersionProvider]
@@ -518,7 +518,7 @@ class GetPromptVersionPromptConfig(BaseModel):
     r"""The id of the resource"""
 
     model_type: Optional[GetPromptVersionModelType] = None
-    r"""The type of the model"""
+    r"""The modality of the model"""
 
     model_parameters: Optional[GetPromptVersionModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -602,7 +602,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class GetPromptVersionMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[GetPromptVersionUseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[GetPromptVersionLanguage]
+    language: NotRequired[Nullable[GetPromptVersionLanguage]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -610,8 +610,38 @@ class GetPromptVersionMetadata(BaseModel):
     use_cases: Optional[List[GetPromptVersionUseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: Optional[GetPromptVersionLanguage] = None
+    language: OptionalNullable[GetPromptVersionLanguage] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["use_cases", "language"]
+        nullable_fields = ["language"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class GetPromptVersionResponseBodyTypedDict(TypedDict):

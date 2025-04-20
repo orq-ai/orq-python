@@ -7,18 +7,22 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 from orq_ai_sdk import models, utils
-from orq_ai_sdk._hooks import SDKHooks
+from orq_ai_sdk._hooks import HookContext, SDKHooks
 from orq_ai_sdk.contacts import Contacts
 from orq_ai_sdk.datasets import Datasets
 from orq_ai_sdk.deployments_sdk import DeploymentsSDK
 from orq_ai_sdk.feedback import Feedback
 from orq_ai_sdk.files import Files
 from orq_ai_sdk.knowledge import Knowledge
+from orq_ai_sdk.memorystores import MemoryStores
 from orq_ai_sdk.models import internal
 from orq_ai_sdk.prompts import Prompts
 from orq_ai_sdk.remoteconfigs import Remoteconfigs
-from orq_ai_sdk.types import OptionalNullable, UNSET
-from typing import Any, Callable, Dict, Optional, Union, cast
+from orq_ai_sdk.sessions import Sessions
+from orq_ai_sdk.tools import Tools
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.utils import get_security_from_env
+from typing import Any, Callable, Dict, Mapping, Optional, Union, cast
 import weakref
 
 
@@ -33,8 +37,11 @@ class Orq(BaseSDK):
     files: Files
     prompts: Prompts
     remoteconfigs: Remoteconfigs
+    memory_stores: MemoryStores
+    tools: Tools
     datasets: Datasets
     knowledge: Knowledge
+    sessions: Sessions
 
     def __init__(
         self,
@@ -148,8 +155,11 @@ class Orq(BaseSDK):
         self.files = Files(self.sdk_configuration)
         self.prompts = Prompts(self.sdk_configuration)
         self.remoteconfigs = Remoteconfigs(self.sdk_configuration)
+        self.memory_stores = MemoryStores(self.sdk_configuration)
+        self.tools = Tools(self.sdk_configuration)
         self.datasets = Datasets(self.sdk_configuration)
         self.knowledge = Knowledge(self.sdk_configuration)
+        self.sessions = Sessions(self.sdk_configuration)
 
     def __enter__(self):
         return self
@@ -172,3 +182,223 @@ class Orq(BaseSDK):
         ):
             await self.sdk_configuration.async_client.aclose()
         self.sdk_configuration.async_client = None
+
+    def post_v2_traces_sessions_count(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models.PostV2TracesSessionsCountRequestBody,
+                models.PostV2TracesSessionsCountRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.PostV2TracesSessionsCountResponseBody]:
+        r"""Get total count of sessions
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.PostV2TracesSessionsCountRequestBody]
+            )
+        request = cast(Optional[models.PostV2TracesSessionsCountRequestBody], request)
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/traces/sessions/count",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2TracesSessionsCountRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/v2/traces/sessions/count",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.PostV2TracesSessionsCountResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def post_v2_traces_sessions_count_async(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models.PostV2TracesSessionsCountRequestBody,
+                models.PostV2TracesSessionsCountRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.PostV2TracesSessionsCountResponseBody]:
+        r"""Get total count of sessions
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[models.PostV2TracesSessionsCountRequestBody]
+            )
+        request = cast(Optional[models.PostV2TracesSessionsCountRequestBody], request)
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/traces/sessions/count",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request,
+                False,
+                True,
+                "json",
+                Optional[models.PostV2TracesSessionsCountRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/v2/traces/sessions/count",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.PostV2TracesSessionsCountResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )

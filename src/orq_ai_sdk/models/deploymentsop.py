@@ -137,7 +137,7 @@ DeploymentsModelType = Literal[
     "rerank",
     "moderations",
 ]
-r"""The type of the model"""
+r"""The modality of the model"""
 
 DeploymentsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
@@ -561,7 +561,7 @@ class DeploymentsPromptConfigTypedDict(TypedDict):
     tools: List[DeploymentsToolsTypedDict]
     model: str
     model_type: DeploymentsModelType
-    r"""The type of the model"""
+    r"""The modality of the model"""
     model_parameters: DeploymentsModelParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: DeploymentsProvider
@@ -574,7 +574,7 @@ class DeploymentsPromptConfig(BaseModel):
     model: str
 
     model_type: DeploymentsModelType
-    r"""The type of the model"""
+    r"""The modality of the model"""
 
     model_parameters: DeploymentsModelParameters
     r"""Model Parameters: Not all parameters apply to every model"""

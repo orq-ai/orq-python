@@ -205,7 +205,9 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
 class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[DeploymentStreamPrefixMessagesDeploymentsContentTypedDict]
+    content: NotRequired[
+        Nullable[DeploymentStreamPrefixMessagesDeploymentsContentTypedDict]
+    ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -221,7 +223,7 @@ class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentStreamPrefixMessagesDeploymentsContent] = None
+    content: OptionalNullable[DeploymentStreamPrefixMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -239,7 +241,7 @@ class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -632,7 +634,7 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
 class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
-    content: NotRequired[DeploymentStreamMessagesDeploymentsContentTypedDict]
+    content: NotRequired[Nullable[DeploymentStreamMessagesDeploymentsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
     r"""The refusal message by the assistant."""
@@ -648,7 +650,7 @@ class DeploymentStreamMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
-    content: Optional[DeploymentStreamMessagesDeploymentsContent] = None
+    content: OptionalNullable[DeploymentStreamMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
     refusal: OptionalNullable[str] = UNSET
@@ -666,7 +668,7 @@ class DeploymentStreamMessagesAssistantMessage(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["refusal", "audio"]
+        nullable_fields = ["content", "refusal", "audio"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -947,11 +949,31 @@ class DeploymentStreamDocuments(BaseModel):
 class DeploymentStreamInvokeOptionsTypedDict(TypedDict):
     include_retrievals: NotRequired[bool]
     r"""Whether to include the retrieved knowledge chunks in the response."""
+    mock_response: NotRequired[str]
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
 
 
 class DeploymentStreamInvokeOptions(BaseModel):
     include_retrievals: Optional[bool] = False
     r"""Whether to include the retrieved knowledge chunks in the response."""
+
+    mock_response: Optional[str] = None
+    r"""A mock response to use instead of calling the LLM API. This is useful for testing purposes. When provided, the system will return a response object with this content as the completion, without making an actual API call to the LLM provider. This works for both streaming and non-streaming requests. Mock responses will not generate logs, traces or be counted for your plan usage."""
+
+
+class DeploymentStreamThreadTypedDict(TypedDict):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+    tags: NotRequired[List[str]]
+    r"""Optional tags to differentiate or categorize threads"""
+
+
+class DeploymentStreamThread(BaseModel):
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+
+    tags: Optional[List[str]] = None
+    r"""Optional tags to differentiate or categorize threads"""
 
 
 class DeploymentStreamRequestBodyTypedDict(TypedDict):
@@ -974,6 +996,7 @@ class DeploymentStreamRequestBodyTypedDict(TypedDict):
     documents: NotRequired[List[DeploymentStreamDocumentsTypedDict]]
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
     invoke_options: NotRequired[DeploymentStreamInvokeOptionsTypedDict]
+    thread: NotRequired[DeploymentStreamThreadTypedDict]
 
 
 class DeploymentStreamRequestBody(BaseModel):
@@ -1005,6 +1028,8 @@ class DeploymentStreamRequestBody(BaseModel):
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
 
     invoke_options: Optional[DeploymentStreamInvokeOptions] = None
+
+    thread: Optional[DeploymentStreamThread] = None
 
 
 DeploymentStreamObject = Literal["chat", "completion", "image", "vision"]
