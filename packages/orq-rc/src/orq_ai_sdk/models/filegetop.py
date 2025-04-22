@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 from datetime import datetime
-import dateutil.parser
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, parse_datetime
 import pydantic
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -60,5 +59,5 @@ class FileGetResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = dateutil.parser.isoparse("2025-04-18T08:27:44.844Z")
+    created: Optional[datetime] = parse_datetime("2025-04-22T12:00:28.229Z")
     r"""The date and time the resource was created"""

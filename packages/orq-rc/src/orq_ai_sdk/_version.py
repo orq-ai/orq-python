@@ -3,10 +3,10 @@
 import importlib.metadata
 
 __title__: str = "orq-ai-sdk"
-__version__: str = "3.4.0-rc.37"
+__version__: str = "3.5.0-rc.0"
 __openapi_doc_version__: str = "2.0"
-__gen_version__: str = "2.585.2"
-__user_agent__: str = "speakeasy-sdk/python 3.4.0-rc.37 2.585.2 2.0 orq-ai-sdk"
+__gen_version__: str = "2.588.0"
+__user_agent__: str = "speakeasy-sdk/python 3.5.0-rc.0 2.588.0 2.0 orq-ai-sdk"
 
 try:
     if __package__ is not None:

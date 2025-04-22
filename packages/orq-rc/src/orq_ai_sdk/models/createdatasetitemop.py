@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 from datetime import datetime
-import dateutil.parser
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    parse_datetime,
+)
 import pydantic
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
@@ -136,6 +140,7 @@ class CreateDatasetItemMessagesTypedDict(TypedDict):
     content: CreateDatasetItemContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[CreateDatasetItemToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class CreateDatasetItemMessages(BaseModel):
@@ -146,6 +151,8 @@ class CreateDatasetItemMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[CreateDatasetItemToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class CreateDatasetItemRequestBodyTypedDict(TypedDict):
@@ -315,6 +322,7 @@ class CreateDatasetItemDatasetsMessagesTypedDict(TypedDict):
     content: CreateDatasetItemDatasetsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[CreateDatasetItemDatasetsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class CreateDatasetItemDatasetsMessages(BaseModel):
@@ -325,6 +333,8 @@ class CreateDatasetItemDatasetsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[CreateDatasetItemDatasetsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class CreateDatasetItemResponseBodyTypedDict(TypedDict):
@@ -380,5 +390,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-04-18T08:27:42.154Z")
+    updated: Optional[datetime] = parse_datetime("2025-04-22T12:00:25.416Z")
     r"""The date and time the resource was last updated"""

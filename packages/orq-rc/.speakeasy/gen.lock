@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 511bac26e46e10a474939592116711f2
+  docChecksum: 8f672e341d512d7494c800b13c6fece8
   docVersion: "2.0"
-  speakeasyVersion: 1.535.1
-  generationVersion: 2.585.2
-  releaseVersion: 3.4.0-rc.37
-  configChecksum: 91cb6610fb3fc47e4e41f38b1435ce54
+  speakeasyVersion: 1.537.0
+  generationVersion: 2.588.0
+  releaseVersion: 3.5.0-rc.0
+  configChecksum: d00bf5433db3ed5248ce6143514fec38
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.14.0
+    core: 5.15.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -1601,6 +1601,7 @@ generatedFiles:
   - src/orq_ai_sdk/types/basemodel.py
   - src/orq_ai_sdk/utils/__init__.py
   - src/orq_ai_sdk/utils/annotations.py
+  - src/orq_ai_sdk/utils/datetimes.py
   - src/orq_ai_sdk/utils/enums.py
   - src/orq_ai_sdk/utils/eventstreaming.py
   - src/orq_ai_sdk/utils/forms.py
@@ -2050,14 +2051,14 @@ examples:
           limit: 10
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Golf", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Mercielago", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Beetle", "path": "Customer Service/Billing/Refund", "updated": "<value>"}], "has_more": true}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Golf", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Mercielago", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Beetle", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}], "has_more": true}
   CreateKnowledge:
     speakeasy-default-create-knowledge:
       requestBody:
         application/json: {"key": "<key>", "embedding_model": "<value>", "path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fiesta", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fiesta", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   GetOneKnowledge:
     speakeasy-default-get-one-knowledge:
       parameters:
@@ -2065,7 +2066,7 @@ examples:
           knowledge_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Durango", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Durango", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   UpdateKnowledge:
     speakeasy-default-update-knowledge:
       parameters:
@@ -2075,7 +2076,7 @@ examples:
         application/json: {"path": "Customer Service/Billing/Refund"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Sentra", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Sentra", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
   DeleteKnowledge:
     speakeasy-default-delete-knowledge:
       parameters:

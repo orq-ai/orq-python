@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from datetime import datetime
-import dateutil.parser
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -10,6 +9,7 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import parse_datetime
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -134,7 +134,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-04-18T08:27:42.154Z")
+    updated: Optional[datetime] = parse_datetime("2025-04-22T12:00:25.416Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
