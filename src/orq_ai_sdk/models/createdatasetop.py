@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 from datetime import datetime
-import dateutil.parser
 from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.utils import parse_datetime
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
@@ -83,5 +83,5 @@ class CreateDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = dateutil.parser.isoparse("2025-04-20T22:48:49.175Z")
+    updated: Optional[datetime] = parse_datetime("2025-04-22T19:23:29.738Z")
     r"""The date and time the resource was last updated"""

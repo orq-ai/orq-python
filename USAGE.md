@@ -9,7 +9,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.post_v2_traces_sessions_count()
+    res = orq.contacts.create(external_id="<id>")
 
     assert res is not None
 
@@ -32,7 +32,7 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.post_v2_traces_sessions_count_async()
+        res = await orq.contacts.create_async(external_id="<id>")
 
         assert res is not None
 
