@@ -32,9 +32,6 @@ r"""The modality of the model"""
 UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-UpdatePromptQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
 UpdatePromptResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -135,7 +132,7 @@ class UpdatePromptModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[UpdatePromptQuality]
+    quality: NotRequired[str]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -197,7 +194,7 @@ class UpdatePromptModelParameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[UpdatePromptQuality] = None
+    quality: Optional[str] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
@@ -689,9 +686,6 @@ r"""The modality of the model"""
 UpdatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-UpdatePromptPromptsQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
 UpdatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
 
 
@@ -795,7 +789,7 @@ class UpdatePromptPromptsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[UpdatePromptPromptsQuality]
+    quality: NotRequired[str]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -857,7 +851,7 @@ class UpdatePromptPromptsModelParameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[UpdatePromptPromptsQuality] = None
+    quality: Optional[str] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None

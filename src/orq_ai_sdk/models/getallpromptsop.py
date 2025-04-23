@@ -64,9 +64,6 @@ r"""The modality of the model"""
 GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-GetAllPromptsQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
 GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -167,7 +164,7 @@ class GetAllPromptsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[GetAllPromptsQuality]
+    quality: NotRequired[str]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -229,7 +226,7 @@ class GetAllPromptsModelParameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[GetAllPromptsQuality] = None
+    quality: Optional[str] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None

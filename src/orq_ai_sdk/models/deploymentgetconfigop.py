@@ -1187,9 +1187,6 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
 DeploymentGetConfigFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-DeploymentGetConfigQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
 DeploymentGetConfigResponseFormatType = Literal["json_object"]
 
 
@@ -1293,7 +1290,7 @@ class ParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[DeploymentGetConfigQuality]
+    quality: NotRequired[str]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -1355,7 +1352,7 @@ class Parameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[DeploymentGetConfigQuality] = None
+    quality: Optional[str] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None

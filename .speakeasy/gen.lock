@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: a5239d4e58e285c232c2664548d70c0b
+  docChecksum: e26ea348a6a1918d1e4f67b1a9ea13bd
   docVersion: "2.0"
-  speakeasyVersion: 1.537.1
-  generationVersion: 2.588.4
-  releaseVersion: 3.4.2
-  configChecksum: 9c372b695791ee80eb6ce1d8110499f1
+  speakeasyVersion: 1.538.0
+  generationVersion: 2.591.1
+  releaseVersion: 3.4.3
+  configChecksum: ad337b5fa42537a4c27c20bd268d2787
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.15.0
+    core: 5.16.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -179,7 +179,6 @@ generatedFiles:
   - docs/models/createpromptpromptstoolcalls.md
   - docs/models/createpromptpromptstype.md
   - docs/models/createpromptprovider.md
-  - docs/models/createpromptquality.md
   - docs/models/createpromptreasoningeffort.md
   - docs/models/createpromptrequestbody.md
   - docs/models/createpromptresponsebody.md
@@ -339,7 +338,6 @@ generatedFiles:
   - docs/models/deploymentgetconfigprefixmessagesdeploymentsrequestrole.md
   - docs/models/deploymentgetconfigprefixmessagesdeploymentsrole.md
   - docs/models/deploymentgetconfigprefixmessagesrole.md
-  - docs/models/deploymentgetconfigquality.md
   - docs/models/deploymentgetconfigreasoningeffort.md
   - docs/models/deploymentgetconfigrequestbody.md
   - docs/models/deploymentgetconfigresponsebody.md
@@ -407,7 +405,6 @@ generatedFiles:
   - docs/models/deploymentsprefixmessagesrole.md
   - docs/models/deploymentspromptconfig.md
   - docs/models/deploymentsprovider.md
-  - docs/models/deploymentsquality.md
   - docs/models/deploymentsreasoningeffort.md
   - docs/models/deploymentsrequest.md
   - docs/models/deploymentsresponsebody.md
@@ -553,7 +550,6 @@ generatedFiles:
   - docs/models/getallpromptspromptconfig.md
   - docs/models/getallpromptspromptstype.md
   - docs/models/getallpromptsprovider.md
-  - docs/models/getallpromptsquality.md
   - docs/models/getallpromptsreasoningeffort.md
   - docs/models/getallpromptsrequest.md
   - docs/models/getallpromptsresponsebody.md
@@ -595,7 +591,6 @@ generatedFiles:
   - docs/models/getonepromptpromptconfig.md
   - docs/models/getonepromptpromptstype.md
   - docs/models/getonepromptprovider.md
-  - docs/models/getonepromptquality.md
   - docs/models/getonepromptreasoningeffort.md
   - docs/models/getonepromptrequest.md
   - docs/models/getonepromptresponsebody.md
@@ -628,7 +623,6 @@ generatedFiles:
   - docs/models/getpromptversionpromptconfig.md
   - docs/models/getpromptversionpromptsresponsebody.md
   - docs/models/getpromptversionprovider.md
-  - docs/models/getpromptversionquality.md
   - docs/models/getpromptversionreasoningeffort.md
   - docs/models/getpromptversionrequest.md
   - docs/models/getpromptversionresponsebody.md
@@ -710,7 +704,6 @@ generatedFiles:
   - docs/models/listpromptversionsphotorealversion.md
   - docs/models/listpromptversionspromptconfig.md
   - docs/models/listpromptversionsprovider.md
-  - docs/models/listpromptversionsquality.md
   - docs/models/listpromptversionsreasoningeffort.md
   - docs/models/listpromptversionsrequest.md
   - docs/models/listpromptversionsresponsebody.md
@@ -767,7 +760,6 @@ generatedFiles:
   - docs/models/promptconfig.md
   - docs/models/provider.md
   - docs/models/purpose.md
-  - docs/models/quality.md
   - docs/models/queryparamstatus.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
@@ -913,7 +905,6 @@ generatedFiles:
   - docs/models/updatepromptpromptsphotorealversion.md
   - docs/models/updatepromptpromptspromptconfig.md
   - docs/models/updatepromptpromptsprovider.md
-  - docs/models/updatepromptpromptsquality.md
   - docs/models/updatepromptpromptsreasoningeffort.md
   - docs/models/updatepromptpromptsresponsebody.md
   - docs/models/updatepromptpromptsresponseformat.md
@@ -923,7 +914,6 @@ generatedFiles:
   - docs/models/updatepromptpromptstype.md
   - docs/models/updatepromptpromptsusecases.md
   - docs/models/updatepromptprovider.md
-  - docs/models/updatepromptquality.md
   - docs/models/updatepromptreasoningeffort.md
   - docs/models/updatepromptrequest.md
   - docs/models/updatepromptrequestbody.md

@@ -67,9 +67,6 @@ r"""The modality of the model"""
 ListPromptVersionsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-ListPromptVersionsQuality = Literal["standard", "hd"]
-r"""Only supported on `image` models."""
-
 ListPromptVersionsResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -173,7 +170,7 @@ class ListPromptVersionsModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     dimensions: NotRequired[str]
     r"""Only supported on `image` models."""
-    quality: NotRequired[ListPromptVersionsQuality]
+    quality: NotRequired[str]
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
@@ -235,7 +232,7 @@ class ListPromptVersionsModelParameters(BaseModel):
     dimensions: Optional[str] = None
     r"""Only supported on `image` models."""
 
-    quality: Optional[ListPromptVersionsQuality] = None
+    quality: Optional[str] = None
     r"""Only supported on `image` models."""
 
     style: Optional[str] = None
