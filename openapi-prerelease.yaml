@@ -827,9 +827,6 @@ components:
               description: "Only supported on `image` models."
             "quality":
               type: "string"
-              enum:
-                - "standard"
-                - "hd"
               description: "Only supported on `image` models."
             "style":
               type: "string"
@@ -2523,9 +2520,6 @@ components:
                       description: "Only supported on `image` models."
                     "quality":
                       type: "string"
-                      enum:
-                        - "standard"
-                        - "hd"
                       description: "Only supported on `image` models."
                     "style":
                       type: "string"
@@ -3068,9 +3062,6 @@ components:
                                   description: "Only supported on `image` models."
                                 "quality":
                                   type: "string"
-                                  enum:
-                                    - "standard"
-                                    - "hd"
                                   description: "Only supported on `image` models."
                                 "style":
                                   type: "string"
@@ -3337,9 +3328,6 @@ components:
                                   description: "Only supported on `image` models."
                                 "quality":
                                   type: "string"
-                                  enum:
-                                    - "standard"
-                                    - "hd"
                                   description: "Only supported on `image` models."
                                 "style":
                                   type: "string"
@@ -3661,9 +3649,6 @@ components:
                               description: "Only supported on `image` models."
                             "quality":
                               type: "string"
-                              enum:
-                                - "standard"
-                                - "hd"
                               description: "Only supported on `image` models."
                             "style":
                               type: "string"
@@ -3826,7 +3811,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-04-23T13:40:03.650Z"
+          default: "2025-04-23T20:27:18.403Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -3889,7 +3874,7 @@ components:
           "created":
             type: "string"
             format: "date-time"
-            default: "2025-04-23T13:40:03.650Z"
+            default: "2025-04-23T20:27:18.403Z"
             description: "The date and time the resource was created"
             readOnly: true
         required:
@@ -3969,7 +3954,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-04-23T13:40:03.650Z"
+          default: "2025-04-23T20:27:18.403Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -4015,7 +4000,7 @@ components:
               "created":
                 type: "string"
                 format: "date-time"
-                default: "2025-04-23T13:40:03.650Z"
+                default: "2025-04-23T20:27:18.403Z"
                 description: "The date and time the resource was created"
                 readOnly: true
             required:
@@ -4058,7 +4043,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-04-23T13:40:03.650Z"
+          default: "2025-04-23T20:27:18.403Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -4145,9 +4130,6 @@ components:
                   description: "Only supported on `image` models."
                 "quality":
                   type: "string"
-                  enum:
-                    - "standard"
-                    - "hd"
                   description: "Only supported on `image` models."
                 "style":
                   type: "string"
@@ -4592,9 +4574,6 @@ components:
                   description: "Only supported on `image` models."
                 "quality":
                   type: "string"
-                  enum:
-                    - "standard"
-                    - "hd"
                   description: "Only supported on `image` models."
                 "style":
                   type: "string"
@@ -4939,9 +4918,6 @@ components:
                   description: "Only supported on `image` models."
                 "quality":
                   type: "string"
-                  enum:
-                    - "standard"
-                    - "hd"
                   description: "Only supported on `image` models."
                 "style":
                   type: "string"
@@ -5288,9 +5264,6 @@ components:
                   description: "Only supported on `image` models."
                 "quality":
                   type: "string"
-                  enum:
-                    - "standard"
-                    - "hd"
                   description: "Only supported on `image` models."
                 "style":
                   type: "string"
@@ -5631,9 +5604,6 @@ components:
                             description: "Only supported on `image` models."
                           "quality":
                             type: "string"
-                            enum:
-                              - "standard"
-                              - "hd"
                             description: "Only supported on `image` models."
                           "style":
                             type: "string"
@@ -5971,9 +5941,6 @@ components:
                       description: "Only supported on `image` models."
                     "quality":
                       type: "string"
-                      enum:
-                        - "standard"
-                        - "hd"
                       description: "Only supported on `image` models."
                     "style":
                       type: "string"
@@ -6391,7 +6358,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-04-23T13:40:00.974Z"
+          default: "2025-04-23T20:27:15.560Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -6399,7 +6366,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-04-23T13:40:00.974Z"
+              default: "2025-04-23T20:27:15.560Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -6509,7 +6476,7 @@ components:
                   - type: "string"
                     format: "date-time"
                   - type: "string"
-                default: "2025-04-23T13:40:00.974Z"
+                default: "2025-04-23T20:27:15.560Z"
                 description: "The date and time the resource was created"
                 readOnly: true
                 format: "date-time"
@@ -6517,7 +6484,7 @@ components:
                 anyOf:
                   - type: "string"
                     format: "date-time"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                   - type: "string"
                 description: "The date and time the resource was last updated"
                 readOnly: true
@@ -6624,7 +6591,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-04-23T13:40:00.974Z"
+          default: "2025-04-23T20:27:15.560Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -6632,7 +6599,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-04-23T13:40:00.974Z"
+              default: "2025-04-23T20:27:15.560Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -6733,7 +6700,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-04-23T13:40:00.974Z"
+          default: "2025-04-23T20:27:15.560Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -6741,7 +6708,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-04-23T13:40:00.974Z"
+              default: "2025-04-23T20:27:15.560Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -8241,7 +8208,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -8249,7 +8216,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -8504,9 +8471,6 @@ paths:
                                   description: "Only supported on `image` models."
                                 "quality":
                                   type: "string"
-                                  enum:
-                                    - "standard"
-                                    - "hd"
                                   description: "Only supported on `image` models."
                                 "style":
                                   type: "string"
@@ -9457,9 +9421,6 @@ paths:
                         description: "Only supported on `image` models."
                       "quality":
                         type: "string"
-                        enum:
-                          - "standard"
-                          - "hd"
                         description: "Only supported on `image` models."
                       "style":
                         type: "string"
@@ -11246,7 +11207,7 @@ paths:
                   "created":
                     type: "string"
                     format: "date-time"
-                    default: "2025-04-23T13:40:03.650Z"
+                    default: "2025-04-23T20:27:18.403Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                 required:
@@ -11334,7 +11295,7 @@ paths:
                         "created":
                           type: "string"
                           format: "date-time"
-                          default: "2025-04-23T13:40:03.650Z"
+                          default: "2025-04-23T20:27:18.403Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                       required:
@@ -11401,7 +11362,7 @@ paths:
                   "created":
                     type: "string"
                     format: "date-time"
-                    default: "2025-04-23T13:40:03.650Z"
+                    default: "2025-04-23T20:27:18.403Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                 required:
@@ -11587,9 +11548,6 @@ paths:
                                   description: "Only supported on `image` models."
                                 "quality":
                                   type: "string"
-                                  enum:
-                                    - "standard"
-                                    - "hd"
                                   description: "Only supported on `image` models."
                                 "style":
                                   type: "string"
@@ -11930,9 +11888,6 @@ paths:
                           description: "Only supported on `image` models."
                         "quality":
                           type: "string"
-                          enum:
-                            - "standard"
-                            - "hd"
                           description: "Only supported on `image` models."
                         "style":
                           type: "string"
@@ -12284,9 +12239,6 @@ paths:
                             description: "Only supported on `image` models."
                           "quality":
                             type: "string"
-                            enum:
-                              - "standard"
-                              - "hd"
                             description: "Only supported on `image` models."
                           "style":
                             type: "string"
@@ -12658,9 +12610,6 @@ paths:
                             description: "Only supported on `image` models."
                           "quality":
                             type: "string"
-                            enum:
-                              - "standard"
-                              - "hd"
                             description: "Only supported on `image` models."
                           "style":
                             type: "string"
@@ -13022,9 +12971,6 @@ paths:
                           description: "Only supported on `image` models."
                         "quality":
                           type: "string"
-                          enum:
-                            - "standard"
-                            - "hd"
                           description: "Only supported on `image` models."
                         "style":
                           type: "string"
@@ -13372,9 +13318,6 @@ paths:
                             description: "Only supported on `image` models."
                           "quality":
                             type: "string"
-                            enum:
-                              - "standard"
-                              - "hd"
                             description: "Only supported on `image` models."
                           "style":
                             type: "string"
@@ -13792,9 +13735,6 @@ paths:
                                       description: "Only supported on `image` models."
                                     "quality":
                                       type: "string"
-                                      enum:
-                                        - "standard"
-                                        - "hd"
                                       description: "Only supported on `image` models."
                                     "style":
                                       type: "string"
@@ -14163,9 +14103,6 @@ paths:
                                 description: "Only supported on `image` models."
                               "quality":
                                 type: "string"
-                                enum:
-                                  - "standard"
-                                  - "hd"
                                 description: "Only supported on `image` models."
                               "style":
                                 type: "string"
@@ -14606,7 +14543,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-04-23T13:40:00.974Z"
+                          default: "2025-04-23T20:27:15.560Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -14614,7 +14551,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-04-23T13:40:00.974Z"
+                              default: "2025-04-23T20:27:15.560Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -14738,7 +14675,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -14746,7 +14683,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -14856,7 +14793,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -14864,7 +14801,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -15016,7 +14953,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -15024,7 +14961,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -15246,7 +15183,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-04-23T13:40:00.974Z"
+                          default: "2025-04-23T20:27:15.560Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -15254,7 +15191,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-04-23T13:40:00.974Z"
+                              default: "2025-04-23T20:27:15.560Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -15530,7 +15467,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -15538,7 +15475,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -15704,7 +15641,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -15712,7 +15649,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -15992,7 +15929,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-04-23T13:40:00.974Z"
+                    default: "2025-04-23T20:27:15.560Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -16000,7 +15937,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-04-23T13:40:00.974Z"
+                        default: "2025-04-23T20:27:15.560Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -16316,7 +16253,7 @@ paths:
                         - type: "string"
                           format: "date-time"
                         - type: "string"
-                      default: "2025-04-23T13:40:00.974Z"
+                      default: "2025-04-23T20:27:15.560Z"
                       description: "The date and time the resource was created"
                       readOnly: true
                       format: "date-time"
@@ -16324,7 +16261,7 @@ paths:
                       anyOf:
                         - type: "string"
                           format: "date-time"
-                          default: "2025-04-23T13:40:00.974Z"
+                          default: "2025-04-23T20:27:15.560Z"
                         - type: "string"
                       description: "The date and time the resource was last updated"
                       readOnly: true
@@ -17090,7 +17027,7 @@ paths:
                         "_id":
                           type: "string"
                           format: "ulid"
-                          default: "01JSHE14XQ5J1RQMKNMH21763T"
+                          default: "01JSJ5AWEWYW6CFAAFH7HNVYS9"
                           description: "The id of the resource"
                           readOnly: true
                         "display_name":
@@ -17253,7 +17190,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01JSHE14XV9HDE79J5CFQMN8DD"
+                    default: "01JSJ5AWEYCR8HYMGRZYEPRT6P"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
@@ -17344,7 +17281,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01JSHE14XRNT3DFBR7KZRGA8W3"
+                    default: "01JSJ5AWEXVS07FJ4FSZ7XVRSD"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
@@ -17473,7 +17410,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01JSHE14XZ5C73BV8D4KZ8CJGQ"
+                    default: "01JSJ5AWEZD1HNC4TJBWYZDJ1F"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
