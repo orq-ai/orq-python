@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: 3f8f03639483b0e065c04f7a63e37248
+  docChecksum: a5239d4e58e285c232c2664548d70c0b
   docVersion: "2.0"
   speakeasyVersion: 1.537.1
   generationVersion: 2.588.4
-  releaseVersion: 3.4.1
-  configChecksum: 009174be3c70cec374c476e6ec9496c3
+  releaseVersion: 3.4.2
+  configChecksum: 9c372b695791ee80eb6ce1d8110499f1
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
