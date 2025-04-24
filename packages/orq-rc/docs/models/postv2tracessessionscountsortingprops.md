@@ -1,9 +1,0 @@
-# PostV2TracesSessionsCountSortingProps
-
-
-## Fields
-
-| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `key`                                                                                                  | *str*                                                                                                  | :heavy_check_mark:                                                                                     | The path to sort by                                                                                    |
-| `direction`                                                                                            | [Optional[models.PostV2TracesSessionsCountDirection]](../models/postv2tracessessionscountdirection.md) | :heavy_minus_sign:                                                                                     | The direction to sort by                                                                               |
