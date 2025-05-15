@@ -21,3 +21,9 @@ value: models.DeploymentCreateMetric2DeploymentsMetrics2 = /* values here */
 value: models.DeploymentCreateMetric2DeploymentsMetrics3 = /* values here */
 ```
 
+### `models.DeploymentCreateMetric2DeploymentsMetrics4`
+
+```python
+value: models.DeploymentCreateMetric2DeploymentsMetrics4 = /* values here */
+```
+

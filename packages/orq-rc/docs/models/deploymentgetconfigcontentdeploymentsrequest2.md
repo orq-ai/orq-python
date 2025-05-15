@@ -21,3 +21,9 @@ value: models.DeploymentGetConfig2Deployments2 = /* values here */
 value: models.DeploymentGetConfig23 = /* values here */
 ```
 
+### `models.DeploymentGetConfig24`
+
+```python
+value: models.DeploymentGetConfig24 = /* values here */
+```
+

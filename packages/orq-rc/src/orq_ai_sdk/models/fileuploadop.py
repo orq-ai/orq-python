@@ -10,13 +10,13 @@ from typing import IO, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class FileTypedDict(TypedDict):
+class FileUploadFileTypedDict(TypedDict):
     file_name: str
     content: Union[bytes, IO[bytes], io.BufferedReader]
     content_type: NotRequired[str]
 
 
-class File(BaseModel):
+class FileUploadFile(BaseModel):
     file_name: Annotated[
         str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
@@ -39,14 +39,16 @@ r"""The intended purpose of the uploaded file."""
 
 
 class FileUploadRequestBodyTypedDict(TypedDict):
-    file: FileTypedDict
+    file: FileUploadFileTypedDict
     r"""The file to be uploaded."""
     purpose: NotRequired[Purpose]
     r"""The intended purpose of the uploaded file."""
 
 
 class FileUploadRequestBody(BaseModel):
-    file: Annotated[File, FieldMetadata(multipart=MultipartFormMetadata(file=True))]
+    file: Annotated[
+        FileUploadFile, FieldMetadata(multipart=MultipartFormMetadata(file=True))
+    ]
     r"""The file to be uploaded."""
 
     purpose: Annotated[Optional[Purpose], FieldMetadata(multipart=True)] = "retrieval"
@@ -91,5 +93,5 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2025-04-24T06:42:41.768Z")
+    created: Optional[datetime] = parse_datetime("2025-05-15T06:43:30.109Z")
     r"""The date and time the resource was created"""

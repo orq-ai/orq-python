@@ -12,7 +12,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *orq-
 <!-- Start Summary [summary] -->
 ## Summary
 
-[Dev] orq.ai API: orq.ai API documentation
+orq.ai API: orq.ai API documentation
 
 For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
 <!-- End Summary [summary] -->
@@ -205,6 +205,7 @@ with Orq(
 * [retrieve](docs/sdks/datasets/README.md#retrieve) - Retrieve a dataset
 * [update](docs/sdks/datasets/README.md#update) - Update a dataset
 * [delete](docs/sdks/datasets/README.md#delete) - Delete a dataset
+* [create_experiment](docs/sdks/datasets/README.md#create_experiment) - Create an experiment from a dataset
 * [list_datapoints](docs/sdks/datasets/README.md#list_datapoints) - List datapoints
 * [create_datapoint](docs/sdks/datasets/README.md#create_datapoint) - Create a datapoint
 * [retrieve_datapoint](docs/sdks/datasets/README.md#retrieve_datapoint) - Retrieve a datapoint
@@ -219,6 +220,7 @@ with Orq(
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
 * [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
+* [create_experiment](docs/sdks/deploymentssdk/README.md#create_experiment) - Create an experiment from a deployment
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
@@ -252,6 +254,10 @@ with Orq(
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
+
+### [models](docs/sdks/models/README.md)
+
+* [list](docs/sdks/models/README.md#list) - List models
 
 
 ### [prompts](docs/sdks/prompts/README.md)

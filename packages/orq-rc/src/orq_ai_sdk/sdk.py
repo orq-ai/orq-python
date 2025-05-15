@@ -15,6 +15,7 @@ from orq_ai_sdk.feedback import Feedback
 from orq_ai_sdk.files import Files
 from orq_ai_sdk.knowledge import Knowledge
 from orq_ai_sdk.models import internal
+from orq_ai_sdk.models_ import Models
 from orq_ai_sdk.prompts import Prompts
 from orq_ai_sdk.remoteconfigs import Remoteconfigs
 from orq_ai_sdk.types import OptionalNullable, UNSET
@@ -23,7 +24,7 @@ import weakref
 
 
 class Orq(BaseSDK):
-    r"""[Dev] orq.ai API: orq.ai API documentation
+    r"""orq.ai API: orq.ai API documentation
     https://docs.orq.ai - orq.ai Documentation
     """
 
@@ -33,6 +34,7 @@ class Orq(BaseSDK):
     files: Files
     prompts: Prompts
     remoteconfigs: Remoteconfigs
+    models: Models
     datasets: Datasets
     knowledge: Knowledge
 
@@ -148,6 +150,7 @@ class Orq(BaseSDK):
         self.files = Files(self.sdk_configuration)
         self.prompts = Prompts(self.sdk_configuration)
         self.remoteconfigs = Remoteconfigs(self.sdk_configuration)
+        self.models = Models(self.sdk_configuration)
         self.datasets = Datasets(self.sdk_configuration)
         self.knowledge = Knowledge(self.sdk_configuration)
 

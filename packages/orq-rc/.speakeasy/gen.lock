@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: bfb902d763eefeb579cd77081cce7fa4
+  docChecksum: aa533abbeb64228afdf4d29513125340
   docVersion: "2.0"
-  speakeasyVersion: 1.538.0
-  generationVersion: 2.591.1
-  releaseVersion: 3.5.0-rc.3
-  configChecksum: 65f5096f73911adb85b30df3ea5fd9ac
+  speakeasyVersion: 1.545.0
+  generationVersion: 2.599.0
+  releaseVersion: 3.6.0-rc.7
+  configChecksum: 96077c0f11e51cd9d5f3ae83eacd72ff
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.16.0
+    core: 5.18.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -24,7 +24,7 @@ features:
     globalSecurity: 3.0.3
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
-    globalServerURLs: 3.1.0
+    globalServerURLs: 3.1.1
     globals: 3.0.0
     groups: 3.0.0
     hiddenGlobals: 1.0.0
@@ -103,6 +103,10 @@ generatedFiles:
   - docs/models/createchunkstatus.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
+  - docs/models/createdatasetexperimentrequest.md
+  - docs/models/createdatasetexperimentrequestbody.md
+  - docs/models/createdatasetexperimentresponsebody.md
+  - docs/models/createdatasetexperimenttype.md
   - docs/models/createdatasetitem21.md
   - docs/models/createdatasetitem22.md
   - docs/models/createdatasetitem2datasets1.md
@@ -138,6 +142,10 @@ generatedFiles:
   - docs/models/createdatasourcerequestbody.md
   - docs/models/createdatasourceresponsebody.md
   - docs/models/createdatasourcestatus.md
+  - docs/models/createdeploymentexperimentrequest.md
+  - docs/models/createdeploymentexperimentrequestbody.md
+  - docs/models/createdeploymentexperimentresponsebody.md
+  - docs/models/createdeploymentexperimenttype.md
   - docs/models/createfeedbackrequestbody.md
   - docs/models/createfeedbackresponsebody.md
   - docs/models/createfeedbackvalue.md
@@ -180,7 +188,6 @@ generatedFiles:
   - docs/models/createpromptpromptstoolcalls.md
   - docs/models/createpromptpromptstype.md
   - docs/models/createpromptprovider.md
-  - docs/models/createpromptquality.md
   - docs/models/createpromptreasoningeffort.md
   - docs/models/createpromptrequestbody.md
   - docs/models/createpromptresponsebody.md
@@ -205,25 +212,31 @@ generatedFiles:
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
   - docs/models/deploymentcreatemetric23.md
+  - docs/models/deploymentcreatemetric24.md
   - docs/models/deploymentcreatemetric2deploymentsmetrics1.md
   - docs/models/deploymentcreatemetric2deploymentsmetrics2.md
   - docs/models/deploymentcreatemetric2deploymentsmetrics3.md
+  - docs/models/deploymentcreatemetric2deploymentsmetrics4.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsdetail.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsfile.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsformat.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsimageurl.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsinputaudio.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrefusalcontentpart.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices3content4type.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices3contenttype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices3type.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices4contenttype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoices4type.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodychoicestype.md
+  - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodymessages4type.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodymessagestype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequestrequestbodytype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricsrequesttype.md
   - docs/models/deploymentcreatemetric2deploymentsmetricstextcontentpart.md
   - docs/models/deploymentcreatemetric2deploymentsmetricstype.md
   - docs/models/deploymentcreatemetric2detail.md
+  - docs/models/deploymentcreatemetric2file.md
   - docs/models/deploymentcreatemetric2format.md
   - docs/models/deploymentcreatemetric2imageurl.md
   - docs/models/deploymentcreatemetric2inputaudio.md
@@ -265,14 +278,19 @@ generatedFiles:
   - docs/models/deploymentgetconfig21.md
   - docs/models/deploymentgetconfig22.md
   - docs/models/deploymentgetconfig23.md
+  - docs/models/deploymentgetconfig24.md
   - docs/models/deploymentgetconfig2deployments1.md
   - docs/models/deploymentgetconfig2deployments2.md
   - docs/models/deploymentgetconfig2deployments3.md
+  - docs/models/deploymentgetconfig2deployments4.md
   - docs/models/deploymentgetconfig2deploymentsdetail.md
+  - docs/models/deploymentgetconfig2deploymentsfile.md
   - docs/models/deploymentgetconfig2deploymentsformat.md
   - docs/models/deploymentgetconfig2deploymentsimageurl.md
   - docs/models/deploymentgetconfig2deploymentsinputaudio.md
   - docs/models/deploymentgetconfig2deploymentsrefusalcontentpart.md
+  - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages3content4type.md
+  - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages3contenttype.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages3type.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages4contenttype.md
   - docs/models/deploymentgetconfig2deploymentsrequestrequestbodymessages4type.md
@@ -289,6 +307,7 @@ generatedFiles:
   - docs/models/deploymentgetconfig2deploymentstextcontentpart.md
   - docs/models/deploymentgetconfig2deploymentstype.md
   - docs/models/deploymentgetconfig2detail.md
+  - docs/models/deploymentgetconfig2file.md
   - docs/models/deploymentgetconfig2format.md
   - docs/models/deploymentgetconfig2imageurl.md
   - docs/models/deploymentgetconfig2inputaudio.md
@@ -340,7 +359,6 @@ generatedFiles:
   - docs/models/deploymentgetconfigprefixmessagesdeploymentsrequestrole.md
   - docs/models/deploymentgetconfigprefixmessagesdeploymentsrole.md
   - docs/models/deploymentgetconfigprefixmessagesrole.md
-  - docs/models/deploymentgetconfigquality.md
   - docs/models/deploymentgetconfigreasoningeffort.md
   - docs/models/deploymentgetconfigrequestbody.md
   - docs/models/deploymentgetconfigresponsebody.md
@@ -372,12 +390,14 @@ generatedFiles:
   - docs/models/deployments2deploymentsresponsetype.md
   - docs/models/deployments2deploymentstype.md
   - docs/models/deployments2imageurl.md
+  - docs/models/deployments2messages3content4type.md
   - docs/models/deployments2messages3contenttype.md
   - docs/models/deployments2messages3type.md
   - docs/models/deployments2messages4contenttype.md
   - docs/models/deployments2messages4type.md
   - docs/models/deployments2messagestype.md
   - docs/models/deployments2prefixmessages3type.md
+  - docs/models/deployments2prefixmessages4contenttype.md
   - docs/models/deployments2prefixmessages4type.md
   - docs/models/deployments2prefixmessagestype.md
   - docs/models/deployments2type.md
@@ -408,7 +428,6 @@ generatedFiles:
   - docs/models/deploymentsprefixmessagesrole.md
   - docs/models/deploymentspromptconfig.md
   - docs/models/deploymentsprovider.md
-  - docs/models/deploymentsquality.md
   - docs/models/deploymentsreasoningeffort.md
   - docs/models/deploymentsrequest.md
   - docs/models/deploymentsresponsebody.md
@@ -424,25 +443,31 @@ generatedFiles:
   - docs/models/deploymentstream21.md
   - docs/models/deploymentstream22.md
   - docs/models/deploymentstream23.md
+  - docs/models/deploymentstream24.md
   - docs/models/deploymentstream2deployments1.md
   - docs/models/deploymentstream2deployments2.md
   - docs/models/deploymentstream2deployments3.md
+  - docs/models/deploymentstream2deployments4.md
   - docs/models/deploymentstream2deploymentsdetail.md
+  - docs/models/deploymentstream2deploymentsfile.md
   - docs/models/deploymentstream2deploymentsformat.md
   - docs/models/deploymentstream2deploymentsimageurl.md
   - docs/models/deploymentstream2deploymentsinputaudio.md
   - docs/models/deploymentstream2deploymentsrefusalcontentpart.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodymessages3content4type.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodymessages3contenttype.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodymessages3type.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodymessages4contenttype.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodymessages4type.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodymessagestype.md
+  - docs/models/deploymentstream2deploymentsrequestrequestbodyprefixmessages4type.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodyprefixmessagestype.md
   - docs/models/deploymentstream2deploymentsrequestrequestbodytype.md
   - docs/models/deploymentstream2deploymentsrequesttype.md
   - docs/models/deploymentstream2deploymentstextcontentpart.md
   - docs/models/deploymentstream2deploymentstype.md
   - docs/models/deploymentstream2detail.md
+  - docs/models/deploymentstream2file.md
   - docs/models/deploymentstream2format.md
   - docs/models/deploymentstream2imageurl.md
   - docs/models/deploymentstream2inputaudio.md
@@ -528,10 +553,12 @@ generatedFiles:
   - docs/models/filelistpurpose.md
   - docs/models/filelistrequest.md
   - docs/models/filelistresponsebody.md
+  - docs/models/fileuploadfile.md
   - docs/models/fileuploadpurpose.md
   - docs/models/fileuploadrequestbody.md
   - docs/models/fileuploadresponsebody.md
   - docs/models/format_.md
+  - docs/models/four.md
   - docs/models/function.md
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
@@ -554,7 +581,6 @@ generatedFiles:
   - docs/models/getallpromptspromptconfig.md
   - docs/models/getallpromptspromptstype.md
   - docs/models/getallpromptsprovider.md
-  - docs/models/getallpromptsquality.md
   - docs/models/getallpromptsreasoningeffort.md
   - docs/models/getallpromptsrequest.md
   - docs/models/getallpromptsresponsebody.md
@@ -596,7 +622,6 @@ generatedFiles:
   - docs/models/getonepromptpromptconfig.md
   - docs/models/getonepromptpromptstype.md
   - docs/models/getonepromptprovider.md
-  - docs/models/getonepromptquality.md
   - docs/models/getonepromptreasoningeffort.md
   - docs/models/getonepromptrequest.md
   - docs/models/getonepromptresponsebody.md
@@ -629,7 +654,6 @@ generatedFiles:
   - docs/models/getpromptversionpromptconfig.md
   - docs/models/getpromptversionpromptsresponsebody.md
   - docs/models/getpromptversionprovider.md
-  - docs/models/getpromptversionquality.md
   - docs/models/getpromptversionreasoningeffort.md
   - docs/models/getpromptversionrequest.md
   - docs/models/getpromptversionresponsebody.md
@@ -691,6 +715,10 @@ generatedFiles:
   - docs/models/listknowledgebasesresponsebody.md
   - docs/models/listknowledgebasesretrievalsettings.md
   - docs/models/listknowledgebasesretrievaltype.md
+  - docs/models/listmodelsdata.md
+  - docs/models/listmodelsobject.md
+  - docs/models/listmodelsresponsebody.md
+  - docs/models/listmodelstype.md
   - docs/models/listpromptversions21.md
   - docs/models/listpromptversions22.md
   - docs/models/listpromptversions2imageurl.md
@@ -711,7 +739,6 @@ generatedFiles:
   - docs/models/listpromptversionsphotorealversion.md
   - docs/models/listpromptversionspromptconfig.md
   - docs/models/listpromptversionsprovider.md
-  - docs/models/listpromptversionsquality.md
   - docs/models/listpromptversionsreasoningeffort.md
   - docs/models/listpromptversionsrequest.md
   - docs/models/listpromptversionsresponsebody.md
@@ -750,6 +777,7 @@ generatedFiles:
   - docs/models/modeltype.md
   - docs/models/object.md
   - docs/models/one.md
+  - docs/models/ownedby.md
   - docs/models/parameters.md
   - docs/models/performance.md
   - docs/models/photorealversion.md
@@ -768,7 +796,6 @@ generatedFiles:
   - docs/models/promptconfig.md
   - docs/models/provider.md
   - docs/models/purpose.md
-  - docs/models/quality.md
   - docs/models/queryparamstatus.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
@@ -820,7 +847,9 @@ generatedFiles:
   - docs/models/two1.md
   - docs/models/two2.md
   - docs/models/two3.md
+  - docs/models/two4.md
   - docs/models/twodetail.md
+  - docs/models/twofile.md
   - docs/models/twoformat.md
   - docs/models/twoimageurl.md
   - docs/models/twoinputaudio.md
@@ -914,7 +943,6 @@ generatedFiles:
   - docs/models/updatepromptpromptsphotorealversion.md
   - docs/models/updatepromptpromptspromptconfig.md
   - docs/models/updatepromptpromptsprovider.md
-  - docs/models/updatepromptpromptsquality.md
   - docs/models/updatepromptpromptsreasoningeffort.md
   - docs/models/updatepromptpromptsresponsebody.md
   - docs/models/updatepromptpromptsresponseformat.md
@@ -924,7 +952,6 @@ generatedFiles:
   - docs/models/updatepromptpromptstype.md
   - docs/models/updatepromptpromptsusecases.md
   - docs/models/updatepromptprovider.md
-  - docs/models/updatepromptquality.md
   - docs/models/updatepromptreasoningeffort.md
   - docs/models/updatepromptrequest.md
   - docs/models/updatepromptrequestbody.md
@@ -955,6 +982,7 @@ generatedFiles:
   - docs/sdks/files/README.md
   - docs/sdks/knowledge/README.md
   - docs/sdks/metrics/README.md
+  - docs/sdks/models/README.md
   - docs/sdks/orq/README.md
   - docs/sdks/prompts/README.md
   - docs/sdks/remoteconfigs/README.md
@@ -984,9 +1012,11 @@ generatedFiles:
   - src/orq_ai_sdk/models/cleardatasetop.py
   - src/orq_ai_sdk/models/createchunkop.py
   - src/orq_ai_sdk/models/createcontactop.py
+  - src/orq_ai_sdk/models/createdatasetexperimentop.py
   - src/orq_ai_sdk/models/createdatasetitemop.py
   - src/orq_ai_sdk/models/createdatasetop.py
   - src/orq_ai_sdk/models/createdatasourceop.py
+  - src/orq_ai_sdk/models/createdeploymentexperimentop.py
   - src/orq_ai_sdk/models/createfeedbackop.py
   - src/orq_ai_sdk/models/createknowledgeop.py
   - src/orq_ai_sdk/models/createpromptop.py
@@ -1019,6 +1049,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/listdatasetsop.py
   - src/orq_ai_sdk/models/listdatasourcesop.py
   - src/orq_ai_sdk/models/listknowledgebasesop.py
+  - src/orq_ai_sdk/models/listmodelsop.py
   - src/orq_ai_sdk/models/listpromptversionsop.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
   - src/orq_ai_sdk/models/retrievedatapointop.py
@@ -1031,6 +1062,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/updatedatasourceop.py
   - src/orq_ai_sdk/models/updateknowledgeop.py
   - src/orq_ai_sdk/models/updatepromptop.py
+  - src/orq_ai_sdk/models_.py
   - src/orq_ai_sdk/prompts.py
   - src/orq_ai_sdk/py.typed
   - src/orq_ai_sdk/remoteconfigs.py
@@ -1151,7 +1183,7 @@ examples:
   CreatePrompt:
     speakeasy-default-create-prompt:
       requestBody:
-        application/json: {"display_name": "Jed6", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Customer Service/Billing/Refund"}
+        application/json: {"display_name": "Jed6", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "system", "content": [{"type": "image_url", "image_url": {"url": "https://well-worn-formation.biz"}}, {"type": "text", "text": "<value>"}, {"type": "text", "text": "<value>"}]}, {"role": "assistant", "content": "<value>"}]}, "path": "Default"}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "5211a509-a308-40a8-9e77-4c2becc37691", "created": "<value>", "updated": "<value>", "display_name": "Jennifer.Walsh12", "prompt_config": {"messages": [{"role": "tool", "content": "<value>"}, {"role": "exception", "content": "<value>"}]}}
@@ -1169,7 +1201,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"path": "Customer Service/Billing/Refund"}
+        application/json: {"path": "Default"}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "created": "<value>", "updated": "<value>", "display_name": "Merlin_Harber", "prompt_config": {"messages": [{"role": "system", "content": "<value>"}, {"role": "user", "content": []}, {"role": "tool", "content": "<value>"}]}}
@@ -1390,7 +1422,7 @@ examples:
   CreateDataset:
     speakeasy-default-create-dataset:
       requestBody:
-        application/json: {"display_name": "Jed6", "path": "Customer Service/Billing/Refund"}
+        application/json: {"display_name": "Jed6", "path": "Default"}
       responses:
         "200":
           application/json: {"_id": "f021cd9c-f540-4331-b521-1a509a3080a8", "display_name": "Izabella13", "project_id": "ecc37691-775e-4024-9985-613de0ee803d", "workspace_id": "6a1df943-6bfd-4394-a947-98bc19d4c51e", "metadata": {"total_versions": 5694.59, "datapoints_count": 8142.22}, "updated": "2025-04-18T08:27:42.154Z"}
@@ -1410,7 +1442,7 @@ examples:
         path:
           dataset_id: "<id>"
       requestBody:
-        application/json: {"path": "Customer Service/Billing/Refund"}
+        application/json: {"path": "Default"}
       responses:
         "200":
           application/json: {"_id": "d95fa7f0-e743-42ce-b47c-b60cc78135dd", "display_name": "Merlin_Harber", "project_id": "c125a190-71c5-4562-9af6-646dadb3a343", "workspace_id": "a2450617-e6bb-4057-99d6-f9464a3158c8", "metadata": {"total_versions": 4160.23, "datapoints_count": 587.04}, "updated": "2025-04-18T08:27:42.154Z"}
@@ -1490,14 +1522,14 @@ examples:
           limit: 10
       responses:
         "200":
-          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Golf", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Mercielago", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Beetle", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}], "has_more": true}
+          application/json: {"object": "list", "data": [{"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Golf", "domain_id": "<id>", "path": "Default", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Mercielago", "domain_id": "<id>", "path": "Default", "updated": "<value>"}, {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Beetle", "domain_id": "<id>", "path": "Default", "updated": "<value>"}], "has_more": true}
   CreateKnowledge:
     speakeasy-default-create-knowledge:
       requestBody:
-        application/json: {"key": "<key>", "embedding_model": "<value>", "path": "Customer Service/Billing/Refund"}
+        application/json: {"key": "<key>", "embedding_model": "<value>", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fiesta", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Fiesta", "domain_id": "<id>", "path": "Default", "updated": "<value>"}
   GetOneKnowledge:
     speakeasy-default-get-one-knowledge:
       parameters:
@@ -1505,17 +1537,17 @@ examples:
           knowledge_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Durango", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Durango", "domain_id": "<id>", "path": "Default", "updated": "<value>"}
   UpdateKnowledge:
     speakeasy-default-update-knowledge:
       parameters:
         path:
           knowledge_id: "<id>"
       requestBody:
-        application/json: {"path": "Customer Service/Billing/Refund"}
+        application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Sentra", "domain_id": "<id>", "path": "Customer Service/Billing/Refund", "updated": "<value>"}
+          application/json: {"_id": "<id>", "created": "<value>", "key": "<key>", "model": "Sentra", "domain_id": "<id>", "path": "Default", "updated": "<value>"}
   DeleteKnowledge:
     speakeasy-default-delete-knowledge:
       parameters:
@@ -1654,5 +1686,30 @@ examples:
       responses:
         "200":
           application/json: {"object": "list", "data": [{"_id": "<id>", "external_id": "<id>", "duration": 5472.72, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 1777.06, "output_cost": 2297.16, "total_cost": 1528.37}, "usage": {"prompt_tokens": 6355.32, "completion_tokens": 6393.87, "total_tokens": 175.77}, "traces_count": 7183.03, "tags": [], "workspace_id": "<id>"}, {"_id": "<id>", "external_id": "<id>", "duration": 685.04, "contact_ids": ["<value>", "<value>"], "billing": {"input_cost": 5098.83, "output_cost": 6339.11, "total_cost": 74.68}, "usage": {"prompt_tokens": 546.07, "completion_tokens": 3677.45, "total_tokens": 4857.29}, "traces_count": 732.27, "tags": ["<value>", "<value>", "<value>"], "workspace_id": "<id>"}, {"_id": "<id>", "external_id": "<id>", "duration": 5674.45, "contact_ids": ["<value>", "<value>", "<value>"], "billing": {"input_cost": 4900.78, "output_cost": 516.81, "total_cost": 3225.96}, "usage": {"prompt_tokens": 8605.96, "completion_tokens": 182.78, "total_tokens": 8971.96}, "traces_count": 4243.67, "tags": ["<value>", "<value>", "<value>"], "workspace_id": "<id>"}], "has_more": true}
+  CreateDeploymentExperiment:
+    speakeasy-default-create-deployment-experiment:
+      parameters:
+        path:
+          deployment_key: "<value>"
+      requestBody:
+        application/json: {"experiment_key": "<value>", "path": "Default/Experiments", "dataset_id": "<id>", "type": "deployment_experiment"}
+      responses:
+        "200":
+          application/json: {"url": "https://lasting-fisherman.org/", "experiment_id": "<id>", "experiment_run_id": "<id>"}
+  ListModels:
+    speakeasy-default-list-models:
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"id": "<id>", "created": 5472.72, "type": "stt", "owned_by": "vendor"}, {"id": "<id>", "created": 2297.16, "type": "completion", "owned_by": "workspace"}, {"id": "<id>", "created": 6393.87, "type": "chat", "owned_by": "workspace"}], "has_more": true}
+  CreateDatasetExperiment:
+    speakeasy-default-create-dataset-experiment:
+      parameters:
+        path:
+          dataset_id: "<id>"
+      requestBody:
+        application/json: {"experiment_key": "<value>", "path": "Default/Experiments", "type": "dataset_experiment"}
+      responses:
+        "200":
+          application/json: {"url": "https://lasting-fisherman.org/", "experiment_id": "<id>", "experiment_run_id": "<id>"}
 examplesVersion: 1.0.1
 generatedTests: {}

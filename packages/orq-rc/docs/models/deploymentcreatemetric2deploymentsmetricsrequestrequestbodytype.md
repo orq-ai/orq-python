@@ -1,10 +1,10 @@
 # DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
 
-The type of the content part.
+The type of the content part. Always `file`.
 
 
 ## Values
 
 | Name   | Value  |
 | ------ | ------ |
-| `TEXT` | text   |
+| `FILE` | file   |
