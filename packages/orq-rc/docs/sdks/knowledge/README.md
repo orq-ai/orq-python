@@ -411,7 +411,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.update_datasource(knowledge_id="<id>", datasource_id="<id>", display_name="Haylee_Braun")
+    res = orq.knowledge.update_datasource(knowledge_id="<id>", datasource_id="<id>", display_name="Tony_Roberts")
 
     assert res is not None
 

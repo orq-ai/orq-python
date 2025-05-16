@@ -44,8 +44,10 @@ python:
   inputModelSuffix: input
   maxMethodParams: 15
   methodArguments: infer-optional-args
+  moduleName: ""
   outputModelSuffix: output
   packageName: orq-ai-sdk
+  pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
   templateVersion: v2
