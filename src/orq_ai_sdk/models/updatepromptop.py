@@ -426,6 +426,7 @@ class UpdatePromptMessagesTypedDict(TypedDict):
     content: UpdatePromptContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[UpdatePromptToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class UpdatePromptMessages(BaseModel):
@@ -436,6 +437,8 @@ class UpdatePromptMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[UpdatePromptToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class UpdatePromptPromptConfigTypedDict(TypedDict):
@@ -1091,6 +1094,7 @@ class UpdatePromptPromptsMessagesTypedDict(TypedDict):
     content: UpdatePromptPromptsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[UpdatePromptPromptsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class UpdatePromptPromptsMessages(BaseModel):
@@ -1101,6 +1105,8 @@ class UpdatePromptPromptsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[UpdatePromptPromptsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class UpdatePromptPromptsPromptConfigTypedDict(TypedDict):

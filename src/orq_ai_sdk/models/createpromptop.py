@@ -421,6 +421,7 @@ class CreatePromptMessagesTypedDict(TypedDict):
     content: CreatePromptContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[CreatePromptToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class CreatePromptMessages(BaseModel):
@@ -431,6 +432,8 @@ class CreatePromptMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[CreatePromptToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class PromptConfigTypedDict(TypedDict):
@@ -1017,6 +1020,7 @@ class CreatePromptPromptsMessagesTypedDict(TypedDict):
     content: CreatePromptPromptsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[CreatePromptPromptsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class CreatePromptPromptsMessages(BaseModel):
@@ -1027,6 +1031,8 @@ class CreatePromptPromptsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[CreatePromptPromptsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class CreatePromptPromptConfigTypedDict(TypedDict):

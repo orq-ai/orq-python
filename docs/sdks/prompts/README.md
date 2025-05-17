@@ -72,31 +72,12 @@ with Orq(
 ) as orq:
 
     res = orq.prompts.create(request={
-        "display_name": "Jed6",
+        "display_name": "Raymundo83",
         "prompt_config": {
             "messages": [
                 {
-                    "role": "system",
+                    "role": "assistant",
                     "content": "<value>",
-                },
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "image_url",
-                            "image_url": {
-                                "url": "https://well-worn-formation.biz",
-                            },
-                        },
-                        {
-                            "type": "text",
-                            "text": "<value>",
-                        },
-                        {
-                            "type": "text",
-                            "text": "<value>",
-                        },
-                    ],
                 },
                 {
                     "role": "assistant",

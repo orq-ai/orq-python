@@ -140,6 +140,7 @@ class UpdateDatapointMessagesTypedDict(TypedDict):
     content: UpdateDatapointContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[UpdateDatapointToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class UpdateDatapointMessages(BaseModel):
@@ -150,6 +151,8 @@ class UpdateDatapointMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[UpdateDatapointToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class UpdateDatapointRequestBodyTypedDict(TypedDict):
@@ -323,6 +326,7 @@ class UpdateDatapointDatasetsMessagesTypedDict(TypedDict):
     content: UpdateDatapointDatasetsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[UpdateDatapointDatasetsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class UpdateDatapointDatasetsMessages(BaseModel):
@@ -333,6 +337,8 @@ class UpdateDatapointDatasetsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[UpdateDatapointDatasetsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class UpdateDatapointResponseBodyTypedDict(TypedDict):
@@ -388,5 +394,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-04-23T20:27:15.560Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-17T08:03:09.891Z")
     r"""The date and time the resource was last updated"""

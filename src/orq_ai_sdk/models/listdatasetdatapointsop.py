@@ -182,6 +182,7 @@ class ListDatasetDatapointsMessagesTypedDict(TypedDict):
     content: ListDatasetDatapointsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[ListDatasetDatapointsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class ListDatasetDatapointsMessages(BaseModel):
@@ -192,6 +193,8 @@ class ListDatasetDatapointsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[ListDatasetDatapointsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class ListDatasetDatapointsDataTypedDict(TypedDict):
@@ -243,7 +246,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-04-23T20:27:15.560Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-17T08:03:09.891Z")
     r"""The date and time the resource was last updated"""
 
 

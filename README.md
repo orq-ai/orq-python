@@ -12,7 +12,7 @@ Developer-friendly & type-safe Python SDK specifically catered to leverage *orq-
 <!-- Start Summary [summary] -->
 ## Summary
 
-[Dev] orq.ai API: orq.ai API documentation
+orq.ai API: orq.ai API documentation
 
 For more information about the API: [orq.ai Documentation](https://docs.orq.ai)
 <!-- End Summary [summary] -->
@@ -252,6 +252,10 @@ with Orq(
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
+
+### [models](docs/sdks/models/README.md)
+
+* [list](docs/sdks/models/README.md#list) - List models
 
 
 ### [prompts](docs/sdks/prompts/README.md)

@@ -141,6 +141,7 @@ class BulkCreateDatapointsMessagesTypedDict(TypedDict):
     content: BulkCreateDatapointsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[BulkCreateDatapointsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class BulkCreateDatapointsMessages(BaseModel):
@@ -151,6 +152,8 @@ class BulkCreateDatapointsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[BulkCreateDatapointsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class ItemsTypedDict(TypedDict):
@@ -330,6 +333,7 @@ class BulkCreateDatapointsDatasetsMessagesTypedDict(TypedDict):
     content: BulkCreateDatapointsDatasetsContentTypedDict
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
     tool_calls: NotRequired[List[BulkCreateDatapointsDatasetsToolCallsTypedDict]]
+    tool_call_id: NotRequired[str]
 
 
 class BulkCreateDatapointsDatasetsMessages(BaseModel):
@@ -340,6 +344,8 @@ class BulkCreateDatapointsDatasetsMessages(BaseModel):
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
     tool_calls: Optional[List[BulkCreateDatapointsDatasetsToolCalls]] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class ResponseBodyTypedDict(TypedDict):
@@ -391,5 +397,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-04-23T20:27:15.560Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-17T08:03:09.891Z")
     r"""The date and time the resource was last updated"""

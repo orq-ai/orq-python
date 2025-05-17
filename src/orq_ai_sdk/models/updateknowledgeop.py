@@ -326,6 +326,8 @@ class UpdateKnowledgeResponseBodyTypedDict(TypedDict):
     r"""The unique key of the knowledge base."""
     model: str
     r"""The embeddings model used for the knowledge base."""
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
     updated: str
     r"""The last update date of the knowledge base."""
     description: NotRequired[str]
@@ -352,6 +354,9 @@ class UpdateKnowledgeResponseBody(BaseModel):
 
     model: str
     r"""The embeddings model used for the knowledge base."""
+
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
 
     updated: str
     r"""The last update date of the knowledge base."""
