@@ -86,6 +86,14 @@ class ListChunksRequest(BaseModel):
 
 ListChunksObject = Literal["list"]
 
+ListChunksMetadataTypedDict = TypeAliasType(
+    "ListChunksMetadataTypedDict", Union[str, float, bool]
+)
+
+
+ListChunksMetadata = TypeAliasType("ListChunksMetadata", Union[str, float, bool])
+
+
 ListChunksStatus = Literal["pending", "processing", "completed", "failed", "queued"]
 r"""The status of the chunk"""
 
@@ -103,8 +111,8 @@ class ListChunksDataTypedDict(TypedDict):
     r"""The date and time the chunk was created"""
     updated: str
     r"""The date and time the chunk was updated"""
-    metadata: NotRequired[Dict[str, str]]
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: NotRequired[Dict[str, ListChunksMetadataTypedDict]]
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
     created_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who created the chunk"""
     update_by_id: NotRequired[Nullable[str]]
@@ -130,8 +138,8 @@ class ListChunksData(BaseModel):
     updated: str
     r"""The date and time the chunk was updated"""
 
-    metadata: Optional[Dict[str, str]] = None
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: Optional[Dict[str, ListChunksMetadata]] = None
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
 
     created_by_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the user who created the chunk"""

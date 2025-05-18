@@ -281,6 +281,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -301,6 +307,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -341,6 +348,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentGetConfigThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentGetConfigKnowledgeFilter]
             ),
         )
 
@@ -455,6 +465,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -475,6 +491,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -515,6 +532,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentGetConfigThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentGetConfigKnowledgeFilter]
             ),
         )
 
@@ -609,6 +629,9 @@ class DeploymentsSDK(BaseSDK):
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
         thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        knowledge_filter: Optional[
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -629,6 +652,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -667,6 +691,9 @@ class DeploymentsSDK(BaseSDK):
                 invoke_options, Optional[models.InvokeOptions]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.KnowledgeFilter]
+            ),
         )
 
         req = self._build_request(
@@ -764,6 +791,9 @@ class DeploymentsSDK(BaseSDK):
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
         thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        knowledge_filter: Optional[
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -784,6 +814,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -822,6 +853,9 @@ class DeploymentsSDK(BaseSDK):
                 invoke_options, Optional[models.InvokeOptions]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.KnowledgeFilter]
+            ),
         )
 
         req = self._build_request_async(
@@ -936,6 +970,12 @@ class DeploymentsSDK(BaseSDK):
         thread: Optional[
             Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -956,6 +996,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -995,6 +1036,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentStreamThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentStreamKnowledgeFilter]
             ),
         )
 
@@ -1113,6 +1157,12 @@ class DeploymentsSDK(BaseSDK):
         thread: Optional[
             Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1133,6 +1183,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1172,6 +1223,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentStreamThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentStreamKnowledgeFilter]
             ),
         )
 

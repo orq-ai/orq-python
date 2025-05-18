@@ -1,10 +1,23 @@
 # CreateChunkMetadata
 
-Metadata of the chunk
 
+## Supported Types
 
-## Fields
+### `str`
 
-| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `page_number`                                                                            | *Optional[int]*                                                                          | :heavy_minus_sign:                                                                       | In case you are using PDFs, Word, PowerPoint, etc. this is the page number of the chunk. |
+```python
+value: str = /* values here */
+```
+
+### `float`
+
+```python
+value: float = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

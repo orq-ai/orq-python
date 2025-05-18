@@ -10,6 +10,7 @@
 * [retrieve](#retrieve) - Retrieves a knowledge base
 * [update](#update) - Updates a knowledge
 * [delete](#delete) - Deletes a knowledge
+* [search](#search) - Search knowledge base
 * [list_datasources](#list_datasources) - List all datasources
 * [create_datasource](#create_datasource) - Create a new datasource
 * [retrieve_datasource](#retrieve_datasource) - Retrieve a datasource
@@ -222,6 +223,52 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## search
+
+Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores.
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.search(knowledge_id="<id>", query="<value>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `knowledge_id`                                                                                                   | *str*                                                                                                            | :heavy_check_mark:                                                                                               | The unique identifier or key of the knowledge base                                                               |
+| `query`                                                                                                          | *str*                                                                                                            | :heavy_check_mark:                                                                                               | The query to use to search the knowledge base                                                                    |
+| `top_k`                                                                                                          | *Optional[int]*                                                                                                  | :heavy_minus_sign:                                                                                               | The number of results to return. If not provided, will default to the knowledge base configured `top_k`          |
+| `threshold`                                                                                                      | *Optional[float]*                                                                                                | :heavy_minus_sign:                                                                                               | The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold` |
+| `filter_`                                                                                                        | [Optional[models.Filter]](../../models/filter_.md)                                                               | :heavy_minus_sign:                                                                                               | The filter to apply to the search                                                                                |
+| `search_options`                                                                                                 | [Optional[models.SearchOptions]](../../models/searchoptions.md)                                                  | :heavy_minus_sign:                                                                                               | Additional search options                                                                                        |
+| `retries`                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                 | :heavy_minus_sign:                                                                                               | Configuration to override the default retry behavior of the client.                                              |
+
+### Response
+
+**[models.SearchKnowledgeResponseBody](../../models/searchknowledgeresponsebody.md)**
 
 ### Errors
 
@@ -562,7 +609,7 @@ with Orq(
 | `knowledge_id`                                                                                                          | *str*                                                                                                                   | :heavy_check_mark:                                                                                                      | The unique identifier of the knowledge base                                                                             |
 | `text`                                                                                                                  | *Optional[str]*                                                                                                         | :heavy_minus_sign:                                                                                                      | The text content of the chunk                                                                                           |
 | `embedding`                                                                                                             | List[*float*]                                                                                                           | :heavy_minus_sign:                                                                                                      | The embedding vector of the chunk. If not provided the chunk will be embedded with the knowledge base embeddings model. |
-| `metadata`                                                                                                              | [Optional[models.UpdateChunkMetadata]](../../models/updatechunkmetadata.md)                                             | :heavy_minus_sign:                                                                                                      | Metadata of the chunk                                                                                                   |
+| `metadata`                                                                                                              | Dict[str, [models.UpdateChunkMetadata](../../models/updatechunkmetadata.md)]                                            | :heavy_minus_sign:                                                                                                      | Metadata of the chunk                                                                                                   |
 | `retries`                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                        | :heavy_minus_sign:                                                                                                      | Configuration to override the default retry behavior of the client.                                                     |
 
 ### Response

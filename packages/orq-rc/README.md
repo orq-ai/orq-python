@@ -244,6 +244,7 @@ with Orq(
 * [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
 * [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
 * [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
+* [search](docs/sdks/knowledge/README.md#search) - Search knowledge base
 * [list_datasources](docs/sdks/knowledge/README.md#list_datasources) - List all datasources
 * [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
 * [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource

@@ -1,0 +1,10 @@
+# DeploymentsDollarAndDollarNin
+
+Not in
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `dollar_nin`                                                       | List[[models.DollarAndDollarNin](../models/dollaranddollarnin.md)] | :heavy_check_mark:                                                 | N/A                                                                |

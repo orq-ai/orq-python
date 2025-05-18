@@ -11,8 +11,8 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Dict, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import Dict, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class GetOneChunkRequestTypedDict(TypedDict):
@@ -41,6 +41,14 @@ class GetOneChunkRequest(BaseModel):
     r"""The unique identifier of the knowledge base"""
 
 
+GetOneChunkMetadataTypedDict = TypeAliasType(
+    "GetOneChunkMetadataTypedDict", Union[str, float, bool]
+)
+
+
+GetOneChunkMetadata = TypeAliasType("GetOneChunkMetadata", Union[str, float, bool])
+
+
 GetOneChunkStatus = Literal["pending", "processing", "completed", "failed", "queued"]
 r"""The status of the chunk"""
 
@@ -60,8 +68,8 @@ class GetOneChunkResponseBodyTypedDict(TypedDict):
     r"""The date and time the chunk was created"""
     updated: str
     r"""The date and time the chunk was updated"""
-    metadata: NotRequired[Dict[str, str]]
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: NotRequired[Dict[str, GetOneChunkMetadataTypedDict]]
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
     created_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who created the chunk"""
     update_by_id: NotRequired[Nullable[str]]
@@ -89,8 +97,8 @@ class GetOneChunkResponseBody(BaseModel):
     updated: str
     r"""The date and time the chunk was updated"""
 
-    metadata: Optional[Dict[str, str]] = None
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: Optional[Dict[str, GetOneChunkMetadata]] = None
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
 
     created_by_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the user who created the chunk"""

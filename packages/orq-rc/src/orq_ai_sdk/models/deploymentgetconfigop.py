@@ -1084,6 +1084,614 @@ class DeploymentGetConfigThread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
+class DeploymentGetConfigDollarOrDollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class DeploymentGetConfigDollarOrDollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentGetConfigDollarOrDollarNinTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarOrDollarNin = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentGetConfigDollarOrDollarNinTypedDict]
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentGetConfigDollarOrDollarNin], pydantic.Field(alias="$nin")
+    ]
+
+
+DeploymentGetConfigDollarOrDollarInTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarOrDollarIn = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentGetConfigDollarOrDollarInTypedDict]
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentGetConfigDollarOrDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class DeploymentGetConfigDollarOrDollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class DeploymentGetConfigDollarOrDollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class DeploymentGetConfigDollarOrDollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class DeploymentGetConfigDollarOrDollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class DeploymentGetConfigDollarOrDollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class DeploymentGetConfigDollarOrDollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class DeploymentGetConfigDollarOr3TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class DeploymentGetConfigDollarOr3(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentGetConfigDollarOrDollarNeTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarOrDollarNe = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentGetConfigDollarOrDollarNeTypedDict
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentGetConfigDollarOrDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentGetConfigDollarOrDollarEqTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarOrDollarEq = TypeAliasType(
+    "DeploymentGetConfigDollarOrDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentGetConfigDollarOrDollarEqTypedDict
+
+
+class DeploymentGetConfigDollarOrDeploymentsDollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentGetConfigDollarOrDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+DeploymentGetConfigKnowledgeFilterDeploymentsDollarOrTypedDict = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsDollarOrTypedDict",
+    Union[
+        DeploymentGetConfigDollarOrDeploymentsDollarEqTypedDict,
+        DeploymentGetConfigDollarOrDeploymentsDollarNeTypedDict,
+        DeploymentGetConfigDollarOr3TypedDict,
+        DeploymentGetConfigDollarOrDollarGteTypedDict,
+        DeploymentGetConfigDollarOrDollarLtTypedDict,
+        DeploymentGetConfigDollarOrDollarLteTypedDict,
+        DeploymentGetConfigDollarOrDeploymentsDollarInTypedDict,
+        DeploymentGetConfigDollarOrDeploymentsDollarNinTypedDict,
+        DeploymentGetConfigDollarOrDollarExistsTypedDict,
+    ],
+)
+
+
+DeploymentGetConfigKnowledgeFilterDeploymentsDollarOr = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsDollarOr",
+    Union[
+        DeploymentGetConfigDollarOrDeploymentsDollarEq,
+        DeploymentGetConfigDollarOrDeploymentsDollarNe,
+        DeploymentGetConfigDollarOr3,
+        DeploymentGetConfigDollarOrDollarGte,
+        DeploymentGetConfigDollarOrDollarLt,
+        DeploymentGetConfigDollarOrDollarLte,
+        DeploymentGetConfigDollarOrDeploymentsDollarIn,
+        DeploymentGetConfigDollarOrDeploymentsDollarNin,
+        DeploymentGetConfigDollarOrDollarExists,
+    ],
+)
+
+
+class DeploymentGetConfigKnowledgeFilterDollarOrTypedDict(TypedDict):
+    r"""Or"""
+
+    dollar_or: List[
+        Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsDollarOrTypedDict]
+    ]
+
+
+class DeploymentGetConfigKnowledgeFilterDollarOr(BaseModel):
+    r"""Or"""
+
+    dollar_or: Annotated[
+        List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsDollarOr]],
+        pydantic.Field(alias="$or"),
+    ]
+
+
+class DeploymentGetConfigDollarAndDollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class DeploymentGetConfigDollarAndDollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentGetConfigDollarAndDollarNinTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarAndDollarNin = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentGetConfigDollarAndDollarNinTypedDict]
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentGetConfigDollarAndDollarNin], pydantic.Field(alias="$nin")
+    ]
+
+
+DeploymentGetConfigDollarAndDollarInTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarAndDollarIn = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentGetConfigDollarAndDollarInTypedDict]
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentGetConfigDollarAndDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class DeploymentGetConfigDollarAndDollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class DeploymentGetConfigDollarAndDollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class DeploymentGetConfigDollarAndDollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class DeploymentGetConfigDollarAndDollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class DeploymentGetConfigDollarAndDollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class DeploymentGetConfigDollarAndDollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class DeploymentGetConfigDollarAnd3TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class DeploymentGetConfigDollarAnd3(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentGetConfigDollarAndDollarNeTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarAndDollarNe = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentGetConfigDollarAndDollarNeTypedDict
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentGetConfigDollarAndDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentGetConfigDollarAndDollarEqTypedDict = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfigDollarAndDollarEq = TypeAliasType(
+    "DeploymentGetConfigDollarAndDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentGetConfigDollarAndDollarEqTypedDict
+
+
+class DeploymentGetConfigDollarAndDeploymentsDollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentGetConfigDollarAndDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+DeploymentGetConfigKnowledgeFilterDeploymentsDollarAndTypedDict = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsDollarAndTypedDict",
+    Union[
+        DeploymentGetConfigDollarAndDeploymentsDollarEqTypedDict,
+        DeploymentGetConfigDollarAndDeploymentsDollarNeTypedDict,
+        DeploymentGetConfigDollarAnd3TypedDict,
+        DeploymentGetConfigDollarAndDollarGteTypedDict,
+        DeploymentGetConfigDollarAndDollarLtTypedDict,
+        DeploymentGetConfigDollarAndDollarLteTypedDict,
+        DeploymentGetConfigDollarAndDeploymentsDollarInTypedDict,
+        DeploymentGetConfigDollarAndDeploymentsDollarNinTypedDict,
+        DeploymentGetConfigDollarAndDollarExistsTypedDict,
+    ],
+)
+
+
+DeploymentGetConfigKnowledgeFilterDeploymentsDollarAnd = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterDeploymentsDollarAnd",
+    Union[
+        DeploymentGetConfigDollarAndDeploymentsDollarEq,
+        DeploymentGetConfigDollarAndDeploymentsDollarNe,
+        DeploymentGetConfigDollarAnd3,
+        DeploymentGetConfigDollarAndDollarGte,
+        DeploymentGetConfigDollarAndDollarLt,
+        DeploymentGetConfigDollarAndDollarLte,
+        DeploymentGetConfigDollarAndDeploymentsDollarIn,
+        DeploymentGetConfigDollarAndDeploymentsDollarNin,
+        DeploymentGetConfigDollarAndDollarExists,
+    ],
+)
+
+
+class DeploymentGetConfigKnowledgeFilterDollarAndTypedDict(TypedDict):
+    r"""And"""
+
+    dollar_and: List[
+        Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsDollarAndTypedDict]
+    ]
+
+
+class DeploymentGetConfigKnowledgeFilterDollarAnd(BaseModel):
+    r"""And"""
+
+    dollar_and: Annotated[
+        List[Dict[str, DeploymentGetConfigKnowledgeFilterDeploymentsDollarAnd]],
+        pydantic.Field(alias="$and"),
+    ]
+
+
+class OneDollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class OneDollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentGetConfig1DeploymentsDollarNinTypedDict = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfig1DeploymentsDollarNin = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfig1DollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentGetConfig1DeploymentsDollarNinTypedDict]
+
+
+class DeploymentGetConfig1DollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentGetConfig1DeploymentsDollarNin], pydantic.Field(alias="$nin")
+    ]
+
+
+DeploymentGetConfig1DeploymentsDollarInTypedDict = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfig1DeploymentsDollarIn = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfig1DollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentGetConfig1DeploymentsDollarInTypedDict]
+
+
+class DeploymentGetConfig1DollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentGetConfig1DeploymentsDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class OneDollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class OneDollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class OneDollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class OneDollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class OneDollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class OneDollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class One3TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class One3(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentGetConfig1DeploymentsDollarNeTypedDict = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfig1DeploymentsDollarNe = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfig1DollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentGetConfig1DeploymentsDollarNeTypedDict
+
+
+class DeploymentGetConfig1DollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentGetConfig1DeploymentsDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentGetConfig1DeploymentsDollarEqTypedDict = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentGetConfig1DeploymentsDollarEq = TypeAliasType(
+    "DeploymentGetConfig1DeploymentsDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentGetConfig1DollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentGetConfig1DeploymentsDollarEqTypedDict
+
+
+class DeploymentGetConfig1DollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentGetConfig1DeploymentsDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+KnowledgeFilter1TypedDict = TypeAliasType(
+    "KnowledgeFilter1TypedDict",
+    Union[
+        DeploymentGetConfig1DollarEqTypedDict,
+        DeploymentGetConfig1DollarNeTypedDict,
+        One3TypedDict,
+        OneDollarGteTypedDict,
+        OneDollarLtTypedDict,
+        OneDollarLteTypedDict,
+        DeploymentGetConfig1DollarInTypedDict,
+        DeploymentGetConfig1DollarNinTypedDict,
+        OneDollarExistsTypedDict,
+    ],
+)
+
+
+KnowledgeFilter1 = TypeAliasType(
+    "KnowledgeFilter1",
+    Union[
+        DeploymentGetConfig1DollarEq,
+        DeploymentGetConfig1DollarNe,
+        One3,
+        OneDollarGte,
+        OneDollarLt,
+        OneDollarLte,
+        DeploymentGetConfig1DollarIn,
+        DeploymentGetConfig1DollarNin,
+        OneDollarExists,
+    ],
+)
+
+
+DeploymentGetConfigKnowledgeFilterTypedDict = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilterTypedDict",
+    Union[
+        DeploymentGetConfigKnowledgeFilterDollarAndTypedDict,
+        DeploymentGetConfigKnowledgeFilterDollarOrTypedDict,
+        Dict[str, KnowledgeFilter1TypedDict],
+    ],
+)
+r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
+
+
+DeploymentGetConfigKnowledgeFilter = TypeAliasType(
+    "DeploymentGetConfigKnowledgeFilter",
+    Union[
+        DeploymentGetConfigKnowledgeFilterDollarAnd,
+        DeploymentGetConfigKnowledgeFilterDollarOr,
+        Dict[str, KnowledgeFilter1],
+    ],
+)
+r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
+
+
 class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     key: str
     r"""The deployment key to invoke"""
@@ -1105,6 +1713,8 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
     invoke_options: NotRequired[DeploymentGetConfigInvokeOptionsTypedDict]
     thread: NotRequired[DeploymentGetConfigThreadTypedDict]
+    knowledge_filter: NotRequired[DeploymentGetConfigKnowledgeFilterTypedDict]
+    r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 class DeploymentGetConfigRequestBody(BaseModel):
@@ -1138,6 +1748,9 @@ class DeploymentGetConfigRequestBody(BaseModel):
     invoke_options: Optional[DeploymentGetConfigInvokeOptions] = None
 
     thread: Optional[DeploymentGetConfigThread] = None
+
+    knowledge_filter: Optional[DeploymentGetConfigKnowledgeFilter] = None
+    r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 DeploymentGetConfigType = Literal[

@@ -11,22 +11,16 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Dict, List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import Dict, List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class UpdateChunkMetadataTypedDict(TypedDict):
-    r"""Metadata of the chunk"""
-
-    page_number: NotRequired[int]
-    r"""In case you are using PDFs, Word, PowerPoint, etc. this is the page number of the chunk."""
+UpdateChunkMetadataTypedDict = TypeAliasType(
+    "UpdateChunkMetadataTypedDict", Union[str, float, bool]
+)
 
 
-class UpdateChunkMetadata(BaseModel):
-    r"""Metadata of the chunk"""
-
-    page_number: Optional[int] = None
-    r"""In case you are using PDFs, Word, PowerPoint, etc. this is the page number of the chunk."""
+UpdateChunkMetadata = TypeAliasType("UpdateChunkMetadata", Union[str, float, bool])
 
 
 class UpdateChunkRequestBodyTypedDict(TypedDict):
@@ -34,7 +28,7 @@ class UpdateChunkRequestBodyTypedDict(TypedDict):
     r"""The text content of the chunk"""
     embedding: NotRequired[List[float]]
     r"""The embedding vector of the chunk. If not provided the chunk will be embedded with the knowledge base embeddings model."""
-    metadata: NotRequired[UpdateChunkMetadataTypedDict]
+    metadata: NotRequired[Dict[str, UpdateChunkMetadataTypedDict]]
     r"""Metadata of the chunk"""
 
 
@@ -45,7 +39,7 @@ class UpdateChunkRequestBody(BaseModel):
     embedding: Optional[List[float]] = None
     r"""The embedding vector of the chunk. If not provided the chunk will be embedded with the knowledge base embeddings model."""
 
-    metadata: Optional[UpdateChunkMetadata] = None
+    metadata: Optional[Dict[str, UpdateChunkMetadata]] = None
     r"""Metadata of the chunk"""
 
 
@@ -81,6 +75,16 @@ class UpdateChunkRequest(BaseModel):
     ] = None
 
 
+UpdateChunkKnowledgeMetadataTypedDict = TypeAliasType(
+    "UpdateChunkKnowledgeMetadataTypedDict", Union[str, float, bool]
+)
+
+
+UpdateChunkKnowledgeMetadata = TypeAliasType(
+    "UpdateChunkKnowledgeMetadata", Union[str, float, bool]
+)
+
+
 UpdateChunkStatus = Literal["pending", "processing", "completed", "failed", "queued"]
 r"""The status of the chunk"""
 
@@ -100,8 +104,8 @@ class UpdateChunkResponseBodyTypedDict(TypedDict):
     r"""The date and time the chunk was created"""
     updated: str
     r"""The date and time the chunk was updated"""
-    metadata: NotRequired[Dict[str, str]]
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: NotRequired[Dict[str, UpdateChunkKnowledgeMetadataTypedDict]]
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
     created_by_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the user who created the chunk"""
     update_by_id: NotRequired[Nullable[str]]
@@ -129,8 +133,8 @@ class UpdateChunkResponseBody(BaseModel):
     updated: str
     r"""The date and time the chunk was updated"""
 
-    metadata: Optional[Dict[str, str]] = None
-    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs. Only values of type string are supported."""
+    metadata: Optional[Dict[str, UpdateChunkKnowledgeMetadata]] = None
+    r"""Metadata of the chunk. Can include `page_number` or any other key-value pairs"""
 
     created_by_id: OptionalNullable[str] = UNSET
     r"""The unique identifier of the user who created the chunk"""

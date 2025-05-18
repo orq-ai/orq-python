@@ -1093,6 +1093,615 @@ class DeploymentStreamThread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
+class DeploymentStreamDollarOrDollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class DeploymentStreamDollarOrDollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentStreamDollarOrDeploymentsDollarNinTypedDict = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarOrDeploymentsDollarNin = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarOrDollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentStreamDollarOrDeploymentsDollarNinTypedDict]
+
+
+class DeploymentStreamDollarOrDollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentStreamDollarOrDeploymentsDollarNin], pydantic.Field(alias="$nin")
+    ]
+
+
+DeploymentStreamDollarOrDeploymentsDollarInTypedDict = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarOrDeploymentsDollarIn = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarOrDollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentStreamDollarOrDeploymentsDollarInTypedDict]
+
+
+class DeploymentStreamDollarOrDollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentStreamDollarOrDeploymentsDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class DeploymentStreamDollarOrDollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class DeploymentStreamDollarOrDollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class DeploymentStreamDollarOrDollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class DeploymentStreamDollarOrDollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class DeploymentStreamDollarOrDollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class DeploymentStreamDollarOrDollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class DeploymentStreamDollarOr3TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class DeploymentStreamDollarOr3(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentStreamDollarOrDeploymentsDollarNeTypedDict = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarOrDeploymentsDollarNe = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarOrDollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentStreamDollarOrDeploymentsDollarNeTypedDict
+
+
+class DeploymentStreamDollarOrDollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentStreamDollarOrDeploymentsDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentStreamDollarOrDeploymentsDollarEqTypedDict = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarOrDeploymentsDollarEq = TypeAliasType(
+    "DeploymentStreamDollarOrDeploymentsDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarOrDollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentStreamDollarOrDeploymentsDollarEqTypedDict
+
+
+class DeploymentStreamDollarOrDollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentStreamDollarOrDeploymentsDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+DeploymentStreamKnowledgeFilterDeploymentsDollarOrTypedDict = TypeAliasType(
+    "DeploymentStreamKnowledgeFilterDeploymentsDollarOrTypedDict",
+    Union[
+        DeploymentStreamDollarOrDollarEqTypedDict,
+        DeploymentStreamDollarOrDollarNeTypedDict,
+        DeploymentStreamDollarOr3TypedDict,
+        DeploymentStreamDollarOrDollarGteTypedDict,
+        DeploymentStreamDollarOrDollarLtTypedDict,
+        DeploymentStreamDollarOrDollarLteTypedDict,
+        DeploymentStreamDollarOrDollarInTypedDict,
+        DeploymentStreamDollarOrDollarNinTypedDict,
+        DeploymentStreamDollarOrDollarExistsTypedDict,
+    ],
+)
+
+
+DeploymentStreamKnowledgeFilterDeploymentsDollarOr = TypeAliasType(
+    "DeploymentStreamKnowledgeFilterDeploymentsDollarOr",
+    Union[
+        DeploymentStreamDollarOrDollarEq,
+        DeploymentStreamDollarOrDollarNe,
+        DeploymentStreamDollarOr3,
+        DeploymentStreamDollarOrDollarGte,
+        DeploymentStreamDollarOrDollarLt,
+        DeploymentStreamDollarOrDollarLte,
+        DeploymentStreamDollarOrDollarIn,
+        DeploymentStreamDollarOrDollarNin,
+        DeploymentStreamDollarOrDollarExists,
+    ],
+)
+
+
+class DeploymentStreamKnowledgeFilterDollarOrTypedDict(TypedDict):
+    r"""Or"""
+
+    dollar_or: List[
+        Dict[str, DeploymentStreamKnowledgeFilterDeploymentsDollarOrTypedDict]
+    ]
+
+
+class DeploymentStreamKnowledgeFilterDollarOr(BaseModel):
+    r"""Or"""
+
+    dollar_or: Annotated[
+        List[Dict[str, DeploymentStreamKnowledgeFilterDeploymentsDollarOr]],
+        pydantic.Field(alias="$or"),
+    ]
+
+
+class DeploymentStreamDollarAndDollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class DeploymentStreamDollarAndDollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentStreamDollarAndDeploymentsDollarNinTypedDict = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarAndDeploymentsDollarNin = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarAndDollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentStreamDollarAndDeploymentsDollarNinTypedDict]
+
+
+class DeploymentStreamDollarAndDollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentStreamDollarAndDeploymentsDollarNin],
+        pydantic.Field(alias="$nin"),
+    ]
+
+
+DeploymentStreamDollarAndDeploymentsDollarInTypedDict = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarAndDeploymentsDollarIn = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarAndDollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentStreamDollarAndDeploymentsDollarInTypedDict]
+
+
+class DeploymentStreamDollarAndDollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentStreamDollarAndDeploymentsDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class DeploymentStreamDollarAndDollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class DeploymentStreamDollarAndDollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class DeploymentStreamDollarAndDollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class DeploymentStreamDollarAndDollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class DeploymentStreamDollarAndDollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class DeploymentStreamDollarAndDollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class DeploymentStreamDollarAnd3TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class DeploymentStreamDollarAnd3(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentStreamDollarAndDeploymentsDollarNeTypedDict = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarAndDeploymentsDollarNe = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarAndDollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentStreamDollarAndDeploymentsDollarNeTypedDict
+
+
+class DeploymentStreamDollarAndDollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentStreamDollarAndDeploymentsDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentStreamDollarAndDeploymentsDollarEqTypedDict = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStreamDollarAndDeploymentsDollarEq = TypeAliasType(
+    "DeploymentStreamDollarAndDeploymentsDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentStreamDollarAndDollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentStreamDollarAndDeploymentsDollarEqTypedDict
+
+
+class DeploymentStreamDollarAndDollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentStreamDollarAndDeploymentsDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+DeploymentStreamKnowledgeFilterDeploymentsDollarAndTypedDict = TypeAliasType(
+    "DeploymentStreamKnowledgeFilterDeploymentsDollarAndTypedDict",
+    Union[
+        DeploymentStreamDollarAndDollarEqTypedDict,
+        DeploymentStreamDollarAndDollarNeTypedDict,
+        DeploymentStreamDollarAnd3TypedDict,
+        DeploymentStreamDollarAndDollarGteTypedDict,
+        DeploymentStreamDollarAndDollarLtTypedDict,
+        DeploymentStreamDollarAndDollarLteTypedDict,
+        DeploymentStreamDollarAndDollarInTypedDict,
+        DeploymentStreamDollarAndDollarNinTypedDict,
+        DeploymentStreamDollarAndDollarExistsTypedDict,
+    ],
+)
+
+
+DeploymentStreamKnowledgeFilterDeploymentsDollarAnd = TypeAliasType(
+    "DeploymentStreamKnowledgeFilterDeploymentsDollarAnd",
+    Union[
+        DeploymentStreamDollarAndDollarEq,
+        DeploymentStreamDollarAndDollarNe,
+        DeploymentStreamDollarAnd3,
+        DeploymentStreamDollarAndDollarGte,
+        DeploymentStreamDollarAndDollarLt,
+        DeploymentStreamDollarAndDollarLte,
+        DeploymentStreamDollarAndDollarIn,
+        DeploymentStreamDollarAndDollarNin,
+        DeploymentStreamDollarAndDollarExists,
+    ],
+)
+
+
+class DeploymentStreamKnowledgeFilterDollarAndTypedDict(TypedDict):
+    r"""And"""
+
+    dollar_and: List[
+        Dict[str, DeploymentStreamKnowledgeFilterDeploymentsDollarAndTypedDict]
+    ]
+
+
+class DeploymentStreamKnowledgeFilterDollarAnd(BaseModel):
+    r"""And"""
+
+    dollar_and: Annotated[
+        List[Dict[str, DeploymentStreamKnowledgeFilterDeploymentsDollarAnd]],
+        pydantic.Field(alias="$and"),
+    ]
+
+
+class DeploymentStream1DollarExistsTypedDict(TypedDict):
+    r"""Exists"""
+
+    dollar_exists: bool
+
+
+class DeploymentStream1DollarExists(BaseModel):
+    r"""Exists"""
+
+    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+
+
+DeploymentStream1DeploymentsDollarNinTypedDict = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarNinTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStream1DeploymentsDollarNin = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarNin", Union[str, float, bool]
+)
+
+
+class DeploymentStream1DollarNinTypedDict(TypedDict):
+    r"""Not in"""
+
+    dollar_nin: List[DeploymentStream1DeploymentsDollarNinTypedDict]
+
+
+class DeploymentStream1DollarNin(BaseModel):
+    r"""Not in"""
+
+    dollar_nin: Annotated[
+        List[DeploymentStream1DeploymentsDollarNin], pydantic.Field(alias="$nin")
+    ]
+
+
+DeploymentStream1DeploymentsDollarInTypedDict = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarInTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStream1DeploymentsDollarIn = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarIn", Union[str, float, bool]
+)
+
+
+class DeploymentStream1DollarInTypedDict(TypedDict):
+    r"""In"""
+
+    dollar_in: List[DeploymentStream1DeploymentsDollarInTypedDict]
+
+
+class DeploymentStream1DollarIn(BaseModel):
+    r"""In"""
+
+    dollar_in: Annotated[
+        List[DeploymentStream1DeploymentsDollarIn], pydantic.Field(alias="$in")
+    ]
+
+
+class DeploymentStream1DollarLteTypedDict(TypedDict):
+    r"""Less than or equal to"""
+
+    dollar_lte: float
+
+
+class DeploymentStream1DollarLte(BaseModel):
+    r"""Less than or equal to"""
+
+    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+
+
+class DeploymentStream1DollarLtTypedDict(TypedDict):
+    r"""Less than"""
+
+    dollar_lt: float
+
+
+class DeploymentStream1DollarLt(BaseModel):
+    r"""Less than"""
+
+    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+
+
+class DeploymentStream1DollarGteTypedDict(TypedDict):
+    r"""Greater than or equal to"""
+
+    dollar_gte: float
+
+
+class DeploymentStream1DollarGte(BaseModel):
+    r"""Greater than or equal to"""
+
+    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+
+
+class DeploymentStream13TypedDict(TypedDict):
+    dollar_gt: float
+
+
+class DeploymentStream13(BaseModel):
+    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+
+
+DeploymentStream1DeploymentsDollarNeTypedDict = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarNeTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStream1DeploymentsDollarNe = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarNe", Union[str, float, bool]
+)
+
+
+class DeploymentStream1DollarNeTypedDict(TypedDict):
+    r"""Not equal to"""
+
+    dollar_ne: DeploymentStream1DeploymentsDollarNeTypedDict
+
+
+class DeploymentStream1DollarNe(BaseModel):
+    r"""Not equal to"""
+
+    dollar_ne: Annotated[
+        DeploymentStream1DeploymentsDollarNe, pydantic.Field(alias="$ne")
+    ]
+
+
+DeploymentStream1DeploymentsDollarEqTypedDict = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarEqTypedDict", Union[str, float, bool]
+)
+
+
+DeploymentStream1DeploymentsDollarEq = TypeAliasType(
+    "DeploymentStream1DeploymentsDollarEq", Union[str, float, bool]
+)
+
+
+class DeploymentStream1DollarEqTypedDict(TypedDict):
+    r"""Equal to"""
+
+    dollar_eq: DeploymentStream1DeploymentsDollarEqTypedDict
+
+
+class DeploymentStream1DollarEq(BaseModel):
+    r"""Equal to"""
+
+    dollar_eq: Annotated[
+        DeploymentStream1DeploymentsDollarEq, pydantic.Field(alias="$eq")
+    ]
+
+
+DeploymentStreamKnowledgeFilter1TypedDict = TypeAliasType(
+    "DeploymentStreamKnowledgeFilter1TypedDict",
+    Union[
+        DeploymentStream1DollarEqTypedDict,
+        DeploymentStream1DollarNeTypedDict,
+        DeploymentStream13TypedDict,
+        DeploymentStream1DollarGteTypedDict,
+        DeploymentStream1DollarLtTypedDict,
+        DeploymentStream1DollarLteTypedDict,
+        DeploymentStream1DollarInTypedDict,
+        DeploymentStream1DollarNinTypedDict,
+        DeploymentStream1DollarExistsTypedDict,
+    ],
+)
+
+
+DeploymentStreamKnowledgeFilter1 = TypeAliasType(
+    "DeploymentStreamKnowledgeFilter1",
+    Union[
+        DeploymentStream1DollarEq,
+        DeploymentStream1DollarNe,
+        DeploymentStream13,
+        DeploymentStream1DollarGte,
+        DeploymentStream1DollarLt,
+        DeploymentStream1DollarLte,
+        DeploymentStream1DollarIn,
+        DeploymentStream1DollarNin,
+        DeploymentStream1DollarExists,
+    ],
+)
+
+
+DeploymentStreamKnowledgeFilterTypedDict = TypeAliasType(
+    "DeploymentStreamKnowledgeFilterTypedDict",
+    Union[
+        DeploymentStreamKnowledgeFilterDollarAndTypedDict,
+        DeploymentStreamKnowledgeFilterDollarOrTypedDict,
+        Dict[str, DeploymentStreamKnowledgeFilter1TypedDict],
+    ],
+)
+r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
+
+
+DeploymentStreamKnowledgeFilter = TypeAliasType(
+    "DeploymentStreamKnowledgeFilter",
+    Union[
+        DeploymentStreamKnowledgeFilterDollarAnd,
+        DeploymentStreamKnowledgeFilterDollarOr,
+        Dict[str, DeploymentStreamKnowledgeFilter1],
+    ],
+)
+r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
+
+
 class DeploymentStreamRequestBodyTypedDict(TypedDict):
     key: str
     r"""The deployment key to invoke"""
@@ -1114,6 +1723,8 @@ class DeploymentStreamRequestBodyTypedDict(TypedDict):
     r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
     invoke_options: NotRequired[DeploymentStreamInvokeOptionsTypedDict]
     thread: NotRequired[DeploymentStreamThreadTypedDict]
+    knowledge_filter: NotRequired[DeploymentStreamKnowledgeFilterTypedDict]
+    r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 class DeploymentStreamRequestBody(BaseModel):
@@ -1147,6 +1758,9 @@ class DeploymentStreamRequestBody(BaseModel):
     invoke_options: Optional[DeploymentStreamInvokeOptions] = None
 
     thread: Optional[DeploymentStreamThread] = None
+
+    knowledge_filter: Optional[DeploymentStreamKnowledgeFilter] = None
+    r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 DeploymentStreamObject = Literal["chat", "completion", "image", "vision"]
