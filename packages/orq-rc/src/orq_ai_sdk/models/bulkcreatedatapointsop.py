@@ -397,5 +397,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-05-20T13:20:39.505Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-20T13:37:33.567Z")
     r"""The date and time the resource was last updated"""
