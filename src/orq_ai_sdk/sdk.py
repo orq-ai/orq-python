@@ -6,21 +6,24 @@ from .sdkconfiguration import SDKConfiguration
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
+import importlib
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import SDKHooks
-from orq_ai_sdk.contacts import Contacts
-from orq_ai_sdk.datasets import Datasets
-from orq_ai_sdk.deployments_sdk import DeploymentsSDK
-from orq_ai_sdk.feedback import Feedback
-from orq_ai_sdk.files import Files
-from orq_ai_sdk.knowledge import Knowledge
 from orq_ai_sdk.models import internal
-from orq_ai_sdk.models_ import Models
-from orq_ai_sdk.prompts import Prompts
-from orq_ai_sdk.remoteconfigs import Remoteconfigs
 from orq_ai_sdk.types import OptionalNullable, UNSET
-from typing import Any, Callable, Dict, Optional, Union, cast
+from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
+
+if TYPE_CHECKING:
+    from orq_ai_sdk.contacts import Contacts
+    from orq_ai_sdk.datasets import Datasets
+    from orq_ai_sdk.deployments_sdk import DeploymentsSDK
+    from orq_ai_sdk.feedback import Feedback
+    from orq_ai_sdk.files import Files
+    from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.models_ import Models
+    from orq_ai_sdk.prompts import Prompts
+    from orq_ai_sdk.remoteconfigs import Remoteconfigs
 
 
 class Orq(BaseSDK):
@@ -28,15 +31,26 @@ class Orq(BaseSDK):
     https://docs.orq.ai - orq.ai Documentation
     """
 
-    contacts: Contacts
-    feedback: Feedback
-    deployments: DeploymentsSDK
-    files: Files
-    prompts: Prompts
-    remoteconfigs: Remoteconfigs
-    models: Models
-    datasets: Datasets
-    knowledge: Knowledge
+    contacts: "Contacts"
+    feedback: "Feedback"
+    deployments: "DeploymentsSDK"
+    files: "Files"
+    prompts: "Prompts"
+    remoteconfigs: "Remoteconfigs"
+    models: "Models"
+    datasets: "Datasets"
+    knowledge: "Knowledge"
+    _sub_sdk_map = {
+        "contacts": ("orq_ai_sdk.contacts", "Contacts"),
+        "feedback": ("orq_ai_sdk.feedback", "Feedback"),
+        "deployments": ("orq_ai_sdk.deployments_sdk", "DeploymentsSDK"),
+        "files": ("orq_ai_sdk.files", "Files"),
+        "prompts": ("orq_ai_sdk.prompts", "Prompts"),
+        "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
+        "models": ("orq_ai_sdk.models_", "Models"),
+        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
+    }
 
     def __init__(
         self,
@@ -141,18 +155,32 @@ class Orq(BaseSDK):
             self.sdk_configuration.async_client_supplied,
         )
 
-        self._init_sdks()
+    def __getattr__(self, name: str):
+        if name in self._sub_sdk_map:
+            module_path, class_name = self._sub_sdk_map[name]
+            try:
+                module = importlib.import_module(module_path)
+                klass = getattr(module, class_name)
+                instance = klass(self.sdk_configuration)
+                setattr(self, name, instance)
+                return instance
+            except ImportError as e:
+                raise AttributeError(
+                    f"Failed to import module {module_path} for attribute {name}: {e}"
+                ) from e
+            except AttributeError as e:
+                raise AttributeError(
+                    f"Failed to find class {class_name} in module {module_path} for attribute {name}: {e}"
+                ) from e
 
-    def _init_sdks(self):
-        self.contacts = Contacts(self.sdk_configuration)
-        self.feedback = Feedback(self.sdk_configuration)
-        self.deployments = DeploymentsSDK(self.sdk_configuration)
-        self.files = Files(self.sdk_configuration)
-        self.prompts = Prompts(self.sdk_configuration)
-        self.remoteconfigs = Remoteconfigs(self.sdk_configuration)
-        self.models = Models(self.sdk_configuration)
-        self.datasets = Datasets(self.sdk_configuration)
-        self.knowledge = Knowledge(self.sdk_configuration)
+        raise AttributeError(
+            f"'{type(self).__name__}' object has no attribute '{name}'"
+        )
+
+    def __dir__(self):
+        default_attrs = list(super().__dir__())
+        lazy_attrs = list(self._sub_sdk_map.keys())
+        return sorted(list(set(default_attrs + lazy_attrs)))
 
     def __enter__(self):
         return self
