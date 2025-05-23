@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig1DollarEq`
+### `models.DeploymentGetConfig1Eq`
 
 ```python
-value: models.DeploymentGetConfig1DollarEq = /* values here */
+value: models.DeploymentGetConfig1Eq = /* values here */
 ```
 
-### `models.DeploymentGetConfig1DollarNe`
+### `models.DeploymentGetConfig1Ne`
 
 ```python
-value: models.DeploymentGetConfig1DollarNe = /* values here */
+value: models.DeploymentGetConfig1Ne = /* values here */
 ```
 
 ### `models.One3`
@@ -21,39 +21,39 @@ value: models.DeploymentGetConfig1DollarNe = /* values here */
 value: models.One3 = /* values here */
 ```
 
-### `models.OneDollarGte`
+### `models.OneGte`
 
 ```python
-value: models.OneDollarGte = /* values here */
+value: models.OneGte = /* values here */
 ```
 
-### `models.OneDollarLt`
+### `models.OneLt`
 
 ```python
-value: models.OneDollarLt = /* values here */
+value: models.OneLt = /* values here */
 ```
 
-### `models.OneDollarLte`
+### `models.OneLte`
 
 ```python
-value: models.OneDollarLte = /* values here */
+value: models.OneLte = /* values here */
 ```
 
-### `models.DeploymentGetConfig1DollarIn`
+### `models.DeploymentGetConfig1In`
 
 ```python
-value: models.DeploymentGetConfig1DollarIn = /* values here */
+value: models.DeploymentGetConfig1In = /* values here */
 ```
 
-### `models.DeploymentGetConfig1DollarNin`
+### `models.DeploymentGetConfig1Nin`
 
 ```python
-value: models.DeploymentGetConfig1DollarNin = /* values here */
+value: models.DeploymentGetConfig1Nin = /* values here */
 ```
 
-### `models.OneDollarExists`
+### `models.OneExists`
 
 ```python
-value: models.OneDollarExists = /* values here */
+value: models.OneExists = /* values here */
 ```
 

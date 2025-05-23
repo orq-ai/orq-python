@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: d4625f9015be295555eb01b71a7d84de
+  docChecksum: b2545323b108a2639414a730b0fd818a
   docVersion: "2.0"
-  speakeasyVersion: 1.548.4
-  generationVersion: 2.605.6
-  releaseVersion: 3.6.0-rc.27
-  configChecksum: cf12c4039aa6e66d5af708af464b087a
+  speakeasyVersion: 1.550.0
+  generationVersion: 2.610.0
+  releaseVersion: 3.6.0-rc.28
+  configChecksum: 2b720bd2fd17b1ba44016e509cb8dea5
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.18.1
+    core: 5.19.0
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -48,6 +48,16 @@ generatedFiles:
   - .vscode/settings.json
   - USAGE.md
   - docs/models/agenticragconfig.md
+  - docs/models/and3.md
+  - docs/models/and_.md
+  - docs/models/andeq.md
+  - docs/models/andexists.md
+  - docs/models/andgte.md
+  - docs/models/andin.md
+  - docs/models/andlt.md
+  - docs/models/andlte.md
+  - docs/models/andne.md
+  - docs/models/andnin.md
   - docs/models/assistantmessage.md
   - docs/models/audio.md
   - docs/models/bulkcreatedatapoints21.md
@@ -276,14 +286,14 @@ generatedFiles:
   - docs/models/deploymentcreatemetricrequest.md
   - docs/models/deploymentcreatemetricrequestbody.md
   - docs/models/deploymentcreatemetricresponsebody.md
-  - docs/models/deploymentgetconfig1deploymentsdollareq.md
-  - docs/models/deploymentgetconfig1deploymentsdollarin.md
-  - docs/models/deploymentgetconfig1deploymentsdollarne.md
-  - docs/models/deploymentgetconfig1deploymentsdollarnin.md
-  - docs/models/deploymentgetconfig1dollareq.md
-  - docs/models/deploymentgetconfig1dollarin.md
-  - docs/models/deploymentgetconfig1dollarne.md
-  - docs/models/deploymentgetconfig1dollarnin.md
+  - docs/models/deploymentgetconfig1deploymentseq.md
+  - docs/models/deploymentgetconfig1deploymentsin.md
+  - docs/models/deploymentgetconfig1deploymentsne.md
+  - docs/models/deploymentgetconfig1deploymentsnin.md
+  - docs/models/deploymentgetconfig1eq.md
+  - docs/models/deploymentgetconfig1in.md
+  - docs/models/deploymentgetconfig1ne.md
+  - docs/models/deploymentgetconfig1nin.md
   - docs/models/deploymentgetconfig21.md
   - docs/models/deploymentgetconfig22.md
   - docs/models/deploymentgetconfig23.md
@@ -323,6 +333,19 @@ generatedFiles:
   - docs/models/deploymentgetconfig2refusalcontentpart.md
   - docs/models/deploymentgetconfig2textcontentpart.md
   - docs/models/deploymentgetconfig2type.md
+  - docs/models/deploymentgetconfigand3.md
+  - docs/models/deploymentgetconfiganddeploymentseq.md
+  - docs/models/deploymentgetconfiganddeploymentsin.md
+  - docs/models/deploymentgetconfiganddeploymentsne.md
+  - docs/models/deploymentgetconfiganddeploymentsnin.md
+  - docs/models/deploymentgetconfigandeq.md
+  - docs/models/deploymentgetconfigandexists.md
+  - docs/models/deploymentgetconfigandgte.md
+  - docs/models/deploymentgetconfigandin.md
+  - docs/models/deploymentgetconfigandlt.md
+  - docs/models/deploymentgetconfigandlte.md
+  - docs/models/deploymentgetconfigandne.md
+  - docs/models/deploymentgetconfigandnin.md
   - docs/models/deploymentgetconfigcontent.md
   - docs/models/deploymentgetconfigcontent2.md
   - docs/models/deploymentgetconfigcontentdeployments2.md
@@ -334,42 +357,16 @@ generatedFiles:
   - docs/models/deploymentgetconfigdeploymentsresponsetype.md
   - docs/models/deploymentgetconfigdeploymentstype.md
   - docs/models/deploymentgetconfigdocuments.md
-  - docs/models/deploymentgetconfigdollarand3.md
-  - docs/models/deploymentgetconfigdollaranddeploymentsdollareq.md
-  - docs/models/deploymentgetconfigdollaranddeploymentsdollarin.md
-  - docs/models/deploymentgetconfigdollaranddeploymentsdollarne.md
-  - docs/models/deploymentgetconfigdollaranddeploymentsdollarnin.md
-  - docs/models/deploymentgetconfigdollaranddollareq.md
-  - docs/models/deploymentgetconfigdollaranddollarexists.md
-  - docs/models/deploymentgetconfigdollaranddollargte.md
-  - docs/models/deploymentgetconfigdollaranddollarin.md
-  - docs/models/deploymentgetconfigdollaranddollarlt.md
-  - docs/models/deploymentgetconfigdollaranddollarlte.md
-  - docs/models/deploymentgetconfigdollaranddollarne.md
-  - docs/models/deploymentgetconfigdollaranddollarnin.md
-  - docs/models/deploymentgetconfigdollaror3.md
-  - docs/models/deploymentgetconfigdollarordeploymentsdollareq.md
-  - docs/models/deploymentgetconfigdollarordeploymentsdollarin.md
-  - docs/models/deploymentgetconfigdollarordeploymentsdollarne.md
-  - docs/models/deploymentgetconfigdollarordeploymentsdollarnin.md
-  - docs/models/deploymentgetconfigdollarordollareq.md
-  - docs/models/deploymentgetconfigdollarordollarexists.md
-  - docs/models/deploymentgetconfigdollarordollargte.md
-  - docs/models/deploymentgetconfigdollarordollarin.md
-  - docs/models/deploymentgetconfigdollarordollarlt.md
-  - docs/models/deploymentgetconfigdollarordollarlte.md
-  - docs/models/deploymentgetconfigdollarordollarne.md
-  - docs/models/deploymentgetconfigdollarordollarnin.md
   - docs/models/deploymentgetconfigencodingformat.md
   - docs/models/deploymentgetconfigformat.md
   - docs/models/deploymentgetconfigfunction.md
   - docs/models/deploymentgetconfiginputs.md
   - docs/models/deploymentgetconfiginvokeoptions.md
   - docs/models/deploymentgetconfigknowledgefilter.md
-  - docs/models/deploymentgetconfigknowledgefilterdeploymentsdollarand.md
-  - docs/models/deploymentgetconfigknowledgefilterdeploymentsdollaror.md
-  - docs/models/deploymentgetconfigknowledgefilterdollarand.md
-  - docs/models/deploymentgetconfigknowledgefilterdollaror.md
+  - docs/models/deploymentgetconfigknowledgefilterand.md
+  - docs/models/deploymentgetconfigknowledgefilterdeploymentsand.md
+  - docs/models/deploymentgetconfigknowledgefilterdeploymentsor.md
+  - docs/models/deploymentgetconfigknowledgefilteror.md
   - docs/models/deploymentgetconfigmessages.md
   - docs/models/deploymentgetconfigmessagesassistantmessage.md
   - docs/models/deploymentgetconfigmessagesaudio.md
@@ -389,6 +386,19 @@ generatedFiles:
   - docs/models/deploymentgetconfigmessagestype.md
   - docs/models/deploymentgetconfigmessagesusermessage.md
   - docs/models/deploymentgetconfigmetadata.md
+  - docs/models/deploymentgetconfigor3.md
+  - docs/models/deploymentgetconfigordeploymentseq.md
+  - docs/models/deploymentgetconfigordeploymentsin.md
+  - docs/models/deploymentgetconfigordeploymentsne.md
+  - docs/models/deploymentgetconfigordeploymentsnin.md
+  - docs/models/deploymentgetconfigoreq.md
+  - docs/models/deploymentgetconfigorexists.md
+  - docs/models/deploymentgetconfigorgte.md
+  - docs/models/deploymentgetconfigorin.md
+  - docs/models/deploymentgetconfigorlt.md
+  - docs/models/deploymentgetconfigorlte.md
+  - docs/models/deploymentgetconfigorne.md
+  - docs/models/deploymentgetconfigornin.md
   - docs/models/deploymentgetconfigphotorealversion.md
   - docs/models/deploymentgetconfigprefixmessages.md
   - docs/models/deploymentgetconfigprefixmessagescontent.md
@@ -443,6 +453,10 @@ generatedFiles:
   - docs/models/deployments2prefixmessages4type.md
   - docs/models/deployments2prefixmessagestype.md
   - docs/models/deployments2type.md
+  - docs/models/deploymentsandeq.md
+  - docs/models/deploymentsandin.md
+  - docs/models/deploymentsandne.md
+  - docs/models/deploymentsandnin.md
   - docs/models/deploymentscontent.md
   - docs/models/deploymentscontent2.md
   - docs/models/deploymentscontentdeployments2.md
@@ -450,14 +464,6 @@ generatedFiles:
   - docs/models/deploymentsdeploymentsfunction.md
   - docs/models/deploymentsdeploymentsresponsetype.md
   - docs/models/deploymentsdeploymentstype.md
-  - docs/models/deploymentsdollaranddollareq.md
-  - docs/models/deploymentsdollaranddollarin.md
-  - docs/models/deploymentsdollaranddollarne.md
-  - docs/models/deploymentsdollaranddollarnin.md
-  - docs/models/deploymentsdollarordollareq.md
-  - docs/models/deploymentsdollarordollarin.md
-  - docs/models/deploymentsdollarordollarne.md
-  - docs/models/deploymentsdollarordollarnin.md
   - docs/models/deploymentsencodingformat.md
   - docs/models/deploymentsformat.md
   - docs/models/deploymentsfunction.md
@@ -470,6 +476,10 @@ generatedFiles:
   - docs/models/deploymentsmessagesrole.md
   - docs/models/deploymentsmodelparameters.md
   - docs/models/deploymentsmodeltype.md
+  - docs/models/deploymentsoreq.md
+  - docs/models/deploymentsorin.md
+  - docs/models/deploymentsorne.md
+  - docs/models/deploymentsornin.md
   - docs/models/deploymentsparameters.md
   - docs/models/deploymentsphotorealversion.md
   - docs/models/deploymentsprefixmessages4role.md
@@ -491,18 +501,18 @@ generatedFiles:
   - docs/models/deploymentstoolcalls.md
   - docs/models/deploymentstools.md
   - docs/models/deploymentstream13.md
-  - docs/models/deploymentstream1deploymentsdollareq.md
-  - docs/models/deploymentstream1deploymentsdollarin.md
-  - docs/models/deploymentstream1deploymentsdollarne.md
-  - docs/models/deploymentstream1deploymentsdollarnin.md
-  - docs/models/deploymentstream1dollareq.md
-  - docs/models/deploymentstream1dollarexists.md
-  - docs/models/deploymentstream1dollargte.md
-  - docs/models/deploymentstream1dollarin.md
-  - docs/models/deploymentstream1dollarlt.md
-  - docs/models/deploymentstream1dollarlte.md
-  - docs/models/deploymentstream1dollarne.md
-  - docs/models/deploymentstream1dollarnin.md
+  - docs/models/deploymentstream1deploymentseq.md
+  - docs/models/deploymentstream1deploymentsin.md
+  - docs/models/deploymentstream1deploymentsne.md
+  - docs/models/deploymentstream1deploymentsnin.md
+  - docs/models/deploymentstream1eq.md
+  - docs/models/deploymentstream1exists.md
+  - docs/models/deploymentstream1gte.md
+  - docs/models/deploymentstream1in.md
+  - docs/models/deploymentstream1lt.md
+  - docs/models/deploymentstream1lte.md
+  - docs/models/deploymentstream1ne.md
+  - docs/models/deploymentstream1nin.md
   - docs/models/deploymentstream21.md
   - docs/models/deploymentstream22.md
   - docs/models/deploymentstream23.md
@@ -537,6 +547,19 @@ generatedFiles:
   - docs/models/deploymentstream2refusalcontentpart.md
   - docs/models/deploymentstream2textcontentpart.md
   - docs/models/deploymentstream2type.md
+  - docs/models/deploymentstreamand3.md
+  - docs/models/deploymentstreamanddeploymentseq.md
+  - docs/models/deploymentstreamanddeploymentsin.md
+  - docs/models/deploymentstreamanddeploymentsne.md
+  - docs/models/deploymentstreamanddeploymentsnin.md
+  - docs/models/deploymentstreamandeq.md
+  - docs/models/deploymentstreamandexists.md
+  - docs/models/deploymentstreamandgte.md
+  - docs/models/deploymentstreamandin.md
+  - docs/models/deploymentstreamandlt.md
+  - docs/models/deploymentstreamandlte.md
+  - docs/models/deploymentstreamandne.md
+  - docs/models/deploymentstreamandnin.md
   - docs/models/deploymentstreamchoices.md
   - docs/models/deploymentstreamcontent2.md
   - docs/models/deploymentstreamcontentdeployments2.md
@@ -545,41 +568,15 @@ generatedFiles:
   - docs/models/deploymentstreamdata.md
   - docs/models/deploymentstreamdeploymentsmetadata.md
   - docs/models/deploymentstreamdocuments.md
-  - docs/models/deploymentstreamdollarand3.md
-  - docs/models/deploymentstreamdollaranddeploymentsdollareq.md
-  - docs/models/deploymentstreamdollaranddeploymentsdollarin.md
-  - docs/models/deploymentstreamdollaranddeploymentsdollarne.md
-  - docs/models/deploymentstreamdollaranddeploymentsdollarnin.md
-  - docs/models/deploymentstreamdollaranddollareq.md
-  - docs/models/deploymentstreamdollaranddollarexists.md
-  - docs/models/deploymentstreamdollaranddollargte.md
-  - docs/models/deploymentstreamdollaranddollarin.md
-  - docs/models/deploymentstreamdollaranddollarlt.md
-  - docs/models/deploymentstreamdollaranddollarlte.md
-  - docs/models/deploymentstreamdollaranddollarne.md
-  - docs/models/deploymentstreamdollaranddollarnin.md
-  - docs/models/deploymentstreamdollaror3.md
-  - docs/models/deploymentstreamdollarordeploymentsdollareq.md
-  - docs/models/deploymentstreamdollarordeploymentsdollarin.md
-  - docs/models/deploymentstreamdollarordeploymentsdollarne.md
-  - docs/models/deploymentstreamdollarordeploymentsdollarnin.md
-  - docs/models/deploymentstreamdollarordollareq.md
-  - docs/models/deploymentstreamdollarordollarexists.md
-  - docs/models/deploymentstreamdollarordollargte.md
-  - docs/models/deploymentstreamdollarordollarin.md
-  - docs/models/deploymentstreamdollarordollarlt.md
-  - docs/models/deploymentstreamdollarordollarlte.md
-  - docs/models/deploymentstreamdollarordollarne.md
-  - docs/models/deploymentstreamdollarordollarnin.md
   - docs/models/deploymentstreamglobals.md
   - docs/models/deploymentstreaminputs.md
   - docs/models/deploymentstreaminvokeoptions.md
   - docs/models/deploymentstreamknowledgefilter.md
   - docs/models/deploymentstreamknowledgefilter1.md
-  - docs/models/deploymentstreamknowledgefilterdeploymentsdollarand.md
-  - docs/models/deploymentstreamknowledgefilterdeploymentsdollaror.md
-  - docs/models/deploymentstreamknowledgefilterdollarand.md
-  - docs/models/deploymentstreamknowledgefilterdollaror.md
+  - docs/models/deploymentstreamknowledgefilterand.md
+  - docs/models/deploymentstreamknowledgefilterdeploymentsand.md
+  - docs/models/deploymentstreamknowledgefilterdeploymentsor.md
+  - docs/models/deploymentstreamknowledgefilteror.md
   - docs/models/deploymentstreammessage.md
   - docs/models/deploymentstreammessage1.md
   - docs/models/deploymentstreammessage2.md
@@ -610,6 +607,19 @@ generatedFiles:
   - docs/models/deploymentstreammessagetype.md
   - docs/models/deploymentstreammetadata.md
   - docs/models/deploymentstreamobject.md
+  - docs/models/deploymentstreamor3.md
+  - docs/models/deploymentstreamordeploymentseq.md
+  - docs/models/deploymentstreamordeploymentsin.md
+  - docs/models/deploymentstreamordeploymentsne.md
+  - docs/models/deploymentstreamordeploymentsnin.md
+  - docs/models/deploymentstreamoreq.md
+  - docs/models/deploymentstreamorexists.md
+  - docs/models/deploymentstreamorgte.md
+  - docs/models/deploymentstreamorin.md
+  - docs/models/deploymentstreamorlt.md
+  - docs/models/deploymentstreamorlte.md
+  - docs/models/deploymentstreamorne.md
+  - docs/models/deploymentstreamornin.md
   - docs/models/deploymentstreamprefixmessages.md
   - docs/models/deploymentstreamprefixmessagesassistantmessage.md
   - docs/models/deploymentstreamprefixmessagesaudio.md
@@ -637,35 +647,9 @@ generatedFiles:
   - docs/models/detail.md
   - docs/models/developermessage.md
   - docs/models/documents.md
-  - docs/models/dollarand.md
-  - docs/models/dollarand3.md
-  - docs/models/dollaranddollareq.md
-  - docs/models/dollaranddollarexists.md
-  - docs/models/dollaranddollargte.md
-  - docs/models/dollaranddollarin.md
-  - docs/models/dollaranddollarlt.md
-  - docs/models/dollaranddollarlte.md
-  - docs/models/dollaranddollarne.md
-  - docs/models/dollaranddollarnin.md
-  - docs/models/dollareq.md
-  - docs/models/dollarexists.md
-  - docs/models/dollargte.md
-  - docs/models/dollarin.md
-  - docs/models/dollarlt.md
-  - docs/models/dollarlte.md
-  - docs/models/dollarne.md
-  - docs/models/dollarnin.md
-  - docs/models/dollaror.md
-  - docs/models/dollaror3.md
-  - docs/models/dollarordollareq.md
-  - docs/models/dollarordollarexists.md
-  - docs/models/dollarordollargte.md
-  - docs/models/dollarordollarin.md
-  - docs/models/dollarordollarlt.md
-  - docs/models/dollarordollarlte.md
-  - docs/models/dollarordollarne.md
-  - docs/models/dollarordollarnin.md
   - docs/models/encodingformat.md
+  - docs/models/eq.md
+  - docs/models/exists.md
   - docs/models/file.md
   - docs/models/filedeleterequest.md
   - docs/models/filegetpurpose.md
@@ -680,10 +664,10 @@ generatedFiles:
   - docs/models/fileuploadpurpose.md
   - docs/models/fileuploadrequestbody.md
   - docs/models/fileuploadresponsebody.md
-  - docs/models/filter1.md
-  - docs/models/filter_.md
-  - docs/models/filterdollarand.md
-  - docs/models/filterdollaror.md
+  - docs/models/filterby.md
+  - docs/models/filterby1.md
+  - docs/models/filterbyand.md
+  - docs/models/filterbyor.md
   - docs/models/format_.md
   - docs/models/four.md
   - docs/models/function.md
@@ -795,8 +779,10 @@ generatedFiles:
   - docs/models/getpromptversiontoolcalls.md
   - docs/models/getpromptversiontype.md
   - docs/models/getpromptversionusecases.md
+  - docs/models/gte.md
   - docs/models/honoapierror.md
   - docs/models/imageurl.md
+  - docs/models/in_.md
   - docs/models/inputaudio.md
   - docs/models/inputs.md
   - docs/models/internal/globals.md
@@ -805,8 +791,8 @@ generatedFiles:
   - docs/models/jsonschema.md
   - docs/models/knowledgefilter.md
   - docs/models/knowledgefilter1.md
-  - docs/models/knowledgefilterdollarand.md
-  - docs/models/knowledgefilterdollaror.md
+  - docs/models/knowledgefilterand.md
+  - docs/models/knowledgefilteror.md
   - docs/models/language.md
   - docs/models/listchunksdata.md
   - docs/models/listchunksmetadata.md
@@ -885,6 +871,8 @@ generatedFiles:
   - docs/models/listpromptversionstoolcalls.md
   - docs/models/listpromptversionstype.md
   - docs/models/listpromptversionsusecases.md
+  - docs/models/lt.md
+  - docs/models/lte.md
   - docs/models/matches.md
   - docs/models/message.md
   - docs/models/message1.md
@@ -909,17 +897,29 @@ generatedFiles:
   - docs/models/metadata.md
   - docs/models/modelparameters.md
   - docs/models/modeltype.md
+  - docs/models/ne.md
+  - docs/models/nin.md
   - docs/models/object.md
   - docs/models/one.md
   - docs/models/one3.md
-  - docs/models/onedollareq.md
-  - docs/models/onedollarexists.md
-  - docs/models/onedollargte.md
-  - docs/models/onedollarin.md
-  - docs/models/onedollarlt.md
-  - docs/models/onedollarlte.md
-  - docs/models/onedollarne.md
-  - docs/models/onedollarnin.md
+  - docs/models/oneeq.md
+  - docs/models/oneexists.md
+  - docs/models/onegte.md
+  - docs/models/onein.md
+  - docs/models/onelt.md
+  - docs/models/onelte.md
+  - docs/models/onene.md
+  - docs/models/onenin.md
+  - docs/models/or3.md
+  - docs/models/or_.md
+  - docs/models/oreq.md
+  - docs/models/orexists.md
+  - docs/models/orgte.md
+  - docs/models/orin.md
+  - docs/models/orlt.md
+  - docs/models/orlte.md
+  - docs/models/orne.md
+  - docs/models/ornin.md
   - docs/models/ownedby.md
   - docs/models/parameters.md
   - docs/models/performance.md
@@ -979,46 +979,46 @@ generatedFiles:
   - docs/models/role.md
   - docs/models/scores.md
   - docs/models/searchknowledge13.md
-  - docs/models/searchknowledge1dollareq.md
-  - docs/models/searchknowledge1dollarexists.md
-  - docs/models/searchknowledge1dollargte.md
-  - docs/models/searchknowledge1dollarin.md
-  - docs/models/searchknowledge1dollarlt.md
-  - docs/models/searchknowledge1dollarlte.md
-  - docs/models/searchknowledge1dollarne.md
-  - docs/models/searchknowledge1dollarnin.md
-  - docs/models/searchknowledge1knowledgedollareq.md
-  - docs/models/searchknowledge1knowledgedollarin.md
-  - docs/models/searchknowledge1knowledgedollarne.md
-  - docs/models/searchknowledge1knowledgedollarnin.md
-  - docs/models/searchknowledgedollarand3.md
-  - docs/models/searchknowledgedollaranddollareq.md
-  - docs/models/searchknowledgedollaranddollarexists.md
-  - docs/models/searchknowledgedollaranddollargte.md
-  - docs/models/searchknowledgedollaranddollarin.md
-  - docs/models/searchknowledgedollaranddollarlt.md
-  - docs/models/searchknowledgedollaranddollarlte.md
-  - docs/models/searchknowledgedollaranddollarne.md
-  - docs/models/searchknowledgedollaranddollarnin.md
-  - docs/models/searchknowledgedollarandknowledgedollareq.md
-  - docs/models/searchknowledgedollarandknowledgedollarin.md
-  - docs/models/searchknowledgedollarandknowledgedollarne.md
-  - docs/models/searchknowledgedollarandknowledgedollarnin.md
-  - docs/models/searchknowledgedollaror3.md
-  - docs/models/searchknowledgedollarordollareq.md
-  - docs/models/searchknowledgedollarordollarexists.md
-  - docs/models/searchknowledgedollarordollargte.md
-  - docs/models/searchknowledgedollarordollarin.md
-  - docs/models/searchknowledgedollarordollarlt.md
-  - docs/models/searchknowledgedollarordollarlte.md
-  - docs/models/searchknowledgedollarordollarne.md
-  - docs/models/searchknowledgedollarordollarnin.md
-  - docs/models/searchknowledgedollarorknowledgedollareq.md
-  - docs/models/searchknowledgedollarorknowledgedollarin.md
-  - docs/models/searchknowledgedollarorknowledgedollarne.md
-  - docs/models/searchknowledgedollarorknowledgedollarnin.md
-  - docs/models/searchknowledgefilterdollarand.md
-  - docs/models/searchknowledgefilterdollaror.md
+  - docs/models/searchknowledge1eq.md
+  - docs/models/searchknowledge1exists.md
+  - docs/models/searchknowledge1gte.md
+  - docs/models/searchknowledge1in.md
+  - docs/models/searchknowledge1knowledgeeq.md
+  - docs/models/searchknowledge1knowledgein.md
+  - docs/models/searchknowledge1knowledgene.md
+  - docs/models/searchknowledge1knowledgenin.md
+  - docs/models/searchknowledge1lt.md
+  - docs/models/searchknowledge1lte.md
+  - docs/models/searchknowledge1ne.md
+  - docs/models/searchknowledge1nin.md
+  - docs/models/searchknowledgeand3.md
+  - docs/models/searchknowledgeandeq.md
+  - docs/models/searchknowledgeandexists.md
+  - docs/models/searchknowledgeandgte.md
+  - docs/models/searchknowledgeandin.md
+  - docs/models/searchknowledgeandknowledgeeq.md
+  - docs/models/searchknowledgeandknowledgein.md
+  - docs/models/searchknowledgeandknowledgene.md
+  - docs/models/searchknowledgeandknowledgenin.md
+  - docs/models/searchknowledgeandlt.md
+  - docs/models/searchknowledgeandlte.md
+  - docs/models/searchknowledgeandne.md
+  - docs/models/searchknowledgeandnin.md
+  - docs/models/searchknowledgefilterbyand.md
+  - docs/models/searchknowledgefilterbyor.md
+  - docs/models/searchknowledgeor3.md
+  - docs/models/searchknowledgeoreq.md
+  - docs/models/searchknowledgeorexists.md
+  - docs/models/searchknowledgeorgte.md
+  - docs/models/searchknowledgeorin.md
+  - docs/models/searchknowledgeorknowledgeeq.md
+  - docs/models/searchknowledgeorknowledgein.md
+  - docs/models/searchknowledgeorknowledgene.md
+  - docs/models/searchknowledgeorknowledgenin.md
+  - docs/models/searchknowledgeorlt.md
+  - docs/models/searchknowledgeorlte.md
+  - docs/models/searchknowledgeorne.md
+  - docs/models/searchknowledgeornin.md
   - docs/models/searchknowledgerequest.md
   - docs/models/searchknowledgerequestbody.md
   - docs/models/searchknowledgeresponsebody.md
@@ -1284,7 +1284,7 @@ examples:
         application/json: {"external_id": "<id>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-05-23T03:50:15.882Z"}
   CreateFeedback:
     "":
       requestBody:
@@ -1346,7 +1346,7 @@ examples:
         multipart/form-data: {"file": {"": "x-file: example.file"}, "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-05-22T11:50:34.015Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-05-23T03:50:18.648Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -1362,7 +1362,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-05-22T11:50:34.015Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-05-23T03:50:18.648Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -1453,7 +1453,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-05-23T03:50:15.882Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -1461,7 +1461,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-05-23T03:50:15.882Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -1473,7 +1473,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-05-23T03:50:15.882Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -1508,7 +1508,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-23T03:50:15.882Z"}
   RetrieveDatapoint:
     speakeasy-default-retrieve-datapoint:
       parameters:
@@ -1517,7 +1517,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-23T03:50:15.882Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -1528,7 +1528,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-22T11:50:31.226Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-05-23T03:50:15.882Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -1611,7 +1611,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01JVVX9GVWQHBAXPEZMEVTD9C7", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01JVXM6VRD663EXZFWYFTN9QHB", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -1620,7 +1620,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01JVVX9GVW0HZ29F4W869D2Q8X", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01JVXM6VRDA5RYVC55SFPT25TY", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -1637,7 +1637,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01JVVX9GVX610XBMM6HMM41ZG7", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01JVXM6VRFV1577SK09K93SMHG", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:

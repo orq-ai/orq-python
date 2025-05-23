@@ -11,15 +11,15 @@ A filter to apply to the knowledge base chunk metadata when using  knowledge bas
 value: Dict[str, models.One] = /* values here */
 ```
 
-### `models.KnowledgeFilterDollarAnd`
+### `models.KnowledgeFilterAnd`
 
 ```python
-value: models.KnowledgeFilterDollarAnd = /* values here */
+value: models.KnowledgeFilterAnd = /* values here */
 ```
 
-### `models.KnowledgeFilterDollarOr`
+### `models.KnowledgeFilterOr`
 
 ```python
-value: models.KnowledgeFilterDollarOr = /* values here */
+value: models.KnowledgeFilterOr = /* values here */
 ```
 

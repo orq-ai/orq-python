@@ -11,15 +11,15 @@ A filter to apply to the knowledge base chunk metadata when using  knowledge bas
 value: Dict[str, models.DeploymentStreamKnowledgeFilter1] = /* values here */
 ```
 
-### `models.DeploymentStreamKnowledgeFilterDollarAnd`
+### `models.DeploymentStreamKnowledgeFilterAnd`
 
 ```python
-value: models.DeploymentStreamKnowledgeFilterDollarAnd = /* values here */
+value: models.DeploymentStreamKnowledgeFilterAnd = /* values here */
 ```
 
-### `models.DeploymentStreamKnowledgeFilterDollarOr`
+### `models.DeploymentStreamKnowledgeFilterOr`
 
 ```python
-value: models.DeploymentStreamKnowledgeFilterDollarOr = /* values here */
+value: models.DeploymentStreamKnowledgeFilterOr = /* values here */
 ```
 

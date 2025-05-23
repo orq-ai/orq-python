@@ -8,595 +8,573 @@ from typing import Any, Dict, List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class SearchKnowledgeDollarOrDollarExistsTypedDict(TypedDict):
+class SearchKnowledgeOrExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class SearchKnowledgeDollarOrDollarExists(BaseModel):
+class SearchKnowledgeOrExists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-SearchKnowledgeDollarOrKnowledgeDollarNinTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarNinTypedDict", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeNinTypedDict = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeNinTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarOrKnowledgeDollarNin = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarNin", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeNin = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeNin", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarOrDollarNinTypedDict(TypedDict):
+class SearchKnowledgeOrNinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[SearchKnowledgeDollarOrKnowledgeDollarNinTypedDict]
+    nin: List[SearchKnowledgeOrKnowledgeNinTypedDict]
 
 
-class SearchKnowledgeDollarOrDollarNin(BaseModel):
+class SearchKnowledgeOrNin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[
-        List[SearchKnowledgeDollarOrKnowledgeDollarNin], pydantic.Field(alias="$nin")
-    ]
+    nin: List[SearchKnowledgeOrKnowledgeNin]
 
 
-SearchKnowledgeDollarOrKnowledgeDollarInTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarInTypedDict", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeInTypedDict = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeInTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarOrKnowledgeDollarIn = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarIn", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeIn = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeIn", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarOrDollarInTypedDict(TypedDict):
+class SearchKnowledgeOrInTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[SearchKnowledgeDollarOrKnowledgeDollarInTypedDict]
+    in_: List[SearchKnowledgeOrKnowledgeInTypedDict]
 
 
-class SearchKnowledgeDollarOrDollarIn(BaseModel):
+class SearchKnowledgeOrIn(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[
-        List[SearchKnowledgeDollarOrKnowledgeDollarIn], pydantic.Field(alias="$in")
-    ]
+    in_: Annotated[List[SearchKnowledgeOrKnowledgeIn], pydantic.Field(alias="in")]
 
 
-class SearchKnowledgeDollarOrDollarLteTypedDict(TypedDict):
+class SearchKnowledgeOrLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class SearchKnowledgeDollarOrDollarLte(BaseModel):
+class SearchKnowledgeOrLte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class SearchKnowledgeDollarOrDollarLtTypedDict(TypedDict):
+class SearchKnowledgeOrLtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class SearchKnowledgeDollarOrDollarLt(BaseModel):
+class SearchKnowledgeOrLt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class SearchKnowledgeDollarOrDollarGteTypedDict(TypedDict):
+class SearchKnowledgeOrGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class SearchKnowledgeDollarOrDollarGte(BaseModel):
+class SearchKnowledgeOrGte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
-class SearchKnowledgeDollarOr3TypedDict(TypedDict):
-    dollar_gt: float
+class SearchKnowledgeOr3TypedDict(TypedDict):
+    gt: float
 
 
-class SearchKnowledgeDollarOr3(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+class SearchKnowledgeOr3(BaseModel):
+    gt: float
 
 
-SearchKnowledgeDollarOrKnowledgeDollarNeTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarNeTypedDict", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeNeTypedDict = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeNeTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarOrKnowledgeDollarNe = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarNe", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeNe = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeNe", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarOrDollarNeTypedDict(TypedDict):
+class SearchKnowledgeOrNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: SearchKnowledgeDollarOrKnowledgeDollarNeTypedDict
+    ne: SearchKnowledgeOrKnowledgeNeTypedDict
 
 
-class SearchKnowledgeDollarOrDollarNe(BaseModel):
+class SearchKnowledgeOrNe(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[
-        SearchKnowledgeDollarOrKnowledgeDollarNe, pydantic.Field(alias="$ne")
-    ]
+    ne: SearchKnowledgeOrKnowledgeNe
 
 
-SearchKnowledgeDollarOrKnowledgeDollarEqTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarEqTypedDict", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeEqTypedDict = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeEqTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarOrKnowledgeDollarEq = TypeAliasType(
-    "SearchKnowledgeDollarOrKnowledgeDollarEq", Union[str, float, bool]
+SearchKnowledgeOrKnowledgeEq = TypeAliasType(
+    "SearchKnowledgeOrKnowledgeEq", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarOrDollarEqTypedDict(TypedDict):
+class SearchKnowledgeOrEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: SearchKnowledgeDollarOrKnowledgeDollarEqTypedDict
+    eq: SearchKnowledgeOrKnowledgeEqTypedDict
 
 
-class SearchKnowledgeDollarOrDollarEq(BaseModel):
+class SearchKnowledgeOrEq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[
-        SearchKnowledgeDollarOrKnowledgeDollarEq, pydantic.Field(alias="$eq")
-    ]
+    eq: SearchKnowledgeOrKnowledgeEq
 
 
-SearchKnowledgeFilterDollarOrTypedDict = TypeAliasType(
-    "SearchKnowledgeFilterDollarOrTypedDict",
+SearchKnowledgeFilterByOrTypedDict = TypeAliasType(
+    "SearchKnowledgeFilterByOrTypedDict",
     Union[
-        SearchKnowledgeDollarOrDollarEqTypedDict,
-        SearchKnowledgeDollarOrDollarNeTypedDict,
-        SearchKnowledgeDollarOr3TypedDict,
-        SearchKnowledgeDollarOrDollarGteTypedDict,
-        SearchKnowledgeDollarOrDollarLtTypedDict,
-        SearchKnowledgeDollarOrDollarLteTypedDict,
-        SearchKnowledgeDollarOrDollarInTypedDict,
-        SearchKnowledgeDollarOrDollarNinTypedDict,
-        SearchKnowledgeDollarOrDollarExistsTypedDict,
+        SearchKnowledgeOrEqTypedDict,
+        SearchKnowledgeOrNeTypedDict,
+        SearchKnowledgeOr3TypedDict,
+        SearchKnowledgeOrGteTypedDict,
+        SearchKnowledgeOrLtTypedDict,
+        SearchKnowledgeOrLteTypedDict,
+        SearchKnowledgeOrInTypedDict,
+        SearchKnowledgeOrNinTypedDict,
+        SearchKnowledgeOrExistsTypedDict,
     ],
 )
 
 
-SearchKnowledgeFilterDollarOr = TypeAliasType(
-    "SearchKnowledgeFilterDollarOr",
+SearchKnowledgeFilterByOr = TypeAliasType(
+    "SearchKnowledgeFilterByOr",
     Union[
-        SearchKnowledgeDollarOrDollarEq,
-        SearchKnowledgeDollarOrDollarNe,
-        SearchKnowledgeDollarOr3,
-        SearchKnowledgeDollarOrDollarGte,
-        SearchKnowledgeDollarOrDollarLt,
-        SearchKnowledgeDollarOrDollarLte,
-        SearchKnowledgeDollarOrDollarIn,
-        SearchKnowledgeDollarOrDollarNin,
-        SearchKnowledgeDollarOrDollarExists,
+        SearchKnowledgeOrEq,
+        SearchKnowledgeOrNe,
+        SearchKnowledgeOr3,
+        SearchKnowledgeOrGte,
+        SearchKnowledgeOrLt,
+        SearchKnowledgeOrLte,
+        SearchKnowledgeOrIn,
+        SearchKnowledgeOrNin,
+        SearchKnowledgeOrExists,
     ],
 )
 
 
-class FilterDollarOrTypedDict(TypedDict):
+class FilterByOrTypedDict(TypedDict):
     r"""Or"""
 
-    dollar_or: List[Dict[str, SearchKnowledgeFilterDollarOrTypedDict]]
+    or_: List[Dict[str, SearchKnowledgeFilterByOrTypedDict]]
 
 
-class FilterDollarOr(BaseModel):
+class FilterByOr(BaseModel):
     r"""Or"""
 
-    dollar_or: Annotated[
-        List[Dict[str, SearchKnowledgeFilterDollarOr]], pydantic.Field(alias="$or")
+    or_: Annotated[
+        List[Dict[str, SearchKnowledgeFilterByOr]], pydantic.Field(alias="or")
     ]
 
 
-class SearchKnowledgeDollarAndDollarExistsTypedDict(TypedDict):
+class SearchKnowledgeAndExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class SearchKnowledgeDollarAndDollarExists(BaseModel):
+class SearchKnowledgeAndExists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-SearchKnowledgeDollarAndKnowledgeDollarNinTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarNinTypedDict", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeNinTypedDict = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeNinTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarAndKnowledgeDollarNin = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarNin", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeNin = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeNin", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarAndDollarNinTypedDict(TypedDict):
+class SearchKnowledgeAndNinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[SearchKnowledgeDollarAndKnowledgeDollarNinTypedDict]
+    nin: List[SearchKnowledgeAndKnowledgeNinTypedDict]
 
 
-class SearchKnowledgeDollarAndDollarNin(BaseModel):
+class SearchKnowledgeAndNin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[
-        List[SearchKnowledgeDollarAndKnowledgeDollarNin], pydantic.Field(alias="$nin")
-    ]
+    nin: List[SearchKnowledgeAndKnowledgeNin]
 
 
-SearchKnowledgeDollarAndKnowledgeDollarInTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarInTypedDict", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeInTypedDict = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeInTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarAndKnowledgeDollarIn = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarIn", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeIn = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeIn", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarAndDollarInTypedDict(TypedDict):
+class SearchKnowledgeAndInTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[SearchKnowledgeDollarAndKnowledgeDollarInTypedDict]
+    in_: List[SearchKnowledgeAndKnowledgeInTypedDict]
 
 
-class SearchKnowledgeDollarAndDollarIn(BaseModel):
+class SearchKnowledgeAndIn(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[
-        List[SearchKnowledgeDollarAndKnowledgeDollarIn], pydantic.Field(alias="$in")
-    ]
+    in_: Annotated[List[SearchKnowledgeAndKnowledgeIn], pydantic.Field(alias="in")]
 
 
-class SearchKnowledgeDollarAndDollarLteTypedDict(TypedDict):
+class SearchKnowledgeAndLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class SearchKnowledgeDollarAndDollarLte(BaseModel):
+class SearchKnowledgeAndLte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class SearchKnowledgeDollarAndDollarLtTypedDict(TypedDict):
+class SearchKnowledgeAndLtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class SearchKnowledgeDollarAndDollarLt(BaseModel):
+class SearchKnowledgeAndLt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class SearchKnowledgeDollarAndDollarGteTypedDict(TypedDict):
+class SearchKnowledgeAndGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class SearchKnowledgeDollarAndDollarGte(BaseModel):
+class SearchKnowledgeAndGte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
-class SearchKnowledgeDollarAnd3TypedDict(TypedDict):
-    dollar_gt: float
+class SearchKnowledgeAnd3TypedDict(TypedDict):
+    gt: float
 
 
-class SearchKnowledgeDollarAnd3(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+class SearchKnowledgeAnd3(BaseModel):
+    gt: float
 
 
-SearchKnowledgeDollarAndKnowledgeDollarNeTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarNeTypedDict", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeNeTypedDict = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeNeTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarAndKnowledgeDollarNe = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarNe", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeNe = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeNe", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarAndDollarNeTypedDict(TypedDict):
+class SearchKnowledgeAndNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: SearchKnowledgeDollarAndKnowledgeDollarNeTypedDict
+    ne: SearchKnowledgeAndKnowledgeNeTypedDict
 
 
-class SearchKnowledgeDollarAndDollarNe(BaseModel):
+class SearchKnowledgeAndNe(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[
-        SearchKnowledgeDollarAndKnowledgeDollarNe, pydantic.Field(alias="$ne")
-    ]
+    ne: SearchKnowledgeAndKnowledgeNe
 
 
-SearchKnowledgeDollarAndKnowledgeDollarEqTypedDict = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarEqTypedDict", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeEqTypedDict = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeEqTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledgeDollarAndKnowledgeDollarEq = TypeAliasType(
-    "SearchKnowledgeDollarAndKnowledgeDollarEq", Union[str, float, bool]
+SearchKnowledgeAndKnowledgeEq = TypeAliasType(
+    "SearchKnowledgeAndKnowledgeEq", Union[str, float, bool]
 )
 
 
-class SearchKnowledgeDollarAndDollarEqTypedDict(TypedDict):
+class SearchKnowledgeAndEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: SearchKnowledgeDollarAndKnowledgeDollarEqTypedDict
+    eq: SearchKnowledgeAndKnowledgeEqTypedDict
 
 
-class SearchKnowledgeDollarAndDollarEq(BaseModel):
+class SearchKnowledgeAndEq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[
-        SearchKnowledgeDollarAndKnowledgeDollarEq, pydantic.Field(alias="$eq")
-    ]
+    eq: SearchKnowledgeAndKnowledgeEq
 
 
-SearchKnowledgeFilterDollarAndTypedDict = TypeAliasType(
-    "SearchKnowledgeFilterDollarAndTypedDict",
+SearchKnowledgeFilterByAndTypedDict = TypeAliasType(
+    "SearchKnowledgeFilterByAndTypedDict",
     Union[
-        SearchKnowledgeDollarAndDollarEqTypedDict,
-        SearchKnowledgeDollarAndDollarNeTypedDict,
-        SearchKnowledgeDollarAnd3TypedDict,
-        SearchKnowledgeDollarAndDollarGteTypedDict,
-        SearchKnowledgeDollarAndDollarLtTypedDict,
-        SearchKnowledgeDollarAndDollarLteTypedDict,
-        SearchKnowledgeDollarAndDollarInTypedDict,
-        SearchKnowledgeDollarAndDollarNinTypedDict,
-        SearchKnowledgeDollarAndDollarExistsTypedDict,
+        SearchKnowledgeAndEqTypedDict,
+        SearchKnowledgeAndNeTypedDict,
+        SearchKnowledgeAnd3TypedDict,
+        SearchKnowledgeAndGteTypedDict,
+        SearchKnowledgeAndLtTypedDict,
+        SearchKnowledgeAndLteTypedDict,
+        SearchKnowledgeAndInTypedDict,
+        SearchKnowledgeAndNinTypedDict,
+        SearchKnowledgeAndExistsTypedDict,
     ],
 )
 
 
-SearchKnowledgeFilterDollarAnd = TypeAliasType(
-    "SearchKnowledgeFilterDollarAnd",
+SearchKnowledgeFilterByAnd = TypeAliasType(
+    "SearchKnowledgeFilterByAnd",
     Union[
-        SearchKnowledgeDollarAndDollarEq,
-        SearchKnowledgeDollarAndDollarNe,
-        SearchKnowledgeDollarAnd3,
-        SearchKnowledgeDollarAndDollarGte,
-        SearchKnowledgeDollarAndDollarLt,
-        SearchKnowledgeDollarAndDollarLte,
-        SearchKnowledgeDollarAndDollarIn,
-        SearchKnowledgeDollarAndDollarNin,
-        SearchKnowledgeDollarAndDollarExists,
+        SearchKnowledgeAndEq,
+        SearchKnowledgeAndNe,
+        SearchKnowledgeAnd3,
+        SearchKnowledgeAndGte,
+        SearchKnowledgeAndLt,
+        SearchKnowledgeAndLte,
+        SearchKnowledgeAndIn,
+        SearchKnowledgeAndNin,
+        SearchKnowledgeAndExists,
     ],
 )
 
 
-class FilterDollarAndTypedDict(TypedDict):
+class FilterByAndTypedDict(TypedDict):
     r"""And"""
 
-    dollar_and: List[Dict[str, SearchKnowledgeFilterDollarAndTypedDict]]
+    and_: List[Dict[str, SearchKnowledgeFilterByAndTypedDict]]
 
 
-class FilterDollarAnd(BaseModel):
+class FilterByAnd(BaseModel):
     r"""And"""
 
-    dollar_and: Annotated[
-        List[Dict[str, SearchKnowledgeFilterDollarAnd]], pydantic.Field(alias="$and")
+    and_: Annotated[
+        List[Dict[str, SearchKnowledgeFilterByAnd]], pydantic.Field(alias="and")
     ]
 
 
-class SearchKnowledge1DollarExistsTypedDict(TypedDict):
+class SearchKnowledge1ExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class SearchKnowledge1DollarExists(BaseModel):
+class SearchKnowledge1Exists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-SearchKnowledge1KnowledgeDollarNinTypedDict = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarNinTypedDict", Union[str, float, bool]
+SearchKnowledge1KnowledgeNinTypedDict = TypeAliasType(
+    "SearchKnowledge1KnowledgeNinTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledge1KnowledgeDollarNin = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarNin", Union[str, float, bool]
+SearchKnowledge1KnowledgeNin = TypeAliasType(
+    "SearchKnowledge1KnowledgeNin", Union[str, float, bool]
 )
 
 
-class SearchKnowledge1DollarNinTypedDict(TypedDict):
+class SearchKnowledge1NinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[SearchKnowledge1KnowledgeDollarNinTypedDict]
+    nin: List[SearchKnowledge1KnowledgeNinTypedDict]
 
 
-class SearchKnowledge1DollarNin(BaseModel):
+class SearchKnowledge1Nin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[
-        List[SearchKnowledge1KnowledgeDollarNin], pydantic.Field(alias="$nin")
-    ]
+    nin: List[SearchKnowledge1KnowledgeNin]
 
 
-SearchKnowledge1KnowledgeDollarInTypedDict = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarInTypedDict", Union[str, float, bool]
+SearchKnowledge1KnowledgeInTypedDict = TypeAliasType(
+    "SearchKnowledge1KnowledgeInTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledge1KnowledgeDollarIn = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarIn", Union[str, float, bool]
+SearchKnowledge1KnowledgeIn = TypeAliasType(
+    "SearchKnowledge1KnowledgeIn", Union[str, float, bool]
 )
 
 
-class SearchKnowledge1DollarInTypedDict(TypedDict):
+class SearchKnowledge1InTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[SearchKnowledge1KnowledgeDollarInTypedDict]
+    in_: List[SearchKnowledge1KnowledgeInTypedDict]
 
 
-class SearchKnowledge1DollarIn(BaseModel):
+class SearchKnowledge1In(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[
-        List[SearchKnowledge1KnowledgeDollarIn], pydantic.Field(alias="$in")
-    ]
+    in_: Annotated[List[SearchKnowledge1KnowledgeIn], pydantic.Field(alias="in")]
 
 
-class SearchKnowledge1DollarLteTypedDict(TypedDict):
+class SearchKnowledge1LteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class SearchKnowledge1DollarLte(BaseModel):
+class SearchKnowledge1Lte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class SearchKnowledge1DollarLtTypedDict(TypedDict):
+class SearchKnowledge1LtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class SearchKnowledge1DollarLt(BaseModel):
+class SearchKnowledge1Lt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class SearchKnowledge1DollarGteTypedDict(TypedDict):
+class SearchKnowledge1GteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class SearchKnowledge1DollarGte(BaseModel):
+class SearchKnowledge1Gte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
 class SearchKnowledge13TypedDict(TypedDict):
-    dollar_gt: float
+    gt: float
 
 
 class SearchKnowledge13(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+    gt: float
 
 
-SearchKnowledge1KnowledgeDollarNeTypedDict = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarNeTypedDict", Union[str, float, bool]
+SearchKnowledge1KnowledgeNeTypedDict = TypeAliasType(
+    "SearchKnowledge1KnowledgeNeTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledge1KnowledgeDollarNe = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarNe", Union[str, float, bool]
+SearchKnowledge1KnowledgeNe = TypeAliasType(
+    "SearchKnowledge1KnowledgeNe", Union[str, float, bool]
 )
 
 
-class SearchKnowledge1DollarNeTypedDict(TypedDict):
+class SearchKnowledge1NeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: SearchKnowledge1KnowledgeDollarNeTypedDict
+    ne: SearchKnowledge1KnowledgeNeTypedDict
 
 
-class SearchKnowledge1DollarNe(BaseModel):
+class SearchKnowledge1Ne(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[SearchKnowledge1KnowledgeDollarNe, pydantic.Field(alias="$ne")]
+    ne: SearchKnowledge1KnowledgeNe
 
 
-SearchKnowledge1KnowledgeDollarEqTypedDict = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarEqTypedDict", Union[str, float, bool]
+SearchKnowledge1KnowledgeEqTypedDict = TypeAliasType(
+    "SearchKnowledge1KnowledgeEqTypedDict", Union[str, float, bool]
 )
 
 
-SearchKnowledge1KnowledgeDollarEq = TypeAliasType(
-    "SearchKnowledge1KnowledgeDollarEq", Union[str, float, bool]
+SearchKnowledge1KnowledgeEq = TypeAliasType(
+    "SearchKnowledge1KnowledgeEq", Union[str, float, bool]
 )
 
 
-class SearchKnowledge1DollarEqTypedDict(TypedDict):
+class SearchKnowledge1EqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: SearchKnowledge1KnowledgeDollarEqTypedDict
+    eq: SearchKnowledge1KnowledgeEqTypedDict
 
 
-class SearchKnowledge1DollarEq(BaseModel):
+class SearchKnowledge1Eq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[SearchKnowledge1KnowledgeDollarEq, pydantic.Field(alias="$eq")]
+    eq: SearchKnowledge1KnowledgeEq
 
 
-Filter1TypedDict = TypeAliasType(
-    "Filter1TypedDict",
+FilterBy1TypedDict = TypeAliasType(
+    "FilterBy1TypedDict",
     Union[
-        SearchKnowledge1DollarEqTypedDict,
-        SearchKnowledge1DollarNeTypedDict,
+        SearchKnowledge1EqTypedDict,
+        SearchKnowledge1NeTypedDict,
         SearchKnowledge13TypedDict,
-        SearchKnowledge1DollarGteTypedDict,
-        SearchKnowledge1DollarLtTypedDict,
-        SearchKnowledge1DollarLteTypedDict,
-        SearchKnowledge1DollarInTypedDict,
-        SearchKnowledge1DollarNinTypedDict,
-        SearchKnowledge1DollarExistsTypedDict,
+        SearchKnowledge1GteTypedDict,
+        SearchKnowledge1LtTypedDict,
+        SearchKnowledge1LteTypedDict,
+        SearchKnowledge1InTypedDict,
+        SearchKnowledge1NinTypedDict,
+        SearchKnowledge1ExistsTypedDict,
     ],
 )
 
 
-Filter1 = TypeAliasType(
-    "Filter1",
+FilterBy1 = TypeAliasType(
+    "FilterBy1",
     Union[
-        SearchKnowledge1DollarEq,
-        SearchKnowledge1DollarNe,
+        SearchKnowledge1Eq,
+        SearchKnowledge1Ne,
         SearchKnowledge13,
-        SearchKnowledge1DollarGte,
-        SearchKnowledge1DollarLt,
-        SearchKnowledge1DollarLte,
-        SearchKnowledge1DollarIn,
-        SearchKnowledge1DollarNin,
-        SearchKnowledge1DollarExists,
+        SearchKnowledge1Gte,
+        SearchKnowledge1Lt,
+        SearchKnowledge1Lte,
+        SearchKnowledge1In,
+        SearchKnowledge1Nin,
+        SearchKnowledge1Exists,
     ],
 )
 
 
-FilterTypedDict = TypeAliasType(
-    "FilterTypedDict",
-    Union[
-        FilterDollarAndTypedDict, FilterDollarOrTypedDict, Dict[str, Filter1TypedDict]
-    ],
+FilterByTypedDict = TypeAliasType(
+    "FilterByTypedDict",
+    Union[FilterByAndTypedDict, FilterByOrTypedDict, Dict[str, FilterBy1TypedDict]],
 )
-r"""The filter to apply to the search"""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
 
 
-Filter = TypeAliasType(
-    "Filter", Union[FilterDollarAnd, FilterDollarOr, Dict[str, Filter1]]
+FilterBy = TypeAliasType(
+    "FilterBy", Union[FilterByAnd, FilterByOr, Dict[str, FilterBy1]]
 )
-r"""The filter to apply to the search"""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
 
 
 class SearchOptionsTypedDict(TypedDict):
@@ -632,8 +610,8 @@ class SearchKnowledgeRequestBodyTypedDict(TypedDict):
     r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`"""
     threshold: NotRequired[float]
     r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
-    filter_: NotRequired[FilterTypedDict]
-    r"""The filter to apply to the search"""
+    filter_by: NotRequired[FilterByTypedDict]
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
     search_options: NotRequired[SearchOptionsTypedDict]
     r"""Additional search options"""
 
@@ -650,8 +628,8 @@ class SearchKnowledgeRequestBody(BaseModel):
     threshold: Optional[float] = None
     r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
 
-    filter_: Annotated[Optional[Filter], pydantic.Field(alias="filter")] = None
-    r"""The filter to apply to the search"""
+    filter_by: Optional[FilterBy] = None
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
 
     search_options: Optional[SearchOptions] = None
     r"""Additional search options"""

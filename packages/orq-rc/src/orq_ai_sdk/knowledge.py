@@ -1092,7 +1092,7 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        filter_: Optional[Union[models.Filter, models.FilterTypedDict]] = None,
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
@@ -1109,7 +1109,7 @@ class Knowledge(BaseSDK):
         :param query: The query to use to search the knowledge base
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
-        :param filter_: The filter to apply to the search
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1135,7 +1135,9 @@ class Knowledge(BaseSDK):
                 query=query,
                 top_k=top_k,
                 threshold=threshold,
-                filter_=utils.get_pydantic_model(filter_, Optional[models.Filter]),
+                filter_by=utils.get_pydantic_model(
+                    filter_by, Optional[models.FilterBy]
+                ),
                 search_options=utils.get_pydantic_model(
                     search_options, Optional[models.SearchOptions]
                 ),
@@ -1218,7 +1220,7 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        filter_: Optional[Union[models.Filter, models.FilterTypedDict]] = None,
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
@@ -1235,7 +1237,7 @@ class Knowledge(BaseSDK):
         :param query: The query to use to search the knowledge base
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
-        :param filter_: The filter to apply to the search
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1261,7 +1263,9 @@ class Knowledge(BaseSDK):
                 query=query,
                 top_k=top_k,
                 threshold=threshold,
-                filter_=utils.get_pydantic_model(filter_, Optional[models.Filter]),
+                filter_by=utils.get_pydantic_model(
+                    filter_by, Optional[models.FilterBy]
+                ),
                 search_options=utils.get_pydantic_model(
                     search_options, Optional[models.SearchOptions]
                 ),

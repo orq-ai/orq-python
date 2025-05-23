@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.OneDollarEq`
+### `models.OneEq`
 
 ```python
-value: models.OneDollarEq = /* values here */
+value: models.OneEq = /* values here */
 ```
 
-### `models.OneDollarNe`
+### `models.OneNe`
 
 ```python
-value: models.OneDollarNe = /* values here */
+value: models.OneNe = /* values here */
 ```
 
 ### `models.Three`
@@ -21,39 +21,39 @@ value: models.OneDollarNe = /* values here */
 value: models.Three = /* values here */
 ```
 
-### `models.DollarGte`
+### `models.Gte`
 
 ```python
-value: models.DollarGte = /* values here */
+value: models.Gte = /* values here */
 ```
 
-### `models.DollarLt`
+### `models.Lt`
 
 ```python
-value: models.DollarLt = /* values here */
+value: models.Lt = /* values here */
 ```
 
-### `models.DollarLte`
+### `models.Lte`
 
 ```python
-value: models.DollarLte = /* values here */
+value: models.Lte = /* values here */
 ```
 
-### `models.OneDollarIn`
+### `models.OneIn`
 
 ```python
-value: models.OneDollarIn = /* values here */
+value: models.OneIn = /* values here */
 ```
 
-### `models.OneDollarNin`
+### `models.OneNin`
 
 ```python
-value: models.OneDollarNin = /* values here */
+value: models.OneNin = /* values here */
 ```
 
-### `models.DollarExists`
+### `models.Exists`
 
 ```python
-value: models.DollarExists = /* values here */
+value: models.Exists = /* values here */
 ```
 

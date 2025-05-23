@@ -1011,540 +1011,510 @@ class Thread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class DollarOrDollarExistsTypedDict(TypedDict):
+class OrExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class DollarOrDollarExists(BaseModel):
+class OrExists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-DollarOrDollarNinTypedDict = TypeAliasType(
-    "DollarOrDollarNinTypedDict", Union[str, float, bool]
-)
+OrNinTypedDict = TypeAliasType("OrNinTypedDict", Union[str, float, bool])
 
 
-DollarOrDollarNin = TypeAliasType("DollarOrDollarNin", Union[str, float, bool])
+OrNin = TypeAliasType("OrNin", Union[str, float, bool])
 
 
-class DeploymentsDollarOrDollarNinTypedDict(TypedDict):
+class DeploymentsOrNinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[DollarOrDollarNinTypedDict]
+    nin: List[OrNinTypedDict]
 
 
-class DeploymentsDollarOrDollarNin(BaseModel):
+class DeploymentsOrNin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[List[DollarOrDollarNin], pydantic.Field(alias="$nin")]
+    nin: List[OrNin]
 
 
-DollarOrDollarInTypedDict = TypeAliasType(
-    "DollarOrDollarInTypedDict", Union[str, float, bool]
-)
+OrInTypedDict = TypeAliasType("OrInTypedDict", Union[str, float, bool])
 
 
-DollarOrDollarIn = TypeAliasType("DollarOrDollarIn", Union[str, float, bool])
+OrIn = TypeAliasType("OrIn", Union[str, float, bool])
 
 
-class DeploymentsDollarOrDollarInTypedDict(TypedDict):
+class DeploymentsOrInTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[DollarOrDollarInTypedDict]
+    in_: List[OrInTypedDict]
 
 
-class DeploymentsDollarOrDollarIn(BaseModel):
+class DeploymentsOrIn(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[List[DollarOrDollarIn], pydantic.Field(alias="$in")]
+    in_: Annotated[List[OrIn], pydantic.Field(alias="in")]
 
 
-class DollarOrDollarLteTypedDict(TypedDict):
+class OrLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class DollarOrDollarLte(BaseModel):
+class OrLte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class DollarOrDollarLtTypedDict(TypedDict):
+class OrLtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class DollarOrDollarLt(BaseModel):
+class OrLt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class DollarOrDollarGteTypedDict(TypedDict):
+class OrGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class DollarOrDollarGte(BaseModel):
+class OrGte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
-class DollarOr3TypedDict(TypedDict):
-    dollar_gt: float
+class Or3TypedDict(TypedDict):
+    gt: float
 
 
-class DollarOr3(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+class Or3(BaseModel):
+    gt: float
 
 
-DollarOrDollarNeTypedDict = TypeAliasType(
-    "DollarOrDollarNeTypedDict", Union[str, float, bool]
-)
+OrNeTypedDict = TypeAliasType("OrNeTypedDict", Union[str, float, bool])
 
 
-DollarOrDollarNe = TypeAliasType("DollarOrDollarNe", Union[str, float, bool])
+OrNe = TypeAliasType("OrNe", Union[str, float, bool])
 
 
-class DeploymentsDollarOrDollarNeTypedDict(TypedDict):
+class DeploymentsOrNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: DollarOrDollarNeTypedDict
+    ne: OrNeTypedDict
 
 
-class DeploymentsDollarOrDollarNe(BaseModel):
+class DeploymentsOrNe(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[DollarOrDollarNe, pydantic.Field(alias="$ne")]
+    ne: OrNe
 
 
-DollarOrDollarEqTypedDict = TypeAliasType(
-    "DollarOrDollarEqTypedDict", Union[str, float, bool]
-)
+OrEqTypedDict = TypeAliasType("OrEqTypedDict", Union[str, float, bool])
 
 
-DollarOrDollarEq = TypeAliasType("DollarOrDollarEq", Union[str, float, bool])
+OrEq = TypeAliasType("OrEq", Union[str, float, bool])
 
 
-class DeploymentsDollarOrDollarEqTypedDict(TypedDict):
+class DeploymentsOrEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: DollarOrDollarEqTypedDict
+    eq: OrEqTypedDict
 
 
-class DeploymentsDollarOrDollarEq(BaseModel):
+class DeploymentsOrEq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[DollarOrDollarEq, pydantic.Field(alias="$eq")]
+    eq: OrEq
 
 
-DollarOrTypedDict = TypeAliasType(
-    "DollarOrTypedDict",
+OrTypedDict = TypeAliasType(
+    "OrTypedDict",
     Union[
-        DeploymentsDollarOrDollarEqTypedDict,
-        DeploymentsDollarOrDollarNeTypedDict,
-        DollarOr3TypedDict,
-        DollarOrDollarGteTypedDict,
-        DollarOrDollarLtTypedDict,
-        DollarOrDollarLteTypedDict,
-        DeploymentsDollarOrDollarInTypedDict,
-        DeploymentsDollarOrDollarNinTypedDict,
-        DollarOrDollarExistsTypedDict,
+        DeploymentsOrEqTypedDict,
+        DeploymentsOrNeTypedDict,
+        Or3TypedDict,
+        OrGteTypedDict,
+        OrLtTypedDict,
+        OrLteTypedDict,
+        DeploymentsOrInTypedDict,
+        DeploymentsOrNinTypedDict,
+        OrExistsTypedDict,
     ],
 )
 
 
-DollarOr = TypeAliasType(
-    "DollarOr",
+Or = TypeAliasType(
+    "Or",
     Union[
-        DeploymentsDollarOrDollarEq,
-        DeploymentsDollarOrDollarNe,
-        DollarOr3,
-        DollarOrDollarGte,
-        DollarOrDollarLt,
-        DollarOrDollarLte,
-        DeploymentsDollarOrDollarIn,
-        DeploymentsDollarOrDollarNin,
-        DollarOrDollarExists,
+        DeploymentsOrEq,
+        DeploymentsOrNe,
+        Or3,
+        OrGte,
+        OrLt,
+        OrLte,
+        DeploymentsOrIn,
+        DeploymentsOrNin,
+        OrExists,
     ],
 )
 
 
-class KnowledgeFilterDollarOrTypedDict(TypedDict):
+class KnowledgeFilterOrTypedDict(TypedDict):
     r"""Or"""
 
-    dollar_or: List[Dict[str, DollarOrTypedDict]]
+    or_: List[Dict[str, OrTypedDict]]
 
 
-class KnowledgeFilterDollarOr(BaseModel):
+class KnowledgeFilterOr(BaseModel):
     r"""Or"""
 
-    dollar_or: Annotated[List[Dict[str, DollarOr]], pydantic.Field(alias="$or")]
+    or_: Annotated[List[Dict[str, Or]], pydantic.Field(alias="or")]
 
 
-class DollarAndDollarExistsTypedDict(TypedDict):
+class AndExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class DollarAndDollarExists(BaseModel):
+class AndExists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-DollarAndDollarNinTypedDict = TypeAliasType(
-    "DollarAndDollarNinTypedDict", Union[str, float, bool]
-)
+AndNinTypedDict = TypeAliasType("AndNinTypedDict", Union[str, float, bool])
 
 
-DollarAndDollarNin = TypeAliasType("DollarAndDollarNin", Union[str, float, bool])
+AndNin = TypeAliasType("AndNin", Union[str, float, bool])
 
 
-class DeploymentsDollarAndDollarNinTypedDict(TypedDict):
+class DeploymentsAndNinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[DollarAndDollarNinTypedDict]
+    nin: List[AndNinTypedDict]
 
 
-class DeploymentsDollarAndDollarNin(BaseModel):
+class DeploymentsAndNin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[List[DollarAndDollarNin], pydantic.Field(alias="$nin")]
+    nin: List[AndNin]
 
 
-DollarAndDollarInTypedDict = TypeAliasType(
-    "DollarAndDollarInTypedDict", Union[str, float, bool]
-)
+AndInTypedDict = TypeAliasType("AndInTypedDict", Union[str, float, bool])
 
 
-DollarAndDollarIn = TypeAliasType("DollarAndDollarIn", Union[str, float, bool])
+AndIn = TypeAliasType("AndIn", Union[str, float, bool])
 
 
-class DeploymentsDollarAndDollarInTypedDict(TypedDict):
+class DeploymentsAndInTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[DollarAndDollarInTypedDict]
+    in_: List[AndInTypedDict]
 
 
-class DeploymentsDollarAndDollarIn(BaseModel):
+class DeploymentsAndIn(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[List[DollarAndDollarIn], pydantic.Field(alias="$in")]
+    in_: Annotated[List[AndIn], pydantic.Field(alias="in")]
 
 
-class DollarAndDollarLteTypedDict(TypedDict):
+class AndLteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class DollarAndDollarLte(BaseModel):
+class AndLte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class DollarAndDollarLtTypedDict(TypedDict):
+class AndLtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class DollarAndDollarLt(BaseModel):
+class AndLt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class DollarAndDollarGteTypedDict(TypedDict):
+class AndGteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class DollarAndDollarGte(BaseModel):
+class AndGte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
-class DollarAnd3TypedDict(TypedDict):
-    dollar_gt: float
+class And3TypedDict(TypedDict):
+    gt: float
 
 
-class DollarAnd3(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+class And3(BaseModel):
+    gt: float
 
 
-DollarAndDollarNeTypedDict = TypeAliasType(
-    "DollarAndDollarNeTypedDict", Union[str, float, bool]
-)
+AndNeTypedDict = TypeAliasType("AndNeTypedDict", Union[str, float, bool])
 
 
-DollarAndDollarNe = TypeAliasType("DollarAndDollarNe", Union[str, float, bool])
+AndNe = TypeAliasType("AndNe", Union[str, float, bool])
 
 
-class DeploymentsDollarAndDollarNeTypedDict(TypedDict):
+class DeploymentsAndNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: DollarAndDollarNeTypedDict
+    ne: AndNeTypedDict
 
 
-class DeploymentsDollarAndDollarNe(BaseModel):
+class DeploymentsAndNe(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[DollarAndDollarNe, pydantic.Field(alias="$ne")]
+    ne: AndNe
 
 
-DollarAndDollarEqTypedDict = TypeAliasType(
-    "DollarAndDollarEqTypedDict", Union[str, float, bool]
-)
+AndEqTypedDict = TypeAliasType("AndEqTypedDict", Union[str, float, bool])
 
 
-DollarAndDollarEq = TypeAliasType("DollarAndDollarEq", Union[str, float, bool])
+AndEq = TypeAliasType("AndEq", Union[str, float, bool])
 
 
-class DeploymentsDollarAndDollarEqTypedDict(TypedDict):
+class DeploymentsAndEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: DollarAndDollarEqTypedDict
+    eq: AndEqTypedDict
 
 
-class DeploymentsDollarAndDollarEq(BaseModel):
+class DeploymentsAndEq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[DollarAndDollarEq, pydantic.Field(alias="$eq")]
+    eq: AndEq
 
 
-DollarAndTypedDict = TypeAliasType(
-    "DollarAndTypedDict",
+AndTypedDict = TypeAliasType(
+    "AndTypedDict",
     Union[
-        DeploymentsDollarAndDollarEqTypedDict,
-        DeploymentsDollarAndDollarNeTypedDict,
-        DollarAnd3TypedDict,
-        DollarAndDollarGteTypedDict,
-        DollarAndDollarLtTypedDict,
-        DollarAndDollarLteTypedDict,
-        DeploymentsDollarAndDollarInTypedDict,
-        DeploymentsDollarAndDollarNinTypedDict,
-        DollarAndDollarExistsTypedDict,
+        DeploymentsAndEqTypedDict,
+        DeploymentsAndNeTypedDict,
+        And3TypedDict,
+        AndGteTypedDict,
+        AndLtTypedDict,
+        AndLteTypedDict,
+        DeploymentsAndInTypedDict,
+        DeploymentsAndNinTypedDict,
+        AndExistsTypedDict,
     ],
 )
 
 
-DollarAnd = TypeAliasType(
-    "DollarAnd",
+And = TypeAliasType(
+    "And",
     Union[
-        DeploymentsDollarAndDollarEq,
-        DeploymentsDollarAndDollarNe,
-        DollarAnd3,
-        DollarAndDollarGte,
-        DollarAndDollarLt,
-        DollarAndDollarLte,
-        DeploymentsDollarAndDollarIn,
-        DeploymentsDollarAndDollarNin,
-        DollarAndDollarExists,
+        DeploymentsAndEq,
+        DeploymentsAndNe,
+        And3,
+        AndGte,
+        AndLt,
+        AndLte,
+        DeploymentsAndIn,
+        DeploymentsAndNin,
+        AndExists,
     ],
 )
 
 
-class KnowledgeFilterDollarAndTypedDict(TypedDict):
+class KnowledgeFilterAndTypedDict(TypedDict):
     r"""And"""
 
-    dollar_and: List[Dict[str, DollarAndTypedDict]]
+    and_: List[Dict[str, AndTypedDict]]
 
 
-class KnowledgeFilterDollarAnd(BaseModel):
+class KnowledgeFilterAnd(BaseModel):
     r"""And"""
 
-    dollar_and: Annotated[List[Dict[str, DollarAnd]], pydantic.Field(alias="$and")]
+    and_: Annotated[List[Dict[str, And]], pydantic.Field(alias="and")]
 
 
-class DollarExistsTypedDict(TypedDict):
+class ExistsTypedDict(TypedDict):
     r"""Exists"""
 
-    dollar_exists: bool
+    exists: bool
 
 
-class DollarExists(BaseModel):
+class Exists(BaseModel):
     r"""Exists"""
 
-    dollar_exists: Annotated[bool, pydantic.Field(alias="$exists")]
+    exists: bool
 
 
-DollarNinTypedDict = TypeAliasType("DollarNinTypedDict", Union[str, float, bool])
+NinTypedDict = TypeAliasType("NinTypedDict", Union[str, float, bool])
 
 
-DollarNin = TypeAliasType("DollarNin", Union[str, float, bool])
+Nin = TypeAliasType("Nin", Union[str, float, bool])
 
 
-class OneDollarNinTypedDict(TypedDict):
+class OneNinTypedDict(TypedDict):
     r"""Not in"""
 
-    dollar_nin: List[DollarNinTypedDict]
+    nin: List[NinTypedDict]
 
 
-class OneDollarNin(BaseModel):
+class OneNin(BaseModel):
     r"""Not in"""
 
-    dollar_nin: Annotated[List[DollarNin], pydantic.Field(alias="$nin")]
+    nin: List[Nin]
 
 
-DollarInTypedDict = TypeAliasType("DollarInTypedDict", Union[str, float, bool])
+InTypedDict = TypeAliasType("InTypedDict", Union[str, float, bool])
 
 
-DollarIn = TypeAliasType("DollarIn", Union[str, float, bool])
+In = TypeAliasType("In", Union[str, float, bool])
 
 
-class OneDollarInTypedDict(TypedDict):
+class OneInTypedDict(TypedDict):
     r"""In"""
 
-    dollar_in: List[DollarInTypedDict]
+    in_: List[InTypedDict]
 
 
-class OneDollarIn(BaseModel):
+class OneIn(BaseModel):
     r"""In"""
 
-    dollar_in: Annotated[List[DollarIn], pydantic.Field(alias="$in")]
+    in_: Annotated[List[In], pydantic.Field(alias="in")]
 
 
-class DollarLteTypedDict(TypedDict):
+class LteTypedDict(TypedDict):
     r"""Less than or equal to"""
 
-    dollar_lte: float
+    lte: float
 
 
-class DollarLte(BaseModel):
+class Lte(BaseModel):
     r"""Less than or equal to"""
 
-    dollar_lte: Annotated[float, pydantic.Field(alias="$lte")]
+    lte: float
 
 
-class DollarLtTypedDict(TypedDict):
+class LtTypedDict(TypedDict):
     r"""Less than"""
 
-    dollar_lt: float
+    lt: float
 
 
-class DollarLt(BaseModel):
+class Lt(BaseModel):
     r"""Less than"""
 
-    dollar_lt: Annotated[float, pydantic.Field(alias="$lt")]
+    lt: float
 
 
-class DollarGteTypedDict(TypedDict):
+class GteTypedDict(TypedDict):
     r"""Greater than or equal to"""
 
-    dollar_gte: float
+    gte: float
 
 
-class DollarGte(BaseModel):
+class Gte(BaseModel):
     r"""Greater than or equal to"""
 
-    dollar_gte: Annotated[float, pydantic.Field(alias="$gte")]
+    gte: float
 
 
 class ThreeTypedDict(TypedDict):
-    dollar_gt: float
+    gt: float
 
 
 class Three(BaseModel):
-    dollar_gt: Annotated[float, pydantic.Field(alias="$gt")]
+    gt: float
 
 
-DollarNeTypedDict = TypeAliasType("DollarNeTypedDict", Union[str, float, bool])
+NeTypedDict = TypeAliasType("NeTypedDict", Union[str, float, bool])
 
 
-DollarNe = TypeAliasType("DollarNe", Union[str, float, bool])
+Ne = TypeAliasType("Ne", Union[str, float, bool])
 
 
-class OneDollarNeTypedDict(TypedDict):
+class OneNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    dollar_ne: DollarNeTypedDict
+    ne: NeTypedDict
 
 
-class OneDollarNe(BaseModel):
+class OneNe(BaseModel):
     r"""Not equal to"""
 
-    dollar_ne: Annotated[DollarNe, pydantic.Field(alias="$ne")]
+    ne: Ne
 
 
-DollarEqTypedDict = TypeAliasType("DollarEqTypedDict", Union[str, float, bool])
+EqTypedDict = TypeAliasType("EqTypedDict", Union[str, float, bool])
 
 
-DollarEq = TypeAliasType("DollarEq", Union[str, float, bool])
+Eq = TypeAliasType("Eq", Union[str, float, bool])
 
 
-class OneDollarEqTypedDict(TypedDict):
+class OneEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    dollar_eq: DollarEqTypedDict
+    eq: EqTypedDict
 
 
-class OneDollarEq(BaseModel):
+class OneEq(BaseModel):
     r"""Equal to"""
 
-    dollar_eq: Annotated[DollarEq, pydantic.Field(alias="$eq")]
+    eq: Eq
 
 
 OneTypedDict = TypeAliasType(
     "OneTypedDict",
     Union[
-        OneDollarEqTypedDict,
-        OneDollarNeTypedDict,
+        OneEqTypedDict,
+        OneNeTypedDict,
         ThreeTypedDict,
-        DollarGteTypedDict,
-        DollarLtTypedDict,
-        DollarLteTypedDict,
-        OneDollarInTypedDict,
-        OneDollarNinTypedDict,
-        DollarExistsTypedDict,
+        GteTypedDict,
+        LtTypedDict,
+        LteTypedDict,
+        OneInTypedDict,
+        OneNinTypedDict,
+        ExistsTypedDict,
     ],
 )
 
 
 One = TypeAliasType(
-    "One",
-    Union[
-        OneDollarEq,
-        OneDollarNe,
-        Three,
-        DollarGte,
-        DollarLt,
-        DollarLte,
-        OneDollarIn,
-        OneDollarNin,
-        DollarExists,
-    ],
+    "One", Union[OneEq, OneNe, Three, Gte, Lt, Lte, OneIn, OneNin, Exists]
 )
 
 
 KnowledgeFilterTypedDict = TypeAliasType(
     "KnowledgeFilterTypedDict",
     Union[
-        KnowledgeFilterDollarAndTypedDict,
-        KnowledgeFilterDollarOrTypedDict,
-        Dict[str, OneTypedDict],
+        KnowledgeFilterAndTypedDict, KnowledgeFilterOrTypedDict, Dict[str, OneTypedDict]
     ],
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
 KnowledgeFilter = TypeAliasType(
-    "KnowledgeFilter",
-    Union[KnowledgeFilterDollarAnd, KnowledgeFilterDollarOr, Dict[str, One]],
+    "KnowledgeFilter", Union[KnowledgeFilterAnd, KnowledgeFilterOr, Dict[str, One]]
 )
 r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
