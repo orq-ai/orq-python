@@ -308,6 +308,38 @@ CreatePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+CreatePrompt2PromptsRequestType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class CreatePrompt2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreatePrompt2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreatePrompt23TypedDict(TypedDict):
+    type: CreatePrompt2PromptsRequestType
+    r"""The type of the content part. Always `file`."""
+    file: CreatePrompt2FileTypedDict
+
+
+class CreatePrompt23(BaseModel):
+    type: CreatePrompt2PromptsRequestType
+    r"""The type of the content part. Always `file`."""
+
+    file: CreatePrompt2File
+
+
 CreatePrompt2PromptsType = Literal["image_url"]
 
 
@@ -361,12 +393,12 @@ class CreatePrompt21(BaseModel):
 
 CreatePromptContent2TypedDict = TypeAliasType(
     "CreatePromptContent2TypedDict",
-    Union[CreatePrompt21TypedDict, CreatePrompt22TypedDict],
+    Union[CreatePrompt21TypedDict, CreatePrompt22TypedDict, CreatePrompt23TypedDict],
 )
 
 
 CreatePromptContent2 = TypeAliasType(
-    "CreatePromptContent2", Union[CreatePrompt21, CreatePrompt22]
+    "CreatePromptContent2", Union[CreatePrompt21, CreatePrompt22, CreatePrompt23]
 )
 
 
@@ -901,6 +933,38 @@ CreatePromptPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+CreatePrompt2PromptsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class CreatePrompt2PromptsFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreatePrompt2PromptsFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreatePrompt2Prompts3TypedDict(TypedDict):
+    type: CreatePrompt2PromptsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: CreatePrompt2PromptsFileTypedDict
+
+
+class CreatePrompt2Prompts3(BaseModel):
+    type: CreatePrompt2PromptsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: CreatePrompt2PromptsFile
+
+
 CreatePrompt2PromptsResponse200Type = Literal["image_url"]
 
 
@@ -959,12 +1023,17 @@ class CreatePrompt2Prompts1(BaseModel):
 
 CreatePromptContentPrompts2TypedDict = TypeAliasType(
     "CreatePromptContentPrompts2TypedDict",
-    Union[CreatePrompt2Prompts1TypedDict, CreatePrompt2Prompts2TypedDict],
+    Union[
+        CreatePrompt2Prompts1TypedDict,
+        CreatePrompt2Prompts2TypedDict,
+        CreatePrompt2Prompts3TypedDict,
+    ],
 )
 
 
 CreatePromptContentPrompts2 = TypeAliasType(
-    "CreatePromptContentPrompts2", Union[CreatePrompt2Prompts1, CreatePrompt2Prompts2]
+    "CreatePromptContentPrompts2",
+    Union[CreatePrompt2Prompts1, CreatePrompt2Prompts2, CreatePrompt2Prompts3],
 )
 
 

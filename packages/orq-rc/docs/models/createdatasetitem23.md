@@ -1,0 +1,9 @@
+# CreateDatasetItem23
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.CreateDatasetItem2DatasetsRequestType](../models/createdatasetitem2datasetsrequesttype.md) | :heavy_check_mark:                                                                                 | The type of the content part. Always `file`.                                                       |
+| `file`                                                                                             | [models.CreateDatasetItem2File](../models/createdatasetitem2file.md)                               | :heavy_check_mark:                                                                                 | N/A                                                                                                |

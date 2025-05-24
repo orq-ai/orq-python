@@ -326,6 +326,38 @@ GetOnePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+GetOnePrompt2PromptsResponseType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class GetOnePrompt2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class GetOnePrompt2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class GetOnePrompt23TypedDict(TypedDict):
+    type: GetOnePrompt2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+    file: GetOnePrompt2FileTypedDict
+
+
+class GetOnePrompt23(BaseModel):
+    type: GetOnePrompt2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+
+    file: GetOnePrompt2File
+
+
 GetOnePrompt2PromptsType = Literal["image_url"]
 
 
@@ -384,12 +416,12 @@ class GetOnePrompt21(BaseModel):
 
 GetOnePromptContent2TypedDict = TypeAliasType(
     "GetOnePromptContent2TypedDict",
-    Union[GetOnePrompt21TypedDict, GetOnePrompt22TypedDict],
+    Union[GetOnePrompt21TypedDict, GetOnePrompt22TypedDict, GetOnePrompt23TypedDict],
 )
 
 
 GetOnePromptContent2 = TypeAliasType(
-    "GetOnePromptContent2", Union[GetOnePrompt21, GetOnePrompt22]
+    "GetOnePromptContent2", Union[GetOnePrompt21, GetOnePrompt22, GetOnePrompt23]
 )
 
 

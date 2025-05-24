@@ -15,3 +15,9 @@ value: models.UpdatePrompt2Prompts1 = /* values here */
 value: models.UpdatePrompt2Prompts2 = /* values here */
 ```
 
+### `models.UpdatePrompt2Prompts3`
+
+```python
+value: models.UpdatePrompt2Prompts3 = /* values here */
+```
+

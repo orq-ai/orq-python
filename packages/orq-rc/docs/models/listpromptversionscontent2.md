@@ -15,3 +15,9 @@ value: models.ListPromptVersions21 = /* values here */
 value: models.ListPromptVersions22 = /* values here */
 ```
 
+### `models.ListPromptVersions23`
+
+```python
+value: models.ListPromptVersions23 = /* values here */
+```
+

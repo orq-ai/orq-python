@@ -1750,6 +1750,38 @@ DeploymentGetConfigRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class DeploymentGetConfig2DeploymentsResponseFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class DeploymentGetConfig2DeploymentsResponseFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class DeploymentGetConfig2DeploymentsResponse3TypedDict(TypedDict):
+    type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: DeploymentGetConfig2DeploymentsResponseFileTypedDict
+
+
+class DeploymentGetConfig2DeploymentsResponse3(BaseModel):
+    type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: DeploymentGetConfig2DeploymentsResponseFile
+
+
 DeploymentGetConfig2DeploymentsResponse200Type = Literal["image_url"]
 
 
@@ -1811,6 +1843,7 @@ DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     Union[
         DeploymentGetConfig2DeploymentsResponse1TypedDict,
         DeploymentGetConfig2DeploymentsResponse2TypedDict,
+        DeploymentGetConfig2DeploymentsResponse3TypedDict,
     ],
 )
 
@@ -1820,6 +1853,7 @@ DeploymentGetConfigContentDeploymentsResponse2 = TypeAliasType(
     Union[
         DeploymentGetConfig2DeploymentsResponse1,
         DeploymentGetConfig2DeploymentsResponse2,
+        DeploymentGetConfig2DeploymentsResponse3,
     ],
 )
 

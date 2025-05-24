@@ -26,6 +26,38 @@ UpdateDatapointRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+UpdateDatapoint2DatasetsRequestType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class UpdateDatapoint2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdateDatapoint2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdateDatapoint23TypedDict(TypedDict):
+    type: UpdateDatapoint2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+    file: UpdateDatapoint2FileTypedDict
+
+
+class UpdateDatapoint23(BaseModel):
+    type: UpdateDatapoint2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+
+    file: UpdateDatapoint2File
+
+
 UpdateDatapoint2DatasetsType = Literal["image_url"]
 
 
@@ -79,12 +111,17 @@ class UpdateDatapoint21(BaseModel):
 
 UpdateDatapointContent2TypedDict = TypeAliasType(
     "UpdateDatapointContent2TypedDict",
-    Union[UpdateDatapoint21TypedDict, UpdateDatapoint22TypedDict],
+    Union[
+        UpdateDatapoint21TypedDict,
+        UpdateDatapoint22TypedDict,
+        UpdateDatapoint23TypedDict,
+    ],
 )
 
 
 UpdateDatapointContent2 = TypeAliasType(
-    "UpdateDatapointContent2", Union[UpdateDatapoint21, UpdateDatapoint22]
+    "UpdateDatapointContent2",
+    Union[UpdateDatapoint21, UpdateDatapoint22, UpdateDatapoint23],
 )
 
 
@@ -206,6 +243,38 @@ UpdateDatapointDatasetsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+UpdateDatapoint2DatasetsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class UpdateDatapoint2DatasetsFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdateDatapoint2DatasetsFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdateDatapoint2Datasets3TypedDict(TypedDict):
+    type: UpdateDatapoint2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: UpdateDatapoint2DatasetsFileTypedDict
+
+
+class UpdateDatapoint2Datasets3(BaseModel):
+    type: UpdateDatapoint2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: UpdateDatapoint2DatasetsFile
+
+
 UpdateDatapoint2DatasetsResponse200Type = Literal["image_url"]
 
 
@@ -264,13 +333,19 @@ class UpdateDatapoint2Datasets1(BaseModel):
 
 UpdateDatapointContentDatasets2TypedDict = TypeAliasType(
     "UpdateDatapointContentDatasets2TypedDict",
-    Union[UpdateDatapoint2Datasets1TypedDict, UpdateDatapoint2Datasets2TypedDict],
+    Union[
+        UpdateDatapoint2Datasets1TypedDict,
+        UpdateDatapoint2Datasets2TypedDict,
+        UpdateDatapoint2Datasets3TypedDict,
+    ],
 )
 
 
 UpdateDatapointContentDatasets2 = TypeAliasType(
     "UpdateDatapointContentDatasets2",
-    Union[UpdateDatapoint2Datasets1, UpdateDatapoint2Datasets2],
+    Union[
+        UpdateDatapoint2Datasets1, UpdateDatapoint2Datasets2, UpdateDatapoint2Datasets3
+    ],
 )
 
 
@@ -394,5 +469,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-05-23T11:32:33.441Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-24T19:14:39.719Z")
     r"""The date and time the resource was last updated"""

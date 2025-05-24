@@ -346,6 +346,38 @@ GetAllPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+GetAllPrompts2PromptsResponseType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class GetAllPrompts2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class GetAllPrompts2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class GetAllPrompts23TypedDict(TypedDict):
+    type: GetAllPrompts2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+    file: GetAllPrompts2FileTypedDict
+
+
+class GetAllPrompts23(BaseModel):
+    type: GetAllPrompts2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+
+    file: GetAllPrompts2File
+
+
 GetAllPrompts2PromptsType = Literal["image_url"]
 
 
@@ -404,12 +436,12 @@ class GetAllPrompts21(BaseModel):
 
 GetAllPromptsContent2TypedDict = TypeAliasType(
     "GetAllPromptsContent2TypedDict",
-    Union[GetAllPrompts21TypedDict, GetAllPrompts22TypedDict],
+    Union[GetAllPrompts21TypedDict, GetAllPrompts22TypedDict, GetAllPrompts23TypedDict],
 )
 
 
 GetAllPromptsContent2 = TypeAliasType(
-    "GetAllPromptsContent2", Union[GetAllPrompts21, GetAllPrompts22]
+    "GetAllPromptsContent2", Union[GetAllPrompts21, GetAllPrompts22, GetAllPrompts23]
 )
 
 

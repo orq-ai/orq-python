@@ -1,0 +1,9 @@
+# ListPromptVersions23
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.ListPromptVersions2PromptsResponseType](../models/listpromptversions2promptsresponsetype.md) | :heavy_check_mark:                                                                                   | The type of the content part. Always `file`.                                                         |
+| `file`                                                                                               | [models.ListPromptVersions2File](../models/listpromptversions2file.md)                               | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

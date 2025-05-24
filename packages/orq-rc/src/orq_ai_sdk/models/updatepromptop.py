@@ -313,6 +313,38 @@ UpdatePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+UpdatePrompt2PromptsRequestType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class UpdatePrompt2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdatePrompt2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdatePrompt23TypedDict(TypedDict):
+    type: UpdatePrompt2PromptsRequestType
+    r"""The type of the content part. Always `file`."""
+    file: UpdatePrompt2FileTypedDict
+
+
+class UpdatePrompt23(BaseModel):
+    type: UpdatePrompt2PromptsRequestType
+    r"""The type of the content part. Always `file`."""
+
+    file: UpdatePrompt2File
+
+
 UpdatePrompt2PromptsType = Literal["image_url"]
 
 
@@ -366,12 +398,12 @@ class UpdatePrompt21(BaseModel):
 
 UpdatePromptContent2TypedDict = TypeAliasType(
     "UpdatePromptContent2TypedDict",
-    Union[UpdatePrompt21TypedDict, UpdatePrompt22TypedDict],
+    Union[UpdatePrompt21TypedDict, UpdatePrompt22TypedDict, UpdatePrompt23TypedDict],
 )
 
 
 UpdatePromptContent2 = TypeAliasType(
-    "UpdatePromptContent2", Union[UpdatePrompt21, UpdatePrompt22]
+    "UpdatePromptContent2", Union[UpdatePrompt21, UpdatePrompt22, UpdatePrompt23]
 )
 
 
@@ -975,6 +1007,38 @@ UpdatePromptPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+UpdatePrompt2PromptsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class UpdatePrompt2PromptsFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdatePrompt2PromptsFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class UpdatePrompt2Prompts3TypedDict(TypedDict):
+    type: UpdatePrompt2PromptsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: UpdatePrompt2PromptsFileTypedDict
+
+
+class UpdatePrompt2Prompts3(BaseModel):
+    type: UpdatePrompt2PromptsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: UpdatePrompt2PromptsFile
+
+
 UpdatePrompt2PromptsResponse200Type = Literal["image_url"]
 
 
@@ -1033,12 +1097,17 @@ class UpdatePrompt2Prompts1(BaseModel):
 
 UpdatePromptContentPrompts2TypedDict = TypeAliasType(
     "UpdatePromptContentPrompts2TypedDict",
-    Union[UpdatePrompt2Prompts1TypedDict, UpdatePrompt2Prompts2TypedDict],
+    Union[
+        UpdatePrompt2Prompts1TypedDict,
+        UpdatePrompt2Prompts2TypedDict,
+        UpdatePrompt2Prompts3TypedDict,
+    ],
 )
 
 
 UpdatePromptContentPrompts2 = TypeAliasType(
-    "UpdatePromptContentPrompts2", Union[UpdatePrompt2Prompts1, UpdatePrompt2Prompts2]
+    "UpdatePromptContentPrompts2",
+    Union[UpdatePrompt2Prompts1, UpdatePrompt2Prompts2, UpdatePrompt2Prompts3],
 )
 
 
