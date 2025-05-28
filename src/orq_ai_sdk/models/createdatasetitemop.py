@@ -26,6 +26,38 @@ CreateDatasetItemRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+CreateDatasetItem2DatasetsRequestType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class CreateDatasetItem2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreateDatasetItem2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreateDatasetItem23TypedDict(TypedDict):
+    type: CreateDatasetItem2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+    file: CreateDatasetItem2FileTypedDict
+
+
+class CreateDatasetItem23(BaseModel):
+    type: CreateDatasetItem2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+
+    file: CreateDatasetItem2File
+
+
 CreateDatasetItem2DatasetsType = Literal["image_url"]
 
 
@@ -79,12 +111,17 @@ class CreateDatasetItem21(BaseModel):
 
 CreateDatasetItemContent2TypedDict = TypeAliasType(
     "CreateDatasetItemContent2TypedDict",
-    Union[CreateDatasetItem21TypedDict, CreateDatasetItem22TypedDict],
+    Union[
+        CreateDatasetItem21TypedDict,
+        CreateDatasetItem22TypedDict,
+        CreateDatasetItem23TypedDict,
+    ],
 )
 
 
 CreateDatasetItemContent2 = TypeAliasType(
-    "CreateDatasetItemContent2", Union[CreateDatasetItem21, CreateDatasetItem22]
+    "CreateDatasetItemContent2",
+    Union[CreateDatasetItem21, CreateDatasetItem22, CreateDatasetItem23],
 )
 
 
@@ -201,6 +238,38 @@ CreateDatasetItemDatasetsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+CreateDatasetItem2DatasetsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class CreateDatasetItem2DatasetsFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreateDatasetItem2DatasetsFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class CreateDatasetItem2Datasets3TypedDict(TypedDict):
+    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: CreateDatasetItem2DatasetsFileTypedDict
+
+
+class CreateDatasetItem2Datasets3(BaseModel):
+    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: CreateDatasetItem2DatasetsFile
+
+
 CreateDatasetItem2DatasetsResponse200Type = Literal["image_url"]
 
 
@@ -259,13 +328,21 @@ class CreateDatasetItem2Datasets1(BaseModel):
 
 CreateDatasetItemContentDatasets2TypedDict = TypeAliasType(
     "CreateDatasetItemContentDatasets2TypedDict",
-    Union[CreateDatasetItem2Datasets1TypedDict, CreateDatasetItem2Datasets2TypedDict],
+    Union[
+        CreateDatasetItem2Datasets1TypedDict,
+        CreateDatasetItem2Datasets2TypedDict,
+        CreateDatasetItem2Datasets3TypedDict,
+    ],
 )
 
 
 CreateDatasetItemContentDatasets2 = TypeAliasType(
     "CreateDatasetItemContentDatasets2",
-    Union[CreateDatasetItem2Datasets1, CreateDatasetItem2Datasets2],
+    Union[
+        CreateDatasetItem2Datasets1,
+        CreateDatasetItem2Datasets2,
+        CreateDatasetItem2Datasets3,
+    ],
 )
 
 
@@ -390,5 +467,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-05-27T20:21:12.315Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-28T21:13:36.386Z")
     r"""The date and time the resource was last updated"""

@@ -36,6 +36,38 @@ RetrieveDatapointRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+RetrieveDatapoint2DatasetsResponseType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class RetrieveDatapoint2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class RetrieveDatapoint2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class RetrieveDatapoint23TypedDict(TypedDict):
+    type: RetrieveDatapoint2DatasetsResponseType
+    r"""The type of the content part. Always `file`."""
+    file: RetrieveDatapoint2FileTypedDict
+
+
+class RetrieveDatapoint23(BaseModel):
+    type: RetrieveDatapoint2DatasetsResponseType
+    r"""The type of the content part. Always `file`."""
+
+    file: RetrieveDatapoint2File
+
+
 RetrieveDatapoint2DatasetsType = Literal["image_url"]
 
 
@@ -94,12 +126,17 @@ class RetrieveDatapoint21(BaseModel):
 
 RetrieveDatapointContent2TypedDict = TypeAliasType(
     "RetrieveDatapointContent2TypedDict",
-    Union[RetrieveDatapoint21TypedDict, RetrieveDatapoint22TypedDict],
+    Union[
+        RetrieveDatapoint21TypedDict,
+        RetrieveDatapoint22TypedDict,
+        RetrieveDatapoint23TypedDict,
+    ],
 )
 
 
 RetrieveDatapointContent2 = TypeAliasType(
-    "RetrieveDatapointContent2", Union[RetrieveDatapoint21, RetrieveDatapoint22]
+    "RetrieveDatapointContent2",
+    Union[RetrieveDatapoint21, RetrieveDatapoint22, RetrieveDatapoint23],
 )
 
 
@@ -223,5 +260,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-05-27T20:21:12.315Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-28T21:13:36.386Z")
     r"""The date and time the resource was last updated"""

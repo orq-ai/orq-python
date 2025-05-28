@@ -15,3 +15,9 @@ value: models.GetOnePrompt21 = /* values here */
 value: models.GetOnePrompt22 = /* values here */
 ```
 
+### `models.GetOnePrompt23`
+
+```python
+value: models.GetOnePrompt23 = /* values here */
+```
+

@@ -205,6 +205,7 @@ with Orq(
 * [retrieve](docs/sdks/datasets/README.md#retrieve) - Retrieve a dataset
 * [update](docs/sdks/datasets/README.md#update) - Update a dataset
 * [delete](docs/sdks/datasets/README.md#delete) - Delete a dataset
+* [create_experiment](docs/sdks/datasets/README.md#create_experiment) - Create an experiment from a dataset
 * [list_datapoints](docs/sdks/datasets/README.md#list_datapoints) - List datapoints
 * [create_datapoint](docs/sdks/datasets/README.md#create_datapoint) - Create a datapoint
 * [retrieve_datapoint](docs/sdks/datasets/README.md#retrieve_datapoint) - Retrieve a datapoint
@@ -219,6 +220,7 @@ with Orq(
 * [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
 * [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
 * [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
+* [create_experiment](docs/sdks/deploymentssdk/README.md#create_experiment) - Create an experiment from a deployment
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
@@ -242,6 +244,7 @@ with Orq(
 * [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
 * [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
 * [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
+* [search](docs/sdks/knowledge/README.md#search) - Search knowledge base
 * [list_datasources](docs/sdks/knowledge/README.md#list_datasources) - List all datasources
 * [create_datasource](docs/sdks/knowledge/README.md#create_datasource) - Create a new datasource
 * [retrieve_datasource](docs/sdks/knowledge/README.md#retrieve_datasource) - Retrieve a datasource

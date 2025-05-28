@@ -281,6 +281,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -292,7 +298,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -301,6 +307,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -341,6 +348,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentGetConfigThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentGetConfigKnowledgeFilter]
             ),
         )
 
@@ -455,6 +465,12 @@ class DeploymentsSDK(BaseSDK):
                 models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -466,7 +482,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -475,6 +491,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -515,6 +532,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentGetConfigThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentGetConfigKnowledgeFilter]
             ),
         )
 
@@ -609,6 +629,9 @@ class DeploymentsSDK(BaseSDK):
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
         thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        knowledge_filter: Optional[
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -620,7 +643,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -629,6 +652,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -667,6 +691,9 @@ class DeploymentsSDK(BaseSDK):
                 invoke_options, Optional[models.InvokeOptions]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.KnowledgeFilter]
+            ),
         )
 
         req = self._build_request(
@@ -764,6 +791,9 @@ class DeploymentsSDK(BaseSDK):
             Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
         thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
+        knowledge_filter: Optional[
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -775,7 +805,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -784,6 +814,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -822,6 +853,9 @@ class DeploymentsSDK(BaseSDK):
                 invoke_options, Optional[models.InvokeOptions]
             ),
             thread=utils.get_pydantic_model(thread, Optional[models.Thread]),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.KnowledgeFilter]
+            ),
         )
 
         req = self._build_request_async(
@@ -936,6 +970,12 @@ class DeploymentsSDK(BaseSDK):
         thread: Optional[
             Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -947,7 +987,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -956,6 +996,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -995,6 +1036,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentStreamThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentStreamKnowledgeFilter]
             ),
         )
 
@@ -1113,6 +1157,12 @@ class DeploymentsSDK(BaseSDK):
         thread: Optional[
             Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
+        knowledge_filter: Optional[
+            Union[
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1124,7 +1174,7 @@ class DeploymentsSDK(BaseSDK):
 
         :param key: The deployment key to invoke
         :param inputs: Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used.
-        :param context: Key-value pairs that match your data model and fields declared in your configuration matrix. If you send multiple prompt keys, the context will be applied to the evaluation of each key.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration
         :param prefix_messages: A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment.
         :param messages: A list of messages to send to the deployment.
         :param file_ids: A list of file IDs that are associated with the deployment request.
@@ -1133,6 +1183,7 @@ class DeploymentsSDK(BaseSDK):
         :param documents: A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings.
         :param invoke_options:
         :param thread:
+        :param knowledge_filter: A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1172,6 +1223,9 @@ class DeploymentsSDK(BaseSDK):
             ),
             thread=utils.get_pydantic_model(
                 thread, Optional[models.DeploymentStreamThread]
+            ),
+            knowledge_filter=utils.get_pydantic_model(
+                knowledge_filter, Optional[models.DeploymentStreamKnowledgeFilter]
             ),
         )
 
@@ -1228,6 +1282,256 @@ class DeploymentsSDK(BaseSDK):
                     raw, models.DeploymentStreamResponseBody
                 ),
                 sentinel="[DONE]",
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def create_experiment(
+        self,
+        *,
+        deployment_key: str,
+        experiment_key: str,
+        dataset_id: str,
+        type_: models.CreateDeploymentExperimentType,
+        evaluators: Optional[List[str]] = None,
+        path: Optional[str] = None,
+        context: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateDeploymentExperimentResponseBody]:
+        r"""Create an experiment from a deployment
+
+        Create an experiment from a deployment
+
+        :param deployment_key: Deployment Key
+        :param experiment_key: The unique key of the experiment
+        :param dataset_id: The id of the dataset to run the experiment on
+        :param type:
+        :param evaluators: The list of evaluators to use for the experiment. You can apply multiple evaluators to the same experiment. By default we always consider latency and cost as evaluators.
+        :param path: The path where the experiment needs to be stored. If not provided, the experiment will be stored in the same path of the dataset used for the experiment.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration. If not provided, the default variant of the deployment will be used to create the experiment
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateDeploymentExperimentRequest(
+            deployment_key=deployment_key,
+            request_body=models.CreateDeploymentExperimentRequestBody(
+                experiment_key=experiment_key,
+                evaluators=evaluators,
+                path=path,
+                dataset_id=dataset_id,
+                type=type_,
+                context=context,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/deployments/{deployment_key}/experiment",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.CreateDeploymentExperimentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="CreateDeploymentExperiment",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.CreateDeploymentExperimentResponseBody]
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def create_experiment_async(
+        self,
+        *,
+        deployment_key: str,
+        experiment_key: str,
+        dataset_id: str,
+        type_: models.CreateDeploymentExperimentType,
+        evaluators: Optional[List[str]] = None,
+        path: Optional[str] = None,
+        context: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateDeploymentExperimentResponseBody]:
+        r"""Create an experiment from a deployment
+
+        Create an experiment from a deployment
+
+        :param deployment_key: Deployment Key
+        :param experiment_key: The unique key of the experiment
+        :param dataset_id: The id of the dataset to run the experiment on
+        :param type:
+        :param evaluators: The list of evaluators to use for the experiment. You can apply multiple evaluators to the same experiment. By default we always consider latency and cost as evaluators.
+        :param path: The path where the experiment needs to be stored. If not provided, the experiment will be stored in the same path of the dataset used for the experiment.
+        :param context: Key-value pairs that match your data model and fields declared in your deployment routing configuration. If not provided, the default variant of the deployment will be used to create the experiment
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateDeploymentExperimentRequest(
+            deployment_key=deployment_key,
+            request_body=models.CreateDeploymentExperimentRequestBody(
+                experiment_key=experiment_key,
+                evaluators=evaluators,
+                path=path,
+                dataset_id=dataset_id,
+                type=type_,
+                context=context,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/deployments/{deployment_key}/experiment",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.CreateDeploymentExperimentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="CreateDeploymentExperiment",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(
+                http_res.text, Optional[models.CreateDeploymentExperimentResponseBody]
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

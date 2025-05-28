@@ -1,0 +1,9 @@
+# RetrieveDatapoint23
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.RetrieveDatapoint2DatasetsResponseType](../models/retrievedatapoint2datasetsresponsetype.md) | :heavy_check_mark:                                                                                   | The type of the content part. Always `file`.                                                         |
+| `file`                                                                                               | [models.RetrieveDatapoint2File](../models/retrievedatapoint2file.md)                                 | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

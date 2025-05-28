@@ -26,6 +26,38 @@ BulkCreateDatapointsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+BulkCreateDatapoints2DatasetsRequestType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class BulkCreateDatapoints2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class BulkCreateDatapoints2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class BulkCreateDatapoints23TypedDict(TypedDict):
+    type: BulkCreateDatapoints2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+    file: BulkCreateDatapoints2FileTypedDict
+
+
+class BulkCreateDatapoints23(BaseModel):
+    type: BulkCreateDatapoints2DatasetsRequestType
+    r"""The type of the content part. Always `file`."""
+
+    file: BulkCreateDatapoints2File
+
+
 BulkCreateDatapoints2DatasetsType = Literal["image_url"]
 
 
@@ -79,13 +111,17 @@ class BulkCreateDatapoints21(BaseModel):
 
 BulkCreateDatapointsContent2TypedDict = TypeAliasType(
     "BulkCreateDatapointsContent2TypedDict",
-    Union[BulkCreateDatapoints21TypedDict, BulkCreateDatapoints22TypedDict],
+    Union[
+        BulkCreateDatapoints21TypedDict,
+        BulkCreateDatapoints22TypedDict,
+        BulkCreateDatapoints23TypedDict,
+    ],
 )
 
 
 BulkCreateDatapointsContent2 = TypeAliasType(
     "BulkCreateDatapointsContent2",
-    Union[BulkCreateDatapoints21, BulkCreateDatapoints22],
+    Union[BulkCreateDatapoints21, BulkCreateDatapoints22, BulkCreateDatapoints23],
 )
 
 
@@ -210,6 +246,38 @@ BulkCreateDatapointsDatasetsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+BulkCreateDatapoints2DatasetsResponse200ApplicationJSONType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class BulkCreateDatapoints2DatasetsFileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class BulkCreateDatapoints2DatasetsFile(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class BulkCreateDatapoints2Datasets3TypedDict(TypedDict):
+    type: BulkCreateDatapoints2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+    file: BulkCreateDatapoints2DatasetsFileTypedDict
+
+
+class BulkCreateDatapoints2Datasets3(BaseModel):
+    type: BulkCreateDatapoints2DatasetsResponse200ApplicationJSONType
+    r"""The type of the content part. Always `file`."""
+
+    file: BulkCreateDatapoints2DatasetsFile
+
+
 BulkCreateDatapoints2DatasetsResponse200Type = Literal["image_url"]
 
 
@@ -269,14 +337,20 @@ class BulkCreateDatapoints2Datasets1(BaseModel):
 BulkCreateDatapointsContentDatasets2TypedDict = TypeAliasType(
     "BulkCreateDatapointsContentDatasets2TypedDict",
     Union[
-        BulkCreateDatapoints2Datasets1TypedDict, BulkCreateDatapoints2Datasets2TypedDict
+        BulkCreateDatapoints2Datasets1TypedDict,
+        BulkCreateDatapoints2Datasets2TypedDict,
+        BulkCreateDatapoints2Datasets3TypedDict,
     ],
 )
 
 
 BulkCreateDatapointsContentDatasets2 = TypeAliasType(
     "BulkCreateDatapointsContentDatasets2",
-    Union[BulkCreateDatapoints2Datasets1, BulkCreateDatapoints2Datasets2],
+    Union[
+        BulkCreateDatapoints2Datasets1,
+        BulkCreateDatapoints2Datasets2,
+        BulkCreateDatapoints2Datasets3,
+    ],
 )
 
 
@@ -397,5 +471,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-05-27T20:21:12.315Z")
+    updated: Optional[datetime] = parse_datetime("2025-05-28T21:13:36.386Z")
     r"""The date and time the resource was last updated"""

@@ -353,6 +353,38 @@ ListPromptVersionsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
+ListPromptVersions2PromptsResponseType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class ListPromptVersions2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class ListPromptVersions2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class ListPromptVersions23TypedDict(TypedDict):
+    type: ListPromptVersions2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+    file: ListPromptVersions2FileTypedDict
+
+
+class ListPromptVersions23(BaseModel):
+    type: ListPromptVersions2PromptsResponseType
+    r"""The type of the content part. Always `file`."""
+
+    file: ListPromptVersions2File
+
+
 ListPromptVersions2PromptsType = Literal["image_url"]
 
 
@@ -411,12 +443,17 @@ class ListPromptVersions21(BaseModel):
 
 ListPromptVersionsContent2TypedDict = TypeAliasType(
     "ListPromptVersionsContent2TypedDict",
-    Union[ListPromptVersions21TypedDict, ListPromptVersions22TypedDict],
+    Union[
+        ListPromptVersions21TypedDict,
+        ListPromptVersions22TypedDict,
+        ListPromptVersions23TypedDict,
+    ],
 )
 
 
 ListPromptVersionsContent2 = TypeAliasType(
-    "ListPromptVersionsContent2", Union[ListPromptVersions21, ListPromptVersions22]
+    "ListPromptVersionsContent2",
+    Union[ListPromptVersions21, ListPromptVersions22, ListPromptVersions23],
 )
 
 

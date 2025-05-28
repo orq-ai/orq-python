@@ -12,7 +12,7 @@ class Files(BaseSDK):
     def create(
         self,
         *,
-        file: Union[models.File, models.FileTypedDict],
+        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
         purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -44,7 +44,7 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUploadRequestBody(
-            file=utils.get_pydantic_model(file, models.File),
+            file=utils.get_pydantic_model(file, models.FileUploadFile),
             purpose=purpose,
         )
 
@@ -116,7 +116,7 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        file: Union[models.File, models.FileTypedDict],
+        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
         purpose: Optional[models.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -148,7 +148,7 @@ class Files(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FileUploadRequestBody(
-            file=utils.get_pydantic_model(file, models.File),
+            file=utils.get_pydantic_model(file, models.FileUploadFile),
             purpose=purpose,
         )
 

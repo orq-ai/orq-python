@@ -423,7 +423,39 @@ DeploymentsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-Deployments2DeploymentsResponseType = Literal["image_url"]
+Deployments2DeploymentsType = Literal["file"]
+r"""The type of the content part. Always `file`."""
+
+
+class Deployments2FileTypedDict(TypedDict):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    filename: NotRequired[str]
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class Deployments2File(BaseModel):
+    file_data: str
+    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+
+    filename: Optional[str] = None
+    r"""The name of the file, used when passing the file to the model as a string."""
+
+
+class Deployments2Deployments3TypedDict(TypedDict):
+    type: Deployments2DeploymentsType
+    r"""The type of the content part. Always `file`."""
+    file: Deployments2FileTypedDict
+
+
+class Deployments2Deployments3(BaseModel):
+    type: Deployments2DeploymentsType
+    r"""The type of the content part. Always `file`."""
+
+    file: Deployments2File
+
+
+Deployments2DeploymentsResponse200Type = Literal["image_url"]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -449,44 +481,49 @@ class Deployments2ImageURL(BaseModel):
 class Deployments2Deployments2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsResponse200Type
     image_url: Deployments2ImageURLTypedDict
 
 
 class Deployments2Deployments2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsResponse200Type
 
     image_url: Deployments2ImageURL
 
 
-Deployments2DeploymentsType = Literal["text"]
+Deployments2DeploymentsResponseType = Literal["text"]
 
 
-class Deployments21TypedDict(TypedDict):
+class Deployments2Deployments1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
     text: str
 
 
-class Deployments21(BaseModel):
+class Deployments2Deployments1(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
 
     text: str
 
 
 DeploymentsContentDeployments2TypedDict = TypeAliasType(
     "DeploymentsContentDeployments2TypedDict",
-    Union[Deployments21TypedDict, Deployments2Deployments2TypedDict],
+    Union[
+        Deployments2Deployments1TypedDict,
+        Deployments2Deployments2TypedDict,
+        Deployments2Deployments3TypedDict,
+    ],
 )
 
 
 DeploymentsContentDeployments2 = TypeAliasType(
-    "DeploymentsContentDeployments2", Union[Deployments21, Deployments2Deployments2]
+    "DeploymentsContentDeployments2",
+    Union[Deployments2Deployments1, Deployments2Deployments2, Deployments2Deployments3],
 )
 
 

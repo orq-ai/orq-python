@@ -41,7 +41,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `file`                                                              | [models.File](../../models/file.md)                                 | :heavy_check_mark:                                                  | The file to be uploaded.                                            |
+| `file`                                                              | [models.FileUploadFile](../../models/fileuploadfile.md)             | :heavy_check_mark:                                                  | The file to be uploaded.                                            |
 | `purpose`                                                           | [Optional[models.Purpose]](../../models/purpose.md)                 | :heavy_minus_sign:                                                  | The intended purpose of the uploaded file.                          |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 

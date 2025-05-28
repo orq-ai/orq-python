@@ -21,3 +21,9 @@ value: models.DeploymentStream2Deployments2 = /* values here */
 value: models.DeploymentStream2Deployments3 = /* values here */
 ```
 
+### `models.DeploymentStream2Deployments4`
+
+```python
+value: models.DeploymentStream2Deployments4 = /* values here */
+```
+
