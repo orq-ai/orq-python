@@ -77,6 +77,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasets",
                 oauth2_scopes=[],
@@ -181,6 +182,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasets",
                 oauth2_scopes=[],
@@ -289,6 +291,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDataset",
                 oauth2_scopes=[],
@@ -397,6 +400,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDataset",
                 oauth2_scopes=[],
@@ -495,6 +499,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
                 oauth2_scopes=[],
@@ -597,6 +602,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
                 oauth2_scopes=[],
@@ -717,6 +723,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
                 oauth2_scopes=[],
@@ -837,6 +844,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
                 oauth2_scopes=[],
@@ -939,6 +947,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
                 oauth2_scopes=[],
@@ -1035,6 +1044,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
                 oauth2_scopes=[],
@@ -1155,6 +1165,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetExperiment",
                 oauth2_scopes=[],
@@ -1277,6 +1288,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetExperiment",
                 oauth2_scopes=[],
@@ -1384,6 +1396,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
                 oauth2_scopes=[],
@@ -1491,6 +1504,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
                 oauth2_scopes=[],
@@ -1614,6 +1628,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
                 oauth2_scopes=[],
@@ -1737,6 +1752,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
                 oauth2_scopes=[],
@@ -1838,6 +1854,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
                 oauth2_scopes=[],
@@ -1943,6 +1960,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
                 oauth2_scopes=[],
@@ -2071,6 +2089,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
                 oauth2_scopes=[],
@@ -2199,6 +2218,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
                 oauth2_scopes=[],
@@ -2304,6 +2324,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
                 oauth2_scopes=[],
@@ -2407,6 +2428,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
                 oauth2_scopes=[],
@@ -2519,6 +2541,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="BulkCreateDatapoints",
                 oauth2_scopes=[],
@@ -2629,6 +2652,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="BulkCreateDatapoints",
                 oauth2_scopes=[],
@@ -2727,6 +2751,7 @@ class Datasets(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ClearDataset",
                 oauth2_scopes=[],
@@ -2823,6 +2848,7 @@ class Datasets(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ClearDataset",
                 oauth2_scopes=[],
