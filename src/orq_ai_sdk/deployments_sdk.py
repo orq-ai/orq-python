@@ -89,6 +89,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="Deployments",
                 oauth2_scopes=[],
@@ -197,6 +198,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="Deployments",
                 oauth2_scopes=[],
@@ -383,6 +385,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
                 oauth2_scopes=[],
@@ -567,6 +570,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentGetConfig",
                 oauth2_scopes=[],
@@ -729,6 +733,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentInvoke",
                 oauth2_scopes=[],
@@ -891,6 +896,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentInvoke",
                 oauth2_scopes=[],
@@ -1075,6 +1081,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentStream",
                 oauth2_scopes=[],
@@ -1262,6 +1269,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeploymentStream",
                 oauth2_scopes=[],
@@ -1392,6 +1400,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDeploymentExperiment",
                 oauth2_scopes=[],
@@ -1517,6 +1526,7 @@ class DeploymentsSDK(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDeploymentExperiment",
                 oauth2_scopes=[],
