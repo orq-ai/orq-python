@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments_sdk import DeploymentsSDK
+    from orq_ai_sdk.evals import Evals
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.knowledge import Knowledge
@@ -40,6 +41,7 @@ class Orq(BaseSDK):
     models: "Models"
     datasets: "Datasets"
     knowledge: "Knowledge"
+    evals: "Evals"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
@@ -50,6 +52,7 @@ class Orq(BaseSDK):
         "models": ("orq_ai_sdk.models_", "Models"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
+        "evals": ("orq_ai_sdk.evals", "Evals"),
     }
 
     def __init__(

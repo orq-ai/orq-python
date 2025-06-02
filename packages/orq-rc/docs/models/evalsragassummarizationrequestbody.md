@@ -1,0 +1,10 @@
+# EvalsRagasSummarizationRequestBody
+
+
+## Fields
+
+| Field                                 | Type                                  | Required                              | Description                           |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| `output`                              | *str*                                 | :heavy_check_mark:                    | The generated response from the model |
+| `model`                               | *str*                                 | :heavy_check_mark:                    | N/A                                   |
+| `retrievals`                          | List[*str*]                           | :heavy_minus_sign:                    | Knowledge base retrievals             |

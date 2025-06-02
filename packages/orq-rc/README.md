@@ -225,6 +225,44 @@ with Orq(
 
 * [create](docs/sdks/metrics/README.md#create) - Add metrics
 
+### [evals](docs/sdks/evals/README.md)
+
+* [create](docs/sdks/evals/README.md#create) - Create an Evaluator
+* [run_bert_score](docs/sdks/evals/README.md#run_bert_score) - Run BertScore Evaluator
+* [bleu_score](docs/sdks/evals/README.md#bleu_score) - Run BLEU Score Evaluator
+* [contains_all](docs/sdks/evals/README.md#contains_all) - Run Contains All Evaluator
+* [contains_any](docs/sdks/evals/README.md#contains_any) - Run Contains Any Evaluator
+* [contains_email](docs/sdks/evals/README.md#contains_email) - Run Contains Email Evaluator
+* [contains_none](docs/sdks/evals/README.md#contains_none) - Run Contains None Evaluator
+* [contains_url](docs/sdks/evals/README.md#contains_url) - Run Contains URL Evaluator
+* [contains_valid_link](docs/sdks/evals/README.md#contains_valid_link) - Run Contains Valid Link Evaluator
+* [contains](docs/sdks/evals/README.md#contains) - Run Contains Evaluator
+* [ends_with](docs/sdks/evals/README.md#ends_with) - Run Ends With Evaluator
+* [exact_match](docs/sdks/evals/README.md#exact_match) - Run Exact Match Evaluator
+* [length_between](docs/sdks/evals/README.md#length_between) - Run Length Between Evaluator
+* [length_greater_than](docs/sdks/evals/README.md#length_greater_than) - Run Length Greater Than Evaluator
+* [length_less_than](docs/sdks/evals/README.md#length_less_than) - Run Length Less Than Evaluator
+* [valid_json](docs/sdks/evals/README.md#valid_json) - Run JSON Validation Evaluator
+* [age_appropriate](docs/sdks/evals/README.md#age_appropriate) - Run Age Appropriate Evaluator
+* [bot_detection](docs/sdks/evals/README.md#bot_detection) - Run Bot Detection Evaluator
+* [fact_checking_knowledge_base](docs/sdks/evals/README.md#fact_checking_knowledge_base) - Run Fact Checking Knowledge Base Evaluator
+* [grammar](docs/sdks/evals/README.md#grammar) - Run Grammar Evaluator
+* [localization](docs/sdks/evals/README.md#localization) - Run Localization Evaluator
+* [pii](docs/sdks/evals/README.md#pii) - Run PII Evaluator
+* [sentiment_classification](docs/sdks/evals/README.md#sentiment_classification) - Run Sentiment Classification Evaluator
+* [summarization](docs/sdks/evals/README.md#summarization) - Run Summarization Evaluator
+* [tone_of_voice](docs/sdks/evals/README.md#tone_of_voice) - Run Tone of Voice Evaluator
+* [translation](docs/sdks/evals/README.md#translation) - Run Translation Evaluator
+* [ragas_coherence](docs/sdks/evals/README.md#ragas_coherence) - Run Coherence Evaluator
+* [ragas_conciseness](docs/sdks/evals/README.md#ragas_conciseness) - Run Conciseness Evaluator
+* [ragas_context_precision](docs/sdks/evals/README.md#ragas_context_precision) - Run Context Precision Evaluator
+* [ragas_correctness](docs/sdks/evals/README.md#ragas_correctness) - Run Correctness Evaluator
+* [ragas_faithfulness](docs/sdks/evals/README.md#ragas_faithfulness) - Run Faithfulness Evaluator
+* [ragas_harmfulness](docs/sdks/evals/README.md#ragas_harmfulness) - Run Harmfulness Evaluator
+* [ragas_maliciousness](docs/sdks/evals/README.md#ragas_maliciousness) - Run Maliciousness Evaluator
+* [ragas_response_relevancy](docs/sdks/evals/README.md#ragas_response_relevancy) - Run Response Relevancy Evaluator
+* [ragas_summarization](docs/sdks/evals/README.md#ragas_summarization) - Run Summarization Evaluator
+
 ### [feedback](docs/sdks/feedback/README.md)
 
 * [create](docs/sdks/feedback/README.md#create) - Submit feedback
