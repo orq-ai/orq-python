@@ -21,3 +21,9 @@ value: models.ListDatasetDatapoints22 = /* values here */
 value: models.ListDatasetDatapoints23 = /* values here */
 ```
 
+### `models.ListDatasetDatapoints24`
+
+```python
+value: models.ListDatasetDatapoints24 = /* values here */
+```
+

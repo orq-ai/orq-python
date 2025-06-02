@@ -3,21 +3,15 @@
 
 ## Supported Types
 
-### `models.UpdateDatapoint2Datasets1`
+### `models.UpdateDatapoint2TextContentPart`
 
 ```python
-value: models.UpdateDatapoint2Datasets1 = /* values here */
+value: models.UpdateDatapoint2TextContentPart = /* values here */
 ```
 
-### `models.UpdateDatapoint2Datasets2`
+### `models.UpdateDatapoint2RefusalContentPart`
 
 ```python
-value: models.UpdateDatapoint2Datasets2 = /* values here */
-```
-
-### `models.UpdateDatapoint2Datasets3`
-
-```python
-value: models.UpdateDatapoint2Datasets3 = /* values here */
+value: models.UpdateDatapoint2RefusalContentPart = /* values here */
 ```
 

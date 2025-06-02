@@ -211,7 +211,6 @@ with Orq(
 * [retrieve_datapoint](docs/sdks/datasets/README.md#retrieve_datapoint) - Retrieve a datapoint
 * [update_datapoint](docs/sdks/datasets/README.md#update_datapoint) - Update a datapoint
 * [delete_datapoint](docs/sdks/datasets/README.md#delete_datapoint) - Delete a datapoint
-* [create_datapoints](docs/sdks/datasets/README.md#create_datapoints) - Create multiple datapoints
 * [clear](docs/sdks/datasets/README.md#clear) - Delete all datapoints
 
 ### [deployments](docs/sdks/deploymentssdk/README.md)

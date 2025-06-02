@@ -1,11 +1,35 @@
 # RetrieveDatapointMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.RetrieveDatapointRole](../models/retrievedatapointrole.md)                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.RetrieveDatapointContent](../models/retrievedatapointcontent.md)                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.RetrieveDatapointToolCalls](../models/retrievedatapointtoolcalls.md)]                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
-| `tool_call_id`                                                                                                                                                                                                                                                           | *Optional[str]*                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.RetrieveDatapointMessagesDeveloperMessage`
+
+```python
+value: models.RetrieveDatapointMessagesDeveloperMessage = /* values here */
+```
+
+### `models.RetrieveDatapointMessagesSystemMessage`
+
+```python
+value: models.RetrieveDatapointMessagesSystemMessage = /* values here */
+```
+
+### `models.RetrieveDatapointMessagesUserMessage`
+
+```python
+value: models.RetrieveDatapointMessagesUserMessage = /* values here */
+```
+
+### `models.RetrieveDatapointMessagesAssistantMessage`
+
+```python
+value: models.RetrieveDatapointMessagesAssistantMessage = /* values here */
+```
+
+### `models.RetrieveDatapointMessagesToolMessage`
+
+```python
+value: models.RetrieveDatapointMessagesToolMessage = /* values here */
+```
+

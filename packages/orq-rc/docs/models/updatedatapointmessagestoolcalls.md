@@ -1,0 +1,10 @@
+# UpdateDatapointMessagesToolCalls
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `id`                                                                                   | *str*                                                                                  | :heavy_check_mark:                                                                     | The ID of the tool call.                                                               |
+| `type`                                                                                 | [models.UpdateDatapointMessagesType](../models/updatedatapointmessagestype.md)         | :heavy_check_mark:                                                                     | The type of the tool. Currently, only `function` is supported.                         |
+| `function`                                                                             | [models.UpdateDatapointMessagesFunction](../models/updatedatapointmessagesfunction.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |

@@ -3,21 +3,15 @@
 
 ## Supported Types
 
-### `models.CreateDatasetItem2Datasets1`
+### `models.CreateDatasetItem2TextContentPart`
 
 ```python
-value: models.CreateDatasetItem2Datasets1 = /* values here */
+value: models.CreateDatasetItem2TextContentPart = /* values here */
 ```
 
-### `models.CreateDatasetItem2Datasets2`
+### `models.CreateDatasetItem2RefusalContentPart`
 
 ```python
-value: models.CreateDatasetItem2Datasets2 = /* values here */
-```
-
-### `models.CreateDatasetItem2Datasets3`
-
-```python
-value: models.CreateDatasetItem2Datasets3 = /* values here */
+value: models.CreateDatasetItem2RefusalContentPart = /* values here */
 ```
 
