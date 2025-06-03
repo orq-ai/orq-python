@@ -123,7 +123,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "<id>",
+    })
 
     assert res is not None
 
@@ -146,7 +148,9 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.contacts.create_async(external_id="<id>")
+        res = await orq.contacts.create_async(request={
+            "external_id": "<id>",
+        })
 
         assert res is not None
 
@@ -178,7 +182,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "<id>",
+    })
 
     assert res is not None
 
@@ -196,7 +202,11 @@ with Orq(
 
 ### [contacts](docs/sdks/contacts/README.md)
 
-* [create](docs/sdks/contacts/README.md#create) - Update user information
+* [create](docs/sdks/contacts/README.md#create) - Create a contact
+* [list](docs/sdks/contacts/README.md#list) - List contacts
+* [retrieve](docs/sdks/contacts/README.md#retrieve) - Retrieve a contact
+* [update](docs/sdks/contacts/README.md#update) - Update a contact
+* [delete](docs/sdks/contacts/README.md#delete) - Delete a contact
 
 ### [datasets](docs/sdks/datasets/README.md)
 
@@ -400,7 +410,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>",
+    res = orq.contacts.create(request={
+        "external_id": "<id>",
+    },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     assert res is not None
@@ -422,7 +434,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "<id>",
+    })
 
     assert res is not None
 
@@ -446,12 +460,12 @@ By default, an API error will raise a models.APIError exception, which has the f
 | `.raw_response` | *httpx.Response* | The raw HTTP response |
 | `.body`         | *str*            | The response content  |
 
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `list_async` method may raise the following exceptions:
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `retrieve_async` method may raise the following exceptions:
 
-| Error Type          | Status Code | Content Type     |
-| ------------------- | ----------- | ---------------- |
-| models.HonoAPIError | 500         | application/json |
-| models.APIError     | 4XX, 5XX    | \*/\*            |
+| Error Type                                 | Status Code | Content Type     |
+| ------------------------------------------ | ----------- | ---------------- |
+| models.RetrieveContactContactsResponseBody | 404         | application/json |
+| models.APIError                            | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -466,15 +480,15 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list()
+        res = orq.contacts.retrieve(id="<id>")
 
         assert res is not None
 
         # Handle response
         print(res)
 
-    except models.HonoAPIError as e:
-        # handle e.data: models.HonoAPIErrorData
+    except models.RetrieveContactContactsResponseBody as e:
+        # handle e.data: models.RetrieveContactContactsResponseBodyData
         raise(e)
     except models.APIError as e:
         # handle exception
@@ -498,7 +512,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "<id>",
+    })
 
     assert res is not None
 

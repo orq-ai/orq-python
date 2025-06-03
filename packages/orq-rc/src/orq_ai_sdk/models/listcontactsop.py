@@ -9,55 +9,77 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import parse_datetime
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, parse_datetime
 import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class CreateContactRequestBodyTypedDict(TypedDict):
-    r"""Contact profile information"""
+class QueryParamFilterByTypedDict(TypedDict):
+    r"""Filter contacts by tags"""
 
-    external_id: str
-    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-    display_name: NotRequired[Nullable[str]]
-    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
-    email: NotRequired[Nullable[str]]
-    r"""Email address of the contact user"""
-    avatar_url: NotRequired[Nullable[str]]
-    r"""URL linking to the contact user's avatar image"""
     tags: NotRequired[List[str]]
-    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
-    metadata: NotRequired[Dict[str, Any]]
-    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
 
 
-class CreateContactRequestBody(BaseModel):
-    r"""Contact profile information"""
+class QueryParamFilterBy(BaseModel):
+    r"""Filter contacts by tags"""
 
-    external_id: str
-    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
+    tags: Annotated[Optional[List[str]], FieldMetadata(query=True)] = None
 
-    display_name: OptionalNullable[str] = UNSET
-    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
 
-    email: OptionalNullable[str] = UNSET
-    r"""Email address of the contact user"""
+class ListContactsRequestTypedDict(TypedDict):
+    limit: NotRequired[float]
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    starting_after: NotRequired[str]
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+    ending_before: NotRequired[str]
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    filter_by: NotRequired[QueryParamFilterByTypedDict]
+    r"""Filter contacts by tags"""
+    include_metrics: NotRequired[Nullable[bool]]
 
-    avatar_url: OptionalNullable[str] = UNSET
-    r"""URL linking to the contact user's avatar image"""
 
-    tags: Optional[List[str]] = None
-    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
+class ListContactsRequest(BaseModel):
+    limit: Annotated[
+        Optional[float],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 10
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
-    metadata: Optional[Dict[str, Any]] = None
-    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
+    starting_after: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
+
+    ending_before: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+
+    filter_by: Annotated[
+        Optional[QueryParamFilterBy],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter contacts by tags"""
+
+    include_metrics: Annotated[
+        OptionalNullable[bool],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = False
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["display_name", "email", "avatar_url", "tags", "metadata"]
-        nullable_fields = ["display_name", "email", "avatar_url"]
+        optional_fields = [
+            "limit",
+            "starting_after",
+            "ending_before",
+            "filter_by",
+            "include_metrics",
+        ]
+        nullable_fields = ["include_metrics"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -85,15 +107,40 @@ class CreateContactRequestBody(BaseModel):
         return m
 
 
-class CreateContactResponseBodyTypedDict(TypedDict):
-    r"""Created Contact"""
+Object = Literal["list"]
 
+
+class ListContactsMetricsTypedDict(TypedDict):
+    total_cost: float
+    r"""Total cost in dollars of the last 30 days"""
+    total_tokens: float
+    r"""Total tokens of the last 30 days"""
+    total_requests: float
+    r"""Total requests of the last 30 days"""
+    error_rate: float
+    r"""P50 error rate of the last 30 days"""
+
+
+class ListContactsMetrics(BaseModel):
+    total_cost: float
+    r"""Total cost in dollars of the last 30 days"""
+
+    total_tokens: float
+    r"""Total tokens of the last 30 days"""
+
+    total_requests: float
+    r"""Total requests of the last 30 days"""
+
+    error_rate: float
+    r"""P50 error rate of the last 30 days"""
+
+
+class DataTypedDict(TypedDict):
     id: str
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
+    metrics: ListContactsMetricsTypedDict
     display_name: NotRequired[Nullable[str]]
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
     email: NotRequired[Nullable[str]]
@@ -110,17 +157,14 @@ class CreateContactResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class CreateContactResponseBody(BaseModel):
-    r"""Created Contact"""
-
+class Data(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
 
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
 
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
+    metrics: ListContactsMetrics
 
     display_name: OptionalNullable[str] = UNSET
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
@@ -180,3 +224,21 @@ class CreateContactResponseBody(BaseModel):
                 m[k] = val
 
         return m
+
+
+class ListContactsResponseBodyTypedDict(TypedDict):
+    r"""List of contacts"""
+
+    object: Object
+    data: List[DataTypedDict]
+    has_more: bool
+
+
+class ListContactsResponseBody(BaseModel):
+    r"""List of contacts"""
+
+    object: Object
+
+    data: List[Data]
+
+    has_more: bool

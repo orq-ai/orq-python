@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from datetime import datetime
+from orq_ai_sdk import utils
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -9,91 +10,49 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import parse_datetime
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, parse_datetime
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class CreateContactRequestBodyTypedDict(TypedDict):
-    r"""Contact profile information"""
-
-    external_id: str
-    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-    display_name: NotRequired[Nullable[str]]
-    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
-    email: NotRequired[Nullable[str]]
-    r"""Email address of the contact user"""
-    avatar_url: NotRequired[Nullable[str]]
-    r"""URL linking to the contact user's avatar image"""
-    tags: NotRequired[List[str]]
-    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
-    metadata: NotRequired[Dict[str, Any]]
-    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
+class RetrieveContactRequestTypedDict(TypedDict):
+    id: str
+    r"""Unique contact id or external id"""
 
 
-class CreateContactRequestBody(BaseModel):
-    r"""Contact profile information"""
-
-    external_id: str
-    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-
-    display_name: OptionalNullable[str] = UNSET
-    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
-
-    email: OptionalNullable[str] = UNSET
-    r"""Email address of the contact user"""
-
-    avatar_url: OptionalNullable[str] = UNSET
-    r"""URL linking to the contact user's avatar image"""
-
-    tags: Optional[List[str]] = None
-    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
-
-    metadata: Optional[Dict[str, Any]] = None
-    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["display_name", "email", "avatar_url", "tags", "metadata"]
-        nullable_fields = ["display_name", "email", "avatar_url"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+class RetrieveContactRequest(BaseModel):
+    id: Annotated[
+        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    ]
+    r"""Unique contact id or external id"""
 
 
-class CreateContactResponseBodyTypedDict(TypedDict):
-    r"""Created Contact"""
+class RetrieveContactContactsResponseBodyData(BaseModel):
+    error: str
+    r"""Error message"""
+
+
+class RetrieveContactContactsResponseBody(Exception):
+    r"""Contact not found"""
+
+    data: RetrieveContactContactsResponseBodyData
+
+    def __init__(self, data: RetrieveContactContactsResponseBodyData):
+        self.data = data
+
+    def __str__(self) -> str:
+        return utils.marshal_json(self.data, RetrieveContactContactsResponseBodyData)
+
+
+class RetrieveContactResponseBodyTypedDict(TypedDict):
+    r"""Contact details"""
 
     id: str
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
     display_name: NotRequired[Nullable[str]]
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
     email: NotRequired[Nullable[str]]
@@ -110,17 +69,14 @@ class CreateContactResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class CreateContactResponseBody(BaseModel):
-    r"""Created Contact"""
+class RetrieveContactResponseBody(BaseModel):
+    r"""Contact details"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
 
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
 
     display_name: OptionalNullable[str] = UNSET
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
