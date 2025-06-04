@@ -26,7 +26,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.list()
+    res = orq.deployments.list(limit=10)
 
     assert res is not None
 
@@ -119,6 +119,8 @@ import os
 
 
 with Orq(
+    environment="<value>",
+    contact_id="<id>",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
@@ -171,6 +173,8 @@ import os
 
 
 with Orq(
+    environment="<value>",
+    contact_id="<id>",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 

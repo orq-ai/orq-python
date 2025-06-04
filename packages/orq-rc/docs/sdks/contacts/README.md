@@ -69,12 +69,12 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.list(filter_by={
+    res = orq.contacts.list(limit=10, filter_by={
         "tags": [
             "premium",
             "beta-user",
         ],
-    })
+    }, include_metrics=False)
 
     assert res is not None
 

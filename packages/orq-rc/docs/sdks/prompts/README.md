@@ -28,7 +28,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.list()
+    res = orq.prompts.list(limit=10)
 
     assert res is not None
 
@@ -255,7 +255,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.list_versions(prompt_id="<id>")
+    res = orq.prompts.list_versions(prompt_id="<id>", limit=10)
 
     assert res is not None
 

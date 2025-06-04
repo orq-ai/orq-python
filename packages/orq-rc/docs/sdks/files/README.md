@@ -28,7 +28,7 @@ with Orq(
     res = orq.files.create(file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
-    })
+    }, purpose="retrieval")
 
     assert res is not None
 
@@ -70,7 +70,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.files.list()
+    res = orq.files.list(limit=10)
 
     assert res is not None
 
