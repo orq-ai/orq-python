@@ -296,6 +296,8 @@ import os
 
 
 with Orq(
+    environment="<value>",
+    contact_id="<id>",
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
@@ -337,7 +339,7 @@ with Orq(
     res = orq.files.create(file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
-    })
+    }, purpose="retrieval")
 
     assert res is not None
 
@@ -429,7 +431,7 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list()
+        res = orq.deployments.list(limit=10)
 
         assert res is not None
 

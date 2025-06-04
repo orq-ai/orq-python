@@ -37,7 +37,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.list()
+    res = orq.knowledge.list(limit=10)
 
     assert res is not None
 
@@ -291,7 +291,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.list_datasources(knowledge_id="<id>", status=[
+    res = orq.knowledge.list_datasources(knowledge_id="<id>", limit=10, status=[
         "completed",
         "failed",
     ])
@@ -547,7 +547,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.list_chunks(knowledge_id="<id>", datasource_id="<id>", status=[
+    res = orq.knowledge.list_chunks(knowledge_id="<id>", datasource_id="<id>", limit=10, status=[
         "completed",
         "failed",
     ])
