@@ -5,8 +5,11 @@
 
 ### Available Operations
 
+* [all](#all) - Get all Evaluators
 * [create](#create) - Create an Evaluator
-* [run_bert_score](#run_bert_score) - Run BertScore Evaluator
+* [update](#update) - Update an Evaluator
+* [delete](#delete) - Delete an Evaluator
+* [bert_score](#bert_score) - Run BertScore Evaluator
 * [bleu_score](#bleu_score) - Run BLEU Score Evaluator
 * [contains_all](#contains_all) - Run Contains All Evaluator
 * [contains_any](#contains_any) - Run Contains Any Evaluator
@@ -40,6 +43,51 @@
 * [ragas_maliciousness](#ragas_maliciousness) - Run Maliciousness Evaluator
 * [ragas_response_relevancy](#ragas_response_relevancy) - Run Response Relevancy Evaluator
 * [ragas_summarization](#ragas_summarization) - Run Summarization Evaluator
+* [invoke](#invoke) - Invoke a Custom Evaluator
+
+## all
+
+Get all Evaluators
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.all(limit=10)
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
+| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
+| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+
+### Response
+
+**[models.GetEvalsResponseBody](../../models/getevalsresponsebody.md)**
+
+### Errors
+
+| Error Type                       | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| models.GetEvalsEvalsResponseBody | 404                              | application/json                 |
+| models.APIError                  | 4XX, 5XX                         | \*/\*                            |
 
 ## create
 
@@ -98,7 +146,88 @@ with Orq(
 | models.CreateEvalEvalsResponseBody | 404                                | application/json                   |
 | models.APIError                    | 4XX, 5XX                           | \*/\*                              |
 
-## run_bert_score
+## update
+
+Update an Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.update(id="<id>", request_body={
+        "type": "llm_eval",
+        "path": "Default",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `id`                                                                            | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
+| `request_body`                                                                  | [Optional[models.UpdateEvalRequestBody]](../../models/updateevalrequestbody.md) | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
+
+### Response
+
+**[models.UpdateEvalResponseBody](../../models/updateevalresponsebody.md)**
+
+### Errors
+
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| models.UpdateEvalEvalsResponseBody | 404                                | application/json                   |
+| models.APIError                    | 4XX, 5XX                           | \*/\*                              |
+
+## delete
+
+Delete an Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.evals.delete(id="<id>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type                    | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| models.DeleteEvalResponseBody | 404                           | application/json              |
+| models.APIError               | 4XX, 5XX                      | \*/\*                         |
+
+## bert_score
 
 Run BertScore Evaluator
 
@@ -113,7 +242,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.evals.run_bert_score()
+    res = orq.evals.bert_score()
 
     assert res is not None
 
@@ -124,22 +253,22 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `request`                                                                 | [models.RunBertScoreRequestBody](../../models/runbertscorerequestbody.md) | :heavy_check_mark:                                                        | The request object to use for the request.                                |
-| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `request`                                                                     | [models.EvalsBertScoreRequestBody](../../models/evalsbertscorerequestbody.md) | :heavy_check_mark:                                                            | The request object to use for the request.                                    |
+| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
 
 ### Response
 
-**[models.RunBertScoreResponseBody](../../models/runbertscoreresponsebody.md)**
+**[models.EvalsBertScoreResponseBody](../../models/evalsbertscoreresponsebody.md)**
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models.RunBertScoreEvalsResponseBody         | 404                                          | application/json                             |
-| models.RunBertScoreEvalsResponseResponseBody | 500                                          | application/json                             |
-| models.APIError                              | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                                     | Status Code                                    | Content Type                                   |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| models.EvalsBertScoreEvalsResponseBody         | 404                                            | application/json                               |
+| models.EvalsBertScoreEvalsResponseResponseBody | 500                                            | application/json                               |
+| models.APIError                                | 4XX, 5XX                                       | \*/\*                                          |
 
 ## bleu_score
 
@@ -1559,3 +1688,51 @@ with Orq(
 | models.EvalsRagasSummarizationEvalsResponseBody         | 404                                                     | application/json                                        |
 | models.EvalsRagasSummarizationEvalsResponseResponseBody | 500                                                     | application/json                                        |
 | models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+
+## invoke
+
+Invoke a Custom Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.invoke(id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `id`                                                                    | *str*                                                                   | :heavy_check_mark:                                                      | Evaluator ID                                                            |
+| `input`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Latest user message                                                     |
+| `output`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The generated response from the model                                   |
+| `reference`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The reference used to compare the output                                |
+| `retrievals`                                                            | List[*str*]                                                             | :heavy_minus_sign:                                                      | Knowledge base retrievals                                               |
+| `messages`                                                              | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]   | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
+| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+
+### Response
+
+**[models.InvokeEvalResponseBody](../../models/invokeevalresponsebody.md)**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| models.InvokeEvalEvalsResponseBody         | 404                                        | application/json                           |
+| models.InvokeEvalEvalsResponseResponseBody | 500                                        | application/json                           |
+| models.APIError                            | 4XX, 5XX                                   | \*/\*                                      |

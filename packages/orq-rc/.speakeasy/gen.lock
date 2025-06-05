@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 42e0c4a6a180658546d96c1da1a0eac7
+  docChecksum: b8bee22dee5202905ff525ebd77456fa
   docVersion: "2.0"
-  speakeasyVersion: 1.555.2
+  speakeasyVersion: 1.555.3
   generationVersion: 2.620.2
-  releaseVersion: 3.8.0-rc.1
-  configChecksum: 05514b6b2d3a3632b28572ed6fbcec50
+  releaseVersion: 3.8.0-rc.2
+  configChecksum: 34f86b785019ca6428139cd88a711476
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -291,12 +291,23 @@ generatedFiles:
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
   - docs/models/data.md
+  - docs/models/datafunction.md
+  - docs/models/datafunctionparams.md
+  - docs/models/dataguardrailconfig.md
+  - docs/models/datahttp.md
+  - docs/models/datajson.md
+  - docs/models/datallm.md
+  - docs/models/datamethod.md
+  - docs/models/datapython.md
+  - docs/models/datatype.md
   - docs/models/deletechunkrequest.md
   - docs/models/deletecontactrequest.md
   - docs/models/deletecontactresponsebody.md
   - docs/models/deletedatapointrequest.md
   - docs/models/deletedatasetrequest.md
   - docs/models/deletedatasourcerequest.md
+  - docs/models/deleteevalrequest.md
+  - docs/models/deleteevalresponsebody.md
   - docs/models/deleteknowledgerequest.md
   - docs/models/deletepromptrequest.md
   - docs/models/deploymentcreatemetric21.md
@@ -734,6 +745,9 @@ generatedFiles:
   - docs/models/detail.md
   - docs/models/developermessage.md
   - docs/models/documents.md
+  - docs/models/eight.md
+  - docs/models/eighteen.md
+  - docs/models/eleven.md
   - docs/models/encodingformat.md
   - docs/models/eq.md
   - docs/models/evalsageappropriateevalsresponsebody.md
@@ -742,6 +756,11 @@ generatedFiles:
   - docs/models/evalsageappropriaterequestbody.md
   - docs/models/evalsageappropriateresponsebody.md
   - docs/models/evalsageappropriatevalue.md
+  - docs/models/evalsbertscoreevalsresponsebody.md
+  - docs/models/evalsbertscoreevalsresponseresponsebody.md
+  - docs/models/evalsbertscorerequestbody.md
+  - docs/models/evalsbertscoreresponsebody.md
+  - docs/models/evalsbertscorevalue.md
   - docs/models/evalsbleuscoreevalsresponsebody.md
   - docs/models/evalsbleuscoreevalsresponseresponsebody.md
   - docs/models/evalsbleuscorerequestbody.md
@@ -909,6 +928,7 @@ generatedFiles:
   - docs/models/evalsvalidjsonresponsebody.md
   - docs/models/evalsvalidjsonvalue.md
   - docs/models/exists.md
+  - docs/models/fifteen.md
   - docs/models/file.md
   - docs/models/filedeleterequest.md
   - docs/models/filegetpurpose.md
@@ -927,10 +947,21 @@ generatedFiles:
   - docs/models/filterby1.md
   - docs/models/filterbyand.md
   - docs/models/filterbyor.md
+  - docs/models/five.md
   - docs/models/format_.md
   - docs/models/four.md
+  - docs/models/fourteen.md
   - docs/models/function.md
   - docs/models/functionparams.md
+  - docs/models/functionparams1.md
+  - docs/models/functionparams2.md
+  - docs/models/functionparams3.md
+  - docs/models/functionparams4.md
+  - docs/models/functionparams5.md
+  - docs/models/functionparams6.md
+  - docs/models/functionparams7.md
+  - docs/models/functionparams8.md
+  - docs/models/functionparamstype.md
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
   - docs/models/getallprompts23.md
@@ -968,6 +999,81 @@ generatedFiles:
   - docs/models/getallpromptstoolcalls.md
   - docs/models/getallpromptstype.md
   - docs/models/getallpromptsusecases.md
+  - docs/models/getevalsdata.md
+  - docs/models/getevalsdataevalsguardrailconfig.md
+  - docs/models/getevalsdataevalsresponse200applicationjsonguardrailconfig.md
+  - docs/models/getevalsdataevalsresponse200applicationjsonresponsebodyguardrailconfig.md
+  - docs/models/getevalsdataevalsresponse200applicationjsonresponsebodytype.md
+  - docs/models/getevalsdataevalsresponse200applicationjsontype.md
+  - docs/models/getevalsdataevalsresponse200guardrailconfig.md
+  - docs/models/getevalsdataevalsresponse200type.md
+  - docs/models/getevalsdataevalsresponseguardrailconfig.md
+  - docs/models/getevalsdataevalsresponsetype.md
+  - docs/models/getevalsdataevalstype.md
+  - docs/models/getevalsdataguardrailconfig.md
+  - docs/models/getevalsdatatype.md
+  - docs/models/getevalsevalsresponsebody.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata510type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata511type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata512type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata513type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata514type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata515type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata516type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata517type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata518type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata519type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata520type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata521type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata522type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata523type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata524type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydata5type.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodydatatype.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsonresponsebodytype.md
+  - docs/models/getevalsfunctionparamsevalsresponse200applicationjsontype.md
+  - docs/models/getevalsfunctionparamsevalsresponse200type.md
+  - docs/models/getevalsfunctionparamsevalsresponsetype.md
+  - docs/models/getevalsfunctionparamsevalstype.md
+  - docs/models/getevalsfunctionparamstype.md
+  - docs/models/getevalsguardrailconfigboolean.md
+  - docs/models/getevalsguardrailconfigevalsboolean.md
+  - docs/models/getevalsguardrailconfigevalsnumber.md
+  - docs/models/getevalsguardrailconfigevalsoperator.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonboolean.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonnumber.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonoperator.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodyboolean.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata1type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata52type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata5type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata62type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata6type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata72type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydata7type.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydataboolean.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydatanumber.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydataoperator.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodydatatype.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodynumber.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodyoperator.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsonresponsebodytype.md
+  - docs/models/getevalsguardrailconfigevalsresponse200applicationjsontype.md
+  - docs/models/getevalsguardrailconfigevalsresponse200boolean.md
+  - docs/models/getevalsguardrailconfigevalsresponse200number.md
+  - docs/models/getevalsguardrailconfigevalsresponse200operator.md
+  - docs/models/getevalsguardrailconfigevalsresponse200type.md
+  - docs/models/getevalsguardrailconfigevalsresponseboolean.md
+  - docs/models/getevalsguardrailconfigevalsresponsenumber.md
+  - docs/models/getevalsguardrailconfigevalsresponseoperator.md
+  - docs/models/getevalsguardrailconfigevalsresponsetype.md
+  - docs/models/getevalsguardrailconfigevalstype.md
+  - docs/models/getevalsguardrailconfignumber.md
+  - docs/models/getevalsguardrailconfigoperator.md
+  - docs/models/getevalsguardrailconfigtype.md
+  - docs/models/getevalsobject.md
+  - docs/models/getevalsrequest.md
+  - docs/models/getevalsresponsebody.md
   - docs/models/getonechunkmetadata.md
   - docs/models/getonechunkrequest.md
   - docs/models/getonechunkresponsebody.md
@@ -1061,6 +1167,40 @@ generatedFiles:
   - docs/models/inputaudio.md
   - docs/models/inputs.md
   - docs/models/internal/globals.md
+  - docs/models/invokeeval21.md
+  - docs/models/invokeeval22.md
+  - docs/models/invokeeval23.md
+  - docs/models/invokeeval2evalsrequesttype.md
+  - docs/models/invokeeval2evalstype.md
+  - docs/models/invokeeval2file.md
+  - docs/models/invokeeval2imageurl.md
+  - docs/models/invokeeval2type.md
+  - docs/models/invokeevalcontent.md
+  - docs/models/invokeevalcontent2.md
+  - docs/models/invokeevalevalsresponsebody.md
+  - docs/models/invokeevalevalsresponseresponsebody.md
+  - docs/models/invokeevalfunction.md
+  - docs/models/invokeevalmessages.md
+  - docs/models/invokeevalrequest.md
+  - docs/models/invokeevalrequestbody.md
+  - docs/models/invokeevalresponsebody.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson6type.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson7type.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson7value.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson8type.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjsontype.md
+  - docs/models/invokeevalresponsebodyevalsresponse200applicationjsonvalue.md
+  - docs/models/invokeevalresponsebodyevalsresponse200type.md
+  - docs/models/invokeevalresponsebodyevalsresponse200value.md
+  - docs/models/invokeevalresponsebodyevalsresponsetype.md
+  - docs/models/invokeevalresponsebodyevalsresponsevalue.md
+  - docs/models/invokeevalresponsebodyevalstype.md
+  - docs/models/invokeevalresponsebodyevalsvalue.md
+  - docs/models/invokeevalresponsebodytype.md
+  - docs/models/invokeevalresponsebodyvalue.md
+  - docs/models/invokeevalrole.md
+  - docs/models/invokeevaltoolcalls.md
+  - docs/models/invokeevaltype.md
   - docs/models/invokeoptions.md
   - docs/models/json.md
   - docs/models/jsonschema.md
@@ -1207,6 +1347,8 @@ generatedFiles:
   - docs/models/modeltype.md
   - docs/models/ne.md
   - docs/models/nin.md
+  - docs/models/nine.md
+  - docs/models/nineteen.md
   - docs/models/number.md
   - docs/models/object.md
   - docs/models/one.md
@@ -1252,6 +1394,8 @@ generatedFiles:
   - docs/models/python.md
   - docs/models/queryparamfilterby.md
   - docs/models/queryparamstatus.md
+  - docs/models/ragas.md
+  - docs/models/ragasmetric.md
   - docs/models/reasoningeffort.md
   - docs/models/refusalcontentpart.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
@@ -1259,9 +1403,18 @@ generatedFiles:
   - docs/models/remoteconfigsgetconfigtype.md
   - docs/models/requestbody.md
   - docs/models/requestbodyguardrailconfig.md
+  - docs/models/requestbodyhttp.md
+  - docs/models/requestbodyjson.md
+  - docs/models/requestbodyllm.md
+  - docs/models/requestbodymethod.md
+  - docs/models/requestbodypython.md
   - docs/models/requestbodytype.md
   - docs/models/rerankconfig.md
   - docs/models/responsebody.md
+  - docs/models/responsebody1.md
+  - docs/models/responsebody2.md
+  - docs/models/responsebody3.md
+  - docs/models/responsebody4.md
   - docs/models/responsebodyguardrailconfig.md
   - docs/models/responsebodyhttp.md
   - docs/models/responsebodyjson.md
@@ -1269,6 +1422,7 @@ generatedFiles:
   - docs/models/responsebodymethod.md
   - docs/models/responsebodypython.md
   - docs/models/responsebodytype.md
+  - docs/models/responsebodyvalue.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
@@ -1326,11 +1480,9 @@ generatedFiles:
   - docs/models/retrievedatasourceresponsebody.md
   - docs/models/retrievedatasourcestatus.md
   - docs/models/role.md
-  - docs/models/runbertscoreevalsresponsebody.md
-  - docs/models/runbertscoreevalsresponseresponsebody.md
-  - docs/models/runbertscorerequestbody.md
-  - docs/models/runbertscoreresponsebody.md
-  - docs/models/runbertscorevalue.md
+  - docs/models/rouge1.md
+  - docs/models/rouge2.md
+  - docs/models/rougel.md
   - docs/models/scores.md
   - docs/models/searchknowledge13.md
   - docs/models/searchknowledge1eq.md
@@ -1378,14 +1530,26 @@ generatedFiles:
   - docs/models/searchknowledgeresponsebody.md
   - docs/models/searchoptions.md
   - docs/models/security.md
+  - docs/models/seven.md
+  - docs/models/seventeen.md
+  - docs/models/six.md
+  - docs/models/sixteen.md
   - docs/models/status.md
   - docs/models/systemmessage.md
+  - docs/models/ten.md
   - docs/models/textcontentpart.md
+  - docs/models/thirteen.md
   - docs/models/thread.md
   - docs/models/three.md
   - docs/models/toolcalls.md
   - docs/models/toolmessage.md
   - docs/models/tools.md
+  - docs/models/twelve.md
+  - docs/models/twenty.md
+  - docs/models/twentyfour.md
+  - docs/models/twentyone.md
+  - docs/models/twentythree.md
+  - docs/models/twentytwo.md
   - docs/models/two.md
   - docs/models/two1.md
   - docs/models/two2.md
@@ -1400,6 +1564,7 @@ generatedFiles:
   - docs/models/twotextcontentpart.md
   - docs/models/twotype.md
   - docs/models/type.md
+  - docs/models/typescript.md
   - docs/models/updatechunkknowledgemetadata.md
   - docs/models/updatechunkmetadata.md
   - docs/models/updatechunkrequest.md
@@ -1495,6 +1660,71 @@ generatedFiles:
   - docs/models/updatedatasourcerequestbody.md
   - docs/models/updatedatasourceresponsebody.md
   - docs/models/updatedatasourcestatus.md
+  - docs/models/updateevalevalsresponsebody.md
+  - docs/models/updateevalguardrailconfigboolean.md
+  - docs/models/updateevalguardrailconfigevalsboolean.md
+  - docs/models/updateevalguardrailconfigevalsnumber.md
+  - docs/models/updateevalguardrailconfigevalsoperator.md
+  - docs/models/updateevalguardrailconfigevalsrequestboolean.md
+  - docs/models/updateevalguardrailconfigevalsrequestnumber.md
+  - docs/models/updateevalguardrailconfigevalsrequestoperator.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbody32type.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbody3type.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbody42type.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbody4type.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbodyboolean.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbodynumber.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbodyoperator.md
+  - docs/models/updateevalguardrailconfigevalsrequestrequestbodytype.md
+  - docs/models/updateevalguardrailconfigevalsrequesttype.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonboolean.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonnumber.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonoperator.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebody32type.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebody3type.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebody42type.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebody4type.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebodyboolean.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebodynumber.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebodyoperator.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsonresponsebodytype.md
+  - docs/models/updateevalguardrailconfigevalsresponse200applicationjsontype.md
+  - docs/models/updateevalguardrailconfigevalsresponse200boolean.md
+  - docs/models/updateevalguardrailconfigevalsresponse200number.md
+  - docs/models/updateevalguardrailconfigevalsresponse200operator.md
+  - docs/models/updateevalguardrailconfigevalsresponse200type.md
+  - docs/models/updateevalguardrailconfigevalsresponseboolean.md
+  - docs/models/updateevalguardrailconfigevalsresponsenumber.md
+  - docs/models/updateevalguardrailconfigevalsresponseoperator.md
+  - docs/models/updateevalguardrailconfigevalsresponsetype.md
+  - docs/models/updateevalguardrailconfigevalstype.md
+  - docs/models/updateevalguardrailconfignumber.md
+  - docs/models/updateevalguardrailconfigoperator.md
+  - docs/models/updateevalguardrailconfigtype.md
+  - docs/models/updateevalrequest.md
+  - docs/models/updateevalrequestbody.md
+  - docs/models/updateevalrequestbodyevalsguardrailconfig.md
+  - docs/models/updateevalrequestbodyevalsrequest4guardrailconfig.md
+  - docs/models/updateevalrequestbodyevalsrequest4type.md
+  - docs/models/updateevalrequestbodyevalsrequestguardrailconfig.md
+  - docs/models/updateevalrequestbodyevalsrequesttype.md
+  - docs/models/updateevalrequestbodyevalstype.md
+  - docs/models/updateevalrequestbodyguardrailconfig.md
+  - docs/models/updateevalrequestbodytype.md
+  - docs/models/updateevalresponsebody.md
+  - docs/models/updateevalresponsebodyevalsguardrailconfig.md
+  - docs/models/updateevalresponsebodyevalsresponse200guardrailconfig.md
+  - docs/models/updateevalresponsebodyevalsresponse200type.md
+  - docs/models/updateevalresponsebodyevalsresponseguardrailconfig.md
+  - docs/models/updateevalresponsebodyevalsresponsetype.md
+  - docs/models/updateevalresponsebodyevalstype.md
+  - docs/models/updateevalresponsebodyguardrailconfig.md
+  - docs/models/updateevalresponsebodyhttp.md
+  - docs/models/updateevalresponsebodyjson.md
+  - docs/models/updateevalresponsebodyllm.md
+  - docs/models/updateevalresponsebodymethod.md
+  - docs/models/updateevalresponsebodypython.md
+  - docs/models/updateevalresponsebodytype.md
   - docs/models/updateknowledgeagenticragconfig.md
   - docs/models/updateknowledgeknowledgeagenticragconfig.md
   - docs/models/updateknowledgeknowledgererankconfig.md
@@ -1631,6 +1861,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/deletedatapointop.py
   - src/orq_ai_sdk/models/deletedatasetop.py
   - src/orq_ai_sdk/models/deletedatasourceop.py
+  - src/orq_ai_sdk/models/deleteevalop.py
   - src/orq_ai_sdk/models/deleteknowledgeop.py
   - src/orq_ai_sdk/models/deletepromptop.py
   - src/orq_ai_sdk/models/deploymentcreatemetricop.py
@@ -1640,6 +1871,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/deploymentsop.py
   - src/orq_ai_sdk/models/deploymentstreamop.py
   - src/orq_ai_sdk/models/evalsageappropriateop.py
+  - src/orq_ai_sdk/models/evalsbertscoreop.py
   - src/orq_ai_sdk/models/evalsbleuscoreop.py
   - src/orq_ai_sdk/models/evalsbotdetectionop.py
   - src/orq_ai_sdk/models/evalscontainsallop.py
@@ -1677,6 +1909,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/filelistop.py
   - src/orq_ai_sdk/models/fileuploadop.py
   - src/orq_ai_sdk/models/getallpromptsop.py
+  - src/orq_ai_sdk/models/getevalsop.py
   - src/orq_ai_sdk/models/getonechunkop.py
   - src/orq_ai_sdk/models/getoneknowledgeop.py
   - src/orq_ai_sdk/models/getonepromptop.py
@@ -1684,6 +1917,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/honoapierror.py
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
+  - src/orq_ai_sdk/models/invokeevalop.py
   - src/orq_ai_sdk/models/listchunksop.py
   - src/orq_ai_sdk/models/listcontactsop.py
   - src/orq_ai_sdk/models/listdatasetdatapointsop.py
@@ -1697,7 +1931,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/retrievedatapointop.py
   - src/orq_ai_sdk/models/retrievedatasetop.py
   - src/orq_ai_sdk/models/retrievedatasourceop.py
-  - src/orq_ai_sdk/models/runbertscoreop.py
   - src/orq_ai_sdk/models/searchknowledgeop.py
   - src/orq_ai_sdk/models/security.py
   - src/orq_ai_sdk/models/updatechunkop.py
@@ -1705,6 +1938,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/updatedatapointop.py
   - src/orq_ai_sdk/models/updatedatasetop.py
   - src/orq_ai_sdk/models/updatedatasourceop.py
+  - src/orq_ai_sdk/models/updateevalop.py
   - src/orq_ai_sdk/models/updateknowledgeop.py
   - src/orq_ai_sdk/models/updatepromptop.py
   - src/orq_ai_sdk/models_.py
@@ -1806,7 +2040,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-06-04T07:24:13.399Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-06-05T06:05:40.872Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -1822,7 +2056,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-06-04T07:24:13.399Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-06-05T06:05:40.872Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -1913,7 +2147,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-06-05T06:05:37.917Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -1921,7 +2155,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-06-05T06:05:37.917Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -1933,7 +2167,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-06-05T06:05:37.917Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -1968,7 +2202,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-05T06:05:37.917Z"}
   RetrieveDatapoint:
     speakeasy-default-retrieve-datapoint:
       parameters:
@@ -1977,7 +2211,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-05T06:05:37.917Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -1988,7 +2222,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-04T07:24:10.431Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-05T06:05:37.917Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -2071,7 +2305,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01JWWX75X1DQ5C4K058TB9AHJP", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01JWZB42SFMH2TZGYAZ1XX96Q0", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -2080,7 +2314,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01JWWX75X1YJCF5754KBYQJ6QA", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01JWZB42SF9XTSQXK4VGKCJZMM", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -2097,7 +2331,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01JWWX75X2MVN8R8143WNM7DS6", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01JWZB42SGSJ85J62E2PDGZSDF", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -2507,5 +2741,56 @@ examples:
       responses:
         "404":
           application/json: {"error": "Contact not found"}
+  GetEvals:
+    speakeasy-default-get-evals:
+      parameters:
+        query:
+          limit: 10
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [], "has_more": true}
+        "404":
+          application/json: {"message": "<value>"}
+  UpdateEval:
+    speakeasy-default-update-eval:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"type": "llm_eval", "path": "Default"}
+      responses:
+        "200":
+          application/json: {"_id": "<id>", "description": "hence splash fruitful swing", "created": "2025-06-05T06:05:40.081Z", "updated": "2025-06-05T06:05:40.082Z", "type": "llm_eval", "prompt": "<value>", "key": "<key>", "model": "2"}
+        "404":
+          application/json: {"message": "<value>"}
+  DeleteEval:
+    speakeasy-default-delete-eval:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "404":
+          application/json: {"message": "<value>"}
+  EvalsBertScore:
+    speakeasy-default-evals-bert-score:
+      responses:
+        "200":
+          application/json: {"value": {"f1": 3982.06, "precision": 9158.37, "recall": 4835.75}}
+        "404":
+          application/json: {"message": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  InvokeEval:
+    speakeasy-default-invoke-eval:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"type": "rouge_n", "value": {"rouge_1": {"f1": 6073.41, "precision": 7334.21, "recall": 2747.89}, "rouge_2": {"f1": 9864.52, "precision": 215.89, "recall": 6007.06}, "rouge_l": {"f1": 3781.76, "precision": 9696.92, "recall": 3359.29}}}
+        "404":
+          application/json: {"message": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}

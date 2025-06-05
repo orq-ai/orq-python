@@ -1,0 +1,11 @@
+# UpdateEvalGuardrailConfigNumber
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `enabled`                                                                                    | *bool*                                                                                       | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `type`                                                                                       | [models.UpdateEvalGuardrailConfigEvalsType](../models/updateevalguardrailconfigevalstype.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `value`                                                                                      | *float*                                                                                      | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `operator`                                                                                   | [models.UpdateEvalGuardrailConfigOperator](../models/updateevalguardrailconfigoperator.md)   | :heavy_check_mark:                                                                           | N/A                                                                                          |

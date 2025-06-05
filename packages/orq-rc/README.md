@@ -237,8 +237,11 @@ with Orq(
 
 ### [evals](docs/sdks/evals/README.md)
 
+* [all](docs/sdks/evals/README.md#all) - Get all Evaluators
 * [create](docs/sdks/evals/README.md#create) - Create an Evaluator
-* [run_bert_score](docs/sdks/evals/README.md#run_bert_score) - Run BertScore Evaluator
+* [update](docs/sdks/evals/README.md#update) - Update an Evaluator
+* [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
+* [bert_score](docs/sdks/evals/README.md#bert_score) - Run BertScore Evaluator
 * [bleu_score](docs/sdks/evals/README.md#bleu_score) - Run BLEU Score Evaluator
 * [contains_all](docs/sdks/evals/README.md#contains_all) - Run Contains All Evaluator
 * [contains_any](docs/sdks/evals/README.md#contains_any) - Run Contains Any Evaluator
@@ -272,6 +275,7 @@ with Orq(
 * [ragas_maliciousness](docs/sdks/evals/README.md#ragas_maliciousness) - Run Maliciousness Evaluator
 * [ragas_response_relevancy](docs/sdks/evals/README.md#ragas_response_relevancy) - Run Response Relevancy Evaluator
 * [ragas_summarization](docs/sdks/evals/README.md#ragas_summarization) - Run Summarization Evaluator
+* [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
 
 ### [feedback](docs/sdks/feedback/README.md)
 
