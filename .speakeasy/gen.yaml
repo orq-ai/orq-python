@@ -23,6 +23,7 @@ python:
     main: {}
   authors:
     - Orq
+  baseErrorName: OrqError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: APIError
   description: Python Client SDK for the Orq API.
