@@ -61,16 +61,16 @@ GetOnePromptResponseFormatType = Literal["json_schema"]
 
 class GetOnePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class GetOnePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class GetOnePromptResponseFormat1TypedDict(TypedDict):

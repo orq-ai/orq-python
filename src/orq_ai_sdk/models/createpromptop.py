@@ -46,16 +46,16 @@ ResponseFormatType = Literal["json_schema"]
 
 class JSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class JSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class ResponseFormat1TypedDict(TypedDict):
@@ -668,16 +668,16 @@ CreatePromptResponseFormatPromptsType = Literal["json_schema"]
 
 class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class CreatePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class CreatePromptResponseFormat1TypedDict(TypedDict):

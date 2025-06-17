@@ -83,16 +83,16 @@ ListPromptVersionsResponseFormatType = Literal["json_schema"]
 
 class ListPromptVersionsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class ListPromptVersionsResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class ListPromptVersionsResponseFormat1TypedDict(TypedDict):

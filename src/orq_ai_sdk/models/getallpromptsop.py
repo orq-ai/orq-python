@@ -80,16 +80,16 @@ GetAllPromptsResponseFormatType = Literal["json_schema"]
 
 class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class GetAllPromptsResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class GetAllPromptsResponseFormat1TypedDict(TypedDict):

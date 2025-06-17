@@ -1945,16 +1945,16 @@ DeploymentGetConfigResponseFormatDeploymentsType = Literal["json_schema"]
 
 class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
