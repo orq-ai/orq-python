@@ -80,16 +80,16 @@ GetAllPromptsResponseFormatType = Literal["json_schema"]
 
 class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class GetAllPromptsResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class GetAllPromptsResponseFormat1TypedDict(TypedDict):
@@ -332,6 +332,7 @@ GetAllPromptsProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 GetAllPromptsRole = Literal[
@@ -517,9 +518,9 @@ class GetAllPromptsPromptConfigTypedDict(TypedDict):
     messages: List[GetAllPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_db_id: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    model_type: NotRequired[GetAllPromptsModelType]
+    model_type: NotRequired[Nullable[GetAllPromptsModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[GetAllPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -538,10 +539,10 @@ class GetAllPromptsPromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_db_id: Optional[str] = None
+    model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    model_type: Optional[GetAllPromptsModelType] = None
+    model_type: OptionalNullable[GetAllPromptsModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[GetAllPromptsModelParameters] = None
@@ -566,7 +567,7 @@ class GetAllPromptsPromptConfig(BaseModel):
             "integration_id",
             "version",
         ]
-        nullable_fields = ["integration_id"]
+        nullable_fields = ["model_db_id", "model_type", "integration_id"]
         null_default_fields = []
 
         serialized = handler(self)

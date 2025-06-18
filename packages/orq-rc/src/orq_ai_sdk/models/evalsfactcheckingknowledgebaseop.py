@@ -15,14 +15,14 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
     reference: str
 
 
 class EvalsFactCheckingKnowledgeBaseRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

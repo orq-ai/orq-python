@@ -8,7 +8,7 @@ from typing_extensions import TypedDict
 
 
 class EvalsRagasHarmfulnessRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     r"""Latest user message"""
     output: str
     r"""The generated response from the model"""
@@ -16,7 +16,7 @@ class EvalsRagasHarmfulnessRequestBodyTypedDict(TypedDict):
 
 
 class EvalsRagasHarmfulnessRequestBody(BaseModel):
-    input: str
+    query: str
     r"""Latest user message"""
 
     output: str

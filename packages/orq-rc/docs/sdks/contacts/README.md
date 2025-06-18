@@ -27,7 +27,21 @@ with Orq(
 ) as orq:
 
     res = orq.contacts.create(request={
-        "external_id": "<id>",
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
     })
 
     assert res is not None

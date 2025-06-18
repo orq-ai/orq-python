@@ -9209,7 +9209,7 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        input_: Optional[str] = None,
+        query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
@@ -9227,7 +9227,7 @@ class Evals(BaseSDK):
         r"""Invoke a Custom Evaluator
 
         :param id: Evaluator ID
-        :param input: Latest user message
+        :param query: Latest user message
         :param output: The generated response from the model
         :param reference: The reference used to compare the output
         :param retrievals: Knowledge base retrievals
@@ -9253,7 +9253,7 @@ class Evals(BaseSDK):
         request = models.InvokeEvalRequest(
             id=id,
             request_body=models.InvokeEvalRequestBody(
-                input=input_,
+                query=query,
                 output=output,
                 reference=reference,
                 retrievals=retrievals,
@@ -9348,7 +9348,7 @@ class Evals(BaseSDK):
         self,
         *,
         id: str,
-        input_: Optional[str] = None,
+        query: Optional[str] = None,
         output: Optional[str] = None,
         reference: Optional[str] = None,
         retrievals: Optional[List[str]] = None,
@@ -9366,7 +9366,7 @@ class Evals(BaseSDK):
         r"""Invoke a Custom Evaluator
 
         :param id: Evaluator ID
-        :param input: Latest user message
+        :param query: Latest user message
         :param output: The generated response from the model
         :param reference: The reference used to compare the output
         :param retrievals: Knowledge base retrievals
@@ -9392,7 +9392,7 @@ class Evals(BaseSDK):
         request = models.InvokeEvalRequest(
             id=id,
             request_body=models.InvokeEvalRequestBody(
-                input=input_,
+                query=query,
                 output=output,
                 reference=reference,
                 retrievals=retrievals,

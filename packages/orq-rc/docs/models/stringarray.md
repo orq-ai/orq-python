@@ -1,8 +1,9 @@
-# FunctionParams5
+# StringArray
 
 
 ## Fields
 
 | Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                       | [models.GetEvalsFunctionParamsEvalsResponse200Type](../models/getevalsfunctionparamsevalsresponse200type.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `type`                                                                                                       | [models.InvokeEvalResponseBodyEvalsResponse200Type](../models/invokeevalresponsebodyevalsresponse200type.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `values`                                                                                                     | List[*Nullable[str]*]                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

@@ -15,13 +15,13 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsAgeAppropriateRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
 
 
 class EvalsAgeAppropriateRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

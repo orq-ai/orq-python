@@ -15,13 +15,13 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsPiiRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
 
 
 class EvalsPiiRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

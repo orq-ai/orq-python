@@ -327,7 +327,7 @@ r"""The type of the content part. Always `file`."""
 class DeploymentCreateMetric2FileTypedDict(TypedDict):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
-    filename: NotRequired[str]
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -335,7 +335,7 @@ class DeploymentCreateMetric2File(BaseModel):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
 
-    filename: Optional[str] = None
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -833,7 +833,7 @@ r"""The type of the content part. Always `file`."""
 class DeploymentCreateMetric2DeploymentsMetricsFileTypedDict(TypedDict):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
-    filename: NotRequired[str]
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -841,7 +841,7 @@ class DeploymentCreateMetric2DeploymentsMetricsFile(BaseModel):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
 
-    filename: Optional[str] = None
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 

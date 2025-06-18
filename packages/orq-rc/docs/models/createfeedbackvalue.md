@@ -11,6 +11,12 @@ The feedback value. For single selection of multiple choice, the value should be
 value: str = /* values here */
 ```
 
+### `float`
+
+```python
+value: float = /* values here */
+```
+
 ### `List[str]`
 
 ```python

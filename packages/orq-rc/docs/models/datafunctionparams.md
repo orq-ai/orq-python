@@ -27,28 +27,28 @@ value: models.FunctionParams3 = /* values here */
 value: models.FunctionParams4 = /* values here */
 ```
 
-### `models.FunctionParams5`
+### `models.Five`
 
 ```python
-value: models.FunctionParams5 = /* values here */
+value: models.Five = /* values here */
 ```
 
-### `models.FunctionParams6`
+### `models.Six`
 
 ```python
-value: models.FunctionParams6 = /* values here */
+value: models.Six = /* values here */
 ```
 
-### `models.FunctionParams7`
+### `models.Seven`
 
 ```python
-value: models.FunctionParams7 = /* values here */
+value: models.Seven = /* values here */
 ```
 
-### `models.FunctionParams8`
+### `models.Eight`
 
 ```python
-value: models.FunctionParams8 = /* values here */
+value: models.Eight = /* values here */
 ```
 
 ### `models.Nine`

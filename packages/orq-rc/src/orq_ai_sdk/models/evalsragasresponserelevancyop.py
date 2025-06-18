@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class EvalsRagasResponseRelevancyRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     r"""Latest user message"""
     output: str
     r"""The generated response from the model"""
@@ -19,7 +19,7 @@ class EvalsRagasResponseRelevancyRequestBodyTypedDict(TypedDict):
 
 
 class EvalsRagasResponseRelevancyRequestBody(BaseModel):
-    input: str
+    query: str
     r"""Latest user message"""
 
     output: str

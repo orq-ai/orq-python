@@ -15,13 +15,13 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsToneOfVoiceRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
 
 
 class EvalsToneOfVoiceRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

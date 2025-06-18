@@ -1,4 +1,4 @@
-# ResponseBody3
+# ResponseBodyBoolean
 
 
 ## Fields

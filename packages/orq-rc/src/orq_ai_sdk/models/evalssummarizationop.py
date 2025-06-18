@@ -15,13 +15,13 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsSummarizationRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
 
 
 class EvalsSummarizationRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

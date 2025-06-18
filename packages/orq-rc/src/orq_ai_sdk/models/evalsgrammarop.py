@@ -15,12 +15,12 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsGrammarRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     model: str
 
 
 class EvalsGrammarRequestBody(BaseModel):
-    input: str
+    query: str
 
     model: str
 

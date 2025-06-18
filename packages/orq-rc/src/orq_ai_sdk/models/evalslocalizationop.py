@@ -15,13 +15,13 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class EvalsLocalizationRequestBodyTypedDict(TypedDict):
-    input: str
+    query: str
     output: str
     model: str
 
 
 class EvalsLocalizationRequestBody(BaseModel):
-    input: str
+    query: str
 
     output: str
 

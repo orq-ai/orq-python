@@ -83,16 +83,16 @@ ListPromptVersionsResponseFormatType = Literal["json_schema"]
 
 class ListPromptVersionsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
-    strict: bool
     schema_: Dict[str, Any]
+    strict: NotRequired[bool]
 
 
 class ListPromptVersionsResponseFormatJSONSchema(BaseModel):
     name: str
 
-    strict: bool
-
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    strict: Optional[bool] = None
 
 
 class ListPromptVersionsResponseFormat1TypedDict(TypedDict):
@@ -339,6 +339,7 @@ ListPromptVersionsProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 ListPromptVersionsRole = Literal[
@@ -530,9 +531,9 @@ class ListPromptVersionsPromptConfigTypedDict(TypedDict):
     messages: List[ListPromptVersionsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_db_id: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    model_type: NotRequired[ListPromptVersionsModelType]
+    model_type: NotRequired[Nullable[ListPromptVersionsModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[ListPromptVersionsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -551,10 +552,10 @@ class ListPromptVersionsPromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_db_id: Optional[str] = None
+    model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    model_type: Optional[ListPromptVersionsModelType] = None
+    model_type: OptionalNullable[ListPromptVersionsModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[ListPromptVersionsModelParameters] = None
@@ -579,7 +580,7 @@ class ListPromptVersionsPromptConfig(BaseModel):
             "integration_id",
             "version",
         ]
-        nullable_fields = ["integration_id"]
+        nullable_fields = ["model_db_id", "model_type", "integration_id"]
         null_default_fields = []
 
         serialized = handler(self)

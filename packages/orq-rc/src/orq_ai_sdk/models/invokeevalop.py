@@ -188,7 +188,7 @@ class InvokeEvalMessages(BaseModel):
 
 
 class InvokeEvalRequestBodyTypedDict(TypedDict):
-    input: NotRequired[str]
+    query: NotRequired[str]
     r"""Latest user message"""
     output: NotRequired[str]
     r"""The generated response from the model"""
@@ -201,7 +201,7 @@ class InvokeEvalRequestBodyTypedDict(TypedDict):
 
 
 class InvokeEvalRequestBody(BaseModel):
-    input: Optional[str] = None
+    query: Optional[str] = None
     r"""Latest user message"""
 
     output: Optional[str] = None
@@ -291,12 +291,12 @@ class InvokeEvalResponseBodyEvalsResponse200Value(BaseModel):
     value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValue
 
 
-class EightTypedDict(TypedDict):
+class InvokeEvalResponseBodyHTTPTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type
     value: NotRequired[Nullable[InvokeEvalResponseBodyEvalsResponse200ValueTypedDict]]
 
 
-class Eight(BaseModel):
+class InvokeEvalResponseBodyHTTP(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type
 
     value: OptionalNullable[InvokeEvalResponseBodyEvalsResponse200Value] = UNSET
@@ -390,12 +390,12 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
         return m
 
 
-class SevenTypedDict(TypedDict):
+class InvokeEvalResponseBodyLLMTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type
     value: Nullable[InvokeEvalResponseBodyEvalsResponseValueTypedDict]
 
 
-class Seven(BaseModel):
+class InvokeEvalResponseBodyLLM(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type
 
     value: Nullable[InvokeEvalResponseBodyEvalsResponseValue]
@@ -448,12 +448,12 @@ class InvokeEvalResponseBodyEvalsValue(BaseModel):
     recall: float
 
 
-class SixTypedDict(TypedDict):
+class BERTScoreTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type
     value: InvokeEvalResponseBodyEvalsValueTypedDict
 
 
-class Six(BaseModel):
+class BERTScore(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type
 
     value: InvokeEvalResponseBodyEvalsValue
@@ -518,12 +518,12 @@ class InvokeEvalResponseBodyValue(BaseModel):
     rouge_l: RougeL
 
 
-class FiveTypedDict(TypedDict):
+class RougeNTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
     value: InvokeEvalResponseBodyValueTypedDict
 
 
-class Five(BaseModel):
+class RougeN(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType
 
     value: InvokeEvalResponseBodyValue
@@ -532,12 +532,12 @@ class Five(BaseModel):
 InvokeEvalResponseBodyEvalsResponse200Type = Literal["string_array"]
 
 
-class ResponseBody4TypedDict(TypedDict):
+class StringArrayTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponse200Type
     values: List[Nullable[str]]
 
 
-class ResponseBody4(BaseModel):
+class StringArray(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponse200Type
 
     values: List[Nullable[str]]
@@ -553,12 +553,12 @@ ResponseBodyValueTypedDict = TypeAliasType(
 ResponseBodyValue = TypeAliasType("ResponseBodyValue", Union[bool, str, float])
 
 
-class ResponseBody3TypedDict(TypedDict):
+class ResponseBodyBooleanTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsResponseType
     value: Nullable[ResponseBodyValueTypedDict]
 
 
-class ResponseBody3(BaseModel):
+class ResponseBodyBoolean(BaseModel):
     type: InvokeEvalResponseBodyEvalsResponseType
 
     value: Nullable[ResponseBodyValue]
@@ -597,12 +597,12 @@ class ResponseBody3(BaseModel):
 InvokeEvalResponseBodyEvalsType = Literal["number"]
 
 
-class ResponseBody2TypedDict(TypedDict):
+class ResponseBodyNumberTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsType
     value: Nullable[float]
 
 
-class ResponseBody2(BaseModel):
+class ResponseBodyNumber(BaseModel):
     type: InvokeEvalResponseBodyEvalsType
 
     value: Nullable[float]
@@ -641,12 +641,12 @@ class ResponseBody2(BaseModel):
 InvokeEvalResponseBodyType = Literal["string"]
 
 
-class ResponseBody1TypedDict(TypedDict):
+class StringTypedDict(TypedDict):
     type: InvokeEvalResponseBodyType
     value: Nullable[str]
 
 
-class ResponseBody1(BaseModel):
+class String(BaseModel):
     type: InvokeEvalResponseBodyType
 
     value: Nullable[str]
@@ -685,14 +685,14 @@ class ResponseBody1(BaseModel):
 InvokeEvalResponseBodyTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyTypedDict",
     Union[
-        ResponseBody1TypedDict,
-        ResponseBody2TypedDict,
-        ResponseBody3TypedDict,
-        ResponseBody4TypedDict,
-        FiveTypedDict,
-        SixTypedDict,
-        SevenTypedDict,
-        EightTypedDict,
+        StringTypedDict,
+        ResponseBodyNumberTypedDict,
+        ResponseBodyBooleanTypedDict,
+        StringArrayTypedDict,
+        RougeNTypedDict,
+        BERTScoreTypedDict,
+        InvokeEvalResponseBodyLLMTypedDict,
+        InvokeEvalResponseBodyHTTPTypedDict,
     ],
 )
 r"""Returns the result of the evaluator run"""
@@ -701,14 +701,14 @@ r"""Returns the result of the evaluator run"""
 InvokeEvalResponseBody = TypeAliasType(
     "InvokeEvalResponseBody",
     Union[
-        ResponseBody1,
-        ResponseBody2,
-        ResponseBody3,
-        ResponseBody4,
-        Five,
-        Six,
-        Seven,
-        Eight,
+        String,
+        ResponseBodyNumber,
+        ResponseBodyBoolean,
+        StringArray,
+        RougeN,
+        BERTScore,
+        InvokeEvalResponseBodyLLM,
+        InvokeEvalResponseBodyHTTP,
     ],
 )
 r"""Returns the result of the evaluator run"""

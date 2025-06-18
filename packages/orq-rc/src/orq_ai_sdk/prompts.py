@@ -663,7 +663,7 @@ class Prompts(BaseSDK):
         :param updated_by_id:
         :param display_name: The prompt’s name, meant to be displayable in the UI.
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
-        :param prompt_config: A list of messages compatible with the openAI schema
+        :param prompt_config:
         :param metadata:
         :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method
@@ -819,7 +819,7 @@ class Prompts(BaseSDK):
         :param updated_by_id:
         :param display_name: The prompt’s name, meant to be displayable in the UI.
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
-        :param prompt_config: A list of messages compatible with the openAI schema
+        :param prompt_config:
         :param metadata:
         :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param retries: Override the default retry configuration for this method

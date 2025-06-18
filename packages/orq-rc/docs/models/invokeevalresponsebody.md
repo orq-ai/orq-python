@@ -5,51 +5,51 @@ Returns the result of the evaluator run
 
 ## Supported Types
 
-### `models.ResponseBody1`
+### `models.String`
 
 ```python
-value: models.ResponseBody1 = /* values here */
+value: models.String = /* values here */
 ```
 
-### `models.ResponseBody2`
+### `models.ResponseBodyNumber`
 
 ```python
-value: models.ResponseBody2 = /* values here */
+value: models.ResponseBodyNumber = /* values here */
 ```
 
-### `models.ResponseBody3`
+### `models.ResponseBodyBoolean`
 
 ```python
-value: models.ResponseBody3 = /* values here */
+value: models.ResponseBodyBoolean = /* values here */
 ```
 
-### `models.ResponseBody4`
+### `models.StringArray`
 
 ```python
-value: models.ResponseBody4 = /* values here */
+value: models.StringArray = /* values here */
 ```
 
-### `models.Five`
+### `models.RougeN`
 
 ```python
-value: models.Five = /* values here */
+value: models.RougeN = /* values here */
 ```
 
-### `models.Six`
+### `models.BERTScore`
 
 ```python
-value: models.Six = /* values here */
+value: models.BERTScore = /* values here */
 ```
 
-### `models.Seven`
+### `models.InvokeEvalResponseBodyLLM`
 
 ```python
-value: models.Seven = /* values here */
+value: models.InvokeEvalResponseBodyLLM = /* values here */
 ```
 
-### `models.Eight`
+### `models.InvokeEvalResponseBodyHTTP`
 
 ```python
-value: models.Eight = /* values here */
+value: models.InvokeEvalResponseBodyHTTP = /* values here */
 ```
 
