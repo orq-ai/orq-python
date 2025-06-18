@@ -1,0 +1,10 @@
+# ListDatasetDatapointsMessagesToolCalls
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `id`                                                                                               | *str*                                                                                              | :heavy_check_mark:                                                                                 | The ID of the tool call.                                                                           |
+| `type`                                                                                             | [models.ListDatasetDatapointsMessagesType](../models/listdatasetdatapointsmessagestype.md)         | :heavy_check_mark:                                                                                 | The type of the tool. Currently, only `function` is supported.                                     |
+| `function`                                                                                         | [models.ListDatasetDatapointsMessagesFunction](../models/listdatasetdatapointsmessagesfunction.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

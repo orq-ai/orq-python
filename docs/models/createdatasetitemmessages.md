@@ -1,11 +1,35 @@
 # CreateDatasetItemMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.CreateDatasetItemRole](../models/createdatasetitemrole.md)                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.CreateDatasetItemContent](../models/createdatasetitemcontent.md)                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.CreateDatasetItemToolCalls](../models/createdatasetitemtoolcalls.md)]                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
-| `tool_call_id`                                                                                                                                                                                                                                                           | *Optional[str]*                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.CreateDatasetItemMessagesDeveloperMessage`
+
+```python
+value: models.CreateDatasetItemMessagesDeveloperMessage = /* values here */
+```
+
+### `models.CreateDatasetItemMessagesSystemMessage`
+
+```python
+value: models.CreateDatasetItemMessagesSystemMessage = /* values here */
+```
+
+### `models.CreateDatasetItemMessagesUserMessage`
+
+```python
+value: models.CreateDatasetItemMessagesUserMessage = /* values here */
+```
+
+### `models.CreateDatasetItemMessagesAssistantMessage`
+
+```python
+value: models.CreateDatasetItemMessagesAssistantMessage = /* values here */
+```
+
+### `models.CreateDatasetItemMessagesToolMessage`
+
+```python
+value: models.CreateDatasetItemMessagesToolMessage = /* values here */
+```
+

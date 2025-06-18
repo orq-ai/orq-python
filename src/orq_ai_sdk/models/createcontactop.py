@@ -10,48 +10,49 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 from orq_ai_sdk.utils import parse_datetime
+import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class CreateContactRequestBodyTypedDict(TypedDict):
-    r"""Update user information payload"""
+    r"""Contact profile information"""
 
     external_id: str
-    r"""Unique string value to identify the contact user in the customer's system"""
+    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
     display_name: NotRequired[Nullable[str]]
-    r"""Display name or nickname of the user"""
+    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
     email: NotRequired[Nullable[str]]
-    r"""Email address of the user"""
+    r"""Email address of the contact user"""
     avatar_url: NotRequired[Nullable[str]]
-    r"""URL linking to the user's avatar image"""
+    r"""URL linking to the contact user's avatar image"""
     tags: NotRequired[List[str]]
-    r"""Array of UUIDs representing tags associated with the user"""
+    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Additional custom metadata associated with the user as key-value pairs"""
+    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
 
 
 class CreateContactRequestBody(BaseModel):
-    r"""Update user information payload"""
+    r"""Contact profile information"""
 
     external_id: str
-    r"""Unique string value to identify the contact user in the customer's system"""
+    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
 
     display_name: OptionalNullable[str] = UNSET
-    r"""Display name or nickname of the user"""
+    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
 
     email: OptionalNullable[str] = UNSET
-    r"""Email address of the user"""
+    r"""Email address of the contact user"""
 
     avatar_url: OptionalNullable[str] = UNSET
-    r"""URL linking to the user's avatar image"""
+    r"""URL linking to the contact user's avatar image"""
 
     tags: Optional[List[str]] = None
-    r"""Array of UUIDs representing tags associated with the user"""
+    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Additional custom metadata associated with the user as key-value pairs"""
+    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -85,22 +86,24 @@ class CreateContactRequestBody(BaseModel):
 
 
 class CreateContactResponseBodyTypedDict(TypedDict):
-    r"""Successful operation"""
+    r"""Created Contact"""
 
     id: str
-    r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the user"""
+    r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
     external_id: str
-    r"""Unique string value to identify the contact user in the customer's system"""
+    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
+    workspace_id: str
+    r"""Unique identifier for the workspace to which the contact belongs"""
     display_name: NotRequired[Nullable[str]]
-    r"""Display name or nickname of the user"""
+    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
     email: NotRequired[Nullable[str]]
-    r"""Email address of the user"""
+    r"""Email address of the contact user"""
     avatar_url: NotRequired[Nullable[str]]
-    r"""URL linking to the user's avatar image"""
+    r"""URL linking to the contact user's avatar image"""
     tags: NotRequired[List[str]]
-    r"""Array of UUIDs representing tags associated with the user"""
+    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Additional custom metadata associated with the user as key-value pairs"""
+    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
@@ -108,33 +111,36 @@ class CreateContactResponseBodyTypedDict(TypedDict):
 
 
 class CreateContactResponseBody(BaseModel):
-    r"""Successful operation"""
+    r"""Created Contact"""
 
-    id: str
-    r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the user"""
+    id: Annotated[str, pydantic.Field(alias="_id")]
+    r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
 
     external_id: str
-    r"""Unique string value to identify the contact user in the customer's system"""
+    r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
+
+    workspace_id: str
+    r"""Unique identifier for the workspace to which the contact belongs"""
 
     display_name: OptionalNullable[str] = UNSET
-    r"""Display name or nickname of the user"""
+    r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
 
     email: OptionalNullable[str] = UNSET
-    r"""Email address of the user"""
+    r"""Email address of the contact user"""
 
     avatar_url: OptionalNullable[str] = UNSET
-    r"""URL linking to the user's avatar image"""
+    r"""URL linking to the contact user's avatar image"""
 
     tags: Optional[List[str]] = None
-    r"""Array of UUIDs representing tags associated with the user"""
+    r"""Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications."""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Additional custom metadata associated with the user as key-value pairs"""
+    r"""Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application."""
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-06-17T14:04:15.852Z")
+    updated: Optional[datetime] = parse_datetime("2025-06-18T19:39:01.473Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

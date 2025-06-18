@@ -7,11 +7,11 @@ from typing import List, Union
 from typing_extensions import Annotated, TypeAliasType, TypedDict
 
 
-ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, List[str]])
+ValueTypedDict = TypeAliasType("ValueTypedDict", Union[str, float, List[str]])
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
-Value = TypeAliasType("Value", Union[str, List[str]])
+Value = TypeAliasType("Value", Union[str, float, List[str]])
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
@@ -40,12 +40,12 @@ class CreateFeedbackRequestBody(BaseModel):
 
 
 CreateFeedbackValueTypedDict = TypeAliasType(
-    "CreateFeedbackValueTypedDict", Union[str, List[str]]
+    "CreateFeedbackValueTypedDict", Union[str, float, List[str]]
 )
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 
-CreateFeedbackValue = TypeAliasType("CreateFeedbackValue", Union[str, List[str]])
+CreateFeedbackValue = TypeAliasType("CreateFeedbackValue", Union[str, float, List[str]])
 r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
 

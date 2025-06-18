@@ -44,7 +44,7 @@ class DeploymentsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-Object = Literal["list"]
+DeploymentsObject = Literal["list"]
 
 DeploymentsType = Literal["function"]
 r"""The type of the tool. Currently, only `function` is supported."""
@@ -409,6 +409,7 @@ DeploymentsProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 DeploymentsRole = Literal[
@@ -621,7 +622,7 @@ class DeploymentsPromptConfig(BaseModel):
     messages: List[DeploymentsMessages]
 
 
-class DataTypedDict(TypedDict):
+class DeploymentsDataTypedDict(TypedDict):
     id: str
     r"""Unique identifier for the object."""
     created: str
@@ -637,7 +638,7 @@ class DataTypedDict(TypedDict):
     r"""THe version of the deployment"""
 
 
-class Data(BaseModel):
+class DeploymentsData(BaseModel):
     id: str
     r"""Unique identifier for the object."""
 
@@ -662,16 +663,16 @@ class Data(BaseModel):
 class DeploymentsResponseBodyTypedDict(TypedDict):
     r"""List all deployments"""
 
-    object: Object
-    data: List[DataTypedDict]
+    object: DeploymentsObject
+    data: List[DeploymentsDataTypedDict]
     has_more: bool
 
 
 class DeploymentsResponseBody(BaseModel):
     r"""List all deployments"""
 
-    object: Object
+    object: DeploymentsObject
 
-    data: List[Data]
+    data: List[DeploymentsData]
 
     has_more: bool

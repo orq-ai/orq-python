@@ -1,0 +1,10 @@
+# RetrieveDatapointMessagesToolCalls
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `id`                                                                                       | *str*                                                                                      | :heavy_check_mark:                                                                         | The ID of the tool call.                                                                   |
+| `type`                                                                                     | [models.RetrieveDatapointMessagesType](../models/retrievedatapointmessagestype.md)         | :heavy_check_mark:                                                                         | The type of the tool. Currently, only `function` is supported.                             |
+| `function`                                                                                 | [models.RetrieveDatapointMessagesFunction](../models/retrievedatapointmessagesfunction.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |

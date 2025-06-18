@@ -123,7 +123,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
+    })
 
     assert res is not None
 
@@ -146,7 +162,23 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.contacts.create_async(external_id="<id>")
+        res = await orq.contacts.create_async(request={
+            "external_id": "user_12345",
+            "display_name": "Jane Smith",
+            "email": "jane.smith@example.com",
+            "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+            "tags": [
+                "premium",
+                "beta-user",
+                "enterprise",
+            ],
+            "metadata": {
+                "department": "Engineering",
+                "role": "Senior Developer",
+                "subscription_tier": "premium",
+                "last_login": "2024-01-15T10:30:00Z",
+            },
+        })
 
         assert res is not None
 
@@ -178,7 +210,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
+    })
 
     assert res is not None
 
@@ -196,7 +244,11 @@ with Orq(
 
 ### [contacts](docs/sdks/contacts/README.md)
 
-* [create](docs/sdks/contacts/README.md#create) - Update user information
+* [create](docs/sdks/contacts/README.md#create) - Create a contact
+* [list](docs/sdks/contacts/README.md#list) - List contacts
+* [retrieve](docs/sdks/contacts/README.md#retrieve) - Retrieve a contact
+* [update](docs/sdks/contacts/README.md#update) - Update a contact
+* [delete](docs/sdks/contacts/README.md#delete) - Delete a contact
 
 ### [datasets](docs/sdks/datasets/README.md)
 
@@ -211,7 +263,6 @@ with Orq(
 * [retrieve_datapoint](docs/sdks/datasets/README.md#retrieve_datapoint) - Retrieve a datapoint
 * [update_datapoint](docs/sdks/datasets/README.md#update_datapoint) - Update a datapoint
 * [delete_datapoint](docs/sdks/datasets/README.md#delete_datapoint) - Delete a datapoint
-* [create_datapoints](docs/sdks/datasets/README.md#create_datapoints) - Create multiple datapoints
 * [clear](docs/sdks/datasets/README.md#clear) - Delete all datapoints
 
 ### [deployments](docs/sdks/deploymentssdk/README.md)
@@ -225,6 +276,48 @@ with Orq(
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 
 * [create](docs/sdks/metrics/README.md#create) - Add metrics
+
+### [evals](docs/sdks/evals/README.md)
+
+* [all](docs/sdks/evals/README.md#all) - Get all Evaluators
+* [create](docs/sdks/evals/README.md#create) - Create an Evaluator
+* [update](docs/sdks/evals/README.md#update) - Update an Evaluator
+* [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
+* [bert_score](docs/sdks/evals/README.md#bert_score) - Run BertScore Evaluator
+* [bleu_score](docs/sdks/evals/README.md#bleu_score) - Run BLEU Score Evaluator
+* [contains_all](docs/sdks/evals/README.md#contains_all) - Run Contains All Evaluator
+* [contains_any](docs/sdks/evals/README.md#contains_any) - Run Contains Any Evaluator
+* [contains_email](docs/sdks/evals/README.md#contains_email) - Run Contains Email Evaluator
+* [contains_none](docs/sdks/evals/README.md#contains_none) - Run Contains None Evaluator
+* [contains_url](docs/sdks/evals/README.md#contains_url) - Run Contains URL Evaluator
+* [contains_valid_link](docs/sdks/evals/README.md#contains_valid_link) - Run Contains Valid Link Evaluator
+* [contains](docs/sdks/evals/README.md#contains) - Run Contains Evaluator
+* [ends_with](docs/sdks/evals/README.md#ends_with) - Run Ends With Evaluator
+* [exact_match](docs/sdks/evals/README.md#exact_match) - Run Exact Match Evaluator
+* [length_between](docs/sdks/evals/README.md#length_between) - Run Length Between Evaluator
+* [length_greater_than](docs/sdks/evals/README.md#length_greater_than) - Run Length Greater Than Evaluator
+* [length_less_than](docs/sdks/evals/README.md#length_less_than) - Run Length Less Than Evaluator
+* [valid_json](docs/sdks/evals/README.md#valid_json) - Run JSON Validation Evaluator
+* [age_appropriate](docs/sdks/evals/README.md#age_appropriate) - Run Age Appropriate Evaluator
+* [bot_detection](docs/sdks/evals/README.md#bot_detection) - Run Bot Detection Evaluator
+* [fact_checking_knowledge_base](docs/sdks/evals/README.md#fact_checking_knowledge_base) - Run Fact Checking Knowledge Base Evaluator
+* [grammar](docs/sdks/evals/README.md#grammar) - Run Grammar Evaluator
+* [localization](docs/sdks/evals/README.md#localization) - Run Localization Evaluator
+* [pii](docs/sdks/evals/README.md#pii) - Run PII Evaluator
+* [sentiment_classification](docs/sdks/evals/README.md#sentiment_classification) - Run Sentiment Classification Evaluator
+* [summarization](docs/sdks/evals/README.md#summarization) - Run Summarization Evaluator
+* [tone_of_voice](docs/sdks/evals/README.md#tone_of_voice) - Run Tone of Voice Evaluator
+* [translation](docs/sdks/evals/README.md#translation) - Run Translation Evaluator
+* [ragas_coherence](docs/sdks/evals/README.md#ragas_coherence) - Run Coherence Evaluator
+* [ragas_conciseness](docs/sdks/evals/README.md#ragas_conciseness) - Run Conciseness Evaluator
+* [ragas_context_precision](docs/sdks/evals/README.md#ragas_context_precision) - Run Context Precision Evaluator
+* [ragas_correctness](docs/sdks/evals/README.md#ragas_correctness) - Run Correctness Evaluator
+* [ragas_faithfulness](docs/sdks/evals/README.md#ragas_faithfulness) - Run Faithfulness Evaluator
+* [ragas_harmfulness](docs/sdks/evals/README.md#ragas_harmfulness) - Run Harmfulness Evaluator
+* [ragas_maliciousness](docs/sdks/evals/README.md#ragas_maliciousness) - Run Maliciousness Evaluator
+* [ragas_response_relevancy](docs/sdks/evals/README.md#ragas_response_relevancy) - Run Response Relevancy Evaluator
+* [ragas_summarization](docs/sdks/evals/README.md#ragas_summarization) - Run Summarization Evaluator
+* [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
 
 ### [feedback](docs/sdks/feedback/README.md)
 
@@ -365,7 +458,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>",
+    res = orq.contacts.create(request={
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
+    },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     assert res is not None
@@ -387,7 +496,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
+    })
 
     assert res is not None
 
@@ -411,12 +536,12 @@ By default, an API error will raise a models.APIError exception, which has the f
 | `.raw_response` | *httpx.Response* | The raw HTTP response |
 | `.body`         | *str*            | The response content  |
 
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `list_async` method may raise the following exceptions:
+When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `retrieve_async` method may raise the following exceptions:
 
-| Error Type          | Status Code | Content Type     |
-| ------------------- | ----------- | ---------------- |
-| models.HonoAPIError | 500         | application/json |
-| models.APIError     | 4XX, 5XX    | \*/\*            |
+| Error Type                                 | Status Code | Content Type     |
+| ------------------------------------------ | ----------- | ---------------- |
+| models.RetrieveContactContactsResponseBody | 404         | application/json |
+| models.APIError                            | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -431,15 +556,15 @@ with Orq(
     res = None
     try:
 
-        res = orq.deployments.list(limit=10)
+        res = orq.contacts.retrieve(id="<id>")
 
         assert res is not None
 
         # Handle response
         print(res)
 
-    except models.HonoAPIError as e:
-        # handle e.data: models.HonoAPIErrorData
+    except models.RetrieveContactContactsResponseBody as e:
+        # handle e.data: models.RetrieveContactContactsResponseBodyData
         raise(e)
     except models.APIError as e:
         # handle exception
@@ -463,7 +588,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(external_id="<id>")
+    res = orq.contacts.create(request={
+        "external_id": "user_12345",
+        "display_name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
+        "tags": [
+            "premium",
+            "beta-user",
+            "enterprise",
+        ],
+        "metadata": {
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        },
+    })
 
     assert res is not None
 

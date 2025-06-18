@@ -1,0 +1,9 @@
+# ListDatasetDatapoints24
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                             | [models.ListDatasetDatapoints2DatasetsResponse200Type](../models/listdatasetdatapoints2datasetsresponse200type.md) | :heavy_check_mark:                                                                                                 | The type of the content part. Always `file`.                                                                       |
+| `file`                                                                                                             | [models.ListDatasetDatapoints2File](../models/listdatasetdatapoints2file.md)                                       | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

@@ -1,0 +1,15 @@
+# DataJSON
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `id`                                                                     | *str*                                                                    | :heavy_check_mark:                                                       | N/A                                                                      |
+| `description`                                                            | *str*                                                                    | :heavy_check_mark:                                                       | N/A                                                                      |
+| `created`                                                                | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `updated`                                                                | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `guardrail_config`                                                       | [Optional[models.DataGuardrailConfig]](../models/dataguardrailconfig.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `type`                                                                   | [models.GetEvalsDataType](../models/getevalsdatatype.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| `schema_`                                                                | *str*                                                                    | :heavy_check_mark:                                                       | N/A                                                                      |
+| `key`                                                                    | *str*                                                                    | :heavy_check_mark:                                                       | N/A                                                                      |

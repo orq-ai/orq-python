@@ -1,9 +1,0 @@
-# BulkCreateDatapoints23
-
-
-## Fields
-
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                   | [models.BulkCreateDatapoints2DatasetsRequestType](../models/bulkcreatedatapoints2datasetsrequesttype.md) | :heavy_check_mark:                                                                                       | The type of the content part. Always `file`.                                                             |
-| `file`                                                                                                   | [models.BulkCreateDatapoints2File](../models/bulkcreatedatapoints2file.md)                               | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

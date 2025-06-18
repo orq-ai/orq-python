@@ -284,7 +284,7 @@ r"""The type of the content part. Always `file`."""
 class DeploymentGetConfig2FileTypedDict(TypedDict):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
-    filename: NotRequired[str]
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -292,7 +292,7 @@ class DeploymentGetConfig2File(BaseModel):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
 
-    filename: Optional[str] = None
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -780,7 +780,7 @@ r"""The type of the content part. Always `file`."""
 class DeploymentGetConfig2DeploymentsFileTypedDict(TypedDict):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
-    filename: NotRequired[str]
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -788,7 +788,7 @@ class DeploymentGetConfig2DeploymentsFile(BaseModel):
     file_data: str
     r"""The base64 encoded file data, used when passing the file to the model as a string."""
 
-    filename: Optional[str] = None
+    filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 

@@ -294,6 +294,7 @@ Provider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 CreatePromptRole = Literal[
@@ -474,7 +475,7 @@ class PromptConfigTypedDict(TypedDict):
     messages: List[CreatePromptMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_type: NotRequired[ModelType]
+    model_type: NotRequired[Nullable[ModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[ModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -491,7 +492,7 @@ class PromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_type: Optional[ModelType] = None
+    model_type: OptionalNullable[ModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[ModelParameters] = None
@@ -500,6 +501,43 @@ class PromptConfig(BaseModel):
     provider: Optional[Provider] = None
 
     version: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_type",
+            "model_parameters",
+            "provider",
+            "version",
+        ]
+        nullable_fields = ["model_type"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 UseCases = Literal[
@@ -919,6 +957,7 @@ CreatePromptProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 CreatePromptPromptsRole = Literal[
@@ -1110,9 +1149,9 @@ class CreatePromptPromptConfigTypedDict(TypedDict):
     messages: List[CreatePromptPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_db_id: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    model_type: NotRequired[CreatePromptModelType]
+    model_type: NotRequired[Nullable[CreatePromptModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[CreatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -1131,10 +1170,10 @@ class CreatePromptPromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_db_id: Optional[str] = None
+    model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    model_type: Optional[CreatePromptModelType] = None
+    model_type: OptionalNullable[CreatePromptModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[CreatePromptModelParameters] = None
@@ -1159,7 +1198,7 @@ class CreatePromptPromptConfig(BaseModel):
             "integration_id",
             "version",
         ]
-        nullable_fields = ["integration_id"]
+        nullable_fields = ["model_db_id", "model_type", "integration_id"]
         null_default_fields = []
 
         serialized = handler(self)

@@ -2451,7 +2451,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.CreateChunkResponseBody]]:
+    ) -> Optional[List[models.ResponseBody]]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2531,7 +2531,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[List[models.CreateChunkResponseBody]]
+                http_res.text, Optional[List[models.ResponseBody]]
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2565,7 +2565,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.CreateChunkResponseBody]]:
+    ) -> Optional[List[models.ResponseBody]]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2645,7 +2645,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(
-                http_res.text, Optional[List[models.CreateChunkResponseBody]]
+                http_res.text, Optional[List[models.ResponseBody]]
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

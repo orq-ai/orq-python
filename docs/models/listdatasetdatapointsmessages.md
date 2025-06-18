@@ -1,11 +1,35 @@
 # ListDatasetDatapointsMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.ListDatasetDatapointsRole](../models/listdatasetdatapointsrole.md)                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.ListDatasetDatapointsContent](../models/listdatasetdatapointscontent.md)                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.ListDatasetDatapointsToolCalls](../models/listdatasetdatapointstoolcalls.md)]                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
-| `tool_call_id`                                                                                                                                                                                                                                                           | *Optional[str]*                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.ListDatasetDatapointsMessagesDeveloperMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesDeveloperMessage = /* values here */
+```
+
+### `models.ListDatasetDatapointsMessagesSystemMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesSystemMessage = /* values here */
+```
+
+### `models.ListDatasetDatapointsMessagesUserMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesUserMessage = /* values here */
+```
+
+### `models.ListDatasetDatapointsMessagesAssistantMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesAssistantMessage = /* values here */
+```
+
+### `models.ListDatasetDatapointsMessagesToolMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesToolMessage = /* values here */
+```
+

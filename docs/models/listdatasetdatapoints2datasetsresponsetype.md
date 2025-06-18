@@ -1,10 +1,8 @@
 # ListDatasetDatapoints2DatasetsResponseType
 
-The type of the content part. Always `file`.
-
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `INPUT_AUDIO` | input_audio   |

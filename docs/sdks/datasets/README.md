@@ -16,7 +16,6 @@
 * [retrieve_datapoint](#retrieve_datapoint) - Retrieve a datapoint
 * [update_datapoint](#update_datapoint) - Update a datapoint
 * [delete_datapoint](#delete_datapoint) - Delete a datapoint
-* [create_datapoints](#create_datapoints) - Create multiple datapoints
 * [clear](#clear) - Delete all datapoints
 
 ## list
@@ -347,7 +346,7 @@ with Orq(
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `dataset_id`                                                                                                                                   | *str*                                                                                                                                          | :heavy_check_mark:                                                                                                                             | N/A                                                                                                                                            |
 | `inputs`                                                                                                                                       | Dict[str, *Any*]                                                                                                                               | :heavy_minus_sign:                                                                                                                             | The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported. |
-| `messages`                                                                                                                                     | List[[models.CreateDatasetItemMessages](../../models/createdatasetitemmessages.md)]                                                            | :heavy_minus_sign:                                                                                                                             | The prompt template messages                                                                                                                   |
+| `messages`                                                                                                                                     | List[[models.CreateDatasetItemMessages](../../models/createdatasetitemmessages.md)]                                                            | :heavy_minus_sign:                                                                                                                             | A list of messages comprising the conversation so far                                                                                          |
 | `expected_output`                                                                                                                              | *Optional[str]*                                                                                                                                | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
 | `retries`                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                               | :heavy_minus_sign:                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                            |
 
@@ -435,7 +434,7 @@ with Orq(
 | `dataset_id`                                                                                                                                   | *str*                                                                                                                                          | :heavy_check_mark:                                                                                                                             | N/A                                                                                                                                            |
 | `datapoint_id`                                                                                                                                 | *str*                                                                                                                                          | :heavy_check_mark:                                                                                                                             | N/A                                                                                                                                            |
 | `inputs`                                                                                                                                       | Dict[str, *Any*]                                                                                                                               | :heavy_minus_sign:                                                                                                                             | The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported. |
-| `messages`                                                                                                                                     | List[[models.UpdateDatapointMessages](../../models/updatedatapointmessages.md)]                                                                | :heavy_minus_sign:                                                                                                                             | The prompt template messages                                                                                                                   |
+| `messages`                                                                                                                                     | List[[models.UpdateDatapointMessages](../../models/updatedatapointmessages.md)]                                                                | :heavy_minus_sign:                                                                                                                             | A list of messages comprising the conversation so far                                                                                          |
 | `expected_output`                                                                                                                              | *Optional[str]*                                                                                                                                | :heavy_minus_sign:                                                                                                                             | N/A                                                                                                                                            |
 | `retries`                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                               | :heavy_minus_sign:                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                            |
 
@@ -485,48 +484,6 @@ with Orq(
 | ------------------- | ------------------- | ------------------- |
 | models.HonoAPIError | 404                 | application/json    |
 | models.APIError     | 4XX, 5XX            | \*/\*               |
-
-## create_datapoints
-
-Create multiple datapoints at once.
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.datasets.create_datapoints(dataset_id="<id>", items=[])
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `items`                                                             | List[[models.Items](../../models/items.md)]                         | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[List[models.ResponseBody]](../../models/.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## clear
 

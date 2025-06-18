@@ -16,19 +16,6 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-UpdatePromptModelType = Literal[
-    "chat",
-    "completion",
-    "embedding",
-    "vision",
-    "image",
-    "tts",
-    "stt",
-    "rerank",
-    "moderations",
-]
-r"""The modality of the model"""
-
 UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
@@ -299,6 +286,7 @@ UpdatePromptProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 UpdatePromptRole = Literal[
@@ -474,30 +462,23 @@ class UpdatePromptMessages(BaseModel):
 
 
 class UpdatePromptPromptConfigTypedDict(TypedDict):
-    r"""A list of messages compatible with the openAI schema"""
-
     messages: List[UpdatePromptMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_type: NotRequired[UpdatePromptModelType]
-    r"""The modality of the model"""
     model_parameters: NotRequired[UpdatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[UpdatePromptProvider]
     version: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
+    model_type: NotRequired[Nullable[str]]
 
 
 class UpdatePromptPromptConfig(BaseModel):
-    r"""A list of messages compatible with the openAI schema"""
-
     messages: List[UpdatePromptMessages]
 
     stream: Optional[bool] = None
 
     model: Optional[str] = None
-
-    model_type: Optional[UpdatePromptModelType] = None
-    r"""The modality of the model"""
 
     model_parameters: Optional[UpdatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -505,6 +486,48 @@ class UpdatePromptPromptConfig(BaseModel):
     provider: Optional[UpdatePromptProvider] = None
 
     version: Optional[str] = None
+
+    model_db_id: OptionalNullable[str] = UNSET
+
+    model_type: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "stream",
+            "model",
+            "model_parameters",
+            "provider",
+            "version",
+            "model_db_id",
+            "model_type",
+        ]
+        nullable_fields = ["model_db_id", "model_type"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 UpdatePromptUseCases = Literal[
@@ -593,7 +616,6 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     prompt_config: NotRequired[UpdatePromptPromptConfigTypedDict]
-    r"""A list of messages compatible with the openAI schema"""
     metadata: NotRequired[UpdatePromptMetadataTypedDict]
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
@@ -619,7 +641,6 @@ class UpdatePromptRequestBody(BaseModel):
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
 
     prompt_config: Optional[UpdatePromptPromptConfig] = None
-    r"""A list of messages compatible with the openAI schema"""
 
     metadata: Optional[UpdatePromptMetadata] = None
 
@@ -705,7 +726,7 @@ class UpdatePromptPromptsResponseBody(Exception):
 
 UpdatePromptPromptsType = Literal["prompt"]
 
-UpdatePromptPromptsModelType = Literal[
+UpdatePromptModelType = Literal[
     "chat",
     "completion",
     "embedding",
@@ -993,6 +1014,7 @@ UpdatePromptPromptsProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 UpdatePromptPromptsRole = Literal[
@@ -1184,9 +1206,9 @@ class UpdatePromptPromptsPromptConfigTypedDict(TypedDict):
     messages: List[UpdatePromptPromptsMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_db_id: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    model_type: NotRequired[UpdatePromptPromptsModelType]
+    model_type: NotRequired[Nullable[UpdatePromptModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[UpdatePromptPromptsModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -1205,10 +1227,10 @@ class UpdatePromptPromptsPromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_db_id: Optional[str] = None
+    model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    model_type: Optional[UpdatePromptPromptsModelType] = None
+    model_type: OptionalNullable[UpdatePromptModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[UpdatePromptPromptsModelParameters] = None
@@ -1233,7 +1255,7 @@ class UpdatePromptPromptsPromptConfig(BaseModel):
             "integration_id",
             "version",
         ]
-        nullable_fields = ["integration_id"]
+        nullable_fields = ["model_db_id", "model_type", "integration_id"]
         null_default_fields = []
 
         serialized = handler(self)

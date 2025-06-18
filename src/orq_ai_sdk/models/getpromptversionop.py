@@ -339,6 +339,7 @@ GetPromptVersionProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
 ]
 
 GetPromptVersionRole = Literal[
@@ -530,9 +531,9 @@ class GetPromptVersionPromptConfigTypedDict(TypedDict):
     messages: List[GetPromptVersionMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    model_db_id: NotRequired[str]
+    model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
-    model_type: NotRequired[GetPromptVersionModelType]
+    model_type: NotRequired[Nullable[GetPromptVersionModelType]]
     r"""The modality of the model"""
     model_parameters: NotRequired[GetPromptVersionModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -551,10 +552,10 @@ class GetPromptVersionPromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    model_db_id: Optional[str] = None
+    model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
 
-    model_type: Optional[GetPromptVersionModelType] = None
+    model_type: OptionalNullable[GetPromptVersionModelType] = UNSET
     r"""The modality of the model"""
 
     model_parameters: Optional[GetPromptVersionModelParameters] = None
@@ -579,7 +580,7 @@ class GetPromptVersionPromptConfig(BaseModel):
             "integration_id",
             "version",
         ]
-        nullable_fields = ["integration_id"]
+        nullable_fields = ["model_db_id", "model_type", "integration_id"]
         null_default_fields = []
 
         serialized = handler(self)
