@@ -333,7 +333,6 @@ with Orq(
 ### [knowledge](docs/sdks/knowledge/README.md)
 
 * [list](docs/sdks/knowledge/README.md#list) - List all knowledge bases
-* [create](docs/sdks/knowledge/README.md#create) - Create a knowledge
 * [retrieve](docs/sdks/knowledge/README.md#retrieve) - Retrieves a knowledge base
 * [update](docs/sdks/knowledge/README.md#update) - Updates a knowledge
 * [delete](docs/sdks/knowledge/README.md#delete) - Deletes a knowledge
@@ -348,6 +347,7 @@ with Orq(
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
+* [chunk_text](docs/sdks/knowledge/README.md#chunk_text) - Chunk text content using various strategies
 
 ### [models](docs/sdks/models/README.md)
 

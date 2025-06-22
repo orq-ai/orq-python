@@ -6,7 +6,6 @@
 ### Available Operations
 
 * [list](#list) - List all knowledge bases
-* [create](#create) - Create a knowledge
 * [retrieve](#retrieve) - Retrieves a knowledge base
 * [update](#update) - Updates a knowledge
 * [delete](#delete) - Deletes a knowledge
@@ -21,6 +20,7 @@
 * [update_chunk](#update_chunk) - Update a chunk
 * [delete_chunk](#delete_chunk) - Delete a chunk
 * [retrieve_chunk](#retrieve_chunk) - Retrieve a chunk
+* [chunk_text](#chunk_text) - Chunk text content using various strategies
 
 ## list
 
@@ -58,51 +58,6 @@ with Orq(
 ### Response
 
 **[models.ListKnowledgeBasesResponseBody](../../models/listknowledgebasesresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## create
-
-Create a knowledge
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.knowledge.create(key="<key>", embedding_model="<value>", path="Default")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`                                                                                                                                                                                                                                           | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
-| `embedding_model`                                                                                                                                                                                                                               | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.                                                                                                      |                                                                                                                                                                                                                                                 |
-| `path`                                                                                                                                                                                                                                          | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists. | Default                                                                                                                                                                                                                                         |
-| `description`                                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
-| `retrieval_settings`                                                                                                                                                                                                                            | [Optional[models.RetrievalSettings]](../../models/retrievalsettings.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.                                                                                                                         |                                                                                                                                                                                                                                                 |
-| `retries`                                                                                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
-
-### Response
-
-**[models.CreateKnowledgeResponseBody](../../models/createknowledgeresponsebody.md)**
 
 ### Errors
 
@@ -183,7 +138,7 @@ with Orq(
 | `description`                                                                                                                                                                                                                                   | *OptionalNullable[str]*                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | The description of the knowledge base.                                                                                                                                                                                                          |                                                                                                                                                                                                                                                 |
 | `embedding_model`                                                                                                                                                                                                                               | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded.                                                        |                                                                                                                                                                                                                                                 |
 | `path`                                                                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists. | Default                                                                                                                                                                                                                                         |
-| `retrieval_settings`                                                                                                                                                                                                                            | [Optional[models.UpdateKnowledgeRetrievalSettings]](../../models/updateknowledgeretrievalsettings.md)                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                              | The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.                                                                                                                         |                                                                                                                                                                                                                                                 |
+| `retrieval_settings`                                                                                                                                                                                                                            | [Optional[models.RetrievalSettings]](../../models/retrievalsettings.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.                                                                                                                         |                                                                                                                                                                                                                                                 |
 | `retries`                                                                                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
 
 ### Response
@@ -700,6 +655,56 @@ with Orq(
 ### Response
 
 **[models.GetOneChunkResponseBody](../../models/getonechunkresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## chunk_text
+
+Split large text documents into smaller, manageable chunks using different chunking strategies optimized for RAG (Retrieval-Augmented Generation) workflows. This endpoint supports multiple chunking algorithms including token-based, sentence-based, recursive, semantic, and specialized strategies.
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.chunk_text(request={
+        "text": "The quick brown fox jumps over the lazy dog. This is a sample text that will be chunked into smaller pieces. Each chunk will maintain context while respecting the maximum chunk size.",
+        "metadata": True,
+        "strategy": "semantic",
+        "chunk_size": 256,
+        "threshold": 0.8,
+        "embedding_model": "openai/text-embedding-3-small",
+        "mode": "window",
+        "similarity_window": 1,
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [models.ChunkTextChunkingRequest](../../models/chunktextchunkingrequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+
+### Response
+
+**[models.ChunkTextResponseBody](../../models/chunktextresponsebody.md)**
 
 ### Errors
 
