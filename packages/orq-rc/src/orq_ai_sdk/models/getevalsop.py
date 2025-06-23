@@ -146,9 +146,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -232,6 +232,7 @@ RagasMetric = Literal[
     "response_relevancy",
     "faithfulness",
     "summarization",
+    "noise_sensitivity",
 ]
 
 
@@ -260,9 +261,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -749,9 +750,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -839,9 +840,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -935,9 +936,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1038,9 +1039,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1144,9 +1145,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-06-22T18:59:50.944Z"
+    created: Optional[str] = "2025-06-23T12:22:10.982Z"
 
-    updated: Optional[str] = "2025-06-22T18:59:50.944Z"
+    updated: Optional[str] = "2025-06-23T12:22:10.982Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

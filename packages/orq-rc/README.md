@@ -311,10 +311,13 @@ with Orq(
 * [ragas_coherence](docs/sdks/evals/README.md#ragas_coherence) - Run Coherence Evaluator
 * [ragas_conciseness](docs/sdks/evals/README.md#ragas_conciseness) - Run Conciseness Evaluator
 * [ragas_context_precision](docs/sdks/evals/README.md#ragas_context_precision) - Run Context Precision Evaluator
+* [ragas_context_recall](docs/sdks/evals/README.md#ragas_context_recall) - Run Context Recall Evaluator
+* [ragas_context_entities_recall](docs/sdks/evals/README.md#ragas_context_entities_recall) - Run Context Entities Recall Evaluator
 * [ragas_correctness](docs/sdks/evals/README.md#ragas_correctness) - Run Correctness Evaluator
 * [ragas_faithfulness](docs/sdks/evals/README.md#ragas_faithfulness) - Run Faithfulness Evaluator
 * [ragas_harmfulness](docs/sdks/evals/README.md#ragas_harmfulness) - Run Harmfulness Evaluator
 * [ragas_maliciousness](docs/sdks/evals/README.md#ragas_maliciousness) - Run Maliciousness Evaluator
+* [ragas_noise_sensitivity](docs/sdks/evals/README.md#ragas_noise_sensitivity) - Run Noise Sensitivity Evaluator
 * [ragas_response_relevancy](docs/sdks/evals/README.md#ragas_response_relevancy) - Run Response Relevancy Evaluator
 * [ragas_summarization](docs/sdks/evals/README.md#ragas_summarization) - Run Summarization Evaluator
 * [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator

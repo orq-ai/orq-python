@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 4035885212ec2ccfece0ba1368239c18
+  docChecksum: eed862d03fd40857b7c483e434bcca1f
   docVersion: "2.0"
   speakeasyVersion: 1.568.0
   generationVersion: 2.632.2
-  releaseVersion: 3.9.0-rc.0
-  configChecksum: c92902eea4ebcdf3d9ba28c8daacef19
+  releaseVersion: 3.9.0-rc.1
+  configChecksum: 15604053eeff96ffae5531c4c4e869cd
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -879,10 +879,18 @@ generatedFiles:
   - docs/models/evalsragasconcisenessevalsresponseresponsebody.md
   - docs/models/evalsragasconcisenessrequestbody.md
   - docs/models/evalsragasconcisenessresponsebody.md
+  - docs/models/evalsragascontextentitiesrecallevalsresponsebody.md
+  - docs/models/evalsragascontextentitiesrecallevalsresponseresponsebody.md
+  - docs/models/evalsragascontextentitiesrecallrequestbody.md
+  - docs/models/evalsragascontextentitiesrecallresponsebody.md
   - docs/models/evalsragascontextprecisionevalsresponsebody.md
   - docs/models/evalsragascontextprecisionevalsresponseresponsebody.md
   - docs/models/evalsragascontextprecisionrequestbody.md
   - docs/models/evalsragascontextprecisionresponsebody.md
+  - docs/models/evalsragascontextrecallevalsresponsebody.md
+  - docs/models/evalsragascontextrecallevalsresponseresponsebody.md
+  - docs/models/evalsragascontextrecallrequestbody.md
+  - docs/models/evalsragascontextrecallresponsebody.md
   - docs/models/evalsragascorrectnessevalsresponsebody.md
   - docs/models/evalsragascorrectnessevalsresponseresponsebody.md
   - docs/models/evalsragascorrectnessrequestbody.md
@@ -899,6 +907,10 @@ generatedFiles:
   - docs/models/evalsragasmaliciousnessevalsresponseresponsebody.md
   - docs/models/evalsragasmaliciousnessrequestbody.md
   - docs/models/evalsragasmaliciousnessresponsebody.md
+  - docs/models/evalsragasnoisesensitivityevalsresponsebody.md
+  - docs/models/evalsragasnoisesensitivityevalsresponseresponsebody.md
+  - docs/models/evalsragasnoisesensitivityrequestbody.md
+  - docs/models/evalsragasnoisesensitivityresponsebody.md
   - docs/models/evalsragasresponserelevancyevalsresponsebody.md
   - docs/models/evalsragasresponserelevancyevalsresponseresponsebody.md
   - docs/models/evalsragasresponserelevancyrequestbody.md
@@ -1909,11 +1921,14 @@ generatedFiles:
   - src/orq_ai_sdk/models/evalspiiop.py
   - src/orq_ai_sdk/models/evalsragascoherenceop.py
   - src/orq_ai_sdk/models/evalsragasconcisenessop.py
+  - src/orq_ai_sdk/models/evalsragascontextentitiesrecallop.py
   - src/orq_ai_sdk/models/evalsragascontextprecisionop.py
+  - src/orq_ai_sdk/models/evalsragascontextrecallop.py
   - src/orq_ai_sdk/models/evalsragascorrectnessop.py
   - src/orq_ai_sdk/models/evalsragasfaithfulnessop.py
   - src/orq_ai_sdk/models/evalsragasharmfulnessop.py
   - src/orq_ai_sdk/models/evalsragasmaliciousnessop.py
+  - src/orq_ai_sdk/models/evalsragasnoisesensitivityop.py
   - src/orq_ai_sdk/models/evalsragasresponserelevancyop.py
   - src/orq_ai_sdk/models/evalsragassummarizationop.py
   - src/orq_ai_sdk/models/evalssentimentclassificationop.py
@@ -1991,7 +2006,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-23T12:22:08.975Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -2065,7 +2080,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-06-22T18:59:51.954Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-06-23T12:22:11.975Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -2081,7 +2096,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-06-22T18:59:51.954Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-06-23T12:22:11.975Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -2172,7 +2187,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-06-23T12:22:08.975Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -2180,7 +2195,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -2192,7 +2207,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -2227,7 +2242,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-23T12:22:08.975Z"}
   RetrieveDatapoint:
     speakeasy-default-retrieve-datapoint:
       parameters:
@@ -2236,7 +2251,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -2247,7 +2262,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -2330,7 +2345,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01JYCG5WBTNSQGSE7XNEX9G56Y", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01JYEBTEGT6J6MH1V5TQMR8HJV", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -2339,7 +2354,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01JYCG5WBSMFAKC9XP4NRFC09R", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01JYEBTEGSY9P86WYJT1ZETQM6", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -2356,7 +2371,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01JYCG5WBVVJ87C6YJEVP88D1B", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01JYEBTEGVZ7QTRR2V5FNJE7WT", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -2763,7 +2778,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -2784,7 +2799,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-22T18:59:48.897Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-06-23T12:22:08.975Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -2860,5 +2875,32 @@ examples:
       responses:
         "200":
           application/json: {"chunks": [{"text": "<value>", "index": 641.31}]}
+  EvalsRagasContextRecall:
+    speakeasy-default-evals-ragas-context-recall:
+      responses:
+        "200":
+          application/json: {"value": 2895.19}
+        "404":
+          application/json: {"message": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  EvalsRagasContextEntitiesRecall:
+    speakeasy-default-evals-ragas-context-entities-recall:
+      responses:
+        "200":
+          application/json: {"value": 6807.83}
+        "404":
+          application/json: {"message": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
+  EvalsRagasNoiseSensitivity:
+    speakeasy-default-evals-ragas-noise-sensitivity:
+      responses:
+        "200":
+          application/json: {"value": 4560.18}
+        "404":
+          application/json: {"message": "<value>"}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
