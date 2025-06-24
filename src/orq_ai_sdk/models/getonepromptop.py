@@ -118,7 +118,7 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 GetOnePromptEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
-GetOnePromptReasoningEffort = Literal["low", "medium", "high"]
+GetOnePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
