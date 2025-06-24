@@ -1809,3 +1809,13 @@ Based on:
 - [python v3.9.0-rc.2] packages/orq-rc
 ### Releases
 - [PyPI v3.9.0-rc.2] https://pypi.org/project/orq-ai-sdk/3.9.0-rc.2 - packages/orq-rc
+
+## 2025-06-24 06:52:37
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.568.2 (2.634.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v3.9.0-rc.3] packages/orq-rc
+### Releases
+- [PyPI v3.9.0-rc.3] https://pypi.org/project/orq-ai-sdk/3.9.0-rc.3 - packages/orq-rc
