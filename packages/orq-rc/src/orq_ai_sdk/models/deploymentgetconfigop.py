@@ -2005,7 +2005,7 @@ r"""The version of photoReal to use. Must be v1 or v2. Only available for `leona
 DeploymentGetConfigEncodingFormat = Literal["float", "base64"]
 r"""The format to return the embeddings"""
 
-DeploymentGetConfigReasoningEffort = Literal["low", "medium", "high"]
+DeploymentGetConfigReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 

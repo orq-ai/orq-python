@@ -5,8 +5,9 @@ Constrains effort on reasoning for reasoning models. Reducing reasoning effort c
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LOW`    | low      |
-| `MEDIUM` | medium   |
-| `HIGH`   | high     |
+| Name      | Value     |
+| --------- | --------- |
+| `DISABLE` | disable   |
+| `LOW`     | low       |
+| `MEDIUM`  | medium    |
+| `HIGH`    | high      |

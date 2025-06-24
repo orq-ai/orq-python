@@ -1,9 +1,0 @@
-# CreateDeploymentExperimentRequest
-
-
-## Fields
-
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `deployment_key`                                                                                             | *str*                                                                                                        | :heavy_check_mark:                                                                                           | Deployment Key                                                                                               |
-| `request_body`                                                                                               | [Optional[models.CreateDeploymentExperimentRequestBody]](../models/createdeploymentexperimentrequestbody.md) | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |
