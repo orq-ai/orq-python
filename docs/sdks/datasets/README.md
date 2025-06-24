@@ -10,7 +10,6 @@
 * [retrieve](#retrieve) - Retrieve a dataset
 * [update](#update) - Update a dataset
 * [delete](#delete) - Delete a dataset
-* [create_experiment](#create_experiment) - Create an experiment from a dataset
 * [list_datapoints](#list_datapoints) - List datapoints
 * [create_datapoint](#create_datapoint) - Create a datapoint
 * [retrieve_datapoint](#retrieve_datapoint) - Retrieve a datapoint
@@ -219,52 +218,6 @@ with Orq(
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `dataset_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## create_experiment
-
-Create an experiment from a dataset
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.datasets.create_experiment(dataset_id="<id>", experiment_key="<value>", type_="dataset_experiment", path="Default/Experiments")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                 | Type                                                                                                                                                                      | Required                                                                                                                                                                  | Description                                                                                                                                                               | Example                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dataset_id`                                                                                                                                                              | *str*                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                        | N/A                                                                                                                                                                       |                                                                                                                                                                           |
-| `experiment_key`                                                                                                                                                          | *str*                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                        | The unique key of the experiment                                                                                                                                          |                                                                                                                                                                           |
-| `type`                                                                                                                                                                    | [models.CreateDatasetExperimentType](../../models/createdatasetexperimenttype.md)                                                                                         | :heavy_check_mark:                                                                                                                                                        | N/A                                                                                                                                                                       |                                                                                                                                                                           |
-| `evaluators`                                                                                                                                                              | List[*str*]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                        | The list of evaluators to use for the experiment. You can apply multiple evaluators to the same experiment. By default we always consider latency and cost as evaluators. |                                                                                                                                                                           |
-| `path`                                                                                                                                                                    | *Optional[str]*                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                        | The path where the experiment needs to be stored. If not provided, the experiment will be stored in the same path of the dataset used for the experiment.                 | Default/Experiments                                                                                                                                                       |
-| `model_ids`                                                                                                                                                               | List[*str*]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                        | The list of model ids to use for the experiment.                                                                                                                          |                                                                                                                                                                           |
-| `retries`                                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                          | :heavy_minus_sign:                                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                                       |                                                                                                                                                                           |
-
-### Response
-
-**[models.CreateDatasetExperimentResponseBody](../../models/createdatasetexperimentresponsebody.md)**
 
 ### Errors
 

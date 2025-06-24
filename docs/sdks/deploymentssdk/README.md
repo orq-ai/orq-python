@@ -9,7 +9,6 @@
 * [get_config](#get_config) - Get config
 * [invoke](#invoke) - Invoke
 * [stream](#stream) - Stream
-* [create_experiment](#create_experiment) - Create an experiment from a deployment
 
 ## list
 
@@ -210,53 +209,6 @@ with Orq(
 ### Response
 
 **[Union[eventstreaming.EventStream[models.DeploymentStreamResponseBody], eventstreaming.EventStreamAsync[models.DeploymentStreamResponseBody]]](../../models/.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## create_experiment
-
-Create an experiment from a deployment
-
-### Example Usage
-
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.deployments.create_experiment(deployment_key="<value>", experiment_key="<value>", dataset_id="<id>", type_="deployment_experiment", path="Default/Experiments")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                             | Type                                                                                                                                                                                                  | Required                                                                                                                                                                                              | Description                                                                                                                                                                                           | Example                                                                                                                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `deployment_key`                                                                                                                                                                                      | *str*                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                    | Deployment Key                                                                                                                                                                                        |                                                                                                                                                                                                       |
-| `experiment_key`                                                                                                                                                                                      | *str*                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                    | The unique key of the experiment                                                                                                                                                                      |                                                                                                                                                                                                       |
-| `dataset_id`                                                                                                                                                                                          | *str*                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                    | The id of the dataset to run the experiment on                                                                                                                                                        |                                                                                                                                                                                                       |
-| `type`                                                                                                                                                                                                | [models.CreateDeploymentExperimentType](../../models/createdeploymentexperimenttype.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                                                    | N/A                                                                                                                                                                                                   |                                                                                                                                                                                                       |
-| `evaluators`                                                                                                                                                                                          | List[*str*]                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                    | The list of evaluators to use for the experiment. You can apply multiple evaluators to the same experiment. By default we always consider latency and cost as evaluators.                             |                                                                                                                                                                                                       |
-| `path`                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                    | The path where the experiment needs to be stored. If not provided, the experiment will be stored in the same path of the dataset used for the experiment.                                             | Default/Experiments                                                                                                                                                                                   |
-| `context`                                                                                                                                                                                             | Dict[str, *Any*]                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                    | Key-value pairs that match your data model and fields declared in your deployment routing configuration. If not provided, the default variant of the deployment will be used to create the experiment |                                                                                                                                                                                                       |
-| `retries`                                                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                                                   |                                                                                                                                                                                                       |
-
-### Response
-
-**[models.CreateDeploymentExperimentResponseBody](../../models/createdeploymentexperimentresponsebody.md)**
 
 ### Errors
 
