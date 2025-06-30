@@ -26,7 +26,7 @@ class Feedback(BaseSDK):
 
         :param field: A string describing the specific property or aspect rated.
         :param value: The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string.
-        :param trace_id: The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints
+        :param trace_id: The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -134,7 +134,7 @@ class Feedback(BaseSDK):
 
         :param field: A string describing the specific property or aspect rated.
         :param value: The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string.
-        :param trace_id: The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints
+        :param trace_id: The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

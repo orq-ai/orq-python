@@ -23,7 +23,7 @@ class CreateFeedbackRequestBodyTypedDict(TypedDict):
     value: ValueTypedDict
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
     trace_id: str
-    r"""The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints"""
+    r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints"""
 
 
 class CreateFeedbackRequestBody(BaseModel):
@@ -36,7 +36,7 @@ class CreateFeedbackRequestBody(BaseModel):
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
     trace_id: str
-    r"""The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints"""
+    r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints"""
 
 
 CreateFeedbackValueTypedDict = TypeAliasType(
@@ -57,7 +57,7 @@ class CreateFeedbackResponseBodyTypedDict(TypedDict):
     value: CreateFeedbackValueTypedDict
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
     trace_id: str
-    r"""The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints"""
+    r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints"""
     id: str
 
 
@@ -71,6 +71,6 @@ class CreateFeedbackResponseBody(BaseModel):
     r"""The feedback value. For single selection of multiple choice, the value should be an array of strings. For `correction`, the value should be a string."""
 
     trace_id: str
-    r"""The id returned by the [`get_config`]() or [`invoke`](https://docs.orq.ai/reference/post_deployments-invoke-1) endpoints"""
+    r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints"""
 
     id: str
