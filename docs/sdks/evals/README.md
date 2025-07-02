@@ -37,10 +37,13 @@
 * [ragas_coherence](#ragas_coherence) - Run Coherence Evaluator
 * [ragas_conciseness](#ragas_conciseness) - Run Conciseness Evaluator
 * [ragas_context_precision](#ragas_context_precision) - Run Context Precision Evaluator
+* [ragas_context_recall](#ragas_context_recall) - Run Context Recall Evaluator
+* [ragas_context_entities_recall](#ragas_context_entities_recall) - Run Context Entities Recall Evaluator
 * [ragas_correctness](#ragas_correctness) - Run Correctness Evaluator
 * [ragas_faithfulness](#ragas_faithfulness) - Run Faithfulness Evaluator
 * [ragas_harmfulness](#ragas_harmfulness) - Run Harmfulness Evaluator
 * [ragas_maliciousness](#ragas_maliciousness) - Run Maliciousness Evaluator
+* [ragas_noise_sensitivity](#ragas_noise_sensitivity) - Run Noise Sensitivity Evaluator
 * [ragas_response_relevancy](#ragas_response_relevancy) - Run Response Relevancy Evaluator
 * [ragas_summarization](#ragas_summarization) - Run Summarization Evaluator
 * [invoke](#invoke) - Invoke a Custom Evaluator
@@ -1431,6 +1434,92 @@ with Orq(
 | models.EvalsRagasContextPrecisionEvalsResponseResponseBody | 500                                                        | application/json                                           |
 | models.APIError                                            | 4XX, 5XX                                                   | \*/\*                                                      |
 
+## ragas_context_recall
+
+Run Context Recall Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.ragas_context_recall()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                       | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `request`                                                                                       | [models.EvalsRagasContextRecallRequestBody](../../models/evalsragascontextrecallrequestbody.md) | :heavy_check_mark:                                                                              | The request object to use for the request.                                                      |
+| `retries`                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                | :heavy_minus_sign:                                                                              | Configuration to override the default retry behavior of the client.                             |
+
+### Response
+
+**[models.EvalsRagasContextRecallResponseBody](../../models/evalsragascontextrecallresponsebody.md)**
+
+### Errors
+
+| Error Type                                              | Status Code                                             | Content Type                                            |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| models.EvalsRagasContextRecallEvalsResponseBody         | 404                                                     | application/json                                        |
+| models.EvalsRagasContextRecallEvalsResponseResponseBody | 500                                                     | application/json                                        |
+| models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+
+## ragas_context_entities_recall
+
+Run Context Entities Recall Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.ragas_context_entities_recall()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                       | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                       | [models.EvalsRagasContextEntitiesRecallRequestBody](../../models/evalsragascontextentitiesrecallrequestbody.md) | :heavy_check_mark:                                                                                              | The request object to use for the request.                                                                      |
+| `retries`                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                | :heavy_minus_sign:                                                                                              | Configuration to override the default retry behavior of the client.                                             |
+
+### Response
+
+**[models.EvalsRagasContextEntitiesRecallResponseBody](../../models/evalsragascontextentitiesrecallresponsebody.md)**
+
+### Errors
+
+| Error Type                                                      | Status Code                                                     | Content Type                                                    |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| models.EvalsRagasContextEntitiesRecallEvalsResponseBody         | 404                                                             | application/json                                                |
+| models.EvalsRagasContextEntitiesRecallEvalsResponseResponseBody | 500                                                             | application/json                                                |
+| models.APIError                                                 | 4XX, 5XX                                                        | \*/\*                                                           |
+
 ## ragas_correctness
 
 Run Correctness Evaluator
@@ -1602,6 +1691,49 @@ with Orq(
 | models.EvalsRagasMaliciousnessEvalsResponseBody         | 404                                                     | application/json                                        |
 | models.EvalsRagasMaliciousnessEvalsResponseResponseBody | 500                                                     | application/json                                        |
 | models.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+
+## ragas_noise_sensitivity
+
+Run Noise Sensitivity Evaluator
+
+### Example Usage
+
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.ragas_noise_sensitivity()
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `request`                                                                                             | [models.EvalsRagasNoiseSensitivityRequestBody](../../models/evalsragasnoisesensitivityrequestbody.md) | :heavy_check_mark:                                                                                    | The request object to use for the request.                                                            |
+| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |
+
+### Response
+
+**[models.EvalsRagasNoiseSensitivityResponseBody](../../models/evalsragasnoisesensitivityresponsebody.md)**
+
+### Errors
+
+| Error Type                                                 | Status Code                                                | Content Type                                               |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| models.EvalsRagasNoiseSensitivityEvalsResponseBody         | 404                                                        | application/json                                           |
+| models.EvalsRagasNoiseSensitivityEvalsResponseResponseBody | 500                                                        | application/json                                           |
+| models.APIError                                            | 4XX, 5XX                                                   | \*/\*                                                      |
 
 ## ragas_response_relevancy
 

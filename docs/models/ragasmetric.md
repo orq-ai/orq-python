@@ -16,3 +16,4 @@
 | `RESPONSE_RELEVANCY`      | response_relevancy        |
 | `FAITHFULNESS`            | faithfulness              |
 | `SUMMARIZATION`           | summarization             |
+| `NOISE_SENSITIVITY`       | noise_sensitivity         |

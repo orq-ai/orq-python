@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk import utils
+import httpx
+from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -34,16 +35,20 @@ class RetrieveContactContactsResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-class RetrieveContactContactsResponseBody(Exception):
+class RetrieveContactContactsResponseBody(OrqError):
     r"""Contact not found"""
 
     data: RetrieveContactContactsResponseBodyData
 
-    def __init__(self, data: RetrieveContactContactsResponseBodyData):
+    def __init__(
+        self,
+        data: RetrieveContactContactsResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, RetrieveContactContactsResponseBodyData)
 
 
 class RetrieveContactResponseBodyTypedDict(TypedDict):
@@ -96,7 +101,7 @@ class RetrieveContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-06-28T08:41:12.203Z")
+    updated: Optional[datetime] = parse_datetime("2025-07-02T19:46:54.689Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
