@@ -17,13 +17,13 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class QueryParamFilterByTypedDict(TypedDict):
-    r"""Filter contacts by tags"""
+    r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: NotRequired[List[str]]
 
 
 class QueryParamFilterBy(BaseModel):
-    r"""Filter contacts by tags"""
+    r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: Annotated[Optional[List[str]], FieldMetadata(query=True)] = None
 
@@ -36,7 +36,7 @@ class ListContactsRequestTypedDict(TypedDict):
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     filter_by: NotRequired[QueryParamFilterByTypedDict]
-    r"""Filter contacts by tags"""
+    r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
     include_metrics: NotRequired[Nullable[bool]]
 
 
@@ -63,7 +63,7 @@ class ListContactsRequest(BaseModel):
         Optional[QueryParamFilterBy],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter contacts by tags"""
+    r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     include_metrics: Annotated[
         OptionalNullable[bool],
@@ -184,7 +184,7 @@ class Data(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-06-30T19:05:21.426Z")
+    updated: Optional[datetime] = parse_datetime("2025-07-02T05:47:39.504Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

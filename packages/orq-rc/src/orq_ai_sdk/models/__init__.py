@@ -2583,6 +2583,8 @@ if TYPE_CHECKING:
         ListPromptVersionsType,
         ListPromptVersionsUseCases,
     )
+    from .no_response_error import NoResponseError
+    from .orqerror import OrqError
     from .remoteconfigsgetconfigop import (
         RemoteConfigsGetConfigRequestBody,
         RemoteConfigsGetConfigRequestBodyTypedDict,
@@ -2590,6 +2592,7 @@ if TYPE_CHECKING:
         RemoteConfigsGetConfigResponseBodyTypedDict,
         RemoteConfigsGetConfigType,
     )
+    from .responsevalidationerror import ResponseValidationError
     from .retrievecontactop import (
         RetrieveContactContactsResponseBody,
         RetrieveContactContactsResponseBodyData,
@@ -5414,6 +5417,7 @@ __all__ = [
     "NineTypedDict",
     "Nineteen",
     "NineteenTypedDict",
+    "NoResponseError",
     "Number",
     "NumberTypedDict",
     "Object",
@@ -5458,6 +5462,7 @@ __all__ = [
     "OrNin",
     "OrNinTypedDict",
     "OrTypedDict",
+    "OrqError",
     "OwnedBy",
     "Parameters",
     "ParametersTypedDict",
@@ -5555,6 +5560,7 @@ __all__ = [
     "ResponseFormatJSONSchemaTypedDict",
     "ResponseFormatType",
     "ResponseFormatTypedDict",
+    "ResponseValidationError",
     "RetrievalSettings",
     "RetrievalSettingsTypedDict",
     "RetrievalType",
@@ -8649,11 +8655,14 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsToolCallsTypedDict": ".listpromptversionsop",
     "ListPromptVersionsType": ".listpromptversionsop",
     "ListPromptVersionsUseCases": ".listpromptversionsop",
+    "NoResponseError": ".no_response_error",
+    "OrqError": ".orqerror",
     "RemoteConfigsGetConfigRequestBody": ".remoteconfigsgetconfigop",
     "RemoteConfigsGetConfigRequestBodyTypedDict": ".remoteconfigsgetconfigop",
     "RemoteConfigsGetConfigResponseBody": ".remoteconfigsgetconfigop",
     "RemoteConfigsGetConfigResponseBodyTypedDict": ".remoteconfigsgetconfigop",
     "RemoteConfigsGetConfigType": ".remoteconfigsgetconfigop",
+    "ResponseValidationError": ".responsevalidationerror",
     "RetrieveContactContactsResponseBody": ".retrievecontactop",
     "RetrieveContactContactsResponseBodyData": ".retrievecontactop",
     "RetrieveContactRequest": ".retrievecontactop",
