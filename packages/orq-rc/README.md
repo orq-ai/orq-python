@@ -348,7 +348,10 @@ with Orq(
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
-* [chunk_text](docs/sdks/knowledge/README.md#chunk_text) - Chunk text content using various strategies
+
+### [knowledge_bases](docs/sdks/knowledgebases/README.md)
+
+* [chunk_text](docs/sdks/knowledgebases/README.md#chunk_text) - Chunk text
 
 ### [models](docs/sdks/models/README.md)
 

@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.knowledge_bases import KnowledgeBases
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
@@ -41,6 +42,7 @@ class Orq(BaseSDK):
     models: "Models"
     datasets: "Datasets"
     knowledge: "Knowledge"
+    knowledge_bases: "KnowledgeBases"
     evals: "Evals"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
@@ -52,6 +54,7 @@ class Orq(BaseSDK):
         "models": ("orq_ai_sdk.models_", "Models"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
+        "knowledge_bases": ("orq_ai_sdk.knowledge_bases", "KnowledgeBases"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
     }
 
