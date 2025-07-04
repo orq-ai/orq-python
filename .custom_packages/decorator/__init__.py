@@ -2,6 +2,6 @@
 
 from decorator.decorators import traced
 from decorator.types import SpanType
-from decorator.config import init, get_client
+from decorator.config import init
 
-__all__ = ["init", "get_client", "traced", "SpanType"]
+__all__ = ["init", "traced", "SpanType"]
