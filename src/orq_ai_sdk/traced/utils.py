@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 import random
 import string
+from traced.constants import VALID_SPAN_TYPES
 
 
 def get_current_time_iso() -> str:
@@ -75,3 +76,27 @@ def generate_ulid() -> str:
     random_str = ''.join(random.choices(base32_chars, k=16))
     
     return timestamp_str + random_str
+
+"""Type definitions for Orq decorator tracing."""
+
+
+def validate_span_type(span_type: str) -> str:
+    """
+    Validate that the span type is one of the allowed values.
+    
+    Args:
+        span_type: The span type string to validate
+        
+    Returns:
+        The validated span type
+        
+    Raises:
+        ValueError: If span_type is not valid
+    """
+
+    if span_type not in VALID_SPAN_TYPES:
+        raise ValueError(
+            f"Invalid span type: '{span_type}'. "
+            f"Must be one of: {', '.join(sorted(VALID_SPAN_TYPES))}"
+        )
+    return span_type

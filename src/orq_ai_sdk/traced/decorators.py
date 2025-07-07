@@ -8,9 +8,8 @@ from typing import Any, Callable, Dict, Optional, TypeVar, Union
 from traced.client import get_client
 from traced.config import get_config
 from traced.span import Span
-from traced.enums import validate_span_type
 from traced.context import create_span_context, get_current_span, SpanContextManager
-from traced.utils import serialize_value
+from traced.utils import serialize_value, validate_span_type
 
 
 F = TypeVar('F', bound=Callable[..., Any])
