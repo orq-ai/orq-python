@@ -12,12 +12,11 @@ class Config:
     api_key: Optional[str] = None
     api_url: str = "https://my.orq.ai"
     workspace_id: Optional[str] = None
-    service_name: str = "default"
-    environment: str = "production"
     batch_size: int = 100
     flush_interval: float = 1.0  # seconds
     timeout: float = 30.0  # seconds
     max_retries: int = 3
+    enabled: bool = True
     debug: bool = False
     extra_attributes: Dict[str, Any] = field(default_factory=dict)
     
@@ -26,13 +25,8 @@ class Config:
         if not self.api_key:
             self.api_key = os.environ.get("ORQ_API_KEY")
         
-        if not self.workspace_id:
-            self.workspace_id = os.environ.get("ORQ_WORKSPACE_ID")
-        
         # Override from environment
         self.api_url = os.environ.get("ORQ_API_URL", self.api_url)
-        self.service_name = os.environ.get("ORQ_SERVICE_NAME", self.service_name)
-        self.environment = os.environ.get("ORQ_ENVIRONMENT", self.environment)
         self.debug = os.environ.get("ORQ_DEBUG", "false").lower() == "true"
     
     def validate(self):

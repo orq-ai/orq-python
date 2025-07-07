@@ -51,3 +51,27 @@ def calculate_duration(start_time: float, end_time: Optional[float] = None) -> f
     if end_time is None:
         end_time = time.time()
     return end_time - start_time
+
+
+def generate_ulid() -> str:
+    """Generate a ULID (Universally Unique Lexicographically Sortable Identifier)."""
+    # ULID is composed of:
+    # - 48 bits of timestamp (milliseconds since epoch)
+    # - 80 bits of randomness
+    
+    # Get current timestamp in milliseconds
+    timestamp_ms = int(time.time() * 1000)
+    
+    # Convert timestamp to base32-like encoding (using Crockford's base32)
+    base32_chars = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    
+    # Encode timestamp (10 characters for 48 bits)
+    timestamp_str = ""
+    for _ in range(10):
+        timestamp_str = base32_chars[timestamp_ms & 0x1F] + timestamp_str
+        timestamp_ms >>= 5
+    
+    # Generate 16 random characters (80 bits of randomness)
+    random_str = ''.join(random.choices(base32_chars, k=16))
+    
+    return timestamp_str + random_str

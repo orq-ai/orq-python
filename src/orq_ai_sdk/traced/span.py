@@ -4,8 +4,8 @@ import time
 from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass, field
 
-from decorator.utils import get_current_time_iso, serialize_value
-from decorator.types import SpanType
+from traced.utils import get_current_time_iso, serialize_value
+from traced.enums import validate_span_type
 
 
 @dataclass
@@ -29,7 +29,7 @@ class Span:
     
     # Core attributes
     name: str = ""
-    type: Union[SpanType, str] = SpanType.Generic
+    type: str = "function"
     start_time: Optional[str] = None
     end_time: Optional[str] = None
     
@@ -44,10 +44,13 @@ class Span:
     _id: Optional[str] = None
     
     def __post_init__(self):
-        """Initialize span with current time if not provided."""
+        """Initialize span with current time if not provided and validate type."""
         if not self.start_time:
             self.start_time = get_current_time_iso()
             self._start_time_unix = time.time()
+        
+        # Validate span type
+        self.type = validate_span_type(self.type)
     
     def set_input(self, input_data: Any) -> None:
         """Set the input data for the span."""
@@ -79,6 +82,20 @@ class Span:
         if not end_time:
             end_time = get_current_time_iso()
         self.end_time = end_time
+    
+    def log(self, input: Any = None, output: Any = None, metrics: Optional[Dict[str, Any]] = None, metadata: Optional[Dict[str, Any]] = None) -> None:
+        """Log input, output, metrics, and metadata to the span."""
+        if input is not None:
+            self.set_input(input)
+        
+        if output is not None:
+            self.set_output(output)
+        
+        if metrics is not None:
+            self.set_attribute("metrics", metrics)
+        
+        if metadata is not None:
+            self.set_attribute("metadata", metadata)
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for API submission."""

@@ -4,7 +4,7 @@ import contextvars
 from typing import Optional, Dict, Any, List
 from dataclasses import dataclass, field
 
-from decorator.utils import generate_ulid
+from traced.utils import generate_ulid
 
 
 @dataclass
@@ -121,6 +121,6 @@ class SpanContextManager:
         push_span(self.span)
         return self.span
     
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         pop_span()
         return False

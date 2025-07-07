@@ -9,8 +9,8 @@ from typing import List, Optional
 import requests
 from urllib.parse import urljoin
 
-from orq.config import Config, get_config, set_config
-from orq.span import Span
+from traced.config import Config, get_config, set_config
+from traced.span import Span
 
 
 class OrqClient:
@@ -86,6 +86,9 @@ class OrqClient:
     
     def _send_spans(self, spans: List[Span]) -> None:
         """Send spans to the Orq API."""
+
+        print("send spans")
+
         if not spans:
             return
         
@@ -103,38 +106,33 @@ class OrqClient:
         if self.config.workspace_id:
             headers["x-orq-workspace-id"] = self.config.workspace_id
         
-        # Determine URL
-        if self.config.api_url == "https://api.orq.ai":
-            # Production URL
-            url = urljoin(self.config.api_url, "/v2/traces/v1/traces")
-        else:
-            # Local or custom URL
-            url = urljoin(self.config.api_url, "/v2/traces/v1/traces")
-            # For local development, adjust to port 3800
-            if "localhost" in url or "127.0.0.1" in url:
-                url = url.replace(":3000", ":3800")
+        url = urljoin(self.config.api_url, "/v2/traces/v1/traces")
         
         # Send request with retries
         for attempt in range(self.config.max_retries):
             try:
-                response = requests.post(
-                    url,
-                    json=payload,
-                    headers=headers,
-                    timeout=self.config.timeout
-                )
+                print("payload")
+                print(json.dumps(payload, indent=2))
+                # response = requests.post(
+                #     url,
+                #     json=payload,
+                #     headers=headers,
+                #     timeout=self.config.timeout
+                # )
                 
-                if response.status_code == 200:
-                    if self.config.debug:
-                        print(f"Successfully sent {len(spans)} spans")
-                    return
-                else:
-                    if self.config.debug:
-                        print(f"Failed to send spans: {response.status_code} - {response.text}")
+                # if response.status_code == 200:
+                #     if self.config.debug:
+                #         print(f"Successfully sent {len(spans)} spans")
+                #     return
+                # else:
+                #     if self.config.debug:
+                #         print(f"Failed to send spans: {response.status_code} - {response.text}")
                     
-                    # Don't retry on client errors
-                    if 400 <= response.status_code < 500:
-                        return
+                #     # Don't retry on client errors
+                #     if 400 <= response.status_code < 500:
+                #         return
+
+                return
             
             except Exception as e:
                 if self.config.debug:
@@ -174,9 +172,6 @@ def get_client() -> OrqClient:
 def init(
     api_key: Optional[str] = None,
     api_url: Optional[str] = None,
-    workspace_id: Optional[str] = None,
-    service_name: Optional[str] = None,
-    environment: Optional[str] = None,
     debug: Optional[bool] = None,
     enabled: Optional[bool] = None,
     **kwargs
@@ -187,9 +182,6 @@ def init(
     Args:
         api_key: API key for authentication
         api_url: Base URL for Orq API
-        workspace_id: Workspace ID
-        service_name: Name of the service
-        environment: Environment name (e.g., "production", "staging")
         debug: Enable debug logging
         enabled: Enable/disable tracing
         **kwargs: Additional configuration options
@@ -201,9 +193,6 @@ def init(
         k: v for k, v in {
             "api_key": api_key,
             "api_url": api_url,
-            "workspace_id": workspace_id,
-            "service_name": service_name,
-            "environment": environment,
             "debug": debug,
             "enabled": enabled,
             **kwargs
@@ -212,6 +201,9 @@ def init(
     
     config = Config(**config_kwargs)
     set_config(config)
+
+    print('config')
+    print(config)
     
     # Reset client to use new config
     if _client:

@@ -5,10 +5,12 @@ import inspect
 import time
 from typing import Any, Callable, Dict, Optional, TypeVar, Union
 
-from decorator.span import Span
-from decorator.types import SpanType
-from decorator.context import create_span_context, get_current_span, SpanContextManager
-from decorator.utils import serialize_value
+from traced.client import get_client
+from traced.config import get_config
+from traced.span import Span
+from traced.enums import validate_span_type
+from traced.context import create_span_context, get_current_span, SpanContextManager
+from traced.utils import serialize_value
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -18,7 +20,7 @@ def traced(
     _func: Optional[F] = None,
     *,
     name: Optional[str] = None,
-    type: Union[SpanType, str] = SpanType.Generic,
+    type: str = "function",
     capture_input: bool = True,
     capture_output: bool = True,
     attributes: Optional[Dict[str, Any]] = None
@@ -28,7 +30,7 @@ def traced(
     
     Args:
         name: Custom name for the span. Defaults to function name.
-        type: Type of span. Defaults to SpanType.Generic = "span.generic".
+        type: Type of span. Must be one of: "llm", "score", "function", "eval", "task", "tool". Defaults to "function".
         attributes: Additional attributes to add to the span.
     
     Usage:
@@ -44,6 +46,13 @@ def traced(
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            print('wrapper')
+
+            # Get configuration
+            config = get_config()
+            if not config.enabled:
+                return func(*args, **kwargs)
+
             # Determine span name
             span_name = name or func.__name__
             
@@ -59,13 +68,8 @@ def traced(
                 span_id=span_context.span_id,
                 parent_id=span_context.parent_id,
                 name=span_name,
-                type=type,
+                type=validate_span_type(type),
                 attributes={
-                    # TODO: attributes values
-                    "function.name": func.__name__,
-                    "function.module": func.__module__ if hasattr(func, "__module__") else None,
-                    "service.name": config.service_name,
-                    "environment": config.environment,
                     **(attributes or {}),
                     **config.extra_attributes
                 }
@@ -115,14 +119,7 @@ def traced(
             except Exception as e:
                 # Mark span as failed
                 span.set_attribute("status", "error")
-                span.set_attribute("error.type", type(e).__name__)
                 span.set_attribute("error.message", str(e))
-                
-                # Add error event
-                span.add_event("exception", {
-                    "exception.type": type(e).__name__,
-                    "exception.message": str(e)
-                })
                 
                 raise
             
@@ -134,9 +131,13 @@ def traced(
                 client.submit_span(span)
         
         return wrapper
+
+    print('init decorator')
     
     # Handle both @traced and @traced() syntax
     if _func is None:
+        print('no args')
         return decorator
     else:
+        print('with args')
         return decorator(_func)
