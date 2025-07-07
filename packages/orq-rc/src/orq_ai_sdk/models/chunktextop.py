@@ -7,7 +7,7 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-ChunkTextChunkingRequestKnowledgeRequestRequestBodyReturnType = Literal[
+ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType = Literal[
     "chunks", "texts"
 ]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
@@ -26,7 +26,7 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[
-        ChunkTextChunkingRequestKnowledgeRequestRequestBodyReturnType
+        ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType
     ]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
@@ -52,7 +52,7 @@ class AgenticChunkerStrategy(BaseModel):
     r"""Whether to include metadata for each chunk"""
 
     return_type: Optional[
-        ChunkTextChunkingRequestKnowledgeRequestRequestBodyReturnType
+        ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType
     ] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
@@ -66,7 +66,7 @@ class AgenticChunkerStrategy(BaseModel):
     r"""Minimum characters allowed per chunk"""
 
 
-ChunkTextChunkingRequestKnowledgeRequestReturnType = Literal["chunks", "texts"]
+ChunkTextChunkingRequestKnowledgeBasesRequestReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 SDPMChunker = Literal["sdpm"]
@@ -99,7 +99,7 @@ class SDPMChunkerStrategyTypedDict(TypedDict):
     r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeRequestReturnType]
+    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeBasesRequestReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -125,7 +125,9 @@ class SDPMChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ChunkTextChunkingRequestKnowledgeRequestReturnType] = "chunks"
+    return_type: Optional[ChunkTextChunkingRequestKnowledgeBasesRequestReturnType] = (
+        "chunks"
+    )
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 512
@@ -141,7 +143,7 @@ class SDPMChunkerStrategy(BaseModel):
     r"""Chunking mode: window-based or sentence-based similarity"""
 
 
-ChunkTextChunkingRequestKnowledgeReturnType = Literal["chunks", "texts"]
+ChunkTextChunkingRequestKnowledgeBasesReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 SemanticChunker = Literal["semantic"]
@@ -170,7 +172,7 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeReturnType]
+    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeBasesReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -196,7 +198,7 @@ class SemanticChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ChunkTextChunkingRequestKnowledgeReturnType] = "chunks"
+    return_type: Optional[ChunkTextChunkingRequestKnowledgeBasesReturnType] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 512

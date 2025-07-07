@@ -1,4 +1,4 @@
-# ChunkTextChunkingRequestKnowledgeRequestRequestBodyReturnType
+# ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType
 
 Return format: chunks (with metadata) or texts (plain strings)
 
