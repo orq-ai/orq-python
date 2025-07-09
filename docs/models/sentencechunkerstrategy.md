@@ -1,0 +1,16 @@
+# SentenceChunkerStrategy
+
+Splits text at sentence boundaries while respecting token limits. Ideal for maintaining semantic coherence and readability.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `text`                                                                               | *str*                                                                                | :heavy_check_mark:                                                                   | The text content to be chunked                                                       |
+| `metadata`                                                                           | *Optional[bool]*                                                                     | :heavy_minus_sign:                                                                   | Whether to include metadata for each chunk                                           |
+| `return_type`                                                                        | [Optional[models.ChunkingRequestReturnType]](../models/chunkingrequestreturntype.md) | :heavy_minus_sign:                                                                   | Return format: chunks (with metadata) or texts (plain strings)                       |
+| `strategy`                                                                           | [models.SentenceChunker](../models/sentencechunker.md)                               | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| `chunk_size`                                                                         | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Maximum tokens per chunk                                                             |
+| `chunk_overlap`                                                                      | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Number of overlapping tokens between chunks                                          |
+| `min_sentences_per_chunk`                                                            | *Optional[int]*                                                                      | :heavy_minus_sign:                                                                   | Minimum number of sentences per chunk                                                |

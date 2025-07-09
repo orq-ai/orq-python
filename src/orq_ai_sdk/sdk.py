@@ -15,6 +15,7 @@ from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
+    from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments_sdk import DeploymentsSDK
@@ -41,6 +42,7 @@ class Orq(BaseSDK):
     models: "Models"
     datasets: "Datasets"
     knowledge: "Knowledge"
+    chunking: "Chunking"
     evals: "Evals"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
@@ -52,6 +54,7 @@ class Orq(BaseSDK):
         "models": ("orq_ai_sdk.models_", "Models"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
+        "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
     }
 
