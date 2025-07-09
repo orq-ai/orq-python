@@ -9,8 +9,8 @@ from typing import List, Optional
 import requests
 from urllib.parse import urljoin
 
-from traced.config import Config, get_config, set_config
-from traced.span import Span
+from .config import Config, get_config, set_config
+from .span import Span
 
 
 class OrqClient:
@@ -87,8 +87,6 @@ class OrqClient:
     def _send_spans(self, spans: List[Span]) -> None:
         """Send spans to the Orq API."""
 
-        print("send spans")
-
         if not spans:
             return
         
@@ -111,28 +109,24 @@ class OrqClient:
         # Send request with retries
         for attempt in range(self.config.max_retries):
             try:
-                print("payload")
-                print(json.dumps(payload, indent=2))
-                # response = requests.post(
-                #     url,
-                #     json=payload,
-                #     headers=headers,
-                #     timeout=self.config.timeout
-                # )
+                response = requests.post(
+                    url,
+                    json=payload,
+                    headers=headers,
+                    timeout=self.config.timeout
+                )
                 
-                # if response.status_code == 200:
-                #     if self.config.debug:
-                #         print(f"Successfully sent {len(spans)} spans")
-                #     return
-                # else:
-                #     if self.config.debug:
-                #         print(f"Failed to send spans: {response.status_code} - {response.text}")
+                if response.status_code == 200:
+                    if self.config.debug:
+                        print(f"Successfully sent {len(spans)} spans")
+                    return
+                else:
+                    if self.config.debug:
+                        print(f"Failed to send spans: {response.status_code} - {response.text}")
                     
-                #     # Don't retry on client errors
-                #     if 400 <= response.status_code < 500:
-                #         return
-
-                return
+                    # Don't retry on client errors
+                    if 400 <= response.status_code < 500:
+                        return
             
             except Exception as e:
                 if self.config.debug:
@@ -201,9 +195,6 @@ def init(
     
     config = Config(**config_kwargs)
     set_config(config)
-
-    print('config')
-    print(config)
     
     # Reset client to use new config
     if _client:

@@ -5,11 +5,11 @@ import inspect
 import time
 from typing import Any, Callable, Dict, Optional, TypeVar, Union
 
-from traced.client import get_client
-from traced.config import get_config
-from traced.span import Span
-from traced.context import create_span_context, get_current_span, SpanContextManager
-from traced.utils import serialize_value, validate_span_type
+from .client import get_client
+from .config import get_config
+from .span import Span
+from .context import create_span_context, get_current_span, SpanContextManager
+from .utils import serialize_value, validate_span_type
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -45,7 +45,6 @@ def traced(
     def decorator(func: F) -> F:
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            print('wrapper')
 
             # Get configuration
             config = get_config()
@@ -130,13 +129,9 @@ def traced(
                 client.submit_span(span)
         
         return wrapper
-
-    print('init decorator')
     
     # Handle both @traced and @traced() syntax
     if _func is None:
-        print('no args')
         return decorator
     else:
-        print('with args')
         return decorator(_func)

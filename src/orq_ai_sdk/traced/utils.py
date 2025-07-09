@@ -7,12 +7,12 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 import random
 import string
-from traced.constants import VALID_SPAN_TYPES
+from .constants import VALID_SPAN_TYPES
 
 
 def get_current_time_iso() -> str:
     """Get current time in ISO 8601 format."""
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
 
 
 def serialize_value(value: Any) -> Any:

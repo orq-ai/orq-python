@@ -4,8 +4,7 @@ import time
 from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass, field
 
-from traced.utils import get_current_time_iso, serialize_value
-from traced.enums import validate_span_type
+from .utils import serialize_value, validate_span_type, get_current_time_iso
 
 
 @dataclass
@@ -40,14 +39,12 @@ class Span:
     events: List[Event] = field(default_factory=list)
     
     # Runtime
-    _start_time_unix: Optional[float] = field(default=None, init=False)
     _id: Optional[str] = None
     
     def __post_init__(self):
         """Initialize span with current time if not provided and validate type."""
         if not self.start_time:
             self.start_time = get_current_time_iso()
-            self._start_time_unix = time.time()
         
         # Validate span type
         self.type = validate_span_type(self.type)
@@ -107,7 +104,7 @@ class Span:
             "name": self.name,
             "type": self.type,
             "start_time": self.start_time,
-            "end_time": self.end_time or get_current_time_iso(),
+            "end_time": self.end_time or str(int(time.time() * 1000)),
             "attributes": serialize_value(self.attributes),
             "events": [
                 {

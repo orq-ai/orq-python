@@ -4,7 +4,7 @@ import contextvars
 from typing import Optional, Dict, Any, List
 from dataclasses import dataclass, field
 
-from traced.utils import generate_ulid
+from .utils import generate_ulid
 
 
 @dataclass
