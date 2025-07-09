@@ -8,20 +8,17 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-UpdateKnowledgeRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
-]
+RetrievalType = Literal["vector_search", "keyword_search", "hybrid_search"]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
-class UpdateKnowledgeRerankConfigTypedDict(TypedDict):
+class RerankConfigTypedDict(TypedDict):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -30,7 +27,7 @@ class UpdateKnowledgeRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class UpdateKnowledgeRerankConfig(BaseModel):
+class RerankConfig(BaseModel):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -40,39 +37,39 @@ class UpdateKnowledgeRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class UpdateKnowledgeAgenticRagConfigTypedDict(TypedDict):
+class AgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeAgenticRagConfig(BaseModel):
+class AgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeRetrievalSettingsTypedDict(TypedDict):
+class RetrievalSettingsTypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: NotRequired[UpdateKnowledgeRetrievalType]
+    retrieval_type: NotRequired[RetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
     top_k: NotRequired[int]
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[UpdateKnowledgeRerankConfigTypedDict]]
+    rerank_config: NotRequired[Nullable[RerankConfigTypedDict]]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-    agentic_rag_config: NotRequired[Nullable[UpdateKnowledgeAgenticRagConfigTypedDict]]
+    agentic_rag_config: NotRequired[Nullable[AgenticRagConfigTypedDict]]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class UpdateKnowledgeRetrievalSettings(BaseModel):
+class RetrievalSettings(BaseModel):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: Optional[UpdateKnowledgeRetrievalType] = "hybrid_search"
+    retrieval_type: Optional[RetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     top_k: Optional[int] = 5
@@ -81,10 +78,10 @@ class UpdateKnowledgeRetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[UpdateKnowledgeRerankConfig] = UNSET
+    rerank_config: OptionalNullable[RerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
-    agentic_rag_config: OptionalNullable[UpdateKnowledgeAgenticRagConfig] = UNSET
+    agentic_rag_config: OptionalNullable[AgenticRagConfig] = UNSET
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -124,91 +121,39 @@ class UpdateKnowledgeRetrievalSettings(BaseModel):
         return m
 
 
-class UpdateKnowledgeRequestBodyTypedDict(TypedDict):
-    description: NotRequired[Nullable[str]]
-    r"""The description of the knowledge base."""
-    embedding_model: NotRequired[str]
-    r"""The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded."""
-    path: NotRequired[str]
+class CreateKnowledgeRequestBodyTypedDict(TypedDict):
+    key: str
+    embedding_model: str
+    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
+    path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-    retrieval_settings: NotRequired[UpdateKnowledgeRetrievalSettingsTypedDict]
+    description: NotRequired[str]
+    retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class UpdateKnowledgeRequestBody(BaseModel):
-    description: OptionalNullable[str] = UNSET
-    r"""The description of the knowledge base."""
+class CreateKnowledgeRequestBody(BaseModel):
+    key: str
 
-    embedding_model: Optional[str] = None
-    r"""The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded."""
+    embedding_model: str
+    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
 
-    path: Optional[str] = None
+    path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
-    retrieval_settings: Optional[UpdateKnowledgeRetrievalSettings] = None
+    description: Optional[str] = None
+
+    retrieval_settings: Optional[RetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "embedding_model",
-            "path",
-            "retrieval_settings",
-        ]
-        nullable_fields = ["description"]
-        null_default_fields = []
 
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-class UpdateKnowledgeRequestTypedDict(TypedDict):
-    knowledge_id: str
-    r"""The unique identifier of the knowledge base"""
-    request_body: UpdateKnowledgeRequestBodyTypedDict
-
-
-class UpdateKnowledgeRequest(BaseModel):
-    knowledge_id: Annotated[
-        str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
-    ]
-    r"""The unique identifier of the knowledge base"""
-
-    request_body: Annotated[
-        UpdateKnowledgeRequestBody,
-        FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ]
-
-
-UpdateKnowledgeKnowledgeRetrievalType = Literal[
+CreateKnowledgeRetrievalType = Literal[
     "vector_search", "keyword_search", "hybrid_search"
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
-class UpdateKnowledgeKnowledgeRerankConfigTypedDict(TypedDict):
+class CreateKnowledgeRerankConfigTypedDict(TypedDict):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -217,7 +162,7 @@ class UpdateKnowledgeKnowledgeRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class UpdateKnowledgeKnowledgeRerankConfig(BaseModel):
+class CreateKnowledgeRerankConfig(BaseModel):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -227,41 +172,39 @@ class UpdateKnowledgeKnowledgeRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class UpdateKnowledgeKnowledgeAgenticRagConfigTypedDict(TypedDict):
+class CreateKnowledgeAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeKnowledgeAgenticRagConfig(BaseModel):
+class CreateKnowledgeAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class UpdateKnowledgeKnowledgeRetrievalSettingsTypedDict(TypedDict):
+class CreateKnowledgeRetrievalSettingsTypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: NotRequired[UpdateKnowledgeKnowledgeRetrievalType]
+    retrieval_type: NotRequired[CreateKnowledgeRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
     top_k: NotRequired[int]
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[UpdateKnowledgeKnowledgeRerankConfigTypedDict]]
+    rerank_config: NotRequired[Nullable[CreateKnowledgeRerankConfigTypedDict]]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-    agentic_rag_config: NotRequired[
-        Nullable[UpdateKnowledgeKnowledgeAgenticRagConfigTypedDict]
-    ]
+    agentic_rag_config: NotRequired[Nullable[CreateKnowledgeAgenticRagConfigTypedDict]]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class UpdateKnowledgeKnowledgeRetrievalSettings(BaseModel):
+class CreateKnowledgeRetrievalSettings(BaseModel):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: Optional[UpdateKnowledgeKnowledgeRetrievalType] = "hybrid_search"
+    retrieval_type: Optional[CreateKnowledgeRetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     top_k: Optional[int] = 5
@@ -270,12 +213,10 @@ class UpdateKnowledgeKnowledgeRetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[UpdateKnowledgeKnowledgeRerankConfig] = UNSET
+    rerank_config: OptionalNullable[CreateKnowledgeRerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
-    agentic_rag_config: OptionalNullable[UpdateKnowledgeKnowledgeAgenticRagConfig] = (
-        UNSET
-    )
+    agentic_rag_config: OptionalNullable[CreateKnowledgeAgenticRagConfig] = UNSET
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -315,7 +256,7 @@ class UpdateKnowledgeKnowledgeRetrievalSettings(BaseModel):
         return m
 
 
-class UpdateKnowledgeResponseBodyTypedDict(TypedDict):
+class CreateKnowledgeResponseBodyTypedDict(TypedDict):
     r"""Knowledge Base object"""
 
     id: str
@@ -334,13 +275,13 @@ class UpdateKnowledgeResponseBodyTypedDict(TypedDict):
     r"""The description of the knowledge base."""
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-    retrieval_settings: NotRequired[UpdateKnowledgeKnowledgeRetrievalSettingsTypedDict]
+    retrieval_settings: NotRequired[CreateKnowledgeRetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
 
 
-class UpdateKnowledgeResponseBody(BaseModel):
+class CreateKnowledgeResponseBody(BaseModel):
     r"""Knowledge Base object"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -367,7 +308,7 @@ class UpdateKnowledgeResponseBody(BaseModel):
     path: Optional[str] = None
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
-    retrieval_settings: Optional[UpdateKnowledgeKnowledgeRetrievalSettings] = None
+    retrieval_settings: Optional[CreateKnowledgeRetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
     created_by_id: OptionalNullable[str] = UNSET
