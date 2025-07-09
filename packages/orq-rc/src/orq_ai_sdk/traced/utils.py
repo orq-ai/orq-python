@@ -1,0 +1,102 @@
+"""Utility functions for Orq decorator SDK."""
+
+import time
+import uuid
+import json
+from datetime import datetime, timezone
+from typing import Any, Dict, Optional
+import random
+import string
+from .constants import VALID_SPAN_TYPES
+
+
+def get_current_time_iso() -> str:
+    """Get current time in ISO 8601 format."""
+    return datetime.now(timezone.utc).isoformat(timespec='milliseconds').replace('+00:00', 'Z')
+
+
+def serialize_value(value: Any) -> Any:
+    """Serialize a value for JSON encoding."""
+    if hasattr(value, "__dict__"):
+        return {k: serialize_value(v) for k, v in value.__dict__.items()}
+    elif isinstance(value, (list, tuple)):
+        return [serialize_value(v) for v in value]
+    elif isinstance(value, dict):
+        return {k: serialize_value(v) for k, v in value.items()}
+    elif isinstance(value, (str, int, float, bool, type(None))):
+        return value
+    else:
+        return str(value)
+
+
+def extract_attributes(obj: Any) -> Dict[str, Any]:
+    """Extract attributes from an object."""
+    if isinstance(obj, dict):
+        return obj
+    elif hasattr(obj, "__dict__"):
+        return {k: v for k, v in obj.__dict__.items() if not k.startswith("_")}
+    else:
+        return {}
+
+
+def safe_json_dumps(obj: Any) -> str:
+    """Safely convert object to JSON string."""
+    try:
+        return json.dumps(serialize_value(obj))
+    except Exception:
+        return json.dumps({"error": "Failed to serialize", "type": str(type(obj))})
+
+
+def calculate_duration(start_time: float, end_time: Optional[float] = None) -> float:
+    """Calculate duration in seconds."""
+    if end_time is None:
+        end_time = time.time()
+    return end_time - start_time
+
+
+def generate_ulid() -> str:
+    """Generate a ULID (Universally Unique Lexicographically Sortable Identifier)."""
+    # ULID is composed of:
+    # - 48 bits of timestamp (milliseconds since epoch)
+    # - 80 bits of randomness
+    
+    # Get current timestamp in milliseconds
+    timestamp_ms = int(time.time() * 1000)
+    
+    # Convert timestamp to base32-like encoding (using Crockford's base32)
+    base32_chars = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
+    
+    # Encode timestamp (10 characters for 48 bits)
+    timestamp_str = ""
+    for _ in range(10):
+        timestamp_str = base32_chars[timestamp_ms & 0x1F] + timestamp_str
+        timestamp_ms >>= 5
+    
+    # Generate 16 random characters (80 bits of randomness)
+    random_str = ''.join(random.choices(base32_chars, k=16))
+    
+    return timestamp_str + random_str
+
+"""Type definitions for Orq decorator tracing."""
+
+
+def validate_span_type(span_type: str) -> str:
+    """
+    Validate that the span type is one of the allowed values.
+    
+    Args:
+        span_type: The span type string to validate
+        
+    Returns:
+        The validated span type
+        
+    Raises:
+        ValueError: If span_type is not valid
+    """
+
+    if span_type not in VALID_SPAN_TYPES:
+        raise ValueError(
+            f"Invalid span type: '{span_type}'. "
+            f"Must be one of: {', '.join(sorted(VALID_SPAN_TYPES))}"
+        )
+    return span_type
