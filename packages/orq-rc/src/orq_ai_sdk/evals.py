@@ -5,6 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, List, Mapping, Optional, Union, cast
 
 
@@ -90,11 +91,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetEvalsResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.GetEvalsEvalsResponseBodyData, http_res
             )
             raise models.GetEvalsEvalsResponseBody(response_data, http_res)
@@ -188,11 +189,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetEvalsResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.GetEvalsEvalsResponseBodyData, http_res
             )
             raise models.GetEvalsEvalsResponseBody(response_data, http_res)
@@ -285,11 +286,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.CreateEvalEvalsResponseBodyData, http_res
             )
             raise models.CreateEvalEvalsResponseBody(response_data, http_res)
@@ -382,11 +383,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.CreateEvalEvalsResponseBodyData, http_res
             )
             raise models.CreateEvalEvalsResponseBody(response_data, http_res)
@@ -488,11 +489,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.UpdateEvalEvalsResponseBodyData, http_res
             )
             raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
@@ -594,11 +595,11 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.UpdateEvalEvalsResponseBodyData, http_res
             )
             raise models.UpdateEvalEvalsResponseBody(response_data, http_res)
@@ -688,7 +689,7 @@ class Evals(BaseSDK):
         if utils.match_response(http_res, "204", "*"):
             return
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.DeleteEvalResponseBodyData, http_res
             )
             raise models.DeleteEvalResponseBody(response_data, http_res)
@@ -778,7 +779,7 @@ class Evals(BaseSDK):
         if utils.match_response(http_res, "204", "*"):
             return
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.DeleteEvalResponseBodyData, http_res
             )
             raise models.DeleteEvalResponseBody(response_data, http_res)
@@ -876,16 +877,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBertScoreResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBertScoreEvalsResponseBodyData, http_res
             )
             raise models.EvalsBertScoreEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBertScoreEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBertScoreEvalsResponseResponseBody(
@@ -985,16 +986,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBertScoreResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBertScoreEvalsResponseBodyData, http_res
             )
             raise models.EvalsBertScoreEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBertScoreEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBertScoreEvalsResponseResponseBody(
@@ -1094,16 +1095,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBleuScoreResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBleuScoreEvalsResponseBodyData, http_res
             )
             raise models.EvalsBleuScoreEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBleuScoreEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBleuScoreEvalsResponseResponseBody(
@@ -1203,16 +1204,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBleuScoreResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBleuScoreEvalsResponseBodyData, http_res
             )
             raise models.EvalsBleuScoreEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBleuScoreEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBleuScoreEvalsResponseResponseBody(
@@ -1316,16 +1317,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsAllResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAllEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsAllEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAllEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsAllEvalsResponseResponseBody(
@@ -1429,16 +1430,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsAllResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAllEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsAllEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAllEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsAllEvalsResponseResponseBody(
@@ -1542,16 +1543,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsAnyResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAnyEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsAnyEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAnyEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsAnyEvalsResponseResponseBody(
@@ -1655,16 +1656,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsAnyResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAnyEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsAnyEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsAnyEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsAnyEvalsResponseResponseBody(
@@ -1768,16 +1769,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsEmailResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEmailEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsEmailEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEmailEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsEmailEvalsResponseResponseBody(
@@ -1881,16 +1882,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsEmailResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEmailEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsEmailEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEmailEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsEmailEvalsResponseResponseBody(
@@ -1994,16 +1995,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsNoneResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsNoneEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsNoneEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsNoneEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsNoneEvalsResponseResponseBody(
@@ -2107,16 +2108,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsNoneResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsNoneEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsNoneEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsNoneEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsNoneEvalsResponseResponseBody(
@@ -2220,16 +2221,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsURLResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsURLEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsURLEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsURLEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsURLEvalsResponseResponseBody(
@@ -2333,16 +2334,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsURLResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsURLEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsURLEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsURLEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsURLEvalsResponseResponseBody(
@@ -2446,18 +2447,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsValidLinkResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsValidLinkEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsValidLinkEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsValidLinkEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsValidLinkEvalsResponseResponseBody(
@@ -2561,18 +2562,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsValidLinkResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsValidLinkEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsValidLinkEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsValidLinkEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsValidLinkEvalsResponseResponseBody(
@@ -2672,16 +2673,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsEvalsResponseResponseBody(response_data, http_res)
@@ -2779,16 +2780,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsContainsResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEvalsResponseBodyData, http_res
             )
             raise models.EvalsContainsEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsContainsEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsContainsEvalsResponseResponseBody(response_data, http_res)
@@ -2886,16 +2887,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsEndsWithResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsEndsWithEvalsResponseBodyData, http_res
             )
             raise models.EvalsEndsWithEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsEndsWithEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsEndsWithEvalsResponseResponseBody(response_data, http_res)
@@ -2993,16 +2994,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsEndsWithResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsEndsWithEvalsResponseBodyData, http_res
             )
             raise models.EvalsEndsWithEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsEndsWithEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsEndsWithEvalsResponseResponseBody(response_data, http_res)
@@ -3104,16 +3105,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsExactMatchResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsExactMatchEvalsResponseBodyData, http_res
             )
             raise models.EvalsExactMatchEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsExactMatchEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsExactMatchEvalsResponseResponseBody(
@@ -3217,16 +3218,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsExactMatchResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsExactMatchEvalsResponseBodyData, http_res
             )
             raise models.EvalsExactMatchEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsExactMatchEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsExactMatchEvalsResponseResponseBody(
@@ -3330,16 +3331,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthBetweenResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthBetweenEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthBetweenEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthBetweenEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthBetweenEvalsResponseResponseBody(
@@ -3443,16 +3444,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthBetweenResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthBetweenEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthBetweenEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthBetweenEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthBetweenEvalsResponseResponseBody(
@@ -3556,18 +3557,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthGreaterThanResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthGreaterThanEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthGreaterThanEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthGreaterThanEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthGreaterThanEvalsResponseResponseBody(
@@ -3671,18 +3672,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthGreaterThanResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthGreaterThanEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthGreaterThanEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthGreaterThanEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthGreaterThanEvalsResponseResponseBody(
@@ -3786,16 +3787,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthLessThanResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthLessThanEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthLessThanEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthLessThanEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthLessThanEvalsResponseResponseBody(
@@ -3899,16 +3900,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLengthLessThanResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthLessThanEvalsResponseBodyData, http_res
             )
             raise models.EvalsLengthLessThanEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLengthLessThanEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLengthLessThanEvalsResponseResponseBody(
@@ -4008,16 +4009,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsValidJSONResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsValidJSONEvalsResponseBodyData, http_res
             )
             raise models.EvalsValidJSONEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsValidJSONEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsValidJSONEvalsResponseResponseBody(
@@ -4117,16 +4118,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsValidJSONResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsValidJSONEvalsResponseBodyData, http_res
             )
             raise models.EvalsValidJSONEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsValidJSONEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsValidJSONEvalsResponseResponseBody(
@@ -4230,16 +4231,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsAgeAppropriateResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsAgeAppropriateEvalsResponseBodyData, http_res
             )
             raise models.EvalsAgeAppropriateEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsAgeAppropriateEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsAgeAppropriateEvalsResponseResponseBody(
@@ -4343,16 +4344,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsAgeAppropriateResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsAgeAppropriateEvalsResponseBodyData, http_res
             )
             raise models.EvalsAgeAppropriateEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsAgeAppropriateEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsAgeAppropriateEvalsResponseResponseBody(
@@ -4456,16 +4457,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBotDetectionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBotDetectionEvalsResponseBodyData, http_res
             )
             raise models.EvalsBotDetectionEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBotDetectionEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBotDetectionEvalsResponseResponseBody(
@@ -4569,16 +4570,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsBotDetectionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBotDetectionEvalsResponseBodyData, http_res
             )
             raise models.EvalsBotDetectionEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsBotDetectionEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsBotDetectionEvalsResponseResponseBody(
@@ -4684,18 +4685,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsFactCheckingKnowledgeBaseResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsFactCheckingKnowledgeBaseEvalsResponseBodyData, http_res
             )
             raise models.EvalsFactCheckingKnowledgeBaseEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsFactCheckingKnowledgeBaseEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -4802,18 +4803,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsFactCheckingKnowledgeBaseResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsFactCheckingKnowledgeBaseEvalsResponseBodyData, http_res
             )
             raise models.EvalsFactCheckingKnowledgeBaseEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsFactCheckingKnowledgeBaseEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -4911,16 +4912,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsGrammarResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsGrammarEvalsResponseBodyData, http_res
             )
             raise models.EvalsGrammarEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsGrammarEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsGrammarEvalsResponseResponseBody(response_data, http_res)
@@ -5015,16 +5016,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsGrammarResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsGrammarEvalsResponseBodyData, http_res
             )
             raise models.EvalsGrammarEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsGrammarEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsGrammarEvalsResponseResponseBody(response_data, http_res)
@@ -5126,16 +5127,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLocalizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLocalizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsLocalizationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLocalizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLocalizationEvalsResponseResponseBody(
@@ -5239,16 +5240,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsLocalizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLocalizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsLocalizationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsLocalizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsLocalizationEvalsResponseResponseBody(
@@ -5343,16 +5344,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsPiiResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsPiiEvalsResponseBodyData, http_res
             )
             raise models.EvalsPiiEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsPiiEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsPiiEvalsResponseResponseBody(response_data, http_res)
@@ -5445,16 +5446,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsPiiResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsPiiEvalsResponseBodyData, http_res
             )
             raise models.EvalsPiiEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsPiiEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsPiiEvalsResponseResponseBody(response_data, http_res)
@@ -5558,18 +5559,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsSentimentClassificationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSentimentClassificationEvalsResponseBodyData, http_res
             )
             raise models.EvalsSentimentClassificationEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSentimentClassificationEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -5676,18 +5677,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsSentimentClassificationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSentimentClassificationEvalsResponseBodyData, http_res
             )
             raise models.EvalsSentimentClassificationEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSentimentClassificationEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -5792,16 +5793,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsSummarizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSummarizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsSummarizationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSummarizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsSummarizationEvalsResponseResponseBody(
@@ -5905,16 +5906,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsSummarizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSummarizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsSummarizationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsSummarizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsSummarizationEvalsResponseResponseBody(
@@ -6018,16 +6019,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsToneOfVoiceResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsToneOfVoiceEvalsResponseBodyData, http_res
             )
             raise models.EvalsToneOfVoiceEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsToneOfVoiceEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsToneOfVoiceEvalsResponseResponseBody(
@@ -6131,16 +6132,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsToneOfVoiceResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsToneOfVoiceEvalsResponseBodyData, http_res
             )
             raise models.EvalsToneOfVoiceEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsToneOfVoiceEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsToneOfVoiceEvalsResponseResponseBody(
@@ -6244,16 +6245,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsTranslationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsTranslationEvalsResponseBodyData, http_res
             )
             raise models.EvalsTranslationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsTranslationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsTranslationEvalsResponseResponseBody(
@@ -6357,16 +6358,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsTranslationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsTranslationEvalsResponseBodyData, http_res
             )
             raise models.EvalsTranslationEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsTranslationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsTranslationEvalsResponseResponseBody(
@@ -6470,16 +6471,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasCoherenceResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCoherenceEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasCoherenceEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCoherenceEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasCoherenceEvalsResponseResponseBody(
@@ -6583,16 +6584,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasCoherenceResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCoherenceEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasCoherenceEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCoherenceEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasCoherenceEvalsResponseResponseBody(
@@ -6696,16 +6697,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasConcisenessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasConcisenessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasConcisenessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasConcisenessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasConcisenessEvalsResponseResponseBody(
@@ -6809,16 +6810,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasConcisenessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasConcisenessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasConcisenessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasConcisenessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasConcisenessEvalsResponseResponseBody(
@@ -6922,18 +6923,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextPrecisionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextPrecisionEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextPrecisionEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextPrecisionEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasContextPrecisionEvalsResponseResponseBody(
@@ -7037,18 +7038,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextPrecisionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextPrecisionEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextPrecisionEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextPrecisionEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasContextPrecisionEvalsResponseResponseBody(
@@ -7152,18 +7153,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextRecallResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextRecallEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextRecallEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextRecallEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasContextRecallEvalsResponseResponseBody(
@@ -7267,18 +7268,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextRecallResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextRecallEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextRecallEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextRecallEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasContextRecallEvalsResponseResponseBody(
@@ -7384,18 +7385,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextEntitiesRecallResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextEntitiesRecallEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextEntitiesRecallEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextEntitiesRecallEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -7502,18 +7503,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasContextEntitiesRecallResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextEntitiesRecallEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasContextEntitiesRecallEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasContextEntitiesRecallEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -7618,16 +7619,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasCorrectnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCorrectnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasCorrectnessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCorrectnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasCorrectnessEvalsResponseResponseBody(
@@ -7731,16 +7732,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasCorrectnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCorrectnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasCorrectnessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasCorrectnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasCorrectnessEvalsResponseResponseBody(
@@ -7844,18 +7845,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasFaithfulnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasFaithfulnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasFaithfulnessEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasFaithfulnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasFaithfulnessEvalsResponseResponseBody(
@@ -7959,18 +7960,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasFaithfulnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasFaithfulnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasFaithfulnessEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasFaithfulnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasFaithfulnessEvalsResponseResponseBody(
@@ -8074,16 +8075,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasHarmfulnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasHarmfulnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasHarmfulnessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasHarmfulnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasHarmfulnessEvalsResponseResponseBody(
@@ -8187,16 +8188,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasHarmfulnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasHarmfulnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasHarmfulnessEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasHarmfulnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasHarmfulnessEvalsResponseResponseBody(
@@ -8300,18 +8301,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasMaliciousnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasMaliciousnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasMaliciousnessEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasMaliciousnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasMaliciousnessEvalsResponseResponseBody(
@@ -8415,18 +8416,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasMaliciousnessResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasMaliciousnessEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasMaliciousnessEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasMaliciousnessEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasMaliciousnessEvalsResponseResponseBody(
@@ -8530,18 +8531,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasNoiseSensitivityResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasNoiseSensitivityEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasNoiseSensitivityEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasNoiseSensitivityEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasNoiseSensitivityEvalsResponseResponseBody(
@@ -8645,18 +8646,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasNoiseSensitivityResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasNoiseSensitivityEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasNoiseSensitivityEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasNoiseSensitivityEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasNoiseSensitivityEvalsResponseResponseBody(
@@ -8760,18 +8761,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasResponseRelevancyResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasResponseRelevancyEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasResponseRelevancyEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasResponseRelevancyEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -8876,18 +8877,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasResponseRelevancyResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasResponseRelevancyEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasResponseRelevancyEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasResponseRelevancyEvalsResponseResponseBodyData,
                 http_res,
             )
@@ -8992,18 +8993,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasSummarizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasSummarizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasSummarizationEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasSummarizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasSummarizationEvalsResponseResponseBody(
@@ -9107,18 +9108,18 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.EvalsRagasSummarizationResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasSummarizationEvalsResponseBodyData, http_res
             )
             raise models.EvalsRagasSummarizationEvalsResponseBody(
                 response_data, http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.EvalsRagasSummarizationEvalsResponseResponseBodyData, http_res
             )
             raise models.EvalsRagasSummarizationEvalsResponseResponseBody(
@@ -9239,16 +9240,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.InvokeEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)
@@ -9367,16 +9368,16 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.InvokeEvalResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)

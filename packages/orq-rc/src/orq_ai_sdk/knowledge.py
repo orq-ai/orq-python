@@ -5,6 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Dict, List, Mapping, Optional, Union
 
 
@@ -91,7 +92,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListKnowledgeBasesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -185,7 +186,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListKnowledgeBasesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -273,7 +274,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, ["404", "4XX"], "*"):
@@ -361,7 +362,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, ["404", "4XX"], "*"):
@@ -472,7 +473,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -583,7 +584,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -873,7 +874,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.SearchKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -991,7 +992,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.SearchKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1092,7 +1093,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasourcesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1193,7 +1194,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasourcesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1301,7 +1302,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1409,7 +1410,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1498,7 +1499,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1587,7 +1588,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1866,7 +1867,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1967,7 +1968,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2070,7 +2071,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2173,7 +2174,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2279,7 +2280,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListChunksResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2385,7 +2386,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListChunksResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2500,7 +2501,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2615,7 +2616,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2887,7 +2888,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2979,7 +2980,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
