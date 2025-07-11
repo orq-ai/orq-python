@@ -147,3 +147,69 @@ value: models.TwentyThree = /* values here */
 value: models.TwentyFour = /* values here */
 ```
 
+### `models.TwentyFive`
+
+```python
+value: models.TwentyFive = /* values here */
+```
+
+### `models.TwentySix`
+
+```python
+value: models.TwentySix = /* values here */
+```
+
+### `models.TwentySeven`
+
+```python
+value: models.TwentySeven = /* values here */
+```
+
+### `models.TwentyEight`
+
+```python
+value: models.TwentyEight = /* values here */
+```
+
+### `models.TwentyNine`
+
+```python
+value: models.TwentyNine = /* values here */
+```
+
+### `models.Thirty`
+
+```python
+value: models.Thirty = /* values here */
+```
+
+### `models.ThirtyOne`
+
+```python
+value: models.ThirtyOne = /* values here */
+```
+
+### `models.ThirtyTwo`
+
+```python
+value: models.ThirtyTwo = /* values here */
+```
+
+### `models.ThirtyThree`
+
+```python
+value: models.ThirtyThree = /* values here */
+```
+
+### `models.ThirtyFour`
+
+```python
+value: models.ThirtyFour = /* values here */
+```
+
+### `models.ThirtyFive`
+
+```python
+value: models.ThirtyFive = /* values here */
+```
+
