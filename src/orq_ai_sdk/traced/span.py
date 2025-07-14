@@ -80,8 +80,8 @@ class Span:
             end_time = get_current_time_iso()
         self.end_time = end_time
     
-    def log(self, input: Any = None, output: Any = None, metrics: Optional[Dict[str, Any]] = None, metadata: Optional[Dict[str, Any]] = None) -> None:
-        """Log input, output, metrics, and metadata to the span."""
+    def log(self, input: Any = None, output: Any = None, metrics: Optional[Dict[str, Any]] = None, metadata: Optional[Dict[str, Any]] = None, provider: Optional[str] = None, model: Optional[str] = None) -> None:
+        """Log input, output, metrics, metadata, provider, and model to the span."""
         if input is not None:
             self.set_input(input)
         
@@ -93,6 +93,19 @@ class Span:
         
         if metadata is not None:
             self.set_attribute("metadata", metadata)
+        
+        if provider is not None or model is not None:
+            # Set provider and model as attributes following OpenTelemetry semantic conventions
+            if provider is not None:
+                self.set_attribute("gen_ai.system", provider)
+            
+            if model is not None:
+                self.set_attribute("gen_ai.request.model", model)
+                
+                # Also set the request object in attributes
+                request_attrs = self.attributes.get("request", {})
+                request_attrs["model"] = model
+                self.set_attribute("request", request_attrs)
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert span to dictionary for API submission."""
