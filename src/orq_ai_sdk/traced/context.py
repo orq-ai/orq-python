@@ -1,10 +1,13 @@
 """Context management for tracing."""
 
 import contextvars
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
 from .utils import generate_ulid
+
+if TYPE_CHECKING:
+    from .span import Span
 
 
 @dataclass
@@ -33,6 +36,9 @@ _trace_context: contextvars.ContextVar[Optional[TraceContext]] = contextvars.Con
 )
 _span_stack: contextvars.ContextVar[List[SpanContext]] = contextvars.ContextVar(
     "span_stack", default=[]
+)
+_active_span: contextvars.ContextVar[Optional["Span"]] = contextvars.ContextVar(
+    "active_span", default=None
 )
 
 
@@ -68,10 +74,20 @@ def pop_span() -> Optional[SpanContext]:
     return None
 
 
-def get_current_span() -> Optional[SpanContext]:
-    """Get the current active span."""
+def get_current_span_context() -> Optional[SpanContext]:
+    """Get the current active span context."""
     stack = get_span_stack()
     return stack[-1] if stack else None
+
+
+def set_active_span(span: Optional["Span"]) -> None:
+    """Set the active span object."""
+    _active_span.set(span)
+
+
+def current_span() -> Optional["Span"]:
+    """Get the current active span object that can be used to log data."""
+    return _active_span.get()
 
 
 def create_trace_context(trace_id: Optional[str] = None) -> TraceContext:
@@ -97,9 +113,9 @@ def create_span_context(
     
     # If no parent_id is provided, use the current span as parent
     if not parent_id:
-        current_span = get_current_span()
-        if current_span:
-            parent_id = current_span.span_id
+        current_span_ctx = get_current_span_context()
+        if current_span_ctx:
+            parent_id = current_span_ctx.span_id
     
     span = SpanContext(
         trace_id=trace.trace_id,
@@ -114,13 +130,20 @@ def create_span_context(
 class SpanContextManager:
     """Context manager for span lifecycle."""
     
-    def __init__(self, span: SpanContext):
+    def __init__(self, span: SpanContext, span_object: Optional["Span"] = None):
         self.span = span
+        self.span_object = span_object
+        self.previous_span = None
     
     def __enter__(self):
         push_span(self.span)
+        if self.span_object:
+            self.previous_span = current_span()
+            set_active_span(self.span_object)
         return self.span
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         pop_span()
+        if self.span_object:
+            set_active_span(self.previous_span)
         return False

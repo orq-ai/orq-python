@@ -121,7 +121,7 @@ class Span:
             span_dict["_id"] = self._id
         
         if self.parent_id:
-            span_dict["context"]["parent_id"] = self.parent_id
+            span_dict["parent_id"] = self.parent_id
         
         if self.session_id:
             span_dict["context"]["session_id"] = self.session_id

@@ -8,7 +8,7 @@ from typing import Any, Callable, Dict, Optional, TypeVar, Union
 from .client import get_client
 from .config import get_config
 from .span import Span
-from .context import create_span_context, get_current_span, SpanContextManager
+from .context import create_span_context, get_current_span_context, SpanContextManager
 from .utils import serialize_value, validate_span_type
 
 
@@ -97,7 +97,7 @@ def traced(
             client = get_client()
             
             try:
-                with SpanContextManager(span_context):
+                with SpanContextManager(span_context, span):
                     # Execute the function
                     result = func(*args, **kwargs)
                     
