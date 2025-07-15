@@ -129,7 +129,7 @@ def traced(
                 client.submit_span(span)
         
         return wrapper
-    
+
     # Handle both @traced and @traced() syntax
     if _func is None:
         return decorator
