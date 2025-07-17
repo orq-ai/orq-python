@@ -4,14 +4,17 @@ import atexit
 import json
 import queue
 import threading
+import sys
 import time
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 import requests
 from urllib.parse import urljoin
 
 from .config import Config, get_config, set_config
 from .span import Span
 
+if TYPE_CHECKING:
+    from orq_ai_sdk.sdk import Orq
 
 class OrqClient:
     """Client for sending spans to Orq API."""
@@ -94,7 +97,7 @@ class OrqClient:
         payload = {
             "spans": [span.to_dict() for span in spans]
         }
-        
+
         # Prepare headers
         headers = {
             "Authorization": f"Bearer {self.config.api_key}",
@@ -158,41 +161,59 @@ _client: Optional[OrqClient] = None
 def get_client() -> OrqClient:
     """Get the global client instance."""
     global _client
-    if _client is None:
+
+    # Try to find an Orq instance and auto-initialize from it
+    orq_instance = _find_orq_instance()
+    if orq_instance:
+        try:
+            init_from_orq(orq_instance)
+        except Exception:
+            # If auto-init fails, fall back to default client
+            _client = OrqClient()
+    else:
         _client = OrqClient()
+
     return _client
 
 
-def init(
-    api_key: Optional[str] = None,
-    api_url: Optional[str] = None,
-    debug: Optional[bool] = None,
-    enabled: Optional[bool] = None,
-    **kwargs
-) -> None:
+def init_from_orq(orq_instance: "Orq") -> None:
     """
-    Initialize the Orq SDK with configuration.
+    Initialize the traced client using configuration from an existing Orq instance.
     
     Args:
-        api_key: API key for authentication
-        api_url: Base URL for Orq API
-        debug: Enable debug logging
-        enabled: Enable/disable tracing
-        **kwargs: Additional configuration options
+        orq_instance: An initialized Orq SDK instance
     """
     global _client
+
+    # Extract configuration from Orq instance
+    config_kwargs = {}
     
-    # Create config with provided values
-    config_kwargs = {
-        k: v for k, v in {
-            "api_key": api_key,
-            "api_url": api_url,
-            "debug": debug,
-            "enabled": enabled,
-            **kwargs
-        }.items() if v is not None
-    }
+    # Get API key from the Orq instance's security configuration
+    if orq_instance.sdk_configuration.security:
+        security = orq_instance.sdk_configuration.security
+        if callable(security):
+            security_obj = security()
+            if security_obj and security_obj.api_key:
+                config_kwargs["api_key"] = security_obj.api_key
+        elif hasattr(security, 'api_key'):
+            config_kwargs["api_key"] = security.api_key
     
+    # Get API Base URL from the Orq instance
+    server_url, _ = orq_instance.sdk_configuration.get_server_details()
+
+    if server_url:
+        config_kwargs["api_url"] = server_url
+
+    # Extract debug flag from logger
+    if orq_instance.sdk_configuration.debug_logger:
+        # If a debug logger is set, enable debug mode
+        config_kwargs["debug"] = True
+
+    # Extract timeout if available
+    if orq_instance.sdk_configuration.timeout_ms:
+        config_kwargs["timeout"] = orq_instance.sdk_configuration.timeout_ms / 1000.0
+
+    # Create config with extracted values
     config = Config(**config_kwargs)
     set_config(config)
     
@@ -200,3 +221,40 @@ def init(
     if _client:
         _client.shutdown()
     _client = OrqClient(config)
+
+def _find_orq_instance() -> Optional["Orq"]:
+    """
+    Try to find an Orq instance in the calling context.
+    This searches through the call stack frames to find an Orq instance.
+    """
+    try:
+        from orq_ai_sdk.sdk import Orq
+
+        # Check the main module first
+        main_module = sys.modules.get('__main__')
+        if main_module:
+            for name, obj in vars(main_module).items():
+                if isinstance(obj, Orq):
+                    return obj
+
+        # Check through the call stack
+        for frame_info in inspect.stack():
+            frame = frame_info.frame
+
+            # Check local variables
+            for name, obj in frame.f_locals.items():
+                if isinstance(obj, Orq):
+                    return obj
+
+            # Check global variables in the frame's module
+            for name, obj in frame.f_globals.items():
+                if isinstance(obj, Orq):
+                    return obj
+
+    except Exception as e:
+        if self.config.debug:
+            print(f"Failed to find orq instance for init: {e}")
+        # If anything goes wrong, just return None
+        pass
+
+    return None
