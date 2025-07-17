@@ -26,3 +26,4 @@ The provider used to generate the response
 | `TOGETHERAI`  | togetherai    |
 | `ELEVENLABS`  | elevenlabs    |
 | `LITELLM`     | litellm       |
+| `OPENAILIKE`  | openailike    |

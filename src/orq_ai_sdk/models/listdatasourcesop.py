@@ -125,7 +125,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K06QSTK3NBFXWE7R55D0MR53"
+        "01K0BTG04KSFM00MB7F5EP1NR2"
     )
     r"""The id of the resource"""
 
