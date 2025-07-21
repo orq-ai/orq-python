@@ -4,6 +4,7 @@ import contextvars
 from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
+from .otel_integration import get_current_otel_context, is_otel_available
 from .utils import generate_ulid
 
 if TYPE_CHECKING:
@@ -107,16 +108,35 @@ def create_span_context(
     attributes: Optional[Dict[str, Any]] = None
 ) -> SpanContext:
     """Create a new span context."""
-    trace = get_current_trace()
-    if not trace:
-        trace = create_trace_context()
+    # Try to get OpenTelemetry context first
+    otel_context = get_current_otel_context()
+    
+    if otel_context:
+        # Use OpenTelemetry trace context
+        otel_trace_id, otel_span_id, otel_parent_id = otel_context
+        
+        # Check if we have an existing trace with the same ID
+        trace = get_current_trace()
+        if not trace or trace.trace_id != otel_trace_id:
+            # Create a new trace context with OpenTelemetry trace ID
+            trace = TraceContext(trace_id=otel_trace_id, root_span_id=otel_span_id)
+            set_current_trace(trace)
+        
+        # Use OpenTelemetry parent if no parent specified
+        if not parent_id and otel_parent_id:
+            parent_id = otel_parent_id
+    else:
+        # Fallback to original behavior
+        trace = get_current_trace()
+        if not trace:
+            trace = create_trace_context()
     
     # If no parent_id is provided, use the current span as parent
     if not parent_id:
-        current_span_ctx = get_current_span_context()
-        if current_span_ctx:
-            parent_id = current_span_ctx.span_id
-    
+        current_span = get_current_span()
+        if current_span:
+            parent_id = current_span.span_id
+
     span = SpanContext(
         trace_id=trace.trace_id,
         span_id=generate_ulid(),
