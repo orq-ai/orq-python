@@ -288,6 +288,7 @@ UpdatePromptProvider = Literal[
     "togetherai",
     "elevenlabs",
     "litellm",
+    "openailike",
 ]
 
 UpdatePromptRole = Literal[
@@ -1021,6 +1022,7 @@ UpdatePromptPromptsProvider = Literal[
     "togetherai",
     "elevenlabs",
     "litellm",
+    "openailike",
 ]
 
 UpdatePromptPromptsRole = Literal[

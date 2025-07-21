@@ -5,6 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -91,7 +92,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetAllPromptsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -185,7 +186,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetAllPromptsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -278,7 +279,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreatePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -371,7 +372,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreatePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -459,7 +460,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOnePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -547,7 +548,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOnePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -687,11 +688,11 @@ class Prompts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdatePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.UpdatePromptPromptsResponseBodyData, http_res
             )
             raise models.UpdatePromptPromptsResponseBody(response_data, http_res)
@@ -832,11 +833,11 @@ class Prompts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdatePromptResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.UpdatePromptPromptsResponseBodyData, http_res
             )
             raise models.UpdatePromptPromptsResponseBody(response_data, http_res)
@@ -1102,7 +1103,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListPromptVersionsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1199,7 +1200,7 @@ class Prompts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListPromptVersionsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1291,11 +1292,11 @@ class Prompts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetPromptVersionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.GetPromptVersionPromptsResponseBodyData, http_res
             )
             raise models.GetPromptVersionPromptsResponseBody(response_data, http_res)
@@ -1388,11 +1389,11 @@ class Prompts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetPromptVersionResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
+            response_data = unmarshal_json_response(
                 models.GetPromptVersionPromptsResponseBodyData, http_res
             )
             raise models.GetPromptVersionPromptsResponseBody(response_data, http_res)

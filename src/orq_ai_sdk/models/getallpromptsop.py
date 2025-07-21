@@ -333,6 +333,7 @@ GetAllPromptsProvider = Literal[
     "togetherai",
     "elevenlabs",
     "litellm",
+    "openailike",
 ]
 
 GetAllPromptsRole = Literal[

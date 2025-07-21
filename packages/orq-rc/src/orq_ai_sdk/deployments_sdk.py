@@ -7,6 +7,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.metrics import Metrics
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, List, Mapping, Optional, Union
 
 
@@ -104,13 +105,11 @@ class DeploymentsSDK(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentsResponseBody], http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -204,13 +203,11 @@ class DeploymentsSDK(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentsResponseBody], http_res
             )
         if utils.match_response(http_res, "500", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -381,7 +378,7 @@ class DeploymentsSDK(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentGetConfigResponseBody], http_res
             )
         if utils.match_response(http_res, "204", "*"):
@@ -555,7 +552,7 @@ class DeploymentsSDK(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentGetConfigResponseBody], http_res
             )
         if utils.match_response(http_res, "204", "*"):
@@ -707,7 +704,7 @@ class DeploymentsSDK(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentInvokeResponseBody], http_res
             )
         if utils.match_response(http_res, "204", "*"):
@@ -859,7 +856,7 @@ class DeploymentsSDK(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.DeploymentInvokeResponseBody], http_res
             )
         if utils.match_response(http_res, "204", "*"):

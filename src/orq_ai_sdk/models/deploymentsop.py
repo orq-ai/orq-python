@@ -410,6 +410,7 @@ DeploymentsProvider = Literal[
     "togetherai",
     "elevenlabs",
     "litellm",
+    "openailike",
 ]
 
 DeploymentsRole = Literal[

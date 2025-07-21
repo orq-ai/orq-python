@@ -152,9 +152,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -267,9 +267,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -338,6 +338,155 @@ GetEvalsDataEvalsResponseGuardrailConfig = TypeAliasType(
 
 
 GetEvalsDataEvalsResponse200Type = Literal["function_eval"]
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData535Type = Literal[
+    "bert_coherence"
+]
+
+
+class ThirtyFiveTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData535Type
+
+
+class ThirtyFive(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData535Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData534Type = Literal[
+    "grammar_diversity"
+]
+
+
+class ThirtyFourTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData534Type
+
+
+class ThirtyFour(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData534Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData533Type = Literal[
+    "semantic_repetition"
+]
+
+
+class ThirtyThreeTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData533Type
+
+
+class ThirtyThree(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData533Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData532Type = Literal[
+    "lexical_repetition"
+]
+
+
+class ThirtyTwoTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData532Type
+
+
+class ThirtyTwo(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData532Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData531Type = Literal[
+    "sentences_count"
+]
+
+
+class ThirtyOneTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData531Type
+
+
+class ThirtyOne(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData531Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData530Type = Literal[
+    "words_count"
+]
+
+
+class ThirtyTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData530Type
+
+
+class Thirty(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData530Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData529Type = Literal[
+    "gse_english_level"
+]
+
+
+class TwentyNineTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData529Type
+
+
+class TwentyNine(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData529Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData528Type = Literal[
+    "flesch_reading_ease"
+]
+
+
+class TwentyEightTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData528Type
+
+
+class TwentyEight(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData528Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData527Type = Literal[
+    "most_repeated_words"
+]
+
+
+class TwentySevenTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData527Type
+
+
+class TwentySeven(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData527Type
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData526Type = Literal[
+    "keywords_match"
+]
+
+
+class TwentySixTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData526Type
+    keywords: List[str]
+
+
+class TwentySix(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData526Type
+
+    keywords: List[str]
+
+
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData525Type = Literal[
+    "topic_match"
+]
+
+
+class TwentyFiveTypedDict(TypedDict):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData525Type
+    topic: str
+
+
+class TwentyFive(BaseModel):
+    type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData525Type
+
+    topic: str
+
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData524Type = Literal[
     "levenshtein_distance"
@@ -675,29 +824,40 @@ class FunctionParams1(BaseModel):
 DataFunctionParamsTypedDict = TypeAliasType(
     "DataFunctionParamsTypedDict",
     Union[
-        NineteenTypedDict,
-        TwentyOneTypedDict,
-        TwentyFourTypedDict,
-        TwentyThreeTypedDict,
+        ThirtyTypedDict,
+        ThirtyOneTypedDict,
+        ThirtyFourTypedDict,
+        ThirtyThreeTypedDict,
         FiveTypedDict,
         SixTypedDict,
-        TwentyTwoTypedDict,
-        SixteenTypedDict,
-        TwentyTypedDict,
-        TenTypedDict,
-        EighteenTypedDict,
         SevenTypedDict,
-        SeventeenTypedDict,
+        TwentyEightTypedDict,
+        TwentyNineTypedDict,
+        TenTypedDict,
+        ThirtyFiveTypedDict,
+        TwentyFourTypedDict,
+        ThirtyTwoTypedDict,
         FourteenTypedDict,
-        ThirteenTypedDict,
-        FifteenTypedDict,
-        ElevenTypedDict,
-        FunctionParams2TypedDict,
-        FunctionParams1TypedDict,
+        TwentySevenTypedDict,
+        SixteenTypedDict,
+        SeventeenTypedDict,
+        EighteenTypedDict,
+        NineteenTypedDict,
+        TwentyTypedDict,
+        TwentyOneTypedDict,
+        TwentyTwoTypedDict,
+        TwentyThreeTypedDict,
         NineTypedDict,
+        TwentyFiveTypedDict,
+        TwentySixTypedDict,
+        FifteenTypedDict,
+        ThirteenTypedDict,
+        ElevenTypedDict,
+        FunctionParams1TypedDict,
         EightTypedDict,
         FunctionParams4TypedDict,
         FunctionParams3TypedDict,
+        FunctionParams2TypedDict,
         TwelveTypedDict,
     ],
 )
@@ -706,29 +866,40 @@ DataFunctionParamsTypedDict = TypeAliasType(
 DataFunctionParams = TypeAliasType(
     "DataFunctionParams",
     Union[
-        Nineteen,
-        TwentyOne,
-        TwentyFour,
-        TwentyThree,
+        Thirty,
+        ThirtyOne,
+        ThirtyFour,
+        ThirtyThree,
         Five,
         Six,
-        TwentyTwo,
-        Sixteen,
-        Twenty,
-        Ten,
-        Eighteen,
         Seven,
-        Seventeen,
+        TwentyEight,
+        TwentyNine,
+        Ten,
+        ThirtyFive,
+        TwentyFour,
+        ThirtyTwo,
         Fourteen,
-        Thirteen,
-        Fifteen,
-        Eleven,
-        FunctionParams2,
-        FunctionParams1,
+        TwentySeven,
+        Sixteen,
+        Seventeen,
+        Eighteen,
+        Nineteen,
+        Twenty,
+        TwentyOne,
+        TwentyTwo,
+        TwentyThree,
         Nine,
+        TwentyFive,
+        TwentySix,
+        Fifteen,
+        Thirteen,
+        Eleven,
+        FunctionParams1,
         Eight,
         FunctionParams4,
         FunctionParams3,
+        FunctionParams2,
         Twelve,
     ],
 )
@@ -756,9 +927,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -846,9 +1017,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -942,9 +1113,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1045,9 +1216,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1151,9 +1322,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-07-04T12:58:18.731Z"
+    created: Optional[str] = "2025-07-21T08:30:48.414Z"
 
-    updated: Optional[str] = "2025-07-04T12:58:18.731Z"
+    updated: Optional[str] = "2025-07-21T08:30:48.414Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

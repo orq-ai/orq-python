@@ -11,9 +11,9 @@ Similarity threshold for grouping (0-1) or "auto" for automatic detection
 value: float = /* values here */
 ```
 
-### `models.ChunkTextThreshold2`
+### `models.ParseThreshold2`
 
 ```python
-value: models.ChunkTextThreshold2 = /* values here */
+value: models.ParseThreshold2 = /* values here */
 ```
 

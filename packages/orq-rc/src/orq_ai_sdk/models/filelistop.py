@@ -74,7 +74,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2025-07-04T12:58:19.613Z")
+    created: Optional[datetime] = parse_datetime("2025-07-21T08:30:49.315Z")
     r"""The date and time the resource was created"""
 
 

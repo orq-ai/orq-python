@@ -5,6 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Dict, List, Mapping, Optional, Union
 
 
@@ -91,7 +92,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListKnowledgeBasesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -185,8 +186,218 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListKnowledgeBasesResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def create(
+        self,
+        *,
+        key: str,
+        embedding_model: str,
+        path: str,
+        description: Optional[str] = None,
+        retrieval_settings: Optional[
+            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateKnowledgeResponseBody]:
+        r"""Create a knowledge
+
+        :param key:
+        :param embedding_model: The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param description:
+        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateKnowledgeRequestBody(
+            key=key,
+            description=description,
+            embedding_model=embedding_model,
+            retrieval_settings=utils.get_pydantic_model(
+                retrieval_settings, Optional[models.RetrievalSettings]
+            ),
+            path=path,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/knowledge",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.CreateKnowledgeRequestBody
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateKnowledge",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.CreateKnowledgeResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_async(
+        self,
+        *,
+        key: str,
+        embedding_model: str,
+        path: str,
+        description: Optional[str] = None,
+        retrieval_settings: Optional[
+            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateKnowledgeResponseBody]:
+        r"""Create a knowledge
+
+        :param key:
+        :param embedding_model: The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.
+        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param description:
+        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateKnowledgeRequestBody(
+            key=key,
+            description=description,
+            embedding_model=embedding_model,
+            retrieval_settings=utils.get_pydantic_model(
+                retrieval_settings, Optional[models.RetrievalSettings]
+            ),
+            path=path,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/knowledge",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.CreateKnowledgeRequestBody
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateKnowledge",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.CreateKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -273,7 +484,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, ["404", "4XX"], "*"):
@@ -361,7 +572,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, ["404", "4XX"], "*"):
@@ -381,7 +592,10 @@ class Knowledge(BaseSDK):
         embedding_model: Optional[str] = None,
         path: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+            Union[
+                models.UpdateKnowledgeRetrievalSettings,
+                models.UpdateKnowledgeRetrievalSettingsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -420,7 +634,8 @@ class Knowledge(BaseSDK):
                 embedding_model=embedding_model,
                 path=path,
                 retrieval_settings=utils.get_pydantic_model(
-                    retrieval_settings, Optional[models.RetrievalSettings]
+                    retrieval_settings,
+                    Optional[models.UpdateKnowledgeRetrievalSettings],
                 ),
             ),
         )
@@ -472,7 +687,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -492,7 +707,10 @@ class Knowledge(BaseSDK):
         embedding_model: Optional[str] = None,
         path: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+            Union[
+                models.UpdateKnowledgeRetrievalSettings,
+                models.UpdateKnowledgeRetrievalSettingsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -531,7 +749,8 @@ class Knowledge(BaseSDK):
                 embedding_model=embedding_model,
                 path=path,
                 retrieval_settings=utils.get_pydantic_model(
-                    retrieval_settings, Optional[models.RetrievalSettings]
+                    retrieval_settings,
+                    Optional[models.UpdateKnowledgeRetrievalSettings],
                 ),
             ),
         )
@@ -583,7 +802,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -873,7 +1092,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.SearchKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -991,7 +1210,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.SearchKnowledgeResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1092,7 +1311,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasourcesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1193,7 +1412,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasourcesResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1301,7 +1520,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1409,7 +1628,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1498,7 +1717,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1587,7 +1806,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1866,7 +2085,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1967,7 +2186,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasourceResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2070,7 +2289,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2173,7 +2392,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2279,7 +2498,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListChunksResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2385,7 +2604,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListChunksResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2500,7 +2719,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2615,7 +2834,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2887,7 +3106,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -2979,7 +3198,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.GetOneChunkResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):

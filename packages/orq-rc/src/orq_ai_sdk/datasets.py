@@ -5,6 +5,7 @@ from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
@@ -91,7 +92,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasetsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -185,7 +186,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasetsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -283,7 +284,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -381,7 +382,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -470,13 +471,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -564,13 +563,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -676,13 +673,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -788,13 +783,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatasetResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1062,7 +1055,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasetDatapointsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1159,7 +1152,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.ListDatasetDatapointsResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1272,7 +1265,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasetItemResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1385,7 +1378,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.CreateDatasetItemResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
@@ -1477,13 +1470,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatapointResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1574,13 +1565,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.RetrieveDatapointResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1694,13 +1683,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatapointResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1814,13 +1801,11 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 Optional[models.UpdateDatapointResponseBody], http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1913,9 +1898,7 @@ class Datasets(BaseSDK):
         if utils.match_response(http_res, "204", "*"):
             return
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2008,9 +1991,7 @@ class Datasets(BaseSDK):
         if utils.match_response(http_res, "204", "*"):
             return
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json_response(
-                models.HonoAPIErrorData, http_res
-            )
+            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

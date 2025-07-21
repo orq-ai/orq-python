@@ -654,17 +654,17 @@ InvokeEvalResponseBodyType = Literal["string"]
 
 class StringTypedDict(TypedDict):
     type: InvokeEvalResponseBodyType
-    value: Nullable[str]
+    value: NotRequired[Nullable[str]]
 
 
 class String(BaseModel):
     type: InvokeEvalResponseBodyType
 
-    value: Nullable[str]
+    value: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
+        optional_fields = ["value"]
         nullable_fields = ["value"]
         null_default_fields = []
 
