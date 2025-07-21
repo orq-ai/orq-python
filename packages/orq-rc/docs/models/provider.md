@@ -24,3 +24,4 @@
 | `TOGETHERAI`  | togetherai    |
 | `ELEVENLABS`  | elevenlabs    |
 | `LITELLM`     | litellm       |
+| `OPENAILIKE`  | openailike    |

@@ -9,19 +9,19 @@ from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Mapping, Optional, Union, cast
 
 
-class KnowledgeBases(BaseSDK):
-    def chunk_text(
+class Chunking(BaseSDK):
+    def parse(
         self,
         *,
         request: Union[
-            models.ChunkTextChunkingRequest, models.ChunkTextChunkingRequestTypedDict
+            models.ParseChunkingRequest, models.ParseChunkingRequestTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ChunkTextResponseBody]:
-        r"""Chunk text
+    ) -> Optional[models.ParseResponseBody]:
+        r"""Parse text
 
         Split large text documents into smaller, manageable chunks using different chunking strategies optimized for RAG (Retrieval-Augmented Generation) workflows. This endpoint supports multiple chunking algorithms including token-based, sentence-based, recursive, semantic, and specialized strategies.
 
@@ -45,12 +45,12 @@ class KnowledgeBases(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ChunkTextChunkingRequest)
-        request = cast(models.ChunkTextChunkingRequest, request)
+            request = utils.unmarshal(request, models.ParseChunkingRequest)
+        request = cast(models.ParseChunkingRequest, request)
 
         req = self._build_request(
             method="POST",
-            path="/v2/knowledge",
+            path="/v2/chunking",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -62,7 +62,7 @@ class KnowledgeBases(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ChunkTextChunkingRequest
+                request, False, False, "json", models.ParseChunkingRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -79,7 +79,7 @@ class KnowledgeBases(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="ChunkText",
+                operation_id="parse",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -91,9 +91,7 @@ class KnowledgeBases(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ChunkTextResponseBody], http_res
-            )
+            return unmarshal_json_response(Optional[models.ParseResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -103,18 +101,18 @@ class KnowledgeBases(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    async def chunk_text_async(
+    async def parse_async(
         self,
         *,
         request: Union[
-            models.ChunkTextChunkingRequest, models.ChunkTextChunkingRequestTypedDict
+            models.ParseChunkingRequest, models.ParseChunkingRequestTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ChunkTextResponseBody]:
-        r"""Chunk text
+    ) -> Optional[models.ParseResponseBody]:
+        r"""Parse text
 
         Split large text documents into smaller, manageable chunks using different chunking strategies optimized for RAG (Retrieval-Augmented Generation) workflows. This endpoint supports multiple chunking algorithms including token-based, sentence-based, recursive, semantic, and specialized strategies.
 
@@ -138,12 +136,12 @@ class KnowledgeBases(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ChunkTextChunkingRequest)
-        request = cast(models.ChunkTextChunkingRequest, request)
+            request = utils.unmarshal(request, models.ParseChunkingRequest)
+        request = cast(models.ParseChunkingRequest, request)
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/knowledge",
+            path="/v2/chunking",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -155,7 +153,7 @@ class KnowledgeBases(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ChunkTextChunkingRequest
+                request, False, False, "json", models.ParseChunkingRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -172,7 +170,7 @@ class KnowledgeBases(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="ChunkText",
+                operation_id="parse",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -184,9 +182,7 @@ class KnowledgeBases(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ChunkTextResponseBody], http_res
-            )
+            return unmarshal_json_response(Optional[models.ParseResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

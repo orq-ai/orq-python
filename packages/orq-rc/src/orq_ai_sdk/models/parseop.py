@@ -7,9 +7,7 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType = Literal[
-    "chunks", "texts"
-]
+ParseChunkingRequestChunkingRequestRequestBodyReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 AgenticChunker = Literal["agentic"]
@@ -25,9 +23,7 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     r"""Chat model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy#chat-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[
-        ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType
-    ]
+    return_type: NotRequired[ParseChunkingRequestChunkingRequestRequestBodyReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -51,9 +47,9 @@ class AgenticChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[
-        ChunkTextChunkingRequestKnowledgeBasesRequestRequestBodyReturnType
-    ] = "chunks"
+    return_type: Optional[ParseChunkingRequestChunkingRequestRequestBodyReturnType] = (
+        "chunks"
+    )
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 1024
@@ -66,21 +62,21 @@ class AgenticChunkerStrategy(BaseModel):
     r"""Minimum characters allowed per chunk"""
 
 
-ChunkTextChunkingRequestKnowledgeBasesRequestReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestChunkingRequestReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 SDPMChunker = Literal["sdpm"]
 
-ChunkTextThreshold2 = Literal["auto"]
+ParseThreshold2 = Literal["auto"]
 
 ChunkingRequestThresholdTypedDict = TypeAliasType(
-    "ChunkingRequestThresholdTypedDict", Union[float, ChunkTextThreshold2]
+    "ChunkingRequestThresholdTypedDict", Union[float, ParseThreshold2]
 )
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
 
 
 ChunkingRequestThreshold = TypeAliasType(
-    "ChunkingRequestThreshold", Union[float, ChunkTextThreshold2]
+    "ChunkingRequestThreshold", Union[float, ParseThreshold2]
 )
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
 
@@ -99,7 +95,7 @@ class SDPMChunkerStrategyTypedDict(TypedDict):
     r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeBasesRequestReturnType]
+    return_type: NotRequired[ParseChunkingRequestChunkingRequestReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -125,9 +121,7 @@ class SDPMChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ChunkTextChunkingRequestKnowledgeBasesRequestReturnType] = (
-        "chunks"
-    )
+    return_type: Optional[ParseChunkingRequestChunkingRequestReturnType] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 512
@@ -143,7 +137,7 @@ class SDPMChunkerStrategy(BaseModel):
     r"""Chunking mode: window-based or sentence-based similarity"""
 
 
-ChunkTextChunkingRequestKnowledgeBasesReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestChunkingReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 SemanticChunker = Literal["semantic"]
@@ -172,7 +166,7 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ChunkTextChunkingRequestKnowledgeBasesReturnType]
+    return_type: NotRequired[ParseChunkingRequestChunkingReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -198,7 +192,7 @@ class SemanticChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ChunkTextChunkingRequestKnowledgeBasesReturnType] = "chunks"
+    return_type: Optional[ParseChunkingRequestChunkingReturnType] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 512
@@ -214,7 +208,7 @@ class SemanticChunkerStrategy(BaseModel):
     r"""Window size for similarity comparison"""
 
 
-ChunkTextChunkingRequestReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestReturnType = Literal["chunks", "texts"]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
 RecursiveChunker = Literal["recursive"]
@@ -228,7 +222,7 @@ class RecursiveChunkerStrategyTypedDict(TypedDict):
     strategy: RecursiveChunker
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ChunkTextChunkingRequestReturnType]
+    return_type: NotRequired[ParseChunkingRequestReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -249,7 +243,7 @@ class RecursiveChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ChunkTextChunkingRequestReturnType] = "chunks"
+    return_type: Optional[ParseChunkingRequestReturnType] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 512
@@ -353,8 +347,8 @@ class TokenChunkerStrategy(BaseModel):
     r"""Number of tokens to overlap between chunks"""
 
 
-ChunkTextChunkingRequestTypedDict = TypeAliasType(
-    "ChunkTextChunkingRequestTypedDict",
+ParseChunkingRequestTypedDict = TypeAliasType(
+    "ParseChunkingRequestTypedDict",
     Union[
         TokenChunkerStrategyTypedDict,
         SentenceChunkerStrategyTypedDict,
@@ -367,8 +361,8 @@ ChunkTextChunkingRequestTypedDict = TypeAliasType(
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 
-ChunkTextChunkingRequest = TypeAliasType(
-    "ChunkTextChunkingRequest",
+ParseChunkingRequest = TypeAliasType(
+    "ParseChunkingRequest",
     Union[
         TokenChunkerStrategy,
         SentenceChunkerStrategy,
@@ -381,13 +375,13 @@ ChunkTextChunkingRequest = TypeAliasType(
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 
-class ChunkTextMetadataTypedDict(TypedDict):
+class ParseMetadataTypedDict(TypedDict):
     start_index: Nullable[float]
     end_index: Nullable[float]
     token_count: Nullable[float]
 
 
-class ChunkTextMetadata(BaseModel):
+class ParseMetadata(BaseModel):
     start_index: Nullable[float]
 
     end_index: Nullable[float]
@@ -430,7 +424,7 @@ class ChunksTypedDict(TypedDict):
     r"""The text content of the chunk"""
     index: float
     r"""The position index of this chunk in the sequence"""
-    metadata: NotRequired[ChunkTextMetadataTypedDict]
+    metadata: NotRequired[ParseMetadataTypedDict]
 
 
 class Chunks(BaseModel):
@@ -440,16 +434,16 @@ class Chunks(BaseModel):
     index: float
     r"""The position index of this chunk in the sequence"""
 
-    metadata: Optional[ChunkTextMetadata] = None
+    metadata: Optional[ParseMetadata] = None
 
 
-class ChunkTextResponseBodyTypedDict(TypedDict):
+class ParseResponseBodyTypedDict(TypedDict):
     r"""Text successfully chunked"""
 
     chunks: List[ChunksTypedDict]
 
 
-class ChunkTextResponseBody(BaseModel):
+class ParseResponseBody(BaseModel):
     r"""Text successfully chunked"""
 
     chunks: List[Chunks]
