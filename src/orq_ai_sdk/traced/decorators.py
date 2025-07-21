@@ -10,6 +10,7 @@ from .config import get_config
 from .span import Span
 from .context import create_span_context, get_current_span_context, SpanContextManager
 from .utils import serialize_value, validate_span_type
+from .otel_integration import create_otel_span, is_otel_available
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -95,6 +96,16 @@ def traced(
             
             # Execute function within span context
             client = get_client()
+
+            # Create OpenTelemetry span if integration is enabled
+            otel_span = None
+            if config.otel_integration and is_otel_available():
+                otel_span = create_otel_span(
+                    name=span_name,
+                    trace_id=span.trace_id,
+                    span_id=span.span_id,
+                    parent_id=span.parent_id
+                )
             
             try:
                 with SpanContextManager(span_context, span):
@@ -111,6 +122,14 @@ def traced(
                     
                     # Mark span as successful
                     span.set_attribute("status", "success")
+
+                    # Update OpenTelemetry span status
+                    if otel_span:
+                        try:
+                            from opentelemetry.trace import Status, StatusCode
+                            otel_span.set_status(Status(StatusCode.OK))
+                        except Exception:
+                            pass
                     
                     return result
             
@@ -118,6 +137,15 @@ def traced(
                 # Mark span as failed
                 span.set_attribute("status", "error")
                 span.set_attribute("error.message", str(e))
+
+                # Update OpenTelemetry span with error
+                if otel_span:
+                    try:
+                        from opentelemetry.trace import Status, StatusCode
+                        otel_span.set_status(Status(StatusCode.ERROR, str(e)))
+                        otel_span.record_exception(e)
+                    except Exception:
+                        pass
                 
                 raise
             
