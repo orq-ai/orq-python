@@ -22,9 +22,13 @@ def is_otel_available() -> bool:
         return False
     
     try:
-        # Check if there's an active tracer provider configured
-        tracer = trace.get_tracer("orq_ai_sdk.traced")
-        return tracer is not None
+        # Check if there's a proper tracer provider configured
+        tracer_provider = trace.get_tracer_provider()
+        provider_class = tracer_provider.__class__.__name__
+        
+        # Only consider it available if we have a real TracerProvider (not proxy or noop)
+        # Real providers are usually TracerProvider from the SDK
+        return provider_class == 'TracerProvider'
     except Exception:
         return False
 
@@ -86,40 +90,12 @@ def create_otel_span(name: str, trace_id: str, span_id: str, parent_id: Optional
     try:
         tracer = trace.get_tracer("orq_ai_sdk.traced")
         
-        # Convert hex strings to integers for OpenTelemetry
-        trace_id_int = int(trace_id[:32], 16)  # Use first 32 chars if ULID
-        span_id_int = int(span_id[:16], 16)    # Use first 16 chars if ULID
+        # Use the current OpenTelemetry context as parent to maintain correlation
+        # This ensures the traced span becomes a child of the existing OpenTelemetry span
+        current_context = trace.get_current()
         
-        # Create a span context
-        span_context = SpanContext(
-            trace_id=trace_id_int,
-            span_id=span_id_int,
-            is_remote=False,
-            trace_flags=TraceFlags.SAMPLED,
-            trace_state=TraceState()
-        )
-        
-        # Create context with parent if available
-        context = None
-        if parent_id:
-            try:
-                parent_span_id_int = int(parent_id[:16], 16)
-                parent_context = SpanContext(
-                    trace_id=trace_id_int,
-                    span_id=parent_span_id_int,
-                    is_remote=False,
-                    trace_flags=TraceFlags.SAMPLED,
-                    trace_state=TraceState()
-                )
-                context = trace.set_span_in_context(trace.NonRecordingSpan(parent_context))
-            except Exception:
-                pass
-        
-        # Start the span
-        span = tracer.start_span(name, context=context)
-        
-        # Make it the current span
-        token = trace.set_span_in_context(span)
+        # Start the span with the current context as parent
+        span = tracer.start_span(name, context=current_context)
         
         return span
     
