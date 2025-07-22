@@ -572,5 +572,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-07-22T06:21:36.068Z")
+    updated: Optional[datetime] = parse_datetime("2025-07-22T10:23:13.475Z")
     r"""The date and time the resource was last updated"""
