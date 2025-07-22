@@ -27,3 +27,4 @@ The provider used to generate the response
 | `ELEVENLABS`  | elevenlabs    |
 | `LITELLM`     | litellm       |
 | `OPENAILIKE`  | openailike    |
+| `CEREBRAS`    | cerebras      |
