@@ -8,8 +8,9 @@ from typing import Any, Callable, Dict, Optional, TypeVar, Union
 from .client import get_client
 from .config import get_config
 from .span import Span
-from .context import create_span_context, get_current_span, SpanContextManager
+from .context import create_span_context, get_current_span_context, SpanContextManager
 from .utils import serialize_value, validate_span_type
+from .otel_integration import is_otel_available
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -95,9 +96,21 @@ def traced(
             
             # Execute function within span context
             client = get_client()
+
+            # Create OpenTelemetry span if integration is enabled
+            otel_span = None
+            otel_context_token = None
+            if is_otel_available():
+                from opentelemetry import trace, context
+                # Use the global tracer - this will inherit from current context automatically
+                tracer = trace.get_tracer(__name__)
+                otel_span = tracer.start_span(span_name)
+                # Properly attach the span context
+                span_context = trace.set_span_in_context(otel_span)
+                otel_context_token = context.attach(span_context)
             
             try:
-                with SpanContextManager(span_context):
+                with SpanContextManager(span_context, span):
                     # Execute the function
                     result = func(*args, **kwargs)
                     
@@ -111,6 +124,30 @@ def traced(
                     
                     # Mark span as successful
                     span.set_attribute("status", "success")
+
+                    # Update OpenTelemetry span with data and status
+                    if otel_span:
+                        try:
+                            from opentelemetry.trace import Status, StatusCode
+                            
+                            # Copy attributes from traced span to OpenTelemetry span
+                            for key, value in span.attributes.items():
+                                otel_span.set_attribute(key, str(value))
+                            
+                            # Add traced span type
+                            otel_span.set_attribute("type", span.type)
+                            
+                            # Add input data if captured
+                            if span.input is not None:
+                                otel_span.set_attribute("input", str(span.input))
+                            
+                            # Add output data if captured
+                            if span.output is not None:
+                                otel_span.set_attribute("output", str(span.output))
+                            
+                            otel_span.set_status(Status(StatusCode.OK))
+                        except Exception:
+                            pass
                     
                     return result
             
@@ -118,10 +155,38 @@ def traced(
                 # Mark span as failed
                 span.set_attribute("status", "error")
                 span.set_attribute("error.message", str(e))
+
+                # Update OpenTelemetry span with error and data
+                if otel_span:
+                    try:
+                        from opentelemetry.trace import Status, StatusCode
+                        
+                        # Copy attributes from traced span to OpenTelemetry span
+                        for key, value in span.attributes.items():
+                            otel_span.set_attribute(key, str(value))
+                        
+                        # Add traced span type
+                        otel_span.set_attribute("type", span.type)
+                        
+                        # Add input data if captured
+                        if span.input is not None:
+                            otel_span.set_attribute("input", str(span.input))
+                        
+                        otel_span.set_status(Status(StatusCode.ERROR, str(e)))
+                        otel_span.record_exception(e)
+                    except Exception:
+                        pass
                 
                 raise
             
             finally:
+                # End the OpenTelemetry span and restore context
+                if otel_span:
+                    otel_span.end()
+                if otel_context_token:
+                    from opentelemetry import context
+                    context.detach(otel_context_token)
+                
                 # End the span
                 span.end()
                 
@@ -129,7 +194,7 @@ def traced(
                 client.submit_span(span)
         
         return wrapper
-    
+
     # Handle both @traced and @traced() syntax
     if _func is None:
         return decorator

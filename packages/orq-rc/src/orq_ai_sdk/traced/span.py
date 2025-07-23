@@ -1,10 +1,43 @@
 """Span implementation for Orq tracing."""
 
 import time
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, TypedDict
 from dataclasses import dataclass, field
 
 from .utils import serialize_value, validate_span_type, get_current_time_iso
+
+
+class CompletionTokensDetails(TypedDict, total=False):
+    """Type definition for completion tokens details."""
+    accepted_prediction_tokens: int
+    reasoning_tokens: int
+    rejected_prediction_tokens: int
+
+
+class PromptTokensDetails(TypedDict, total=False):
+    """Type definition for prompt tokens details."""
+    cached_tokens: int
+
+
+class Metrics(TypedDict, total=False):
+    """Type definition for metrics in span logging."""
+    prompt_tokens: int
+    completion_tokens: int
+    tokens: int
+    completion_tokens_details: CompletionTokensDetails
+    prompt_tokens_details: PromptTokensDetails
+
+
+class Request(TypedDict, total=False):
+    """Type definition for AI request parameters."""
+    provider: str
+    model: str
+    temperature: float
+    top_p: float
+    max_tokens: int
+    frequency_penalty: float
+    presence_penalty: float
+    seed: Union[str, int]
 
 
 @dataclass
@@ -80,8 +113,8 @@ class Span:
             end_time = get_current_time_iso()
         self.end_time = end_time
     
-    def log(self, input: Any = None, output: Any = None, metrics: Optional[Dict[str, Any]] = None, metadata: Optional[Dict[str, Any]] = None) -> None:
-        """Log input, output, metrics, and metadata to the span."""
+    def log(self, input: Any = None, output: Any = None, metrics: Optional[Metrics] = None, metadata: Optional[Dict[str, Any]] = None, request: Optional[Request] = None) -> None:
+        """Log input, output, metrics, metadata, provider, and model to the span."""
         if input is not None:
             self.set_input(input)
         
@@ -90,6 +123,9 @@ class Span:
         
         if metrics is not None:
             self.set_attribute("metrics", metrics)
+
+        if request is not None:
+            self.set_attribute("request", request)
         
         if metadata is not None:
             self.set_attribute("metadata", metadata)
@@ -121,7 +157,7 @@ class Span:
             span_dict["_id"] = self._id
         
         if self.parent_id:
-            span_dict["context"]["parent_id"] = self.parent_id
+            span_dict["parent_id"] = self.parent_id
         
         if self.session_id:
             span_dict["context"]["session_id"] = self.session_id

@@ -1,10 +1,14 @@
 """Context management for tracing."""
 
 import contextvars
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
+from .otel_integration import get_current_otel_context, is_otel_available
 from .utils import generate_ulid
+
+if TYPE_CHECKING:
+    from .span import Span
 
 
 @dataclass
@@ -23,8 +27,6 @@ class TraceContext:
     """Context for the entire trace."""
     trace_id: str
     root_span_id: str
-    spans: List[SpanContext] = field(default_factory=list)
-    active_span: Optional[SpanContext] = None
 
 
 # Context variables for trace and span tracking
@@ -33,6 +35,9 @@ _trace_context: contextvars.ContextVar[Optional[TraceContext]] = contextvars.Con
 )
 _span_stack: contextvars.ContextVar[List[SpanContext]] = contextvars.ContextVar(
     "span_stack", default=[]
+)
+_active_span_object: contextvars.ContextVar[Optional["Span"]] = contextvars.ContextVar(
+    "active_span_object", default=None
 )
 
 
@@ -68,10 +73,20 @@ def pop_span() -> Optional[SpanContext]:
     return None
 
 
-def get_current_span() -> Optional[SpanContext]:
-    """Get the current active span."""
+def get_current_span_context() -> Optional[SpanContext]:
+    """Get the current active span context (metadata only - IDs and attributes)."""
     stack = get_span_stack()
     return stack[-1] if stack else None
+
+
+def set_active_span(span: Optional["Span"]) -> None:
+    """Set the active span object (full span with logging capabilities)."""
+    _active_span_object.set(span)
+
+
+def current_span() -> Optional["Span"]:
+    """Get the current active span object that can be used to log data."""
+    return _active_span_object.get()
 
 
 def create_trace_context(trace_id: Optional[str] = None) -> TraceContext:
@@ -91,16 +106,35 @@ def create_span_context(
     attributes: Optional[Dict[str, Any]] = None
 ) -> SpanContext:
     """Create a new span context."""
-    trace = get_current_trace()
-    if not trace:
-        trace = create_trace_context()
+    # Try to get OpenTelemetry context first
+    otel_context = get_current_otel_context()
+    
+    if otel_context:
+        # Use OpenTelemetry trace context
+        otel_trace_id, otel_span_id, otel_parent_id = otel_context
+        
+        # Check if we have an existing trace with the same ID
+        trace = get_current_trace()
+        if not trace or trace.trace_id != otel_trace_id:
+            # Create a new trace context with OpenTelemetry trace ID
+            trace = TraceContext(trace_id=otel_trace_id, root_span_id=otel_span_id)
+            set_current_trace(trace)
+        
+        # Use current OpenTelemetry span as parent if no parent specified
+        if not parent_id:
+            parent_id = otel_span_id
+    else:
+        # Fallback to original behavior
+        trace = get_current_trace()
+        if not trace:
+            trace = create_trace_context()
     
     # If no parent_id is provided, use the current span as parent
     if not parent_id:
-        current_span = get_current_span()
+        current_span = get_current_span_context()
         if current_span:
             parent_id = current_span.span_id
-    
+
     span = SpanContext(
         trace_id=trace.trace_id,
         span_id=generate_ulid(),
@@ -114,13 +148,20 @@ def create_span_context(
 class SpanContextManager:
     """Context manager for span lifecycle."""
     
-    def __init__(self, span: SpanContext):
+    def __init__(self, span: SpanContext, span_object: Optional["Span"] = None):
         self.span = span
+        self.span_object = span_object
+        self.previous_span = None
     
     def __enter__(self):
         push_span(self.span)
+        if self.span_object:
+            self.previous_span = current_span()
+            set_active_span(self.span_object)
         return self.span
     
     def __exit__(self, exc_type, exc_val, exc_tb):
         pop_span()
+        if self.span_object:
+            set_active_span(self.previous_span)
         return False
