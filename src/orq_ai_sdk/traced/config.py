@@ -12,7 +12,7 @@ class Config:
     api_key: Optional[str] = None
     api_url: str = "https://my.orq.ai"
     workspace_id: Optional[str] = None
-    batch_size: int = 100
+    batch_size: int = 25
     flush_interval: float = 1.0  # seconds
     timeout: float = 30.0  # seconds
     max_retries: int = 3

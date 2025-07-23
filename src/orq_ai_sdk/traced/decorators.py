@@ -10,7 +10,7 @@ from .config import get_config
 from .span import Span
 from .context import create_span_context, get_current_span_context, SpanContextManager
 from .utils import serialize_value, validate_span_type
-from .otel_integration import create_otel_span, is_otel_available
+from .otel_integration import is_otel_available
 
 
 F = TypeVar('F', bound=Callable[..., Any])
@@ -49,10 +49,7 @@ def traced(
 
             # Get configuration
             config = get_config()
-            print(f"Config enabled: {config.enabled}")
-            print(f"Config API key present: {bool(config.api_key)}")
             if not config.enabled:
-                print("Tracing disabled - returning without tracing")
                 return func(*args, **kwargs)
 
             # Determine span name
@@ -104,7 +101,6 @@ def traced(
             otel_span = None
             otel_context_token = None
             if is_otel_available():
-                print('otel available')
                 from opentelemetry import trace, context
                 # Use the global tracer - this will inherit from current context automatically
                 tracer = trace.get_tracer(__name__)
@@ -195,9 +191,7 @@ def traced(
                 span.end()
                 
                 # Submit the span
-                print(f"Submitting span: {span.name}")
                 client.submit_span(span)
-                print("Span submitted successfully")
         
         return wrapper
 

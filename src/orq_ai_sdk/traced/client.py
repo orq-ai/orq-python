@@ -1,6 +1,7 @@
 """Client for communicating with Orq API."""
 
 import atexit
+import inspect
 import json
 import queue
 import threading
@@ -26,8 +27,7 @@ class OrqClient:
         
         # Initialize queue for batching
         self._queue = queue.Queue()
-        self._batch = []
-        self._batch_lock = threading.Lock()
+        self._flush_lock = threading.Lock()
         
         # Start background thread for flushing
         self._stop_event = threading.Event()
@@ -65,27 +65,27 @@ class OrqClient:
             self._queue.put(span, block=False)
             
             # Check if we should flush immediately
-            with self._batch_lock:
-                if self._queue.qsize() >= self.config.batch_size:
-                    self._flush()
+            if self._queue.qsize() >= self.config.batch_size:
+                self._flush()
         except queue.Full:
             if self.config.debug:
                 print("Span queue is full, dropping span")
     
     def _flush(self) -> None:
         """Flush pending spans to the API."""
-        spans_to_send = []
-        
-        # Collect spans from queue
-        while not self._queue.empty() and len(spans_to_send) < self.config.batch_size:
-            try:
-                span = self._queue.get_nowait()
-                spans_to_send.append(span)
-            except queue.Empty:
-                break
-        
-        if spans_to_send:
-            self._send_spans(spans_to_send)
+        with self._flush_lock:
+            spans_to_send = []
+            
+            # Collect spans from queue
+            while not self._queue.empty() and len(spans_to_send) < self.config.batch_size:
+                try:
+                    span = self._queue.get_nowait()
+                    spans_to_send.append(span)
+                except queue.Empty:
+                    break
+            
+            if spans_to_send:
+                self._send_spans(spans_to_send)
     
     def _send_spans(self, spans: List[Span]) -> None:
         """Send spans to the Orq API."""
@@ -252,9 +252,8 @@ def _find_orq_instance() -> Optional["Orq"]:
                     return obj
 
     except Exception as e:
-        if self.config.debug:
+        config = get_config()
+        if config.debug:
             print(f"Failed to find orq instance for init: {e}")
-        # If anything goes wrong, just return None
-        pass
 
     return None
