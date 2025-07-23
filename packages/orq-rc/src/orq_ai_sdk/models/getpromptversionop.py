@@ -347,6 +347,7 @@ GetPromptVersionProvider = Literal[
     "elevenlabs",
     "litellm",
     "openailike",
+    "cerebras",
 ]
 
 GetPromptVersionRole = Literal[

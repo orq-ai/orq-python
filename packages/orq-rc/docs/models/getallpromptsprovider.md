@@ -25,3 +25,4 @@
 | `ELEVENLABS`  | elevenlabs    |
 | `LITELLM`     | litellm       |
 | `OPENAILIKE`  | openailike    |
+| `CEREBRAS`    | cerebras      |

@@ -296,6 +296,7 @@ Provider = Literal[
     "elevenlabs",
     "litellm",
     "openailike",
+    "cerebras",
 ]
 
 CreatePromptRole = Literal[
@@ -960,6 +961,7 @@ CreatePromptProvider = Literal[
     "elevenlabs",
     "litellm",
     "openailike",
+    "cerebras",
 ]
 
 CreatePromptPromptsRole = Literal[
