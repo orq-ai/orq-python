@@ -34,16 +34,6 @@ class DeploymentStreamGlobals(BaseModel):
     ] = None
 
 
-DeploymentStreamInputsTypedDict = TypeAliasType(
-    "DeploymentStreamInputsTypedDict", Union[str, float, bool]
-)
-
-
-DeploymentStreamInputs = TypeAliasType(
-    "DeploymentStreamInputs", Union[str, float, bool]
-)
-
-
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Role = Literal["tool"]
 r"""The role of the messages author, in this case tool."""
 
@@ -1676,7 +1666,7 @@ r"""A filter to apply to the knowledge base chunk metadata when using  knowledge
 class DeploymentStreamRequestBodyTypedDict(TypedDict):
     key: str
     r"""The deployment key to invoke"""
-    inputs: NotRequired[Dict[str, DeploymentStreamInputsTypedDict]]
+    inputs: NotRequired[Dict[str, Any]]
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
     context: NotRequired[Dict[str, Any]]
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
@@ -1702,7 +1692,7 @@ class DeploymentStreamRequestBody(BaseModel):
     key: str
     r"""The deployment key to invoke"""
 
-    inputs: Optional[Dict[str, DeploymentStreamInputs]] = None
+    inputs: Optional[Dict[str, Any]] = None
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
 
     context: Optional[Dict[str, Any]] = None

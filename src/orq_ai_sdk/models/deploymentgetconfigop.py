@@ -14,16 +14,6 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-DeploymentGetConfigInputsTypedDict = TypeAliasType(
-    "DeploymentGetConfigInputsTypedDict", Union[str, float, bool]
-)
-
-
-DeploymentGetConfigInputs = TypeAliasType(
-    "DeploymentGetConfigInputs", Union[str, float, bool]
-)
-
-
 DeploymentGetConfigPrefixMessagesDeploymentsRequestRole = Literal["tool"]
 r"""The role of the messages author, in this case tool."""
 
@@ -1667,7 +1657,7 @@ r"""A filter to apply to the knowledge base chunk metadata when using  knowledge
 class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     key: str
     r"""The deployment key to invoke"""
-    inputs: NotRequired[Dict[str, DeploymentGetConfigInputsTypedDict]]
+    inputs: NotRequired[Dict[str, Any]]
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
     context: NotRequired[Dict[str, Any]]
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
@@ -1693,7 +1683,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
     key: str
     r"""The deployment key to invoke"""
 
-    inputs: Optional[Dict[str, DeploymentGetConfigInputs]] = None
+    inputs: Optional[Dict[str, Any]] = None
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
 
     context: Optional[Dict[str, Any]] = None
