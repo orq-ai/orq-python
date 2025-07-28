@@ -522,9 +522,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-25T12:14:15.961Z"
+    created: Optional[str] = "2025-07-28T06:00:38.787Z"
 
-    updated: Optional[str] = "2025-07-25T12:14:15.961Z"
+    updated: Optional[str] = "2025-07-28T06:00:38.787Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -636,9 +636,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-25T12:14:15.961Z"
+    created: Optional[str] = "2025-07-28T06:00:38.787Z"
 
-    updated: Optional[str] = "2025-07-25T12:14:15.961Z"
+    updated: Optional[str] = "2025-07-28T06:00:38.787Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -731,9 +731,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-07-25T12:14:15.961Z"
+    created: Optional[str] = "2025-07-28T06:00:38.787Z"
 
-    updated: Optional[str] = "2025-07-25T12:14:15.961Z"
+    updated: Optional[str] = "2025-07-28T06:00:38.787Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -825,9 +825,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-07-25T12:14:15.961Z"
+    created: Optional[str] = "2025-07-28T06:00:38.787Z"
 
-    updated: Optional[str] = "2025-07-25T12:14:15.961Z"
+    updated: Optional[str] = "2025-07-28T06:00:38.787Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
