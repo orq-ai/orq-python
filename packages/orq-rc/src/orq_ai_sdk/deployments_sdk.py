@@ -222,12 +222,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentGetConfigInputs],
-                Dict[str, models.DeploymentGetConfigInputsTypedDict],
-            ]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
@@ -396,12 +391,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentGetConfigInputs],
-                Dict[str, models.DeploymentGetConfigInputsTypedDict],
-            ]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
@@ -570,9 +560,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[Dict[str, models.Inputs], Dict[str, models.InputsTypedDict]]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
@@ -722,9 +710,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[Dict[str, models.Inputs], Dict[str, models.InputsTypedDict]]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
@@ -874,12 +860,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentStreamInputs],
-                Dict[str, models.DeploymentStreamInputsTypedDict],
-            ]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
@@ -1052,12 +1033,7 @@ class DeploymentsSDK(BaseSDK):
         self,
         *,
         key: str,
-        inputs: Optional[
-            Union[
-                Dict[str, models.DeploymentStreamInputs],
-                Dict[str, models.DeploymentStreamInputsTypedDict],
-            ]
-        ] = None,
+        inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[

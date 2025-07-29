@@ -13,6 +13,7 @@ Submit feedback for the LLM transaction via the API
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateFeedback" method="post" path="/v2/feedback" -->
 ```python
 from orq_ai_sdk import Orq
 import os

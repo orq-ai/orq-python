@@ -13,6 +13,7 @@ Retrieve a remote config
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="RemoteConfigsGetConfig" method="post" path="/v2/remoteconfigs" -->
 ```python
 from orq_ai_sdk import Orq
 import os

@@ -16,6 +16,7 @@ Files are used to upload documents that can be used with features like [Deployme
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="FileUpload" method="post" path="/v2/files" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -61,6 +62,7 @@ Returns a list of the files that your account has access to. orq.ai sorts and re
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="FileList" method="get" path="/v2/files" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -104,6 +106,7 @@ Retrieves the details of an existing file object. After you supply a unique file
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="FileGet" method="get" path="/v2/files/{file_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -145,6 +148,7 @@ Delete file
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="FileDelete" method="delete" path="/v2/files/{file_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os

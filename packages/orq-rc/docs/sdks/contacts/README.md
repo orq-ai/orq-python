@@ -17,6 +17,7 @@ Creates a new contact or updates an existing one based on external_id. Use this 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateContact" method="post" path="/v2/contacts" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -74,6 +75,7 @@ Retrieves a paginated list of contacts in your workspace. Use pagination paramet
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListContacts" method="get" path="/v2/contacts" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -124,6 +126,7 @@ Retrieves detailed information about a specific contact using their contact ID o
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="RetrieveContact" method="get" path="/v2/contacts/{id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -166,6 +169,7 @@ Updates specific fields of an existing contact. Only the fields provided in the 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateContact" method="patch" path="/v2/contacts/{id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -222,6 +226,7 @@ Permanently deletes a contact from your workspace. This action cannot be undone.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteContact" method="delete" path="/v2/contacts/{id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os

@@ -14,12 +14,6 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-InputsTypedDict = TypeAliasType("InputsTypedDict", Union[str, float, bool])
-
-
-Inputs = TypeAliasType("Inputs", Union[str, float, bool])
-
-
 DeploymentsPrefixMessages5Role = Literal["tool"]
 r"""The role of the messages author, in this case tool."""
 
@@ -1524,7 +1518,7 @@ class DeploymentsTypedDict(TypedDict):
 
     key: str
     r"""The deployment key to invoke"""
-    inputs: NotRequired[Dict[str, InputsTypedDict]]
+    inputs: NotRequired[Dict[str, Any]]
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
     context: NotRequired[Dict[str, Any]]
     r"""Key-value pairs that match your data model and fields declared in your deployment routing configuration"""
@@ -1552,7 +1546,7 @@ class Deployments(BaseModel):
     key: str
     r"""The deployment key to invoke"""
 
-    inputs: Optional[Dict[str, Inputs]] = None
+    inputs: Optional[Dict[str, Any]] = None
     r"""Key-value pairs variables to replace in your prompts. If a variable is not provided that is defined in the prompt, the default variables are used."""
 
     context: Optional[Dict[str, Any]] = None
