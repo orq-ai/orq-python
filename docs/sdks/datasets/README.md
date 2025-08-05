@@ -23,6 +23,7 @@ Retrieves a paginated list of datasets for the current workspace. Results can be
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListDatasets" method="get" path="/v2/datasets" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -66,6 +67,7 @@ Creates a new dataset in the specified project.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateDataset" method="post" path="/v2/datasets" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -110,6 +112,7 @@ Retrieves a specific dataset by its unique identifier
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="RetrieveDataset" method="get" path="/v2/datasets/{dataset_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -152,6 +155,7 @@ Update a dataset
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateDataset" method="patch" path="/v2/datasets/{dataset_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -197,6 +201,7 @@ Permanently deletes a dataset and all its datapoints. This action is irreversibl
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteDataset" method="delete" path="/v2/datasets/{dataset_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -231,6 +236,7 @@ Retrieves a paginated list of datapoints from a specific dataset.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListDatasetDatapoints" method="get" path="/v2/datasets/{dataset_id}/datapoints" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -275,6 +281,7 @@ Creates a new datapoint in the specified dataset.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateDatasetItem" method="post" path="/v2/datasets/{dataset_id}/datapoints" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -319,6 +326,7 @@ Retrieves a datapoint object
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="RetrieveDatapoint" method="get" path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -362,6 +370,7 @@ Update a datapoint
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateDatapoint" method="patch" path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -408,6 +417,7 @@ Permanently deletes a specific datapoint from a dataset.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteDatapoint" method="delete" path="/v2/datasets/{dataset_id}/datapoints/{datapoint_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -444,6 +454,7 @@ Delete all datapoints from a dataset. This action is irreversible.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ClearDataset" method="delete" path="/v2/datasets/{dataset_id}/clear" -->
 ```python
 from orq_ai_sdk import Orq
 import os

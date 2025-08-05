@@ -54,6 +54,7 @@ Get all Evaluators
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="GetEvals" method="get" path="/v2/evaluators" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -98,6 +99,7 @@ Create an Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateEval" method="post" path="/v2/evaluators" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -155,6 +157,7 @@ Update an Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateEval" method="patch" path="/v2/evaluators/{id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -201,6 +204,7 @@ Delete an Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteEval" method="delete" path="/v2/evaluators/{id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -236,6 +240,7 @@ Run BertScore Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsBertScore" method="post" path="/v2/evaluators/bert_score" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -279,6 +284,7 @@ Run BLEU Score Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsBleuScore" method="post" path="/v2/evaluators/bleu_score" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -322,6 +328,7 @@ Run Contains All Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsAll" method="post" path="/v2/evaluators/contains_all" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -365,6 +372,7 @@ Run Contains Any Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsAny" method="post" path="/v2/evaluators/contains_any" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -408,6 +416,7 @@ Run Contains Email Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsEmail" method="post" path="/v2/evaluators/contains_email" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -451,6 +460,7 @@ Run Contains None Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsNone" method="post" path="/v2/evaluators/contains_none" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -494,6 +504,7 @@ Run Contains URL Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsUrl" method="post" path="/v2/evaluators/contains_url" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -537,6 +548,7 @@ Run Contains Valid Link Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContainsValidLink" method="post" path="/v2/evaluators/contains_valid_link" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -580,6 +592,7 @@ Run Contains Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsContains" method="post" path="/v2/evaluators/contains" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -623,6 +636,7 @@ Run Ends With Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsEndsWith" method="post" path="/v2/evaluators/ends_with" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -666,6 +680,7 @@ Run Exact Match Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsExactMatch" method="post" path="/v2/evaluators/exact_match" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -709,6 +724,7 @@ Run Length Between Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsLengthBetween" method="post" path="/v2/evaluators/length_between" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -752,6 +768,7 @@ Run Length Greater Than Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsLengthGreaterThan" method="post" path="/v2/evaluators/length_greater_than" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -795,6 +812,7 @@ Run Length Less Than Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsLengthLessThan" method="post" path="/v2/evaluators/length_less_than" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -838,6 +856,7 @@ Run JSON Validation Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsValidJson" method="post" path="/v2/evaluators/valid_json" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -881,6 +900,7 @@ Run Age Appropriate Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsAgeAppropriate" method="post" path="/v2/evaluators/age_appropriate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -924,6 +944,7 @@ Run Bot Detection Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsBotDetection" method="post" path="/v2/evaluators/bot_detection" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -967,6 +988,7 @@ Run Fact Checking Knowledge Base Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsFactCheckingKnowledgeBase" method="post" path="/v2/evaluators/fact_checking_knowledge_base" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1010,6 +1032,7 @@ Run Grammar Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsGrammar" method="post" path="/v2/evaluators/grammar" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1053,6 +1076,7 @@ Run Localization Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsLocalization" method="post" path="/v2/evaluators/localization" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1096,6 +1120,7 @@ Run PII Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsPii" method="post" path="/v2/evaluators/pii" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1139,6 +1164,7 @@ Run Sentiment Classification Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsSentimentClassification" method="post" path="/v2/evaluators/sentiment_classification" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1182,6 +1208,7 @@ Run Summarization Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsSummarization" method="post" path="/v2/evaluators/summarization" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1225,6 +1252,7 @@ Run Tone of Voice Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsToneOfVoice" method="post" path="/v2/evaluators/tone_of_voice" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1268,6 +1296,7 @@ Run Translation Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsTranslation" method="post" path="/v2/evaluators/translation" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1311,6 +1340,7 @@ Run Coherence Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasCoherence" method="post" path="/v2/evaluators/ragas_coherence" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1354,6 +1384,7 @@ Run Conciseness Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasConciseness" method="post" path="/v2/evaluators/ragas_conciseness" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1397,6 +1428,7 @@ Run Context Precision Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasContextPrecision" method="post" path="/v2/evaluators/ragas_context_precision" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1440,6 +1472,7 @@ Run Context Recall Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasContextRecall" method="post" path="/v2/evaluators/ragas_context_recall" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1483,6 +1516,7 @@ Run Context Entities Recall Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasContextEntitiesRecall" method="post" path="/v2/evaluators/ragas_context_entities_recall" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1526,6 +1560,7 @@ Run Correctness Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasCorrectness" method="post" path="/v2/evaluators/ragas_correctness" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1569,6 +1604,7 @@ Run Faithfulness Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasFaithfulness" method="post" path="/v2/evaluators/ragas_faithfulness" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1612,6 +1648,7 @@ Run Harmfulness Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasHarmfulness" method="post" path="/v2/evaluators/ragas_harmfulness" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1655,6 +1692,7 @@ Run Maliciousness Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasMaliciousness" method="post" path="/v2/evaluators/ragas_maliciousness" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1698,6 +1736,7 @@ Run Noise Sensitivity Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasNoiseSensitivity" method="post" path="/v2/evaluators/ragas_noise_sensitivity" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1741,6 +1780,7 @@ Run Response Relevancy Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasResponseRelevancy" method="post" path="/v2/evaluators/ragas_response_relevancy" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1784,6 +1824,7 @@ Run Summarization Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="EvalsRagasSummarization" method="post" path="/v2/evaluators/ragas_summarization" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -1827,6 +1868,7 @@ Invoke a Custom Evaluator
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="InvokeEval" method="post" path="/v2/evaluators/{id}/invoke" -->
 ```python
 from orq_ai_sdk import Orq
 import os

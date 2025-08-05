@@ -411,6 +411,7 @@ DeploymentsProvider = Literal[
     "elevenlabs",
     "litellm",
     "openailike",
+    "cerebras",
 ]
 
 DeploymentsRole = Literal[
@@ -431,14 +432,14 @@ r"""The type of the content part. Always `file`."""
 
 class Deployments2FileTypedDict(TypedDict):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class Deployments2File(BaseModel):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""

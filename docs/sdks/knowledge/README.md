@@ -28,6 +28,7 @@ Returns a list of your knowledge bases. The knowledge bases are returned sorted 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListKnowledgeBases" method="get" path="/v2/knowledge" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -71,6 +72,7 @@ Create a knowledge
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateKnowledge" method="post" path="/v2/knowledge" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -116,6 +118,7 @@ Retrieve a knowledge base with the settings.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="GetOneKnowledge" method="get" path="/v2/knowledge/{knowledge_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -157,6 +160,7 @@ Updates a knowledge
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateKnowledge" method="patch" path="/v2/knowledge/{knowledge_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -202,6 +206,7 @@ Deletes a knowledge base. Deleting a knowledge base will delete all the datasour
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteKnowledge" method="delete" path="/v2/knowledge/{knowledge_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -236,6 +241,7 @@ Search a Knowledge Base and return the most similar chunks, along with their sea
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="SearchKnowledge" method="post" path="/v2/knowledge/{knowledge_id}/search" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -282,6 +288,7 @@ List all datasources
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListDatasources" method="get" path="/v2/knowledge/{knowledge_id}/datasources" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -331,6 +338,7 @@ Create a new datasource
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateDatasource" method="post" path="/v2/knowledge/{knowledge_id}/datasources" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -375,6 +383,7 @@ Retrieve a datasource
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="RetrieveDatasource" method="get" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -417,6 +426,7 @@ Deletes a datasource from a knowledge base. Deleting a datasource will remove it
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteDatasource" method="delete" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -452,6 +462,7 @@ Update a datasource
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateDatasource" method="patch" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -495,6 +506,7 @@ Create chunks for a datasource
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="CreateChunk" method="post" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -538,6 +550,7 @@ List all chunks for a datasource
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="ListChunks" method="get" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -588,6 +601,7 @@ Update a chunk
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="UpdateChunk" method="patch" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/{chunk_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -634,6 +648,7 @@ Delete a chunk
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeleteChunk" method="delete" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/{chunk_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -670,6 +685,7 @@ Retrieve a chunk
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="GetOneChunk" method="get" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/{chunk_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os

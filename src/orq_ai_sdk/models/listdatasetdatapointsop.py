@@ -319,14 +319,14 @@ r"""The type of the content part. Always `file`."""
 
 class ListDatasetDatapoints2FileTypedDict(TypedDict):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class ListDatasetDatapoints2File(BaseModel):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
     filename: str
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -600,7 +600,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-07-28T14:00:31.407Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-05T20:30:50.569Z")
     r"""The date and time the resource was last updated"""
 
 

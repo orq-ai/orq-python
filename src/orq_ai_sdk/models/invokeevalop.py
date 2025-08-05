@@ -34,14 +34,14 @@ r"""The type of the content part. Always `file`."""
 
 class InvokeEval2FileTypedDict(TypedDict):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class InvokeEval2File(BaseModel):
     file_data: str
-    r"""The base64 encoded file data, used when passing the file to the model as a string."""
+    r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -654,17 +654,17 @@ InvokeEvalResponseBodyType = Literal["string"]
 
 class StringTypedDict(TypedDict):
     type: InvokeEvalResponseBodyType
-    value: Nullable[str]
+    value: NotRequired[Nullable[str]]
 
 
 class String(BaseModel):
     type: InvokeEvalResponseBodyType
 
-    value: Nullable[str]
+    value: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
+        optional_fields = ["value"]
         nullable_fields = ["value"]
         null_default_fields = []
 

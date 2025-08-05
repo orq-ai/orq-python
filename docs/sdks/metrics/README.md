@@ -13,6 +13,7 @@ Add metrics to a deployment
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeploymentCreateMetric" method="post" path="/v2/deployments/{id}/metrics" -->
 ```python
 from orq_ai_sdk import Orq
 import os

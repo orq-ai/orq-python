@@ -16,6 +16,7 @@ Returns a list of your deployments. The deployments are returned sorted by creat
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="Deployments" method="get" path="/v2/deployments" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -60,6 +61,7 @@ Retrieve the deployment configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeploymentGetConfig" method="post" path="/v2/deployments/get_config" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -112,6 +114,7 @@ Invoke a deployment with a given payload
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeploymentInvoke" method="post" path="/v2/deployments/invoke" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -166,6 +169,7 @@ Stream deployment generation. Only supported for completions and chat completion
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="DeploymentStream" method="post" path="/v2/deployments/stream" -->
 ```python
 from orq_ai_sdk import Orq
 import os
