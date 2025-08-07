@@ -2833,6 +2833,7 @@ if TYPE_CHECKING:
         SearchKnowledgeResponseBodyTypedDict,
         SearchOptions,
         SearchOptionsTypedDict,
+        SearchType,
     )
     from .security import Security, SecurityTypedDict
     from .updatechunkop import (
@@ -5816,6 +5817,7 @@ __all__ = [
     "SearchKnowledgeResponseBodyTypedDict",
     "SearchOptions",
     "SearchOptionsTypedDict",
+    "SearchType",
     "Security",
     "SecurityTypedDict",
     "SemanticChunker",
@@ -8984,6 +8986,7 @@ _dynamic_imports: dict[str, str] = {
     "SearchKnowledgeResponseBodyTypedDict": ".searchknowledgeop",
     "SearchOptions": ".searchknowledgeop",
     "SearchOptionsTypedDict": ".searchknowledgeop",
+    "SearchType": ".searchknowledgeop",
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "UpdateChunkKnowledgeMetadata": ".updatechunkop",
