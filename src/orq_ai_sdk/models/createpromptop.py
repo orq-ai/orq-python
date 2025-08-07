@@ -104,6 +104,9 @@ r"""The format to return the embeddings"""
 ReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+Verbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class ModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -149,6 +152,8 @@ class ModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[Verbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class ModelParameters(BaseModel):
@@ -226,6 +231,9 @@ class ModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[Verbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -246,6 +254,7 @@ class ModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -768,6 +777,9 @@ r"""The format to return the embeddings"""
 CreatePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+CreatePromptVerbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -813,6 +825,8 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[CreatePromptVerbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class CreatePromptModelParameters(BaseModel):
@@ -891,6 +905,9 @@ class CreatePromptModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[CreatePromptVerbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -911,6 +928,7 @@ class CreatePromptModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
