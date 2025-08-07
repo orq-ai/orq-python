@@ -993,6 +993,7 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
         filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
@@ -1010,6 +1011,7 @@ class Knowledge(BaseSDK):
         :param query: The query to use to search the knowledge base
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
+        :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param retries: Override the default retry configuration for this method
@@ -1036,6 +1038,7 @@ class Knowledge(BaseSDK):
                 query=query,
                 top_k=top_k,
                 threshold=threshold,
+                search_type=search_type,
                 filter_by=utils.get_pydantic_model(
                     filter_by, Optional[models.FilterBy]
                 ),
@@ -1111,6 +1114,7 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
         filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
@@ -1128,6 +1132,7 @@ class Knowledge(BaseSDK):
         :param query: The query to use to search the knowledge base
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
+        :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
         :param retries: Override the default retry configuration for this method
@@ -1154,6 +1159,7 @@ class Knowledge(BaseSDK):
                 query=query,
                 top_k=top_k,
                 threshold=threshold,
+                search_type=search_type,
                 filter_by=utils.get_pydantic_model(
                     filter_by, Optional[models.FilterBy]
                 ),

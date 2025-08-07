@@ -4,8 +4,12 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+SearchType = Literal["vector_search", "keyword_search", "hybrid_search"]
+r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
 
 class SearchKnowledgeOrExistsTypedDict(TypedDict):
@@ -610,6 +614,8 @@ class SearchKnowledgeRequestBodyTypedDict(TypedDict):
     r"""The number of results to return. If not provided, will default to the knowledge base configured `top_k`"""
     threshold: NotRequired[float]
     r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+    search_type: NotRequired[SearchType]
+    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[FilterByTypedDict]
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
     search_options: NotRequired[SearchOptionsTypedDict]
@@ -627,6 +633,9 @@ class SearchKnowledgeRequestBody(BaseModel):
 
     threshold: Optional[float] = None
     r"""The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`"""
+
+    search_type: Optional[SearchType] = "hybrid_search"
+    r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[FilterBy] = None
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
