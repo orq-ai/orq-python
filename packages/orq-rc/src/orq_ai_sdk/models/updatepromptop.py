@@ -96,6 +96,9 @@ r"""The format to return the embeddings"""
 UpdatePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+UpdatePromptVerbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class UpdatePromptModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -141,6 +144,8 @@ class UpdatePromptModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[UpdatePromptVerbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class UpdatePromptModelParameters(BaseModel):
@@ -219,6 +224,9 @@ class UpdatePromptModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[UpdatePromptVerbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -239,6 +247,7 @@ class UpdatePromptModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
@@ -829,6 +838,9 @@ r"""The format to return the embeddings"""
 UpdatePromptPromptsReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+UpdatePromptPromptsVerbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class UpdatePromptPromptsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -874,6 +886,8 @@ class UpdatePromptPromptsModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[UpdatePromptPromptsVerbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class UpdatePromptPromptsModelParameters(BaseModel):
@@ -954,6 +968,9 @@ class UpdatePromptPromptsModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[UpdatePromptPromptsVerbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -974,6 +991,7 @@ class UpdatePromptPromptsModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []

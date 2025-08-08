@@ -403,6 +403,7 @@ if TYPE_CHECKING:
         CreatePromptToolCallsTypedDict,
         CreatePromptType,
         CreatePromptUseCases,
+        CreatePromptVerbosity,
         EncodingFormat,
         JSONSchema,
         JSONSchemaTypedDict,
@@ -423,6 +424,7 @@ if TYPE_CHECKING:
         ResponseFormatType,
         ResponseFormatTypedDict,
         UseCases,
+        Verbosity,
     )
     from .deletechunkop import DeleteChunkRequest, DeleteChunkRequestTypedDict
     from .deletecontactop import (
@@ -822,6 +824,7 @@ if TYPE_CHECKING:
         DeploymentGetConfigToolCalls,
         DeploymentGetConfigToolCallsTypedDict,
         DeploymentGetConfigType,
+        DeploymentGetConfigVerbosity,
         KnowledgeFilter1,
         KnowledgeFilter1TypedDict,
         One3,
@@ -1172,6 +1175,7 @@ if TYPE_CHECKING:
         DeploymentsTools,
         DeploymentsToolsTypedDict,
         DeploymentsType,
+        DeploymentsVerbosity,
     )
     from .deploymentstreamop import (
         DeploymentStream13,
@@ -1965,6 +1969,7 @@ if TYPE_CHECKING:
         GetAllPromptsToolCallsTypedDict,
         GetAllPromptsType,
         GetAllPromptsUseCases,
+        GetAllPromptsVerbosity,
     )
     from .getevalsop import (
         DataFunction,
@@ -2247,6 +2252,7 @@ if TYPE_CHECKING:
         GetOnePromptToolCallsTypedDict,
         GetOnePromptType,
         GetOnePromptUseCases,
+        GetOnePromptVerbosity,
     )
     from .getpromptversionop import (
         GetPromptVersion21,
@@ -2304,6 +2310,7 @@ if TYPE_CHECKING:
         GetPromptVersionToolCallsTypedDict,
         GetPromptVersionType,
         GetPromptVersionUseCases,
+        GetPromptVersionVerbosity,
     )
     from .honoapierror import HonoAPIError, HonoAPIErrorData
     from .invokeevalop import (
@@ -2588,6 +2595,7 @@ if TYPE_CHECKING:
         ListPromptVersionsToolCallsTypedDict,
         ListPromptVersionsType,
         ListPromptVersionsUseCases,
+        ListPromptVersionsVerbosity,
     )
     from .no_response_error import NoResponseError
     from .orqerror import OrqError
@@ -3214,6 +3222,7 @@ if TYPE_CHECKING:
         UpdatePromptPromptsToolCallsTypedDict,
         UpdatePromptPromptsType,
         UpdatePromptPromptsUseCases,
+        UpdatePromptPromptsVerbosity,
         UpdatePromptProvider,
         UpdatePromptReasoningEffort,
         UpdatePromptRequest,
@@ -3243,6 +3252,7 @@ if TYPE_CHECKING:
         UpdatePromptToolCallsTypedDict,
         UpdatePromptType,
         UpdatePromptUseCases,
+        UpdatePromptVerbosity,
     )
 
 __all__ = [
@@ -3643,6 +3653,7 @@ __all__ = [
     "CreatePromptToolCallsTypedDict",
     "CreatePromptType",
     "CreatePromptUseCases",
+    "CreatePromptVerbosity",
     "Data",
     "DataFunction",
     "DataFunctionParams",
@@ -4023,6 +4034,7 @@ __all__ = [
     "DeploymentGetConfigToolCalls",
     "DeploymentGetConfigToolCallsTypedDict",
     "DeploymentGetConfigType",
+    "DeploymentGetConfigVerbosity",
     "DeploymentInvokeChoices",
     "DeploymentInvokeChoicesTypedDict",
     "DeploymentInvokeGlobals",
@@ -4400,6 +4412,7 @@ __all__ = [
     "DeploymentsToolsTypedDict",
     "DeploymentsType",
     "DeploymentsTypedDict",
+    "DeploymentsVerbosity",
     "Detail",
     "DeveloperMessage",
     "DeveloperMessageTypedDict",
@@ -4905,6 +4918,7 @@ __all__ = [
     "GetAllPromptsToolCallsTypedDict",
     "GetAllPromptsType",
     "GetAllPromptsUseCases",
+    "GetAllPromptsVerbosity",
     "GetEvalsData",
     "GetEvalsDataEvalsGuardrailConfig",
     "GetEvalsDataEvalsGuardrailConfigTypedDict",
@@ -5087,6 +5101,7 @@ __all__ = [
     "GetOnePromptToolCallsTypedDict",
     "GetOnePromptType",
     "GetOnePromptUseCases",
+    "GetOnePromptVerbosity",
     "GetPromptVersion21",
     "GetPromptVersion21TypedDict",
     "GetPromptVersion22",
@@ -5142,6 +5157,7 @@ __all__ = [
     "GetPromptVersionToolCallsTypedDict",
     "GetPromptVersionType",
     "GetPromptVersionUseCases",
+    "GetPromptVersionVerbosity",
     "Gte",
     "GteTypedDict",
     "GuardrailConfig",
@@ -5412,6 +5428,7 @@ __all__ = [
     "ListPromptVersionsToolCallsTypedDict",
     "ListPromptVersionsType",
     "ListPromptVersionsUseCases",
+    "ListPromptVersionsVerbosity",
     "Llm",
     "LlmTypedDict",
     "Lt",
@@ -6276,6 +6293,7 @@ __all__ = [
     "UpdatePromptPromptsToolCallsTypedDict",
     "UpdatePromptPromptsType",
     "UpdatePromptPromptsUseCases",
+    "UpdatePromptPromptsVerbosity",
     "UpdatePromptProvider",
     "UpdatePromptReasoningEffort",
     "UpdatePromptRequest",
@@ -6305,6 +6323,7 @@ __all__ = [
     "UpdatePromptToolCallsTypedDict",
     "UpdatePromptType",
     "UpdatePromptUseCases",
+    "UpdatePromptVerbosity",
     "Usage",
     "UsageTypedDict",
     "UseCases",
@@ -6312,6 +6331,7 @@ __all__ = [
     "UserMessageTypedDict",
     "Value",
     "ValueTypedDict",
+    "Verbosity",
 ]
 
 _dynamic_imports: dict[str, str] = {
@@ -6697,6 +6717,7 @@ _dynamic_imports: dict[str, str] = {
     "CreatePromptToolCallsTypedDict": ".createpromptop",
     "CreatePromptType": ".createpromptop",
     "CreatePromptUseCases": ".createpromptop",
+    "CreatePromptVerbosity": ".createpromptop",
     "EncodingFormat": ".createpromptop",
     "JSONSchema": ".createpromptop",
     "JSONSchemaTypedDict": ".createpromptop",
@@ -6717,6 +6738,7 @@ _dynamic_imports: dict[str, str] = {
     "ResponseFormatType": ".createpromptop",
     "ResponseFormatTypedDict": ".createpromptop",
     "UseCases": ".createpromptop",
+    "Verbosity": ".createpromptop",
     "DeleteChunkRequest": ".deletechunkop",
     "DeleteChunkRequestTypedDict": ".deletechunkop",
     "DeleteContactRequest": ".deletecontactop",
@@ -7105,6 +7127,7 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentGetConfigToolCalls": ".deploymentgetconfigop",
     "DeploymentGetConfigToolCallsTypedDict": ".deploymentgetconfigop",
     "DeploymentGetConfigType": ".deploymentgetconfigop",
+    "DeploymentGetConfigVerbosity": ".deploymentgetconfigop",
     "KnowledgeFilter1": ".deploymentgetconfigop",
     "KnowledgeFilter1TypedDict": ".deploymentgetconfigop",
     "One3": ".deploymentgetconfigop",
@@ -7449,6 +7472,7 @@ _dynamic_imports: dict[str, str] = {
     "DeploymentsTools": ".deploymentsop",
     "DeploymentsToolsTypedDict": ".deploymentsop",
     "DeploymentsType": ".deploymentsop",
+    "DeploymentsVerbosity": ".deploymentsop",
     "DeploymentStream13": ".deploymentstreamop",
     "DeploymentStream13TypedDict": ".deploymentstreamop",
     "DeploymentStream1DeploymentsEq": ".deploymentstreamop",
@@ -8159,6 +8183,7 @@ _dynamic_imports: dict[str, str] = {
     "GetAllPromptsToolCallsTypedDict": ".getallpromptsop",
     "GetAllPromptsType": ".getallpromptsop",
     "GetAllPromptsUseCases": ".getallpromptsop",
+    "GetAllPromptsVerbosity": ".getallpromptsop",
     "DataFunction": ".getevalsop",
     "DataFunctionParams": ".getevalsop",
     "DataFunctionParamsTypedDict": ".getevalsop",
@@ -8433,6 +8458,7 @@ _dynamic_imports: dict[str, str] = {
     "GetOnePromptToolCallsTypedDict": ".getonepromptop",
     "GetOnePromptType": ".getonepromptop",
     "GetOnePromptUseCases": ".getonepromptop",
+    "GetOnePromptVerbosity": ".getonepromptop",
     "GetPromptVersion21": ".getpromptversionop",
     "GetPromptVersion21TypedDict": ".getpromptversionop",
     "GetPromptVersion22": ".getpromptversionop",
@@ -8488,6 +8514,7 @@ _dynamic_imports: dict[str, str] = {
     "GetPromptVersionToolCallsTypedDict": ".getpromptversionop",
     "GetPromptVersionType": ".getpromptversionop",
     "GetPromptVersionUseCases": ".getpromptversionop",
+    "GetPromptVersionVerbosity": ".getpromptversionop",
     "HonoAPIError": ".honoapierror",
     "HonoAPIErrorData": ".honoapierror",
     "BERTScore": ".invokeevalop",
@@ -8755,6 +8782,7 @@ _dynamic_imports: dict[str, str] = {
     "ListPromptVersionsToolCallsTypedDict": ".listpromptversionsop",
     "ListPromptVersionsType": ".listpromptversionsop",
     "ListPromptVersionsUseCases": ".listpromptversionsop",
+    "ListPromptVersionsVerbosity": ".listpromptversionsop",
     "NoResponseError": ".no_response_error",
     "OrqError": ".orqerror",
     "AgenticChunker": ".parseop",
@@ -9352,6 +9380,7 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePromptPromptsToolCallsTypedDict": ".updatepromptop",
     "UpdatePromptPromptsType": ".updatepromptop",
     "UpdatePromptPromptsUseCases": ".updatepromptop",
+    "UpdatePromptPromptsVerbosity": ".updatepromptop",
     "UpdatePromptProvider": ".updatepromptop",
     "UpdatePromptReasoningEffort": ".updatepromptop",
     "UpdatePromptRequest": ".updatepromptop",
@@ -9381,6 +9410,7 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePromptToolCallsTypedDict": ".updatepromptop",
     "UpdatePromptType": ".updatepromptop",
     "UpdatePromptUseCases": ".updatepromptop",
+    "UpdatePromptVerbosity": ".updatepromptop",
 }
 
 

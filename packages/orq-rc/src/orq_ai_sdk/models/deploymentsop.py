@@ -218,6 +218,9 @@ r"""The format to return the embeddings"""
 DeploymentsReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+DeploymentsVerbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -263,6 +266,8 @@ class DeploymentsModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[DeploymentsVerbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class DeploymentsModelParameters(BaseModel):
@@ -341,6 +346,9 @@ class DeploymentsModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[DeploymentsVerbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -361,6 +369,7 @@ class DeploymentsModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []

@@ -152,6 +152,9 @@ r"""The format to return the embeddings"""
 GetPromptVersionReasoningEffort = Literal["disable", "low", "medium", "high"]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
+GetPromptVersionVerbosity = Literal["low", "medium", "high"]
+r"""Controls the verbosity of the model output."""
+
 
 class GetPromptVersionModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
@@ -197,6 +200,8 @@ class GetPromptVersionModelParametersTypedDict(TypedDict):
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
+    verbosity: NotRequired[GetPromptVersionVerbosity]
+    r"""Controls the verbosity of the model output."""
 
 
 class GetPromptVersionModelParameters(BaseModel):
@@ -277,6 +282,9 @@ class GetPromptVersionModelParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
+    verbosity: Optional[GetPromptVersionVerbosity] = None
+    r"""Controls the verbosity of the model output."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -297,6 +305,7 @@ class GetPromptVersionModelParameters(BaseModel):
             "encoding_format",
             "reasoningEffort",
             "budgetTokens",
+            "verbosity",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
