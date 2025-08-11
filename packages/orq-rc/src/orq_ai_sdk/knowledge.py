@@ -2210,13 +2210,16 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models.CreateChunkRequestBody],
+                List[models.CreateChunkRequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> Optional[List[models.CreateChunkResponseBody]]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2244,7 +2247,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             datasource_id=datasource_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, Optional[List[models.CreateChunkRequestBody]]
             ),
         )
 
@@ -2266,7 +2269,7 @@ class Knowledge(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.RequestBody]],
+                Optional[List[models.CreateChunkRequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -2296,7 +2299,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
+                Optional[List[models.CreateChunkResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2313,13 +2316,16 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models.CreateChunkRequestBody],
+                List[models.CreateChunkRequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> Optional[List[models.CreateChunkResponseBody]]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2347,7 +2353,7 @@ class Knowledge(BaseSDK):
             knowledge_id=knowledge_id,
             datasource_id=datasource_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, Optional[List[models.CreateChunkRequestBody]]
             ),
         )
 
@@ -2369,7 +2375,7 @@ class Knowledge(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.RequestBody]],
+                Optional[List[models.CreateChunkRequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -2399,7 +2405,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
+                Optional[List[models.CreateChunkResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

@@ -1168,27 +1168,20 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[
-                List[models.CreateDatasetItemMessages],
-                List[models.CreateDatasetItemMessagesTypedDict],
-            ]
+        request_body: Optional[
+            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
         ] = None,
-        expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasetItemResponseBody]:
+    ) -> Optional[List[models.ResponseBody]]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
 
         :param dataset_id:
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
-        :param messages: A list of messages comprising the conversation so far
-        :param expected_output:
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1209,12 +1202,8 @@ class Datasets(BaseSDK):
 
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
-            request_body=models.CreateDatasetItemRequestBody(
-                inputs=inputs,
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.CreateDatasetItemMessages]]
-                ),
-                expected_output=expected_output,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[List[models.RequestBody]]
             ),
         )
 
@@ -1236,7 +1225,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.CreateDatasetItemRequestBody],
+                Optional[List[models.RequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -1266,7 +1255,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateDatasetItemResponseBody], http_res
+                Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1281,27 +1270,20 @@ class Datasets(BaseSDK):
         self,
         *,
         dataset_id: str,
-        inputs: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[
-                List[models.CreateDatasetItemMessages],
-                List[models.CreateDatasetItemMessagesTypedDict],
-            ]
+        request_body: Optional[
+            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
         ] = None,
-        expected_output: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasetItemResponseBody]:
+    ) -> Optional[List[models.ResponseBody]]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
 
         :param dataset_id:
-        :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
-        :param messages: A list of messages comprising the conversation so far
-        :param expected_output:
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1322,12 +1304,8 @@ class Datasets(BaseSDK):
 
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
-            request_body=models.CreateDatasetItemRequestBody(
-                inputs=inputs,
-                messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.CreateDatasetItemMessages]]
-                ),
-                expected_output=expected_output,
+            request_body=utils.get_pydantic_model(
+                request_body, Optional[List[models.RequestBody]]
             ),
         )
 
@@ -1349,7 +1327,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.CreateDatasetItemRequestBody],
+                Optional[List[models.RequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -1379,7 +1357,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateDatasetItemResponseBody], http_res
+                Optional[List[models.ResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

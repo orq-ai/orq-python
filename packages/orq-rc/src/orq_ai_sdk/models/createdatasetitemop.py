@@ -507,7 +507,7 @@ CreateDatasetItemMessages = TypeAliasType(
 )
 
 
-class CreateDatasetItemRequestBodyTypedDict(TypedDict):
+class RequestBodyTypedDict(TypedDict):
     inputs: NotRequired[Dict[str, Any]]
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
     messages: NotRequired[List[CreateDatasetItemMessagesTypedDict]]
@@ -515,7 +515,7 @@ class CreateDatasetItemRequestBodyTypedDict(TypedDict):
     expected_output: NotRequired[str]
 
 
-class CreateDatasetItemRequestBody(BaseModel):
+class RequestBody(BaseModel):
     inputs: Optional[Dict[str, Any]] = None
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
 
@@ -527,7 +527,7 @@ class CreateDatasetItemRequestBody(BaseModel):
 
 class CreateDatasetItemRequestTypedDict(TypedDict):
     dataset_id: str
-    request_body: NotRequired[CreateDatasetItemRequestBodyTypedDict]
+    request_body: NotRequired[List[RequestBodyTypedDict]]
 
 
 class CreateDatasetItemRequest(BaseModel):
@@ -536,7 +536,7 @@ class CreateDatasetItemRequest(BaseModel):
     ]
 
     request_body: Annotated[
-        Optional[CreateDatasetItemRequestBody],
+        Optional[List[RequestBody]],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 
@@ -1047,9 +1047,7 @@ CreateDatasetItemDatasetsMessages = TypeAliasType(
 )
 
 
-class CreateDatasetItemResponseBodyTypedDict(TypedDict):
-    r"""Datapoint created successfully. Returns the newly created datapoint object."""
-
+class ResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
     workspace_id: str
@@ -1071,9 +1069,7 @@ class CreateDatasetItemResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class CreateDatasetItemResponseBody(BaseModel):
-    r"""Datapoint created successfully. Returns the newly created datapoint object."""
-
+class ResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the dataset item"""
 
@@ -1100,5 +1096,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-08-08T08:03:31.826Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-11T09:41:33.021Z")
     r"""The date and time the resource was last updated"""
