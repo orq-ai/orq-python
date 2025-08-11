@@ -52,6 +52,7 @@ python:
   methodArguments: infer-optional-args
   moduleName: ""
   outputModelSuffix: output
+  packageManager: poetry
   packageName: orq-ai-sdk
   pytestFilterWarnings: []
   pytestTimeout: 0
