@@ -23,7 +23,7 @@ CreateChunkMetadataTypedDict = TypeAliasType(
 CreateChunkMetadata = TypeAliasType("CreateChunkMetadata", Union[str, float, bool])
 
 
-class RequestBodyTypedDict(TypedDict):
+class CreateChunkRequestBodyTypedDict(TypedDict):
     text: str
     r"""The text content of the chunk"""
     embedding: NotRequired[List[float]]
@@ -32,7 +32,7 @@ class RequestBodyTypedDict(TypedDict):
     r"""Metadata of the chunk"""
 
 
-class RequestBody(BaseModel):
+class CreateChunkRequestBody(BaseModel):
     text: str
     r"""The text content of the chunk"""
 
@@ -48,7 +48,7 @@ class CreateChunkRequestTypedDict(TypedDict):
     r"""Unique identifier of the knowledge"""
     datasource_id: str
     r"""Unique identifier of the datasource"""
-    request_body: NotRequired[List[RequestBodyTypedDict]]
+    request_body: NotRequired[List[CreateChunkRequestBodyTypedDict]]
 
 
 class CreateChunkRequest(BaseModel):
@@ -63,7 +63,7 @@ class CreateChunkRequest(BaseModel):
     r"""Unique identifier of the datasource"""
 
     request_body: Annotated[
-        Optional[List[RequestBody]],
+        Optional[List[CreateChunkRequestBody]],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 
@@ -82,7 +82,7 @@ CreateChunkStatus = Literal["pending", "processing", "completed", "failed", "que
 r"""The status of the chunk"""
 
 
-class ResponseBodyTypedDict(TypedDict):
+class CreateChunkResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the chunk"""
     text: str
@@ -103,7 +103,7 @@ class ResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the user who updated the chunk"""
 
 
-class ResponseBody(BaseModel):
+class CreateChunkResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the chunk"""
 
