@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: 06b76e693a310233ba37906f3d833359
+  docChecksum: 8f0182478ac8d7fa47e4416a9690ae2a
   docVersion: "2.0"
-  speakeasyVersion: 1.600.2
-  generationVersion: 2.677.3
-  releaseVersion: 3.10.16
-  configChecksum: 16921eed16f59467c656471557ee0a7f
+  speakeasyVersion: 1.601.2
+  generationVersion: 2.680.0
+  releaseVersion: 3.10.17
+  configChecksum: bbc51622b403c0aa91e05dbfb006d95f
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
@@ -14,7 +14,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.19.7
+    core: 5.19.8
     defaultEnabledRetries: 0.2.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
@@ -279,7 +279,10 @@ generatedFiles:
   - docs/models/createpromptresponseformat.md
   - docs/models/createpromptresponseformat1.md
   - docs/models/createpromptresponseformat2.md
+  - docs/models/createpromptresponseformat3.md
   - docs/models/createpromptresponseformatjsonschema.md
+  - docs/models/createpromptresponseformatpromptsresponse200applicationjsontype.md
+  - docs/models/createpromptresponseformatpromptsresponse200type.md
   - docs/models/createpromptresponseformatpromptsresponsetype.md
   - docs/models/createpromptresponseformatpromptstype.md
   - docs/models/createpromptresponseformattype.md
@@ -505,6 +508,8 @@ generatedFiles:
   - docs/models/deploymentgetconfigresponseformat.md
   - docs/models/deploymentgetconfigresponseformat1.md
   - docs/models/deploymentgetconfigresponseformat2.md
+  - docs/models/deploymentgetconfigresponseformat3.md
+  - docs/models/deploymentgetconfigresponseformatdeploymentsresponsetype.md
   - docs/models/deploymentgetconfigresponseformatdeploymentstype.md
   - docs/models/deploymentgetconfigresponseformatjsonschema.md
   - docs/models/deploymentgetconfigresponseformattype.md
@@ -590,6 +595,8 @@ generatedFiles:
   - docs/models/deploymentsresponseformat.md
   - docs/models/deploymentsresponseformat1.md
   - docs/models/deploymentsresponseformat2.md
+  - docs/models/deploymentsresponseformat3.md
+  - docs/models/deploymentsresponseformatdeploymentsresponsetype.md
   - docs/models/deploymentsresponseformatdeploymentstype.md
   - docs/models/deploymentsresponseformatjsonschema.md
   - docs/models/deploymentsresponseformattype.md
@@ -998,7 +1005,9 @@ generatedFiles:
   - docs/models/getallpromptsresponseformat.md
   - docs/models/getallpromptsresponseformat1.md
   - docs/models/getallpromptsresponseformat2.md
+  - docs/models/getallpromptsresponseformat3.md
   - docs/models/getallpromptsresponseformatjsonschema.md
+  - docs/models/getallpromptsresponseformatpromptsresponsetype.md
   - docs/models/getallpromptsresponseformatpromptstype.md
   - docs/models/getallpromptsresponseformattype.md
   - docs/models/getallpromptsrole.md
@@ -1130,7 +1139,9 @@ generatedFiles:
   - docs/models/getonepromptresponseformat.md
   - docs/models/getonepromptresponseformat1.md
   - docs/models/getonepromptresponseformat2.md
+  - docs/models/getonepromptresponseformat3.md
   - docs/models/getonepromptresponseformatjsonschema.md
+  - docs/models/getonepromptresponseformatpromptsresponsetype.md
   - docs/models/getonepromptresponseformatpromptstype.md
   - docs/models/getonepromptresponseformattype.md
   - docs/models/getonepromptrole.md
@@ -1166,7 +1177,9 @@ generatedFiles:
   - docs/models/getpromptversionresponseformat.md
   - docs/models/getpromptversionresponseformat1.md
   - docs/models/getpromptversionresponseformat2.md
+  - docs/models/getpromptversionresponseformat3.md
   - docs/models/getpromptversionresponseformatjsonschema.md
+  - docs/models/getpromptversionresponseformatpromptsresponsetype.md
   - docs/models/getpromptversionresponseformatpromptstype.md
   - docs/models/getpromptversionresponseformattype.md
   - docs/models/getpromptversionrole.md
@@ -1331,7 +1344,9 @@ generatedFiles:
   - docs/models/listpromptversionsresponseformat.md
   - docs/models/listpromptversionsresponseformat1.md
   - docs/models/listpromptversionsresponseformat2.md
+  - docs/models/listpromptversionsresponseformat3.md
   - docs/models/listpromptversionsresponseformatjsonschema.md
+  - docs/models/listpromptversionsresponseformatpromptsresponsetype.md
   - docs/models/listpromptversionsresponseformatpromptstype.md
   - docs/models/listpromptversionsresponseformattype.md
   - docs/models/listpromptversionsrole.md
@@ -1457,6 +1472,7 @@ generatedFiles:
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
+  - docs/models/responseformat3.md
   - docs/models/responseformatjsonschema.md
   - docs/models/responseformattype.md
   - docs/models/retrievals.md
@@ -1850,9 +1866,13 @@ generatedFiles:
   - docs/models/updatepromptresponseformat.md
   - docs/models/updatepromptresponseformat1.md
   - docs/models/updatepromptresponseformat2.md
+  - docs/models/updatepromptresponseformat3.md
   - docs/models/updatepromptresponseformatjsonschema.md
   - docs/models/updatepromptresponseformatprompts1.md
   - docs/models/updatepromptresponseformatprompts2.md
+  - docs/models/updatepromptresponseformatprompts3.md
+  - docs/models/updatepromptresponseformatpromptsrequesttype.md
+  - docs/models/updatepromptresponseformatpromptsresponse200applicationjsontype.md
   - docs/models/updatepromptresponseformatpromptsresponse200type.md
   - docs/models/updatepromptresponseformatpromptsresponsetype.md
   - docs/models/updatepromptresponseformatpromptstype.md
@@ -2041,7 +2061,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-17T14:04:15.852Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-12T10:35:45.801Z"}
   CreateFeedback:
     "":
       requestBody:
@@ -2099,7 +2119,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-08-11T09:31:21.168Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-08-12T10:35:49.436Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -2115,7 +2135,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-08-11T09:31:21.168Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-08-12T10:35:49.436Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -2206,7 +2226,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-08-12T10:35:45.801Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -2214,7 +2234,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -2226,7 +2246,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -2260,7 +2280,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -2271,7 +2291,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -2354,7 +2374,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01K2C7GVTT3DQQ7Y6KXW7RD4PP", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01K2EXKNBCFXD50M72K38B23SQ", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -2363,7 +2383,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01K2C7GVTS05XCVFKHY660S3P1", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01K2EXKNBB488J57WPGH5TM8TA", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -2380,7 +2400,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01K2C7GVTTPVX56X225EMVC0GQ", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01K2EXKNBDVHZTG3RRSVCKT3FC", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -2474,7 +2494,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -2486,7 +2506,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-11T09:31:18.066Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-08-12T10:35:45.801Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:

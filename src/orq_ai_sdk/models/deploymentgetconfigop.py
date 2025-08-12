@@ -1919,18 +1919,18 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
 DeploymentGetConfigFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-DeploymentGetConfigResponseFormatType = Literal["json_object"]
+DeploymentGetConfigResponseFormatDeploymentsType = Literal["json_object"]
 
 
-class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatType
+class DeploymentGetConfigResponseFormat3TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
-class DeploymentGetConfigResponseFormat2(BaseModel):
-    type: DeploymentGetConfigResponseFormatType
+class DeploymentGetConfigResponseFormat3(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
-DeploymentGetConfigResponseFormatDeploymentsType = Literal["json_schema"]
+DeploymentGetConfigResponseFormatType = Literal["json_schema"]
 
 
 class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -1947,22 +1947,34 @@ class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatType
     json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
 
 
-class DeploymentGetConfigResponseFormat1(BaseModel):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+class DeploymentGetConfigResponseFormat2(BaseModel):
+    type: DeploymentGetConfigResponseFormatType
 
     json_schema: DeploymentGetConfigResponseFormatJSONSchema
+
+
+DeploymentGetConfigResponseFormatDeploymentsResponseType = Literal["text"]
+
+
+class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
+
+
+class DeploymentGetConfigResponseFormat1(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
 
 
 DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
     "DeploymentGetConfigResponseFormatTypedDict",
     Union[
-        DeploymentGetConfigResponseFormat2TypedDict,
         DeploymentGetConfigResponseFormat1TypedDict,
+        DeploymentGetConfigResponseFormat3TypedDict,
+        DeploymentGetConfigResponseFormat2TypedDict,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -1977,7 +1989,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
-    Union[DeploymentGetConfigResponseFormat2, DeploymentGetConfigResponseFormat1],
+    Union[
+        DeploymentGetConfigResponseFormat1,
+        DeploymentGetConfigResponseFormat3,
+        DeploymentGetConfigResponseFormat2,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

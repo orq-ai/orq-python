@@ -142,18 +142,18 @@ r"""The modality of the model"""
 DeploymentsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-DeploymentsResponseFormatType = Literal["json_object"]
+DeploymentsResponseFormatDeploymentsType = Literal["json_object"]
 
 
-class DeploymentsResponseFormat2TypedDict(TypedDict):
-    type: DeploymentsResponseFormatType
+class DeploymentsResponseFormat3TypedDict(TypedDict):
+    type: DeploymentsResponseFormatDeploymentsType
 
 
-class DeploymentsResponseFormat2(BaseModel):
-    type: DeploymentsResponseFormatType
+class DeploymentsResponseFormat3(BaseModel):
+    type: DeploymentsResponseFormatDeploymentsType
 
 
-DeploymentsResponseFormatDeploymentsType = Literal["json_schema"]
+DeploymentsResponseFormatType = Literal["json_schema"]
 
 
 class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -170,20 +170,35 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class DeploymentsResponseFormat1TypedDict(TypedDict):
-    type: DeploymentsResponseFormatDeploymentsType
+class DeploymentsResponseFormat2TypedDict(TypedDict):
+    type: DeploymentsResponseFormatType
     json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
 
 
-class DeploymentsResponseFormat1(BaseModel):
-    type: DeploymentsResponseFormatDeploymentsType
+class DeploymentsResponseFormat2(BaseModel):
+    type: DeploymentsResponseFormatType
 
     json_schema: DeploymentsResponseFormatJSONSchema
 
 
+DeploymentsResponseFormatDeploymentsResponseType = Literal["text"]
+
+
+class DeploymentsResponseFormat1TypedDict(TypedDict):
+    type: DeploymentsResponseFormatDeploymentsResponseType
+
+
+class DeploymentsResponseFormat1(BaseModel):
+    type: DeploymentsResponseFormatDeploymentsResponseType
+
+
 DeploymentsResponseFormatTypedDict = TypeAliasType(
     "DeploymentsResponseFormatTypedDict",
-    Union[DeploymentsResponseFormat2TypedDict, DeploymentsResponseFormat1TypedDict],
+    Union[
+        DeploymentsResponseFormat1TypedDict,
+        DeploymentsResponseFormat3TypedDict,
+        DeploymentsResponseFormat2TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -197,7 +212,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 DeploymentsResponseFormat = TypeAliasType(
     "DeploymentsResponseFormat",
-    Union[DeploymentsResponseFormat2, DeploymentsResponseFormat1],
+    Union[
+        DeploymentsResponseFormat1,
+        DeploymentsResponseFormat3,
+        DeploymentsResponseFormat2,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

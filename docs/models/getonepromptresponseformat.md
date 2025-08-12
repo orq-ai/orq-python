@@ -23,3 +23,9 @@ value: models.GetOnePromptResponseFormat1 = /* values here */
 value: models.GetOnePromptResponseFormat2 = /* values here */
 ```
 
+### `models.GetOnePromptResponseFormat3`
+
+```python
+value: models.GetOnePromptResponseFormat3 = /* values here */
+```
+

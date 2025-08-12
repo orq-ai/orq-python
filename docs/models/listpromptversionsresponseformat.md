@@ -23,3 +23,9 @@ value: models.ListPromptVersionsResponseFormat1 = /* values here */
 value: models.ListPromptVersionsResponseFormat2 = /* values here */
 ```
 
+### `models.ListPromptVersionsResponseFormat3`
+
+```python
+value: models.ListPromptVersionsResponseFormat3 = /* values here */
+```
+

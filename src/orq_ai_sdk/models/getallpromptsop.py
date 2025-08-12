@@ -64,18 +64,18 @@ r"""The modality of the model"""
 GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
+GetAllPromptsResponseFormatPromptsResponseType = Literal["json_object"]
 
 
-class GetAllPromptsResponseFormat2TypedDict(TypedDict):
-    type: GetAllPromptsResponseFormatPromptsType
+class GetAllPromptsResponseFormat3TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsResponseType
 
 
-class GetAllPromptsResponseFormat2(BaseModel):
-    type: GetAllPromptsResponseFormatPromptsType
+class GetAllPromptsResponseFormat3(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsResponseType
 
 
-GetAllPromptsResponseFormatType = Literal["json_schema"]
+GetAllPromptsResponseFormatPromptsType = Literal["json_schema"]
 
 
 class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -92,20 +92,35 @@ class GetAllPromptsResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
+class GetAllPromptsResponseFormat2TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsType
+    json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
+
+
+class GetAllPromptsResponseFormat2(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsType
+
+    json_schema: GetAllPromptsResponseFormatJSONSchema
+
+
+GetAllPromptsResponseFormatType = Literal["text"]
+
+
 class GetAllPromptsResponseFormat1TypedDict(TypedDict):
     type: GetAllPromptsResponseFormatType
-    json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
 
 
 class GetAllPromptsResponseFormat1(BaseModel):
     type: GetAllPromptsResponseFormatType
 
-    json_schema: GetAllPromptsResponseFormatJSONSchema
-
 
 GetAllPromptsResponseFormatTypedDict = TypeAliasType(
     "GetAllPromptsResponseFormatTypedDict",
-    Union[GetAllPromptsResponseFormat2TypedDict, GetAllPromptsResponseFormat1TypedDict],
+    Union[
+        GetAllPromptsResponseFormat1TypedDict,
+        GetAllPromptsResponseFormat3TypedDict,
+        GetAllPromptsResponseFormat2TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -119,7 +134,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 GetAllPromptsResponseFormat = TypeAliasType(
     "GetAllPromptsResponseFormat",
-    Union[GetAllPromptsResponseFormat2, GetAllPromptsResponseFormat1],
+    Union[
+        GetAllPromptsResponseFormat1,
+        GetAllPromptsResponseFormat3,
+        GetAllPromptsResponseFormat2,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
