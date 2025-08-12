@@ -142,6 +142,17 @@ r"""The modality of the model"""
 DeploymentsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+DeploymentsResponseFormatDeploymentsType = Literal["text"]
+
+
+class DeploymentsResponseFormat3TypedDict(TypedDict):
+    type: DeploymentsResponseFormatDeploymentsType
+
+
+class DeploymentsResponseFormat3(BaseModel):
+    type: DeploymentsResponseFormatDeploymentsType
+
+
 DeploymentsResponseFormatType = Literal["json_object"]
 
 
@@ -153,7 +164,7 @@ class DeploymentsResponseFormat2(BaseModel):
     type: DeploymentsResponseFormatType
 
 
-DeploymentsResponseFormatDeploymentsType = Literal["json_schema"]
+DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema"]
 
 
 class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -171,19 +182,23 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
 
 
 class DeploymentsResponseFormat1TypedDict(TypedDict):
-    type: DeploymentsResponseFormatDeploymentsType
+    type: DeploymentsResponseFormatDeploymentsResponseType
     json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
 
 
 class DeploymentsResponseFormat1(BaseModel):
-    type: DeploymentsResponseFormatDeploymentsType
+    type: DeploymentsResponseFormatDeploymentsResponseType
 
     json_schema: DeploymentsResponseFormatJSONSchema
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(
     "DeploymentsResponseFormatTypedDict",
-    Union[DeploymentsResponseFormat2TypedDict, DeploymentsResponseFormat1TypedDict],
+    Union[
+        DeploymentsResponseFormat2TypedDict,
+        DeploymentsResponseFormat3TypedDict,
+        DeploymentsResponseFormat1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -197,7 +212,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 DeploymentsResponseFormat = TypeAliasType(
     "DeploymentsResponseFormat",
-    Union[DeploymentsResponseFormat2, DeploymentsResponseFormat1],
+    Union[
+        DeploymentsResponseFormat2,
+        DeploymentsResponseFormat3,
+        DeploymentsResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

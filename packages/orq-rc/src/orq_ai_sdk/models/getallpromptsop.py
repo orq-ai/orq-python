@@ -64,6 +64,17 @@ r"""The modality of the model"""
 GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+GetAllPromptsResponseFormatPromptsResponseType = Literal["text"]
+
+
+class GetAllPromptsResponseFormat3TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsResponseType
+
+
+class GetAllPromptsResponseFormat3(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsResponseType
+
+
 GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -105,7 +116,11 @@ class GetAllPromptsResponseFormat1(BaseModel):
 
 GetAllPromptsResponseFormatTypedDict = TypeAliasType(
     "GetAllPromptsResponseFormatTypedDict",
-    Union[GetAllPromptsResponseFormat2TypedDict, GetAllPromptsResponseFormat1TypedDict],
+    Union[
+        GetAllPromptsResponseFormat2TypedDict,
+        GetAllPromptsResponseFormat3TypedDict,
+        GetAllPromptsResponseFormat1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -119,7 +134,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 GetAllPromptsResponseFormat = TypeAliasType(
     "GetAllPromptsResponseFormat",
-    Union[GetAllPromptsResponseFormat2, GetAllPromptsResponseFormat1],
+    Union[
+        GetAllPromptsResponseFormat2,
+        GetAllPromptsResponseFormat3,
+        GetAllPromptsResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

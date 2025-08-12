@@ -23,3 +23,9 @@ value: models.ResponseFormat1 = /* values here */
 value: models.ResponseFormat2 = /* values here */
 ```
 
+### `models.ResponseFormat3`
+
+```python
+value: models.ResponseFormat3 = /* values here */
+```
+

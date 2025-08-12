@@ -67,6 +67,17 @@ r"""The modality of the model"""
 ListPromptVersionsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+ListPromptVersionsResponseFormatPromptsResponseType = Literal["text"]
+
+
+class ListPromptVersionsResponseFormat3TypedDict(TypedDict):
+    type: ListPromptVersionsResponseFormatPromptsResponseType
+
+
+class ListPromptVersionsResponseFormat3(BaseModel):
+    type: ListPromptVersionsResponseFormatPromptsResponseType
+
+
 ListPromptVersionsResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -110,6 +121,7 @@ ListPromptVersionsResponseFormatTypedDict = TypeAliasType(
     "ListPromptVersionsResponseFormatTypedDict",
     Union[
         ListPromptVersionsResponseFormat2TypedDict,
+        ListPromptVersionsResponseFormat3TypedDict,
         ListPromptVersionsResponseFormat1TypedDict,
     ],
 )
@@ -125,7 +137,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 ListPromptVersionsResponseFormat = TypeAliasType(
     "ListPromptVersionsResponseFormat",
-    Union[ListPromptVersionsResponseFormat2, ListPromptVersionsResponseFormat1],
+    Union[
+        ListPromptVersionsResponseFormat2,
+        ListPromptVersionsResponseFormat3,
+        ListPromptVersionsResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

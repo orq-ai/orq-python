@@ -23,3 +23,9 @@ value: models.DeploymentGetConfigResponseFormat1 = /* values here */
 value: models.DeploymentGetConfigResponseFormat2 = /* values here */
 ```
 
+### `models.DeploymentGetConfigResponseFormat3`
+
+```python
+value: models.DeploymentGetConfigResponseFormat3 = /* values here */
+```
+

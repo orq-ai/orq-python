@@ -1919,6 +1919,17 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
 DeploymentGetConfigFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+DeploymentGetConfigResponseFormatDeploymentsType = Literal["text"]
+
+
+class DeploymentGetConfigResponseFormat3TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
+
+
+class DeploymentGetConfigResponseFormat3(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
+
+
 DeploymentGetConfigResponseFormatType = Literal["json_object"]
 
 
@@ -1930,7 +1941,7 @@ class DeploymentGetConfigResponseFormat2(BaseModel):
     type: DeploymentGetConfigResponseFormatType
 
 
-DeploymentGetConfigResponseFormatDeploymentsType = Literal["json_schema"]
+DeploymentGetConfigResponseFormatDeploymentsResponseType = Literal["json_schema"]
 
 
 class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -1948,12 +1959,12 @@ class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
 
 
 class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
     json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
 
 
 class DeploymentGetConfigResponseFormat1(BaseModel):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
 
     json_schema: DeploymentGetConfigResponseFormatJSONSchema
 
@@ -1962,6 +1973,7 @@ DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
     "DeploymentGetConfigResponseFormatTypedDict",
     Union[
         DeploymentGetConfigResponseFormat2TypedDict,
+        DeploymentGetConfigResponseFormat3TypedDict,
         DeploymentGetConfigResponseFormat1TypedDict,
     ],
 )
@@ -1977,7 +1989,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
-    Union[DeploymentGetConfigResponseFormat2, DeploymentGetConfigResponseFormat1],
+    Union[
+        DeploymentGetConfigResponseFormat2,
+        DeploymentGetConfigResponseFormat3,
+        DeploymentGetConfigResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

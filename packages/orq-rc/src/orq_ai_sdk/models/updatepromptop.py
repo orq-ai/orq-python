@@ -20,6 +20,17 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+UpdatePromptResponseFormatPromptsRequestType = Literal["text"]
+
+
+class UpdatePromptResponseFormat3TypedDict(TypedDict):
+    type: UpdatePromptResponseFormatPromptsRequestType
+
+
+class UpdatePromptResponseFormat3(BaseModel):
+    type: UpdatePromptResponseFormatPromptsRequestType
+
+
 UpdatePromptResponseFormatPromptsType = Literal["json_object"]
 
 
@@ -61,7 +72,11 @@ class UpdatePromptResponseFormat1(BaseModel):
 
 UpdatePromptResponseFormatTypedDict = TypeAliasType(
     "UpdatePromptResponseFormatTypedDict",
-    Union[UpdatePromptResponseFormat2TypedDict, UpdatePromptResponseFormat1TypedDict],
+    Union[
+        UpdatePromptResponseFormat2TypedDict,
+        UpdatePromptResponseFormat3TypedDict,
+        UpdatePromptResponseFormat1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -75,7 +90,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 UpdatePromptResponseFormat = TypeAliasType(
     "UpdatePromptResponseFormat",
-    Union[UpdatePromptResponseFormat2, UpdatePromptResponseFormat1],
+    Union[
+        UpdatePromptResponseFormat2,
+        UpdatePromptResponseFormat3,
+        UpdatePromptResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -759,6 +778,17 @@ r"""The modality of the model"""
 UpdatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text"]
+
+
+class UpdatePromptResponseFormatPrompts3TypedDict(TypedDict):
+    type: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType
+
+
+class UpdatePromptResponseFormatPrompts3(BaseModel):
+    type: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType
+
+
 UpdatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
 
 
@@ -802,6 +832,7 @@ UpdatePromptPromptsResponseFormatTypedDict = TypeAliasType(
     "UpdatePromptPromptsResponseFormatTypedDict",
     Union[
         UpdatePromptResponseFormatPrompts2TypedDict,
+        UpdatePromptResponseFormatPrompts3TypedDict,
         UpdatePromptResponseFormatPrompts1TypedDict,
     ],
 )
@@ -817,7 +848,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 UpdatePromptPromptsResponseFormat = TypeAliasType(
     "UpdatePromptPromptsResponseFormat",
-    Union[UpdatePromptResponseFormatPrompts2, UpdatePromptResponseFormatPrompts1],
+    Union[
+        UpdatePromptResponseFormatPrompts2,
+        UpdatePromptResponseFormatPrompts3,
+        UpdatePromptResponseFormatPrompts1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

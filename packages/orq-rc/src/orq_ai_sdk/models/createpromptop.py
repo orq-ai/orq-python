@@ -30,6 +30,17 @@ r"""The modality of the model"""
 CreatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
+CreatePromptResponseFormatPromptsType = Literal["text"]
+
+
+class ResponseFormat3TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsType
+
+
+class ResponseFormat3(BaseModel):
+    type: CreatePromptResponseFormatPromptsType
+
+
 CreatePromptResponseFormatType = Literal["json_object"]
 
 
@@ -70,7 +81,8 @@ class ResponseFormat1(BaseModel):
 
 
 ResponseFormatTypedDict = TypeAliasType(
-    "ResponseFormatTypedDict", Union[ResponseFormat2TypedDict, ResponseFormat1TypedDict]
+    "ResponseFormatTypedDict",
+    Union[ResponseFormat2TypedDict, ResponseFormat3TypedDict, ResponseFormat1TypedDict],
 )
 r"""An object specifying the format that the model must output.
 
@@ -83,7 +95,7 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 
 ResponseFormat = TypeAliasType(
-    "ResponseFormat", Union[ResponseFormat2, ResponseFormat1]
+    "ResponseFormat", Union[ResponseFormat2, ResponseFormat3, ResponseFormat1]
 )
 r"""An object specifying the format that the model must output.
 
@@ -701,18 +713,29 @@ r"""The modality of the model"""
 CreatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-CreatePromptResponseFormatPromptsResponseType = Literal["json_object"]
+CreatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text"]
+
+
+class CreatePromptResponseFormat3TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
+
+
+class CreatePromptResponseFormat3(BaseModel):
+    type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
+
+
+CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
 
 
 class CreatePromptResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsResponseType
+    type: CreatePromptResponseFormatPromptsResponse200Type
 
 
 class CreatePromptResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatPromptsResponseType
+    type: CreatePromptResponseFormatPromptsResponse200Type
 
 
-CreatePromptResponseFormatPromptsType = Literal["json_schema"]
+CreatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
 
 
 class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -730,19 +753,23 @@ class CreatePromptResponseFormatJSONSchema(BaseModel):
 
 
 class CreatePromptResponseFormat1TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsType
+    type: CreatePromptResponseFormatPromptsResponseType
     json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
 
 
 class CreatePromptResponseFormat1(BaseModel):
-    type: CreatePromptResponseFormatPromptsType
+    type: CreatePromptResponseFormatPromptsResponseType
 
     json_schema: CreatePromptResponseFormatJSONSchema
 
 
 CreatePromptResponseFormatTypedDict = TypeAliasType(
     "CreatePromptResponseFormatTypedDict",
-    Union[CreatePromptResponseFormat2TypedDict, CreatePromptResponseFormat1TypedDict],
+    Union[
+        CreatePromptResponseFormat2TypedDict,
+        CreatePromptResponseFormat3TypedDict,
+        CreatePromptResponseFormat1TypedDict,
+    ],
 )
 r"""An object specifying the format that the model must output.
 
@@ -756,7 +783,11 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 CreatePromptResponseFormat = TypeAliasType(
     "CreatePromptResponseFormat",
-    Union[CreatePromptResponseFormat2, CreatePromptResponseFormat1],
+    Union[
+        CreatePromptResponseFormat2,
+        CreatePromptResponseFormat3,
+        CreatePromptResponseFormat1,
+    ],
 )
 r"""An object specifying the format that the model must output.
 

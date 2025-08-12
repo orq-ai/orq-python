@@ -26,7 +26,7 @@ class Contacts(BaseSDK):
     ) -> Optional[models.CreateContactResponseBody]:
         r"""Create a contact
 
-        Creates a new contact or updates an existing one based on external_id. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
+        Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -124,7 +124,7 @@ class Contacts(BaseSDK):
     ) -> Optional[models.CreateContactResponseBody]:
         r"""Create a contact
 
-        Creates a new contact or updates an existing one based on external_id. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
+        Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
