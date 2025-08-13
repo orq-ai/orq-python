@@ -73,7 +73,7 @@ r"""The modality of the model"""
 GetPromptVersionFormat = Literal["url", "b64_json", "text", "json_object"]
 r"""Only supported on `image` models."""
 
-GetPromptVersionResponseFormatPromptsResponseType = Literal["json_object"]
+GetPromptVersionResponseFormatPromptsResponseType = Literal["text"]
 
 
 class GetPromptVersionResponseFormat3TypedDict(TypedDict):
@@ -84,7 +84,18 @@ class GetPromptVersionResponseFormat3(BaseModel):
     type: GetPromptVersionResponseFormatPromptsResponseType
 
 
-GetPromptVersionResponseFormatPromptsType = Literal["json_schema"]
+GetPromptVersionResponseFormatPromptsType = Literal["json_object"]
+
+
+class GetPromptVersionResponseFormat2TypedDict(TypedDict):
+    type: GetPromptVersionResponseFormatPromptsType
+
+
+class GetPromptVersionResponseFormat2(BaseModel):
+    type: GetPromptVersionResponseFormatPromptsType
+
+
+GetPromptVersionResponseFormatType = Literal["json_schema"]
 
 
 class GetPromptVersionResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -101,34 +112,23 @@ class GetPromptVersionResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class GetPromptVersionResponseFormat2TypedDict(TypedDict):
-    type: GetPromptVersionResponseFormatPromptsType
-    json_schema: GetPromptVersionResponseFormatJSONSchemaTypedDict
-
-
-class GetPromptVersionResponseFormat2(BaseModel):
-    type: GetPromptVersionResponseFormatPromptsType
-
-    json_schema: GetPromptVersionResponseFormatJSONSchema
-
-
-GetPromptVersionResponseFormatType = Literal["text"]
-
-
 class GetPromptVersionResponseFormat1TypedDict(TypedDict):
     type: GetPromptVersionResponseFormatType
+    json_schema: GetPromptVersionResponseFormatJSONSchemaTypedDict
 
 
 class GetPromptVersionResponseFormat1(BaseModel):
     type: GetPromptVersionResponseFormatType
 
+    json_schema: GetPromptVersionResponseFormatJSONSchema
+
 
 GetPromptVersionResponseFormatTypedDict = TypeAliasType(
     "GetPromptVersionResponseFormatTypedDict",
     Union[
-        GetPromptVersionResponseFormat1TypedDict,
-        GetPromptVersionResponseFormat3TypedDict,
         GetPromptVersionResponseFormat2TypedDict,
+        GetPromptVersionResponseFormat3TypedDict,
+        GetPromptVersionResponseFormat1TypedDict,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -144,9 +144,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetPromptVersionResponseFormat = TypeAliasType(
     "GetPromptVersionResponseFormat",
     Union[
-        GetPromptVersionResponseFormat1,
-        GetPromptVersionResponseFormat3,
         GetPromptVersionResponseFormat2,
+        GetPromptVersionResponseFormat3,
+        GetPromptVersionResponseFormat1,
     ],
 )
 r"""An object specifying the format that the model must output.
