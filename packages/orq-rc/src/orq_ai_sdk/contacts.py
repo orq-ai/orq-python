@@ -849,7 +849,7 @@ class Contacts(BaseSDK):
     ):
         r"""Delete a contact
 
-        Permanently deletes a contact from your workspace. This action cannot be undone.
+        Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
 
         :param id: Contact ID or External ID
         :param retries: Override the default retry configuration for this method
@@ -941,7 +941,7 @@ class Contacts(BaseSDK):
     ):
         r"""Delete a contact
 
-        Permanently deletes a contact from your workspace. This action cannot be undone.
+        Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
 
         :param id: Contact ID or External ID
         :param retries: Override the default retry configuration for this method

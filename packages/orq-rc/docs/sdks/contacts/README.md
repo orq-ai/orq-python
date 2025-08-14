@@ -222,7 +222,7 @@ with Orq(
 
 ## delete
 
-Permanently deletes a contact from your workspace. This action cannot be undone.
+Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
 
 ### Example Usage
 
