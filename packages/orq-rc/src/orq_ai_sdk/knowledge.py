@@ -998,6 +998,18 @@ class Knowledge(BaseSDK):
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
+        rerank_config: OptionalNullable[
+            Union[
+                models.SearchKnowledgeRerankConfig,
+                models.SearchKnowledgeRerankConfigTypedDict,
+            ]
+        ] = UNSET,
+        agentic_rag_config: Optional[
+            Union[
+                models.SearchKnowledgeAgenticRagConfig,
+                models.SearchKnowledgeAgenticRagConfigTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1009,11 +1021,13 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
-        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
+        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
+        :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
+        :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1044,6 +1058,12 @@ class Knowledge(BaseSDK):
                 ),
                 search_options=utils.get_pydantic_model(
                     search_options, Optional[models.SearchOptions]
+                ),
+                rerank_config=utils.get_pydantic_model(
+                    rerank_config, OptionalNullable[models.SearchKnowledgeRerankConfig]
+                ),
+                agentic_rag_config=utils.get_pydantic_model(
+                    agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
                 ),
             ),
         )
@@ -1119,6 +1139,18 @@ class Knowledge(BaseSDK):
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
+        rerank_config: OptionalNullable[
+            Union[
+                models.SearchKnowledgeRerankConfig,
+                models.SearchKnowledgeRerankConfigTypedDict,
+            ]
+        ] = UNSET,
+        agentic_rag_config: Optional[
+            Union[
+                models.SearchKnowledgeAgenticRagConfig,
+                models.SearchKnowledgeAgenticRagConfigTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1130,11 +1162,13 @@ class Knowledge(BaseSDK):
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
-        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`
+        :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
         :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
         :param search_options: Additional search options
+        :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
+        :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1165,6 +1199,12 @@ class Knowledge(BaseSDK):
                 ),
                 search_options=utils.get_pydantic_model(
                     search_options, Optional[models.SearchOptions]
+                ),
+                rerank_config=utils.get_pydantic_model(
+                    rerank_config, OptionalNullable[models.SearchKnowledgeRerankConfig]
+                ),
+                agentic_rag_config=utils.get_pydantic_model(
+                    agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
                 ),
             ),
         )
