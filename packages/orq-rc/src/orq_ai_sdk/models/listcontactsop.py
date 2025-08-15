@@ -184,7 +184,7 @@ class Data(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-08-15T11:13:42.240Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-15T12:52:59.508Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
