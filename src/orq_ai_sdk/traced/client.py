@@ -121,7 +121,8 @@ class OrqClient:
                 
                 if response.status_code == 200:
                     if self.config.debug:
-                        print(f"Successfully sent {len(spans)} spans")
+                        print(f"Successfully sent {len(spans)} spans - Server response: {response.status_code}")
+                        print(f"Response body: {response.text}")
                     return
                 else:
                     if self.config.debug:
