@@ -1,9 +1,10 @@
 """Utility functions for Orq decorator SDK."""
+# pylint: disable=no-else-return
 
 import time
 import random
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional
+from typing import Any
 from .constants import VALID_SPAN_TYPES
 
 

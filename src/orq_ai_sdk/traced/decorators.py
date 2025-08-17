@@ -1,14 +1,14 @@
 """Decorator implementations for Orq decorator tracing."""
+# pylint: disable=no-else-return
 
 import functools
 import inspect
-import time
 from typing import Any, Callable, Dict, Optional, TypeVar, Union
 
 from .client import get_client
 from .config import get_config
 from .span import Span
-from .context import create_span_context, get_current_span_context, SpanContextManager
+from .context import create_span_context, SpanContextManager
 from .utils import serialize_value, validate_span_type
 from .otel_integration import is_otel_available
 
@@ -20,7 +20,7 @@ def traced(
     _func: Optional[F] = None,
     *,
     name: Optional[str] = None,
-    type: str = "function",
+    type: str = "function",  # pylint: disable=redefined-builtin
     capture_input: bool = True,
     capture_output: bool = True,
     attributes: Optional[Dict[str, Any]] = None
@@ -57,7 +57,6 @@ def traced(
             
             # Create span context
             span_context = create_span_context(
-                name=span_name,
                 attributes=attributes or {}
             )
             
@@ -101,7 +100,7 @@ def traced(
             otel_span = None
             otel_context_token = None
             if is_otel_available():
-                from opentelemetry import trace, context
+                from opentelemetry import trace, context  # pylint: disable=import-outside-toplevel
                 # Use the global tracer - this will inherit from current context automatically
                 tracer = trace.get_tracer(__name__)
                 otel_span = tracer.start_span(span_name)
@@ -128,7 +127,7 @@ def traced(
                     # Update OpenTelemetry span with data and status
                     if otel_span:
                         try:
-                            from opentelemetry.trace import Status, StatusCode
+                            from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel
                             
                             # Copy attributes from traced span to OpenTelemetry span
                             for key, value in span.attributes.items():
@@ -159,7 +158,7 @@ def traced(
                 # Update OpenTelemetry span with error and data
                 if otel_span:
                     try:
-                        from opentelemetry.trace import Status, StatusCode
+                        from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel
                         
                         # Copy attributes from traced span to OpenTelemetry span
                         for key, value in span.attributes.items():
@@ -184,7 +183,7 @@ def traced(
                 if otel_span:
                     otel_span.end()
                 if otel_context_token:
-                    from opentelemetry import context
+                    from opentelemetry import context  # pylint: disable=import-outside-toplevel
                     context.detach(otel_context_token)
                 
                 # End the span
