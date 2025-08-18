@@ -4,7 +4,7 @@ import contextvars
 from typing import Optional, Dict, Any, List, TYPE_CHECKING
 from dataclasses import dataclass, field
 
-from .otel_integration import get_current_otel_context, is_otel_available
+from .otel_integration import get_current_otel_context
 from .utils import generate_ulid
 
 if TYPE_CHECKING:
@@ -101,7 +101,6 @@ def create_trace_context(trace_id: Optional[str] = None) -> TraceContext:
 
 
 def create_span_context(
-    name: str,
     parent_id: Optional[str] = None,
     attributes: Optional[Dict[str, Any]] = None
 ) -> SpanContext:
@@ -111,7 +110,7 @@ def create_span_context(
     
     if otel_context:
         # Use OpenTelemetry trace context
-        otel_trace_id, otel_span_id, otel_parent_id = otel_context
+        otel_trace_id, otel_span_id, otel_parent_span_id = otel_context
         
         # Check if we have an existing trace with the same ID
         trace = get_current_trace()
@@ -120,24 +119,35 @@ def create_span_context(
             trace = TraceContext(trace_id=otel_trace_id, root_span_id=otel_span_id)
             set_current_trace(trace)
         
-        # Use current OpenTelemetry span as parent if no parent specified
+        # Use OpenTelemetry parent span ID if no parent specified
         if not parent_id:
-            parent_id = otel_span_id
+            parent_id = otel_parent_span_id  # This will be None for root spans
     else:
         # Fallback to original behavior
         trace = get_current_trace()
-        if not trace:
+        span_stack = get_span_stack()
+        
+        # Create new trace if:
+        # 1. No trace exists, OR
+        # 2. Trace exists but no active spans (meaning previous operations ended)
+        if not trace or len(span_stack) == 0:
             trace = create_trace_context()
     
     # If no parent_id is provided, use the current span as parent
     if not parent_id:
-        current_span = get_current_span_context()
-        if current_span:
-            parent_id = current_span.span_id
+        current_span_context = get_current_span_context()
+        if current_span_context:
+            parent_id = current_span_context.span_id
 
+    # Use OpenTelemetry span_id when available to maintain format consistency
+    if otel_context:
+        span_id = otel_context[1]  # Use OpenTelemetry span_id (hex format)
+    else:
+        span_id = generate_ulid()  # Use ULID format when no OpenTelemetry
+    
     span = SpanContext(
         trace_id=trace.trace_id,
-        span_id=generate_ulid(),
+        span_id=span_id,
         parent_id=parent_id,
         attributes=attributes or {}
     )

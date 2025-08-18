@@ -41,7 +41,7 @@ _config: Optional[Config] = None
 
 def get_config() -> Config:
     """Get the global configuration instance."""
-    global _config
+    global _config  # pylint: disable=global-statement
     if _config is None:
         _config = Config()
     return _config
@@ -49,5 +49,5 @@ def get_config() -> Config:
 
 def set_config(config: Config):
     """Set the global configuration."""
-    global _config
+    global _config  # pylint: disable=global-statement
     _config = config

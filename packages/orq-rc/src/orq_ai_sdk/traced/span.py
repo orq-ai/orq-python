@@ -113,7 +113,7 @@ class Span:
             end_time = get_current_time_iso()
         self.end_time = end_time
     
-    def log(self, input: Any = None, output: Any = None, metrics: Optional[Metrics] = None, metadata: Optional[Dict[str, Any]] = None, request: Optional[Request] = None) -> None:
+    def log(self, input: Any = None, output: Any = None, metrics: Optional[Metrics] = None, metadata: Optional[Dict[str, Any]] = None, request: Optional[Request] = None) -> None:  # pylint: disable=redefined-builtin
         """Log input, output, metrics, metadata, provider, and model to the span."""
         if input is not None:
             self.set_input(input)

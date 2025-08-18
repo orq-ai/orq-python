@@ -1,8 +1,8 @@
 """Client for communicating with Orq API."""
+# pylint: disable=no-else-return
 
 import atexit
 import inspect
-import json
 import queue
 import threading
 import sys
@@ -121,7 +121,8 @@ class OrqClient:
                 
                 if response.status_code == 200:
                     if self.config.debug:
-                        print(f"Successfully sent {len(spans)} spans")
+                        print(f"Successfully sent {len(spans)} spans - Server response: {response.status_code}")
+                        print(f"Response body: {response.text}")
                     return
                 else:
                     if self.config.debug:
@@ -160,7 +161,7 @@ _client: Optional[OrqClient] = None
 
 def get_client() -> OrqClient:
     """Get the global client instance."""
-    global _client
+    global _client  # pylint: disable=global-statement
 
     # Try to find an Orq instance and auto-initialize from it
     orq_instance = _find_orq_instance()
@@ -183,7 +184,7 @@ def init_from_orq(orq_instance: "Orq") -> None:
     Args:
         orq_instance: An initialized Orq SDK instance
     """
-    global _client
+    global _client  # pylint: disable=global-statement
 
     # Extract configuration from Orq instance
     config_kwargs = {}
@@ -228,12 +229,12 @@ def _find_orq_instance() -> Optional["Orq"]:
     This searches through the call stack frames to find an Orq instance.
     """
     try:
-        from orq_ai_sdk.sdk import Orq
+        from orq_ai_sdk.sdk import Orq  # pylint: disable=import-outside-toplevel
 
         # Check the main module first
         main_module = sys.modules.get('__main__')
         if main_module:
-            for name, obj in vars(main_module).items():
+            for _, obj in vars(main_module).items():
                 if isinstance(obj, Orq):
                     return obj
 
@@ -242,12 +243,12 @@ def _find_orq_instance() -> Optional["Orq"]:
             frame = frame_info.frame
 
             # Check local variables
-            for name, obj in frame.f_locals.items():
+            for _, obj in frame.f_locals.items():
                 if isinstance(obj, Orq):
                     return obj
 
             # Check global variables in the frame's module
-            for name, obj in frame.f_globals.items():
+            for _, obj in frame.f_globals.items():
                 if isinstance(obj, Orq):
                     return obj
 
