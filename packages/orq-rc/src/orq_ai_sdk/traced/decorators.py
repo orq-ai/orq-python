@@ -59,7 +59,7 @@ def traced(
             otel_span = None
             otel_context_token = None
             if is_otel_available():
-                from opentelemetry import trace, context  # pylint: disable=import-outside-toplevel,import-error
+                from opentelemetry import trace, context  # type: ignore[import-untyped] # pylint: disable=import-outside-toplevel,import-error
                 # Use the global tracer - this will inherit from current context automatically
                 tracer = trace.get_tracer(__name__)
                 otel_span = tracer.start_span(span_name)
@@ -127,7 +127,7 @@ def traced(
                     # Update OpenTelemetry span with data and status
                     if otel_span:
                         try:
-                            from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
+                            from opentelemetry.trace import Status, StatusCode  # type: ignore[import-untyped] # pylint: disable=import-outside-toplevel,import-error
                             
                             # Copy attributes from traced span to OpenTelemetry span
                             for key, value in span.attributes.items():
@@ -158,7 +158,7 @@ def traced(
                 # Update OpenTelemetry span with error and data
                 if otel_span:
                     try:
-                        from opentelemetry.trace import Status, StatusCode  # pylint: disable=import-outside-toplevel,import-error
+                        from opentelemetry.trace import Status, StatusCode  # type: ignore[import-untyped] # pylint: disable=import-outside-toplevel,import-error
                         
                         # Copy attributes from traced span to OpenTelemetry span
                         for key, value in span.attributes.items():
@@ -183,7 +183,7 @@ def traced(
                 if otel_span:
                     otel_span.end()
                 if otel_context_token:
-                    from opentelemetry import context  # pylint: disable=import-outside-toplevel,import-error
+                    from opentelemetry import context  # type: ignore[import-untyped] # pylint: disable=import-outside-toplevel,import-error
                     context.detach(otel_context_token)
                 
                 # End the span
@@ -204,7 +204,7 @@ def traced(
                     if config.debug:
                         print(f"OpenTelemetry active - skipping Orq API submission for span: {span.name}")
         
-        return wrapper
+        return wrapper  # type: ignore[return-value]
 
     # Handle both @traced and @traced() syntax
     if _func is None:
