@@ -51,6 +51,10 @@ ignore_missing_imports = true
 module = "jsonpath"
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = "opentelemetry.*"
+ignore_missing_imports = true
+
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
