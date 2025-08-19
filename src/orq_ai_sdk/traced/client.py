@@ -7,7 +7,7 @@ import queue
 import threading
 import sys
 import time
-from typing import List, Optional, TYPE_CHECKING
+from typing import List, Optional, TYPE_CHECKING, Any, Dict
 import requests
 from urllib.parse import urljoin
 
@@ -26,7 +26,7 @@ class OrqClient:
         self.config.validate()
         
         # Initialize queue for batching
-        self._queue = queue.Queue()
+        self._queue: queue.Queue[Span] = queue.Queue()
         self._flush_lock = threading.Lock()
         
         # Start background thread for flushing
@@ -74,7 +74,7 @@ class OrqClient:
     def _flush(self) -> None:
         """Flush pending spans to the API."""
         with self._flush_lock:
-            spans_to_send = []
+            spans_to_send: List[Span] = []
             
             # Collect spans from queue
             while not self._queue.empty() and len(spans_to_send) < self.config.batch_size:
@@ -174,6 +174,7 @@ def get_client() -> OrqClient:
     else:
         _client = OrqClient()
 
+    assert _client is not None  # This should always be true
     return _client
 
 
@@ -187,7 +188,7 @@ def init_from_orq(orq_instance: "Orq") -> None:
     global _client  # pylint: disable=global-statement
 
     # Extract configuration from Orq instance
-    config_kwargs = {}
+    config_kwargs: Dict[str, Any] = {}
     
     # Get API key from the Orq instance's security configuration
     if orq_instance.sdk_configuration.security:
@@ -195,24 +196,26 @@ def init_from_orq(orq_instance: "Orq") -> None:
         if callable(security):
             security_obj = security()
             if security_obj and security_obj.api_key:
-                config_kwargs["api_key"] = security_obj.api_key
+                config_kwargs["api_key"] = str(security_obj.api_key)
         elif hasattr(security, 'api_key'):
-            config_kwargs["api_key"] = security.api_key
+            api_key = security.api_key
+            if api_key is not None:
+                config_kwargs["api_key"] = str(api_key)
     
     # Get API Base URL from the Orq instance
     server_url, _ = orq_instance.sdk_configuration.get_server_details()
 
     if server_url:
-        config_kwargs["api_url"] = server_url
+        config_kwargs["api_url"] = str(server_url)
 
     # Extract debug flag from logger
     if orq_instance.sdk_configuration.debug_logger:
         # If a debug logger is set, enable debug mode
-        config_kwargs["debug"] = True
+        config_kwargs["debug"] = bool(orq_instance.sdk_configuration.debug_logger)
 
     # Extract timeout if available
     if orq_instance.sdk_configuration.timeout_ms:
-        config_kwargs["timeout"] = orq_instance.sdk_configuration.timeout_ms / 1000.0
+        config_kwargs["timeout"] = float(orq_instance.sdk_configuration.timeout_ms) / 1000.0
 
     # Create config with extracted values
     config = Config(**config_kwargs)

@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 # Try to import OpenTelemetry, but make it optional
 try:
-    from opentelemetry import trace
+    from opentelemetry import trace  # type: ignore[import-untyped]
     OTEL_AVAILABLE = True
 except ImportError:
     OTEL_AVAILABLE = False
