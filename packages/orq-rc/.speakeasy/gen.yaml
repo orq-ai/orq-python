@@ -21,7 +21,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: ix-sse-errors-for-speakeasy-compatibility
+  version: 3.12.0-rc.11
   additionalDependencies:
     dev: {}
     main:
