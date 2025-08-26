@@ -1307,6 +1307,12 @@ class Proxy(BaseSDK):
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
         user: Optional[str] = None,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyCompletionsOrq,
+                models.PostV2ProxyCompletionsOrqTypedDict,
+            ]
+        ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1329,6 +1335,7 @@ class Proxy(BaseSDK):
         :param temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1361,6 +1368,9 @@ class Proxy(BaseSDK):
             temperature=temperature,
             top_p=top_p,
             user=user,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyCompletionsOrq]
+            ),
             stream=stream,
         )
 
@@ -1452,6 +1462,12 @@ class Proxy(BaseSDK):
         temperature: OptionalNullable[float] = 1,
         top_p: OptionalNullable[float] = 1,
         user: Optional[str] = None,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyCompletionsOrq,
+                models.PostV2ProxyCompletionsOrqTypedDict,
+            ]
+        ] = None,
         stream: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1474,6 +1490,7 @@ class Proxy(BaseSDK):
         :param temperature: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1506,6 +1523,9 @@ class Proxy(BaseSDK):
             temperature=temperature,
             top_p=top_p,
             user=user,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyCompletionsOrq]
+            ),
             stream=stream,
         )
 
