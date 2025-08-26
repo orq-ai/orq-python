@@ -78,12 +78,92 @@ class CreateDatasetItem2RefusalContentPart(BaseModel):
 CreateDatasetItem2DatasetsRequestRequestBodyMessagesType = Literal["text"]
 r"""The type of the content part."""
 
+CreateDatasetItemAnnotationsDatasetsType = Literal["file_path"]
+
+
+class CreateDatasetItemAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class CreateDatasetItemAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class CreateDatasetItemAnnotations2TypedDict(TypedDict):
+    type: CreateDatasetItemAnnotationsDatasetsType
+    text: str
+    file_path: CreateDatasetItemAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class CreateDatasetItemAnnotations2(BaseModel):
+    type: CreateDatasetItemAnnotationsDatasetsType
+
+    text: str
+
+    file_path: CreateDatasetItemAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+CreateDatasetItemAnnotationsType = Literal["file_citation"]
+
+
+class CreateDatasetItemAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class CreateDatasetItemAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class CreateDatasetItemAnnotations1TypedDict(TypedDict):
+    type: CreateDatasetItemAnnotationsType
+    text: str
+    file_citation: CreateDatasetItemAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class CreateDatasetItemAnnotations1(BaseModel):
+    type: CreateDatasetItemAnnotationsType
+
+    text: str
+
+    file_citation: CreateDatasetItemAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+CreateDatasetItem2AnnotationsTypedDict = TypeAliasType(
+    "CreateDatasetItem2AnnotationsTypedDict",
+    Union[
+        CreateDatasetItemAnnotations1TypedDict, CreateDatasetItemAnnotations2TypedDict
+    ],
+)
+
+
+CreateDatasetItem2Annotations = TypeAliasType(
+    "CreateDatasetItem2Annotations",
+    Union[CreateDatasetItemAnnotations1, CreateDatasetItemAnnotations2],
+)
+
 
 class CreateDatasetItem2TextContentPartTypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsRequestRequestBodyMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[CreateDatasetItem2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class CreateDatasetItem2TextContentPart(BaseModel):
@@ -93,19 +173,22 @@ class CreateDatasetItem2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[CreateDatasetItem2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 CreateDatasetItemContentDatasets2TypedDict = TypeAliasType(
     "CreateDatasetItemContentDatasets2TypedDict",
     Union[
-        CreateDatasetItem2TextContentPartTypedDict,
         CreateDatasetItem2RefusalContentPartTypedDict,
+        CreateDatasetItem2TextContentPartTypedDict,
     ],
 )
 
 
 CreateDatasetItemContentDatasets2 = TypeAliasType(
     "CreateDatasetItemContentDatasets2",
-    Union[CreateDatasetItem2TextContentPart, CreateDatasetItem2RefusalContentPart],
+    Union[CreateDatasetItem2RefusalContentPart, CreateDatasetItem2TextContentPart],
 )
 
 
@@ -608,12 +691,93 @@ CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessagesType = L
 ]
 r"""The type of the content part."""
 
+CreateDatasetItemAnnotationsDatasetsResponse200Type = Literal["file_path"]
+
+
+class CreateDatasetItemAnnotationsDatasetsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class CreateDatasetItemAnnotationsDatasetsFilePath(BaseModel):
+    file_id: str
+
+
+class CreateDatasetItemAnnotationsDatasets2TypedDict(TypedDict):
+    type: CreateDatasetItemAnnotationsDatasetsResponse200Type
+    text: str
+    file_path: CreateDatasetItemAnnotationsDatasetsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class CreateDatasetItemAnnotationsDatasets2(BaseModel):
+    type: CreateDatasetItemAnnotationsDatasetsResponse200Type
+
+    text: str
+
+    file_path: CreateDatasetItemAnnotationsDatasetsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+CreateDatasetItemAnnotationsDatasetsResponseType = Literal["file_citation"]
+
+
+class CreateDatasetItemAnnotationsDatasetsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class CreateDatasetItemAnnotationsDatasetsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class CreateDatasetItemAnnotationsDatasets1TypedDict(TypedDict):
+    type: CreateDatasetItemAnnotationsDatasetsResponseType
+    text: str
+    file_citation: CreateDatasetItemAnnotationsDatasetsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class CreateDatasetItemAnnotationsDatasets1(BaseModel):
+    type: CreateDatasetItemAnnotationsDatasetsResponseType
+
+    text: str
+
+    file_citation: CreateDatasetItemAnnotationsDatasetsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+CreateDatasetItem2DatasetsAnnotationsTypedDict = TypeAliasType(
+    "CreateDatasetItem2DatasetsAnnotationsTypedDict",
+    Union[
+        CreateDatasetItemAnnotationsDatasets1TypedDict,
+        CreateDatasetItemAnnotationsDatasets2TypedDict,
+    ],
+)
+
+
+CreateDatasetItem2DatasetsAnnotations = TypeAliasType(
+    "CreateDatasetItem2DatasetsAnnotations",
+    Union[CreateDatasetItemAnnotationsDatasets1, CreateDatasetItemAnnotationsDatasets2],
+)
+
 
 class CreateDatasetItem2DatasetsTextContentPartTypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[CreateDatasetItem2DatasetsAnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class CreateDatasetItem2DatasetsTextContentPart(BaseModel):
@@ -623,12 +787,15 @@ class CreateDatasetItem2DatasetsTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[CreateDatasetItem2DatasetsAnnotations]] = None
+    r"""Annotations for the text content."""
+
 
 CreateDatasetItemContentDatasetsResponse2002TypedDict = TypeAliasType(
     "CreateDatasetItemContentDatasetsResponse2002TypedDict",
     Union[
-        CreateDatasetItem2DatasetsTextContentPartTypedDict,
         CreateDatasetItem2DatasetsRefusalContentPartTypedDict,
+        CreateDatasetItem2DatasetsTextContentPartTypedDict,
     ],
 )
 
@@ -636,8 +803,8 @@ CreateDatasetItemContentDatasetsResponse2002TypedDict = TypeAliasType(
 CreateDatasetItemContentDatasetsResponse2002 = TypeAliasType(
     "CreateDatasetItemContentDatasetsResponse2002",
     Union[
-        CreateDatasetItem2DatasetsTextContentPart,
         CreateDatasetItem2DatasetsRefusalContentPart,
+        CreateDatasetItem2DatasetsTextContentPart,
     ],
 )
 
@@ -1096,5 +1263,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-08-15T12:52:59.508Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-25T14:18:53.694Z")
     r"""The date and time the resource was last updated"""

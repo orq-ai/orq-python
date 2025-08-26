@@ -1,0 +1,10 @@
+# PostV2ProxyCompletionsProxyChoices
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `finish_reason`                                                                                        | [models.PostV2ProxyCompletionsProxyFinishReason](../models/postv2proxycompletionsproxyfinishreason.md) | :heavy_check_mark:                                                                                     | The reason the model stopped generating tokens.                                                        |
+| `index`                                                                                                | *float*                                                                                                | :heavy_check_mark:                                                                                     | The index of the choice in the list of choices.                                                        |
+| `text`                                                                                                 | *str*                                                                                                  | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

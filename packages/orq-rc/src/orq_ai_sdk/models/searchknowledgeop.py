@@ -634,6 +634,7 @@ SearchKnowledgeProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
+    "bytedance",
 ]
 
 SearchKnowledgeModelType = Literal["rerank"]
@@ -707,6 +708,7 @@ SearchKnowledgeKnowledgeProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
+    "bytedance",
 ]
 
 

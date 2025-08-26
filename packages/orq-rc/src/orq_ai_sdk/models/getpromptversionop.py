@@ -373,6 +373,7 @@ GetPromptVersionProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
+    "bytedance",
 ]
 
 GetPromptVersionRole = Literal[

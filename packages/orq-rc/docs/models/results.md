@@ -1,0 +1,11 @@
+# Results
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `flagged`                                                                            | *bool*                                                                               | :heavy_check_mark:                                                                   | Whether any of the categories are flagged                                            |
+| `categories`                                                                         | [models.Categories](../models/categories.md)                                         | :heavy_check_mark:                                                                   | A list of the categories, and whether they are flagged or not                        |
+| `category_scores`                                                                    | [models.CategoryScores](../models/categoryscores.md)                                 | :heavy_check_mark:                                                                   | A list of the categories along with their scores as predicted by model               |
+| `category_applied_input_types`                                                       | [Optional[models.CategoryAppliedInputTypes]](../models/categoryappliedinputtypes.md) | :heavy_minus_sign:                                                                   | A list of the categories along with the input type(s) that the score applies to      |

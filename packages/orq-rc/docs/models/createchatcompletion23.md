@@ -1,0 +1,9 @@
+# CreateChatCompletion23
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.CreateChatCompletion2ProxyRequestType](../models/createchatcompletion2proxyrequesttype.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `input_audio`                                                                                      | [models.CreateChatCompletion2InputAudio](../models/createchatcompletion2inputaudio.md)             | :heavy_check_mark:                                                                                 | N/A                                                                                                |

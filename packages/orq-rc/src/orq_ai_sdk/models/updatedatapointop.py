@@ -78,12 +78,90 @@ class UpdateDatapoint2RefusalContentPart(BaseModel):
 UpdateDatapoint2DatasetsRequestRequestBodyMessagesType = Literal["text"]
 r"""The type of the content part."""
 
+UpdateDatapointAnnotationsDatasetsType = Literal["file_path"]
+
+
+class UpdateDatapointAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class UpdateDatapointAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class UpdateDatapointAnnotations2TypedDict(TypedDict):
+    type: UpdateDatapointAnnotationsDatasetsType
+    text: str
+    file_path: UpdateDatapointAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class UpdateDatapointAnnotations2(BaseModel):
+    type: UpdateDatapointAnnotationsDatasetsType
+
+    text: str
+
+    file_path: UpdateDatapointAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+UpdateDatapointAnnotationsType = Literal["file_citation"]
+
+
+class UpdateDatapointAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class UpdateDatapointAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class UpdateDatapointAnnotations1TypedDict(TypedDict):
+    type: UpdateDatapointAnnotationsType
+    text: str
+    file_citation: UpdateDatapointAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class UpdateDatapointAnnotations1(BaseModel):
+    type: UpdateDatapointAnnotationsType
+
+    text: str
+
+    file_citation: UpdateDatapointAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+UpdateDatapoint2AnnotationsTypedDict = TypeAliasType(
+    "UpdateDatapoint2AnnotationsTypedDict",
+    Union[UpdateDatapointAnnotations1TypedDict, UpdateDatapointAnnotations2TypedDict],
+)
+
+
+UpdateDatapoint2Annotations = TypeAliasType(
+    "UpdateDatapoint2Annotations",
+    Union[UpdateDatapointAnnotations1, UpdateDatapointAnnotations2],
+)
+
 
 class UpdateDatapoint2TextContentPartTypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsRequestRequestBodyMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[UpdateDatapoint2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class UpdateDatapoint2TextContentPart(BaseModel):
@@ -93,19 +171,22 @@ class UpdateDatapoint2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[UpdateDatapoint2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 UpdateDatapointContentDatasets2TypedDict = TypeAliasType(
     "UpdateDatapointContentDatasets2TypedDict",
     Union[
-        UpdateDatapoint2TextContentPartTypedDict,
         UpdateDatapoint2RefusalContentPartTypedDict,
+        UpdateDatapoint2TextContentPartTypedDict,
     ],
 )
 
 
 UpdateDatapointContentDatasets2 = TypeAliasType(
     "UpdateDatapointContentDatasets2",
-    Union[UpdateDatapoint2TextContentPart, UpdateDatapoint2RefusalContentPart],
+    Union[UpdateDatapoint2RefusalContentPart, UpdateDatapoint2TextContentPart],
 )
 
 
@@ -608,12 +689,93 @@ UpdateDatapoint2DatasetsResponse200ApplicationJSONResponseBodyMessagesType = Lit
 ]
 r"""The type of the content part."""
 
+UpdateDatapointAnnotationsDatasetsResponse200Type = Literal["file_path"]
+
+
+class UpdateDatapointAnnotationsDatasetsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class UpdateDatapointAnnotationsDatasetsFilePath(BaseModel):
+    file_id: str
+
+
+class UpdateDatapointAnnotationsDatasets2TypedDict(TypedDict):
+    type: UpdateDatapointAnnotationsDatasetsResponse200Type
+    text: str
+    file_path: UpdateDatapointAnnotationsDatasetsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class UpdateDatapointAnnotationsDatasets2(BaseModel):
+    type: UpdateDatapointAnnotationsDatasetsResponse200Type
+
+    text: str
+
+    file_path: UpdateDatapointAnnotationsDatasetsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+UpdateDatapointAnnotationsDatasetsResponseType = Literal["file_citation"]
+
+
+class UpdateDatapointAnnotationsDatasetsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class UpdateDatapointAnnotationsDatasetsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class UpdateDatapointAnnotationsDatasets1TypedDict(TypedDict):
+    type: UpdateDatapointAnnotationsDatasetsResponseType
+    text: str
+    file_citation: UpdateDatapointAnnotationsDatasetsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class UpdateDatapointAnnotationsDatasets1(BaseModel):
+    type: UpdateDatapointAnnotationsDatasetsResponseType
+
+    text: str
+
+    file_citation: UpdateDatapointAnnotationsDatasetsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+UpdateDatapoint2DatasetsAnnotationsTypedDict = TypeAliasType(
+    "UpdateDatapoint2DatasetsAnnotationsTypedDict",
+    Union[
+        UpdateDatapointAnnotationsDatasets1TypedDict,
+        UpdateDatapointAnnotationsDatasets2TypedDict,
+    ],
+)
+
+
+UpdateDatapoint2DatasetsAnnotations = TypeAliasType(
+    "UpdateDatapoint2DatasetsAnnotations",
+    Union[UpdateDatapointAnnotationsDatasets1, UpdateDatapointAnnotationsDatasets2],
+)
+
 
 class UpdateDatapoint2DatasetsTextContentPartTypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsResponse200ApplicationJSONResponseBodyMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[UpdateDatapoint2DatasetsAnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class UpdateDatapoint2DatasetsTextContentPart(BaseModel):
@@ -623,12 +785,15 @@ class UpdateDatapoint2DatasetsTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[UpdateDatapoint2DatasetsAnnotations]] = None
+    r"""Annotations for the text content."""
+
 
 UpdateDatapointContentDatasetsResponse2002TypedDict = TypeAliasType(
     "UpdateDatapointContentDatasetsResponse2002TypedDict",
     Union[
-        UpdateDatapoint2DatasetsTextContentPartTypedDict,
         UpdateDatapoint2DatasetsRefusalContentPartTypedDict,
+        UpdateDatapoint2DatasetsTextContentPartTypedDict,
     ],
 )
 
@@ -636,8 +801,8 @@ UpdateDatapointContentDatasetsResponse2002TypedDict = TypeAliasType(
 UpdateDatapointContentDatasetsResponse2002 = TypeAliasType(
     "UpdateDatapointContentDatasetsResponse2002",
     Union[
-        UpdateDatapoint2DatasetsTextContentPart,
         UpdateDatapoint2DatasetsRefusalContentPart,
+        UpdateDatapoint2DatasetsTextContentPart,
     ],
 )
 
@@ -1098,5 +1263,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-08-15T12:52:59.508Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-25T14:18:53.694Z")
     r"""The date and time the resource was last updated"""
