@@ -119,12 +119,93 @@ DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType = Litera
 ]
 r"""The type of the content part."""
 
+DeploymentCreateMetricAnnotationsDeploymentsMetricsType = Literal["file_path"]
+
+
+class DeploymentCreateMetricAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentCreateMetricAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentCreateMetricAnnotations2TypedDict(TypedDict):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsType
+    text: str
+    file_path: DeploymentCreateMetricAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentCreateMetricAnnotations2(BaseModel):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsType
+
+    text: str
+
+    file_path: DeploymentCreateMetricAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentCreateMetricAnnotationsType = Literal["file_citation"]
+
+
+class DeploymentCreateMetricAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentCreateMetricAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentCreateMetricAnnotations1TypedDict(TypedDict):
+    type: DeploymentCreateMetricAnnotationsType
+    text: str
+    file_citation: DeploymentCreateMetricAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentCreateMetricAnnotations1(BaseModel):
+    type: DeploymentCreateMetricAnnotationsType
+
+    text: str
+
+    file_citation: DeploymentCreateMetricAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentCreateMetric2AnnotationsTypedDict = TypeAliasType(
+    "DeploymentCreateMetric2AnnotationsTypedDict",
+    Union[
+        DeploymentCreateMetricAnnotations1TypedDict,
+        DeploymentCreateMetricAnnotations2TypedDict,
+    ],
+)
+
+
+DeploymentCreateMetric2Annotations = TypeAliasType(
+    "DeploymentCreateMetric2Annotations",
+    Union[DeploymentCreateMetricAnnotations1, DeploymentCreateMetricAnnotations2],
+)
+
 
 class DeploymentCreateMetric2TextContentPartTypedDict(TypedDict):
     type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[DeploymentCreateMetric2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class DeploymentCreateMetric2TextContentPart(BaseModel):
@@ -134,12 +215,15 @@ class DeploymentCreateMetric2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[DeploymentCreateMetric2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentCreateMetricContentDeploymentsMetrics2TypedDict = TypeAliasType(
     "DeploymentCreateMetricContentDeploymentsMetrics2TypedDict",
     Union[
-        DeploymentCreateMetric2TextContentPartTypedDict,
         DeploymentCreateMetric2RefusalContentPartTypedDict,
+        DeploymentCreateMetric2TextContentPartTypedDict,
     ],
 )
 
@@ -147,8 +231,8 @@ DeploymentCreateMetricContentDeploymentsMetrics2TypedDict = TypeAliasType(
 DeploymentCreateMetricContentDeploymentsMetrics2 = TypeAliasType(
     "DeploymentCreateMetricContentDeploymentsMetrics2",
     Union[
-        DeploymentCreateMetric2TextContentPart,
         DeploymentCreateMetric2RefusalContentPart,
+        DeploymentCreateMetric2TextContentPart,
     ],
 )
 
@@ -620,12 +704,106 @@ DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type = Litera
 ]
 r"""The type of the content part."""
 
+DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestRequestBodyType = Literal[
+    "file_path"
+]
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetricsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetricsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetrics2TypedDict(TypedDict):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestRequestBodyType
+    text: str
+    file_path: DeploymentCreateMetricAnnotationsDeploymentsMetricsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetrics2(BaseModel):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestRequestBodyType
+
+    text: str
+
+    file_path: DeploymentCreateMetricAnnotationsDeploymentsMetricsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestType = Literal[
+    "file_citation"
+]
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetricsFileCitationTypedDict(
+    TypedDict
+):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetricsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetrics1TypedDict(TypedDict):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestType
+    text: str
+    file_citation: (
+        DeploymentCreateMetricAnnotationsDeploymentsMetricsFileCitationTypedDict
+    )
+    start_index: int
+    end_index: int
+
+
+class DeploymentCreateMetricAnnotationsDeploymentsMetrics1(BaseModel):
+    type: DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestType
+
+    text: str
+
+    file_citation: DeploymentCreateMetricAnnotationsDeploymentsMetricsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentCreateMetric2DeploymentsMetricsAnnotationsTypedDict = TypeAliasType(
+    "DeploymentCreateMetric2DeploymentsMetricsAnnotationsTypedDict",
+    Union[
+        DeploymentCreateMetricAnnotationsDeploymentsMetrics1TypedDict,
+        DeploymentCreateMetricAnnotationsDeploymentsMetrics2TypedDict,
+    ],
+)
+
+
+DeploymentCreateMetric2DeploymentsMetricsAnnotations = TypeAliasType(
+    "DeploymentCreateMetric2DeploymentsMetricsAnnotations",
+    Union[
+        DeploymentCreateMetricAnnotationsDeploymentsMetrics1,
+        DeploymentCreateMetricAnnotationsDeploymentsMetrics2,
+    ],
+)
+
 
 class DeploymentCreateMetric2DeploymentsMetricsTextContentPartTypedDict(TypedDict):
     type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[
+        List[DeploymentCreateMetric2DeploymentsMetricsAnnotationsTypedDict]
+    ]
+    r"""Annotations for the text content."""
 
 
 class DeploymentCreateMetric2DeploymentsMetricsTextContentPart(BaseModel):
@@ -635,13 +813,18 @@ class DeploymentCreateMetric2DeploymentsMetricsTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[
+        List[DeploymentCreateMetric2DeploymentsMetricsAnnotations]
+    ] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict = (
     TypeAliasType(
         "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict",
         Union[
-            DeploymentCreateMetric2DeploymentsMetricsTextContentPartTypedDict,
             DeploymentCreateMetric2DeploymentsMetricsRefusalContentPartTypedDict,
+            DeploymentCreateMetric2DeploymentsMetricsTextContentPartTypedDict,
         ],
     )
 )
@@ -650,8 +833,8 @@ DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict = (
 DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = TypeAliasType(
     "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2",
     Union[
-        DeploymentCreateMetric2DeploymentsMetricsTextContentPart,
         DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart,
+        DeploymentCreateMetric2DeploymentsMetricsTextContentPart,
     ],
 )
 

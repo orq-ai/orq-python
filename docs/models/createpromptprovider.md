@@ -26,3 +26,4 @@
 | `LITELLM`     | litellm       |
 | `OPENAILIKE`  | openailike    |
 | `CEREBRAS`    | cerebras      |
+| `BYTEDANCE`   | bytedance     |

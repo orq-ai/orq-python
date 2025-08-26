@@ -92,12 +92,90 @@ class DeploymentStream2RefusalContentPart(BaseModel):
 DeploymentStream2DeploymentsRequestRequestBodyPrefixMessagesType = Literal["text"]
 r"""The type of the content part."""
 
+DeploymentStreamAnnotationsDeploymentsType = Literal["file_path"]
+
+
+class DeploymentStreamAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentStreamAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentStreamAnnotations2TypedDict(TypedDict):
+    type: DeploymentStreamAnnotationsDeploymentsType
+    text: str
+    file_path: DeploymentStreamAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentStreamAnnotations2(BaseModel):
+    type: DeploymentStreamAnnotationsDeploymentsType
+
+    text: str
+
+    file_path: DeploymentStreamAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentStreamAnnotationsType = Literal["file_citation"]
+
+
+class DeploymentStreamAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentStreamAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentStreamAnnotations1TypedDict(TypedDict):
+    type: DeploymentStreamAnnotationsType
+    text: str
+    file_citation: DeploymentStreamAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentStreamAnnotations1(BaseModel):
+    type: DeploymentStreamAnnotationsType
+
+    text: str
+
+    file_citation: DeploymentStreamAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentStream2AnnotationsTypedDict = TypeAliasType(
+    "DeploymentStream2AnnotationsTypedDict",
+    Union[DeploymentStreamAnnotations1TypedDict, DeploymentStreamAnnotations2TypedDict],
+)
+
+
+DeploymentStream2Annotations = TypeAliasType(
+    "DeploymentStream2Annotations",
+    Union[DeploymentStreamAnnotations1, DeploymentStreamAnnotations2],
+)
+
 
 class DeploymentStream2TextContentPartTypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessagesType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[DeploymentStream2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class DeploymentStream2TextContentPart(BaseModel):
@@ -107,19 +185,22 @@ class DeploymentStream2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[DeploymentStream2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentStreamContentDeployments2TypedDict = TypeAliasType(
     "DeploymentStreamContentDeployments2TypedDict",
     Union[
-        DeploymentStream2TextContentPartTypedDict,
         DeploymentStream2RefusalContentPartTypedDict,
+        DeploymentStream2TextContentPartTypedDict,
     ],
 )
 
 
 DeploymentStreamContentDeployments2 = TypeAliasType(
     "DeploymentStreamContentDeployments2",
-    Union[DeploymentStream2TextContentPart, DeploymentStream2RefusalContentPart],
+    Union[DeploymentStream2RefusalContentPart, DeploymentStream2TextContentPart],
 )
 
 
@@ -577,12 +658,95 @@ class DeploymentStream2DeploymentsRefusalContentPart(BaseModel):
 DeploymentStream2DeploymentsRequestRequestBodyMessages4Type = Literal["text"]
 r"""The type of the content part."""
 
+DeploymentStreamAnnotationsDeploymentsRequestRequestBodyType = Literal["file_path"]
+
+
+class DeploymentStreamAnnotationsDeploymentsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentStreamAnnotationsDeploymentsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentStreamAnnotationsDeployments2TypedDict(TypedDict):
+    type: DeploymentStreamAnnotationsDeploymentsRequestRequestBodyType
+    text: str
+    file_path: DeploymentStreamAnnotationsDeploymentsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentStreamAnnotationsDeployments2(BaseModel):
+    type: DeploymentStreamAnnotationsDeploymentsRequestRequestBodyType
+
+    text: str
+
+    file_path: DeploymentStreamAnnotationsDeploymentsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentStreamAnnotationsDeploymentsRequestType = Literal["file_citation"]
+
+
+class DeploymentStreamAnnotationsDeploymentsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentStreamAnnotationsDeploymentsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentStreamAnnotationsDeployments1TypedDict(TypedDict):
+    type: DeploymentStreamAnnotationsDeploymentsRequestType
+    text: str
+    file_citation: DeploymentStreamAnnotationsDeploymentsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentStreamAnnotationsDeployments1(BaseModel):
+    type: DeploymentStreamAnnotationsDeploymentsRequestType
+
+    text: str
+
+    file_citation: DeploymentStreamAnnotationsDeploymentsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentStream2DeploymentsAnnotationsTypedDict = TypeAliasType(
+    "DeploymentStream2DeploymentsAnnotationsTypedDict",
+    Union[
+        DeploymentStreamAnnotationsDeployments1TypedDict,
+        DeploymentStreamAnnotationsDeployments2TypedDict,
+    ],
+)
+
+
+DeploymentStream2DeploymentsAnnotations = TypeAliasType(
+    "DeploymentStream2DeploymentsAnnotations",
+    Union[
+        DeploymentStreamAnnotationsDeployments1, DeploymentStreamAnnotationsDeployments2
+    ],
+)
+
 
 class DeploymentStream2DeploymentsTextContentPartTypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyMessages4Type
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[DeploymentStream2DeploymentsAnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class DeploymentStream2DeploymentsTextContentPart(BaseModel):
@@ -592,12 +756,15 @@ class DeploymentStream2DeploymentsTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[DeploymentStream2DeploymentsAnnotations]] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
     "DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict",
     Union[
-        DeploymentStream2DeploymentsTextContentPartTypedDict,
         DeploymentStream2DeploymentsRefusalContentPartTypedDict,
+        DeploymentStream2DeploymentsTextContentPartTypedDict,
     ],
 )
 
@@ -605,8 +772,8 @@ DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
 DeploymentStreamContentDeploymentsRequestRequestBody2 = TypeAliasType(
     "DeploymentStreamContentDeploymentsRequestRequestBody2",
     Union[
-        DeploymentStream2DeploymentsTextContentPart,
         DeploymentStream2DeploymentsRefusalContentPart,
+        DeploymentStream2DeploymentsTextContentPart,
     ],
 )
 
@@ -1746,240 +1913,12 @@ DeploymentStreamProvider = Literal[
     "jina",
     "togetherai",
     "elevenlabs",
+    "litellm",
+    "openailike",
+    "cerebras",
+    "bytedance",
 ]
 r"""The provider used to generate the response"""
-
-DeploymentStreamMessageDeploymentsResponseRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-
-class DeploymentStreamMessage3TypedDict(TypedDict):
-    role: DeploymentStreamMessageDeploymentsResponseRole
-    r"""The role of the prompt message"""
-    url: str
-
-
-class DeploymentStreamMessage3(BaseModel):
-    role: DeploymentStreamMessageDeploymentsResponseRole
-    r"""The role of the prompt message"""
-
-    url: str
-
-
-DeploymentStreamMessageDeploymentsRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-
-class DeploymentStreamMessage2TypedDict(TypedDict):
-    role: DeploymentStreamMessageDeploymentsRole
-    r"""The role of the prompt message"""
-    content: Nullable[str]
-
-
-class DeploymentStreamMessage2(BaseModel):
-    role: DeploymentStreamMessageDeploymentsRole
-    r"""The role of the prompt message"""
-
-    content: Nullable[str]
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["content"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DeploymentStreamMessageRole = Literal[
-    "system",
-    "assistant",
-    "user",
-    "exception",
-    "tool",
-    "prompt",
-    "correction",
-    "expected_output",
-]
-r"""The role of the prompt message"""
-
-DeploymentStreamMessageType = Literal["function"]
-
-
-class DeploymentStreamMessageFunctionTypedDict(TypedDict):
-    name: str
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DeploymentStreamMessageFunction(BaseModel):
-    name: str
-
-    arguments: str
-    r"""JSON string arguments for the functions"""
-
-
-class DeploymentStreamMessageToolCallsTypedDict(TypedDict):
-    type: DeploymentStreamMessageType
-    function: DeploymentStreamMessageFunctionTypedDict
-    id: NotRequired[str]
-    index: NotRequired[float]
-
-
-class DeploymentStreamMessageToolCalls(BaseModel):
-    type: DeploymentStreamMessageType
-
-    function: DeploymentStreamMessageFunction
-
-    id: Optional[str] = None
-
-    index: Optional[float] = None
-
-
-class DeploymentStreamMessage1TypedDict(TypedDict):
-    role: DeploymentStreamMessageRole
-    r"""The role of the prompt message"""
-    tool_calls: List[DeploymentStreamMessageToolCallsTypedDict]
-    content: NotRequired[Nullable[str]]
-
-
-class DeploymentStreamMessage1(BaseModel):
-    role: DeploymentStreamMessageRole
-    r"""The role of the prompt message"""
-
-    tool_calls: List[DeploymentStreamMessageToolCalls]
-
-    content: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["content"]
-        nullable_fields = ["content"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
-
-
-DeploymentStreamMessageTypedDict = TypeAliasType(
-    "DeploymentStreamMessageTypedDict",
-    Union[
-        DeploymentStreamMessage2TypedDict,
-        DeploymentStreamMessage3TypedDict,
-        DeploymentStreamMessage1TypedDict,
-    ],
-)
-
-
-DeploymentStreamMessage = TypeAliasType(
-    "DeploymentStreamMessage",
-    Union[DeploymentStreamMessage2, DeploymentStreamMessage3, DeploymentStreamMessage1],
-)
-
-
-class DeploymentStreamChoicesTypedDict(TypedDict):
-    index: float
-    message: NotRequired[DeploymentStreamMessageTypedDict]
-    finish_reason: NotRequired[Nullable[str]]
-
-
-class DeploymentStreamChoices(BaseModel):
-    index: float
-
-    message: Optional[DeploymentStreamMessage] = None
-
-    finish_reason: OptionalNullable[str] = UNSET
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["message", "finish_reason"]
-        nullable_fields = ["finish_reason"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class DeploymentStreamDeploymentsMetadataTypedDict(TypedDict):
@@ -2061,27 +2000,310 @@ class DeploymentStreamRetrievals(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
-class DeploymentStreamDataTypedDict(TypedDict):
+DeploymentStreamMessageDeploymentsResponseType = Literal["image"]
+
+DeploymentStreamMessageDeploymentsResponseRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+
+class DeploymentStreamMessage3TypedDict(TypedDict):
+    type: DeploymentStreamMessageDeploymentsResponseType
+    role: DeploymentStreamMessageDeploymentsResponseRole
+    r"""The role of the prompt message"""
+    url: str
+
+
+class DeploymentStreamMessage3(BaseModel):
+    type: DeploymentStreamMessageDeploymentsResponseType
+
+    role: DeploymentStreamMessageDeploymentsResponseRole
+    r"""The role of the prompt message"""
+
+    url: str
+
+
+DeploymentStreamMessageDeploymentsType = Literal["content"]
+
+DeploymentStreamMessageDeploymentsRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+
+class DeploymentStreamMessage2TypedDict(TypedDict):
+    type: DeploymentStreamMessageDeploymentsType
+    role: DeploymentStreamMessageDeploymentsRole
+    r"""The role of the prompt message"""
+    content: Nullable[str]
+    reasoning: NotRequired[str]
+    r"""Internal thought process of the model"""
+    reasoning_signature: NotRequired[str]
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+    redacted_reasoning: NotRequired[str]
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+
+class DeploymentStreamMessage2(BaseModel):
+    type: DeploymentStreamMessageDeploymentsType
+
+    role: DeploymentStreamMessageDeploymentsRole
+    r"""The role of the prompt message"""
+
+    content: Nullable[str]
+
+    reasoning: Optional[str] = None
+    r"""Internal thought process of the model"""
+
+    reasoning_signature: Optional[str] = None
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+
+    redacted_reasoning: Optional[str] = None
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["reasoning", "reasoning_signature", "redacted_reasoning"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+DeploymentStreamMessageType = Literal["tool_calls"]
+
+DeploymentStreamMessageRole = Literal[
+    "system",
+    "assistant",
+    "user",
+    "exception",
+    "tool",
+    "prompt",
+    "correction",
+    "expected_output",
+]
+r"""The role of the prompt message"""
+
+DeploymentStreamMessageDeploymentsResponse200Type = Literal["function"]
+
+
+class DeploymentStreamMessageFunctionTypedDict(TypedDict):
+    name: str
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class DeploymentStreamMessageFunction(BaseModel):
+    name: str
+
+    arguments: str
+    r"""JSON string arguments for the functions"""
+
+
+class DeploymentStreamMessageToolCallsTypedDict(TypedDict):
+    type: DeploymentStreamMessageDeploymentsResponse200Type
+    function: DeploymentStreamMessageFunctionTypedDict
     id: NotRequired[str]
+    index: NotRequired[float]
+
+
+class DeploymentStreamMessageToolCalls(BaseModel):
+    type: DeploymentStreamMessageDeploymentsResponse200Type
+
+    function: DeploymentStreamMessageFunction
+
+    id: Optional[str] = None
+
+    index: Optional[float] = None
+
+
+class DeploymentStreamMessage1TypedDict(TypedDict):
+    type: DeploymentStreamMessageType
+    role: DeploymentStreamMessageRole
+    r"""The role of the prompt message"""
+    tool_calls: List[DeploymentStreamMessageToolCallsTypedDict]
+    content: NotRequired[Nullable[str]]
+    reasoning: NotRequired[str]
+    r"""Internal thought process of the model"""
+    reasoning_signature: NotRequired[str]
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+    redacted_reasoning: NotRequired[str]
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+
+class DeploymentStreamMessage1(BaseModel):
+    type: DeploymentStreamMessageType
+
+    role: DeploymentStreamMessageRole
+    r"""The role of the prompt message"""
+
+    tool_calls: List[DeploymentStreamMessageToolCalls]
+
+    content: OptionalNullable[str] = UNSET
+
+    reasoning: Optional[str] = None
+    r"""Internal thought process of the model"""
+
+    reasoning_signature: Optional[str] = None
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+
+    redacted_reasoning: Optional[str] = None
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "content",
+            "reasoning",
+            "reasoning_signature",
+            "redacted_reasoning",
+        ]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+DeploymentStreamMessageTypedDict = TypeAliasType(
+    "DeploymentStreamMessageTypedDict",
+    Union[
+        DeploymentStreamMessage3TypedDict,
+        DeploymentStreamMessage2TypedDict,
+        DeploymentStreamMessage1TypedDict,
+    ],
+)
+
+
+DeploymentStreamMessage = TypeAliasType(
+    "DeploymentStreamMessage",
+    Union[DeploymentStreamMessage3, DeploymentStreamMessage2, DeploymentStreamMessage1],
+)
+
+
+class DeploymentStreamChoicesTypedDict(TypedDict):
+    index: float
+    message: DeploymentStreamMessageTypedDict
+    finish_reason: NotRequired[Nullable[str]]
+
+
+class DeploymentStreamChoices(BaseModel):
+    index: float
+
+    message: DeploymentStreamMessage
+
+    finish_reason: OptionalNullable[str] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["finish_reason"]
+        nullable_fields = ["finish_reason"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DeploymentStreamDataTypedDict(TypedDict):
+    id: str
     r"""A unique identifier for the response. Can be used to add metrics to the transaction."""
-    created: NotRequired[datetime]
+    created: datetime
     r"""A timestamp indicating when the object was created. Usually in a standardized format like ISO 8601"""
-    object: NotRequired[DeploymentStreamObject]
+    object: DeploymentStreamObject
     r"""Indicates the type of model used to generate the response"""
-    model: NotRequired[str]
+    model: str
     r"""The model used to generate the response"""
-    provider: NotRequired[DeploymentStreamProvider]
+    provider: DeploymentStreamProvider
     r"""The provider used to generate the response"""
-    is_final: NotRequired[bool]
+    is_final: bool
     r"""Indicates if the response is the final response"""
+    choices: List[DeploymentStreamChoicesTypedDict]
+    r"""A list of choices generated by the model"""
     integration_id: NotRequired[str]
     r"""Indicates integration id used to generate the response"""
     finalized: NotRequired[datetime]
     r"""A timestamp indicating when the object was finalized. Usually in a standardized format like ISO 8601"""
     system_fingerprint: NotRequired[Nullable[str]]
     r"""Provider backed system fingerprint."""
-    choices: NotRequired[List[DeploymentStreamChoicesTypedDict]]
-    r"""A list of choices generated by the model"""
     retrievals: NotRequired[List[DeploymentStreamRetrievalsTypedDict]]
     r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
     provider_response: NotRequired[Any]
@@ -2089,23 +2311,26 @@ class DeploymentStreamDataTypedDict(TypedDict):
 
 
 class DeploymentStreamData(BaseModel):
-    id: Optional[str] = None
+    id: str
     r"""A unique identifier for the response. Can be used to add metrics to the transaction."""
 
-    created: Optional[datetime] = None
+    created: datetime
     r"""A timestamp indicating when the object was created. Usually in a standardized format like ISO 8601"""
 
-    object: Optional[DeploymentStreamObject] = None
+    object: DeploymentStreamObject
     r"""Indicates the type of model used to generate the response"""
 
-    model: Optional[str] = None
+    model: str
     r"""The model used to generate the response"""
 
-    provider: Optional[DeploymentStreamProvider] = None
+    provider: DeploymentStreamProvider
     r"""The provider used to generate the response"""
 
-    is_final: Optional[bool] = None
+    is_final: bool
     r"""Indicates if the response is the final response"""
+
+    choices: List[DeploymentStreamChoices]
+    r"""A list of choices generated by the model"""
 
     integration_id: Optional[str] = None
     r"""Indicates integration id used to generate the response"""
@@ -2116,9 +2341,6 @@ class DeploymentStreamData(BaseModel):
     system_fingerprint: OptionalNullable[str] = UNSET
     r"""Provider backed system fingerprint."""
 
-    choices: Optional[List[DeploymentStreamChoices]] = None
-    r"""A list of choices generated by the model"""
-
     retrievals: Optional[List[DeploymentStreamRetrievals]] = None
     r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
 
@@ -2128,16 +2350,9 @@ class DeploymentStreamData(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
-            "id",
-            "created",
-            "object",
-            "model",
-            "provider",
-            "is_final",
             "integration_id",
             "finalized",
             "system_fingerprint",
-            "choices",
             "retrievals",
             "provider_response",
         ]

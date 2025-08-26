@@ -1,0 +1,14 @@
+# CreateResponseUsage
+
+Usage statistics for the response
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `input_tokens`                                                                                     | *Optional[float]*                                                                                  | :heavy_minus_sign:                                                                                 | Number of tokens in the input                                                                      |
+| `output_tokens`                                                                                    | *Optional[float]*                                                                                  | :heavy_minus_sign:                                                                                 | Number of tokens in the generated output                                                           |
+| `total_tokens`                                                                                     | *Optional[float]*                                                                                  | :heavy_minus_sign:                                                                                 | Total number of tokens used in the request (input + output)                                        |
+| `input_tokens_details`                                                                             | [Optional[models.CreateResponseInputTokensDetails]](../models/createresponseinputtokensdetails.md) | :heavy_minus_sign:                                                                                 | Breakdown of input token usage                                                                     |
+| `output_tokens_details`                                                                            | [Optional[models.OutputTokensDetails]](../models/outputtokensdetails.md)                           | :heavy_minus_sign:                                                                                 | Breakdown of output token usage                                                                    |

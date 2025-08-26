@@ -90,12 +90,92 @@ class RetrieveDatapoint2RefusalContentPart(BaseModel):
 RetrieveDatapoint2DatasetsResponse200ApplicationJSONType = Literal["text"]
 r"""The type of the content part."""
 
+RetrieveDatapointAnnotationsDatasetsType = Literal["file_path"]
+
+
+class RetrieveDatapointAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class RetrieveDatapointAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class RetrieveDatapointAnnotations2TypedDict(TypedDict):
+    type: RetrieveDatapointAnnotationsDatasetsType
+    text: str
+    file_path: RetrieveDatapointAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class RetrieveDatapointAnnotations2(BaseModel):
+    type: RetrieveDatapointAnnotationsDatasetsType
+
+    text: str
+
+    file_path: RetrieveDatapointAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+RetrieveDatapointAnnotationsType = Literal["file_citation"]
+
+
+class RetrieveDatapointAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class RetrieveDatapointAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class RetrieveDatapointAnnotations1TypedDict(TypedDict):
+    type: RetrieveDatapointAnnotationsType
+    text: str
+    file_citation: RetrieveDatapointAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class RetrieveDatapointAnnotations1(BaseModel):
+    type: RetrieveDatapointAnnotationsType
+
+    text: str
+
+    file_citation: RetrieveDatapointAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+RetrieveDatapoint2AnnotationsTypedDict = TypeAliasType(
+    "RetrieveDatapoint2AnnotationsTypedDict",
+    Union[
+        RetrieveDatapointAnnotations1TypedDict, RetrieveDatapointAnnotations2TypedDict
+    ],
+)
+
+
+RetrieveDatapoint2Annotations = TypeAliasType(
+    "RetrieveDatapoint2Annotations",
+    Union[RetrieveDatapointAnnotations1, RetrieveDatapointAnnotations2],
+)
+
 
 class RetrieveDatapoint2TextContentPartTypedDict(TypedDict):
     type: RetrieveDatapoint2DatasetsResponse200ApplicationJSONType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[RetrieveDatapoint2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class RetrieveDatapoint2TextContentPart(BaseModel):
@@ -105,19 +185,22 @@ class RetrieveDatapoint2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[RetrieveDatapoint2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 RetrieveDatapointContentDatasets2TypedDict = TypeAliasType(
     "RetrieveDatapointContentDatasets2TypedDict",
     Union[
-        RetrieveDatapoint2TextContentPartTypedDict,
         RetrieveDatapoint2RefusalContentPartTypedDict,
+        RetrieveDatapoint2TextContentPartTypedDict,
     ],
 )
 
 
 RetrieveDatapointContentDatasets2 = TypeAliasType(
     "RetrieveDatapointContentDatasets2",
-    Union[RetrieveDatapoint2TextContentPart, RetrieveDatapoint2RefusalContentPart],
+    Union[RetrieveDatapoint2RefusalContentPart, RetrieveDatapoint2TextContentPart],
 )
 
 
@@ -572,5 +655,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-08-15T14:11:58.563Z")
+    updated: Optional[datetime] = parse_datetime("2025-08-25T14:18:53.694Z")
     r"""The date and time the resource was last updated"""

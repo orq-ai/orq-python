@@ -1,0 +1,9 @@
+# CreateResponseToolChoiceProxy2
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.CreateResponseToolChoiceProxyResponseType](../models/createresponsetoolchoiceproxyresponsetype.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `function`                                                                                                 | [models.CreateResponseToolChoiceFunction](../models/createresponsetoolchoicefunction.md)                   | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

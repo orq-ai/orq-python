@@ -193,6 +193,7 @@ good-names=i,
            gt,
            id,
            lt,
+           n,
            ne,
            q
 

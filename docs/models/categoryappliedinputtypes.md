@@ -1,0 +1,22 @@
+# CategoryAppliedInputTypes
+
+A list of the categories along with the input type(s) that the score applies to
+
+
+## Fields
+
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `hate`                                                            | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category hate                   |
+| `hate_threatening`                                                | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category hate/threatening       |
+| `harassment`                                                      | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category harassment             |
+| `harassment_threatening`                                          | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category harassment/threatening |
+| `illicit`                                                         | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category illicit                |
+| `illicit_violent`                                                 | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category illicit/violent        |
+| `self_harm`                                                       | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category self-harm              |
+| `self_harm_intent`                                                | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category self-harm/intent       |
+| `self_harm_instructions`                                          | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category self-harm/instructions |
+| `sexual`                                                          | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category sexual                 |
+| `sexual_minors`                                                   | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category sexual/minors          |
+| `violence`                                                        | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category violence               |
+| `violence_graphic`                                                | List[*str*]                                                       | :heavy_check_mark:                                                | The applied input type(s) for the category violence/graphic       |
