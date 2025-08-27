@@ -367,7 +367,6 @@ ListPromptVersionsProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
-    "bytedance",
 ]
 
 ListPromptVersionsRole = Literal[

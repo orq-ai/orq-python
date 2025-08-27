@@ -25,7 +25,3 @@ The provider used to generate the response
 | `JINA`        | jina          |
 | `TOGETHERAI`  | togetherai    |
 | `ELEVENLABS`  | elevenlabs    |
-| `LITELLM`     | litellm       |
-| `OPENAILIKE`  | openailike    |
-| `CEREBRAS`    | cerebras      |
-| `BYTEDANCE`   | bytedance     |

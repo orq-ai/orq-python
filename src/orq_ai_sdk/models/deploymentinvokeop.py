@@ -59,7 +59,6 @@ DeploymentInvokeProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
-    "bytedance",
 ]
 r"""The provider used to generate the response"""
 

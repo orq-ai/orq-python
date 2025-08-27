@@ -71,86 +71,12 @@ class RefusalContentPart(BaseModel):
 Deployments2PrefixMessages4Type = Literal["text"]
 r"""The type of the content part."""
 
-DeploymentsAnnotationsType = Literal["file_path"]
-
-
-class FilePathTypedDict(TypedDict):
-    file_id: str
-
-
-class FilePath(BaseModel):
-    file_id: str
-
-
-class Annotations2TypedDict(TypedDict):
-    type: DeploymentsAnnotationsType
-    text: str
-    file_path: FilePathTypedDict
-    start_index: int
-    end_index: int
-
-
-class Annotations2(BaseModel):
-    type: DeploymentsAnnotationsType
-
-    text: str
-
-    file_path: FilePath
-
-    start_index: int
-
-    end_index: int
-
-
-AnnotationsType = Literal["file_citation"]
-
-
-class FileCitationTypedDict(TypedDict):
-    file_id: str
-    quote: NotRequired[str]
-
-
-class FileCitation(BaseModel):
-    file_id: str
-
-    quote: Optional[str] = None
-
-
-class Annotations1TypedDict(TypedDict):
-    type: AnnotationsType
-    text: str
-    file_citation: FileCitationTypedDict
-    start_index: int
-    end_index: int
-
-
-class Annotations1(BaseModel):
-    type: AnnotationsType
-
-    text: str
-
-    file_citation: FileCitation
-
-    start_index: int
-
-    end_index: int
-
-
-AnnotationsTypedDict = TypeAliasType(
-    "AnnotationsTypedDict", Union[Annotations1TypedDict, Annotations2TypedDict]
-)
-
-
-Annotations = TypeAliasType("Annotations", Union[Annotations1, Annotations2])
-
 
 class TextContentPartTypedDict(TypedDict):
     type: Deployments2PrefixMessages4Type
     r"""The type of the content part."""
     text: str
     r"""The text content."""
-    annotations: NotRequired[List[AnnotationsTypedDict]]
-    r"""Annotations for the text content."""
 
 
 class TextContentPart(BaseModel):
@@ -160,16 +86,13 @@ class TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
-    annotations: Optional[List[Annotations]] = None
-    r"""Annotations for the text content."""
-
 
 Content2TypedDict = TypeAliasType(
-    "Content2TypedDict", Union[RefusalContentPartTypedDict, TextContentPartTypedDict]
+    "Content2TypedDict", Union[TextContentPartTypedDict, RefusalContentPartTypedDict]
 )
 
 
-Content2 = TypeAliasType("Content2", Union[RefusalContentPart, TextContentPart])
+Content2 = TypeAliasType("Content2", Union[TextContentPart, RefusalContentPart])
 
 
 PrefixMessagesContentTypedDict = TypeAliasType(
@@ -601,89 +524,12 @@ class TwoRefusalContentPart(BaseModel):
 Deployments2Messages4Type = Literal["text"]
 r"""The type of the content part."""
 
-DeploymentsAnnotationsMessages4Type = Literal["file_path"]
-
-
-class AnnotationsFilePathTypedDict(TypedDict):
-    file_id: str
-
-
-class AnnotationsFilePath(BaseModel):
-    file_id: str
-
-
-class DeploymentsAnnotations2TypedDict(TypedDict):
-    type: DeploymentsAnnotationsMessages4Type
-    text: str
-    file_path: AnnotationsFilePathTypedDict
-    start_index: int
-    end_index: int
-
-
-class DeploymentsAnnotations2(BaseModel):
-    type: DeploymentsAnnotationsMessages4Type
-
-    text: str
-
-    file_path: AnnotationsFilePath
-
-    start_index: int
-
-    end_index: int
-
-
-DeploymentsAnnotationsMessagesType = Literal["file_citation"]
-
-
-class AnnotationsFileCitationTypedDict(TypedDict):
-    file_id: str
-    quote: NotRequired[str]
-
-
-class AnnotationsFileCitation(BaseModel):
-    file_id: str
-
-    quote: Optional[str] = None
-
-
-class DeploymentsAnnotations1TypedDict(TypedDict):
-    type: DeploymentsAnnotationsMessagesType
-    text: str
-    file_citation: AnnotationsFileCitationTypedDict
-    start_index: int
-    end_index: int
-
-
-class DeploymentsAnnotations1(BaseModel):
-    type: DeploymentsAnnotationsMessagesType
-
-    text: str
-
-    file_citation: AnnotationsFileCitation
-
-    start_index: int
-
-    end_index: int
-
-
-TwoAnnotationsTypedDict = TypeAliasType(
-    "TwoAnnotationsTypedDict",
-    Union[DeploymentsAnnotations1TypedDict, DeploymentsAnnotations2TypedDict],
-)
-
-
-TwoAnnotations = TypeAliasType(
-    "TwoAnnotations", Union[DeploymentsAnnotations1, DeploymentsAnnotations2]
-)
-
 
 class TwoTextContentPartTypedDict(TypedDict):
     type: Deployments2Messages4Type
     r"""The type of the content part."""
     text: str
     r"""The text content."""
-    annotations: NotRequired[List[TwoAnnotationsTypedDict]]
-    r"""Annotations for the text content."""
 
 
 class TwoTextContentPart(BaseModel):
@@ -693,18 +539,15 @@ class TwoTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
-    annotations: Optional[List[TwoAnnotations]] = None
-    r"""Annotations for the text content."""
-
 
 DeploymentsContentMessages2TypedDict = TypeAliasType(
     "DeploymentsContentMessages2TypedDict",
-    Union[TwoRefusalContentPartTypedDict, TwoTextContentPartTypedDict],
+    Union[TwoTextContentPartTypedDict, TwoRefusalContentPartTypedDict],
 )
 
 
 DeploymentsContentMessages2 = TypeAliasType(
-    "DeploymentsContentMessages2", Union[TwoRefusalContentPart, TwoTextContentPart]
+    "DeploymentsContentMessages2", Union[TwoTextContentPart, TwoRefusalContentPart]
 )
 
 

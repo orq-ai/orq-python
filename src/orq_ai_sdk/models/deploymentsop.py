@@ -440,7 +440,6 @@ DeploymentsProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
-    "bytedance",
 ]
 
 DeploymentsRole = Literal[

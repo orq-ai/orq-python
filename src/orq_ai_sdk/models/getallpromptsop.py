@@ -363,7 +363,6 @@ GetAllPromptsProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
-    "bytedance",
 ]
 
 GetAllPromptsRole = Literal[

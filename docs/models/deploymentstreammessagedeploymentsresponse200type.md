@@ -1,8 +1,0 @@
-# DeploymentStreamMessageDeploymentsResponse200Type
-
-
-## Values
-
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |

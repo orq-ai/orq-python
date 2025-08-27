@@ -28,4 +28,3 @@ The provider used to generate the response
 | `LITELLM`     | litellm       |
 | `OPENAILIKE`  | openailike    |
 | `CEREBRAS`    | cerebras      |
-| `BYTEDANCE`   | bytedance     |
