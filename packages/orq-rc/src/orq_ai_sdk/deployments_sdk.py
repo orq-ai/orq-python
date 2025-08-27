@@ -14,13 +14,15 @@ from typing import Any, Dict, List, Mapping, Optional, Union
 class DeploymentsSDK(BaseSDK):
     metrics: Metrics
 
-    def __init__(self, sdk_config: SDKConfiguration) -> None:
-        BaseSDK.__init__(self, sdk_config)
+    def __init__(
+        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+    ) -> None:
+        BaseSDK.__init__(self, sdk_config, parent_ref=parent_ref)
         self.sdk_configuration = sdk_config
         self._init_sdks()
 
     def _init_sdks(self):
-        self.metrics = Metrics(self.sdk_configuration)
+        self.metrics = Metrics(self.sdk_configuration, parent_ref=self.parent_ref)
 
     def list(
         self,
@@ -1018,6 +1020,7 @@ class DeploymentsSDK(BaseSDK):
                     raw, models.DeploymentStreamResponseBody
                 ),
                 sentinel="[DONE]",
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1191,6 +1194,7 @@ class DeploymentsSDK(BaseSDK):
                     raw, models.DeploymentStreamResponseBody
                 ),
                 sentinel="[DONE]",
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

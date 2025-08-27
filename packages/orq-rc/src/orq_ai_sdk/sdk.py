@@ -146,6 +146,7 @@ class Orq(BaseSDK):
                 timeout_ms=timeout_ms,
                 debug_logger=debug_logger,
             ),
+            parent_ref=self,
         )
 
         hooks = SDKHooks()
@@ -176,7 +177,7 @@ class Orq(BaseSDK):
             try:
                 module = importlib.import_module(module_path)
                 klass = getattr(module, class_name)
-                instance = klass(self.sdk_configuration)
+                instance = klass(self.sdk_configuration, parent_ref=self)
                 setattr(self, name, instance)
                 return instance
             except ImportError as e:

@@ -238,6 +238,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.CreateChatCompletionProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -461,6 +462,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.CreateChatCompletionProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1432,6 +1434,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.PostV2ProxyCompletionsProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1587,6 +1590,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.PostV2ProxyCompletionsProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -3023,6 +3027,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.CreateResponseProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -3191,6 +3196,7 @@ class Proxy(BaseSDK):
                 lambda raw: utils.unmarshal_json(
                     raw, models.CreateResponseProxyResponseBody
                 ),
+                client_ref=self,
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
