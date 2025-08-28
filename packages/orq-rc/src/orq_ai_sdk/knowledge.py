@@ -1017,7 +1017,7 @@ class Knowledge(BaseSDK):
     ) -> Optional[models.SearchKnowledgeResponseBody]:
         r"""Search knowledge base
 
-        Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores.
+        Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores. Note that all configuration changes made in the API will override the settings in the UI.
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
@@ -1158,7 +1158,7 @@ class Knowledge(BaseSDK):
     ) -> Optional[models.SearchKnowledgeResponseBody]:
         r"""Search knowledge base
 
-        Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores.
+        Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores. Note that all configuration changes made in the API will override the settings in the UI.
 
         :param knowledge_id: The unique identifier or key of the knowledge base
         :param query: The query to use to search the knowledge base
