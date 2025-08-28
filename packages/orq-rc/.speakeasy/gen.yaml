@@ -29,6 +29,9 @@ python:
       types-requests: ^2.32.4.20250809
     main:
       requests: ==2.32.4
+  allowedRedefinedBuiltins:
+    - id
+    - object
   authors:
     - Orq
   baseErrorName: OrqError

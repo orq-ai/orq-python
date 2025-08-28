@@ -683,6 +683,12 @@ class Proxy(BaseSDK):
         encoding_format: Optional[models.PostV2ProxyEmbeddingsEncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyEmbeddingsOrq,
+                models.PostV2ProxyEmbeddingsOrqTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -697,6 +703,7 @@ class Proxy(BaseSDK):
         :param encoding_format: Type of the document element
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param user: A unique identifier representing your end-user
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -721,6 +728,9 @@ class Proxy(BaseSDK):
             encoding_format=encoding_format,
             dimensions=dimensions,
             user=user,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyEmbeddingsOrq]
+            ),
         )
 
         req = self._build_request(
@@ -789,6 +799,12 @@ class Proxy(BaseSDK):
         encoding_format: Optional[models.PostV2ProxyEmbeddingsEncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyEmbeddingsOrq,
+                models.PostV2ProxyEmbeddingsOrqTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -803,6 +819,7 @@ class Proxy(BaseSDK):
         :param encoding_format: Type of the document element
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param user: A unique identifier representing your end-user
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -827,6 +844,9 @@ class Proxy(BaseSDK):
             encoding_format=encoding_format,
             dimensions=dimensions,
             user=user,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyEmbeddingsOrq]
+            ),
         )
 
         req = self._build_request_async(
