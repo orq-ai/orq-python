@@ -915,6 +915,9 @@ class Proxy(BaseSDK):
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
+        orq: Optional[
+            Union[models.PostV2ProxyRerankOrq, models.PostV2ProxyRerankOrqTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -927,6 +930,7 @@ class Proxy(BaseSDK):
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
         :param filename: The filename of the document to rerank
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -951,6 +955,7 @@ class Proxy(BaseSDK):
             model=model,
             top_n=top_n,
             filename=filename,
+            orq=utils.get_pydantic_model(orq, Optional[models.PostV2ProxyRerankOrq]),
         )
 
         req = self._build_request(
@@ -1019,6 +1024,9 @@ class Proxy(BaseSDK):
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
+        orq: Optional[
+            Union[models.PostV2ProxyRerankOrq, models.PostV2ProxyRerankOrqTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1031,6 +1039,7 @@ class Proxy(BaseSDK):
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
         :param filename: The filename of the document to rerank
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1055,6 +1064,7 @@ class Proxy(BaseSDK):
             model=model,
             top_n=top_n,
             filename=filename,
+            orq=utils.get_pydantic_model(orq, Optional[models.PostV2ProxyRerankOrq]),
         )
 
         req = self._build_request_async(
