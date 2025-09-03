@@ -1130,6 +1130,12 @@ class Proxy(BaseSDK):
         voice: str,
         response_format: Optional[models.PostV2ProxyAudioSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyAudioSpeechOrq,
+                models.PostV2ProxyAudioSpeechOrqTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1142,6 +1148,7 @@ class Proxy(BaseSDK):
         :param voice: The voice to use.    Available voices for OpenAI    `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`    Available voices for ElevenLabs    `aria`, `roger`, `sarah`, `laura`, `charlie`, `george`, `callum`, `river`, `liam`, `charlotte`, `alice`, `matilda`, `will`, `jessica`, `eric`, `chris`, `brian`, `daniel`, `lily`, `bill`
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1166,6 +1173,9 @@ class Proxy(BaseSDK):
             voice=voice,
             response_format=response_format,
             speed=speed,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyAudioSpeechOrq]
+            ),
         )
 
         req = self._build_request(
@@ -1229,6 +1239,12 @@ class Proxy(BaseSDK):
         voice: str,
         response_format: Optional[models.PostV2ProxyAudioSpeechResponseFormat] = "mp3",
         speed: Optional[float] = 1,
+        orq: Optional[
+            Union[
+                models.PostV2ProxyAudioSpeechOrq,
+                models.PostV2ProxyAudioSpeechOrqTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1241,6 +1257,7 @@ class Proxy(BaseSDK):
         :param voice: The voice to use.    Available voices for OpenAI    `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`    Available voices for ElevenLabs    `aria`, `roger`, `sarah`, `laura`, `charlie`, `george`, `callum`, `river`, `liam`, `charlotte`, `alice`, `matilda`, `will`, `jessica`, `eric`, `chris`, `brian`, `daniel`, `lily`, `bill`
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
+        :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1265,6 +1282,9 @@ class Proxy(BaseSDK):
             voice=voice,
             response_format=response_format,
             speed=speed,
+            orq=utils.get_pydantic_model(
+                orq, Optional[models.PostV2ProxyAudioSpeechOrq]
+            ),
         )
 
         req = self._build_request_async(
