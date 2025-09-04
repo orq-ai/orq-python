@@ -15,3 +15,9 @@ value: models.CreateResponse21 = /* values here */
 value: models.CreateResponse2Proxy2 = /* values here */
 ```
 
+### `models.CreateResponse2Proxy3`
+
+```python
+value: models.CreateResponse2Proxy3 = /* values here */
+```
+

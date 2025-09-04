@@ -144,6 +144,49 @@ class Text(BaseModel):
     format_: Annotated[CreateResponseFormat, pydantic.Field(alias="format")]
 
 
+CreateResponse2ProxyRequestRequestBodyInputType = Literal["function_call"]
+r"""The type of input item"""
+
+
+class CreateResponse2Proxy3TypedDict(TypedDict):
+    r"""Represents a function tool call, provided as input to the model."""
+
+    type: CreateResponse2ProxyRequestRequestBodyInputType
+    r"""The type of input item"""
+    call_id: str
+    r"""The ID of the function call"""
+    id: str
+    r"""The unique identifier for this function call"""
+    name: str
+    r"""The name of the function being called"""
+    arguments: str
+    r"""The arguments to the function as a JSON string"""
+    status: str
+    r"""The status of the function call"""
+
+
+class CreateResponse2Proxy3(BaseModel):
+    r"""Represents a function tool call, provided as input to the model."""
+
+    type: CreateResponse2ProxyRequestRequestBodyInputType
+    r"""The type of input item"""
+
+    call_id: str
+    r"""The ID of the function call"""
+
+    id: str
+    r"""The unique identifier for this function call"""
+
+    name: str
+    r"""The name of the function being called"""
+
+    arguments: str
+    r"""The arguments to the function as a JSON string"""
+
+    status: str
+    r"""The status of the function call"""
+
+
 CreateResponse2ProxyRequestRequestBodyType = Literal["function_call_output"]
 r"""The type of input item"""
 
@@ -348,11 +391,18 @@ class CreateResponse21(BaseModel):
 
 
 Input2TypedDict = TypeAliasType(
-    "Input2TypedDict", Union[CreateResponse21TypedDict, CreateResponse2Proxy2TypedDict]
+    "Input2TypedDict",
+    Union[
+        CreateResponse21TypedDict,
+        CreateResponse2Proxy2TypedDict,
+        CreateResponse2Proxy3TypedDict,
+    ],
 )
 
 
-Input2 = TypeAliasType("Input2", Union[CreateResponse21, CreateResponse2Proxy2])
+Input2 = TypeAliasType(
+    "Input2", Union[CreateResponse21, CreateResponse2Proxy2, CreateResponse2Proxy3]
+)
 
 
 CreateResponseInputTypedDict = TypeAliasType(
