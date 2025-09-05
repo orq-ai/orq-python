@@ -16,7 +16,6 @@ from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
-    from orq_ai_sdk.batches import Batches
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
@@ -28,7 +27,6 @@ if TYPE_CHECKING:
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
-    from orq_ai_sdk.proxy import Proxy
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
 
 
@@ -47,8 +45,6 @@ class Orq(BaseSDK):
     datasets: "Datasets"
     knowledge: "Knowledge"
     chunking: "Chunking"
-    proxy: "Proxy"
-    batches: "Batches"
     evals: "Evals"
     budgets: "Budgets"
     _sub_sdk_map = {
@@ -62,8 +58,6 @@ class Orq(BaseSDK):
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
-        "proxy": ("orq_ai_sdk.proxy", "Proxy"),
-        "batches": ("orq_ai_sdk.batches", "Batches"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
     }

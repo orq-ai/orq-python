@@ -1,19 +1,18 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: fa6fafe4a3a78bdb30702ae162b94ca0
+  docChecksum: 54ed82d236125a3d74cdec90b52b1dc3
   docVersion: "2.0"
   speakeasyVersion: 1.611.0
   generationVersion: 2.694.1
-  releaseVersion: 3.12.0-rc.49
-  configChecksum: 83b9e36a0f93beeb38e42c1180cf07eb
+  releaseVersion: 3.12.0-rc.50
+  configChecksum: 44c38a0ad5c6ee3cea603bf9115478fe
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
   published: true
 features:
   python:
-    acceptHeaders: 3.0.0
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
     core: 5.20.3
@@ -68,19 +67,9 @@ generatedFiles:
   - docs/models/annotationstype.md
   - docs/models/assistantmessage.md
   - docs/models/audio.md
-  - docs/models/background.md
   - docs/models/bertscore.md
   - docs/models/boolean.md
   - docs/models/budget.md
-  - docs/models/cache.md
-  - docs/models/cancelbatcherrors.md
-  - docs/models/cancelbatchobject.md
-  - docs/models/cancelbatchrequest.md
-  - docs/models/cancelbatchrequestcounts.md
-  - docs/models/cancelbatchresponsebody.md
-  - docs/models/categories.md
-  - docs/models/categoryappliedinputtypes.md
-  - docs/models/categoryscores.md
   - docs/models/choices.md
   - docs/models/choicesassistantmessage.md
   - docs/models/choicesaudio.md
@@ -104,17 +93,9 @@ generatedFiles:
   - docs/models/chunkingrequestthreshold.md
   - docs/models/chunks.md
   - docs/models/cleardatasetrequest.md
-  - docs/models/completiontokensdetails.md
-  - docs/models/completionwindow.md
   - docs/models/consumption.md
   - docs/models/content.md
-  - docs/models/content1.md
   - docs/models/content2.md
-  - docs/models/contentannotations.md
-  - docs/models/contenttype.md
-  - docs/models/createbatchobject.md
-  - docs/models/createbatchrequestbody.md
-  - docs/models/createbatchresponsebody.md
   - docs/models/createbudgetbudget.md
   - docs/models/createbudgetperiod.md
   - docs/models/createbudgetrequestbody.md
@@ -123,152 +104,6 @@ generatedFiles:
   - docs/models/createbudgetrequestbodytype.md
   - docs/models/createbudgetresponsebody.md
   - docs/models/createbudgettype.md
-  - docs/models/createchatcompletion13.md
-  - docs/models/createchatcompletion1eq.md
-  - docs/models/createchatcompletion1exists.md
-  - docs/models/createchatcompletion1gte.md
-  - docs/models/createchatcompletion1in.md
-  - docs/models/createchatcompletion1lt.md
-  - docs/models/createchatcompletion1lte.md
-  - docs/models/createchatcompletion1ne.md
-  - docs/models/createchatcompletion1nin.md
-  - docs/models/createchatcompletion1proxyeq.md
-  - docs/models/createchatcompletion1proxyin.md
-  - docs/models/createchatcompletion1proxyne.md
-  - docs/models/createchatcompletion1proxynin.md
-  - docs/models/createchatcompletion21.md
-  - docs/models/createchatcompletion22.md
-  - docs/models/createchatcompletion23.md
-  - docs/models/createchatcompletion24.md
-  - docs/models/createchatcompletion2annotations.md
-  - docs/models/createchatcompletion2detail.md
-  - docs/models/createchatcompletion2file.md
-  - docs/models/createchatcompletion2format.md
-  - docs/models/createchatcompletion2imageurl.md
-  - docs/models/createchatcompletion2inputaudio.md
-  - docs/models/createchatcompletion2proxyrequestrequestbodymessages4type.md
-  - docs/models/createchatcompletion2proxyrequestrequestbodymessagestype.md
-  - docs/models/createchatcompletion2proxyrequestrequestbodytype.md
-  - docs/models/createchatcompletion2proxyrequesttype.md
-  - docs/models/createchatcompletion2proxytype.md
-  - docs/models/createchatcompletion2refusalcontentpart.md
-  - docs/models/createchatcompletion2textcontentpart.md
-  - docs/models/createchatcompletion2type.md
-  - docs/models/createchatcompletionagenticragconfig.md
-  - docs/models/createchatcompletionand3.md
-  - docs/models/createchatcompletionandeq.md
-  - docs/models/createchatcompletionandexists.md
-  - docs/models/createchatcompletionandgte.md
-  - docs/models/createchatcompletionandin.md
-  - docs/models/createchatcompletionandlt.md
-  - docs/models/createchatcompletionandlte.md
-  - docs/models/createchatcompletionandne.md
-  - docs/models/createchatcompletionandnin.md
-  - docs/models/createchatcompletionandproxyeq.md
-  - docs/models/createchatcompletionandproxyin.md
-  - docs/models/createchatcompletionandproxyne.md
-  - docs/models/createchatcompletionandproxynin.md
-  - docs/models/createchatcompletionannotations1.md
-  - docs/models/createchatcompletionannotations2.md
-  - docs/models/createchatcompletionannotationsfilecitation.md
-  - docs/models/createchatcompletionannotationsfilepath.md
-  - docs/models/createchatcompletionannotationsproxytype.md
-  - docs/models/createchatcompletionannotationstype.md
-  - docs/models/createchatcompletionaudio.md
-  - docs/models/createchatcompletionchoices.md
-  - docs/models/createchatcompletioncompletiontokensdetails.md
-  - docs/models/createchatcompletioncontent.md
-  - docs/models/createchatcompletioncontent2.md
-  - docs/models/createchatcompletioncontentproxy2.md
-  - docs/models/createchatcompletiondata.md
-  - docs/models/createchatcompletionfilterby.md
-  - docs/models/createchatcompletionfilterby1.md
-  - docs/models/createchatcompletionfilterbyand.md
-  - docs/models/createchatcompletionfilterbyor.md
-  - docs/models/createchatcompletionfilterbyproxyand.md
-  - docs/models/createchatcompletionfilterbyproxyor.md
-  - docs/models/createchatcompletionfinishreason.md
-  - docs/models/createchatcompletionformat.md
-  - docs/models/createchatcompletionfunction.md
-  - docs/models/createchatcompletionlogprobs.md
-  - docs/models/createchatcompletionmessage.md
-  - docs/models/createchatcompletionmessages.md
-  - docs/models/createchatcompletionmessagesassistantmessage.md
-  - docs/models/createchatcompletionmessagesaudio.md
-  - docs/models/createchatcompletionmessagescontent.md
-  - docs/models/createchatcompletionmessagesdevelopermessage.md
-  - docs/models/createchatcompletionmessagesfunction.md
-  - docs/models/createchatcompletionmessagesproxycontent.md
-  - docs/models/createchatcompletionmessagesproxyrequestcontent.md
-  - docs/models/createchatcompletionmessagesproxyrequestrequestbody5role.md
-  - docs/models/createchatcompletionmessagesproxyrequestrequestbodyrole.md
-  - docs/models/createchatcompletionmessagesproxyrequestrole.md
-  - docs/models/createchatcompletionmessagesproxyrole.md
-  - docs/models/createchatcompletionmessagesrole.md
-  - docs/models/createchatcompletionmessagessystemmessage.md
-  - docs/models/createchatcompletionmessagestoolcalls.md
-  - docs/models/createchatcompletionmessagestoolmessage.md
-  - docs/models/createchatcompletionmessagestype.md
-  - docs/models/createchatcompletionmessagesusermessage.md
-  - docs/models/createchatcompletionmodelparameters.md
-  - docs/models/createchatcompletionmodeltype.md
-  - docs/models/createchatcompletionobject.md
-  - docs/models/createchatcompletionor3.md
-  - docs/models/createchatcompletionoreq.md
-  - docs/models/createchatcompletionorexists.md
-  - docs/models/createchatcompletionorgte.md
-  - docs/models/createchatcompletionorin.md
-  - docs/models/createchatcompletionorlt.md
-  - docs/models/createchatcompletionorlte.md
-  - docs/models/createchatcompletionorne.md
-  - docs/models/createchatcompletionornin.md
-  - docs/models/createchatcompletionorproxyeq.md
-  - docs/models/createchatcompletionorproxyin.md
-  - docs/models/createchatcompletionorproxyne.md
-  - docs/models/createchatcompletionorproxynin.md
-  - docs/models/createchatcompletionorq.md
-  - docs/models/createchatcompletionprompttokensdetails.md
-  - docs/models/createchatcompletionprovider.md
-  - docs/models/createchatcompletionproxyaudio.md
-  - docs/models/createchatcompletionproxychoices.md
-  - docs/models/createchatcompletionproxycontent.md
-  - docs/models/createchatcompletionproxyfunction.md
-  - docs/models/createchatcompletionproxyobject.md
-  - docs/models/createchatcompletionproxyprovider.md
-  - docs/models/createchatcompletionproxyrequestrequestbodytype.md
-  - docs/models/createchatcompletionproxyrequesttype.md
-  - docs/models/createchatcompletionproxyresponse200type.md
-  - docs/models/createchatcompletionproxyresponseaudio.md
-  - docs/models/createchatcompletionproxyresponsebody.md
-  - docs/models/createchatcompletionproxyresponsefunction.md
-  - docs/models/createchatcompletionproxyresponsetoplogprobs.md
-  - docs/models/createchatcompletionproxyresponsetype.md
-  - docs/models/createchatcompletionproxyrole.md
-  - docs/models/createchatcompletionproxytoolcalls.md
-  - docs/models/createchatcompletionproxytoplogprobs.md
-  - docs/models/createchatcompletionproxytype.md
-  - docs/models/createchatcompletionproxyusage.md
-  - docs/models/createchatcompletionrefusal.md
-  - docs/models/createchatcompletionrequestbody.md
-  - docs/models/createchatcompletionrerankconfig.md
-  - docs/models/createchatcompletionresponse.md
-  - docs/models/createchatcompletionresponsebody.md
-  - docs/models/createchatcompletionresponseformat.md
-  - docs/models/createchatcompletionresponseformat1.md
-  - docs/models/createchatcompletionresponseformat2.md
-  - docs/models/createchatcompletionresponseformat3.md
-  - docs/models/createchatcompletionresponseformatjsonschema.md
-  - docs/models/createchatcompletionresponseformatproxyrequesttype.md
-  - docs/models/createchatcompletionresponseformatproxytype.md
-  - docs/models/createchatcompletionresponseformattype.md
-  - docs/models/createchatcompletionrole.md
-  - docs/models/createchatcompletionsearchoptions.md
-  - docs/models/createchatcompletionsearchtype.md
-  - docs/models/createchatcompletionthread.md
-  - docs/models/createchatcompletiontoolcalls.md
-  - docs/models/createchatcompletiontoplogprobs.md
-  - docs/models/createchatcompletiontype.md
-  - docs/models/createchatcompletionusage.md
   - docs/models/createchunkknowledgemetadata.md
   - docs/models/createchunkmetadata.md
   - docs/models/createchunkrequest.md
@@ -277,7 +112,6 @@ generatedFiles:
   - docs/models/createchunkstatus.md
   - docs/models/createcontactrequestbody.md
   - docs/models/createcontactresponsebody.md
-  - docs/models/created.md
   - docs/models/createdatasetitem21.md
   - docs/models/createdatasetitem22.md
   - docs/models/createdatasetitem23.md
@@ -488,77 +322,6 @@ generatedFiles:
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
   - docs/models/createpromptverbosity.md
-  - docs/models/createresponse21.md
-  - docs/models/createresponse22.md
-  - docs/models/createresponse23.md
-  - docs/models/createresponse2detail.md
-  - docs/models/createresponse2proxy1.md
-  - docs/models/createresponse2proxy2.md
-  - docs/models/createresponse2proxy3.md
-  - docs/models/createresponse2proxyrequestrequestbodyinputtype.md
-  - docs/models/createresponse2proxyrequestrequestbodytype.md
-  - docs/models/createresponse2proxyrequesttype.md
-  - docs/models/createresponse2proxytype.md
-  - docs/models/createresponse2type.md
-  - docs/models/createresponseannotations1.md
-  - docs/models/createresponseannotations2.md
-  - docs/models/createresponseannotationsproxytype.md
-  - docs/models/createresponseannotationstype.md
-  - docs/models/createresponsecontent2.md
-  - docs/models/createresponsedata.md
-  - docs/models/createresponseformat.md
-  - docs/models/createresponseformat1.md
-  - docs/models/createresponseformat2.md
-  - docs/models/createresponseformat3.md
-  - docs/models/createresponseformatproxyresponse200applicationjsontype.md
-  - docs/models/createresponseformatproxyresponse200type.md
-  - docs/models/createresponseformatproxyresponsetype.md
-  - docs/models/createresponseformatproxytype.md
-  - docs/models/createresponseformattype.md
-  - docs/models/createresponseinput.md
-  - docs/models/createresponseinputtokensdetails.md
-  - docs/models/createresponseobject.md
-  - docs/models/createresponseoutputproxyresponsestatus.md
-  - docs/models/createresponseoutputproxyresponsetype.md
-  - docs/models/createresponseoutputproxystatus.md
-  - docs/models/createresponseoutputproxytype.md
-  - docs/models/createresponseoutputstatus.md
-  - docs/models/createresponseoutputtype.md
-  - docs/models/createresponseproxyformat.md
-  - docs/models/createresponseproxyresponsebody.md
-  - docs/models/createresponseproxytoolchoice.md
-  - docs/models/createresponseproxytools.md
-  - docs/models/createresponsereasoning.md
-  - docs/models/createresponserequestbody.md
-  - docs/models/createresponseresponse.md
-  - docs/models/createresponseresponsebody.md
-  - docs/models/createresponsestatus.md
-  - docs/models/createresponsetext.md
-  - docs/models/createresponsetoolchoice.md
-  - docs/models/createresponsetoolchoice1.md
-  - docs/models/createresponsetoolchoice2.md
-  - docs/models/createresponsetoolchoicefunction.md
-  - docs/models/createresponsetoolchoiceproxy1.md
-  - docs/models/createresponsetoolchoiceproxy2.md
-  - docs/models/createresponsetoolchoiceproxyrequesttype.md
-  - docs/models/createresponsetoolchoiceproxyresponsetype.md
-  - docs/models/createresponsetoolchoiceproxytype.md
-  - docs/models/createresponsetoolchoicetype.md
-  - docs/models/createresponsetools.md
-  - docs/models/createresponsetools1.md
-  - docs/models/createresponsetools2.md
-  - docs/models/createresponsetools3.md
-  - docs/models/createresponsetoolsparameters.md
-  - docs/models/createresponsetoolsproxyrequestrequestbodytype.md
-  - docs/models/createresponsetoolsproxyrequesttype.md
-  - docs/models/createresponsetoolsproxyresponse200applicationjsonresponsebody1type.md
-  - docs/models/createresponsetoolsproxyresponse200applicationjsonresponsebodytype.md
-  - docs/models/createresponsetoolsproxyresponse200applicationjsontype.md
-  - docs/models/createresponsetoolsproxyresponse200type.md
-  - docs/models/createresponsetoolsproxyresponsetype.md
-  - docs/models/createresponsetoolsproxytype.md
-  - docs/models/createresponsetoolstype.md
-  - docs/models/createresponseusage.md
   - docs/models/data.md
   - docs/models/datafunction.md
   - docs/models/datafunctionparams.md
@@ -580,7 +343,6 @@ generatedFiles:
   - docs/models/deleteevalresponsebody.md
   - docs/models/deleteknowledgerequest.md
   - docs/models/deletepromptrequest.md
-  - docs/models/delta.md
   - docs/models/deploymentcreatemetric21.md
   - docs/models/deploymentcreatemetric22.md
   - docs/models/deploymentcreatemetric23.md
@@ -790,7 +552,6 @@ generatedFiles:
   - docs/models/deploymentgetconfigorlte.md
   - docs/models/deploymentgetconfigorne.md
   - docs/models/deploymentgetconfigornin.md
-  - docs/models/deploymentgetconfigparameters.md
   - docs/models/deploymentgetconfigphotorealversion.md
   - docs/models/deploymentgetconfigprefixmessages.md
   - docs/models/deploymentgetconfigprefixmessagescontent.md
@@ -815,7 +576,6 @@ generatedFiles:
   - docs/models/deploymentgetconfigrole.md
   - docs/models/deploymentgetconfigthread.md
   - docs/models/deploymentgetconfigtoolcalls.md
-  - docs/models/deploymentgetconfigtools.md
   - docs/models/deploymentgetconfigtype.md
   - docs/models/deploymentgetconfigverbosity.md
   - docs/models/deploymentinvokechoices.md
@@ -1071,17 +831,12 @@ generatedFiles:
   - docs/models/deploymentsverbosity.md
   - docs/models/detail.md
   - docs/models/developermessage.md
-  - docs/models/document.md
   - docs/models/documents.md
-  - docs/models/effort.md
   - docs/models/eight.md
   - docs/models/eighteen.md
   - docs/models/eleven.md
-  - docs/models/embedding.md
   - docs/models/encodingformat.md
   - docs/models/eq.md
-  - docs/models/error.md
-  - docs/models/errors.md
   - docs/models/evalsageappropriateevalsresponsebody.md
   - docs/models/evalsageappropriateevalsresponseresponsebody.md
   - docs/models/evalsageappropriateevalsvalue.md
@@ -1272,7 +1027,6 @@ generatedFiles:
   - docs/models/evalsvalidjsonresponsebody.md
   - docs/models/evalsvalidjsonvalue.md
   - docs/models/exists.md
-  - docs/models/fallbacks.md
   - docs/models/fifteen.md
   - docs/models/file.md
   - docs/models/filecitation.md
@@ -1294,13 +1048,8 @@ generatedFiles:
   - docs/models/filterby1.md
   - docs/models/filterbyand.md
   - docs/models/filterbyor.md
-  - docs/models/finishreason.md
   - docs/models/five.md
-  - docs/models/format1.md
-  - docs/models/format2.md
-  - docs/models/format3.md
   - docs/models/format_.md
-  - docs/models/formattype.md
   - docs/models/four.md
   - docs/models/fourteen.md
   - docs/models/function.md
@@ -1309,8 +1058,6 @@ generatedFiles:
   - docs/models/functionparams2.md
   - docs/models/functionparams3.md
   - docs/models/functionparams4.md
-  - docs/models/functionparams5.md
-  - docs/models/functionparams6.md
   - docs/models/functionparamstype.md
   - docs/models/getallprompts21.md
   - docs/models/getallprompts22.md
@@ -1538,15 +1285,9 @@ generatedFiles:
   - docs/models/guardrailconfigtype.md
   - docs/models/honoapierror.md
   - docs/models/http.md
-  - docs/models/image.md
   - docs/models/imageurl.md
   - docs/models/in_.md
-  - docs/models/include.md
-  - docs/models/incompletedetails.md
-  - docs/models/input.md
-  - docs/models/input2.md
   - docs/models/inputaudio.md
-  - docs/models/inputtokensdetails.md
   - docs/models/internal/globals.md
   - docs/models/invokeeval21.md
   - docs/models/invokeeval22.md
@@ -1587,19 +1328,11 @@ generatedFiles:
   - docs/models/invokeoptions.md
   - docs/models/json.md
   - docs/models/jsonschema.md
-  - docs/models/knowledgebases.md
   - docs/models/knowledgefilter.md
   - docs/models/knowledgefilter1.md
   - docs/models/knowledgefilterand.md
   - docs/models/knowledgefilteror.md
   - docs/models/language.md
-  - docs/models/listbatchesbatchesobject.md
-  - docs/models/listbatchesdata.md
-  - docs/models/listbatcheserrors.md
-  - docs/models/listbatchesobject.md
-  - docs/models/listbatchesrequest.md
-  - docs/models/listbatchesrequestcounts.md
-  - docs/models/listbatchesresponsebody.md
   - docs/models/listbudgetsbudget.md
   - docs/models/listbudgetsconsumption.md
   - docs/models/listbudgetsdata.md
@@ -1727,7 +1460,6 @@ generatedFiles:
   - docs/models/listpromptversionsusecases.md
   - docs/models/listpromptversionsverbosity.md
   - docs/models/llm.md
-  - docs/models/logprobs.md
   - docs/models/lt.md
   - docs/models/lte.md
   - docs/models/matches.md
@@ -1753,16 +1485,9 @@ generatedFiles:
   - docs/models/messagetype.md
   - docs/models/metadata.md
   - docs/models/method.md
-  - docs/models/modalities.md
   - docs/models/mode.md
-  - docs/models/model.md
-  - docs/models/model1.md
-  - docs/models/model2.md
-  - docs/models/model3.md
-  - docs/models/model4.md
   - docs/models/modelparameters.md
   - docs/models/modeltype.md
-  - docs/models/moderation.md
   - docs/models/ne.md
   - docs/models/nin.md
   - docs/models/nine.md
@@ -1790,17 +1515,6 @@ generatedFiles:
   - docs/models/orlte.md
   - docs/models/orne.md
   - docs/models/ornin.md
-  - docs/models/output.md
-  - docs/models/output1.md
-  - docs/models/output2.md
-  - docs/models/output3.md
-  - docs/models/output4.md
-  - docs/models/outputcontent.md
-  - docs/models/outputformat.md
-  - docs/models/outputrole.md
-  - docs/models/outputstatus.md
-  - docs/models/outputtokensdetails.md
-  - docs/models/outputtype.md
   - docs/models/ownedby.md
   - docs/models/parameters.md
   - docs/models/parsechunkingrequest.md
@@ -1814,158 +1528,6 @@ generatedFiles:
   - docs/models/performance.md
   - docs/models/period.md
   - docs/models/photorealversion.md
-  - docs/models/postv2proxyaudiospeechfallbacks.md
-  - docs/models/postv2proxyaudiospeechorq.md
-  - docs/models/postv2proxyaudiospeechrequestbody.md
-  - docs/models/postv2proxyaudiospeechresponseformat.md
-  - docs/models/postv2proxyaudiospeechretry.md
-  - docs/models/postv2proxyaudiospeechthread.md
-  - docs/models/postv2proxyaudiotranscriptionserror.md
-  - docs/models/postv2proxyaudiotranscriptionsfile.md
-  - docs/models/postv2proxyaudiotranscriptionsproxyresponsebody.md
-  - docs/models/postv2proxyaudiotranscriptionsrequestbody.md
-  - docs/models/postv2proxyaudiotranscriptionsresponsebody.md
-  - docs/models/postv2proxyaudiotranscriptionsresponseformat.md
-  - docs/models/postv2proxyaudiotranslationserror.md
-  - docs/models/postv2proxyaudiotranslationsfile.md
-  - docs/models/postv2proxyaudiotranslationsproxyresponsebody.md
-  - docs/models/postv2proxyaudiotranslationsrequestbody.md
-  - docs/models/postv2proxyaudiotranslationsresponsebody.md
-  - docs/models/postv2proxyaudiotranslationsresponsebody1.md
-  - docs/models/postv2proxyaudiotranslationsresponsebody2.md
-  - docs/models/postv2proxyaudiotranslationsresponseformat.md
-  - docs/models/postv2proxyaudiotranslationstimestampsgranularity.md
-  - docs/models/postv2proxycompletions13.md
-  - docs/models/postv2proxycompletions1eq.md
-  - docs/models/postv2proxycompletions1exists.md
-  - docs/models/postv2proxycompletions1gte.md
-  - docs/models/postv2proxycompletions1in.md
-  - docs/models/postv2proxycompletions1lt.md
-  - docs/models/postv2proxycompletions1lte.md
-  - docs/models/postv2proxycompletions1ne.md
-  - docs/models/postv2proxycompletions1nin.md
-  - docs/models/postv2proxycompletions1proxyeq.md
-  - docs/models/postv2proxycompletions1proxyin.md
-  - docs/models/postv2proxycompletions1proxyne.md
-  - docs/models/postv2proxycompletions1proxynin.md
-  - docs/models/postv2proxycompletionsagenticragconfig.md
-  - docs/models/postv2proxycompletionsand3.md
-  - docs/models/postv2proxycompletionsandeq.md
-  - docs/models/postv2proxycompletionsandexists.md
-  - docs/models/postv2proxycompletionsandgte.md
-  - docs/models/postv2proxycompletionsandin.md
-  - docs/models/postv2proxycompletionsandlt.md
-  - docs/models/postv2proxycompletionsandlte.md
-  - docs/models/postv2proxycompletionsandne.md
-  - docs/models/postv2proxycompletionsandnin.md
-  - docs/models/postv2proxycompletionsandproxyeq.md
-  - docs/models/postv2proxycompletionsandproxyin.md
-  - docs/models/postv2proxycompletionsandproxyne.md
-  - docs/models/postv2proxycompletionsandproxynin.md
-  - docs/models/postv2proxycompletionscache.md
-  - docs/models/postv2proxycompletionschoices.md
-  - docs/models/postv2proxycompletionscompletiontokensdetails.md
-  - docs/models/postv2proxycompletionscreated.md
-  - docs/models/postv2proxycompletionsdata.md
-  - docs/models/postv2proxycompletionsfallbacks.md
-  - docs/models/postv2proxycompletionsfilterby.md
-  - docs/models/postv2proxycompletionsfilterby1.md
-  - docs/models/postv2proxycompletionsfilterbyand.md
-  - docs/models/postv2proxycompletionsfilterbyor.md
-  - docs/models/postv2proxycompletionsfilterbyproxyand.md
-  - docs/models/postv2proxycompletionsfilterbyproxyor.md
-  - docs/models/postv2proxycompletionsfinishreason.md
-  - docs/models/postv2proxycompletionsknowledgebases.md
-  - docs/models/postv2proxycompletionsmodelparameters.md
-  - docs/models/postv2proxycompletionsmodeltype.md
-  - docs/models/postv2proxycompletionsor3.md
-  - docs/models/postv2proxycompletionsoreq.md
-  - docs/models/postv2proxycompletionsorexists.md
-  - docs/models/postv2proxycompletionsorgte.md
-  - docs/models/postv2proxycompletionsorin.md
-  - docs/models/postv2proxycompletionsorlt.md
-  - docs/models/postv2proxycompletionsorlte.md
-  - docs/models/postv2proxycompletionsorne.md
-  - docs/models/postv2proxycompletionsornin.md
-  - docs/models/postv2proxycompletionsorproxyeq.md
-  - docs/models/postv2proxycompletionsorproxyin.md
-  - docs/models/postv2proxycompletionsorproxyne.md
-  - docs/models/postv2proxycompletionsorproxynin.md
-  - docs/models/postv2proxycompletionsorq.md
-  - docs/models/postv2proxycompletionsprompt.md
-  - docs/models/postv2proxycompletionsprompttokensdetails.md
-  - docs/models/postv2proxycompletionsprovider.md
-  - docs/models/postv2proxycompletionsproxychoices.md
-  - docs/models/postv2proxycompletionsproxycompletiontokensdetails.md
-  - docs/models/postv2proxycompletionsproxyfinishreason.md
-  - docs/models/postv2proxycompletionsproxyprompttokensdetails.md
-  - docs/models/postv2proxycompletionsproxyprovider.md
-  - docs/models/postv2proxycompletionsproxyresponsebody.md
-  - docs/models/postv2proxycompletionsproxyusage.md
-  - docs/models/postv2proxycompletionsrequestbody.md
-  - docs/models/postv2proxycompletionsrerankconfig.md
-  - docs/models/postv2proxycompletionsresponse.md
-  - docs/models/postv2proxycompletionsresponsebody.md
-  - docs/models/postv2proxycompletionsretry.md
-  - docs/models/postv2proxycompletionssearchoptions.md
-  - docs/models/postv2proxycompletionssearchtype.md
-  - docs/models/postv2proxycompletionsstop.md
-  - docs/models/postv2proxycompletionsthread.md
-  - docs/models/postv2proxycompletionstype.md
-  - docs/models/postv2proxycompletionsusage.md
-  - docs/models/postv2proxycompletionsversion.md
-  - docs/models/postv2proxyembeddingscache.md
-  - docs/models/postv2proxyembeddingsdata.md
-  - docs/models/postv2proxyembeddingsencodingformat.md
-  - docs/models/postv2proxyembeddingsfallbacks.md
-  - docs/models/postv2proxyembeddingsinput.md
-  - docs/models/postv2proxyembeddingsobject.md
-  - docs/models/postv2proxyembeddingsorq.md
-  - docs/models/postv2proxyembeddingsproxyobject.md
-  - docs/models/postv2proxyembeddingsrequestbody.md
-  - docs/models/postv2proxyembeddingsresponsebody.md
-  - docs/models/postv2proxyembeddingsretry.md
-  - docs/models/postv2proxyembeddingstype.md
-  - docs/models/postv2proxyembeddingsusage.md
-  - docs/models/postv2proxyimageseditsdata.md
-  - docs/models/postv2proxyimageseditsinputtokensdetails.md
-  - docs/models/postv2proxyimageseditsrequestbody.md
-  - docs/models/postv2proxyimageseditsresponsebody.md
-  - docs/models/postv2proxyimageseditsresponseformat.md
-  - docs/models/postv2proxyimageseditsusage.md
-  - docs/models/postv2proxyimagesgenerationscache.md
-  - docs/models/postv2proxyimagesgenerationsdata.md
-  - docs/models/postv2proxyimagesgenerationsfallbacks.md
-  - docs/models/postv2proxyimagesgenerationsorq.md
-  - docs/models/postv2proxyimagesgenerationsrequestbody.md
-  - docs/models/postv2proxyimagesgenerationsresponsebody.md
-  - docs/models/postv2proxyimagesgenerationsresponseformat.md
-  - docs/models/postv2proxyimagesgenerationsretry.md
-  - docs/models/postv2proxyimagesgenerationsthread.md
-  - docs/models/postv2proxyimagesgenerationstype.md
-  - docs/models/postv2proxyimagesgenerationsusage.md
-  - docs/models/postv2proxyimagesvariationsdata.md
-  - docs/models/postv2proxyimagesvariationsinputtokensdetails.md
-  - docs/models/postv2proxyimagesvariationsrequestbody.md
-  - docs/models/postv2proxyimagesvariationsresponsebody.md
-  - docs/models/postv2proxyimagesvariationsresponseformat.md
-  - docs/models/postv2proxyimagesvariationsusage.md
-  - docs/models/postv2proxymoderationserror.md
-  - docs/models/postv2proxymoderationsproxyresponsebody.md
-  - docs/models/postv2proxymoderationsrequestbody.md
-  - docs/models/postv2proxymoderationsresponsebody.md
-  - docs/models/postv2proxyrerankcache.md
-  - docs/models/postv2proxyrerankdocuments.md
-  - docs/models/postv2proxyrerankfallbacks.md
-  - docs/models/postv2proxyrerankobject.md
-  - docs/models/postv2proxyrerankorq.md
-  - docs/models/postv2proxyrerankproxyobject.md
-  - docs/models/postv2proxyrerankrequestbody.md
-  - docs/models/postv2proxyrerankresponsebody.md
-  - docs/models/postv2proxyrerankresults.md
-  - docs/models/postv2proxyrerankretry.md
-  - docs/models/postv2proxyreranktype.md
-  - docs/models/postv2proxyrerankusage.md
   - docs/models/prefixmessages.md
   - docs/models/prefixmessagesassistantmessage.md
   - docs/models/prefixmessagesaudio.md
@@ -1978,28 +1540,18 @@ generatedFiles:
   - docs/models/prefixmessagestoolmessage.md
   - docs/models/prefixmessagestype.md
   - docs/models/prefixmessagesusermessage.md
-  - docs/models/prompt.md
   - docs/models/promptconfig.md
-  - docs/models/prompttokensdetails.md
-  - docs/models/properties.md
   - docs/models/provider.md
-  - docs/models/publiccontact.md
   - docs/models/purpose.md
   - docs/models/python.md
-  - docs/models/quality.md
   - docs/models/queryparamfilterby.md
   - docs/models/queryparamstatus.md
   - docs/models/queryparamtype.md
   - docs/models/ragas.md
   - docs/models/ragasmetric.md
-  - docs/models/ranker.md
-  - docs/models/rankingoptions.md
-  - docs/models/reason.md
-  - docs/models/reasoning.md
   - docs/models/reasoningeffort.md
   - docs/models/recursivechunker.md
   - docs/models/recursivechunkerstrategy.md
-  - docs/models/refusal.md
   - docs/models/refusalcontentpart.md
   - docs/models/remoteconfigsgetconfigrequestbody.md
   - docs/models/remoteconfigsgetconfigresponsebody.md
@@ -2015,11 +1567,8 @@ generatedFiles:
   - docs/models/requestbodyperiod.md
   - docs/models/requestbodypython.md
   - docs/models/requestbodytype.md
-  - docs/models/requestcounts.md
   - docs/models/rerankconfig.md
   - docs/models/responsebody.md
-  - docs/models/responsebody1.md
-  - docs/models/responsebody2.md
   - docs/models/responsebodyboolean.md
   - docs/models/responsebodyguardrailconfig.md
   - docs/models/responsebodyhttp.md
@@ -2028,25 +1577,17 @@ generatedFiles:
   - docs/models/responsebodymethod.md
   - docs/models/responsebodynumber.md
   - docs/models/responsebodypython.md
-  - docs/models/responsebodysegments.md
   - docs/models/responsebodytype.md
   - docs/models/responsebodyvalue.md
-  - docs/models/responsebodywords.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
   - docs/models/responseformat3.md
   - docs/models/responseformatjsonschema.md
   - docs/models/responseformattype.md
-  - docs/models/results.md
   - docs/models/retrievals.md
   - docs/models/retrievalsettings.md
   - docs/models/retrievaltype.md
-  - docs/models/retrievebatcherrors.md
-  - docs/models/retrievebatchobject.md
-  - docs/models/retrievebatchrequest.md
-  - docs/models/retrievebatchrequestcounts.md
-  - docs/models/retrievebatchresponsebody.md
   - docs/models/retrievecontactcontactsresponsebody.md
   - docs/models/retrievecontactrequest.md
   - docs/models/retrievecontactresponsebody.md
@@ -2102,7 +1643,6 @@ generatedFiles:
   - docs/models/retrievedatasourcerequest.md
   - docs/models/retrievedatasourceresponsebody.md
   - docs/models/retrievedatasourcestatus.md
-  - docs/models/retry.md
   - docs/models/returntype.md
   - docs/models/role.md
   - docs/models/rouge1.md
@@ -2112,7 +1652,6 @@ generatedFiles:
   - docs/models/scores.md
   - docs/models/sdpmchunker.md
   - docs/models/sdpmchunkerstrategy.md
-  - docs/models/searchcontextsize.md
   - docs/models/searchknowledge13.md
   - docs/models/searchknowledge1eq.md
   - docs/models/searchknowledge1exists.md
@@ -2166,27 +1705,20 @@ generatedFiles:
   - docs/models/searchoptions.md
   - docs/models/searchtype.md
   - docs/models/security.md
-  - docs/models/segments.md
   - docs/models/semanticchunker.md
   - docs/models/semanticchunkerstrategy.md
   - docs/models/sentencechunker.md
   - docs/models/sentencechunkerstrategy.md
-  - docs/models/servicetier.md
   - docs/models/seven.md
   - docs/models/seventeen.md
   - docs/models/six.md
   - docs/models/sixteen.md
-  - docs/models/size.md
   - docs/models/status.md
-  - docs/models/stop.md
-  - docs/models/streamoptions.md
   - docs/models/string.md
   - docs/models/stringarray.md
   - docs/models/systemmessage.md
   - docs/models/ten.md
-  - docs/models/text.md
   - docs/models/textcontentpart.md
-  - docs/models/thinking.md
   - docs/models/thirteen.md
   - docs/models/thirty.md
   - docs/models/thirtyfive.md
@@ -2198,32 +1730,11 @@ generatedFiles:
   - docs/models/three.md
   - docs/models/threshold.md
   - docs/models/threshold2.md
-  - docs/models/timestampgranularities.md
-  - docs/models/timestampsgranularity.md
   - docs/models/tokenchunker.md
   - docs/models/tokenchunkerstrategy.md
   - docs/models/toolcalls.md
-  - docs/models/toolchoice.md
-  - docs/models/toolchoice1.md
-  - docs/models/toolchoice2.md
-  - docs/models/toolchoice3.md
-  - docs/models/toolchoice4.md
-  - docs/models/toolchoicefunction.md
-  - docs/models/toolchoicetype.md
   - docs/models/toolmessage.md
   - docs/models/tools.md
-  - docs/models/tools1.md
-  - docs/models/tools2.md
-  - docs/models/tools3.md
-  - docs/models/toolsparameters.md
-  - docs/models/toolsproperties.md
-  - docs/models/toolsranker.md
-  - docs/models/toolsrankingoptions.md
-  - docs/models/toolssearchcontextsize.md
-  - docs/models/toolstype.md
-  - docs/models/toolsuserlocation.md
-  - docs/models/toplogprobs.md
-  - docs/models/truncation.md
   - docs/models/twelve.md
   - docs/models/twenty.md
   - docs/models/twentyeight.md
@@ -2241,14 +1752,12 @@ generatedFiles:
   - docs/models/two3.md
   - docs/models/two4.md
   - docs/models/twoannotations.md
-  - docs/models/twocontent.md
   - docs/models/twodetail.md
   - docs/models/twofile.md
   - docs/models/twoformat.md
   - docs/models/twoimageurl.md
   - docs/models/twoinputaudio.md
   - docs/models/tworefusalcontentpart.md
-  - docs/models/tworole.md
   - docs/models/twotextcontentpart.md
   - docs/models/twotype.md
   - docs/models/type.md
@@ -2520,16 +2029,10 @@ generatedFiles:
   - docs/models/updatepromptverbosity.md
   - docs/models/usage.md
   - docs/models/usecases.md
-  - docs/models/userlocation.md
   - docs/models/usermessage.md
   - docs/models/utils/retryconfig.md
   - docs/models/value.md
   - docs/models/verbosity.md
-  - docs/models/version.md
-  - docs/models/voice.md
-  - docs/models/websearchoptions.md
-  - docs/models/words.md
-  - docs/sdks/batches/README.md
   - docs/sdks/budgets/README.md
   - docs/sdks/chunking/README.md
   - docs/sdks/contacts/README.md
@@ -2543,7 +2046,6 @@ generatedFiles:
   - docs/sdks/models/README.md
   - docs/sdks/orq/README.md
   - docs/sdks/prompts/README.md
-  - docs/sdks/proxy/README.md
   - docs/sdks/remoteconfigs/README.md
   - poetry.toml
   - py.typed
@@ -2557,7 +2059,6 @@ generatedFiles:
   - src/orq_ai_sdk/_hooks/types.py
   - src/orq_ai_sdk/_version.py
   - src/orq_ai_sdk/basesdk.py
-  - src/orq_ai_sdk/batches.py
   - src/orq_ai_sdk/budgets.py
   - src/orq_ai_sdk/chunking.py
   - src/orq_ai_sdk/contacts.py
@@ -2571,11 +2072,8 @@ generatedFiles:
   - src/orq_ai_sdk/metrics.py
   - src/orq_ai_sdk/models/__init__.py
   - src/orq_ai_sdk/models/apierror.py
-  - src/orq_ai_sdk/models/cancelbatchop.py
   - src/orq_ai_sdk/models/cleardatasetop.py
-  - src/orq_ai_sdk/models/createbatchop.py
   - src/orq_ai_sdk/models/createbudgetop.py
-  - src/orq_ai_sdk/models/createchatcompletionop.py
   - src/orq_ai_sdk/models/createchunkop.py
   - src/orq_ai_sdk/models/createcontactop.py
   - src/orq_ai_sdk/models/createdatasetitemop.py
@@ -2585,7 +2083,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/createfeedbackop.py
   - src/orq_ai_sdk/models/createknowledgeop.py
   - src/orq_ai_sdk/models/createpromptop.py
-  - src/orq_ai_sdk/models/createresponseop.py
   - src/orq_ai_sdk/models/deletebudgetop.py
   - src/orq_ai_sdk/models/deletechunkop.py
   - src/orq_ai_sdk/models/deletecontactop.py
@@ -2653,7 +2150,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/internal/__init__.py
   - src/orq_ai_sdk/models/internal/globals.py
   - src/orq_ai_sdk/models/invokeevalop.py
-  - src/orq_ai_sdk/models/listbatchesop.py
   - src/orq_ai_sdk/models/listbudgetsop.py
   - src/orq_ai_sdk/models/listchunksop.py
   - src/orq_ai_sdk/models/listcontactsop.py
@@ -2666,20 +2162,8 @@ generatedFiles:
   - src/orq_ai_sdk/models/no_response_error.py
   - src/orq_ai_sdk/models/orqerror.py
   - src/orq_ai_sdk/models/parseop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_audio_speechop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_audio_transcriptionsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_audio_translationsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_completionsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_embeddingsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_images_editsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_images_generationsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_images_variationsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_moderationsop.py
-  - src/orq_ai_sdk/models/post_v2_proxy_rerankop.py
-  - src/orq_ai_sdk/models/publiccontact.py
   - src/orq_ai_sdk/models/remoteconfigsgetconfigop.py
   - src/orq_ai_sdk/models/responsevalidationerror.py
-  - src/orq_ai_sdk/models/retrievebatchop.py
   - src/orq_ai_sdk/models/retrievecontactop.py
   - src/orq_ai_sdk/models/retrievedatapointop.py
   - src/orq_ai_sdk/models/retrievedatasetop.py
@@ -2697,7 +2181,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/updatepromptop.py
   - src/orq_ai_sdk/models_.py
   - src/orq_ai_sdk/prompts.py
-  - src/orq_ai_sdk/proxy.py
   - src/orq_ai_sdk/py.typed
   - src/orq_ai_sdk/remoteconfigs.py
   - src/orq_ai_sdk/sdk.py
@@ -2730,7 +2213,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T20:06:05.199Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -2804,7 +2287,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-09-05T19:58:09.710Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-09-05T20:06:08.630Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -2820,7 +2303,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-09-05T19:58:09.710Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-09-05T20:06:08.630Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -2911,7 +2394,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-09-05T20:06:05.199Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -2919,7 +2402,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -2931,7 +2414,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -2975,7 +2458,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -2986,7 +2469,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -3069,7 +2552,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01K4DQAHQPGK19NB8HF4Q920TB", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01K4DQS5W6BNW4FZTQVZ95SZ3M", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -3078,7 +2561,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01K4DQAHQNYHDRT13RNXGK4KGT", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01K4DQS5W60G7562NWGFKXVR8K", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -3095,7 +2578,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01K4DQAHQQ982YWEMNGJN5S8Y1", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01K4DQS5W8PVQWBZ46JTQVJJTN", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -3502,7 +2985,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -3523,7 +3006,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-09-05T20:06:05.199Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -3769,7 +3252,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T20:06:05.199Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -3777,7 +3260,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T20:06:05.199Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -3787,7 +3270,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T19:58:06.447Z"}
+          application/json: {"_id": "budget_01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "api_key_id": "apikey_01ARZ3NDEKTSV4RRFFQ69G5FAV", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-09-05T20:06:05.199Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -3795,3 +3278,18 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `orq.proxy.moderations()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.embeddings()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.rerank()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.audio.speech()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.images.generate()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.images.edit()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.images.variation()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.audio.transcriptions()`: **Deleted** **Breaking** :warning:
+  * `orq.proxy.audio.translations()`: **Deleted** **Breaking** :warning:
+  * `orq.batches.create()`: **Deleted** **Breaking** :warning:
+  * `orq.batches.list()`: **Deleted** **Breaking** :warning:
+  * `orq.batches.retrieve()`: **Deleted** **Breaking** :warning:
+  * `orq.batches.cancel()`: **Deleted** **Breaking** :warning:

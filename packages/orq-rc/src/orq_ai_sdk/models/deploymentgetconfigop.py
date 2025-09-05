@@ -2191,7 +2191,7 @@ DeploymentGetConfigVerbosity = Literal["low", "medium", "high"]
 r"""Controls the verbosity of the model output."""
 
 
-class DeploymentGetConfigParametersTypedDict(TypedDict):
+class ParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -2239,7 +2239,7 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
     r"""Controls the verbosity of the model output."""
 
 
-class DeploymentGetConfigParameters(BaseModel):
+class Parameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -2400,13 +2400,13 @@ class DeploymentGetConfigFunction(BaseModel):
     """
 
 
-class DeploymentGetConfigToolsTypedDict(TypedDict):
+class ToolsTypedDict(TypedDict):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigFunctionTypedDict
 
 
-class DeploymentGetConfigTools(BaseModel):
+class Tools(BaseModel):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
 
@@ -2425,11 +2425,11 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     version: str
     r"""The current version of the deployment"""
     messages: List[DeploymentGetConfigDeploymentsMessagesTypedDict]
-    parameters: DeploymentGetConfigParametersTypedDict
+    parameters: ParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
-    tools: NotRequired[List[DeploymentGetConfigToolsTypedDict]]
+    tools: NotRequired[List[ToolsTypedDict]]
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""
 
 
@@ -2450,11 +2450,11 @@ class DeploymentGetConfigResponseBody(BaseModel):
 
     messages: List[DeploymentGetConfigDeploymentsMessages]
 
-    parameters: DeploymentGetConfigParameters
+    parameters: Parameters
     r"""Model Parameters: Not all parameters apply to every model"""
 
     type: Optional[DeploymentGetConfigType] = None
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
-    tools: Optional[List[DeploymentGetConfigTools]] = None
+    tools: Optional[List[Tools]] = None
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""

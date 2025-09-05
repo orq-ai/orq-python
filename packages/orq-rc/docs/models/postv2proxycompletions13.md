@@ -1,8 +1,0 @@
-# PostV2ProxyCompletions13
-
-
-## Fields
-
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `gt`               | *float*            | :heavy_check_mark: | N/A                |
