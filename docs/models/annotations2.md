@@ -1,0 +1,12 @@
+# Annotations2
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`                                                                       | [models.DeploymentsAnnotationsType](../models/deploymentsannotationstype.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `text`                                                                       | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `file_path`                                                                  | [models.FilePath](../models/filepath.md)                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `start_index`                                                                | *int*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `end_index`                                                                  | *int*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |

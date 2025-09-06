@@ -71,12 +71,98 @@ class DeploymentGetConfig2RefusalContentPart(BaseModel):
 DeploymentGetConfig2DeploymentsRequestType = Literal["text"]
 r"""The type of the content part."""
 
+DeploymentGetConfigAnnotationsType = Literal["file_path"]
+
+
+class DeploymentGetConfigAnnotationsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentGetConfigAnnotationsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentGetConfigAnnotationsDeployments2TypedDict(TypedDict):
+    type: DeploymentGetConfigAnnotationsType
+    text: str
+    file_path: DeploymentGetConfigAnnotationsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentGetConfigAnnotationsDeployments2(BaseModel):
+    type: DeploymentGetConfigAnnotationsType
+
+    text: str
+
+    file_path: DeploymentGetConfigAnnotationsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentGetConfigAnnotationsDeploymentsRequestRequestBodyType = Literal[
+    "file_citation"
+]
+
+
+class DeploymentGetConfigAnnotationsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentGetConfigAnnotationsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentGetConfigAnnotationsDeployments1TypedDict(TypedDict):
+    type: DeploymentGetConfigAnnotationsDeploymentsRequestRequestBodyType
+    text: str
+    file_citation: DeploymentGetConfigAnnotationsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentGetConfigAnnotationsDeployments1(BaseModel):
+    type: DeploymentGetConfigAnnotationsDeploymentsRequestRequestBodyType
+
+    text: str
+
+    file_citation: DeploymentGetConfigAnnotationsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentGetConfig2AnnotationsTypedDict = TypeAliasType(
+    "DeploymentGetConfig2AnnotationsTypedDict",
+    Union[
+        DeploymentGetConfigAnnotationsDeployments1TypedDict,
+        DeploymentGetConfigAnnotationsDeployments2TypedDict,
+    ],
+)
+
+
+DeploymentGetConfig2Annotations = TypeAliasType(
+    "DeploymentGetConfig2Annotations",
+    Union[
+        DeploymentGetConfigAnnotationsDeployments1,
+        DeploymentGetConfigAnnotationsDeployments2,
+    ],
+)
+
 
 class DeploymentGetConfig2TextContentPartTypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsRequestType
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[DeploymentGetConfig2AnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class DeploymentGetConfig2TextContentPart(BaseModel):
@@ -86,19 +172,22 @@ class DeploymentGetConfig2TextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[DeploymentGetConfig2Annotations]] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict",
     Union[
-        DeploymentGetConfig2TextContentPartTypedDict,
         DeploymentGetConfig2RefusalContentPartTypedDict,
+        DeploymentGetConfig2TextContentPartTypedDict,
     ],
 )
 
 
 DeploymentGetConfigContentDeploymentsRequestRequestBody2 = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsRequestRequestBody2",
-    Union[DeploymentGetConfig2TextContentPart, DeploymentGetConfig2RefusalContentPart],
+    Union[DeploymentGetConfig2RefusalContentPart, DeploymentGetConfig2TextContentPart],
 )
 
 
@@ -568,12 +657,93 @@ class DeploymentGetConfig2DeploymentsRefusalContentPart(BaseModel):
 DeploymentGetConfig2DeploymentsRequestRequestBodyMessages4Type = Literal["text"]
 r"""The type of the content part."""
 
+DeploymentGetConfigAnnotationsDeploymentsRequestType = Literal["file_path"]
+
+
+class DeploymentGetConfigAnnotationsDeploymentsFilePathTypedDict(TypedDict):
+    file_id: str
+
+
+class DeploymentGetConfigAnnotationsDeploymentsFilePath(BaseModel):
+    file_id: str
+
+
+class DeploymentGetConfigAnnotations2TypedDict(TypedDict):
+    type: DeploymentGetConfigAnnotationsDeploymentsRequestType
+    text: str
+    file_path: DeploymentGetConfigAnnotationsDeploymentsFilePathTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentGetConfigAnnotations2(BaseModel):
+    type: DeploymentGetConfigAnnotationsDeploymentsRequestType
+
+    text: str
+
+    file_path: DeploymentGetConfigAnnotationsDeploymentsFilePath
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentGetConfigAnnotationsDeploymentsType = Literal["file_citation"]
+
+
+class DeploymentGetConfigAnnotationsDeploymentsFileCitationTypedDict(TypedDict):
+    file_id: str
+    quote: NotRequired[str]
+
+
+class DeploymentGetConfigAnnotationsDeploymentsFileCitation(BaseModel):
+    file_id: str
+
+    quote: Optional[str] = None
+
+
+class DeploymentGetConfigAnnotations1TypedDict(TypedDict):
+    type: DeploymentGetConfigAnnotationsDeploymentsType
+    text: str
+    file_citation: DeploymentGetConfigAnnotationsDeploymentsFileCitationTypedDict
+    start_index: int
+    end_index: int
+
+
+class DeploymentGetConfigAnnotations1(BaseModel):
+    type: DeploymentGetConfigAnnotationsDeploymentsType
+
+    text: str
+
+    file_citation: DeploymentGetConfigAnnotationsDeploymentsFileCitation
+
+    start_index: int
+
+    end_index: int
+
+
+DeploymentGetConfig2DeploymentsAnnotationsTypedDict = TypeAliasType(
+    "DeploymentGetConfig2DeploymentsAnnotationsTypedDict",
+    Union[
+        DeploymentGetConfigAnnotations1TypedDict,
+        DeploymentGetConfigAnnotations2TypedDict,
+    ],
+)
+
+
+DeploymentGetConfig2DeploymentsAnnotations = TypeAliasType(
+    "DeploymentGetConfig2DeploymentsAnnotations",
+    Union[DeploymentGetConfigAnnotations1, DeploymentGetConfigAnnotations2],
+)
+
 
 class DeploymentGetConfig2DeploymentsTextContentPartTypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsRequestRequestBodyMessages4Type
     r"""The type of the content part."""
     text: str
     r"""The text content."""
+    annotations: NotRequired[List[DeploymentGetConfig2DeploymentsAnnotationsTypedDict]]
+    r"""Annotations for the text content."""
 
 
 class DeploymentGetConfig2DeploymentsTextContentPart(BaseModel):
@@ -583,12 +753,15 @@ class DeploymentGetConfig2DeploymentsTextContentPart(BaseModel):
     text: str
     r"""The text content."""
 
+    annotations: Optional[List[DeploymentGetConfig2DeploymentsAnnotations]] = None
+    r"""Annotations for the text content."""
+
 
 DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeployments2TypedDict",
     Union[
-        DeploymentGetConfig2DeploymentsTextContentPartTypedDict,
         DeploymentGetConfig2DeploymentsRefusalContentPartTypedDict,
+        DeploymentGetConfig2DeploymentsTextContentPartTypedDict,
     ],
 )
 
@@ -596,8 +769,8 @@ DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
 DeploymentGetConfigContentDeployments2 = TypeAliasType(
     "DeploymentGetConfigContentDeployments2",
     Union[
-        DeploymentGetConfig2DeploymentsTextContentPart,
         DeploymentGetConfig2DeploymentsRefusalContentPart,
+        DeploymentGetConfig2DeploymentsTextContentPart,
     ],
 )
 

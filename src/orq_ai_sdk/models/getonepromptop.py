@@ -343,6 +343,7 @@ GetOnePromptProvider = Literal[
     "litellm",
     "openailike",
     "cerebras",
+    "bytedance",
 ]
 
 GetOnePromptRole = Literal[
