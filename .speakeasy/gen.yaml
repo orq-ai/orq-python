@@ -64,4 +64,5 @@ python:
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
+  sseFlatResponse: false
   templateVersion: v2
