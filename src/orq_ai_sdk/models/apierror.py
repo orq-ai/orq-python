@@ -2,12 +2,14 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from orq_ai_sdk.models import OrqError
 
 MAX_MESSAGE_LEN = 10_000
 
 
+@dataclass(frozen=True)
 class APIError(OrqError):
     """The fallback error class if no more specific error class is matched."""
 
