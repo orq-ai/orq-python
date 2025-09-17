@@ -16,6 +16,7 @@ from typing import Any, Callable, Dict, Optional, TYPE_CHECKING, Union, cast
 import weakref
 
 if TYPE_CHECKING:
+    from orq_ai_sdk.agents import Agents
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
@@ -25,6 +26,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.knowledge import Knowledge
+    from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
@@ -38,10 +40,12 @@ class Orq(BaseSDK):
     contacts: "Contacts"
     feedback: "Feedback"
     deployments: "DeploymentsSDK"
+    agents: "Agents"
     files: "Files"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
     models: "Models"
+    memory_stores: "MemoryStores"
     datasets: "Datasets"
     knowledge: "Knowledge"
     chunking: "Chunking"
@@ -51,10 +55,12 @@ class Orq(BaseSDK):
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "deployments": ("orq_ai_sdk.deployments_sdk", "DeploymentsSDK"),
+        "agents": ("orq_ai_sdk.agents", "Agents"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "models": ("orq_ai_sdk.models_", "Models"),
+        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),

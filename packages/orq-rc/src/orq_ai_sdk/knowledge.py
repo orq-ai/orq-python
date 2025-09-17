@@ -998,12 +998,12 @@ class Knowledge(BaseSDK):
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
-        rerank_config: OptionalNullable[
+        rerank_config: Optional[
             Union[
                 models.SearchKnowledgeRerankConfig,
                 models.SearchKnowledgeRerankConfigTypedDict,
             ]
-        ] = UNSET,
+        ] = None,
         agentic_rag_config: Optional[
             Union[
                 models.SearchKnowledgeAgenticRagConfig,
@@ -1060,7 +1060,7 @@ class Knowledge(BaseSDK):
                     search_options, Optional[models.SearchOptions]
                 ),
                 rerank_config=utils.get_pydantic_model(
-                    rerank_config, OptionalNullable[models.SearchKnowledgeRerankConfig]
+                    rerank_config, Optional[models.SearchKnowledgeRerankConfig]
                 ),
                 agentic_rag_config=utils.get_pydantic_model(
                     agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
@@ -1139,12 +1139,12 @@ class Knowledge(BaseSDK):
         search_options: Optional[
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
-        rerank_config: OptionalNullable[
+        rerank_config: Optional[
             Union[
                 models.SearchKnowledgeRerankConfig,
                 models.SearchKnowledgeRerankConfigTypedDict,
             ]
-        ] = UNSET,
+        ] = None,
         agentic_rag_config: Optional[
             Union[
                 models.SearchKnowledgeAgenticRagConfig,
@@ -1201,7 +1201,7 @@ class Knowledge(BaseSDK):
                     search_options, Optional[models.SearchOptions]
                 ),
                 rerank_config=utils.get_pydantic_model(
-                    rerank_config, OptionalNullable[models.SearchKnowledgeRerankConfig]
+                    rerank_config, Optional[models.SearchKnowledgeRerankConfig]
                 ),
                 agentic_rag_config=utils.get_pydantic_model(
                     agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
@@ -1276,7 +1276,9 @@ class Knowledge(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
+        status: Optional[
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1377,7 +1379,9 @@ class Knowledge(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
+        status: Optional[
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2466,7 +2470,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2572,7 +2579,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

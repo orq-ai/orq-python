@@ -15,11 +15,13 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-StatusTypedDict = TypeAliasType("StatusTypedDict", Union[List[str], str])
+QueryParamStatusTypedDict = TypeAliasType(
+    "QueryParamStatusTypedDict", Union[List[str], str]
+)
 r"""Filter datasources by status."""
 
 
-Status = TypeAliasType("Status", Union[List[str], str])
+QueryParamStatus = TypeAliasType("QueryParamStatus", Union[List[str], str])
 r"""Filter datasources by status."""
 
 
@@ -34,7 +36,7 @@ class ListDatasourcesRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
-    status: NotRequired[StatusTypedDict]
+    status: NotRequired[QueryParamStatusTypedDict]
     r"""Filter datasources by status."""
 
 
@@ -69,7 +71,7 @@ class ListDatasourcesRequest(BaseModel):
     r"""Search query to find datasources by name."""
 
     status: Annotated[
-        Optional[Status],
+        Optional[QueryParamStatus],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter datasources by status."""
@@ -125,7 +127,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K4DR766K2JSKFBJVSZ2YTZGC"
+        "01K5BAAP2QRNAP01WMYCYZ39TE"
     )
     r"""The id of the resource"""
 

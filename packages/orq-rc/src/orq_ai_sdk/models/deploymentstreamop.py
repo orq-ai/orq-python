@@ -1891,7 +1891,7 @@ class DeploymentStreamRequestBody(BaseModel):
     r"""A filter to apply to the knowledge base chunk metadata when using  knowledge bases in the deployment."""
 
 
-DeploymentStreamObject = Literal["chat", "completion", "image", "vision"]
+DeploymentStreamObject = Literal["chat", "completion", "image"]
 r"""Indicates the type of model used to generate the response"""
 
 DeploymentStreamProvider = Literal[

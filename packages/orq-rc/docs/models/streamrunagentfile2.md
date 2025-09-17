@@ -1,0 +1,10 @@
+# StreamRunAgentFile2
+
+
+## Fields
+
+| Field                          | Type                           | Required                       | Description                    |
+| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
+| `uri`                          | *str*                          | :heavy_check_mark:             | URL for the File content       |
+| `mime_type`                    | *Optional[str]*                | :heavy_minus_sign:             | Optional mimeType for the file |
+| `name`                         | *Optional[str]*                | :heavy_minus_sign:             | Optional name for the file     |

@@ -52,12 +52,12 @@ GetAllPromptsModelType = Literal[
     "chat",
     "completion",
     "embedding",
-    "vision",
     "image",
     "tts",
     "stt",
     "rerank",
     "moderations",
+    "vision",
 ]
 r"""The modality of the model"""
 

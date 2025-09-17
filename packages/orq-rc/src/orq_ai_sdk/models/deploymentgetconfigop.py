@@ -1892,12 +1892,12 @@ DeploymentGetConfigType = Literal[
     "chat",
     "completion",
     "embedding",
-    "vision",
     "image",
     "tts",
     "stt",
     "rerank",
     "moderations",
+    "vision",
 ]
 r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
@@ -2400,13 +2400,13 @@ class DeploymentGetConfigFunction(BaseModel):
     """
 
 
-class ToolsTypedDict(TypedDict):
+class DeploymentGetConfigToolsTypedDict(TypedDict):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigFunctionTypedDict
 
 
-class Tools(BaseModel):
+class DeploymentGetConfigTools(BaseModel):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
 
@@ -2429,7 +2429,7 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
-    tools: NotRequired[List[ToolsTypedDict]]
+    tools: NotRequired[List[DeploymentGetConfigToolsTypedDict]]
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""
 
 
@@ -2456,5 +2456,5 @@ class DeploymentGetConfigResponseBody(BaseModel):
     type: Optional[DeploymentGetConfigType] = None
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
-    tools: Optional[List[Tools]] = None
+    tools: Optional[List[DeploymentGetConfigTools]] = None
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""

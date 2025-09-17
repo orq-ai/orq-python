@@ -16,8 +16,8 @@ from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-QueryParamType = Literal["api_key", "contact", "workspace"]
-r"""Filter by budget entity type"""
+QueryParamType = Literal["contact", "workspace"]
+r"""Filter by budget entity type (contact or workspace)"""
 
 
 class ListBudgetsRequestTypedDict(TypedDict):
@@ -28,7 +28,7 @@ class ListBudgetsRequestTypedDict(TypedDict):
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     type: NotRequired[QueryParamType]
-    r"""Filter by budget entity type"""
+    r"""Filter by budget entity type (contact or workspace)"""
     entity_id: NotRequired[str]
     is_active: NotRequired[Nullable[bool]]
 
@@ -56,7 +56,7 @@ class ListBudgetsRequest(BaseModel):
         Optional[QueryParamType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by budget entity type"""
+    r"""Filter by budget entity type (contact or workspace)"""
 
     entity_id: Annotated[
         Optional[str],
@@ -200,8 +200,6 @@ class ListBudgetsDataTypedDict(TypedDict):
     r"""Whether this budget configuration is currently active"""
     contact_id: NotRequired[str]
     r"""Contact external identifier (present when type is \"contact\")"""
-    api_key_id: NotRequired[str]
-    r"""API Key identifier (present when type is \"api_key\")"""
     consumption: NotRequired[ListBudgetsConsumptionTypedDict]
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
@@ -225,15 +223,12 @@ class ListBudgetsData(BaseModel):
     contact_id: Optional[str] = None
     r"""Contact external identifier (present when type is \"contact\")"""
 
-    api_key_id: Optional[str] = None
-    r"""API Key identifier (present when type is \"api_key\")"""
-
     consumption: Optional[ListBudgetsConsumption] = None
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-05T20:13:44.106Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-17T07:48:11.095Z")
     r"""The date and time the resource was last updated"""
 
 

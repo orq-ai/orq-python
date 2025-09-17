@@ -1,19 +1,10 @@
 # Status
 
-Filter datasources by status.
 
+## Values
 
-## Supported Types
-
-### `List[str]`
-
-```python
-value: List[str] = /* values here */
-```
-
-### `str`
-
-```python
-value: str = /* values here */
-```
-
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `INACTIVE`          | inactive            |
+| `APPROVAL_REQUIRED` | approval_required   |
+| `IN_PROGRESS`       | in_progress         |

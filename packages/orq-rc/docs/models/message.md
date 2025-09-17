@@ -1,23 +1,13 @@
 # Message
 
+The A2A format message containing the task for the agent to perform.
 
-## Supported Types
 
-### `models.Message1`
+## Fields
 
-```python
-value: models.Message1 = /* values here */
-```
-
-### `models.Message2`
-
-```python
-value: models.Message2 = /* values here */
-```
-
-### `models.Message3`
-
-```python
-value: models.Message3 = /* values here */
-```
-
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `message_id`                                          | *Optional[str]*                                       | :heavy_minus_sign:                                    | Optional A2A message ID in ULID format                |
+| `role`                                                | [models.RunAgentRole](../models/runagentrole.md)      | :heavy_check_mark:                                    | Message role (user or tool for continuing executions) |
+| `parts`                                               | List[[models.Parts](../models/parts.md)]              | :heavy_check_mark:                                    | A2A message parts                                     |
+| `metadata`                                            | Dict[str, *Any*]                                      | :heavy_minus_sign:                                    | Optional message metadata                             |

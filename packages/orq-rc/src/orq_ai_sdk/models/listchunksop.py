@@ -15,13 +15,15 @@ from typing import Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-QueryParamStatusTypedDict = TypeAliasType(
-    "QueryParamStatusTypedDict", Union[List[str], str]
+ListChunksQueryParamStatusTypedDict = TypeAliasType(
+    "ListChunksQueryParamStatusTypedDict", Union[List[str], str]
 )
 r"""Filter datasources by status."""
 
 
-QueryParamStatus = TypeAliasType("QueryParamStatus", Union[List[str], str])
+ListChunksQueryParamStatus = TypeAliasType(
+    "ListChunksQueryParamStatus", Union[List[str], str]
+)
 r"""Filter datasources by status."""
 
 
@@ -38,7 +40,7 @@ class ListChunksRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
-    status: NotRequired[QueryParamStatusTypedDict]
+    status: NotRequired[ListChunksQueryParamStatusTypedDict]
     r"""Filter datasources by status."""
 
 
@@ -78,7 +80,7 @@ class ListChunksRequest(BaseModel):
     r"""Search query to find datasources by name."""
 
     status: Annotated[
-        Optional[QueryParamStatus],
+        Optional[ListChunksQueryParamStatus],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter datasources by status."""

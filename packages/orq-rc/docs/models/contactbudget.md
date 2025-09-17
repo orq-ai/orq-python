@@ -1,0 +1,13 @@
+# ContactBudget
+
+Budget configuration for a specific contact
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `type`                                                                             | [models.CreateBudgetRequestBodyType](../models/createbudgetrequestbodytype.md)     | :heavy_check_mark:                                                                 | Contact budget type                                                                | contact                                                                            |
+| `entity_id`                                                                        | *str*                                                                              | :heavy_check_mark:                                                                 | Contact external ID                                                                | user_123                                                                           |
+| `period`                                                                           | [models.CreateBudgetRequestBodyPeriod](../models/createbudgetrequestbodyperiod.md) | :heavy_check_mark:                                                                 | Budget period type                                                                 | monthly                                                                            |
+| `amount`                                                                           | *float*                                                                            | :heavy_check_mark:                                                                 | Budget amount in USD for the specified period                                      | 250                                                                                |

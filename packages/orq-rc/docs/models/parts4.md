@@ -1,0 +1,12 @@
+# Parts4
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `kind`                                                                 | [models.RunAgentPartsAgentsKind](../models/runagentpartsagentskind.md) | :heavy_check_mark:                                                     | N/A                                                                    |
+| `tool_name`                                                            | *str*                                                                  | :heavy_check_mark:                                                     | N/A                                                                    |
+| `tool_call_id`                                                         | *str*                                                                  | :heavy_check_mark:                                                     | N/A                                                                    |
+| `arguments`                                                            | Dict[str, *Any*]                                                       | :heavy_check_mark:                                                     | N/A                                                                    |
+| `metadata`                                                             | Dict[str, *Any*]                                                       | :heavy_minus_sign:                                                     | N/A                                                                    |

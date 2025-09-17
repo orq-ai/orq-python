@@ -1,0 +1,14 @@
+# GetAgentTools
+
+
+## Fields
+
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `id`                                                                    | *str*                                                                   | :heavy_check_mark:                                                      | The id of the resource                                                  |
+| `action_type`                                                           | *str*                                                                   | :heavy_check_mark:                                                      | N/A                                                                     |
+| `display_name`                                                          | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `requires_approval`                                                     | *Optional[bool]*                                                        | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `conditions`                                                            | List[[models.Conditions](../models/conditions.md)]                      | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `mcp_server`                                                            | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The id of the resource                                                  |
+| `timeout`                                                               | *Optional[float]*                                                       | :heavy_minus_sign:                                                      | Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes) |
