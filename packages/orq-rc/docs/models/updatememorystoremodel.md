@@ -75,10 +75,10 @@ value: models.UpdateMemoryStoreModel11 = /* values here */
 value: models.UpdateMemoryStoreModel12 = /* values here */
 ```
 
-### `models.Model13`
+### `models.UpdateMemoryStoreModel13`
 
 ```python
-value: models.Model13 = /* values here */
+value: models.UpdateMemoryStoreModel13 = /* values here */
 ```
 
 ### `models.Model14`

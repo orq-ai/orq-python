@@ -1197,7 +1197,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1208,8 +1208,8 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id:
-        :param tags:
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1232,7 +1232,7 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             request_body=models.CreateMemoryRequestBody(
                 entity_id=entity_id,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -1300,7 +1300,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1311,8 +1311,8 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id:
-        :param tags:
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1335,7 +1335,7 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             request_body=models.CreateMemoryRequestBody(
                 entity_id=entity_id,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -1586,7 +1586,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         entity_id: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1598,8 +1598,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id:
-        :param tags:
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1623,7 +1623,7 @@ class MemoryStores(BaseSDK):
             memory_id=memory_id,
             request_body=models.UpdateMemoryRequestBody(
                 entity_id=entity_id,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -1692,7 +1692,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         entity_id: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1704,8 +1704,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id:
-        :param tags:
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1729,7 +1729,7 @@ class MemoryStores(BaseSDK):
             memory_id=memory_id,
             request_body=models.UpdateMemoryRequestBody(
                 entity_id=entity_id,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -2186,7 +2186,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         text: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2198,8 +2198,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param text: The content of the memory
-        :param tags: Use the tags to categorize documents within a memory collection
+        :param text: The content of the memory document
+        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2223,7 +2223,7 @@ class MemoryStores(BaseSDK):
             memory_id=memory_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -2292,7 +2292,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         text: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2304,8 +2304,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param text: The content of the memory
-        :param tags: Use the tags to categorize documents within a memory collection
+        :param text: The content of the memory document
+        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2329,7 +2329,7 @@ class MemoryStores(BaseSDK):
             memory_id=memory_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -2587,7 +2587,7 @@ class MemoryStores(BaseSDK):
         memory_id: str,
         document_id: str,
         text: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2600,8 +2600,8 @@ class MemoryStores(BaseSDK):
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
-        :param text: The content of the memory
-        :param tags: Use the tags to categorize documents within a memory collection
+        :param text: The content of the memory document
+        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2626,7 +2626,7 @@ class MemoryStores(BaseSDK):
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 
@@ -2696,7 +2696,7 @@ class MemoryStores(BaseSDK):
         memory_id: str,
         document_id: str,
         text: str,
-        tags: Dict[str, str],
+        metadata: Dict[str, str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2709,8 +2709,8 @@ class MemoryStores(BaseSDK):
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
-        :param text: The content of the memory
-        :param tags: Use the tags to categorize documents within a memory collection
+        :param text: The content of the memory document
+        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2735,7 +2735,7 @@ class MemoryStores(BaseSDK):
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
-                tags=tags,
+                metadata=metadata,
             ),
         )
 

@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+| Name           | Value          |
+| -------------- | -------------- |
+| `CURRENT_DATE` | current_date   |

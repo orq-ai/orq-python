@@ -25,7 +25,7 @@ Fifteen = Literal["jina/jina-clip-v1"]
 
 Fourteen = Literal["google-ai/text-embedding-004"]
 
-Thirteen = Literal["google/multimodalembedding@001"]
+Model13 = Literal["google/multimodalembedding@001"]
 
 Model12 = Literal["google/text-multilingual-embedding-002"]
 
@@ -66,7 +66,7 @@ ModelTypedDict = TypeAliasType(
         Model10,
         Model11,
         Model12,
-        Thirteen,
+        Model13,
         Fourteen,
         Fifteen,
         Sixteen,
@@ -95,7 +95,7 @@ Model = TypeAliasType(
         Model10,
         Model11,
         Model12,
-        Thirteen,
+        Model13,
         Fourteen,
         Fifteen,
         Sixteen,

@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `RETRIEVE_KNOWLEDGE_BASES` | retrieve_knowledge_bases   |
+| Name                     | Value                    |
+| ------------------------ | ------------------------ |
+| `RETRIEVE_MEMORY_STORES` | retrieve_memory_stores   |

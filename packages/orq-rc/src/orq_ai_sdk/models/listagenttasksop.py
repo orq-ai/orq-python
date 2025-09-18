@@ -230,6 +230,20 @@ class AgentManifestSnapshot(BaseModel):
     project_id: Optional[str] = None
 
 
+class ListAgentTasksMemoryTypedDict(TypedDict):
+    r"""Memory configuration for this execution"""
+
+    entity_id: str
+    r"""Entity identifier used for memory store isolation (user/session/conversation)"""
+
+
+class ListAgentTasksMemory(BaseModel):
+    r"""Memory configuration for this execution"""
+
+    entity_id: str
+    r"""Entity identifier used for memory store isolation (user/session/conversation)"""
+
+
 class ListAgentTasksStateTypedDict(TypedDict):
     waiting_for_approval: NotRequired[bool]
     inactive: NotRequired[bool]
@@ -284,8 +298,8 @@ class TasksTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     name: NotRequired[str]
-    external_id: NotRequired[str]
-    r"""External identifier for the user/entity associated with this execution"""
+    memory: NotRequired[ListAgentTasksMemoryTypedDict]
+    r"""Memory configuration for this execution"""
 
 
 class Tasks(BaseModel):
@@ -309,8 +323,8 @@ class Tasks(BaseModel):
 
     name: Optional[str] = None
 
-    external_id: Optional[str] = None
-    r"""External identifier for the user/entity associated with this execution"""
+    memory: Optional[ListAgentTasksMemory] = None
+    r"""Memory configuration for this execution"""
 
 
 class ListAgentTasksResponseBodyTypedDict(TypedDict):

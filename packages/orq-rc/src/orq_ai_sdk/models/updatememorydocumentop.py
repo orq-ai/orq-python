@@ -10,17 +10,17 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class UpdateMemoryDocumentRequestBodyTypedDict(TypedDict):
     text: str
-    r"""The content of the memory"""
-    tags: Dict[str, str]
-    r"""Use the tags to categorize documents within a memory collection"""
+    r"""The content of the memory document"""
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
 
 
 class UpdateMemoryDocumentRequestBody(BaseModel):
     text: str
-    r"""The content of the memory"""
+    r"""The content of the memory document"""
 
-    tags: Dict[str, str]
-    r"""Use the tags to categorize documents within a memory collection"""
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
 
 
 class UpdateMemoryDocumentRequestTypedDict(TypedDict):
@@ -67,7 +67,8 @@ class UpdateMemoryDocumentResponseBodyTypedDict(TypedDict):
     workspace_id: str
     created_by_id: NotRequired[str]
     updated_by_id: NotRequired[str]
-    tags: NotRequired[Dict[str, str]]
+    metadata: NotRequired[Dict[str, str]]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
 
 class UpdateMemoryDocumentResponseBody(BaseModel):
@@ -91,4 +92,5 @@ class UpdateMemoryDocumentResponseBody(BaseModel):
 
     updated_by_id: Optional[str] = None
 
-    tags: Optional[Dict[str, str]] = None
+    metadata: Optional[Dict[str, str]] = None
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""

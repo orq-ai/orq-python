@@ -221,6 +221,20 @@ class StreamRunAgentMessage(BaseModel):
     r"""Optional message metadata"""
 
 
+class StreamRunAgentMemoryTypedDict(TypedDict):
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
+
+    entity_id: str
+    r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
+
+
+class StreamRunAgentMemory(BaseModel):
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
+
+    entity_id: str
+    r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
+
+
 StreamRunAgentConfigurationAgentsType = Literal["query"]
 
 
@@ -283,7 +297,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["function"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function"]
 
 
 class StreamRunAgentToolsFunctionTypedDict(TypedDict):
@@ -303,8 +317,8 @@ class StreamRunAgentToolsFunction(BaseModel):
     parameters: Optional[Dict[str, Any]] = None
 
 
-class Tools12TypedDict(TypedDict):
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12Type
+class Tools13TypedDict(TypedDict):
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings13Type
     key: str
     function: StreamRunAgentToolsFunctionTypedDict
     id: NotRequired[str]
@@ -313,8 +327,8 @@ class Tools12TypedDict(TypedDict):
     requires_approval: NotRequired[bool]
 
 
-class Tools12(BaseModel):
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12Type
+class Tools13(BaseModel):
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings13Type
 
     key: str
 
@@ -332,7 +346,7 @@ class Tools12(BaseModel):
 StreamRunAgentToolsStatus = Literal["live", "draft", "pending", "published"]
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["http"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http"]
 
 ToolsMethod = Literal["GET", "POST", "PUT", "DELETE"]
 r"""The HTTP method to use."""
@@ -367,7 +381,7 @@ class ToolsBlueprint(BaseModel):
     r"""The body to send with the request."""
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings11HTTPType = Literal[
+StreamRunAgentToolsAgentsRequestRequestBodySettings12HTTPType = Literal[
     "string", "number", "boolean"
 ]
 r"""The type of the argument."""
@@ -383,7 +397,7 @@ r"""The default value of the argument."""
 
 
 class ToolsArgumentsTypedDict(TypedDict):
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11HTTPType
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -394,7 +408,7 @@ class ToolsArgumentsTypedDict(TypedDict):
 
 
 class ToolsArguments(BaseModel):
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11HTTPType
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -422,7 +436,7 @@ class ToolsHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class Tools11TypedDict(TypedDict):
+class Tools12TypedDict(TypedDict):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
@@ -431,7 +445,7 @@ class Tools11TypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11Type
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12Type
     http: ToolsHTTPTypedDict
     id: NotRequired[str]
     status: NotRequired[StreamRunAgentToolsStatus]
@@ -440,7 +454,7 @@ class Tools11TypedDict(TypedDict):
     requires_approval: NotRequired[bool]
 
 
-class Tools11(BaseModel):
+class Tools12(BaseModel):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
@@ -453,12 +467,12 @@ class Tools11(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11Type
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings12Type
 
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5E8A6T4BF7JCDEVKBT31XV7"
+        "01K5ENCKT1J88RST8HW320MGM7"
     )
 
     status: Optional[StreamRunAgentToolsStatus] = "live"
@@ -469,7 +483,23 @@ class Tools11(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings10Type = Literal["current_date"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date"]
+
+
+class Tools11TypedDict(TypedDict):
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11Type
+    requires_approval: NotRequired[bool]
+
+
+class Tools11(BaseModel):
+    type: StreamRunAgentToolsAgentsRequestRequestBodySettings11Type
+
+    requires_approval: Optional[bool] = False
+
+
+StreamRunAgentToolsAgentsRequestRequestBodySettings10Type = Literal[
+    "query_knowledge_base"
+]
 
 
 class Tools10TypedDict(TypedDict):
@@ -484,7 +514,7 @@ class Tools10(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings9Type = Literal[
-    "query_knowledge_base"
+    "retrieve_knowledge_bases"
 ]
 
 
@@ -500,7 +530,7 @@ class Tools9(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings8Type = Literal[
-    "retrieve_knowledge_bases"
+    "retrieve_memory_stores"
 ]
 
 
@@ -516,7 +546,7 @@ class Tools8(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings7Type = Literal[
-    "retrieve_memory_stores"
+    "delete_memory_document"
 ]
 
 
@@ -618,18 +648,19 @@ class StreamRunAgentTools1(BaseModel):
 StreamRunAgentToolsTypedDict = TypeAliasType(
     "StreamRunAgentToolsTypedDict",
     Union[
-        StreamRunAgentTools1TypedDict,
+        Tools7TypedDict,
         StreamRunAgentTools2TypedDict,
         StreamRunAgentTools3TypedDict,
         StreamRunAgentTools4TypedDict,
         StreamRunAgentTools5TypedDict,
         Tools6TypedDict,
-        Tools7TypedDict,
+        StreamRunAgentTools1TypedDict,
         Tools8TypedDict,
         Tools9TypedDict,
         Tools10TypedDict,
-        Tools12TypedDict,
         Tools11TypedDict,
+        Tools13TypedDict,
+        Tools12TypedDict,
     ],
 )
 
@@ -637,18 +668,19 @@ StreamRunAgentToolsTypedDict = TypeAliasType(
 StreamRunAgentTools = TypeAliasType(
     "StreamRunAgentTools",
     Union[
-        StreamRunAgentTools1,
+        Tools7,
         StreamRunAgentTools2,
         StreamRunAgentTools3,
         StreamRunAgentTools4,
         StreamRunAgentTools5,
         Tools6,
-        Tools7,
+        StreamRunAgentTools1,
         Tools8,
         Tools9,
         Tools10,
-        Tools12,
         Tools11,
+        Tools13,
+        Tools12,
     ],
 )
 
@@ -702,8 +734,8 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
     context_id: NotRequired[str]
     r"""Optional context ID that maps to thread_id"""
-    external_id: NotRequired[str]
-    r"""An external id for the agent execution. This can be used to associate a specific user with the agent execution."""
+    memory: NotRequired[StreamRunAgentMemoryTypedDict]
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
     icon_url: NotRequired[str]
@@ -751,8 +783,8 @@ class StreamRunAgentRequestBody(BaseModel):
     context_id: Annotated[Optional[str], pydantic.Field(alias="contextId")] = None
     r"""Optional context ID that maps to thread_id"""
 
-    external_id: Optional[str] = None
-    r"""An external id for the agent execution. This can be used to associate a specific user with the agent execution."""
+    memory: Optional[StreamRunAgentMemory] = None
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""

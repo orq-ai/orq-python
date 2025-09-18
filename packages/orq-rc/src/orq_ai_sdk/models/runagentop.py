@@ -202,6 +202,20 @@ class Message(BaseModel):
     r"""Optional message metadata"""
 
 
+class MemoryTypedDict(TypedDict):
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
+
+    entity_id: str
+    r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
+
+
+class Memory(BaseModel):
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
+
+    entity_id: str
+    r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
+
+
 RunAgentConfigurationType = Literal["query"]
 
 
@@ -260,7 +274,7 @@ class TeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-RunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["function"]
+RunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function"]
 
 
 class ToolsFunctionTypedDict(TypedDict):
@@ -280,8 +294,8 @@ class ToolsFunction(BaseModel):
     parameters: Optional[Dict[str, Any]] = None
 
 
-class TwelveTypedDict(TypedDict):
-    type: RunAgentToolsAgentsRequestRequestBodySettings12Type
+class ThirteenTypedDict(TypedDict):
+    type: RunAgentToolsAgentsRequestRequestBodySettings13Type
     key: str
     function: ToolsFunctionTypedDict
     id: NotRequired[str]
@@ -290,8 +304,8 @@ class TwelveTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
 
 
-class Twelve(BaseModel):
-    type: RunAgentToolsAgentsRequestRequestBodySettings12Type
+class Thirteen(BaseModel):
+    type: RunAgentToolsAgentsRequestRequestBodySettings13Type
 
     key: str
 
@@ -309,7 +323,7 @@ class Twelve(BaseModel):
 ToolsStatus = Literal["live", "draft", "pending", "published"]
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-RunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["http"]
+RunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http"]
 
 Method = Literal["GET", "POST", "PUT", "DELETE"]
 r"""The HTTP method to use."""
@@ -344,7 +358,7 @@ class Blueprint(BaseModel):
     r"""The body to send with the request."""
 
 
-RunAgentToolsAgentsRequestRequestBodySettings11HTTPType = Literal[
+RunAgentToolsAgentsRequestRequestBodySettings12HTTPType = Literal[
     "string", "number", "boolean"
 ]
 r"""The type of the argument."""
@@ -358,7 +372,7 @@ r"""The default value of the argument."""
 
 
 class ArgumentsTypedDict(TypedDict):
-    type: RunAgentToolsAgentsRequestRequestBodySettings11HTTPType
+    type: RunAgentToolsAgentsRequestRequestBodySettings12HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -369,7 +383,7 @@ class ArgumentsTypedDict(TypedDict):
 
 
 class Arguments(BaseModel):
-    type: RunAgentToolsAgentsRequestRequestBodySettings11HTTPType
+    type: RunAgentToolsAgentsRequestRequestBodySettings12HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -397,7 +411,7 @@ class HTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class ElevenTypedDict(TypedDict):
+class TwelveTypedDict(TypedDict):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
@@ -406,7 +420,7 @@ class ElevenTypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: RunAgentToolsAgentsRequestRequestBodySettings11Type
+    type: RunAgentToolsAgentsRequestRequestBodySettings12Type
     http: HTTPTypedDict
     id: NotRequired[str]
     status: NotRequired[ToolsStatus]
@@ -415,7 +429,7 @@ class ElevenTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
 
 
-class Eleven(BaseModel):
+class Twelve(BaseModel):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
@@ -428,12 +442,12 @@ class Eleven(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: RunAgentToolsAgentsRequestRequestBodySettings11Type
+    type: RunAgentToolsAgentsRequestRequestBodySettings12Type
 
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5E8A6SKDM6WDDRGVD1YNSN1"
+        "01K5ENCKSWHJKG9277SMJ4E28Y"
     )
 
     status: Optional[ToolsStatus] = "live"
@@ -444,7 +458,21 @@ class Eleven(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings10Type = Literal["current_date"]
+RunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date"]
+
+
+class ElevenTypedDict(TypedDict):
+    type: RunAgentToolsAgentsRequestRequestBodySettings11Type
+    requires_approval: NotRequired[bool]
+
+
+class Eleven(BaseModel):
+    type: RunAgentToolsAgentsRequestRequestBodySettings11Type
+
+    requires_approval: Optional[bool] = False
+
+
+RunAgentToolsAgentsRequestRequestBodySettings10Type = Literal["query_knowledge_base"]
 
 
 class TenTypedDict(TypedDict):
@@ -458,7 +486,7 @@ class Ten(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings9Type = Literal["query_knowledge_base"]
+RunAgentToolsAgentsRequestRequestBodySettings9Type = Literal["retrieve_knowledge_bases"]
 
 
 class NineTypedDict(TypedDict):
@@ -472,7 +500,7 @@ class Nine(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings8Type = Literal["retrieve_knowledge_bases"]
+RunAgentToolsAgentsRequestRequestBodySettings8Type = Literal["retrieve_memory_stores"]
 
 
 class EightTypedDict(TypedDict):
@@ -486,7 +514,7 @@ class Eight(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings7Type = Literal["retrieve_memory_stores"]
+RunAgentToolsAgentsRequestRequestBodySettings7Type = Literal["delete_memory_document"]
 
 
 class SevenTypedDict(TypedDict):
@@ -587,18 +615,19 @@ class Tools1(BaseModel):
 ToolsTypedDict = TypeAliasType(
     "ToolsTypedDict",
     Union[
-        Tools1TypedDict,
+        SevenTypedDict,
         Tools2TypedDict,
         Tools3TypedDict,
         Tools4TypedDict,
         Tools5TypedDict,
         SixTypedDict,
-        SevenTypedDict,
+        Tools1TypedDict,
         EightTypedDict,
         NineTypedDict,
         TenTypedDict,
-        TwelveTypedDict,
         ElevenTypedDict,
+        ThirteenTypedDict,
+        TwelveTypedDict,
     ],
 )
 
@@ -606,18 +635,19 @@ ToolsTypedDict = TypeAliasType(
 Tools = TypeAliasType(
     "Tools",
     Union[
-        Tools1,
+        Seven,
         Tools2,
         Tools3,
         Tools4,
         Tools5,
         Six,
-        Seven,
+        Tools1,
         Eight,
         Nine,
         Ten,
-        Twelve,
         Eleven,
+        Thirteen,
+        Twelve,
     ],
 )
 
@@ -671,8 +701,8 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
     context_id: NotRequired[str]
     r"""Optional context ID that maps to thread_id"""
-    external_id: NotRequired[str]
-    r"""An external id for the agent execution. This can be used to associate a specific user with the agent execution."""
+    memory: NotRequired[MemoryTypedDict]
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
     icon_url: NotRequired[str]
@@ -718,8 +748,8 @@ class RunAgentRequestBody(BaseModel):
     context_id: Annotated[Optional[str], pydantic.Field(alias="contextId")] = None
     r"""Optional context ID that maps to thread_id"""
 
-    external_id: Optional[str] = None
-    r"""An external id for the agent execution. This can be used to associate a specific user with the agent execution."""
+    memory: Optional[Memory] = None
+    r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""

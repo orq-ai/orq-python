@@ -26,7 +26,7 @@ Model15 = Literal["jina/jina-clip-v1"]
 
 Model14 = Literal["google-ai/text-embedding-004"]
 
-Model13 = Literal["google/multimodalembedding@001"]
+UpdateMemoryStoreModel13 = Literal["google/multimodalembedding@001"]
 
 UpdateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002"]
 
@@ -67,7 +67,7 @@ UpdateMemoryStoreModelTypedDict = TypeAliasType(
         UpdateMemoryStoreModel10,
         UpdateMemoryStoreModel11,
         UpdateMemoryStoreModel12,
-        Model13,
+        UpdateMemoryStoreModel13,
         Model14,
         Model15,
         Model16,
@@ -96,7 +96,7 @@ UpdateMemoryStoreModel = TypeAliasType(
         UpdateMemoryStoreModel10,
         UpdateMemoryStoreModel11,
         UpdateMemoryStoreModel12,
-        Model13,
+        UpdateMemoryStoreModel13,
         Model14,
         Model15,
         Model16,

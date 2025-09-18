@@ -228,7 +228,7 @@ class ListBudgetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-18T11:10:42.158Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-18T14:59:12.873Z")
     r"""The date and time the resource was last updated"""
 
 

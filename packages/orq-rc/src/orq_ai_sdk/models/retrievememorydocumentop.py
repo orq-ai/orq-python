@@ -46,7 +46,8 @@ class RetrieveMemoryDocumentResponseBodyTypedDict(TypedDict):
     workspace_id: str
     created_by_id: NotRequired[str]
     updated_by_id: NotRequired[str]
-    tags: NotRequired[Dict[str, str]]
+    metadata: NotRequired[Dict[str, str]]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
 
 class RetrieveMemoryDocumentResponseBody(BaseModel):
@@ -70,4 +71,5 @@ class RetrieveMemoryDocumentResponseBody(BaseModel):
 
     updated_by_id: Optional[str] = None
 
-    tags: Optional[Dict[str, str]] = None
+    metadata: Optional[Dict[str, str]] = None
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""

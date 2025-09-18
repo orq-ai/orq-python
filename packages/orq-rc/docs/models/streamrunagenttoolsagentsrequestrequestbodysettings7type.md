@@ -5,4 +5,4 @@
 
 | Name                     | Value                    |
 | ------------------------ | ------------------------ |
-| `RETRIEVE_MEMORY_STORES` | retrieve_memory_stores   |
+| `DELETE_MEMORY_DOCUMENT` | delete_memory_document   |

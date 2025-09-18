@@ -17,13 +17,17 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class CreateMemoryRequestBodyTypedDict(TypedDict):
     entity_id: str
-    tags: Dict[str, str]
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class CreateMemoryRequestBody(BaseModel):
     entity_id: str
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
 
-    tags: Dict[str, str]
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class CreateMemoryRequestTypedDict(TypedDict):
@@ -52,7 +56,8 @@ class CreateMemoryResponseBodyTypedDict(TypedDict):
     created: str
     updated: str
     store_id: str
-    tags: Dict[str, str]
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
     workspace_id: str
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -71,7 +76,8 @@ class CreateMemoryResponseBody(BaseModel):
 
     store_id: str
 
-    tags: Dict[str, str]
+    metadata: Dict[str, str]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
     workspace_id: str
 
