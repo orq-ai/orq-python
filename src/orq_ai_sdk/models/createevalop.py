@@ -64,10 +64,13 @@ CreateEvalRequestBodyEvalsGuardrailConfig = TypeAliasType(
 )
 
 
+CreateEvalRequestBodyEvalsOutputType = Literal["boolean", "number", "string"]
+
 CreateEvalRequestBodyEvalsRequestType = Literal["python_eval"]
 
 
 class PythonTypedDict(TypedDict):
+    output_type: CreateEvalRequestBodyEvalsOutputType
     code: str
     type: CreateEvalRequestBodyEvalsRequestType
     path: str
@@ -78,6 +81,8 @@ class PythonTypedDict(TypedDict):
 
 
 class Python(BaseModel):
+    output_type: CreateEvalRequestBodyEvalsOutputType
+
     code: str
 
     type: CreateEvalRequestBodyEvalsRequestType
@@ -146,12 +151,15 @@ CreateEvalRequestBodyGuardrailConfig = TypeAliasType(
 )
 
 
+CreateEvalRequestBodyOutputType = Literal["boolean", "number", "string"]
+
 CreateEvalRequestBodyEvalsType = Literal["http_eval"]
 
 Method = Literal["GET", "POST"]
 
 
 class HTTPTypedDict(TypedDict):
+    output_type: CreateEvalRequestBodyOutputType
     type: CreateEvalRequestBodyEvalsType
     url: str
     method: Method
@@ -165,6 +173,8 @@ class HTTPTypedDict(TypedDict):
 
 
 class HTTP(BaseModel):
+    output_type: CreateEvalRequestBodyOutputType
+
     type: CreateEvalRequestBodyEvalsType
 
     url: str
@@ -235,10 +245,13 @@ RequestBodyGuardrailConfig = TypeAliasType(
 )
 
 
+RequestBodyOutputType = Literal["boolean"]
+
 CreateEvalRequestBodyType = Literal["json_schema"]
 
 
 class JSONTypedDict(TypedDict):
+    output_type: RequestBodyOutputType
     type: CreateEvalRequestBodyType
     schema_: str
     path: str
@@ -249,6 +262,8 @@ class JSONTypedDict(TypedDict):
 
 
 class JSON(BaseModel):
+    output_type: RequestBodyOutputType
+
     type: CreateEvalRequestBodyType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
@@ -310,10 +325,13 @@ GuardrailConfigTypedDict = TypeAliasType(
 GuardrailConfig = TypeAliasType("GuardrailConfig", Union[Boolean, Number])
 
 
+OutputType = Literal["boolean", "number", "string"]
+
 RequestBodyType = Literal["llm_eval"]
 
 
 class LlmTypedDict(TypedDict):
+    output_type: OutputType
     type: RequestBodyType
     prompt: str
     path: str
@@ -325,6 +343,8 @@ class LlmTypedDict(TypedDict):
 
 
 class Llm(BaseModel):
+    output_type: OutputType
+
     type: RequestBodyType
 
     prompt: str
@@ -476,9 +496,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T16:20:51.118Z"
+    created: Optional[str] = "2025-09-18T20:52:06.286Z"
 
-    updated: Optional[str] = "2025-09-18T16:20:51.118Z"
+    updated: Optional[str] = "2025-09-18T20:52:06.286Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -588,9 +608,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T16:20:51.118Z"
+    created: Optional[str] = "2025-09-18T20:52:06.286Z"
 
-    updated: Optional[str] = "2025-09-18T16:20:51.118Z"
+    updated: Optional[str] = "2025-09-18T20:52:06.286Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -681,9 +701,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T16:20:51.118Z"
+    created: Optional[str] = "2025-09-18T20:52:06.286Z"
 
-    updated: Optional[str] = "2025-09-18T16:20:51.118Z"
+    updated: Optional[str] = "2025-09-18T20:52:06.286Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -775,9 +795,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-18T16:20:51.118Z"
+    created: Optional[str] = "2025-09-18T20:52:06.286Z"
 
-    updated: Optional[str] = "2025-09-18T16:20:51.118Z"
+    updated: Optional[str] = "2025-09-18T20:52:06.286Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
