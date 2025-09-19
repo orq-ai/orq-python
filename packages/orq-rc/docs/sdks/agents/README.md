@@ -195,7 +195,7 @@ with Orq(
 
 ## run
 
-Executes an agent with the provided configuration using A2A message format. If the agent already exists with the same configuration, it will be reused. If the configuration differs, a new version is created. The fallback model is configured at the agent level and will be used automatically if the primary model fails during execution. Memory stores can be associated with specific entities (users, sessions) using the memory.entity_id parameter.
+Executes an agent with the provided configuration using A2A message format. If the agent already exists with the same configuration, it will be reused. If the configuration differs, a new version is created. The fallback model is configured at the agent level and will be used automatically if the primary model fails during execution.
 
 ### Example Usage
 
@@ -220,6 +220,29 @@ with Orq(
                 {
                     "kind": "data",
                 },
+            ],
+        },
+        "contact": {
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        },
+        "thread": {
+            "id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "tags": [
+                "customer-support",
+                "priority-high",
             ],
         },
         "path": "Default",
@@ -259,7 +282,7 @@ with Orq(
 
 ## stream_run
 
-Creates or updates an agent with the provided configuration, then streams execution events via Server-Sent Events (SSE). If the agent already exists with the same configuration, it will be reused. If the configuration differs, a new version is created. The stream will continue until the agent completes, errors, or reaches the configured timeout. Memory stores can be associated with specific entities (users, sessions) using the memory.entity_id parameter.
+Creates or updates an agent with the provided configuration, then streams execution events via Server-Sent Events (SSE). If the agent already exists with the same configuration, it will be reused. If the configuration differs, a new version is created. The stream will continue until the agent completes, errors, or reaches the configured timeout.
 
 ### Example Usage
 
@@ -287,6 +310,29 @@ with Orq(
                         "uri": "https://jumbo-zebra.info/",
                     },
                 },
+            ],
+        },
+        "contact": {
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        },
+        "thread": {
+            "id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "tags": [
+                "customer-support",
+                "priority-high",
             ],
         },
         "path": "Default",

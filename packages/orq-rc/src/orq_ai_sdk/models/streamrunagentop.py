@@ -221,6 +221,64 @@ class StreamRunAgentMessage(BaseModel):
     r"""Optional message metadata"""
 
 
+class StreamRunAgentContactTypedDict(TypedDict):
+    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+class StreamRunAgentContact(BaseModel):
+    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+
+class StreamRunAgentThreadTypedDict(TypedDict):
+    r"""Thread information to group related requests"""
+
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+    tags: NotRequired[List[str]]
+    r"""Optional tags to differentiate or categorize threads"""
+
+
+class StreamRunAgentThread(BaseModel):
+    r"""Thread information to group related requests"""
+
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+
+    tags: Optional[List[str]] = None
+    r"""Optional tags to differentiate or categorize threads"""
+
+
 class StreamRunAgentMemoryTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
@@ -472,7 +530,7 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5G8MPGKX9VB3AKS4PE7S6NV"
+        "01K5GVCVB3Q3RWWJZHD1JBQVWJ"
     )
 
     status: Optional[StreamRunAgentToolsStatus] = "live"
@@ -732,8 +790,10 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
-    context_id: NotRequired[str]
-    r"""Optional context ID that maps to thread_id"""
+    contact: NotRequired[StreamRunAgentContactTypedDict]
+    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    thread: NotRequired[StreamRunAgentThreadTypedDict]
+    r"""Thread information to group related requests"""
     memory: NotRequired[StreamRunAgentMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
@@ -780,8 +840,11 @@ class StreamRunAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    context_id: Annotated[Optional[str], pydantic.Field(alias="contextId")] = None
-    r"""Optional context ID that maps to thread_id"""
+    contact: Optional[StreamRunAgentContact] = None
+    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+
+    thread: Optional[StreamRunAgentThread] = None
+    r"""Thread information to group related requests"""
 
     memory: Optional[StreamRunAgentMemory] = None
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
