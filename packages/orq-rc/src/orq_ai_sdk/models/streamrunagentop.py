@@ -530,7 +530,7 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5GVCVB3Q3RWWJZHD1JBQVWJ"
+        "01K5P8H86NVTZS0CZ8QE478AE4"
     )
 
     status: Optional[StreamRunAgentToolsStatus] = "live"
