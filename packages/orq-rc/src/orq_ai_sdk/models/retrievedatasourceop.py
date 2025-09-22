@@ -90,7 +90,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5R6RX9XN887Z66R58PZVD4P"
+        "01K5RMTBWGYZG4EQP6N1X2B5QA"
     )
     r"""The id of the resource"""
 
