@@ -35,7 +35,11 @@ class RetrieveDatasourceRequest(BaseModel):
 
 
 RetrieveDatasourceStatus = Literal[
-    "pending", "processing", "completed", "failed", "queued"
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
 ]
 
 
@@ -86,7 +90,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5FCDSVJM4207B5FRRPKQRT7"
+        "01K5SN3DZ2DXZPVT8GFE5TTF44"
     )
     r"""The id of the resource"""
 

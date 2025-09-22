@@ -14,7 +14,11 @@ from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-RetrievalType = Literal["vector_search", "keyword_search", "hybrid_search"]
+RetrievalType = Literal[
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
+]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
@@ -148,7 +152,9 @@ class CreateKnowledgeRequestBody(BaseModel):
 
 
 CreateKnowledgeRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 

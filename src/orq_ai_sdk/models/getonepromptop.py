@@ -27,7 +27,8 @@ class GetOnePromptRequest(BaseModel):
     r"""Unique identifier of the prompt"""
 
 
-GetOnePromptType = Literal["prompt"]
+GetOnePromptType = Literal["prompt",]
+
 
 GetOnePromptModelType = Literal[
     "chat",
@@ -42,10 +43,17 @@ GetOnePromptModelType = Literal[
 ]
 r"""The modality of the model"""
 
-GetOnePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+
+GetOnePromptFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-GetOnePromptResponseFormatPromptsResponseType = Literal["text"]
+
+GetOnePromptResponseFormatPromptsResponseType = Literal["text",]
 
 
 class GetOnePromptResponseFormat3TypedDict(TypedDict):
@@ -56,7 +64,7 @@ class GetOnePromptResponseFormat3(BaseModel):
     type: GetOnePromptResponseFormatPromptsResponseType
 
 
-GetOnePromptResponseFormatPromptsType = Literal["json_object"]
+GetOnePromptResponseFormatPromptsType = Literal["json_object",]
 
 
 class GetOnePromptResponseFormat2TypedDict(TypedDict):
@@ -67,7 +75,7 @@ class GetOnePromptResponseFormat2(BaseModel):
     type: GetOnePromptResponseFormatPromptsType
 
 
-GetOnePromptResponseFormatType = Literal["json_schema"]
+GetOnePromptResponseFormatType = Literal["json_schema",]
 
 
 class GetOnePromptResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -131,16 +139,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetOnePromptPhotoRealVersion = Literal["v1", "v2"]
+GetOnePromptPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-GetOnePromptEncodingFormat = Literal["float", "base64"]
+
+GetOnePromptEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-GetOnePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+GetOnePromptReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-GetOnePromptVerbosity = Literal["low", "medium", "high"]
+
+GetOnePromptVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -346,6 +372,7 @@ GetOnePromptProvider = Literal[
     "bytedance",
 ]
 
+
 GetOnePromptRole = Literal[
     "system",
     "assistant",
@@ -358,7 +385,8 @@ GetOnePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-GetOnePrompt2PromptsResponseType = Literal["file"]
+
+GetOnePrompt2PromptsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -390,7 +418,7 @@ class GetOnePrompt23(BaseModel):
     file: GetOnePrompt2File
 
 
-GetOnePrompt2PromptsType = Literal["image_url"]
+GetOnePrompt2PromptsType = Literal["image_url",]
 
 
 class GetOnePrompt2ImageURLTypedDict(TypedDict):
@@ -428,7 +456,7 @@ class GetOnePrompt22(BaseModel):
     image_url: GetOnePrompt2ImageURL
 
 
-GetOnePrompt2Type = Literal["text"]
+GetOnePrompt2Type = Literal["text",]
 
 
 class GetOnePrompt21TypedDict(TypedDict):
@@ -469,7 +497,7 @@ GetOnePromptContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetOnePromptPromptsType = Literal["function"]
+GetOnePromptPromptsType = Literal["function",]
 
 
 class GetOnePromptFunctionTypedDict(TypedDict):
@@ -629,8 +657,15 @@ GetOnePromptUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 GetOnePromptLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

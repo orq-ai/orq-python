@@ -27,10 +27,17 @@ ModelType = Literal[
 ]
 r"""The modality of the model"""
 
-CreatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+
+CreatePromptFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-CreatePromptResponseFormatPromptsType = Literal["text"]
+
+CreatePromptResponseFormatPromptsType = Literal["text",]
 
 
 class ResponseFormat3TypedDict(TypedDict):
@@ -41,7 +48,7 @@ class ResponseFormat3(BaseModel):
     type: CreatePromptResponseFormatPromptsType
 
 
-CreatePromptResponseFormatType = Literal["json_object"]
+CreatePromptResponseFormatType = Literal["json_object",]
 
 
 class ResponseFormat2TypedDict(TypedDict):
@@ -52,7 +59,7 @@ class ResponseFormat2(BaseModel):
     type: CreatePromptResponseFormatType
 
 
-ResponseFormatType = Literal["json_schema"]
+ResponseFormatType = Literal["json_schema",]
 
 
 class JSONSchemaTypedDict(TypedDict):
@@ -107,16 +114,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-PhotoRealVersion = Literal["v1", "v2"]
+PhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-EncodingFormat = Literal["float", "base64"]
+
+EncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-ReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+ReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-Verbosity = Literal["low", "medium", "high"]
+
+Verbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -321,6 +346,7 @@ Provider = Literal[
     "bytedance",
 ]
 
+
 CreatePromptRole = Literal[
     "system",
     "assistant",
@@ -333,7 +359,8 @@ CreatePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-CreatePrompt2PromptsRequestType = Literal["file"]
+
+CreatePrompt2PromptsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -365,7 +392,7 @@ class CreatePrompt23(BaseModel):
     file: CreatePrompt2File
 
 
-CreatePrompt2PromptsType = Literal["image_url"]
+CreatePrompt2PromptsType = Literal["image_url",]
 
 
 class CreatePrompt2ImageURLTypedDict(TypedDict):
@@ -398,7 +425,7 @@ class CreatePrompt22(BaseModel):
     image_url: CreatePrompt2ImageURL
 
 
-CreatePrompt2Type = Literal["text"]
+CreatePrompt2Type = Literal["text",]
 
 
 class CreatePrompt21TypedDict(TypedDict):
@@ -439,7 +466,7 @@ CreatePromptContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-CreatePromptType = Literal["function"]
+CreatePromptType = Literal["function",]
 
 
 class CreatePromptFunctionTypedDict(TypedDict):
@@ -587,8 +614,15 @@ UseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 Language = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
@@ -696,7 +730,8 @@ class CreatePromptRequestBody(BaseModel):
         return m
 
 
-CreatePromptPromptsType = Literal["prompt"]
+CreatePromptPromptsType = Literal["prompt",]
+
 
 CreatePromptModelType = Literal[
     "chat",
@@ -711,10 +746,17 @@ CreatePromptModelType = Literal[
 ]
 r"""The modality of the model"""
 
-CreatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
+
+CreatePromptPromptsFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-CreatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text"]
+
+CreatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text",]
 
 
 class CreatePromptResponseFormat3TypedDict(TypedDict):
@@ -725,7 +767,7 @@ class CreatePromptResponseFormat3(BaseModel):
     type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
-CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
+CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object",]
 
 
 class CreatePromptResponseFormat2TypedDict(TypedDict):
@@ -736,7 +778,7 @@ class CreatePromptResponseFormat2(BaseModel):
     type: CreatePromptResponseFormatPromptsResponse200Type
 
 
-CreatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
+CreatePromptResponseFormatPromptsResponseType = Literal["json_schema",]
 
 
 class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -800,16 +842,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-CreatePromptPhotoRealVersion = Literal["v1", "v2"]
+CreatePromptPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-CreatePromptEncodingFormat = Literal["float", "base64"]
+
+CreatePromptEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-CreatePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+CreatePromptReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-CreatePromptVerbosity = Literal["low", "medium", "high"]
+
+CreatePromptVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -1015,6 +1075,7 @@ CreatePromptProvider = Literal[
     "bytedance",
 ]
 
+
 CreatePromptPromptsRole = Literal[
     "system",
     "assistant",
@@ -1027,7 +1088,8 @@ CreatePromptPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-CreatePrompt2PromptsResponse200ApplicationJSONType = Literal["file"]
+
+CreatePrompt2PromptsResponse200ApplicationJSONType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -1059,7 +1121,7 @@ class CreatePrompt2Prompts3(BaseModel):
     file: CreatePrompt2PromptsFile
 
 
-CreatePrompt2PromptsResponse200Type = Literal["image_url"]
+CreatePrompt2PromptsResponse200Type = Literal["image_url",]
 
 
 class CreatePrompt2PromptsImageURLTypedDict(TypedDict):
@@ -1097,7 +1159,7 @@ class CreatePrompt2Prompts2(BaseModel):
     image_url: CreatePrompt2PromptsImageURL
 
 
-CreatePrompt2PromptsResponseType = Literal["text"]
+CreatePrompt2PromptsResponseType = Literal["text",]
 
 
 class CreatePrompt2Prompts1TypedDict(TypedDict):
@@ -1144,7 +1206,7 @@ CreatePromptPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-CreatePromptPromptsResponseType = Literal["function"]
+CreatePromptPromptsResponseType = Literal["function",]
 
 
 class CreatePromptPromptsFunctionTypedDict(TypedDict):
@@ -1304,8 +1366,15 @@ CreatePromptUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 CreatePromptLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

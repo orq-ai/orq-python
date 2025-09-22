@@ -27,7 +27,13 @@ class RemoteConfigsGetConfigRequestBody(BaseModel):
 
 
 RemoteConfigsGetConfigType = Literal[
-    "boolean", "string", "integer", "decimal", "list", "json", "deployment"
+    "boolean",
+    "string",
+    "integer",
+    "decimal",
+    "list",
+    "json",
+    "deployment",
 ]
 
 

@@ -49,7 +49,11 @@ class UpdateDatasourceRequest(BaseModel):
 
 
 UpdateDatasourceStatus = Literal[
-    "pending", "processing", "completed", "failed", "queued"
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
 ]
 
 
@@ -100,7 +104,7 @@ class UpdateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5FCDSVP2CF06H2VN0TAN8F7"
+        "01K5SN3DZ3Y2QE3F1955EQC36H"
     )
     r"""The id of the resource"""
 

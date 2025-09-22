@@ -15,7 +15,7 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateDatasourceChunkingConfigurationType = Literal["advanced"]
+CreateDatasourceChunkingConfigurationType = Literal["advanced",]
 
 
 class ChunkingConfiguration2TypedDict(TypedDict):
@@ -40,7 +40,7 @@ class ChunkingConfiguration2(BaseModel):
     r"""Specifies the number of characters to overlap between consecutive chunks. This overlap helps maintain semantic continuity when splitting large text elements."""
 
 
-ChunkingConfigurationType = Literal["default"]
+ChunkingConfigurationType = Literal["default",]
 
 
 class ChunkingConfiguration1TypedDict(TypedDict):
@@ -175,7 +175,11 @@ class CreateDatasourceRequest(BaseModel):
 
 
 CreateDatasourceStatus = Literal[
-    "pending", "processing", "completed", "failed", "queued"
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
 ]
 
 
@@ -226,7 +230,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5FCDSVN1HABR86S4P4PD9T8"
+        "01K5SN3DZ2HVR4RJ8F13BBQR82"
     )
     r"""The id of the resource"""
 

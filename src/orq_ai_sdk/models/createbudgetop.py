@@ -10,10 +10,16 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateBudgetRequestBodyBudgetsType = Literal["workspace"]
+CreateBudgetRequestBodyBudgetsType = Literal["workspace",]
 r"""Workspace budget type"""
 
-RequestBodyPeriod = Literal["daily", "weekly", "monthly", "yearly"]
+
+RequestBodyPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
 r"""Budget period type"""
 
 
@@ -37,10 +43,16 @@ class RequestBody2(BaseModel):
     r"""Budget amount in USD for the specified period"""
 
 
-CreateBudgetRequestBodyType = Literal["contact"]
+CreateBudgetRequestBodyType = Literal["contact",]
 r"""Contact budget type"""
 
-CreateBudgetRequestBodyPeriod = Literal["daily", "weekly", "monthly", "yearly"]
+
+CreateBudgetRequestBodyPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
 r"""Budget period type"""
 
 
@@ -82,10 +94,20 @@ CreateBudgetRequestBody = TypeAliasType(
 r"""Create budget configuration for contact or workspace"""
 
 
-CreateBudgetType = Literal["api_key", "contact", "workspace"]
+CreateBudgetType = Literal[
+    "api_key",
+    "contact",
+    "workspace",
+]
 r"""Budget entity type"""
 
-CreateBudgetPeriod = Literal["daily", "weekly", "monthly", "yearly"]
+
+CreateBudgetPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
 r"""Budget period type"""
 
 
@@ -211,5 +233,5 @@ class CreateBudgetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-18T21:41:48.234Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-22T21:25:50.768Z")
     r"""The date and time the resource was last updated"""

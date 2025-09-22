@@ -34,8 +34,14 @@ class DeploymentInvokeGlobals(BaseModel):
     ] = None
 
 
-DeploymentInvokeObject = Literal["chat", "completion", "image", "vision"]
+DeploymentInvokeObject = Literal[
+    "chat",
+    "completion",
+    "image",
+    "vision",
+]
 r"""Indicates the type of model used to generate the response"""
+
 
 DeploymentInvokeProvider = Literal[
     "cohere",
@@ -143,7 +149,8 @@ class Retrievals(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
-DeploymentInvokeMessageDeploymentsType = Literal["image"]
+DeploymentInvokeMessageDeploymentsType = Literal["image",]
+
 
 DeploymentInvokeMessageDeploymentsRole = Literal[
     "system",
@@ -174,7 +181,8 @@ class Message3(BaseModel):
     url: str
 
 
-DeploymentInvokeMessageType = Literal["content"]
+DeploymentInvokeMessageType = Literal["content",]
+
 
 DeploymentInvokeMessageRole = Literal[
     "system",
@@ -250,7 +258,8 @@ class Message2(BaseModel):
         return m
 
 
-MessageType = Literal["tool_calls"]
+MessageType = Literal["tool_calls",]
+
 
 MessageRole = Literal[
     "system",
@@ -264,7 +273,8 @@ MessageRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-DeploymentInvokeMessageDeploymentsResponseType = Literal["function"]
+
+DeploymentInvokeMessageDeploymentsResponseType = Literal["function",]
 
 
 class MessageFunctionTypedDict(TypedDict):

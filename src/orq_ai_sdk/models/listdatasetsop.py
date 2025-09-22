@@ -38,7 +38,7 @@ class ListDatasetsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-ListDatasetsObject = Literal["list"]
+ListDatasetsObject = Literal["list",]
 
 
 class ListDatasetsMetadataTypedDict(TypedDict):
@@ -96,7 +96,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-18T21:41:48.234Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-22T21:25:50.768Z")
     r"""The date and time the resource was last updated"""
 
 

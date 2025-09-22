@@ -55,9 +55,10 @@ class Performance(BaseModel):
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Role = Literal[
-    "tool"
+    "tool",
 ]
 r"""The role of the messages author, in this case tool."""
+
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsRequestContentTypedDict",
@@ -94,7 +95,7 @@ class DeploymentCreateMetricMessagesToolMessage(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages4Type = Literal[
-    "refusal"
+    "refusal",
 ]
 r"""The type of the content part."""
 
@@ -115,11 +116,12 @@ class DeploymentCreateMetric2RefusalContentPart(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType = Literal[
-    "text"
+    "text",
 ]
 r"""The type of the content part."""
 
-DeploymentCreateMetricAnnotationsDeploymentsMetricsType = Literal["file_path"]
+
+DeploymentCreateMetricAnnotationsDeploymentsMetricsType = Literal["file_path",]
 
 
 class DeploymentCreateMetricAnnotationsFilePathTypedDict(TypedDict):
@@ -150,7 +152,7 @@ class DeploymentCreateMetricAnnotations2(BaseModel):
     end_index: int
 
 
-DeploymentCreateMetricAnnotationsType = Literal["file_citation"]
+DeploymentCreateMetricAnnotationsType = Literal["file_citation",]
 
 
 class DeploymentCreateMetricAnnotationsFileCitationTypedDict(TypedDict):
@@ -252,7 +254,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole = Literal[
-    "assistant"
+    "assistant",
 ]
 r"""The role of the messages author, in this case `assistant`."""
 
@@ -271,7 +273,7 @@ class DeploymentCreateMetricMessagesAudio(BaseModel):
     r"""Unique identifier for a previous audio response from the model."""
 
 
-DeploymentCreateMetricMessagesType = Literal["function"]
+DeploymentCreateMetricMessagesType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
@@ -401,10 +403,11 @@ class DeploymentCreateMetricMessagesAssistantMessage(BaseModel):
         return m
 
 
-DeploymentCreateMetricMessagesDeploymentsMetricsRequestRole = Literal["user"]
+DeploymentCreateMetricMessagesDeploymentsMetricsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType = Literal["file"]
+
+DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -436,9 +439,13 @@ class DeploymentCreateMetric24(BaseModel):
     file: DeploymentCreateMetric2File
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["input_audio"]
+DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["input_audio",]
 
-DeploymentCreateMetric2Format = Literal["mp3", "wav"]
+
+DeploymentCreateMetric2Format = Literal[
+    "mp3",
+    "wav",
+]
 r"""The format of the encoded audio data. Currently supports `wav` and `mp3`."""
 
 
@@ -468,9 +475,14 @@ class DeploymentCreateMetric23(BaseModel):
     input_audio: DeploymentCreateMetric2InputAudio
 
 
-DeploymentCreateMetric2DeploymentsMetricsType = Literal["image_url"]
+DeploymentCreateMetric2DeploymentsMetricsType = Literal["image_url",]
 
-DeploymentCreateMetric2Detail = Literal["low", "high", "auto"]
+
+DeploymentCreateMetric2Detail = Literal[
+    "low",
+    "high",
+    "auto",
+]
 r"""Specifies the detail level of the image."""
 
 
@@ -500,7 +512,7 @@ class DeploymentCreateMetric22(BaseModel):
     image_url: DeploymentCreateMetric2ImageURL
 
 
-DeploymentCreateMetric2Type = Literal["text"]
+DeploymentCreateMetric2Type = Literal["text",]
 
 
 class DeploymentCreateMetric21TypedDict(TypedDict):
@@ -570,7 +582,7 @@ class DeploymentCreateMetricMessagesUserMessage(BaseModel):
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-DeploymentCreateMetricMessagesDeploymentsMetricsRole = Literal["system"]
+DeploymentCreateMetricMessagesDeploymentsMetricsRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
@@ -594,7 +606,7 @@ class DeploymentCreateMetricMessagesSystemMessage(BaseModel):
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-DeploymentCreateMetricMessagesRole = Literal["developer"]
+DeploymentCreateMetricMessagesRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
@@ -642,8 +654,9 @@ DeploymentCreateMetricMessages = TypeAliasType(
 )
 
 
-DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyRole = Literal["tool"]
+DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
+
 
 DeploymentCreateMetricChoicesDeploymentsMetricsContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricChoicesDeploymentsMetricsContentTypedDict",
@@ -679,7 +692,7 @@ class ChoicesToolMessage(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4ContentType = (
-    Literal["refusal"]
+    Literal["refusal",]
 )
 r"""The type of the content part."""
 
@@ -700,12 +713,13 @@ class DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type = Literal[
-    "text"
+    "text",
 ]
 r"""The type of the content part."""
 
+
 DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestRequestBodyType = Literal[
-    "file_path"
+    "file_path",
 ]
 
 
@@ -738,7 +752,7 @@ class DeploymentCreateMetricAnnotationsDeploymentsMetrics2(BaseModel):
 
 
 DeploymentCreateMetricAnnotationsDeploymentsMetricsRequestType = Literal[
-    "file_citation"
+    "file_citation",
 ]
 
 
@@ -860,7 +874,7 @@ DeploymentCreateMetricChoicesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal["assistant"]
+DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant`."""
 
 
@@ -878,7 +892,7 @@ class ChoicesAudio(BaseModel):
     r"""Unique identifier for a previous audio response from the model."""
 
 
-ChoicesType = Literal["function"]
+ChoicesType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
@@ -1004,11 +1018,12 @@ class ChoicesAssistantMessage(BaseModel):
         return m
 
 
-DeploymentCreateMetricChoicesDeploymentsMetricsRole = Literal["user"]
+DeploymentCreateMetricChoicesDeploymentsMetricsRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
+
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Content4Type = (
-    Literal["file"]
+    Literal["file",]
 )
 r"""The type of the content part. Always `file`."""
 
@@ -1046,10 +1061,14 @@ class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType = (
-    Literal["input_audio"]
+    Literal["input_audio",]
 )
 
-DeploymentCreateMetric2DeploymentsMetricsFormat = Literal["mp3", "wav"]
+
+DeploymentCreateMetric2DeploymentsMetricsFormat = Literal[
+    "mp3",
+    "wav",
+]
 r"""The format of the encoded audio data. Currently supports `wav` and `mp3`."""
 
 
@@ -1082,10 +1101,15 @@ class DeploymentCreateMetric2DeploymentsMetrics3(BaseModel):
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Type = Literal[
-    "image_url"
+    "image_url",
 ]
 
-DeploymentCreateMetric2DeploymentsMetricsDetail = Literal["low", "high", "auto"]
+
+DeploymentCreateMetric2DeploymentsMetricsDetail = Literal[
+    "low",
+    "high",
+    "auto",
+]
 r"""Specifies the detail level of the image."""
 
 
@@ -1115,7 +1139,9 @@ class DeploymentCreateMetric2DeploymentsMetrics2(BaseModel):
     image_url: DeploymentCreateMetric2DeploymentsMetricsImageURL
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesType = Literal["text"]
+DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesType = Literal[
+    "text",
+]
 
 
 class DeploymentCreateMetric2DeploymentsMetrics1TypedDict(TypedDict):
@@ -1185,7 +1211,7 @@ class ChoicesUserMessage(BaseModel):
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-DeploymentCreateMetricChoicesRole = Literal["system"]
+DeploymentCreateMetricChoicesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
@@ -1209,7 +1235,7 @@ class ChoicesSystemMessage(BaseModel):
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-ChoicesRole = Literal["developer"]
+ChoicesRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 

@@ -6,7 +6,8 @@ from typing import List, Literal
 from typing_extensions import TypedDict
 
 
-ListModelsObject = Literal["list"]
+ListModelsObject = Literal["list",]
+
 
 ListModelsType = Literal[
     "chat",
@@ -21,7 +22,11 @@ ListModelsType = Literal[
 ]
 r"""The modality of the model"""
 
-OwnedBy = Literal["vendor", "workspace"]
+
+OwnedBy = Literal[
+    "vendor",
+    "workspace",
+]
 r"""Describe the provider of the model. Every model with `vendor` is publicly available, while models with `workspace` are private."""
 
 

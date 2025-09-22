@@ -11,10 +11,16 @@ from typing import Any, Dict, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-UpdateEvalGuardrailConfigEvalsRequestRequestBody42Type = Literal["number"]
+UpdateEvalGuardrailConfigEvalsRequestRequestBody42Type = Literal["number",]
+
 
 UpdateEvalGuardrailConfigEvalsRequestRequestBodyOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -35,7 +41,7 @@ class UpdateEvalGuardrailConfigEvalsRequestRequestBodyNumber(BaseModel):
     operator: UpdateEvalGuardrailConfigEvalsRequestRequestBodyOperator
 
 
-UpdateEvalGuardrailConfigEvalsRequestRequestBody4Type = Literal["boolean"]
+UpdateEvalGuardrailConfigEvalsRequestRequestBody4Type = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigEvalsRequestRequestBodyBooleanTypedDict(TypedDict):
@@ -70,9 +76,14 @@ UpdateEvalRequestBodyEvalsRequest4GuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalRequestBodyEvalsRequest4OutputType = Literal["boolean", "number", "string"]
+UpdateEvalRequestBodyEvalsRequest4OutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
 
-UpdateEvalRequestBodyEvalsRequest4Type = Literal["python_eval"]
+
+UpdateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 
 
 class RequestBodyPythonTypedDict(TypedDict):
@@ -105,10 +116,16 @@ class RequestBodyPython(BaseModel):
     key: Optional[str] = None
 
 
-UpdateEvalGuardrailConfigEvalsRequestRequestBody32Type = Literal["number"]
+UpdateEvalGuardrailConfigEvalsRequestRequestBody32Type = Literal["number",]
+
 
 UpdateEvalGuardrailConfigEvalsRequestOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -129,7 +146,7 @@ class UpdateEvalGuardrailConfigEvalsRequestNumber(BaseModel):
     operator: UpdateEvalGuardrailConfigEvalsRequestOperator
 
 
-UpdateEvalGuardrailConfigEvalsRequestRequestBody3Type = Literal["boolean"]
+UpdateEvalGuardrailConfigEvalsRequestRequestBody3Type = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigEvalsRequestBooleanTypedDict(TypedDict):
@@ -164,11 +181,20 @@ UpdateEvalRequestBodyEvalsRequestGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalRequestBodyEvalsRequestOutputType = Literal["boolean", "number", "string"]
+UpdateEvalRequestBodyEvalsRequestOutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
 
-UpdateEvalRequestBodyEvalsRequestType = Literal["http_eval"]
 
-RequestBodyMethod = Literal["GET", "POST"]
+UpdateEvalRequestBodyEvalsRequestType = Literal["http_eval",]
+
+
+RequestBodyMethod = Literal[
+    "GET",
+    "POST",
+]
 
 
 class RequestBodyHTTPTypedDict(TypedDict):
@@ -210,9 +236,17 @@ class RequestBodyHTTP(BaseModel):
     key: Optional[str] = None
 
 
-UpdateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["number"]
+UpdateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["number",]
 
-UpdateEvalGuardrailConfigEvalsOperator = Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+
+UpdateEvalGuardrailConfigEvalsOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
 
 
 class UpdateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
@@ -232,7 +266,7 @@ class UpdateEvalGuardrailConfigEvalsNumber(BaseModel):
     operator: UpdateEvalGuardrailConfigEvalsOperator
 
 
-UpdateEvalGuardrailConfigEvalsRequestType = Literal["boolean"]
+UpdateEvalGuardrailConfigEvalsRequestType = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
@@ -264,9 +298,10 @@ UpdateEvalRequestBodyEvalsGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalRequestBodyEvalsOutputType = Literal["boolean"]
+UpdateEvalRequestBodyEvalsOutputType = Literal["boolean",]
 
-UpdateEvalRequestBodyEvalsType = Literal["json_schema"]
+
+UpdateEvalRequestBodyEvalsType = Literal["json_schema",]
 
 
 class RequestBodyJSONTypedDict(TypedDict):
@@ -297,9 +332,17 @@ class RequestBodyJSON(BaseModel):
     key: Optional[str] = None
 
 
-UpdateEvalGuardrailConfigEvalsType = Literal["number"]
+UpdateEvalGuardrailConfigEvalsType = Literal["number",]
 
-UpdateEvalGuardrailConfigOperator = Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+
+UpdateEvalGuardrailConfigOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
 
 
 class UpdateEvalGuardrailConfigNumberTypedDict(TypedDict):
@@ -319,7 +362,7 @@ class UpdateEvalGuardrailConfigNumber(BaseModel):
     operator: UpdateEvalGuardrailConfigOperator
 
 
-UpdateEvalGuardrailConfigType = Literal["boolean"]
+UpdateEvalGuardrailConfigType = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigBooleanTypedDict(TypedDict):
@@ -351,9 +394,14 @@ UpdateEvalRequestBodyGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalRequestBodyOutputType = Literal["boolean", "number", "string"]
+UpdateEvalRequestBodyOutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
 
-UpdateEvalRequestBodyType = Literal["llm_eval"]
+
+UpdateEvalRequestBodyType = Literal["llm_eval",]
 
 
 class RequestBodyLLMTypedDict(TypedDict):
@@ -443,11 +491,17 @@ class UpdateEvalEvalsResponseBody(OrqError):
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type = Literal[
-    "number"
+    "number",
 ]
 
+
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -477,7 +531,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -517,7 +571,7 @@ UpdateEvalResponseBodyEvalsResponse200GuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalResponseBodyEvalsResponse200Type = Literal["python_eval"]
+UpdateEvalResponseBodyEvalsResponse200Type = Literal["python_eval",]
 
 
 class UpdateEvalResponseBodyPythonTypedDict(TypedDict):
@@ -544,9 +598,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T21:41:50.865Z"
+    created: Optional[str] = "2025-09-22T21:25:53.087Z"
 
-    updated: Optional[str] = "2025-09-18T21:41:50.865Z"
+    updated: Optional[str] = "2025-09-22T21:25:53.087Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -554,11 +608,17 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody32Type = Literal[
-    "number"
+    "number",
 ]
 
+
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -582,7 +642,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -620,9 +680,13 @@ UpdateEvalResponseBodyEvalsResponseGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalResponseBodyEvalsResponseType = Literal["http_eval"]
+UpdateEvalResponseBodyEvalsResponseType = Literal["http_eval",]
 
-UpdateEvalResponseBodyMethod = Literal["GET", "POST"]
+
+UpdateEvalResponseBodyMethod = Literal[
+    "GET",
+    "POST",
+]
 
 
 class UpdateEvalResponseBodyHTTPTypedDict(TypedDict):
@@ -658,9 +722,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T21:41:50.865Z"
+    created: Optional[str] = "2025-09-22T21:25:53.087Z"
 
-    updated: Optional[str] = "2025-09-18T21:41:50.865Z"
+    updated: Optional[str] = "2025-09-22T21:25:53.087Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -668,11 +732,17 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
-    "number"
+    "number",
 ]
 
+
 UpdateEvalGuardrailConfigEvalsResponse200Operator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -693,7 +763,7 @@ class UpdateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
     operator: UpdateEvalGuardrailConfigEvalsResponse200Operator
 
 
-UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean"]
+UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigEvalsResponse200BooleanTypedDict(TypedDict):
@@ -728,7 +798,7 @@ UpdateEvalResponseBodyEvalsGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalResponseBodyEvalsType = Literal["json_schema"]
+UpdateEvalResponseBodyEvalsType = Literal["json_schema",]
 
 
 class UpdateEvalResponseBodyJSONTypedDict(TypedDict):
@@ -753,17 +823,23 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-18T21:41:50.865Z"
+    created: Optional[str] = "2025-09-22T21:25:53.087Z"
 
-    updated: Optional[str] = "2025-09-18T21:41:50.865Z"
+    updated: Optional[str] = "2025-09-22T21:25:53.087Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
 
-UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number"]
+UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
+
 
 UpdateEvalGuardrailConfigEvalsResponseOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -784,7 +860,7 @@ class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
     operator: UpdateEvalGuardrailConfigEvalsResponseOperator
 
 
-UpdateEvalGuardrailConfigEvalsResponseType = Literal["boolean"]
+UpdateEvalGuardrailConfigEvalsResponseType = Literal["boolean",]
 
 
 class UpdateEvalGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
@@ -819,7 +895,7 @@ UpdateEvalResponseBodyGuardrailConfig = TypeAliasType(
 )
 
 
-UpdateEvalResponseBodyType = Literal["llm_eval"]
+UpdateEvalResponseBodyType = Literal["llm_eval",]
 
 
 class UpdateEvalResponseBodyLLMTypedDict(TypedDict):
@@ -847,9 +923,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-18T21:41:50.865Z"
+    created: Optional[str] = "2025-09-22T21:25:53.087Z"
 
-    updated: Optional[str] = "2025-09-18T21:41:50.865Z"
+    updated: Optional[str] = "2025-09-22T21:25:53.087Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 

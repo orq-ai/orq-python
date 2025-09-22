@@ -75,10 +75,15 @@ class ListDatasourcesRequest(BaseModel):
     r"""Filter datasources by status."""
 
 
-ListDatasourcesObject = Literal["list"]
+ListDatasourcesObject = Literal["list",]
+
 
 ListDatasourcesStatus = Literal[
-    "pending", "processing", "completed", "failed", "queued"
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
 ]
 
 
@@ -125,7 +130,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5FCDSVH9DR43FN4C656GQR0"
+        "01K5SN3DYYZXD6BAG8RYXVWR6C"
     )
     r"""The id of the resource"""
 

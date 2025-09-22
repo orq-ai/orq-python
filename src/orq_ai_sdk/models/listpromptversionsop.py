@@ -49,7 +49,8 @@ class ListPromptVersionsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-ListPromptVersionsObject = Literal["list"]
+ListPromptVersionsObject = Literal["list",]
+
 
 ListPromptVersionsModelType = Literal[
     "chat",
@@ -64,10 +65,17 @@ ListPromptVersionsModelType = Literal[
 ]
 r"""The modality of the model"""
 
-ListPromptVersionsFormat = Literal["url", "b64_json", "text", "json_object"]
+
+ListPromptVersionsFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-ListPromptVersionsResponseFormatPromptsResponseType = Literal["text"]
+
+ListPromptVersionsResponseFormatPromptsResponseType = Literal["text",]
 
 
 class ListPromptVersionsResponseFormat3TypedDict(TypedDict):
@@ -78,7 +86,7 @@ class ListPromptVersionsResponseFormat3(BaseModel):
     type: ListPromptVersionsResponseFormatPromptsResponseType
 
 
-ListPromptVersionsResponseFormatPromptsType = Literal["json_object"]
+ListPromptVersionsResponseFormatPromptsType = Literal["json_object",]
 
 
 class ListPromptVersionsResponseFormat2TypedDict(TypedDict):
@@ -89,7 +97,7 @@ class ListPromptVersionsResponseFormat2(BaseModel):
     type: ListPromptVersionsResponseFormatPromptsType
 
 
-ListPromptVersionsResponseFormatType = Literal["json_schema"]
+ListPromptVersionsResponseFormatType = Literal["json_schema",]
 
 
 class ListPromptVersionsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -153,16 +161,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-ListPromptVersionsPhotoRealVersion = Literal["v1", "v2"]
+ListPromptVersionsPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-ListPromptVersionsEncodingFormat = Literal["float", "base64"]
+
+ListPromptVersionsEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-ListPromptVersionsReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+ListPromptVersionsReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-ListPromptVersionsVerbosity = Literal["low", "medium", "high"]
+
+ListPromptVersionsVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -370,6 +396,7 @@ ListPromptVersionsProvider = Literal[
     "bytedance",
 ]
 
+
 ListPromptVersionsRole = Literal[
     "system",
     "assistant",
@@ -382,7 +409,8 @@ ListPromptVersionsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-ListPromptVersions2PromptsResponseType = Literal["file"]
+
+ListPromptVersions2PromptsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -414,7 +442,7 @@ class ListPromptVersions23(BaseModel):
     file: ListPromptVersions2File
 
 
-ListPromptVersions2PromptsType = Literal["image_url"]
+ListPromptVersions2PromptsType = Literal["image_url",]
 
 
 class ListPromptVersions2ImageURLTypedDict(TypedDict):
@@ -452,7 +480,7 @@ class ListPromptVersions22(BaseModel):
     image_url: ListPromptVersions2ImageURL
 
 
-ListPromptVersions2Type = Literal["text"]
+ListPromptVersions2Type = Literal["text",]
 
 
 class ListPromptVersions21TypedDict(TypedDict):
@@ -499,7 +527,7 @@ ListPromptVersionsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-ListPromptVersionsType = Literal["function"]
+ListPromptVersionsType = Literal["function",]
 
 
 class ListPromptVersionsFunctionTypedDict(TypedDict):
@@ -659,8 +687,15 @@ ListPromptVersionsUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 ListPromptVersionsLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

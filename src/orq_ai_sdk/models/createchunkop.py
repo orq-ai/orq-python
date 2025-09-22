@@ -78,7 +78,13 @@ CreateChunkKnowledgeMetadata = TypeAliasType(
 )
 
 
-CreateChunkStatus = Literal["pending", "processing", "completed", "failed", "queued"]
+CreateChunkStatus = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
 r"""The status of the chunk"""
 
 

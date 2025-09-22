@@ -84,7 +84,8 @@ class ListChunksRequest(BaseModel):
     r"""Filter datasources by status."""
 
 
-ListChunksObject = Literal["list"]
+ListChunksObject = Literal["list",]
+
 
 ListChunksMetadataTypedDict = TypeAliasType(
     "ListChunksMetadataTypedDict", Union[str, float, bool]
@@ -94,7 +95,13 @@ ListChunksMetadataTypedDict = TypeAliasType(
 ListChunksMetadata = TypeAliasType("ListChunksMetadata", Union[str, float, bool])
 
 
-ListChunksStatus = Literal["pending", "processing", "completed", "failed", "queued"]
+ListChunksStatus = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
 r"""The status of the chunk"""
 
 

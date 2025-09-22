@@ -16,7 +16,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 UpdateKnowledgeRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
@@ -203,7 +205,9 @@ class UpdateKnowledgeRequest(BaseModel):
 
 
 UpdateKnowledgeKnowledgeRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
