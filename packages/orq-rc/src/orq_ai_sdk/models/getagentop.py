@@ -45,10 +45,20 @@ class GetAgentAgentsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-GetAgentStatus = Literal["live", "draft", "pending", "published"]
+GetAgentStatus = Literal[
+    "live",
+    "draft",
+    "pending",
+    "published",
+]
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-GetAgentToolApprovalRequired = Literal["all", "respect_tool", "none"]
+
+GetAgentToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
@@ -176,7 +186,7 @@ class GetAgentMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-GetAgentConfigurationType = Literal["query"]
+GetAgentConfigurationType = Literal["query",]
 
 
 class GetAgentConfiguration2TypedDict(TypedDict):
@@ -190,7 +200,7 @@ class GetAgentConfiguration2(BaseModel):
     query: str
 
 
-GetAgentConfigurationAgentsType = Literal["last_user_message"]
+GetAgentConfigurationAgentsType = Literal["last_user_message",]
 
 
 class GetAgentConfiguration1TypedDict(TypedDict):
@@ -230,12 +240,16 @@ class GetAgentKnowledgeBases(BaseModel):
     configuration: GetAgentConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K5P8H85R69VC35GMP021YCW9"
+    id: Optional[str] = "01K5QVJ9EJ7XANYHFG6QW4P43G"
     r"""The id of the resource"""
 
 
 HiddenPanels = Literal[
-    "model", "tools", "knowledge_bases", "variables", "runtime_constraints"
+    "model",
+    "tools",
+    "knowledge_bases",
+    "variables",
+    "runtime_constraints",
 ]
 
 
@@ -262,8 +276,6 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     system_prompt: NotRequired[str]
-    icon_url: NotRequired[str]
-    r"""Optional URL to an icon for the agent"""
     settings: NotRequired[GetAgentSettingsTypedDict]
     version_hash: NotRequired[str]
     metrics: NotRequired[GetAgentMetricsTypedDict]
@@ -314,9 +326,6 @@ class GetAgentResponseBody(BaseModel):
     updated: Optional[str] = None
 
     system_prompt: Optional[str] = None
-
-    icon_url: Annotated[Optional[str], pydantic.Field(alias="iconUrl")] = None
-    r"""Optional URL to an icon for the agent"""
 
     settings: Optional[GetAgentSettings] = None
 

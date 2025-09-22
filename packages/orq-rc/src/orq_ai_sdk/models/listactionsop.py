@@ -30,7 +30,7 @@ class ListActionsRequest(BaseModel):
     ]
 
 
-ListActionsObject = Literal["list"]
+ListActionsObject = Literal["list",]
 
 
 class ListActionsToolTypedDict(TypedDict):
@@ -49,7 +49,10 @@ class ListActionsTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-ListActionsReview = Literal["approved", "rejected"]
+ListActionsReview = Literal[
+    "approved",
+    "rejected",
+]
 
 
 class ListActionsStateTypedDict(TypedDict):

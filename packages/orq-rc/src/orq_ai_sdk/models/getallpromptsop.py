@@ -44,9 +44,11 @@ class GetAllPromptsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-GetAllPromptsObject = Literal["list"]
+GetAllPromptsObject = Literal["list",]
 
-GetAllPromptsType = Literal["prompt"]
+
+GetAllPromptsType = Literal["prompt",]
+
 
 GetAllPromptsModelType = Literal[
     "chat",
@@ -61,10 +63,17 @@ GetAllPromptsModelType = Literal[
 ]
 r"""The modality of the model"""
 
-GetAllPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
+
+GetAllPromptsFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-GetAllPromptsResponseFormatPromptsResponseType = Literal["text"]
+
+GetAllPromptsResponseFormatPromptsResponseType = Literal["text",]
 
 
 class GetAllPromptsResponseFormat3TypedDict(TypedDict):
@@ -75,7 +84,7 @@ class GetAllPromptsResponseFormat3(BaseModel):
     type: GetAllPromptsResponseFormatPromptsResponseType
 
 
-GetAllPromptsResponseFormatPromptsType = Literal["json_object"]
+GetAllPromptsResponseFormatPromptsType = Literal["json_object",]
 
 
 class GetAllPromptsResponseFormat2TypedDict(TypedDict):
@@ -86,7 +95,7 @@ class GetAllPromptsResponseFormat2(BaseModel):
     type: GetAllPromptsResponseFormatPromptsType
 
 
-GetAllPromptsResponseFormatType = Literal["json_schema"]
+GetAllPromptsResponseFormatType = Literal["json_schema",]
 
 
 class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -150,16 +159,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetAllPromptsPhotoRealVersion = Literal["v1", "v2"]
+GetAllPromptsPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-GetAllPromptsEncodingFormat = Literal["float", "base64"]
+
+GetAllPromptsEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-GetAllPromptsReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+GetAllPromptsReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-GetAllPromptsVerbosity = Literal["low", "medium", "high"]
+
+GetAllPromptsVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -366,6 +393,7 @@ GetAllPromptsProvider = Literal[
     "bytedance",
 ]
 
+
 GetAllPromptsRole = Literal[
     "system",
     "assistant",
@@ -378,7 +406,8 @@ GetAllPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-GetAllPrompts2PromptsResponseType = Literal["file"]
+
+GetAllPrompts2PromptsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -410,7 +439,7 @@ class GetAllPrompts23(BaseModel):
     file: GetAllPrompts2File
 
 
-GetAllPrompts2PromptsType = Literal["image_url"]
+GetAllPrompts2PromptsType = Literal["image_url",]
 
 
 class GetAllPrompts2ImageURLTypedDict(TypedDict):
@@ -448,7 +477,7 @@ class GetAllPrompts22(BaseModel):
     image_url: GetAllPrompts2ImageURL
 
 
-GetAllPrompts2Type = Literal["text"]
+GetAllPrompts2Type = Literal["text",]
 
 
 class GetAllPrompts21TypedDict(TypedDict):
@@ -489,7 +518,7 @@ GetAllPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetAllPromptsPromptsType = Literal["function"]
+GetAllPromptsPromptsType = Literal["function",]
 
 
 class GetAllPromptsFunctionTypedDict(TypedDict):
@@ -649,8 +678,15 @@ GetAllPromptsUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 GetAllPromptsLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

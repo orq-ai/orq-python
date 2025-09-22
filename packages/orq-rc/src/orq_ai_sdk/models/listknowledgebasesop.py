@@ -44,10 +44,13 @@ class ListKnowledgeBasesRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-ListKnowledgeBasesObject = Literal["list"]
+ListKnowledgeBasesObject = Literal["list",]
+
 
 ListKnowledgeBasesRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 

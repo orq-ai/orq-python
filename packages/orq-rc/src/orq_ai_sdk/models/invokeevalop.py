@@ -29,7 +29,8 @@ InvokeEvalRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-InvokeEval2EvalsRequestType = Literal["file"]
+
+InvokeEval2EvalsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -61,7 +62,7 @@ class InvokeEval23(BaseModel):
     file: InvokeEval2File
 
 
-InvokeEval2EvalsType = Literal["image_url"]
+InvokeEval2EvalsType = Literal["image_url",]
 
 
 class InvokeEval2ImageURLTypedDict(TypedDict):
@@ -94,7 +95,7 @@ class InvokeEval22(BaseModel):
     image_url: InvokeEval2ImageURL
 
 
-InvokeEval2Type = Literal["text"]
+InvokeEval2Type = Literal["text",]
 
 
 class InvokeEval21TypedDict(TypedDict):
@@ -135,7 +136,7 @@ InvokeEvalContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-InvokeEvalType = Literal["function"]
+InvokeEvalType = Literal["function",]
 
 
 class InvokeEvalFunctionTypedDict(TypedDict):
@@ -281,7 +282,8 @@ class InvokeEvalEvalsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval"]
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval",]
+
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSONValueTypedDict",
@@ -346,7 +348,8 @@ class InvokeEvalResponseBodyHTTP(BaseModel):
         return m
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["llm_evaluator"]
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["llm_evaluator",]
+
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict",
@@ -445,7 +448,7 @@ class InvokeEvalResponseBodyLLM(BaseModel):
         return m
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type = Literal["bert_score"]
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type = Literal["bert_score",]
 
 
 class InvokeEvalResponseBodyEvalsValueTypedDict(TypedDict):
@@ -473,7 +476,7 @@ class BERTScore(BaseModel):
     value: InvokeEvalResponseBodyEvalsValue
 
 
-InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["rouge_n"]
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["rouge_n",]
 
 
 class Rouge1TypedDict(TypedDict):
@@ -543,7 +546,7 @@ class RougeN(BaseModel):
     value: InvokeEvalResponseBodyValue
 
 
-InvokeEvalResponseBodyEvalsResponse200Type = Literal["string_array"]
+InvokeEvalResponseBodyEvalsResponse200Type = Literal["string_array",]
 
 
 class StringArrayTypedDict(TypedDict):
@@ -557,7 +560,8 @@ class StringArray(BaseModel):
     values: List[Nullable[str]]
 
 
-InvokeEvalResponseBodyEvalsResponseType = Literal["boolean"]
+InvokeEvalResponseBodyEvalsResponseType = Literal["boolean",]
+
 
 ResponseBodyValueTypedDict = TypeAliasType(
     "ResponseBodyValueTypedDict", Union[bool, str, float]
@@ -608,7 +612,7 @@ class ResponseBodyBoolean(BaseModel):
         return m
 
 
-InvokeEvalResponseBodyEvalsType = Literal["number"]
+InvokeEvalResponseBodyEvalsType = Literal["number",]
 
 
 class ResponseBodyNumberTypedDict(TypedDict):
@@ -652,7 +656,7 @@ class ResponseBodyNumber(BaseModel):
         return m
 
 
-InvokeEvalResponseBodyType = Literal["string"]
+InvokeEvalResponseBodyType = Literal["string",]
 
 
 class StringTypedDict(TypedDict):

@@ -37,12 +37,23 @@ class ListAgentsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-ListAgentsObject = Literal["list"]
+ListAgentsObject = Literal["list",]
 
-ListAgentsStatus = Literal["live", "draft", "pending", "published"]
+
+ListAgentsStatus = Literal[
+    "live",
+    "draft",
+    "pending",
+    "published",
+]
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-ListAgentsToolApprovalRequired = Literal["all", "respect_tool", "none"]
+
+ListAgentsToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
@@ -170,7 +181,7 @@ class ListAgentsMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-ListAgentsConfigurationType = Literal["query"]
+ListAgentsConfigurationType = Literal["query",]
 
 
 class ListAgentsConfiguration2TypedDict(TypedDict):
@@ -184,7 +195,7 @@ class ListAgentsConfiguration2(BaseModel):
     query: str
 
 
-ListAgentsConfigurationAgentsType = Literal["last_user_message"]
+ListAgentsConfigurationAgentsType = Literal["last_user_message",]
 
 
 class ListAgentsConfiguration1TypedDict(TypedDict):
@@ -224,12 +235,16 @@ class ListAgentsKnowledgeBases(BaseModel):
     configuration: ListAgentsConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K5P8H85NSV19QVN5ZC2WQ83F"
+    id: Optional[str] = "01K5QVJ9EE039NVWN22T5GKB9J"
     r"""The id of the resource"""
 
 
 ListAgentsHiddenPanels = Literal[
-    "model", "tools", "knowledge_bases", "variables", "runtime_constraints"
+    "model",
+    "tools",
+    "knowledge_bases",
+    "variables",
+    "runtime_constraints",
 ]
 
 
@@ -254,8 +269,6 @@ class ListAgentsDataTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     system_prompt: NotRequired[str]
-    icon_url: NotRequired[str]
-    r"""Optional URL to an icon for the agent"""
     settings: NotRequired[ListAgentsSettingsTypedDict]
     version_hash: NotRequired[str]
     metrics: NotRequired[ListAgentsMetricsTypedDict]
@@ -304,9 +317,6 @@ class ListAgentsData(BaseModel):
     updated: Optional[str] = None
 
     system_prompt: Optional[str] = None
-
-    icon_url: Annotated[Optional[str], pydantic.Field(alias="iconUrl")] = None
-    r"""Optional URL to an icon for the agent"""
 
     settings: Optional[ListAgentsSettings] = None
 

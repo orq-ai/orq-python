@@ -10,9 +10,11 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-StreamRunAgentRole2 = Literal["tool"]
+StreamRunAgentRole2 = Literal["tool",]
 
-StreamRunAgentRole1 = Literal["user"]
+
+StreamRunAgentRole1 = Literal["user",]
+
 
 StreamRunAgentRoleTypedDict = TypeAliasType(
     "StreamRunAgentRoleTypedDict", Union[StreamRunAgentRole1, StreamRunAgentRole2]
@@ -26,7 +28,7 @@ StreamRunAgentRole = TypeAliasType(
 r"""Message role (user or tool for continuing executions)"""
 
 
-StreamRunAgentPartsAgentsRequestRequestBodyMessageKind = Literal["tool_result"]
+StreamRunAgentPartsAgentsRequestRequestBodyMessageKind = Literal["tool_result",]
 
 
 class Parts5TypedDict(TypedDict):
@@ -46,7 +48,7 @@ class Parts5(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-StreamRunAgentPartsAgentsRequestRequestBodyKind = Literal["tool_call"]
+StreamRunAgentPartsAgentsRequestRequestBodyKind = Literal["tool_call",]
 
 
 class StreamRunAgentParts4TypedDict(TypedDict):
@@ -69,7 +71,7 @@ class StreamRunAgentParts4(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-StreamRunAgentPartsAgentsRequestKind = Literal["file"]
+StreamRunAgentPartsAgentsRequestKind = Literal["file",]
 
 
 class StreamRunAgentFile2TypedDict(TypedDict):
@@ -137,7 +139,7 @@ class StreamRunAgentParts3(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-StreamRunAgentPartsAgentsKind = Literal["data"]
+StreamRunAgentPartsAgentsKind = Literal["data",]
 
 
 class StreamRunAgentParts2TypedDict(TypedDict):
@@ -154,7 +156,7 @@ class StreamRunAgentParts2(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-StreamRunAgentPartsKind = Literal["text"]
+StreamRunAgentPartsKind = Literal["text",]
 
 
 class StreamRunAgentParts1TypedDict(TypedDict):
@@ -293,7 +295,7 @@ class StreamRunAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-StreamRunAgentConfigurationAgentsType = Literal["query"]
+StreamRunAgentConfigurationAgentsType = Literal["query",]
 
 
 class StreamRunAgentConfiguration2TypedDict(TypedDict):
@@ -307,7 +309,7 @@ class StreamRunAgentConfiguration2(BaseModel):
     query: str
 
 
-StreamRunAgentConfigurationType = Literal["last_user_message"]
+StreamRunAgentConfigurationType = Literal["last_user_message",]
 
 
 class StreamRunAgentConfiguration1TypedDict(TypedDict):
@@ -355,7 +357,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function",]
 
 
 class StreamRunAgentToolsFunctionTypedDict(TypedDict):
@@ -401,12 +403,24 @@ class Tools13(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsStatus = Literal["live", "draft", "pending", "published"]
+StreamRunAgentToolsStatus = Literal[
+    "live",
+    "draft",
+    "pending",
+    "published",
+]
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http"]
 
-ToolsMethod = Literal["GET", "POST", "PUT", "DELETE"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http",]
+
+
+ToolsMethod = Literal[
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+]
 r"""The HTTP method to use."""
 
 
@@ -440,9 +454,12 @@ class ToolsBlueprint(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings12HTTPType = Literal[
-    "string", "number", "boolean"
+    "string",
+    "number",
+    "boolean",
 ]
 r"""The type of the argument."""
+
 
 ToolsDefaultValueTypedDict = TypeAliasType(
     "ToolsDefaultValueTypedDict", Union[str, float, bool]
@@ -530,7 +547,7 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5P8H86NVTZS0CZ8QE478AE4"
+        "01K5QVJ9FJ8T39EZR9MRSV8G09"
     )
 
     status: Optional[StreamRunAgentToolsStatus] = "live"
@@ -541,7 +558,7 @@ class Tools12(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date",]
 
 
 class Tools11TypedDict(TypedDict):
@@ -556,7 +573,7 @@ class Tools11(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings10Type = Literal[
-    "query_knowledge_base"
+    "query_knowledge_base",
 ]
 
 
@@ -572,7 +589,7 @@ class Tools10(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings9Type = Literal[
-    "retrieve_knowledge_bases"
+    "retrieve_knowledge_bases",
 ]
 
 
@@ -588,7 +605,7 @@ class Tools9(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings8Type = Literal[
-    "retrieve_memory_stores"
+    "retrieve_memory_stores",
 ]
 
 
@@ -604,7 +621,7 @@ class Tools8(BaseModel):
 
 
 StreamRunAgentToolsAgentsRequestRequestBodySettings7Type = Literal[
-    "delete_memory_document"
+    "delete_memory_document",
 ]
 
 
@@ -619,7 +636,9 @@ class Tools7(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettings6Type = Literal["write_memory_store"]
+StreamRunAgentToolsAgentsRequestRequestBodySettings6Type = Literal[
+    "write_memory_store",
+]
 
 
 class Tools6TypedDict(TypedDict):
@@ -633,7 +652,7 @@ class Tools6(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestRequestBodySettingsType = Literal["query_memory_store"]
+StreamRunAgentToolsAgentsRequestRequestBodySettingsType = Literal["query_memory_store",]
 
 
 class StreamRunAgentTools5TypedDict(TypedDict):
@@ -647,7 +666,7 @@ class StreamRunAgentTools5(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestRequestBodyType = Literal["retrieve_agents"]
+StreamRunAgentToolsAgentsRequestRequestBodyType = Literal["retrieve_agents",]
 
 
 class StreamRunAgentTools4TypedDict(TypedDict):
@@ -661,7 +680,7 @@ class StreamRunAgentTools4(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsRequestType = Literal["call_sub_agent"]
+StreamRunAgentToolsAgentsRequestType = Literal["call_sub_agent",]
 
 
 class StreamRunAgentTools3TypedDict(TypedDict):
@@ -675,7 +694,7 @@ class StreamRunAgentTools3(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsAgentsType = Literal["web_scraper"]
+StreamRunAgentToolsAgentsType = Literal["web_scraper",]
 
 
 class StreamRunAgentTools2TypedDict(TypedDict):
@@ -689,7 +708,7 @@ class StreamRunAgentTools2(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentToolsType = Literal["google_search"]
+StreamRunAgentToolsType = Literal["google_search",]
 
 
 class StreamRunAgentTools1TypedDict(TypedDict):
@@ -743,7 +762,11 @@ StreamRunAgentTools = TypeAliasType(
 )
 
 
-StreamRunAgentToolApprovalRequired = Literal["all", "respect_tool", "none"]
+StreamRunAgentToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
@@ -798,8 +821,6 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
-    icon_url: NotRequired[str]
-    r"""Optional URL to an icon for the agent"""
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
@@ -851,9 +872,6 @@ class StreamRunAgentRequestBody(BaseModel):
 
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""
-
-    icon_url: Annotated[Optional[str], pydantic.Field(alias="iconUrl")] = None
-    r"""Optional URL to an icon for the agent"""
 
     system_prompt: Optional[str] = None
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""

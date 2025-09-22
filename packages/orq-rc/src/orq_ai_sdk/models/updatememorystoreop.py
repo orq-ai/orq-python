@@ -8,49 +8,71 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Model22 = Literal["jina/jina-embeddings-v3"]
+Model22 = Literal["jina/jina-embeddings-v3",]
 
-Model21 = Literal["jina/jina-clip-v2"]
 
-Model20 = Literal["jina/jina-embeddings-v2-base-de"]
+Model21 = Literal["jina/jina-clip-v2",]
 
-Model19 = Literal["jina/jina-embeddings-v2-base-code"]
 
-Model18 = Literal["jina/jina-embeddings-v2-base-zh"]
+Model20 = Literal["jina/jina-embeddings-v2-base-de",]
 
-Model17 = Literal["jina/jina-embeddings-v2-base-en"]
 
-Model16 = Literal["jina/jina-embeddings-v2-base-es"]
+Model19 = Literal["jina/jina-embeddings-v2-base-code",]
 
-Model15 = Literal["jina/jina-clip-v1"]
 
-Model14 = Literal["google-ai/text-embedding-004"]
+Model18 = Literal["jina/jina-embeddings-v2-base-zh",]
 
-UpdateMemoryStoreModel13 = Literal["google/multimodalembedding@001"]
 
-UpdateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002"]
+Model17 = Literal["jina/jina-embeddings-v2-base-en",]
 
-UpdateMemoryStoreModel11 = Literal["google/text-embedding-005"]
 
-UpdateMemoryStoreModel10 = Literal["google/gemini-embedding-001"]
+Model16 = Literal["jina/jina-embeddings-v2-base-es",]
 
-UpdateMemoryStoreModel9 = Literal["openai/text-embedding-ada-002"]
 
-UpdateMemoryStoreModel8 = Literal["openai/text-embedding-3-small"]
+Model15 = Literal["jina/jina-clip-v1",]
 
-UpdateMemoryStoreModel7 = Literal["openai/text-embedding-3-large"]
 
-UpdateMemoryStoreModel6 = Literal["azure/text-embedding-3-small"]
+Model14 = Literal["google-ai/text-embedding-004",]
 
-UpdateMemoryStoreModel5 = Literal["azure/text-embedding-ada-002"]
 
-UpdateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0"]
+UpdateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
 
-UpdateMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0"]
 
-UpdateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0"]
+UpdateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
 
-UpdateMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0"]
+
+UpdateMemoryStoreModel11 = Literal["google/text-embedding-005",]
+
+
+UpdateMemoryStoreModel10 = Literal["google/gemini-embedding-001",]
+
+
+UpdateMemoryStoreModel9 = Literal["openai/text-embedding-ada-002",]
+
+
+UpdateMemoryStoreModel8 = Literal["openai/text-embedding-3-small",]
+
+
+UpdateMemoryStoreModel7 = Literal["openai/text-embedding-3-large",]
+
+
+UpdateMemoryStoreModel6 = Literal["azure/text-embedding-3-small",]
+
+
+UpdateMemoryStoreModel5 = Literal["azure/text-embedding-ada-002",]
+
+
+UpdateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
+
+
+UpdateMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
+
+
+UpdateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
+
+
+UpdateMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
+
 
 UpdateMemoryStoreModelTypedDict = TypeAliasType(
     "UpdateMemoryStoreModelTypedDict",

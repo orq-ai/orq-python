@@ -85,7 +85,13 @@ UpdateChunkKnowledgeMetadata = TypeAliasType(
 )
 
 
-UpdateChunkStatus = Literal["pending", "processing", "completed", "failed", "queued"]
+UpdateChunkStatus = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
 r"""The status of the chunk"""
 
 

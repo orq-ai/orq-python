@@ -49,7 +49,13 @@ GetOneChunkMetadataTypedDict = TypeAliasType(
 GetOneChunkMetadata = TypeAliasType("GetOneChunkMetadata", Union[str, float, bool])
 
 
-GetOneChunkStatus = Literal["pending", "processing", "completed", "failed", "queued"]
+GetOneChunkStatus = Literal[
+    "pending",
+    "processing",
+    "completed",
+    "failed",
+    "queued",
+]
 r"""The status of the chunk"""
 
 

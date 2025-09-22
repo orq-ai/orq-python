@@ -44,12 +44,14 @@ class DeploymentsRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-DeploymentsObject = Literal["list"]
+DeploymentsObject = Literal["list",]
 
-DeploymentsType = Literal["function"]
+
+DeploymentsType = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
-DeploymentsDeploymentsResponseType = Literal["object"]
+
+DeploymentsDeploymentsResponseType = Literal["object",]
 
 
 class DeploymentsParametersTypedDict(TypedDict):
@@ -139,10 +141,17 @@ DeploymentsModelType = Literal[
 ]
 r"""The modality of the model"""
 
-DeploymentsFormat = Literal["url", "b64_json", "text", "json_object"]
+
+DeploymentsFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-DeploymentsResponseFormatDeploymentsType = Literal["text"]
+
+DeploymentsResponseFormatDeploymentsType = Literal["text",]
 
 
 class DeploymentsResponseFormat3TypedDict(TypedDict):
@@ -153,7 +162,7 @@ class DeploymentsResponseFormat3(BaseModel):
     type: DeploymentsResponseFormatDeploymentsType
 
 
-DeploymentsResponseFormatType = Literal["json_object"]
+DeploymentsResponseFormatType = Literal["json_object",]
 
 
 class DeploymentsResponseFormat2TypedDict(TypedDict):
@@ -164,7 +173,7 @@ class DeploymentsResponseFormat2(BaseModel):
     type: DeploymentsResponseFormatType
 
 
-DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema"]
+DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema",]
 
 
 class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -228,16 +237,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-DeploymentsPhotoRealVersion = Literal["v1", "v2"]
+DeploymentsPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-DeploymentsEncodingFormat = Literal["float", "base64"]
+
+DeploymentsEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-DeploymentsReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+DeploymentsReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-DeploymentsVerbosity = Literal["low", "medium", "high"]
+
+DeploymentsVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -443,6 +470,7 @@ DeploymentsProvider = Literal[
     "bytedance",
 ]
 
+
 DeploymentsRole = Literal[
     "system",
     "assistant",
@@ -455,7 +483,8 @@ DeploymentsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-Deployments2DeploymentsType = Literal["file"]
+
+Deployments2DeploymentsType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -487,7 +516,7 @@ class Deployments2Deployments3(BaseModel):
     file: Deployments2File
 
 
-Deployments2DeploymentsResponse200Type = Literal["image_url"]
+Deployments2DeploymentsResponse200Type = Literal["image_url",]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -525,7 +554,7 @@ class Deployments2Deployments2(BaseModel):
     image_url: Deployments2ImageURL
 
 
-Deployments2DeploymentsResponseType = Literal["text"]
+Deployments2DeploymentsResponseType = Literal["text",]
 
 
 class Deployments2Deployments1TypedDict(TypedDict):
@@ -572,7 +601,7 @@ DeploymentsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-DeploymentsDeploymentsType = Literal["function"]
+DeploymentsDeploymentsType = Literal["function",]
 
 
 class DeploymentsDeploymentsFunctionTypedDict(TypedDict):

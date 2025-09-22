@@ -16,7 +16,11 @@ from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-Status = Literal["inactive", "approval_required", "in_progress"]
+Status = Literal[
+    "inactive",
+    "approval_required",
+    "in_progress",
+]
 
 
 class ListAgentTasksRequestBodyTypedDict(TypedDict):
@@ -119,7 +123,11 @@ class ListAgentTasksModel(BaseModel):
     r"""Temperature setting for model responses"""
 
 
-ListAgentTasksToolApprovalRequired = Literal["all", "respect_tool", "none"]
+ListAgentTasksToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 

@@ -28,7 +28,9 @@ class GetOneKnowledgeRequest(BaseModel):
 
 
 GetOneKnowledgeRetrievalType = Literal[
-    "vector_search", "keyword_search", "hybrid_search"
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
 ]
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 

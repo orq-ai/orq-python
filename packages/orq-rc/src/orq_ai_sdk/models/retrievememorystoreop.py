@@ -20,49 +20,71 @@ class RetrieveMemoryStoreRequest(BaseModel):
     r"""The unique key identifier of the memory store"""
 
 
-RetrieveMemoryStoreModel22 = Literal["jina/jina-embeddings-v3"]
+RetrieveMemoryStoreModel22 = Literal["jina/jina-embeddings-v3",]
 
-RetrieveMemoryStoreModel21 = Literal["jina/jina-clip-v2"]
 
-RetrieveMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-de"]
+RetrieveMemoryStoreModel21 = Literal["jina/jina-clip-v2",]
 
-RetrieveMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-code"]
 
-RetrieveMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-zh"]
+RetrieveMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-de",]
 
-RetrieveMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-en"]
 
-RetrieveMemoryStoreModel16 = Literal["jina/jina-embeddings-v2-base-es"]
+RetrieveMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-code",]
 
-RetrieveMemoryStoreModel15 = Literal["jina/jina-clip-v1"]
 
-RetrieveMemoryStoreModel14 = Literal["google-ai/text-embedding-004"]
+RetrieveMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-zh",]
 
-RetrieveMemoryStoreModel13 = Literal["google/multimodalembedding@001"]
 
-RetrieveMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002"]
+RetrieveMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-en",]
 
-RetrieveMemoryStoreModel11 = Literal["google/text-embedding-005"]
 
-RetrieveMemoryStoreModel10 = Literal["google/gemini-embedding-001"]
+RetrieveMemoryStoreModel16 = Literal["jina/jina-embeddings-v2-base-es",]
 
-RetrieveMemoryStoreModel9 = Literal["openai/text-embedding-ada-002"]
 
-RetrieveMemoryStoreModel8 = Literal["openai/text-embedding-3-small"]
+RetrieveMemoryStoreModel15 = Literal["jina/jina-clip-v1",]
 
-RetrieveMemoryStoreModel7 = Literal["openai/text-embedding-3-large"]
 
-RetrieveMemoryStoreModel6 = Literal["azure/text-embedding-3-small"]
+RetrieveMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
 
-RetrieveMemoryStoreModel5 = Literal["azure/text-embedding-ada-002"]
 
-RetrieveMemoryStoreModel4 = Literal["cohere/embed-english-v3.0"]
+RetrieveMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
 
-RetrieveMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0"]
 
-RetrieveMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0"]
+RetrieveMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
 
-RetrieveMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0"]
+
+RetrieveMemoryStoreModel11 = Literal["google/text-embedding-005",]
+
+
+RetrieveMemoryStoreModel10 = Literal["google/gemini-embedding-001",]
+
+
+RetrieveMemoryStoreModel9 = Literal["openai/text-embedding-ada-002",]
+
+
+RetrieveMemoryStoreModel8 = Literal["openai/text-embedding-3-small",]
+
+
+RetrieveMemoryStoreModel7 = Literal["openai/text-embedding-3-large",]
+
+
+RetrieveMemoryStoreModel6 = Literal["azure/text-embedding-3-small",]
+
+
+RetrieveMemoryStoreModel5 = Literal["azure/text-embedding-ada-002",]
+
+
+RetrieveMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
+
+
+RetrieveMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
+
+
+RetrieveMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
+
+
+RetrieveMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
+
 
 RetrieveMemoryStoreModelTypedDict = TypeAliasType(
     "RetrieveMemoryStoreModelTypedDict",

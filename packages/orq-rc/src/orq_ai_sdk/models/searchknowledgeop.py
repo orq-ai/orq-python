@@ -8,7 +8,11 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-SearchType = Literal["vector_search", "keyword_search", "hybrid_search"]
+SearchType = Literal[
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
+]
 r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
 

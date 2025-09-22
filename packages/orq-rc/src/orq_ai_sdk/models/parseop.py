@@ -7,10 +7,14 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-ParseChunkingRequestChunkingRequestRequestBodyReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestChunkingRequestRequestBodyReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-AgenticChunker = Literal["agentic"]
+
+AgenticChunker = Literal["agentic",]
 
 
 class AgenticChunkerStrategyTypedDict(TypedDict):
@@ -62,12 +66,18 @@ class AgenticChunkerStrategy(BaseModel):
     r"""Minimum characters allowed per chunk"""
 
 
-ParseChunkingRequestChunkingRequestReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestChunkingRequestReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-SDPMChunker = Literal["sdpm"]
 
-ParseThreshold2 = Literal["auto"]
+SDPMChunker = Literal["sdpm",]
+
+
+ParseThreshold2 = Literal["auto",]
+
 
 ChunkingRequestThresholdTypedDict = TypeAliasType(
     "ChunkingRequestThresholdTypedDict", Union[float, ParseThreshold2]
@@ -81,7 +91,10 @@ ChunkingRequestThreshold = TypeAliasType(
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
 
 
-ChunkingRequestMode = Literal["window", "sentence"]
+ChunkingRequestMode = Literal[
+    "window",
+    "sentence",
+]
 r"""Chunking mode: window-based or sentence-based similarity"""
 
 
@@ -137,12 +150,18 @@ class SDPMChunkerStrategy(BaseModel):
     r"""Chunking mode: window-based or sentence-based similarity"""
 
 
-ParseChunkingRequestChunkingReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestChunkingReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-SemanticChunker = Literal["semantic"]
 
-Threshold2 = Literal["auto"]
+SemanticChunker = Literal["semantic",]
+
+
+Threshold2 = Literal["auto",]
+
 
 ThresholdTypedDict = TypeAliasType("ThresholdTypedDict", Union[float, Threshold2])
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
@@ -152,7 +171,10 @@ Threshold = TypeAliasType("Threshold", Union[float, Threshold2])
 r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
 
 
-Mode = Literal["window", "sentence"]
+Mode = Literal[
+    "window",
+    "sentence",
+]
 r"""Chunking mode: window-based or sentence-based similarity"""
 
 
@@ -208,10 +230,14 @@ class SemanticChunkerStrategy(BaseModel):
     r"""Window size for similarity comparison"""
 
 
-ParseChunkingRequestReturnType = Literal["chunks", "texts"]
+ParseChunkingRequestReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-RecursiveChunker = Literal["recursive"]
+
+RecursiveChunker = Literal["recursive",]
 
 
 class RecursiveChunkerStrategyTypedDict(TypedDict):
@@ -256,10 +282,14 @@ class RecursiveChunkerStrategy(BaseModel):
     r"""Minimum characters allowed per chunk"""
 
 
-ChunkingRequestReturnType = Literal["chunks", "texts"]
+ChunkingRequestReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-SentenceChunker = Literal["sentence"]
+
+SentenceChunker = Literal["sentence",]
 
 
 class SentenceChunkerStrategyTypedDict(TypedDict):
@@ -304,10 +334,14 @@ class SentenceChunkerStrategy(BaseModel):
     r"""Minimum number of sentences per chunk"""
 
 
-ReturnType = Literal["chunks", "texts"]
+ReturnType = Literal[
+    "chunks",
+    "texts",
+]
 r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
-TokenChunker = Literal["token"]
+
+TokenChunker = Literal["token",]
 
 
 class TokenChunkerStrategyTypedDict(TypedDict):

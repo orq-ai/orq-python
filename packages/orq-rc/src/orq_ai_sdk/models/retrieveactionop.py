@@ -57,7 +57,10 @@ class Tool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RetrieveActionReview = Literal["approved", "rejected"]
+Review = Literal[
+    "approved",
+    "rejected",
+]
 
 
 class StateTypedDict(TypedDict):
@@ -65,7 +68,7 @@ class StateTypedDict(TypedDict):
 
     input: Dict[str, Any]
     output: Dict[str, Any]
-    review: NotRequired[Nullable[RetrieveActionReview]]
+    review: NotRequired[Nullable[Review]]
     review_source: NotRequired[str]
     r"""The source of the review, where it was approved or rejected"""
     reviewed_by_id: NotRequired[str]
@@ -81,7 +84,7 @@ class State(BaseModel):
 
     output: Dict[str, Any]
 
-    review: OptionalNullable[RetrieveActionReview] = UNSET
+    review: OptionalNullable[Review] = UNSET
 
     review_source: Optional[str] = None
     r"""The source of the review, where it was approved or rejected"""

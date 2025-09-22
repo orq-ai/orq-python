@@ -48,7 +48,7 @@ class GetAgentTaskAgentsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-GetAgentTaskKind = Literal["task"]
+GetAgentTaskKind = Literal["task",]
 
 
 class GetAgentTaskStatusTypedDict(TypedDict):

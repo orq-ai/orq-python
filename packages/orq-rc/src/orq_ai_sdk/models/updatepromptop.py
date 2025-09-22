@@ -18,10 +18,16 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-UpdatePromptFormat = Literal["url", "b64_json", "text", "json_object"]
+UpdatePromptFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-UpdatePromptResponseFormatPromptsRequestType = Literal["text"]
+
+UpdatePromptResponseFormatPromptsRequestType = Literal["text",]
 
 
 class UpdatePromptResponseFormat3TypedDict(TypedDict):
@@ -32,7 +38,7 @@ class UpdatePromptResponseFormat3(BaseModel):
     type: UpdatePromptResponseFormatPromptsRequestType
 
 
-UpdatePromptResponseFormatPromptsType = Literal["json_object"]
+UpdatePromptResponseFormatPromptsType = Literal["json_object",]
 
 
 class UpdatePromptResponseFormat2TypedDict(TypedDict):
@@ -43,7 +49,7 @@ class UpdatePromptResponseFormat2(BaseModel):
     type: UpdatePromptResponseFormatPromptsType
 
 
-UpdatePromptResponseFormatType = Literal["json_schema"]
+UpdatePromptResponseFormatType = Literal["json_schema",]
 
 
 class ResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -107,16 +113,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-UpdatePromptPhotoRealVersion = Literal["v1", "v2"]
+UpdatePromptPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-UpdatePromptEncodingFormat = Literal["float", "base64"]
+
+UpdatePromptEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-UpdatePromptReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+UpdatePromptReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-UpdatePromptVerbosity = Literal["low", "medium", "high"]
+
+UpdatePromptVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -322,6 +346,7 @@ UpdatePromptProvider = Literal[
     "bytedance",
 ]
 
+
 UpdatePromptRole = Literal[
     "system",
     "assistant",
@@ -334,7 +359,8 @@ UpdatePromptRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-UpdatePrompt2PromptsRequestType = Literal["file"]
+
+UpdatePrompt2PromptsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -366,7 +392,7 @@ class UpdatePrompt23(BaseModel):
     file: UpdatePrompt2File
 
 
-UpdatePrompt2PromptsType = Literal["image_url"]
+UpdatePrompt2PromptsType = Literal["image_url",]
 
 
 class UpdatePrompt2ImageURLTypedDict(TypedDict):
@@ -399,7 +425,7 @@ class UpdatePrompt22(BaseModel):
     image_url: UpdatePrompt2ImageURL
 
 
-UpdatePrompt2Type = Literal["text"]
+UpdatePrompt2Type = Literal["text",]
 
 
 class UpdatePrompt21TypedDict(TypedDict):
@@ -440,7 +466,7 @@ UpdatePromptContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-UpdatePromptType = Literal["function"]
+UpdatePromptType = Literal["function",]
 
 
 class UpdatePromptFunctionTypedDict(TypedDict):
@@ -602,8 +628,15 @@ UpdatePromptUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 UpdatePromptLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
@@ -779,7 +812,8 @@ class UpdatePromptPromptsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-UpdatePromptPromptsType = Literal["prompt"]
+UpdatePromptPromptsType = Literal["prompt",]
+
 
 UpdatePromptPromptsModelType = Literal[
     "chat",
@@ -794,10 +828,17 @@ UpdatePromptPromptsModelType = Literal[
 ]
 r"""The modality of the model"""
 
-UpdatePromptPromptsFormat = Literal["url", "b64_json", "text", "json_object"]
+
+UpdatePromptPromptsFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text"]
+
+UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text",]
 
 
 class UpdatePromptResponseFormatPrompts3TypedDict(TypedDict):
@@ -808,7 +849,7 @@ class UpdatePromptResponseFormatPrompts3(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
-UpdatePromptResponseFormatPromptsResponse200Type = Literal["json_object"]
+UpdatePromptResponseFormatPromptsResponse200Type = Literal["json_object",]
 
 
 class UpdatePromptResponseFormatPrompts2TypedDict(TypedDict):
@@ -819,7 +860,7 @@ class UpdatePromptResponseFormatPrompts2(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponse200Type
 
 
-UpdatePromptResponseFormatPromptsResponseType = Literal["json_schema"]
+UpdatePromptResponseFormatPromptsResponseType = Literal["json_schema",]
 
 
 class UpdatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -883,16 +924,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-UpdatePromptPromptsPhotoRealVersion = Literal["v1", "v2"]
+UpdatePromptPromptsPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-UpdatePromptPromptsEncodingFormat = Literal["float", "base64"]
+
+UpdatePromptPromptsEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-UpdatePromptPromptsReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+UpdatePromptPromptsReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-UpdatePromptPromptsVerbosity = Literal["low", "medium", "high"]
+
+UpdatePromptPromptsVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -1100,6 +1159,7 @@ UpdatePromptPromptsProvider = Literal[
     "bytedance",
 ]
 
+
 UpdatePromptPromptsRole = Literal[
     "system",
     "assistant",
@@ -1112,7 +1172,8 @@ UpdatePromptPromptsRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-UpdatePrompt2PromptsResponse200ApplicationJSONType = Literal["file"]
+
+UpdatePrompt2PromptsResponse200ApplicationJSONType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -1144,7 +1205,7 @@ class UpdatePrompt2Prompts3(BaseModel):
     file: UpdatePrompt2PromptsFile
 
 
-UpdatePrompt2PromptsResponse200Type = Literal["image_url"]
+UpdatePrompt2PromptsResponse200Type = Literal["image_url",]
 
 
 class UpdatePrompt2PromptsImageURLTypedDict(TypedDict):
@@ -1182,7 +1243,7 @@ class UpdatePrompt2Prompts2(BaseModel):
     image_url: UpdatePrompt2PromptsImageURL
 
 
-UpdatePrompt2PromptsResponseType = Literal["text"]
+UpdatePrompt2PromptsResponseType = Literal["text",]
 
 
 class UpdatePrompt2Prompts1TypedDict(TypedDict):
@@ -1229,7 +1290,7 @@ UpdatePromptPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-UpdatePromptPromptsResponseType = Literal["function"]
+UpdatePromptPromptsResponseType = Literal["function",]
 
 
 class UpdatePromptPromptsFunctionTypedDict(TypedDict):
@@ -1389,8 +1450,15 @@ UpdatePromptPromptsUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 UpdatePromptPromptsLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

@@ -13,7 +13,6 @@
 * [stream_run](#stream_run) - Run and stream agent execution
 * [list_actions](#list_actions) - List all actions
 * [retrieve_action](#retrieve_action) - Retrieve an action executed by an agent task.
-* [review_action](#review_action) - Review a tool execution
 
 ## list
 
@@ -453,53 +452,6 @@ with Orq(
 ### Response
 
 **[models.RetrieveActionResponseBody](../../models/retrieveactionresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
-
-## review_action
-
-Review a tool execution and approve, reject or mock it. This will trigger the next step in the agent execution.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ReviewAction" method="post" path="/v2/agents/{agent_key}/tasks/{task_id}/actions/{action_id}/review" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.review_action(agent_key="<value>", task_id="<id>", action_id="<id>", review="rejected")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `action_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `review`                                                            | [models.Review](../../models/review.md)                             | :heavy_check_mark:                                                  | N/A                                                                 |
-| `mock_output`                                                       | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `source`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.ReviewActionResponseBody](../../models/reviewactionresponsebody.md)**
 
 ### Errors
 

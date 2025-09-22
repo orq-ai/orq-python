@@ -38,9 +38,14 @@ class FileListRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
 
-FileListObject = Literal["list"]
+FileListObject = Literal["list",]
 
-FileListPurpose = Literal["retrieval", "knowledge_datasource", "batch"]
+
+FileListPurpose = Literal[
+    "retrieval",
+    "knowledge_datasource",
+    "batch",
+]
 r"""The intended purpose of the uploaded file."""
 
 
@@ -74,7 +79,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2025-09-21T13:48:31.474Z")
+    created: Optional[datetime] = parse_datetime("2025-09-22T04:40:22.807Z")
     r"""The date and time the resource was created"""
 
 

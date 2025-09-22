@@ -62,14 +62,21 @@ class GetEvalsEvalsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-GetEvalsObject = Literal["list"]
+GetEvalsObject = Literal["list",]
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData72Type = Literal[
-    "number"
+    "number",
 ]
 
+
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -91,7 +98,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData7Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -127,7 +134,9 @@ GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType = Literal["typescript_eval"]
+GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType = Literal[
+    "typescript_eval",
+]
 
 
 class DataTypescriptTypedDict(TypedDict):
@@ -154,9 +163,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -164,11 +173,17 @@ class DataTypescript(BaseModel):
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData62Type = Literal[
-    "number"
+    "number",
 ]
 
+
 GetEvalsGuardrailConfigEvalsResponse200Operator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -190,7 +205,7 @@ class GetEvalsGuardrailConfigEvalsResponse200Number(BaseModel):
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData6Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -226,7 +241,8 @@ GetEvalsDataEvalsResponse200GuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONType = Literal["ragas"]
+GetEvalsDataEvalsResponse200ApplicationJSONType = Literal["ragas",]
+
 
 DataRagasMetric = Literal[
     "context_precision",
@@ -269,19 +285,25 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData52Type = Literal[
-    "number"
+    "number",
 ]
 
+
 GetEvalsGuardrailConfigEvalsResponseOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -303,7 +325,7 @@ class GetEvalsGuardrailConfigEvalsResponseNumber(BaseModel):
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData5Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -339,10 +361,11 @@ GetEvalsDataEvalsResponseGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200Type = Literal["function_eval"]
+GetEvalsDataEvalsResponse200Type = Literal["function_eval",]
+
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData535Type = Literal[
-    "bert_coherence"
+    "bert_coherence",
 ]
 
 
@@ -355,7 +378,7 @@ class GetEvalsFunctionParams35(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData534Type = Literal[
-    "grammar_diversity"
+    "grammar_diversity",
 ]
 
 
@@ -368,7 +391,7 @@ class GetEvalsFunctionParams34(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData533Type = Literal[
-    "semantic_repetition"
+    "semantic_repetition",
 ]
 
 
@@ -381,7 +404,7 @@ class GetEvalsFunctionParams33(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData532Type = Literal[
-    "lexical_repetition"
+    "lexical_repetition",
 ]
 
 
@@ -394,7 +417,7 @@ class GetEvalsFunctionParams32(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData531Type = Literal[
-    "sentences_count"
+    "sentences_count",
 ]
 
 
@@ -407,7 +430,7 @@ class GetEvalsFunctionParams31(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData530Type = Literal[
-    "words_count"
+    "words_count",
 ]
 
 
@@ -420,7 +443,7 @@ class GetEvalsFunctionParams30(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData529Type = Literal[
-    "gse_english_level"
+    "gse_english_level",
 ]
 
 
@@ -433,7 +456,7 @@ class GetEvalsFunctionParams29(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData528Type = Literal[
-    "flesch_reading_ease"
+    "flesch_reading_ease",
 ]
 
 
@@ -446,7 +469,7 @@ class GetEvalsFunctionParams28(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData527Type = Literal[
-    "most_repeated_words"
+    "most_repeated_words",
 ]
 
 
@@ -459,7 +482,7 @@ class GetEvalsFunctionParams27(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData526Type = Literal[
-    "keywords_match"
+    "keywords_match",
 ]
 
 
@@ -475,7 +498,7 @@ class GetEvalsFunctionParams26(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData525Type = Literal[
-    "topic_match"
+    "topic_match",
 ]
 
 
@@ -491,7 +514,7 @@ class GetEvalsFunctionParams25(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData524Type = Literal[
-    "levenshtein_distance"
+    "levenshtein_distance",
 ]
 
 
@@ -504,7 +527,7 @@ class GetEvalsFunctionParams24(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData523Type = Literal[
-    "cosine_similarity"
+    "cosine_similarity",
 ]
 
 
@@ -517,7 +540,7 @@ class GetEvalsFunctionParams23(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData522Type = Literal[
-    "meteor_score"
+    "meteor_score",
 ]
 
 
@@ -530,7 +553,7 @@ class GetEvalsFunctionParams22(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData521Type = Literal[
-    "rouge_n"
+    "rouge_n",
 ]
 
 
@@ -543,7 +566,7 @@ class GetEvalsFunctionParams21(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData520Type = Literal[
-    "bleu_score"
+    "bleu_score",
 ]
 
 
@@ -556,7 +579,7 @@ class GetEvalsFunctionParams20(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData519Type = Literal[
-    "bert_score"
+    "bert_score",
 ]
 
 
@@ -569,7 +592,7 @@ class GetEvalsFunctionParams19(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData518Type = Literal[
-    "moderations_google"
+    "moderations_google",
 ]
 
 
@@ -582,7 +605,7 @@ class GetEvalsFunctionParams18(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData517Type = Literal[
-    "moderations_openai"
+    "moderations_openai",
 ]
 
 
@@ -595,7 +618,7 @@ class GetEvalsFunctionParams17(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData516Type = Literal[
-    "is_valid_json"
+    "is_valid_json",
 ]
 
 
@@ -608,7 +631,7 @@ class GetEvalsFunctionParams16(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData515Type = Literal[
-    "regex"
+    "regex",
 ]
 
 
@@ -624,7 +647,7 @@ class GetEvalsFunctionParams15(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData514Type = Literal[
-    "one_line"
+    "one_line",
 ]
 
 
@@ -637,7 +660,7 @@ class GetEvalsFunctionParams14(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData513Type = Literal[
-    "length_greater_than"
+    "length_greater_than",
 ]
 
 
@@ -653,7 +676,7 @@ class GetEvalsFunctionParams13(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData512Type = Literal[
-    "length_between"
+    "length_between",
 ]
 
 
@@ -672,7 +695,7 @@ class GetEvalsFunctionParams12(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData511Type = Literal[
-    "length_less_than"
+    "length_less_than",
 ]
 
 
@@ -688,7 +711,7 @@ class GetEvalsFunctionParams11(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData510Type = Literal[
-    "exact_match"
+    "exact_match",
 ]
 
 
@@ -701,7 +724,7 @@ class GetEvalsFunctionParams10(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData5Type = Literal[
-    "ends_with"
+    "ends_with",
 ]
 
 
@@ -717,7 +740,7 @@ class GetEvalsFunctionParams9(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyDataType = Literal[
-    "start_with"
+    "start_with",
 ]
 
 
@@ -733,7 +756,7 @@ class GetEvalsFunctionParams8(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType = Literal[
-    "contains_valid_link"
+    "contains_valid_link",
 ]
 
 
@@ -745,7 +768,7 @@ class GetEvalsFunctionParams7(BaseModel):
     type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType
 
 
-GetEvalsFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_url"]
+GetEvalsFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_url",]
 
 
 class GetEvalsFunctionParams6TypedDict(TypedDict):
@@ -756,7 +779,7 @@ class GetEvalsFunctionParams6(BaseModel):
     type: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONType
 
 
-GetEvalsFunctionParamsEvalsResponse200Type = Literal["contains_email"]
+GetEvalsFunctionParamsEvalsResponse200Type = Literal["contains_email",]
 
 
 class GetEvalsFunctionParams5TypedDict(TypedDict):
@@ -767,7 +790,7 @@ class GetEvalsFunctionParams5(BaseModel):
     type: GetEvalsFunctionParamsEvalsResponse200Type
 
 
-GetEvalsFunctionParamsEvalsResponseType = Literal["contains_any"]
+GetEvalsFunctionParamsEvalsResponseType = Literal["contains_any",]
 
 
 class GetEvalsFunctionParams4TypedDict(TypedDict):
@@ -781,7 +804,7 @@ class GetEvalsFunctionParams4(BaseModel):
     keywords: List[str]
 
 
-GetEvalsFunctionParamsEvalsType = Literal["contains_all"]
+GetEvalsFunctionParamsEvalsType = Literal["contains_all",]
 
 
 class GetEvalsFunctionParams3TypedDict(TypedDict):
@@ -795,7 +818,7 @@ class GetEvalsFunctionParams3(BaseModel):
     keywords: List[str]
 
 
-GetEvalsFunctionParamsType = Literal["contains_none"]
+GetEvalsFunctionParamsType = Literal["contains_none",]
 
 
 class GetEvalsFunctionParams2TypedDict(TypedDict):
@@ -810,7 +833,7 @@ class GetEvalsFunctionParams2(BaseModel):
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData51Type = Literal[
-    "contains"
+    "contains",
 ]
 
 
@@ -931,18 +954,26 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataType = Literal[
-    "number"
+    "number",
 ]
 
-GetEvalsGuardrailConfigEvalsOperator = Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+
+GetEvalsGuardrailConfigEvalsOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
 
 
 class GetEvalsGuardrailConfigEvalsNumberTypedDict(TypedDict):
@@ -963,7 +994,7 @@ class GetEvalsGuardrailConfigEvalsNumber(BaseModel):
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -996,7 +1027,7 @@ GetEvalsDataEvalsGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponseType = Literal["python_eval"]
+GetEvalsDataEvalsResponseType = Literal["python_eval",]
 
 
 class DataPythonTypedDict(TypedDict):
@@ -1021,16 +1052,24 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
 
-GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["number"]
+GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["number",]
 
-GetEvalsGuardrailConfigOperator = Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+
+GetEvalsGuardrailConfigOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
 
 
 class GetEvalsGuardrailConfigNumberTypedDict(TypedDict):
@@ -1050,7 +1089,7 @@ class GetEvalsGuardrailConfigNumber(BaseModel):
     operator: GetEvalsGuardrailConfigOperator
 
 
-GetEvalsGuardrailConfigEvalsResponse200Type = Literal["boolean"]
+GetEvalsGuardrailConfigEvalsResponse200Type = Literal["boolean",]
 
 
 class GetEvalsGuardrailConfigBooleanTypedDict(TypedDict):
@@ -1081,9 +1120,13 @@ GetEvalsDataGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsType = Literal["http_eval"]
+GetEvalsDataEvalsType = Literal["http_eval",]
 
-DataMethod = Literal["GET", "POST"]
+
+DataMethod = Literal[
+    "GET",
+    "POST",
+]
 
 
 class DataHTTPTypedDict(TypedDict):
@@ -1117,17 +1160,25 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
 
-GetEvalsGuardrailConfigEvalsResponseType = Literal["number"]
+GetEvalsGuardrailConfigEvalsResponseType = Literal["number",]
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataOperator = (
-    Literal["eq", "ne", "gt", "gte", "lt", "lte"]
+    Literal[
+        "eq",
+        "ne",
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+    ]
 )
 
 
@@ -1156,7 +1207,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumb
     )
 
 
-GetEvalsGuardrailConfigEvalsType = Literal["boolean"]
+GetEvalsGuardrailConfigEvalsType = Literal["boolean",]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBooleanTypedDict(
@@ -1195,7 +1246,7 @@ DataGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataType = Literal["json_schema"]
+GetEvalsDataType = Literal["json_schema",]
 
 
 class DataJSONTypedDict(TypedDict):
@@ -1220,17 +1271,23 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
 
-GetEvalsGuardrailConfigType = Literal["number"]
+GetEvalsGuardrailConfigType = Literal["number",]
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator = Literal[
-    "eq", "ne", "gt", "gte", "lt", "lte"
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
 ]
 
 
@@ -1256,7 +1313,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber(
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData1Type = Literal[
-    "boolean"
+    "boolean",
 ]
 
 
@@ -1296,7 +1353,7 @@ GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig = TypeAli
 )
 
 
-DataType = Literal["llm_eval"]
+DataType = Literal["llm_eval",]
 
 
 class DataLLMTypedDict(TypedDict):
@@ -1326,9 +1383,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-21T13:48:30.786Z"
+    created: Optional[str] = "2025-09-22T04:40:22.137Z"
 
-    updated: Optional[str] = "2025-09-21T13:48:30.786Z"
+    updated: Optional[str] = "2025-09-22T04:40:22.137Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

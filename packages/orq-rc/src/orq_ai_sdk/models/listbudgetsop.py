@@ -16,7 +16,10 @@ from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-QueryParamType = Literal["contact", "workspace"]
+QueryParamType = Literal[
+    "contact",
+    "workspace",
+]
 r"""Filter by budget entity type (contact or workspace)"""
 
 
@@ -106,12 +109,23 @@ class ListBudgetsRequest(BaseModel):
         return m
 
 
-ListBudgetsObject = Literal["list"]
+ListBudgetsObject = Literal["list",]
 
-ListBudgetsType = Literal["api_key", "contact", "workspace"]
+
+ListBudgetsType = Literal[
+    "api_key",
+    "contact",
+    "workspace",
+]
 r"""Budget entity type"""
 
-ListBudgetsPeriod = Literal["daily", "weekly", "monthly", "yearly"]
+
+ListBudgetsPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
 r"""Budget period type"""
 
 
@@ -228,7 +242,7 @@ class ListBudgetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-21T13:48:28.290Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-22T04:40:19.773Z")
     r"""The date and time the resource was last updated"""
 
 

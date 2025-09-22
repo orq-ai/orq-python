@@ -72,10 +72,17 @@ GetPromptVersionModelType = Literal[
 ]
 r"""The modality of the model"""
 
-GetPromptVersionFormat = Literal["url", "b64_json", "text", "json_object"]
+
+GetPromptVersionFormat = Literal[
+    "url",
+    "b64_json",
+    "text",
+    "json_object",
+]
 r"""Only supported on `image` models."""
 
-GetPromptVersionResponseFormatPromptsResponseType = Literal["text"]
+
+GetPromptVersionResponseFormatPromptsResponseType = Literal["text",]
 
 
 class GetPromptVersionResponseFormat3TypedDict(TypedDict):
@@ -86,7 +93,7 @@ class GetPromptVersionResponseFormat3(BaseModel):
     type: GetPromptVersionResponseFormatPromptsResponseType
 
 
-GetPromptVersionResponseFormatPromptsType = Literal["json_object"]
+GetPromptVersionResponseFormatPromptsType = Literal["json_object",]
 
 
 class GetPromptVersionResponseFormat2TypedDict(TypedDict):
@@ -97,7 +104,7 @@ class GetPromptVersionResponseFormat2(BaseModel):
     type: GetPromptVersionResponseFormatPromptsType
 
 
-GetPromptVersionResponseFormatType = Literal["json_schema"]
+GetPromptVersionResponseFormatType = Literal["json_schema",]
 
 
 class GetPromptVersionResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -161,16 +168,34 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-GetPromptVersionPhotoRealVersion = Literal["v1", "v2"]
+GetPromptVersionPhotoRealVersion = Literal[
+    "v1",
+    "v2",
+]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-GetPromptVersionEncodingFormat = Literal["float", "base64"]
+
+GetPromptVersionEncodingFormat = Literal[
+    "float",
+    "base64",
+]
 r"""The format to return the embeddings"""
 
-GetPromptVersionReasoningEffort = Literal["disable", "low", "medium", "high"]
+
+GetPromptVersionReasoningEffort = Literal[
+    "disable",
+    "low",
+    "medium",
+    "high",
+]
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
-GetPromptVersionVerbosity = Literal["low", "medium", "high"]
+
+GetPromptVersionVerbosity = Literal[
+    "low",
+    "medium",
+    "high",
+]
 r"""Controls the verbosity of the model output."""
 
 
@@ -378,6 +403,7 @@ GetPromptVersionProvider = Literal[
     "bytedance",
 ]
 
+
 GetPromptVersionRole = Literal[
     "system",
     "assistant",
@@ -390,7 +416,8 @@ GetPromptVersionRole = Literal[
 ]
 r"""The role of the prompt message"""
 
-GetPromptVersion2PromptsResponseType = Literal["file"]
+
+GetPromptVersion2PromptsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -422,7 +449,7 @@ class GetPromptVersion23(BaseModel):
     file: GetPromptVersion2File
 
 
-GetPromptVersion2PromptsType = Literal["image_url"]
+GetPromptVersion2PromptsType = Literal["image_url",]
 
 
 class GetPromptVersion2ImageURLTypedDict(TypedDict):
@@ -460,7 +487,7 @@ class GetPromptVersion22(BaseModel):
     image_url: GetPromptVersion2ImageURL
 
 
-GetPromptVersion2Type = Literal["text"]
+GetPromptVersion2Type = Literal["text",]
 
 
 class GetPromptVersion21TypedDict(TypedDict):
@@ -507,7 +534,7 @@ GetPromptVersionContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
 
 
-GetPromptVersionType = Literal["function"]
+GetPromptVersionType = Literal["function",]
 
 
 class GetPromptVersionFunctionTypedDict(TypedDict):
@@ -667,8 +694,15 @@ GetPromptVersionUseCases = Literal[
     "Translation (sentences)",
 ]
 
+
 GetPromptVersionLanguage = Literal[
-    "Chinese", "Dutch", "English", "French", "German", "Russian", "Spanish"
+    "Chinese",
+    "Dutch",
+    "English",
+    "French",
+    "German",
+    "Russian",
+    "Spanish",
 ]
 r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 

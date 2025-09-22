@@ -7,9 +7,11 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Role2 = Literal["tool"]
+Role2 = Literal["tool",]
 
-Role1 = Literal["user"]
+
+Role1 = Literal["user",]
+
 
 RunAgentRoleTypedDict = TypeAliasType("RunAgentRoleTypedDict", Union[Role1, Role2])
 r"""Message role (user or tool for continuing executions)"""
@@ -19,7 +21,7 @@ RunAgentRole = TypeAliasType("RunAgentRole", Union[Role1, Role2])
 r"""Message role (user or tool for continuing executions)"""
 
 
-RunAgentPartsAgentsRequestKind = Literal["tool_result"]
+RunAgentPartsAgentsRequestKind = Literal["tool_result",]
 
 
 class FiveTypedDict(TypedDict):
@@ -39,7 +41,7 @@ class Five(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-RunAgentPartsAgentsKind = Literal["tool_call"]
+RunAgentPartsAgentsKind = Literal["tool_call",]
 
 
 class Parts4TypedDict(TypedDict):
@@ -62,7 +64,7 @@ class Parts4(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-RunAgentPartsKind = Literal["file"]
+RunAgentPartsKind = Literal["file",]
 
 
 class File2TypedDict(TypedDict):
@@ -127,7 +129,7 @@ class Parts3(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-PartsKind = Literal["data"]
+PartsKind = Literal["data",]
 
 
 class Parts2TypedDict(TypedDict):
@@ -144,7 +146,7 @@ class Parts2(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-Kind = Literal["text"]
+Kind = Literal["text",]
 
 
 class Parts1TypedDict(TypedDict):
@@ -274,7 +276,7 @@ class Memory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-RunAgentConfigurationType = Literal["query"]
+RunAgentConfigurationType = Literal["query",]
 
 
 class Configuration2TypedDict(TypedDict):
@@ -288,7 +290,7 @@ class Configuration2(BaseModel):
     query: str
 
 
-ConfigurationType = Literal["last_user_message"]
+ConfigurationType = Literal["last_user_message",]
 
 
 class Configuration1TypedDict(TypedDict):
@@ -332,7 +334,7 @@ class TeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-RunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function"]
+RunAgentToolsAgentsRequestRequestBodySettings13Type = Literal["function",]
 
 
 class ToolsFunctionTypedDict(TypedDict):
@@ -378,12 +380,24 @@ class Thirteen(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-ToolsStatus = Literal["live", "draft", "pending", "published"]
+ToolsStatus = Literal[
+    "live",
+    "draft",
+    "pending",
+    "published",
+]
 r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-RunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http"]
 
-Method = Literal["GET", "POST", "PUT", "DELETE"]
+RunAgentToolsAgentsRequestRequestBodySettings12Type = Literal["http",]
+
+
+Method = Literal[
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+]
 r"""The HTTP method to use."""
 
 
@@ -417,9 +431,12 @@ class Blueprint(BaseModel):
 
 
 RunAgentToolsAgentsRequestRequestBodySettings12HTTPType = Literal[
-    "string", "number", "boolean"
+    "string",
+    "number",
+    "boolean",
 ]
 r"""The type of the argument."""
+
 
 DefaultValueTypedDict = TypeAliasType("DefaultValueTypedDict", Union[str, float, bool])
 r"""The default value of the argument."""
@@ -505,7 +522,7 @@ class Twelve(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5P8H86HXDY2EG6M545NB9XM"
+        "01K5QVJ9FF25BZPCTY7C9D1N2E"
     )
 
     status: Optional[ToolsStatus] = "live"
@@ -516,7 +533,7 @@ class Twelve(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date"]
+RunAgentToolsAgentsRequestRequestBodySettings11Type = Literal["current_date",]
 
 
 class ElevenTypedDict(TypedDict):
@@ -530,7 +547,7 @@ class Eleven(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings10Type = Literal["query_knowledge_base"]
+RunAgentToolsAgentsRequestRequestBodySettings10Type = Literal["query_knowledge_base",]
 
 
 class TenTypedDict(TypedDict):
@@ -544,7 +561,9 @@ class Ten(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings9Type = Literal["retrieve_knowledge_bases"]
+RunAgentToolsAgentsRequestRequestBodySettings9Type = Literal[
+    "retrieve_knowledge_bases",
+]
 
 
 class NineTypedDict(TypedDict):
@@ -558,7 +577,7 @@ class Nine(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings8Type = Literal["retrieve_memory_stores"]
+RunAgentToolsAgentsRequestRequestBodySettings8Type = Literal["retrieve_memory_stores",]
 
 
 class EightTypedDict(TypedDict):
@@ -572,7 +591,7 @@ class Eight(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettings7Type = Literal["delete_memory_document"]
+RunAgentToolsAgentsRequestRequestBodySettings7Type = Literal["delete_memory_document",]
 
 
 class SevenTypedDict(TypedDict):
@@ -586,7 +605,7 @@ class Seven(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodySettingsType = Literal["write_memory_store"]
+RunAgentToolsAgentsRequestRequestBodySettingsType = Literal["write_memory_store",]
 
 
 class SixTypedDict(TypedDict):
@@ -600,7 +619,7 @@ class Six(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestRequestBodyType = Literal["query_memory_store"]
+RunAgentToolsAgentsRequestRequestBodyType = Literal["query_memory_store",]
 
 
 class Tools5TypedDict(TypedDict):
@@ -614,7 +633,7 @@ class Tools5(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsRequestType = Literal["retrieve_agents"]
+RunAgentToolsAgentsRequestType = Literal["retrieve_agents",]
 
 
 class Tools4TypedDict(TypedDict):
@@ -628,7 +647,7 @@ class Tools4(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsAgentsType = Literal["call_sub_agent"]
+RunAgentToolsAgentsType = Literal["call_sub_agent",]
 
 
 class Tools3TypedDict(TypedDict):
@@ -642,7 +661,7 @@ class Tools3(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentToolsType = Literal["web_scraper"]
+RunAgentToolsType = Literal["web_scraper",]
 
 
 class Tools2TypedDict(TypedDict):
@@ -656,7 +675,7 @@ class Tools2(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-ToolsType = Literal["google_search"]
+ToolsType = Literal["google_search",]
 
 
 class Tools1TypedDict(TypedDict):
@@ -710,7 +729,11 @@ Tools = TypeAliasType(
 )
 
 
-ToolApprovalRequired = Literal["all", "respect_tool", "none"]
+ToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
@@ -765,8 +788,6 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
-    icon_url: NotRequired[str]
-    r"""Optional URL to an icon for the agent"""
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
@@ -817,9 +838,6 @@ class RunAgentRequestBody(BaseModel):
     description: Optional[str] = None
     r"""A brief summary of the agent's purpose."""
 
-    icon_url: Annotated[Optional[str], pydantic.Field(alias="iconUrl")] = None
-    r"""Optional URL to an icon for the agent"""
-
     system_prompt: Optional[str] = None
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
@@ -831,8 +849,9 @@ class RunAgentRequestBody(BaseModel):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
 
-RunAgentKind = Literal["task"]
+RunAgentKind = Literal["task",]
 r"""A2A entity type"""
+
 
 RunAgentState = Literal[
     "submitted",
@@ -847,9 +866,16 @@ RunAgentState = Literal[
 ]
 r"""Current task state"""
 
-RunAgentAgentsKind = Literal["message"]
 
-RunAgentAgentsRole = Literal["user", "agent", "tool", "system"]
+RunAgentAgentsKind = Literal["message",]
+
+
+RunAgentAgentsRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
 r"""Extended A2A message role"""
 
 
