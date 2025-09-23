@@ -2228,6 +2228,7 @@ r"""The format to return the embeddings"""
 
 DeploymentGetConfigReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",

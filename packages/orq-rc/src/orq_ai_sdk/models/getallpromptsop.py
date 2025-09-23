@@ -175,6 +175,7 @@ r"""The format to return the embeddings"""
 
 GetAllPromptsReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",

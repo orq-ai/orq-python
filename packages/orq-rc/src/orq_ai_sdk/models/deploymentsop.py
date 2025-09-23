@@ -253,6 +253,7 @@ r"""The format to return the embeddings"""
 
 DeploymentsReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",
