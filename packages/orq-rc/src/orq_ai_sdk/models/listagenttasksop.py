@@ -12,7 +12,7 @@ from orq_ai_sdk.utils import (
     RequestMetadata,
 )
 import pydantic
-from typing import List, Literal, Optional
+from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -308,6 +308,8 @@ class TasksTypedDict(TypedDict):
     name: NotRequired[str]
     memory: NotRequired[ListAgentTasksMemoryTypedDict]
     r"""Memory configuration for this execution"""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Execution-level metadata as key-value pairs"""
 
 
 class Tasks(BaseModel):
@@ -333,6 +335,9 @@ class Tasks(BaseModel):
 
     memory: Optional[ListAgentTasksMemory] = None
     r"""Memory configuration for this execution"""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Execution-level metadata as key-value pairs"""
 
 
 class ListAgentTasksResponseBodyTypedDict(TypedDict):

@@ -519,7 +519,7 @@ class Twelve(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5TY59DP2QRHN3270F65EA3Z"
+        "01K5V5RXVBC21XVWTSE2DZC9ZH"
     )
 
     path: Optional[str] = None
@@ -794,6 +794,8 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
 
 
 class RunAgentRequestBody(BaseModel):
@@ -847,6 +849,9 @@ class RunAgentRequestBody(BaseModel):
 
     team_of_agents: Optional[List[TeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
 
 
 RunAgentKind = Literal["task",]

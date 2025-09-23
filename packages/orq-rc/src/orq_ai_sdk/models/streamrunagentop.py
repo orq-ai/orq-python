@@ -544,7 +544,7 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5TY59DTYFN2T8AVPJS0D2GW"
+        "01K5V5RXVF0TRJZTADJBGYJ90Y"
     )
 
     path: Optional[str] = None
@@ -827,6 +827,8 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[StreamRunAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[StreamRunAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
     stream_timeout_seconds: NotRequired[float]
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
 
@@ -882,6 +884,9 @@ class StreamRunAgentRequestBody(BaseModel):
 
     team_of_agents: Optional[List[StreamRunAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
 
     stream_timeout_seconds: Optional[float] = None
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
