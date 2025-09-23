@@ -110,6 +110,7 @@ with Orq(
 ) as orq:
 
     res = orq.evals.create(request={
+        "output_type": "string",
         "type": "http_eval",
         "url": "https://total-unit.name",
         "method": "GET",

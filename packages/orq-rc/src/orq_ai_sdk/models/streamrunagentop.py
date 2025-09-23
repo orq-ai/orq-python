@@ -512,8 +512,6 @@ class ToolsHTTP(BaseModel):
 
 
 class Tools12TypedDict(TypedDict):
-    path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -523,6 +521,8 @@ class Tools12TypedDict(TypedDict):
     type: StreamRunAgentToolsAgentsRequestRequestBodySettings12Type
     http: ToolsHTTPTypedDict
     id: NotRequired[str]
+    path: NotRequired[str]
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     status: NotRequired[StreamRunAgentToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
@@ -530,9 +530,6 @@ class Tools12TypedDict(TypedDict):
 
 
 class Tools12(BaseModel):
-    path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
@@ -547,8 +544,11 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5TFX13PK8PJ90FG71KH7FXP"
+        "01K5TY59DTYFN2T8AVPJS0D2GW"
     )
+
+    path: Optional[str] = None
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     status: Optional[StreamRunAgentToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""

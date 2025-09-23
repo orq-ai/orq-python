@@ -487,8 +487,6 @@ class HTTP(BaseModel):
 
 
 class TwelveTypedDict(TypedDict):
-    path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -498,6 +496,8 @@ class TwelveTypedDict(TypedDict):
     type: RunAgentToolsAgentsRequestRequestBodySettings12Type
     http: HTTPTypedDict
     id: NotRequired[str]
+    path: NotRequired[str]
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     status: NotRequired[ToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
@@ -505,9 +505,6 @@ class TwelveTypedDict(TypedDict):
 
 
 class Twelve(BaseModel):
-    path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
@@ -522,8 +519,11 @@ class Twelve(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5TFX13JN71ACSX4FHQZQ55C"
+        "01K5TY59DP2QRHN3270F65EA3Z"
     )
+
+    path: Optional[str] = None
+    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     status: Optional[ToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""

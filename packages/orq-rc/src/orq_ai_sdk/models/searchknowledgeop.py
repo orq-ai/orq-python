@@ -613,7 +613,7 @@ class SearchKnowledgeRerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use"""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
     top_k: NotRequired[int]
@@ -624,7 +624,7 @@ class SearchKnowledgeRerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
-    r"""The name of the rerank model to use"""
+    r"""The name of the rerank model to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/rerank-models)."""
 
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
@@ -637,14 +637,14 @@ class SearchKnowledgeAgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. This model must support function calling."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
 
 
 class SearchKnowledgeAgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
-    r"""The name of the model for the Agent to use. This model must support function calling."""
+    r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
 
 
 class SearchKnowledgeRequestBodyTypedDict(TypedDict):

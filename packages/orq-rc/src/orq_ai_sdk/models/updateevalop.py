@@ -76,6 +76,13 @@ UpdateEvalRequestBodyEvalsRequest4GuardrailConfig = TypeAliasType(
 )
 
 
+UpdateEvalRequestBodyEvalsRequest4OutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
+
+
 UpdateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 
 
@@ -86,6 +93,7 @@ class RequestBodyPythonTypedDict(TypedDict):
     guardrail_config: NotRequired[
         UpdateEvalRequestBodyEvalsRequest4GuardrailConfigTypedDict
     ]
+    output_type: NotRequired[UpdateEvalRequestBodyEvalsRequest4OutputType]
     code: NotRequired[str]
     description: NotRequired[str]
     key: NotRequired[str]
@@ -98,6 +106,8 @@ class RequestBodyPython(BaseModel):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsRequest4GuardrailConfig] = None
+
+    output_type: Optional[UpdateEvalRequestBodyEvalsRequest4OutputType] = None
 
     code: Optional[str] = None
 
@@ -171,6 +181,13 @@ UpdateEvalRequestBodyEvalsRequestGuardrailConfig = TypeAliasType(
 )
 
 
+UpdateEvalRequestBodyEvalsRequestOutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
+
+
 UpdateEvalRequestBodyEvalsRequestType = Literal["http_eval",]
 
 
@@ -187,6 +204,7 @@ class UpdateEvalRequestBodyHTTPTypedDict(TypedDict):
     guardrail_config: NotRequired[
         UpdateEvalRequestBodyEvalsRequestGuardrailConfigTypedDict
     ]
+    output_type: NotRequired[UpdateEvalRequestBodyEvalsRequestOutputType]
     url: NotRequired[str]
     method: NotRequired[UpdateEvalRequestBodyMethod]
     headers: NotRequired[Dict[str, str]]
@@ -202,6 +220,8 @@ class UpdateEvalRequestBodyHTTP(BaseModel):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsRequestGuardrailConfig] = None
+
+    output_type: Optional[UpdateEvalRequestBodyEvalsRequestOutputType] = None
 
     url: Optional[str] = None
 
@@ -278,6 +298,9 @@ UpdateEvalRequestBodyEvalsGuardrailConfig = TypeAliasType(
 )
 
 
+UpdateEvalRequestBodyEvalsOutputType = Literal["boolean",]
+
+
 UpdateEvalRequestBodyEvalsType = Literal["json_schema",]
 
 
@@ -286,6 +309,7 @@ class RequestBodyJSONTypedDict(TypedDict):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     guardrail_config: NotRequired[UpdateEvalRequestBodyEvalsGuardrailConfigTypedDict]
+    output_type: NotRequired[UpdateEvalRequestBodyEvalsOutputType]
     schema_: NotRequired[str]
     description: NotRequired[str]
     key: NotRequired[str]
@@ -298,6 +322,8 @@ class RequestBodyJSON(BaseModel):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsGuardrailConfig] = None
+
+    output_type: Optional[UpdateEvalRequestBodyEvalsOutputType] = None
 
     schema_: Annotated[Optional[str], pydantic.Field(alias="schema")] = None
 
@@ -368,6 +394,13 @@ UpdateEvalRequestBodyGuardrailConfig = TypeAliasType(
 )
 
 
+UpdateEvalRequestBodyOutputType = Literal[
+    "boolean",
+    "number",
+    "string",
+]
+
+
 UpdateEvalRequestBodyType = Literal["llm_eval",]
 
 
@@ -376,6 +409,7 @@ class RequestBodyLLMTypedDict(TypedDict):
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     guardrail_config: NotRequired[UpdateEvalRequestBodyGuardrailConfigTypedDict]
+    output_type: NotRequired[UpdateEvalRequestBodyOutputType]
     prompt: NotRequired[str]
     description: NotRequired[str]
     model: NotRequired[str]
@@ -389,6 +423,8 @@ class RequestBodyLLM(BaseModel):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
 
     guardrail_config: Optional[UpdateEvalRequestBodyGuardrailConfig] = None
+
+    output_type: Optional[UpdateEvalRequestBodyOutputType] = None
 
     prompt: Optional[str] = None
 
@@ -564,9 +600,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -700,9 +736,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1385,9 +1421,9 @@ class UpdateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1502,9 +1538,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1626,9 +1662,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1727,9 +1763,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1827,9 +1863,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-23T05:14:14.676Z"
+    created: Optional[str] = "2025-09-23T09:23:25.719Z"
 
-    updated: Optional[str] = "2025-09-23T05:14:14.676Z"
+    updated: Optional[str] = "2025-09-23T09:23:25.719Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
