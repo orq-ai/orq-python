@@ -144,14 +144,14 @@ StreamRunAgentPartsAgentsKind = Literal["data",]
 
 class StreamRunAgentParts2TypedDict(TypedDict):
     kind: StreamRunAgentPartsAgentsKind
-    data: NotRequired[Any]
+    data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
 class StreamRunAgentParts2(BaseModel):
     kind: StreamRunAgentPartsAgentsKind
 
-    data: Optional[Any] = None
+    data: Dict[str, Any]
 
     metadata: Optional[Dict[str, Any]] = None
 
@@ -544,7 +544,7 @@ class Tools12(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5V5RXVF0TRJZTADJBGYJ90Y"
+        "01K5X16BV6H39EVD4E4K07VQ12"
     )
 
     path: Optional[str] = None

@@ -217,7 +217,10 @@ with Orq(
             "role": "tool",
             "parts": [
                 {
-                    "kind": "data",
+                    "kind": "file",
+                    "file": {
+                        "uri": "https://front-pecan.info",
+                    },
                 },
             ],
         },

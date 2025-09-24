@@ -134,14 +134,14 @@ PartsKind = Literal["data",]
 
 class Parts2TypedDict(TypedDict):
     kind: PartsKind
-    data: NotRequired[Any]
+    data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
 class Parts2(BaseModel):
     kind: PartsKind
 
-    data: Optional[Any] = None
+    data: Dict[str, Any]
 
     metadata: Optional[Dict[str, Any]] = None
 
@@ -519,7 +519,7 @@ class Twelve(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5V5RXVBC21XVWTSE2DZC9ZH"
+        "01K5X16BV17ZPH27JT1JZGNS5R"
     )
 
     path: Optional[str] = None
