@@ -33,6 +33,7 @@ python:
   allowedRedefinedBuiltins:
     - id
     - object
+  asyncMode: both
   authors:
     - Orq
   baseErrorName: OrqError

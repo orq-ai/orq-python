@@ -91,7 +91,7 @@ class Orq(BaseSDK):
         """
         client_supplied = True
         if client is None:
-            client = httpx.Client()
+            client = httpx.Client(follow_redirects=True)
             client_supplied = False
 
         assert issubclass(
@@ -100,7 +100,7 @@ class Orq(BaseSDK):
 
         async_client_supplied = True
         if async_client is None:
-            async_client = httpx.AsyncClient()
+            async_client = httpx.AsyncClient(follow_redirects=True)
             async_client_supplied = False
 
         if debug_logger is None:
@@ -148,7 +148,6 @@ class Orq(BaseSDK):
 
         # pylint: disable=protected-access
         self.sdk_configuration.__dict__["_hooks"] = hooks
-
         current_server_url, *_ = self.sdk_configuration.get_server_details()
         server_url, self.sdk_configuration.client = hooks.sdk_init(
             current_server_url, client
