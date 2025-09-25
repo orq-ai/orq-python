@@ -1,0 +1,11 @@
+# RetrieveMemoryStoresTool
+
+Lists available memory stores
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `type`                                                                           | [models.RetrieveMemoryStoresToolType](../models/retrievememorystorestooltype.md) | :heavy_check_mark:                                                               | N/A                                                                              |
+| `requires_approval`                                                              | *Optional[bool]*                                                                 | :heavy_minus_sign:                                                               | N/A                                                                              |

@@ -82,38 +82,63 @@ GetPromptVersionFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetPromptVersionResponseFormatPromptsResponseType = Literal["text",]
+GetPromptVersionResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class GetPromptVersionResponseFormat3TypedDict(TypedDict):
-    type: GetPromptVersionResponseFormatPromptsResponseType
+GetPromptVersionResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class GetPromptVersionResponseFormat3(BaseModel):
-    type: GetPromptVersionResponseFormatPromptsResponseType
+GetPromptVersionResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-GetPromptVersionResponseFormatPromptsType = Literal["json_object",]
+GetPromptVersion1PromptsResponseType = Literal["text",]
 
 
-class GetPromptVersionResponseFormat2TypedDict(TypedDict):
-    type: GetPromptVersionResponseFormatPromptsType
+class GetPromptVersion13TypedDict(TypedDict):
+    type: GetPromptVersion1PromptsResponseType
 
 
-class GetPromptVersionResponseFormat2(BaseModel):
-    type: GetPromptVersionResponseFormatPromptsType
+class GetPromptVersion13(BaseModel):
+    type: GetPromptVersion1PromptsResponseType
 
 
-GetPromptVersionResponseFormatType = Literal["json_schema",]
+GetPromptVersion1PromptsType = Literal["json_object",]
 
 
-class GetPromptVersionResponseFormatJSONSchemaTypedDict(TypedDict):
+class GetPromptVersion12TypedDict(TypedDict):
+    type: GetPromptVersion1PromptsType
+
+
+class GetPromptVersion12(BaseModel):
+    type: GetPromptVersion1PromptsType
+
+
+GetPromptVersion1Type = Literal["json_schema",]
+
+
+class GetPromptVersion1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     strict: NotRequired[bool]
 
 
-class GetPromptVersionResponseFormatJSONSchema(BaseModel):
+class GetPromptVersion1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -121,23 +146,40 @@ class GetPromptVersionResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class GetPromptVersionResponseFormat1TypedDict(TypedDict):
-    type: GetPromptVersionResponseFormatType
-    json_schema: GetPromptVersionResponseFormatJSONSchemaTypedDict
+class GetPromptVersion11TypedDict(TypedDict):
+    type: GetPromptVersion1Type
+    json_schema: GetPromptVersion1JSONSchemaTypedDict
 
 
-class GetPromptVersionResponseFormat1(BaseModel):
-    type: GetPromptVersionResponseFormatType
+class GetPromptVersion11(BaseModel):
+    type: GetPromptVersion1Type
 
-    json_schema: GetPromptVersionResponseFormatJSONSchema
+    json_schema: GetPromptVersion1JSONSchema
+
+
+GetPromptVersionResponseFormat1TypedDict = TypeAliasType(
+    "GetPromptVersionResponseFormat1TypedDict",
+    Union[
+        GetPromptVersion12TypedDict,
+        GetPromptVersion13TypedDict,
+        GetPromptVersion11TypedDict,
+    ],
+)
+
+
+GetPromptVersionResponseFormat1 = TypeAliasType(
+    "GetPromptVersionResponseFormat1",
+    Union[GetPromptVersion12, GetPromptVersion13, GetPromptVersion11],
+)
 
 
 GetPromptVersionResponseFormatTypedDict = TypeAliasType(
     "GetPromptVersionResponseFormatTypedDict",
     Union[
-        GetPromptVersionResponseFormat2TypedDict,
-        GetPromptVersionResponseFormat3TypedDict,
         GetPromptVersionResponseFormat1TypedDict,
+        GetPromptVersionResponseFormat2,
+        GetPromptVersionResponseFormat3,
+        GetPromptVersionResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -153,9 +195,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetPromptVersionResponseFormat = TypeAliasType(
     "GetPromptVersionResponseFormat",
     Union[
+        GetPromptVersionResponseFormat1,
         GetPromptVersionResponseFormat2,
         GetPromptVersionResponseFormat3,
-        GetPromptVersionResponseFormat1,
+        GetPromptVersionResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.

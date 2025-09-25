@@ -33,52 +33,52 @@ value: models.UpdateMemoryStoreModel4 = /* values here */
 value: models.UpdateMemoryStoreModel5 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel6`
+### `models.Model6`
 
 ```python
-value: models.UpdateMemoryStoreModel6 = /* values here */
+value: models.Model6 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel7`
+### `models.Model7`
 
 ```python
-value: models.UpdateMemoryStoreModel7 = /* values here */
+value: models.Model7 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel8`
+### `models.Model8`
 
 ```python
-value: models.UpdateMemoryStoreModel8 = /* values here */
+value: models.Model8 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel9`
+### `models.Model9`
 
 ```python
-value: models.UpdateMemoryStoreModel9 = /* values here */
+value: models.Model9 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel10`
+### `models.Model10`
 
 ```python
-value: models.UpdateMemoryStoreModel10 = /* values here */
+value: models.Model10 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel11`
+### `models.Model11`
 
 ```python
-value: models.UpdateMemoryStoreModel11 = /* values here */
+value: models.Model11 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel12`
+### `models.Model12`
 
 ```python
-value: models.UpdateMemoryStoreModel12 = /* values here */
+value: models.Model12 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel13`
+### `models.Model13`
 
 ```python
-value: models.UpdateMemoryStoreModel13 = /* values here */
+value: models.Model13 = /* values here */
 ```
 
 ### `models.Model14`

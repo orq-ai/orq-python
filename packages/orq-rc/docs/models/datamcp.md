@@ -1,0 +1,13 @@
+# DataMcp
+
+
+## Fields
+
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `server_id`                                                  | *str*                                                        | :heavy_check_mark:                                           | The ID of the MCP server this tool belongs to                |
+| `tool_name`                                                  | *str*                                                        | :heavy_check_mark:                                           | The original tool name from the MCP server                   |
+| `server_url`                                                 | *str*                                                        | :heavy_check_mark:                                           | The MCP server URL (cached for execution)                    |
+| `headers`                                                    | Dict[str, [models.DataHeaders](../models/dataheaders.md)]    | :heavy_minus_sign:                                           | HTTP headers for MCP server requests (encrypted format)      |
+| `input_schema`                                               | [models.DataInputSchema](../models/datainputschema.md)       | :heavy_check_mark:                                           | The original MCP tool input schema for LLM conversion        |
+| `connection_type`                                            | [models.DataConnectionType](../models/dataconnectiontype.md) | :heavy_check_mark:                                           | The connection type used by the MCP server                   |

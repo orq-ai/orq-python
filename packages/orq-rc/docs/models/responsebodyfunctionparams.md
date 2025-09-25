@@ -141,10 +141,10 @@ value: models.UpdateEvalFunctionParams22 = /* values here */
 value: models.FunctionParams23 = /* values here */
 ```
 
-### `models.FunctionParams24`
+### `models.UpdateEvalFunctionParams24`
 
 ```python
-value: models.FunctionParams24 = /* values here */
+value: models.UpdateEvalFunctionParams24 = /* values here */
 ```
 
 ### `models.FunctionParams25`

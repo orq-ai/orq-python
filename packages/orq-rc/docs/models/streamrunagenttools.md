@@ -1,83 +1,85 @@
 # StreamRunAgentTools
 
+Available tools for agent execution. Each tool provides specific capabilities to interact with external systems, retrieve information, or perform specialized tasks.
+
 
 ## Supported Types
 
-### `models.StreamRunAgentTools1`
+### `models.GoogleSearchTool`
 
 ```python
-value: models.StreamRunAgentTools1 = /* values here */
+value: models.GoogleSearchTool = /* values here */
 ```
 
-### `models.StreamRunAgentTools2`
+### `models.WebScraperTool`
 
 ```python
-value: models.StreamRunAgentTools2 = /* values here */
+value: models.WebScraperTool = /* values here */
 ```
 
-### `models.StreamRunAgentTools3`
+### `models.CallSubAgentTool`
 
 ```python
-value: models.StreamRunAgentTools3 = /* values here */
+value: models.CallSubAgentTool = /* values here */
 ```
 
-### `models.StreamRunAgentTools4`
+### `models.RetrieveAgentsTool`
 
 ```python
-value: models.StreamRunAgentTools4 = /* values here */
+value: models.RetrieveAgentsTool = /* values here */
 ```
 
-### `models.StreamRunAgentTools5`
+### `models.QueryMemoryStoreTool`
 
 ```python
-value: models.StreamRunAgentTools5 = /* values here */
+value: models.QueryMemoryStoreTool = /* values here */
 ```
 
-### `models.Tools6`
+### `models.WriteMemoryStoreTool`
 
 ```python
-value: models.Tools6 = /* values here */
+value: models.WriteMemoryStoreTool = /* values here */
 ```
 
-### `models.Tools7`
+### `models.RetrieveMemoryStoresTool`
 
 ```python
-value: models.Tools7 = /* values here */
+value: models.RetrieveMemoryStoresTool = /* values here */
 ```
 
-### `models.Tools8`
+### `models.RetrieveKnowledgeBasesTool`
 
 ```python
-value: models.Tools8 = /* values here */
+value: models.RetrieveKnowledgeBasesTool = /* values here */
 ```
 
-### `models.Tools9`
+### `models.QueryKnowledgeBaseTool`
 
 ```python
-value: models.Tools9 = /* values here */
+value: models.QueryKnowledgeBaseTool = /* values here */
 ```
 
-### `models.Tools10`
+### `models.CurrentDateTool`
 
 ```python
-value: models.Tools10 = /* values here */
+value: models.CurrentDateTool = /* values here */
 ```
 
-### `models.Tools11`
+### `models.HTTPTool`
 
 ```python
-value: models.Tools11 = /* values here */
+value: models.HTTPTool = /* values here */
 ```
 
-### `models.Tools12`
+### `models.CodeExecutionTool`
 
 ```python
-value: models.Tools12 = /* values here */
+value: models.CodeExecutionTool = /* values here */
 ```
 
-### `models.Tools13`
+### `models.FunctionTool`
 
 ```python
-value: models.Tools13 = /* values here */
+value: models.FunctionTool = /* values here */
 ```
 

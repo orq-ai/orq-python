@@ -34,28 +34,28 @@ Fifteen = Literal["jina/jina-clip-v1",]
 Fourteen = Literal["google-ai/text-embedding-004",]
 
 
-Model13 = Literal["google/multimodalembedding@001",]
+Thirteen = Literal["google/multimodalembedding@001",]
 
 
-Model12 = Literal["google/text-multilingual-embedding-002",]
+Twelve = Literal["google/text-multilingual-embedding-002",]
 
 
-Model11 = Literal["google/text-embedding-005",]
+Eleven = Literal["google/text-embedding-005",]
 
 
-Model10 = Literal["google/gemini-embedding-001",]
+Ten = Literal["google/gemini-embedding-001",]
 
 
-Model9 = Literal["openai/text-embedding-ada-002",]
+Nine = Literal["openai/text-embedding-ada-002",]
 
 
-Model8 = Literal["openai/text-embedding-3-small",]
+Eight = Literal["openai/text-embedding-3-small",]
 
 
-Model7 = Literal["openai/text-embedding-3-large",]
+Seven = Literal["openai/text-embedding-3-large",]
 
 
-Model6 = Literal["azure/text-embedding-3-small",]
+Six = Literal["azure/text-embedding-3-small",]
 
 
 Model5 = Literal["azure/text-embedding-ada-002",]
@@ -81,14 +81,14 @@ ModelTypedDict = TypeAliasType(
         Model3,
         Model4,
         Model5,
-        Model6,
-        Model7,
-        Model8,
-        Model9,
-        Model10,
-        Model11,
-        Model12,
-        Model13,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Eleven,
+        Twelve,
+        Thirteen,
         Fourteen,
         Fifteen,
         Sixteen,
@@ -110,14 +110,14 @@ Model = TypeAliasType(
         Model3,
         Model4,
         Model5,
-        Model6,
-        Model7,
-        Model8,
-        Model9,
-        Model10,
-        Model11,
-        Model12,
-        Model13,
+        Six,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Eleven,
+        Twelve,
+        Thirteen,
         Fourteen,
         Fifteen,
         Sixteen,

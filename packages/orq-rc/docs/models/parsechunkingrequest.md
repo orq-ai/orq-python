@@ -29,12 +29,6 @@ value: models.RecursiveChunkerStrategy = /* values here */
 value: models.SemanticChunkerStrategy = /* values here */
 ```
 
-### `models.SDPMChunkerStrategy`
-
-```python
-value: models.SDPMChunkerStrategy = /* values here */
-```
-
 ### `models.AgenticChunkerStrategy`
 
 ```python

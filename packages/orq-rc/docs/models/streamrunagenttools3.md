@@ -1,9 +1,0 @@
-# StreamRunAgentTools3
-
-
-## Fields
-
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `type`                                                                                           | [models.StreamRunAgentToolsAgentsRequestType](../models/streamrunagenttoolsagentsrequesttype.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
-| `requires_approval`                                                                              | *Optional[bool]*                                                                                 | :heavy_minus_sign:                                                                               | N/A                                                                                              |

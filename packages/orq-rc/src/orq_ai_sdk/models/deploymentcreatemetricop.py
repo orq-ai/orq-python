@@ -255,8 +255,9 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole = Literal[
     "assistant",
+    "exception",
 ]
-r"""The role of the messages author, in this case `assistant`."""
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class DeploymentCreateMetricMessagesAudioTypedDict(TypedDict):
@@ -312,7 +313,7 @@ class DeploymentCreateMetricMessagesToolCalls(BaseModel):
 
 class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[
         Nullable[DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict]
     ]
@@ -335,7 +336,7 @@ class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentCreateMetricMessagesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[
         DeploymentCreateMetricMessagesDeploymentsMetricsContent
@@ -874,8 +875,11 @@ DeploymentCreateMetricChoicesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class ChoicesAudioTypedDict(TypedDict):
@@ -931,7 +935,7 @@ class ChoicesToolCalls(BaseModel):
 
 class ChoicesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[DeploymentCreateMetricChoicesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -952,7 +956,7 @@ class ChoicesAssistantMessageTypedDict(TypedDict):
 
 class ChoicesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[DeploymentCreateMetricChoicesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""

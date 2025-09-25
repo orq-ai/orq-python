@@ -29,3 +29,9 @@ value: models.CreatePromptResponseFormat2 = /* values here */
 value: models.CreatePromptResponseFormat3 = /* values here */
 ```
 
+### `models.CreatePromptResponseFormat4`
+
+```python
+value: models.CreatePromptResponseFormat4 = /* values here */
+```
+

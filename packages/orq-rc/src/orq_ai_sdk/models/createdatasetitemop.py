@@ -208,8 +208,11 @@ CreateDatasetItemMessagesDatasetsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class CreateDatasetItemMessagesAudioTypedDict(TypedDict):
@@ -265,7 +268,7 @@ class CreateDatasetItemMessagesToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[CreateDatasetItemMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -286,7 +289,7 @@ class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -839,8 +842,9 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
+    "exception",
 ]
-r"""The role of the messages author, in this case `assistant`."""
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class CreateDatasetItemMessagesDatasetsAudioTypedDict(TypedDict):
@@ -896,7 +900,7 @@ class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[
         Nullable[CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -919,7 +923,7 @@ class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsResponse200Content] = (
         UNSET
@@ -1287,5 +1291,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-24T04:54:52.401Z")
+    updated: Optional[datetime] = parse_datetime("2025-09-25T06:48:39.657Z")
     r"""The date and time the resource was last updated"""

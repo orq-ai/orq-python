@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.tools import Tools
 
 
 class Orq(BaseSDK):
@@ -51,6 +52,7 @@ class Orq(BaseSDK):
     chunking: "Chunking"
     evals: "Evals"
     budgets: "Budgets"
+    tools: "Tools"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
@@ -66,6 +68,7 @@ class Orq(BaseSDK):
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "budgets": ("orq_ai_sdk.budgets", "Budgets"),
+        "tools": ("orq_ai_sdk.tools", "Tools"),
     }
 
     def __init__(
@@ -154,6 +157,7 @@ class Orq(BaseSDK):
 
         # pylint: disable=protected-access
         self.sdk_configuration.__dict__["_hooks"] = hooks
+
         current_server_url, *_ = self.sdk_configuration.get_server_details()
         server_url, self.sdk_configuration.client = hooks.sdk_init(
             current_server_url, client

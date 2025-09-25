@@ -37,29 +37,54 @@ CreatePromptFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-CreatePromptResponseFormatPromptsType = Literal["text",]
+ResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class ResponseFormat3TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsType
+ResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class ResponseFormat3(BaseModel):
-    type: CreatePromptResponseFormatPromptsType
+ResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-CreatePromptResponseFormatType = Literal["json_object",]
+CreatePrompt1PromptsType = Literal["text",]
 
 
-class ResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatType
+class CreatePrompt13TypedDict(TypedDict):
+    type: CreatePrompt1PromptsType
 
 
-class ResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatType
+class CreatePrompt13(BaseModel):
+    type: CreatePrompt1PromptsType
 
 
-ResponseFormatType = Literal["json_schema",]
+CreatePrompt1Type = Literal["json_object",]
+
+
+class One2TypedDict(TypedDict):
+    type: CreatePrompt1Type
+
+
+class One2(BaseModel):
+    type: CreatePrompt1Type
+
+
+OneType = Literal["json_schema",]
 
 
 class JSONSchemaTypedDict(TypedDict):
@@ -76,20 +101,29 @@ class JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class ResponseFormat1TypedDict(TypedDict):
-    type: ResponseFormatType
+class One1TypedDict(TypedDict):
+    type: OneType
     json_schema: JSONSchemaTypedDict
 
 
-class ResponseFormat1(BaseModel):
-    type: ResponseFormatType
+class One1(BaseModel):
+    type: OneType
 
     json_schema: JSONSchema
 
 
+ResponseFormat1TypedDict = TypeAliasType(
+    "ResponseFormat1TypedDict",
+    Union[One2TypedDict, CreatePrompt13TypedDict, One1TypedDict],
+)
+
+
+ResponseFormat1 = TypeAliasType("ResponseFormat1", Union[One2, CreatePrompt13, One1])
+
+
 ResponseFormatTypedDict = TypeAliasType(
     "ResponseFormatTypedDict",
-    Union[ResponseFormat2TypedDict, ResponseFormat3TypedDict, ResponseFormat1TypedDict],
+    Union[ResponseFormat1TypedDict, ResponseFormat2, ResponseFormat3, ResponseFormat4],
 )
 r"""An object specifying the format that the model must output.
 
@@ -102,7 +136,8 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 
 ResponseFormat = TypeAliasType(
-    "ResponseFormat", Union[ResponseFormat2, ResponseFormat3, ResponseFormat1]
+    "ResponseFormat",
+    Union[ResponseFormat1, ResponseFormat2, ResponseFormat3, ResponseFormat4],
 )
 r"""An object specifying the format that the model must output.
 
@@ -616,7 +651,7 @@ UseCases = Literal[
 ]
 
 
-Language = Literal[
+CreatePromptLanguage = Literal[
     "Chinese",
     "Dutch",
     "English",
@@ -631,7 +666,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class CreatePromptMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[UseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[Nullable[Language]]
+    language: NotRequired[Nullable[CreatePromptLanguage]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -639,7 +674,7 @@ class CreatePromptMetadata(BaseModel):
     use_cases: Optional[List[UseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: OptionalNullable[Language] = UNSET
+    language: OptionalNullable[CreatePromptLanguage] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
     @model_serializer(mode="wrap")
@@ -757,38 +792,63 @@ CreatePromptPromptsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-CreatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text",]
+CreatePromptResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class CreatePromptResponseFormat3TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
+CreatePromptResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class CreatePromptResponseFormat3(BaseModel):
-    type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
+CreatePromptResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object",]
+CreatePrompt1PromptsResponse200ApplicationJSONType = Literal["text",]
 
 
-class CreatePromptResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsResponse200Type
+class CreatePrompt1Prompts3TypedDict(TypedDict):
+    type: CreatePrompt1PromptsResponse200ApplicationJSONType
 
 
-class CreatePromptResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatPromptsResponse200Type
+class CreatePrompt1Prompts3(BaseModel):
+    type: CreatePrompt1PromptsResponse200ApplicationJSONType
 
 
-CreatePromptResponseFormatPromptsResponseType = Literal["json_schema",]
+CreatePrompt1PromptsResponse200Type = Literal["json_object",]
 
 
-class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreatePrompt12TypedDict(TypedDict):
+    type: CreatePrompt1PromptsResponse200Type
+
+
+class CreatePrompt12(BaseModel):
+    type: CreatePrompt1PromptsResponse200Type
+
+
+CreatePrompt1PromptsResponseType = Literal["json_schema",]
+
+
+class CreatePrompt1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     strict: NotRequired[bool]
 
 
-class CreatePromptResponseFormatJSONSchema(BaseModel):
+class CreatePrompt1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -796,23 +856,38 @@ class CreatePromptResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class CreatePromptResponseFormat1TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsResponseType
-    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
+class CreatePrompt11TypedDict(TypedDict):
+    type: CreatePrompt1PromptsResponseType
+    json_schema: CreatePrompt1JSONSchemaTypedDict
 
 
-class CreatePromptResponseFormat1(BaseModel):
-    type: CreatePromptResponseFormatPromptsResponseType
+class CreatePrompt11(BaseModel):
+    type: CreatePrompt1PromptsResponseType
 
-    json_schema: CreatePromptResponseFormatJSONSchema
+    json_schema: CreatePrompt1JSONSchema
+
+
+CreatePromptResponseFormat1TypedDict = TypeAliasType(
+    "CreatePromptResponseFormat1TypedDict",
+    Union[
+        CreatePrompt12TypedDict, CreatePrompt1Prompts3TypedDict, CreatePrompt11TypedDict
+    ],
+)
+
+
+CreatePromptResponseFormat1 = TypeAliasType(
+    "CreatePromptResponseFormat1",
+    Union[CreatePrompt12, CreatePrompt1Prompts3, CreatePrompt11],
+)
 
 
 CreatePromptResponseFormatTypedDict = TypeAliasType(
     "CreatePromptResponseFormatTypedDict",
     Union[
-        CreatePromptResponseFormat2TypedDict,
-        CreatePromptResponseFormat3TypedDict,
         CreatePromptResponseFormat1TypedDict,
+        CreatePromptResponseFormat2,
+        CreatePromptResponseFormat3,
+        CreatePromptResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -828,9 +903,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 CreatePromptResponseFormat = TypeAliasType(
     "CreatePromptResponseFormat",
     Union[
+        CreatePromptResponseFormat1,
         CreatePromptResponseFormat2,
         CreatePromptResponseFormat3,
-        CreatePromptResponseFormat1,
+        CreatePromptResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -1369,7 +1445,7 @@ CreatePromptUseCases = Literal[
 ]
 
 
-CreatePromptLanguage = Literal[
+CreatePromptPromptsLanguage = Literal[
     "Chinese",
     "Dutch",
     "English",
@@ -1384,7 +1460,7 @@ r"""The language that the prompt is written in. Use this field to categorize the
 class CreatePromptPromptsMetadataTypedDict(TypedDict):
     use_cases: NotRequired[List[CreatePromptUseCases]]
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
-    language: NotRequired[Nullable[CreatePromptLanguage]]
+    language: NotRequired[Nullable[CreatePromptPromptsLanguage]]
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
 
@@ -1392,7 +1468,7 @@ class CreatePromptPromptsMetadata(BaseModel):
     use_cases: Optional[List[CreatePromptUseCases]] = None
     r"""A list of use cases that the prompt is meant to be used for. Use this field to categorize the prompt for your own purpose"""
 
-    language: OptionalNullable[CreatePromptLanguage] = UNSET
+    language: OptionalNullable[CreatePromptPromptsLanguage] = UNSET
     r"""The language that the prompt is written in. Use this field to categorize the prompt for your own purpose"""
 
     @model_serializer(mode="wrap")

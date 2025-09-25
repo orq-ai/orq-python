@@ -1,8 +1,12 @@
 # RunAgentToolsType
 
+The type of the argument.
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `WEB_SCRAPER` | web_scraper   |
+| Name      | Value     |
+| --------- | --------- |
+| `STRING`  | string    |
+| `NUMBER`  | number    |
+| `BOOLEAN` | boolean   |

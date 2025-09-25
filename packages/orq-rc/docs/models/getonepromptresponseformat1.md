@@ -1,9 +1,23 @@
 # GetOnePromptResponseFormat1
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `type`                                                                                           | [models.GetOnePromptResponseFormatType](../models/getonepromptresponseformattype.md)             | :heavy_check_mark:                                                                               | N/A                                                                                              |
-| `json_schema`                                                                                    | [models.GetOnePromptResponseFormatJSONSchema](../models/getonepromptresponseformatjsonschema.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
+### `models.GetOnePrompt11`
+
+```python
+value: models.GetOnePrompt11 = /* values here */
+```
+
+### `models.GetOnePrompt12`
+
+```python
+value: models.GetOnePrompt12 = /* values here */
+```
+
+### `models.GetOnePrompt13`
+
+```python
+value: models.GetOnePrompt13 = /* values here */
+```
+

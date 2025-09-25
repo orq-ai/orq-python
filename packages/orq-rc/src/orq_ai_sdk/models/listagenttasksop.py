@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-Status = Literal[
+ListAgentTasksStatus = Literal[
     "inactive",
     "approval_required",
     "in_progress",
@@ -24,11 +24,11 @@ Status = Literal[
 
 
 class ListAgentTasksRequestBodyTypedDict(TypedDict):
-    status: List[Status]
+    status: List[ListAgentTasksStatus]
 
 
 class ListAgentTasksRequestBody(BaseModel):
-    status: List[Status]
+    status: List[ListAgentTasksStatus]
 
 
 class ListAgentTasksRequestTypedDict(TypedDict):

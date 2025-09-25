@@ -33,52 +33,52 @@ value: models.Model4 = /* values here */
 value: models.Model5 = /* values here */
 ```
 
-### `models.Model6`
+### `models.Six`
 
 ```python
-value: models.Model6 = /* values here */
+value: models.Six = /* values here */
 ```
 
-### `models.Model7`
+### `models.Seven`
 
 ```python
-value: models.Model7 = /* values here */
+value: models.Seven = /* values here */
 ```
 
-### `models.Model8`
+### `models.Eight`
 
 ```python
-value: models.Model8 = /* values here */
+value: models.Eight = /* values here */
 ```
 
-### `models.Model9`
+### `models.Nine`
 
 ```python
-value: models.Model9 = /* values here */
+value: models.Nine = /* values here */
 ```
 
-### `models.Model10`
+### `models.Ten`
 
 ```python
-value: models.Model10 = /* values here */
+value: models.Ten = /* values here */
 ```
 
-### `models.Model11`
+### `models.Eleven`
 
 ```python
-value: models.Model11 = /* values here */
+value: models.Eleven = /* values here */
 ```
 
-### `models.Model12`
+### `models.Twelve`
 
 ```python
-value: models.Model12 = /* values here */
+value: models.Twelve = /* values here */
 ```
 
-### `models.Model13`
+### `models.Thirteen`
 
 ```python
-value: models.Model13 = /* values here */
+value: models.Thirteen = /* values here */
 ```
 
 ### `models.Fourteen`

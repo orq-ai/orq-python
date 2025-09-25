@@ -35,28 +35,28 @@ Model15 = Literal["jina/jina-clip-v1",]
 Model14 = Literal["google-ai/text-embedding-004",]
 
 
-UpdateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
+Model13 = Literal["google/multimodalembedding@001",]
 
 
-UpdateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
+Model12 = Literal["google/text-multilingual-embedding-002",]
 
 
-UpdateMemoryStoreModel11 = Literal["google/text-embedding-005",]
+Model11 = Literal["google/text-embedding-005",]
 
 
-UpdateMemoryStoreModel10 = Literal["google/gemini-embedding-001",]
+Model10 = Literal["google/gemini-embedding-001",]
 
 
-UpdateMemoryStoreModel9 = Literal["openai/text-embedding-ada-002",]
+Model9 = Literal["openai/text-embedding-ada-002",]
 
 
-UpdateMemoryStoreModel8 = Literal["openai/text-embedding-3-small",]
+Model8 = Literal["openai/text-embedding-3-small",]
 
 
-UpdateMemoryStoreModel7 = Literal["openai/text-embedding-3-large",]
+Model7 = Literal["openai/text-embedding-3-large",]
 
 
-UpdateMemoryStoreModel6 = Literal["azure/text-embedding-3-small",]
+Model6 = Literal["azure/text-embedding-3-small",]
 
 
 UpdateMemoryStoreModel5 = Literal["azure/text-embedding-ada-002",]
@@ -82,14 +82,14 @@ UpdateMemoryStoreModelTypedDict = TypeAliasType(
         UpdateMemoryStoreModel3,
         UpdateMemoryStoreModel4,
         UpdateMemoryStoreModel5,
-        UpdateMemoryStoreModel6,
-        UpdateMemoryStoreModel7,
-        UpdateMemoryStoreModel8,
-        UpdateMemoryStoreModel9,
-        UpdateMemoryStoreModel10,
-        UpdateMemoryStoreModel11,
-        UpdateMemoryStoreModel12,
-        UpdateMemoryStoreModel13,
+        Model6,
+        Model7,
+        Model8,
+        Model9,
+        Model10,
+        Model11,
+        Model12,
+        Model13,
         Model14,
         Model15,
         Model16,
@@ -111,14 +111,14 @@ UpdateMemoryStoreModel = TypeAliasType(
         UpdateMemoryStoreModel3,
         UpdateMemoryStoreModel4,
         UpdateMemoryStoreModel5,
-        UpdateMemoryStoreModel6,
-        UpdateMemoryStoreModel7,
-        UpdateMemoryStoreModel8,
-        UpdateMemoryStoreModel9,
-        UpdateMemoryStoreModel10,
-        UpdateMemoryStoreModel11,
-        UpdateMemoryStoreModel12,
-        UpdateMemoryStoreModel13,
+        Model6,
+        Model7,
+        Model8,
+        Model9,
+        Model10,
+        Model11,
+        Model12,
+        Model13,
         Model14,
         Model15,
         Model16,

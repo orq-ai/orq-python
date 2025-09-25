@@ -4,9 +4,16 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -240,7 +247,7 @@ class GetAgentKnowledgeBases(BaseModel):
     configuration: GetAgentConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K5X16BTDKGNSSN59NJGVDAY6"
+    id: Optional[str] = "01K5ZT3CQCJNRJAK5JM21YBYM3"
     r"""The id of the resource"""
 
 
@@ -271,8 +278,8 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     memory_stores: List[str]
     team_of_agents: List[GetAgentTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    created_by_id: NotRequired[str]
-    updated_by_id: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
     updated: NotRequired[str]
     system_prompt: NotRequired[str]
@@ -317,9 +324,9 @@ class GetAgentResponseBody(BaseModel):
     team_of_agents: List[GetAgentTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
-    created_by_id: Optional[str] = None
+    created_by_id: OptionalNullable[str] = UNSET
 
-    updated_by_id: Optional[str] = None
+    updated_by_id: OptionalNullable[str] = UNSET
 
     created: Optional[str] = None
 
@@ -341,3 +348,45 @@ class GetAgentResponseBody(BaseModel):
 
     hidden_panels: Optional[List[HiddenPanels]] = None
     r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "created_by_id",
+            "updated_by_id",
+            "created",
+            "updated",
+            "system_prompt",
+            "settings",
+            "version_hash",
+            "metrics",
+            "variables",
+            "knowledge_bases",
+            "hidden_panels",
+        ]
+        nullable_fields = ["created_by_id", "updated_by_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
