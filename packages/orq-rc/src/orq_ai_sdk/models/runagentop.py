@@ -506,7 +506,7 @@ class TwentyFour(BaseModel):
     http: ToolsHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5ZT3CQZFBXVN2YQ8CKRJ1MW"
+        "01K60CGQ35YREFRTW8EPP79TWP"
     )
 
     status: Optional[ToolsStatus] = "live"

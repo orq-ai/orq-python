@@ -153,7 +153,7 @@ class HTTPTool(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K5ZT3CHSZ64TT0SMYMTBVBEA"
+        "01K60CGPWFAB7ZDDQT1K4MRS6G"
     )
 
     status: Optional[Status] = "live"
