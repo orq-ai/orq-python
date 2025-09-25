@@ -27,10 +27,10 @@ value: models.Model3 = /* values here */
 value: models.Model4 = /* values here */
 ```
 
-### `models.Model5`
+### `models.Five`
 
 ```python
-value: models.Model5 = /* values here */
+value: models.Five = /* values here */
 ```
 
 ### `models.Six`

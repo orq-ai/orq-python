@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-ListAgentTasksStatus = Literal[
+Status = Literal[
     "inactive",
     "approval_required",
     "in_progress",
@@ -24,11 +24,11 @@ ListAgentTasksStatus = Literal[
 
 
 class ListAgentTasksRequestBodyTypedDict(TypedDict):
-    status: List[ListAgentTasksStatus]
+    status: List[Status]
 
 
 class ListAgentTasksRequestBody(BaseModel):
-    status: List[ListAgentTasksStatus]
+    status: List[Status]
 
 
 class ListAgentTasksRequestTypedDict(TypedDict):
@@ -184,21 +184,23 @@ class ListAgentTasksTools(BaseModel):
 
 
 class ListAgentTasksSettingsTypedDict(TypedDict):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
     tools: List[ListAgentTasksToolsTypedDict]
     max_iterations: NotRequired[int]
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_execution_time: NotRequired[int]
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ListAgentTasksToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
 class ListAgentTasksSettings(BaseModel):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
-
     tools: List[ListAgentTasksTools]
 
-    max_iterations: Optional[int] = 10
+    max_iterations: Optional[int] = 15
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+
+    max_execution_time: Optional[int] = 300
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[ListAgentTasksToolApprovalRequired] = (
         "respect_tool"

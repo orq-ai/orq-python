@@ -55,7 +55,6 @@ class UpdateToolRequestBody5TypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
     code_tool: NotRequired[UpdateToolRequestBodyCodeToolTypedDict]
 
 
@@ -73,8 +72,6 @@ class UpdateToolRequestBody5(BaseModel):
 
     status: Optional[UpdateToolRequestBodyToolsRequest5Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
     code_tool: Optional[UpdateToolRequestBodyCodeTool] = None
 
@@ -175,7 +172,6 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
     mcp: NotRequired[RequestBodyMcpTypedDict]
 
 
@@ -193,8 +189,6 @@ class UpdateToolRequestBody4(BaseModel):
 
     status: Optional[UpdateToolRequestBodyToolsRequest4Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
     mcp: Optional[RequestBodyMcp] = None
 
@@ -320,7 +314,6 @@ class UpdateToolRequestBody3TypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
     http: NotRequired[UpdateToolRequestBodyHTTPTypedDict]
 
 
@@ -328,7 +321,7 @@ class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9T6Z9V3EAXFMJ0FRAY"
+        "01K60ZS4WS9P8H6BANTJPSPQ11"
     )
 
     path: Optional[str] = None
@@ -342,8 +335,6 @@ class UpdateToolRequestBody3(BaseModel):
 
     status: Optional[UpdateToolRequestBodyToolsRequestStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
     http: Optional[UpdateToolRequestBodyHTTP] = None
 
@@ -426,7 +417,6 @@ class UpdateToolRequestBody2TypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
     json_schema: NotRequired[UpdateToolRequestBodyJSONSchemaTypedDict]
 
 
@@ -434,7 +424,7 @@ class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9TV0MT91FZ2G0GP2KM"
+        "01K60ZS4WS6R1A509SSN8HKVH3"
     )
 
     path: Optional[str] = None
@@ -448,8 +438,6 @@ class UpdateToolRequestBody2(BaseModel):
 
     status: Optional[UpdateToolRequestBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
     json_schema: Optional[UpdateToolRequestBodyJSONSchema] = None
 
@@ -501,7 +489,6 @@ class UpdateToolRequestBody1TypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
     function: NotRequired[UpdateToolRequestBodyFunctionTypedDict]
 
 
@@ -519,8 +506,6 @@ class UpdateToolRequestBody1(BaseModel):
 
     status: Optional[UpdateToolRequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
     function: Optional[UpdateToolRequestBodyFunction] = None
 
@@ -675,7 +660,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9SHDJ6VPDR1WQ92ZH1"
+        "01K60ZS4WRKB3Q10HPAJR728F9"
     )
 
     created_by_id: Optional[str] = None
@@ -829,7 +814,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9S7PNZWTWQ8RTH6VM4"
+        "01K60ZS4WRWE96WS65G285EWW2"
     )
 
     created_by_id: Optional[str] = None
@@ -1005,7 +990,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9R0MA44KG89EKX7HJ1"
+        "01K60ZS4WQ39A9F60507P28AXK"
     )
 
     created_by_id: Optional[str] = None
@@ -1138,7 +1123,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9RVCZSB3YGPA7FW8KB"
+        "01K60ZS4WQ6025CYDZ9ACR9R8N"
     )
 
     created_by_id: Optional[str] = None
@@ -1241,7 +1226,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9QRS30JRTGYREZGV6F"
+        "01K60ZS4WPB24AAFPTFM3K4AKH"
     )
 
     created_by_id: Optional[str] = None

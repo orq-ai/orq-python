@@ -117,21 +117,23 @@ class ListAgentsTools(BaseModel):
 
 
 class ListAgentsSettingsTypedDict(TypedDict):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
     tools: List[ListAgentsToolsTypedDict]
     max_iterations: NotRequired[int]
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_execution_time: NotRequired[int]
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
 class ListAgentsSettings(BaseModel):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
-
     tools: List[ListAgentsTools]
 
-    max_iterations: Optional[int] = 10
+    max_iterations: Optional[int] = 15
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+
+    max_execution_time: Optional[int] = 300
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -242,7 +244,7 @@ class ListAgentsKnowledgeBases(BaseModel):
     configuration: ListAgentsConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K60CGQ250M2GXK4GC08ZSGV1"
+    id: Optional[str] = "01K60ZS4MZY99WNA5C8F32W61C"
     r"""The id of the resource"""
 
 

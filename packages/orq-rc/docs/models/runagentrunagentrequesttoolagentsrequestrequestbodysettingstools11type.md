@@ -1,0 +1,8 @@
+# RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+
+
+## Values
+
+| Name   | Value  |
+| ------ | ------ |
+| `HTTP` | http   |

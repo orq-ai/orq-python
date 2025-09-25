@@ -141,10 +141,10 @@ value: models.FunctionParams22 = /* values here */
 value: models.TwentyThree = /* values here */
 ```
 
-### `models.FunctionParams24`
+### `models.TwentyFour`
 
 ```python
-value: models.FunctionParams24 = /* values here */
+value: models.TwentyFour = /* values here */
 ```
 
 ### `models.TwentyFive`

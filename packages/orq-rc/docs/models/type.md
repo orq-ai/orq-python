@@ -1,8 +1,10 @@
 # Type
 
+The type of the tool. Currently, only `function` is supported.
+
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `GOOGLE_SEARCH` | google_search   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `FUNCTION` | function   |

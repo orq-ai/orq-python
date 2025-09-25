@@ -122,21 +122,23 @@ class GetAgentTools(BaseModel):
 
 
 class GetAgentSettingsTypedDict(TypedDict):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
     tools: List[GetAgentToolsTypedDict]
     max_iterations: NotRequired[int]
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_execution_time: NotRequired[int]
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[GetAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
 class GetAgentSettings(BaseModel):
-    max_execution_time: int
-    r"""Max execution time in seconds"""
-
     tools: List[GetAgentTools]
 
-    max_iterations: Optional[int] = 10
+    max_iterations: Optional[int] = 15
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+
+    max_execution_time: Optional[int] = 300
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[GetAgentToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -247,7 +249,7 @@ class GetAgentKnowledgeBases(BaseModel):
     configuration: GetAgentConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K60CGQ2DXANBB2SN1A3NQ2CT"
+    id: Optional[str] = "01K60ZS4N17YWPMAPEA8B02SZD"
     r"""The id of the resource"""
 
 

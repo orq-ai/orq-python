@@ -54,7 +54,6 @@ class RequestBody5TypedDict(TypedDict):
     code_tool: RequestBodyCodeToolTypedDict
     status: NotRequired[CreateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class RequestBody5(BaseModel):
@@ -76,8 +75,6 @@ class RequestBody5(BaseModel):
 
     status: Optional[CreateToolRequestBodyToolsRequest5Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
 
 CreateToolRequestBodyToolsRequestStatus = Literal[
@@ -179,7 +176,6 @@ class RequestBody4TypedDict(TypedDict):
     mcp: McpTypedDict
     status: NotRequired[CreateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class RequestBody4(BaseModel):
@@ -201,8 +197,6 @@ class RequestBody4(BaseModel):
 
     status: Optional[CreateToolRequestBodyToolsRequestStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
 
 CreateToolRequestBodyToolsStatus = Literal[
@@ -329,7 +323,6 @@ class RequestBody3TypedDict(TypedDict):
     id: NotRequired[str]
     status: NotRequired[CreateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class RequestBody3(BaseModel):
@@ -350,13 +343,11 @@ class RequestBody3(BaseModel):
     http: CreateToolRequestBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9QHWZSP7YNAT9R1N5E"
+        "01K60ZS4WPBAA2PDHP73NW7MFY"
     )
 
     status: Optional[CreateToolRequestBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
 
 CreateToolRequestBodyStatus = Literal[
@@ -440,7 +431,6 @@ class RequestBody2TypedDict(TypedDict):
     id: NotRequired[str]
     status: NotRequired[CreateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class RequestBody2(BaseModel):
@@ -461,13 +451,11 @@ class RequestBody2(BaseModel):
     json_schema: RequestBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9PYG7FZW5Y0WBFFNCP"
+        "01K60ZS4WN09BRDZWAA6XGAP6S"
     )
 
     status: Optional[CreateToolRequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
 
 RequestBodyStatus = Literal[
@@ -520,7 +508,6 @@ class RequestBody1TypedDict(TypedDict):
     function: RequestBodyFunctionTypedDict
     status: NotRequired[RequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    version_hash: NotRequired[str]
 
 
 class RequestBody1(BaseModel):
@@ -542,8 +529,6 @@ class RequestBody1(BaseModel):
 
     status: Optional[RequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    version_hash: Optional[str] = None
 
 
 CreateToolRequestBodyTypedDict = TypeAliasType(
@@ -650,7 +635,7 @@ class ResponseBody5(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9PKFSCPH297T34NFBP"
+        "01K60ZS4WNTT2P9NGNRTTQ4V4Q"
     )
 
     created_by_id: Optional[str] = None
@@ -802,7 +787,7 @@ class ResponseBody4(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9NJGD9NA98W7XH4RCG"
+        "01K60ZS4WM7YDKN8BW1J5KZCHV"
     )
 
     created_by_id: Optional[str] = None
@@ -978,7 +963,7 @@ class ResponseBody3(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9MFRVQAX527BDBDQEF"
+        "01K60ZS4WKMV8Y55Y7A4AXMMPC"
     )
 
     created_by_id: Optional[str] = None
@@ -1111,7 +1096,7 @@ class ResponseBody2(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9MW19WTCHP8WT2SE8A"
+        "01K60ZS4WKKTSRDGZQFH7AAT8P"
     )
 
     created_by_id: Optional[str] = None
@@ -1214,7 +1199,7 @@ class ResponseBody1(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K60CGQ9M3T2WJSV2HSTAB5KR"
+        "01K60ZS4WJG18Q2QGCA5A51VYY"
     )
 
     created_by_id: Optional[str] = None

@@ -27,10 +27,10 @@ value: models.UpdateMemoryStoreModel3 = /* values here */
 value: models.UpdateMemoryStoreModel4 = /* values here */
 ```
 
-### `models.UpdateMemoryStoreModel5`
+### `models.Model5`
 
 ```python
-value: models.UpdateMemoryStoreModel5 = /* values here */
+value: models.Model5 = /* values here */
 ```
 
 ### `models.Model6`

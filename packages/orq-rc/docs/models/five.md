@@ -1,11 +1,8 @@
 # Five
 
 
-## Fields
+## Values
 
-| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `kind`                                                                               | [models.RunAgentPartsAgentsRequestKind](../models/runagentpartsagentsrequestkind.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `tool_call_id`                                                                       | *str*                                                                                | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `result`                                                                             | *Optional[Any]*                                                                      | :heavy_minus_sign:                                                                   | N/A                                                                                  |
-| `metadata`                                                                           | Dict[str, *Any*]                                                                     | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| Name                           | Value                          |
+| ------------------------------ | ------------------------------ |
+| `AZURE_TEXT_EMBEDDING_ADA_002` | azure/text-embedding-ada-002   |
