@@ -321,7 +321,7 @@ class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6G7BRNAPR7RY1BF098T"
+        "01K62YGYG1X678PZB324AVXJVP"
     )
 
     path: Optional[str] = None
@@ -424,7 +424,7 @@ class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6G6RKZCRDFMB71PTBB6"
+        "01K62YGYG103EYZSRZ5Z5FG925"
     )
 
     path: Optional[str] = None
@@ -660,7 +660,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6G62M099701KRK66701"
+        "01K62YGYG1P02HS4SFGR2M8968"
     )
 
     created_by_id: Optional[str] = None
@@ -814,7 +814,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6G57XHWHARFPZGPRWPW"
+        "01K62YGYG0DWQCENWQ8VDQBGY9"
     )
 
     created_by_id: Optional[str] = None
@@ -990,7 +990,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6G5Y71Y8KTSV7153E7S"
+        "01K62YGYG01H1RHKN6M3GYH6QW"
     )
 
     created_by_id: Optional[str] = None
@@ -1123,7 +1123,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6FW7TGSMNQ6Q5C7KKD0"
+        "01K62YGYFZR0JECC2QJKNJJX4C"
     )
 
     created_by_id: Optional[str] = None
@@ -1226,7 +1226,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62KZ6FWQF8B91WRWF8HE1BX"
+        "01K62YGYFZHBX5FBMW7SRAG33F"
     )
 
     created_by_id: Optional[str] = None
