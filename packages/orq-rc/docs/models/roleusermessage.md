@@ -1,8 +1,10 @@
-# Role2
+# RoleUserMessage
+
+User message
 
 
 ## Values
 
 | Name   | Value  |
 | ------ | ------ |
-| `TOOL` | tool   |
+| `USER` | user   |

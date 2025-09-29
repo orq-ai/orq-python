@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.StreamRunAgentFile1`
+### `models.FileBinaryFormat`
 
 ```python
-value: models.StreamRunAgentFile1 = /* values here */
+value: models.FileBinaryFormat = /* values here */
 ```
 
-### `models.StreamRunAgentFile2`
+### `models.FileFileInURIFormat`
 
 ```python
-value: models.StreamRunAgentFile2 = /* values here */
+value: models.FileFileInURIFormat = /* values here */
 ```
 

@@ -1,8 +1,10 @@
-# StreamRunAgentRole1
+# RoleToolMessage
+
+Tool message
 
 
 ## Values
 
 | Name   | Value  |
 | ------ | ------ |
-| `USER` | user   |
+| `TOOL` | tool   |

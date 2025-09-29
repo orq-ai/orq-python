@@ -1,4 +1,4 @@
-# ConfigurationType
+# KnowledgeBaseConfigurationType
 
 
 ## Values

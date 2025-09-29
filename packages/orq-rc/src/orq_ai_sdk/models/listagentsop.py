@@ -190,40 +190,57 @@ class ListAgentsMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-ListAgentsConfigurationType = Literal["query",]
+ListAgentsKnowledgeBaseConfigurationType = Literal["query",]
 
 
-class ListAgentsConfiguration2TypedDict(TypedDict):
-    type: ListAgentsConfigurationType
+class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
+    r"""Defines the configuration settings for a static query."""
+
+    type: ListAgentsKnowledgeBaseConfigurationType
     query: str
 
 
-class ListAgentsConfiguration2(BaseModel):
-    type: ListAgentsConfigurationType
+class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
+    r"""Defines the configuration settings for a static query."""
+
+    type: ListAgentsKnowledgeBaseConfigurationType
 
     query: str
 
 
-ListAgentsConfigurationAgentsType = Literal["last_user_message",]
+ListAgentsKnowledgeBaseConfigurationAgentsType = Literal["last_user_message",]
 
 
-class ListAgentsConfiguration1TypedDict(TypedDict):
-    type: ListAgentsConfigurationAgentsType
+class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(
+    TypedDict
+):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: ListAgentsKnowledgeBaseConfigurationAgentsType
 
 
-class ListAgentsConfiguration1(BaseModel):
-    type: ListAgentsConfigurationAgentsType
+class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: ListAgentsKnowledgeBaseConfigurationAgentsType
 
 
-ListAgentsConfigurationTypedDict = TypeAliasType(
-    "ListAgentsConfigurationTypedDict",
-    Union[ListAgentsConfiguration1TypedDict, ListAgentsConfiguration2TypedDict],
+ListAgentsKnowledgeBaseConfigurationTypedDict = TypeAliasType(
+    "ListAgentsKnowledgeBaseConfigurationTypedDict",
+    Union[
+        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
+        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
-ListAgentsConfiguration = TypeAliasType(
-    "ListAgentsConfiguration", Union[ListAgentsConfiguration1, ListAgentsConfiguration2]
+ListAgentsKnowledgeBaseConfiguration = TypeAliasType(
+    "ListAgentsKnowledgeBaseConfiguration",
+    Union[
+        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
+        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
@@ -231,7 +248,7 @@ r"""Defines the configuration settings which can either be for a user message or
 class ListAgentsKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""The id of the resource"""
-    configuration: ListAgentsConfigurationTypedDict
+    configuration: ListAgentsKnowledgeBaseConfigurationTypedDict
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
     id: NotRequired[str]
     r"""The id of the resource"""
@@ -241,10 +258,10 @@ class ListAgentsKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""The id of the resource"""
 
-    configuration: ListAgentsConfiguration
+    configuration: ListAgentsKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K62YGY886SEKTXEF48210N7N"
+    id: Optional[str] = "01K69SP30PWE5R0Y0080G61B43"
     r"""The id of the resource"""
 
 

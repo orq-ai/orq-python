@@ -10,20 +10,24 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-StreamRunAgentRole2 = Literal["tool",]
+StreamRunAgentRoleToolMessage = Literal["tool",]
+r"""Tool message"""
 
 
-StreamRunAgentRole1 = Literal["user",]
+StreamRunAgentRoleUserMessage = Literal["user",]
+r"""User message"""
 
 
 StreamRunAgentRoleTypedDict = TypeAliasType(
-    "StreamRunAgentRoleTypedDict", Union[StreamRunAgentRole1, StreamRunAgentRole2]
+    "StreamRunAgentRoleTypedDict",
+    Union[StreamRunAgentRoleUserMessage, StreamRunAgentRoleToolMessage],
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
 StreamRunAgentRole = TypeAliasType(
-    "StreamRunAgentRole", Union[StreamRunAgentRole1, StreamRunAgentRole2]
+    "StreamRunAgentRole",
+    Union[StreamRunAgentRoleUserMessage, StreamRunAgentRoleToolMessage],
 )
 r"""Message role (user or tool for continuing executions)"""
 
@@ -55,7 +59,9 @@ class PublicMessagePartToolResultPart(BaseModel):
 StreamRunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class StreamRunAgentFile2TypedDict(TypedDict):
+class FileFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
     uri: str
     r"""URL for the File content"""
     mime_type: NotRequired[str]
@@ -64,7 +70,9 @@ class StreamRunAgentFile2TypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class StreamRunAgentFile2(BaseModel):
+class FileFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
     uri: str
     r"""URL for the File content"""
 
@@ -75,7 +83,9 @@ class StreamRunAgentFile2(BaseModel):
     r"""Optional name for the file"""
 
 
-class StreamRunAgentFile1TypedDict(TypedDict):
+class FileBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
     bytes_: str
     r"""base64 encoded content of the file"""
     mime_type: NotRequired[str]
@@ -84,7 +94,9 @@ class StreamRunAgentFile1TypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class StreamRunAgentFile1(BaseModel):
+class FileBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
     r"""base64 encoded content of the file"""
 
@@ -97,13 +109,12 @@ class StreamRunAgentFile1(BaseModel):
 
 StreamRunAgentPublicMessagePartFileTypedDict = TypeAliasType(
     "StreamRunAgentPublicMessagePartFileTypedDict",
-    Union[StreamRunAgentFile1TypedDict, StreamRunAgentFile2TypedDict],
+    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
 )
 
 
 StreamRunAgentPublicMessagePartFile = TypeAliasType(
-    "StreamRunAgentPublicMessagePartFile",
-    Union[StreamRunAgentFile1, StreamRunAgentFile2],
+    "StreamRunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
 )
 
 
@@ -261,52 +272,66 @@ class StreamRunAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-StreamRunAgentConfigurationAgentsType = Literal["query",]
+StreamRunAgentKnowledgeBaseConfigurationAgentsType = Literal["query",]
 
 
-class StreamRunAgentConfiguration2TypedDict(TypedDict):
-    type: StreamRunAgentConfigurationAgentsType
+class KnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
+    r"""Defines the configuration settings for a static query."""
+
+    type: StreamRunAgentKnowledgeBaseConfigurationAgentsType
     query: str
 
 
-class StreamRunAgentConfiguration2(BaseModel):
-    type: StreamRunAgentConfigurationAgentsType
+class KnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
+    r"""Defines the configuration settings for a static query."""
+
+    type: StreamRunAgentKnowledgeBaseConfigurationAgentsType
 
     query: str
 
 
-StreamRunAgentConfigurationType = Literal["last_user_message",]
+StreamRunAgentKnowledgeBaseConfigurationType = Literal["last_user_message",]
 
 
-class StreamRunAgentConfiguration1TypedDict(TypedDict):
-    type: StreamRunAgentConfigurationType
+class KnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(TypedDict):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: StreamRunAgentKnowledgeBaseConfigurationType
 
 
-class StreamRunAgentConfiguration1(BaseModel):
-    type: StreamRunAgentConfigurationType
+class KnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: StreamRunAgentKnowledgeBaseConfigurationType
 
 
-StreamRunAgentConfigurationTypedDict = TypeAliasType(
-    "StreamRunAgentConfigurationTypedDict",
-    Union[StreamRunAgentConfiguration1TypedDict, StreamRunAgentConfiguration2TypedDict],
+StreamRunAgentKnowledgeBaseConfigurationTypedDict = TypeAliasType(
+    "StreamRunAgentKnowledgeBaseConfigurationTypedDict",
+    Union[
+        KnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
+        KnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
-StreamRunAgentConfiguration = TypeAliasType(
-    "StreamRunAgentConfiguration",
-    Union[StreamRunAgentConfiguration1, StreamRunAgentConfiguration2],
+StreamRunAgentKnowledgeBaseConfiguration = TypeAliasType(
+    "StreamRunAgentKnowledgeBaseConfiguration",
+    Union[
+        KnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
+        KnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
 class StreamRunAgentKnowledgeBasesTypedDict(TypedDict):
-    configuration: StreamRunAgentConfigurationTypedDict
+    configuration: StreamRunAgentKnowledgeBaseConfigurationTypedDict
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
 class StreamRunAgentKnowledgeBases(BaseModel):
-    configuration: StreamRunAgentConfiguration
+    configuration: StreamRunAgentKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
@@ -578,7 +603,7 @@ class RunAgentRequestToolHTTPTool(BaseModel):
     http: RunAgentRequestToolHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62YGY99XT5HTD1YVGV5G48D"
+        "01K69SP322N8HZK6Y40VNVN53J"
     )
 
     requires_approval: Optional[bool] = False
@@ -884,6 +909,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
+    r"""The list of keys of the memory stores that are accessible to the agent."""
     knowledge_bases: NotRequired[List[StreamRunAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[StreamRunAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -939,6 +965,7 @@ class StreamRunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
+    r"""The list of keys of the memory stores that are accessible to the agent."""
 
     knowledge_bases: Optional[List[StreamRunAgentKnowledgeBases]] = None
 

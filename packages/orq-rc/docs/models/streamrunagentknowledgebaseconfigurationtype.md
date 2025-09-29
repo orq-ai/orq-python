@@ -1,4 +1,4 @@
-# StreamRunAgentConfigurationType
+# StreamRunAgentKnowledgeBaseConfigurationType
 
 
 ## Values

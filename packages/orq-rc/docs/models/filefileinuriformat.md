@@ -1,4 +1,6 @@
-# File2
+# FileFileInURIFormat
+
+File in URI format. Check in the model's documentation for the supported mime types for the URI format
 
 
 ## Fields

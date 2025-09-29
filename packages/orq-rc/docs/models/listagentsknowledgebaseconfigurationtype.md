@@ -1,4 +1,4 @@
-# RunAgentConfigurationType
+# ListAgentsKnowledgeBaseConfigurationType
 
 
 ## Values

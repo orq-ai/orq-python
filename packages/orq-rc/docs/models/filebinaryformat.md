@@ -1,4 +1,6 @@
-# StreamRunAgentFile1
+# FileBinaryFormat
+
+Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format.
 
 
 ## Fields

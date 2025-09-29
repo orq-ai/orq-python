@@ -7,17 +7,21 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Role2 = Literal["tool",]
+RoleToolMessage = Literal["tool",]
+r"""Tool message"""
 
 
-Role1 = Literal["user",]
+RoleUserMessage = Literal["user",]
+r"""User message"""
 
 
-RunAgentRoleTypedDict = TypeAliasType("RunAgentRoleTypedDict", Union[Role1, Role2])
+RunAgentRoleTypedDict = TypeAliasType(
+    "RunAgentRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
+)
 r"""Message role (user or tool for continuing executions)"""
 
 
-RunAgentRole = TypeAliasType("RunAgentRole", Union[Role1, Role2])
+RunAgentRole = TypeAliasType("RunAgentRole", Union[RoleUserMessage, RoleToolMessage])
 r"""Message role (user or tool for continuing executions)"""
 
 
@@ -48,7 +52,9 @@ class ToolResultPart(BaseModel):
 PublicMessagePartKind = Literal["file",]
 
 
-class File2TypedDict(TypedDict):
+class FileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
     uri: str
     r"""URL for the File content"""
     mime_type: NotRequired[str]
@@ -57,7 +63,9 @@ class File2TypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class File2(BaseModel):
+class FileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
     uri: str
     r"""URL for the File content"""
 
@@ -68,7 +76,9 @@ class File2(BaseModel):
     r"""Optional name for the file"""
 
 
-class File1TypedDict(TypedDict):
+class BinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
     bytes_: str
     r"""base64 encoded content of the file"""
     mime_type: NotRequired[str]
@@ -77,7 +87,9 @@ class File1TypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class File1(BaseModel):
+class BinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
     r"""base64 encoded content of the file"""
 
@@ -89,11 +101,14 @@ class File1(BaseModel):
 
 
 PublicMessagePartFileTypedDict = TypeAliasType(
-    "PublicMessagePartFileTypedDict", Union[File1TypedDict, File2TypedDict]
+    "PublicMessagePartFileTypedDict",
+    Union[BinaryFormatTypedDict, FileInURIFormatTypedDict],
 )
 
 
-PublicMessagePartFile = TypeAliasType("PublicMessagePartFile", Union[File1, File2])
+PublicMessagePartFile = TypeAliasType(
+    "PublicMessagePartFile", Union[BinaryFormat, FileInURIFormat]
+)
 
 
 class FilePartTypedDict(TypedDict):
@@ -241,48 +256,60 @@ class Memory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-RunAgentConfigurationType = Literal["query",]
+RunAgentKnowledgeBaseConfigurationType = Literal["query",]
 
 
-class Configuration2TypedDict(TypedDict):
-    type: RunAgentConfigurationType
+class KnowledgeBaseStaticQueryTypedDict(TypedDict):
+    r"""Defines the configuration settings for a static query."""
+
+    type: RunAgentKnowledgeBaseConfigurationType
     query: str
 
 
-class Configuration2(BaseModel):
-    type: RunAgentConfigurationType
+class KnowledgeBaseStaticQuery(BaseModel):
+    r"""Defines the configuration settings for a static query."""
+
+    type: RunAgentKnowledgeBaseConfigurationType
 
     query: str
 
 
-ConfigurationType = Literal["last_user_message",]
+KnowledgeBaseConfigurationType = Literal["last_user_message",]
 
 
-class Configuration1TypedDict(TypedDict):
-    type: ConfigurationType
+class KnowledgeBaseLastUserMessageTypedDict(TypedDict):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: KnowledgeBaseConfigurationType
 
 
-class Configuration1(BaseModel):
-    type: ConfigurationType
+class KnowledgeBaseLastUserMessage(BaseModel):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: KnowledgeBaseConfigurationType
 
 
-ConfigurationTypedDict = TypeAliasType(
-    "ConfigurationTypedDict", Union[Configuration1TypedDict, Configuration2TypedDict]
+KnowledgeBaseConfigurationTypedDict = TypeAliasType(
+    "KnowledgeBaseConfigurationTypedDict",
+    Union[KnowledgeBaseLastUserMessageTypedDict, KnowledgeBaseStaticQueryTypedDict],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
-Configuration = TypeAliasType("Configuration", Union[Configuration1, Configuration2])
+KnowledgeBaseConfiguration = TypeAliasType(
+    "KnowledgeBaseConfiguration",
+    Union[KnowledgeBaseLastUserMessage, KnowledgeBaseStaticQuery],
+)
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
 class KnowledgeBasesTypedDict(TypedDict):
-    configuration: ConfigurationTypedDict
+    configuration: KnowledgeBaseConfigurationTypedDict
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
 class KnowledgeBases(BaseModel):
-    configuration: Configuration
+    configuration: KnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
@@ -544,7 +571,7 @@ class HTTPTool(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K62YGY95K5520CTFX05QZG7G"
+        "01K69SP31Y2P12G2N1XPSQ8JJ7"
     )
 
     requires_approval: Optional[bool] = False
@@ -846,6 +873,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
+    r"""The list of keys of the memory stores that are accessible to the agent."""
     knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -899,6 +927,7 @@ class RunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
+    r"""The list of keys of the memory stores that are accessible to the agent."""
 
     knowledge_bases: Optional[List[KnowledgeBases]] = None
 

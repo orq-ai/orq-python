@@ -5,15 +5,15 @@ Message role (user or tool for continuing executions)
 
 ## Supported Types
 
-### `models.StreamRunAgentRole1`
+### `models.StreamRunAgentRoleUserMessage`
 
 ```python
-value: models.StreamRunAgentRole1 = /* values here */
+value: models.StreamRunAgentRoleUserMessage = /* values here */
 ```
 
-### `models.StreamRunAgentRole2`
+### `models.StreamRunAgentRoleToolMessage`
 
 ```python
-value: models.StreamRunAgentRole2 = /* values here */
+value: models.StreamRunAgentRoleToolMessage = /* values here */
 ```
 

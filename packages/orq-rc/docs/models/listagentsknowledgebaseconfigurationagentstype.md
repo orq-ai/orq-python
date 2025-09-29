@@ -1,4 +1,4 @@
-# GetAgentConfigurationAgentsType
+# ListAgentsKnowledgeBaseConfigurationAgentsType
 
 
 ## Values

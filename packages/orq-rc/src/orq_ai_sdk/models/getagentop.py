@@ -195,40 +195,57 @@ class GetAgentMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-GetAgentConfigurationType = Literal["query",]
+GetAgentKnowledgeBaseConfigurationType = Literal["query",]
 
 
-class GetAgentConfiguration2TypedDict(TypedDict):
-    type: GetAgentConfigurationType
+class GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
+    r"""Defines the configuration settings for a static query."""
+
+    type: GetAgentKnowledgeBaseConfigurationType
     query: str
 
 
-class GetAgentConfiguration2(BaseModel):
-    type: GetAgentConfigurationType
+class GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
+    r"""Defines the configuration settings for a static query."""
+
+    type: GetAgentKnowledgeBaseConfigurationType
 
     query: str
 
 
-GetAgentConfigurationAgentsType = Literal["last_user_message",]
+GetAgentKnowledgeBaseConfigurationAgentsType = Literal["last_user_message",]
 
 
-class GetAgentConfiguration1TypedDict(TypedDict):
-    type: GetAgentConfigurationAgentsType
+class GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(
+    TypedDict
+):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: GetAgentKnowledgeBaseConfigurationAgentsType
 
 
-class GetAgentConfiguration1(BaseModel):
-    type: GetAgentConfigurationAgentsType
+class GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
+    r"""Defines the configuration settings for a last user message type retrieval."""
+
+    type: GetAgentKnowledgeBaseConfigurationAgentsType
 
 
-GetAgentConfigurationTypedDict = TypeAliasType(
-    "GetAgentConfigurationTypedDict",
-    Union[GetAgentConfiguration1TypedDict, GetAgentConfiguration2TypedDict],
+GetAgentKnowledgeBaseConfigurationTypedDict = TypeAliasType(
+    "GetAgentKnowledgeBaseConfigurationTypedDict",
+    Union[
+        GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
+        GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
 
-GetAgentConfiguration = TypeAliasType(
-    "GetAgentConfiguration", Union[GetAgentConfiguration1, GetAgentConfiguration2]
+GetAgentKnowledgeBaseConfiguration = TypeAliasType(
+    "GetAgentKnowledgeBaseConfiguration",
+    Union[
+        GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
+        GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
+    ],
 )
 r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
@@ -236,7 +253,7 @@ r"""Defines the configuration settings which can either be for a user message or
 class GetAgentKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""The id of the resource"""
-    configuration: GetAgentConfigurationTypedDict
+    configuration: GetAgentKnowledgeBaseConfigurationTypedDict
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
     id: NotRequired[str]
     r"""The id of the resource"""
@@ -246,10 +263,10 @@ class GetAgentKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""The id of the resource"""
 
-    configuration: GetAgentConfiguration
+    configuration: GetAgentKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K62YGY8QR3RJQ7K8PHHEHXZ1"
+    id: Optional[str] = "01K69SP30TSHD0QHYN85YB6ZGD"
     r"""The id of the resource"""
 
 

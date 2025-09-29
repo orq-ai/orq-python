@@ -1,4 +1,4 @@
-# GetAgentConfigurationType
+# GetAgentKnowledgeBaseConfigurationType
 
 
 ## Values

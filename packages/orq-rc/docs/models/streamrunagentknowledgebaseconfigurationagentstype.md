@@ -1,4 +1,4 @@
-# StreamRunAgentConfigurationAgentsType
+# StreamRunAgentKnowledgeBaseConfigurationAgentsType
 
 
 ## Values
