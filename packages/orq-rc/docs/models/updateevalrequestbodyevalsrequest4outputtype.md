@@ -7,4 +7,3 @@
 | --------- | --------- |
 | `BOOLEAN` | boolean   |
 | `NUMBER`  | number    |
-| `STRING`  | string    |
