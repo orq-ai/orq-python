@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `RETRIEVE_KNOWLEDGE_BASES` | retrieve_knowledge_bases   |
+| Name                     | Value                    |
+| ------------------------ | ------------------------ |
+| `DELETE_MEMORY_DOCUMENT` | delete_memory_document   |

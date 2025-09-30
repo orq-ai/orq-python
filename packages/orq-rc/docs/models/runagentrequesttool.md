@@ -47,6 +47,12 @@ value: models.WriteMemoryStoreTool = /* values here */
 value: models.RetrieveMemoryStoresTool = /* values here */
 ```
 
+### `models.DeleteMemoryStoreTool`
+
+```python
+value: models.DeleteMemoryStoreTool = /* values here */
+```
+
 ### `models.RetrieveKnowledgeBasesTool`
 
 ```python

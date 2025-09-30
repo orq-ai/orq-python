@@ -47,6 +47,12 @@ value: models.RunAgentRequestToolWriteMemoryStoreTool = /* values here */
 value: models.RunAgentRequestToolRetrieveMemoryStoresTool = /* values here */
 ```
 
+### `models.RunAgentRequestToolDeleteMemoryStoreTool`
+
+```python
+value: models.RunAgentRequestToolDeleteMemoryStoreTool = /* values here */
+```
+
 ### `models.RunAgentRequestToolRetrieveKnowledgeBasesTool`
 
 ```python

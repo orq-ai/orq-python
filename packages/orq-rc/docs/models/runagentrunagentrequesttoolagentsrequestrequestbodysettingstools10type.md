@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CURRENT_DATE` | current_date   |
+| Name                   | Value                  |
+| ---------------------- | ---------------------- |
+| `QUERY_KNOWLEDGE_BASE` | query_knowledge_base   |

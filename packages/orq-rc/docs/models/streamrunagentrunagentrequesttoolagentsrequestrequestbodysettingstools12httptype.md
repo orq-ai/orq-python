@@ -1,4 +1,4 @@
-# RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType
+# StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
 
 The type of the argument.
 

@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `QUERY_KNOWLEDGE_BASE` | query_knowledge_base   |
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `RETRIEVE_KNOWLEDGE_BASES` | retrieve_knowledge_bases   |

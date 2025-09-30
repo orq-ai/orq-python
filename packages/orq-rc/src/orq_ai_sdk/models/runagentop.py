@@ -326,7 +326,7 @@ class TeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
 
@@ -351,7 +351,7 @@ class RunAgentRequestToolFunction(BaseModel):
 class FunctionToolTypedDict(TypedDict):
     r"""Custom function tool with configurable parameters"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
     key: str
     function: RunAgentRequestToolFunctionTypedDict
     id: NotRequired[str]
@@ -363,7 +363,7 @@ class FunctionToolTypedDict(TypedDict):
 class FunctionTool(BaseModel):
     r"""Custom function tool with configurable parameters"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
 
     key: str
 
@@ -378,7 +378,7 @@ class FunctionTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type = Literal[
     "code",
 ]
 
@@ -413,7 +413,7 @@ class CodeExecutionToolTypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
     code_tool: CodeToolTypedDict
     id: NotRequired[str]
     requires_approval: NotRequired[bool]
@@ -431,7 +431,7 @@ class CodeExecutionTool(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
 
     code_tool: CodeTool
 
@@ -440,7 +440,7 @@ class CodeExecutionTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type = Literal[
     "http",
 ]
 
@@ -483,7 +483,7 @@ class Blueprint(BaseModel):
     r"""The body to send with the request."""
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType = Literal[
     "string",
     "number",
     "boolean",
@@ -500,7 +500,7 @@ r"""The default value of the argument."""
 
 
 class ArgumentsTypedDict(TypedDict):
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
@@ -511,7 +511,7 @@ class ArgumentsTypedDict(TypedDict):
 
 
 class Arguments(BaseModel):
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -548,7 +548,7 @@ class HTTPToolTypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
     http: HTTPTypedDict
     id: NotRequired[str]
     requires_approval: NotRequired[bool]
@@ -566,18 +566,18 @@ class HTTPTool(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
 
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6D0K7K6QGCVT3Y0000VEPWE"
+        "01K6D83JNJWC7MMM2HDS4PNB5M"
     )
 
     requires_approval: Optional[bool] = False
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type = Literal[
     "current_date",
 ]
 
@@ -585,19 +585,19 @@ RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal
 class CurrentDateToolTypedDict(TypedDict):
     r"""Provides the current date and time"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
 
 
 class CurrentDateTool(BaseModel):
     r"""Provides the current date and time"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
 
     requires_approval: Optional[bool] = False
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal[
     "query_knowledge_base",
 ]
 
@@ -605,19 +605,19 @@ RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
 class QueryKnowledgeBaseToolTypedDict(TypedDict):
     r"""Queries knowledge bases for information"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
 
 
 class QueryKnowledgeBaseTool(BaseModel):
     r"""Queries knowledge bases for information"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
 
     requires_approval: Optional[bool] = False
 
 
-RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
     "retrieve_knowledge_bases",
 ]
 
@@ -625,12 +625,32 @@ RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
 class RetrieveKnowledgeBasesToolTypedDict(TypedDict):
     r"""Lists available knowledge bases"""
 
-    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
 
 
 class RetrieveKnowledgeBasesTool(BaseModel):
     r"""Lists available knowledge bases"""
+
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+
+    requires_approval: Optional[bool] = False
+
+
+RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
+    "delete_memory_document",
+]
+
+
+class DeleteMemoryStoreToolTypedDict(TypedDict):
+    r"""Deletes a memory store"""
+
+    type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    requires_approval: NotRequired[bool]
+
+
+class DeleteMemoryStoreTool(BaseModel):
+    r"""Deletes a memory store"""
 
     type: RunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
 
@@ -777,6 +797,7 @@ RunAgentRequestToolTypedDict = TypeAliasType(
         QueryMemoryStoreToolTypedDict,
         WriteMemoryStoreToolTypedDict,
         RetrieveMemoryStoresToolTypedDict,
+        DeleteMemoryStoreToolTypedDict,
         RetrieveKnowledgeBasesToolTypedDict,
         QueryKnowledgeBaseToolTypedDict,
         CurrentDateToolTypedDict,
@@ -798,6 +819,7 @@ RunAgentRequestTool = TypeAliasType(
         QueryMemoryStoreTool,
         WriteMemoryStoreTool,
         RetrieveMemoryStoresTool,
+        DeleteMemoryStoreTool,
         RetrieveKnowledgeBasesTool,
         QueryKnowledgeBaseTool,
         CurrentDateTool,

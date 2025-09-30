@@ -348,7 +348,7 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
 
@@ -373,7 +373,7 @@ class StreamRunAgentRunAgentRequestToolFunction(BaseModel):
 class RunAgentRequestToolFunctionToolTypedDict(TypedDict):
     r"""Custom function tool with configurable parameters"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
     key: str
     function: StreamRunAgentRunAgentRequestToolFunctionTypedDict
     id: NotRequired[str]
@@ -385,7 +385,7 @@ class RunAgentRequestToolFunctionToolTypedDict(TypedDict):
 class RunAgentRequestToolFunctionTool(BaseModel):
     r"""Custom function tool with configurable parameters"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
 
     key: str
 
@@ -400,7 +400,7 @@ class RunAgentRequestToolFunctionTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type = Literal[
     "code",
 ]
 
@@ -435,7 +435,7 @@ class RunAgentRequestToolCodeExecutionToolTypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
     code_tool: RunAgentRequestToolCodeToolTypedDict
     id: NotRequired[str]
     requires_approval: NotRequired[bool]
@@ -453,7 +453,7 @@ class RunAgentRequestToolCodeExecutionTool(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
 
     code_tool: RunAgentRequestToolCodeTool
 
@@ -462,7 +462,7 @@ class RunAgentRequestToolCodeExecutionTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type = Literal[
     "http",
 ]
 
@@ -505,7 +505,7 @@ class RunAgentRequestToolBlueprint(BaseModel):
     r"""The body to send with the request."""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType = (
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType = (
     Literal[
         "string",
         "number",
@@ -529,7 +529,7 @@ r"""The default value of the argument."""
 
 class RunAgentRequestToolArgumentsTypedDict(TypedDict):
     type: (
-        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType
+        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
     )
     r"""The type of the argument."""
     description: str
@@ -542,7 +542,7 @@ class RunAgentRequestToolArgumentsTypedDict(TypedDict):
 
 class RunAgentRequestToolArguments(BaseModel):
     type: (
-        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11HTTPType
+        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
     )
     r"""The type of the argument."""
 
@@ -580,7 +580,7 @@ class RunAgentRequestToolHTTPToolTypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
     http: RunAgentRequestToolHTTPTypedDict
     id: NotRequired[str]
     requires_approval: NotRequired[bool]
@@ -598,18 +598,18 @@ class RunAgentRequestToolHTTPTool(BaseModel):
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
 
     http: RunAgentRequestToolHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6D0K7KAE98EE3GQGR82NEFF"
+        "01K6D83JNPHYMAVD3B8WC12Z76"
     )
 
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type = Literal[
     "current_date",
 ]
 
@@ -617,19 +617,19 @@ StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = L
 class RunAgentRequestToolCurrentDateToolTypedDict(TypedDict):
     r"""Provides the current date and time"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
 
 
 class RunAgentRequestToolCurrentDateTool(BaseModel):
     r"""Provides the current date and time"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
 
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal[
     "query_knowledge_base",
 ]
 
@@ -637,19 +637,19 @@ StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Li
 class RunAgentRequestToolQueryKnowledgeBaseToolTypedDict(TypedDict):
     r"""Queries knowledge bases for information"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
 
 
 class RunAgentRequestToolQueryKnowledgeBaseTool(BaseModel):
     r"""Queries knowledge bases for information"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
 
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
     "retrieve_knowledge_bases",
 ]
 
@@ -657,12 +657,32 @@ StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Li
 class RunAgentRequestToolRetrieveKnowledgeBasesToolTypedDict(TypedDict):
     r"""Lists available knowledge bases"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
 
 
 class RunAgentRequestToolRetrieveKnowledgeBasesTool(BaseModel):
     r"""Lists available knowledge bases"""
+
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+
+    requires_approval: Optional[bool] = False
+
+
+StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
+    "delete_memory_document",
+]
+
+
+class RunAgentRequestToolDeleteMemoryStoreToolTypedDict(TypedDict):
+    r"""Deletes a memory store"""
+
+    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    requires_approval: NotRequired[bool]
+
+
+class RunAgentRequestToolDeleteMemoryStoreTool(BaseModel):
+    r"""Deletes a memory store"""
 
     type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
 
@@ -813,6 +833,7 @@ StreamRunAgentRunAgentRequestToolTypedDict = TypeAliasType(
         RunAgentRequestToolQueryMemoryStoreToolTypedDict,
         RunAgentRequestToolWriteMemoryStoreToolTypedDict,
         RunAgentRequestToolRetrieveMemoryStoresToolTypedDict,
+        RunAgentRequestToolDeleteMemoryStoreToolTypedDict,
         RunAgentRequestToolRetrieveKnowledgeBasesToolTypedDict,
         RunAgentRequestToolQueryKnowledgeBaseToolTypedDict,
         RunAgentRequestToolCurrentDateToolTypedDict,
@@ -834,6 +855,7 @@ StreamRunAgentRunAgentRequestTool = TypeAliasType(
         RunAgentRequestToolQueryMemoryStoreTool,
         RunAgentRequestToolWriteMemoryStoreTool,
         RunAgentRequestToolRetrieveMemoryStoresTool,
+        RunAgentRequestToolDeleteMemoryStoreTool,
         RunAgentRequestToolRetrieveKnowledgeBasesTool,
         RunAgentRequestToolQueryKnowledgeBaseTool,
         RunAgentRequestToolCurrentDateTool,

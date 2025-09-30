@@ -5,4 +5,4 @@
 
 | Name   | Value  |
 | ------ | ------ |
-| `CODE` | code   |
+| `HTTP` | http   |
