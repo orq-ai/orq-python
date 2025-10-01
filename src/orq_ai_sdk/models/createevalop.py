@@ -6,7 +6,7 @@ import httpx
 from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel
 import pydantic
-from typing import Any, Dict, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -75,7 +75,6 @@ CreateEvalRequestBodyEvalsGuardrailConfig = TypeAliasType(
 CreateEvalRequestBodyEvalsOutputType = Literal[
     "boolean",
     "number",
-    "string",
 ]
 
 
@@ -182,17 +181,17 @@ CreateEvalRequestBodyOutputType = Literal[
 CreateEvalRequestBodyEvalsType = Literal["http_eval",]
 
 
-Method = Literal[
+RequestBodyMethod = Literal[
     "GET",
     "POST",
 ]
 
 
-class HTTPTypedDict(TypedDict):
+class RequestBodyHTTPTypedDict(TypedDict):
     output_type: CreateEvalRequestBodyOutputType
     type: CreateEvalRequestBodyEvalsType
     url: str
-    method: Method
+    method: RequestBodyMethod
     headers: Dict[str, str]
     payload: Dict[str, Any]
     path: str
@@ -202,14 +201,14 @@ class HTTPTypedDict(TypedDict):
     description: NotRequired[str]
 
 
-class HTTP(BaseModel):
+class RequestBodyHTTP(BaseModel):
     output_type: CreateEvalRequestBodyOutputType
 
     type: CreateEvalRequestBodyEvalsType
 
     url: str
 
-    method: Method
+    method: RequestBodyMethod
 
     headers: Dict[str, str]
 
@@ -415,12 +414,12 @@ class Llm(BaseModel):
 
 CreateEvalRequestBodyTypedDict = TypeAliasType(
     "CreateEvalRequestBodyTypedDict",
-    Union[JSONTypedDict, PythonTypedDict, LlmTypedDict, HTTPTypedDict],
+    Union[JSONTypedDict, PythonTypedDict, LlmTypedDict, RequestBodyHTTPTypedDict],
 )
 
 
 CreateEvalRequestBody = TypeAliasType(
-    "CreateEvalRequestBody", Union[JSON, Python, Llm, HTTP]
+    "CreateEvalRequestBody", Union[JSON, Python, Llm, RequestBodyHTTP]
 )
 
 
@@ -444,6 +443,942 @@ class CreateEvalEvalsResponseBody(OrqError):
         message = str(data.message) or fallback
         super().__init__(message, raw_response, body)
         object.__setattr__(self, "data", data)
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type = Literal[
+    "number",
+]
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7NumberTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+    value: float
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
+    )
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Number(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody72Type
+
+    value: float
+
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
+    )
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type = Literal[
+    "boolean",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7BooleanTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
+    value: bool
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boolean(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
+
+    value: bool
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7BooleanTypedDict,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7NumberTypedDict,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boolean,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Number,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSON7Type = Literal["typescript_eval",]
+
+
+class TypescriptTypedDict(TypedDict):
+    id: str
+    description: str
+    code: str
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+    key: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict
+    ]
+
+
+class Typescript(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    code: str
+
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON7Type
+
+    key: str
+
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    guardrail_config: Optional[
+        CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
+    ] = None
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type = Literal[
+    "number",
+]
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6NumberTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+    value: float
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
+    )
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Number(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type
+
+    value: float
+
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
+    )
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type = Literal[
+    "boolean",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6BooleanTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
+    value: bool
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boolean(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
+
+    value: bool
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6BooleanTypedDict,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6NumberTypedDict,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boolean,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Number,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["ragas",]
+
+
+RagasMetric = Literal[
+    "context_precision",
+    "context_recall",
+    "context_entities_recall",
+    "harmfulness",
+    "maliciousness",
+    "coherence",
+    "correctness",
+    "conciseness",
+    "response_relevancy",
+    "faithfulness",
+    "summarization",
+    "noise_sensitivity",
+]
+
+
+class RagasTypedDict(TypedDict):
+    id: str
+    description: str
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
+    ragas_metric: RagasMetric
+    key: str
+    model: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict
+    ]
+
+
+class Ragas(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
+
+    ragas_metric: RagasMetric
+
+    key: str
+
+    model: str
+
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    guardrail_config: Optional[
+        CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
+    ] = None
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type = Literal[
+    "number",
+]
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Operator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5NumberTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+    value: float
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Operator
+    )
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Number(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type
+
+    value: float
+
+    operator: (
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Operator
+    )
+
+
+CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type = Literal[
+    "boolean",
+]
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5BooleanTypedDict(
+    TypedDict
+):
+    enabled: bool
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
+    value: bool
+
+
+class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boolean(
+    BaseModel
+):
+    enabled: bool
+
+    type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
+
+    value: bool
+
+
+CreateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5BooleanTypedDict,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5NumberTypedDict,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200GuardrailConfig = TypeAliasType(
+    "CreateEvalResponseBodyEvalsResponse200GuardrailConfig",
+    Union[
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boolean,
+        CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Number,
+    ],
+)
+
+
+CreateEvalResponseBodyEvalsResponse200Type = Literal["function_eval",]
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type = Literal[
+    "bert_coherence",
+]
+
+
+class ThirtyFiveTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type
+
+
+class ThirtyFive(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type = Literal[
+    "grammar_diversity",
+]
+
+
+class ThirtyFourTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type
+
+
+class ThirtyFour(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type = Literal[
+    "semantic_repetition",
+]
+
+
+class ThirtyThreeTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type
+
+
+class ThirtyThree(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody532Type = Literal[
+    "lexical_repetition",
+]
+
+
+class ThirtyTwoTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody532Type
+
+
+class ThirtyTwo(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody532Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody531Type = Literal[
+    "sentences_count",
+]
+
+
+class ThirtyOneTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody531Type
+
+
+class ThirtyOne(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody531Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody530Type = Literal[
+    "words_count",
+]
+
+
+class ThirtyTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody530Type
+
+
+class Thirty(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody530Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody529Type = Literal[
+    "gse_english_level",
+]
+
+
+class TwentyNineTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody529Type
+
+
+class TwentyNine(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody529Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody528Type = Literal[
+    "flesch_reading_ease",
+]
+
+
+class TwentyEightTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody528Type
+
+
+class TwentyEight(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody528Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody527Type = Literal[
+    "most_repeated_words",
+]
+
+
+class TwentySevenTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody527Type
+
+
+class TwentySeven(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody527Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type = Literal[
+    "keywords_match",
+]
+
+
+class TwentySixTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type
+    keywords: List[str]
+
+
+class TwentySix(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type
+
+    keywords: List[str]
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type = Literal[
+    "topic_match",
+]
+
+
+class TwentyFiveTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type
+    topic: str
+
+
+class TwentyFive(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type
+
+    topic: str
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody524Type = Literal[
+    "levenshtein_distance",
+]
+
+
+class TwentyFourTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody524Type
+
+
+class TwentyFour(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody524Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type = Literal[
+    "cosine_similarity",
+]
+
+
+class TwentyThreeTypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
+
+
+class TwentyThree(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type = Literal[
+    "meteor_score",
+]
+
+
+class FunctionParams22TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type
+
+
+class FunctionParams22(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type = Literal[
+    "rouge_n",
+]
+
+
+class FunctionParams21TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type
+
+
+class FunctionParams21(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type = Literal[
+    "bleu_score",
+]
+
+
+class FunctionParams20TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type
+
+
+class FunctionParams20(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type = Literal[
+    "bert_score",
+]
+
+
+class FunctionParams19TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type
+
+
+class FunctionParams19(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type = Literal[
+    "moderations_google",
+]
+
+
+class FunctionParams18TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type
+
+
+class FunctionParams18(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type = Literal[
+    "moderations_openai",
+]
+
+
+class FunctionParams17TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type
+
+
+class FunctionParams17(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type = Literal[
+    "is_valid_json",
+]
+
+
+class FunctionParams16TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type
+
+
+class FunctionParams16(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type = Literal[
+    "regex",
+]
+
+
+class FunctionParams15TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type
+    pattern: str
+
+
+class FunctionParams15(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type
+
+    pattern: str
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type = Literal[
+    "one_line",
+]
+
+
+class FunctionParams14TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type
+
+
+class FunctionParams14(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type = Literal[
+    "length_greater_than",
+]
+
+
+class FunctionParams13TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type
+    value: float
+
+
+class FunctionParams13(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type
+
+    value: float
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type = Literal[
+    "length_between",
+]
+
+
+class FunctionParams12TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type
+    min: float
+    max: float
+
+
+class FunctionParams12(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type
+
+    min: float
+
+    max: float
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type = Literal[
+    "length_less_than",
+]
+
+
+class FunctionParams11TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type
+    value: float
+
+
+class FunctionParams11(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type
+
+    value: float
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type = Literal[
+    "exact_match",
+]
+
+
+class FunctionParams10TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type
+
+
+class FunctionParams10(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type = Literal[
+    "ends_with",
+]
+
+
+class FunctionParams9TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type
+    value: str
+
+
+class FunctionParams9(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type
+
+    value: str
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type = Literal[
+    "start_with",
+]
+
+
+class FunctionParams8TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type
+    value: str
+
+
+class FunctionParams8(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type
+
+    value: str
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType = Literal[
+    "contains_valid_link",
+]
+
+
+class FunctionParams7TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType
+
+
+class FunctionParams7(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType
+
+
+CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_url",]
+
+
+class FunctionParams6TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
+
+
+class FunctionParams6(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType
+
+
+CreateEvalFunctionParamsEvalsResponse200Type = Literal["contains_email",]
+
+
+class FunctionParams5TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponse200Type
+
+
+class FunctionParams5(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponse200Type
+
+
+CreateEvalFunctionParamsEvalsResponseType = Literal["contains_any",]
+
+
+class FunctionParams4TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsResponseType
+    keywords: List[str]
+
+
+class FunctionParams4(BaseModel):
+    type: CreateEvalFunctionParamsEvalsResponseType
+
+    keywords: List[str]
+
+
+CreateEvalFunctionParamsEvalsType = Literal["contains_all",]
+
+
+class FunctionParams3TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsEvalsType
+    keywords: List[str]
+
+
+class FunctionParams3(BaseModel):
+    type: CreateEvalFunctionParamsEvalsType
+
+    keywords: List[str]
+
+
+CreateEvalFunctionParamsType = Literal["contains_none",]
+
+
+class FunctionParams2TypedDict(TypedDict):
+    type: CreateEvalFunctionParamsType
+    keywords: List[str]
+
+
+class FunctionParams2(BaseModel):
+    type: CreateEvalFunctionParamsType
+
+    keywords: List[str]
+
+
+FunctionParamsType = Literal["contains",]
+
+
+class FunctionParams1TypedDict(TypedDict):
+    type: FunctionParamsType
+    value: str
+
+
+class FunctionParams1(BaseModel):
+    type: FunctionParamsType
+
+    value: str
+
+
+CreateEvalResponseBodyFunctionParamsTypedDict = TypeAliasType(
+    "CreateEvalResponseBodyFunctionParamsTypedDict",
+    Union[
+        ThirtyTypedDict,
+        ThirtyOneTypedDict,
+        ThirtyFourTypedDict,
+        ThirtyThreeTypedDict,
+        FunctionParams5TypedDict,
+        FunctionParams6TypedDict,
+        FunctionParams7TypedDict,
+        TwentyEightTypedDict,
+        TwentyNineTypedDict,
+        FunctionParams10TypedDict,
+        ThirtyFiveTypedDict,
+        TwentyFourTypedDict,
+        ThirtyTwoTypedDict,
+        FunctionParams14TypedDict,
+        TwentySevenTypedDict,
+        FunctionParams16TypedDict,
+        FunctionParams17TypedDict,
+        FunctionParams18TypedDict,
+        FunctionParams19TypedDict,
+        FunctionParams20TypedDict,
+        FunctionParams21TypedDict,
+        FunctionParams22TypedDict,
+        TwentyThreeTypedDict,
+        FunctionParams9TypedDict,
+        TwentyFiveTypedDict,
+        TwentySixTypedDict,
+        FunctionParams15TypedDict,
+        FunctionParams13TypedDict,
+        FunctionParams11TypedDict,
+        FunctionParams1TypedDict,
+        FunctionParams8TypedDict,
+        FunctionParams4TypedDict,
+        FunctionParams3TypedDict,
+        FunctionParams2TypedDict,
+        FunctionParams12TypedDict,
+    ],
+)
+
+
+CreateEvalResponseBodyFunctionParams = TypeAliasType(
+    "CreateEvalResponseBodyFunctionParams",
+    Union[
+        Thirty,
+        ThirtyOne,
+        ThirtyFour,
+        ThirtyThree,
+        FunctionParams5,
+        FunctionParams6,
+        FunctionParams7,
+        TwentyEight,
+        TwentyNine,
+        FunctionParams10,
+        ThirtyFive,
+        TwentyFour,
+        ThirtyTwo,
+        FunctionParams14,
+        TwentySeven,
+        FunctionParams16,
+        FunctionParams17,
+        FunctionParams18,
+        FunctionParams19,
+        FunctionParams20,
+        FunctionParams21,
+        FunctionParams22,
+        TwentyThree,
+        FunctionParams9,
+        TwentyFive,
+        TwentySix,
+        FunctionParams15,
+        FunctionParams13,
+        FunctionParams11,
+        FunctionParams1,
+        FunctionParams8,
+        FunctionParams4,
+        FunctionParams3,
+        FunctionParams2,
+        FunctionParams12,
+    ],
+)
+
+
+class ResponseBodyFunctionTypedDict(TypedDict):
+    id: str
+    description: str
+    type: CreateEvalResponseBodyEvalsResponse200Type
+    function_params: CreateEvalResponseBodyFunctionParamsTypedDict
+    key: str
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    guardrail_config: NotRequired[
+        CreateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict
+    ]
+
+
+class ResponseBodyFunction(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    description: str
+
+    type: CreateEvalResponseBodyEvalsResponse200Type
+
+    function_params: CreateEvalResponseBodyFunctionParams
+
+    key: str
+
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
+
+    guardrail_config: Optional[
+        CreateEvalResponseBodyEvalsResponse200GuardrailConfig
+    ] = None
 
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type = Literal[
@@ -554,9 +1489,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-30T08:46:39.987Z"
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
 
-    updated: Optional[str] = "2025-09-30T08:46:39.987Z"
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -676,9 +1611,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-30T08:46:39.987Z"
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
 
-    updated: Optional[str] = "2025-09-30T08:46:39.987Z"
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -775,9 +1710,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-09-30T08:46:39.987Z"
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
 
-    updated: Optional[str] = "2025-09-30T08:46:39.987Z"
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -875,9 +1810,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-09-30T08:46:39.987Z"
+    created: Optional[str] = "2025-10-01T15:27:39.780Z"
 
-    updated: Optional[str] = "2025-09-30T08:46:39.987Z"
+    updated: Optional[str] = "2025-10-01T15:27:39.780Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
@@ -887,7 +1822,10 @@ CreateEvalResponseBodyTypedDict = TypeAliasType(
     Union[
         ResponseBodyJSONTypedDict,
         ResponseBodyPythonTypedDict,
+        ResponseBodyFunctionTypedDict,
+        TypescriptTypedDict,
         ResponseBodyLLMTypedDict,
+        RagasTypedDict,
         ResponseBodyHTTPTypedDict,
     ],
 )
@@ -896,6 +1834,14 @@ r"""Successfully created an evaluator"""
 
 CreateEvalResponseBody = TypeAliasType(
     "CreateEvalResponseBody",
-    Union[ResponseBodyJSON, ResponseBodyPython, ResponseBodyLLM, ResponseBodyHTTP],
+    Union[
+        ResponseBodyJSON,
+        ResponseBodyPython,
+        ResponseBodyFunction,
+        Typescript,
+        ResponseBodyLLM,
+        Ragas,
+        ResponseBodyHTTP,
+    ],
 )
 r"""Successfully created an evaluator"""

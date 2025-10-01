@@ -1,6 +1,6 @@
 # DeploymentsMessages4Role
 
-The role of the messages author, in this case `assistant`.
+The role of the messages author, in this case `assistant` or `exception`.
 
 
 ## Values
@@ -8,3 +8,4 @@ The role of the messages author, in this case `assistant`.
 | Name        | Value       |
 | ----------- | ----------- |
 | `ASSISTANT` | assistant   |
+| `EXCEPTION` | exception   |

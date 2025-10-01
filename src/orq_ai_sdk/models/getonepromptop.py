@@ -34,12 +34,12 @@ GetOnePromptModelType = Literal[
     "chat",
     "completion",
     "embedding",
-    "vision",
     "image",
     "tts",
     "stt",
     "rerank",
     "moderations",
+    "vision",
 ]
 r"""The modality of the model"""
 
@@ -53,38 +53,63 @@ GetOnePromptFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetOnePromptResponseFormatPromptsResponseType = Literal["text",]
+GetOnePromptResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class GetOnePromptResponseFormat3TypedDict(TypedDict):
-    type: GetOnePromptResponseFormatPromptsResponseType
+GetOnePromptResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class GetOnePromptResponseFormat3(BaseModel):
-    type: GetOnePromptResponseFormatPromptsResponseType
+GetOnePromptResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-GetOnePromptResponseFormatPromptsType = Literal["json_object",]
+GetOnePrompt1PromptsResponseType = Literal["text",]
 
 
-class GetOnePromptResponseFormat2TypedDict(TypedDict):
-    type: GetOnePromptResponseFormatPromptsType
+class GetOnePrompt13TypedDict(TypedDict):
+    type: GetOnePrompt1PromptsResponseType
 
 
-class GetOnePromptResponseFormat2(BaseModel):
-    type: GetOnePromptResponseFormatPromptsType
+class GetOnePrompt13(BaseModel):
+    type: GetOnePrompt1PromptsResponseType
 
 
-GetOnePromptResponseFormatType = Literal["json_schema",]
+GetOnePrompt1PromptsType = Literal["json_object",]
 
 
-class GetOnePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class GetOnePrompt12TypedDict(TypedDict):
+    type: GetOnePrompt1PromptsType
+
+
+class GetOnePrompt12(BaseModel):
+    type: GetOnePrompt1PromptsType
+
+
+GetOnePrompt1Type = Literal["json_schema",]
+
+
+class GetOnePrompt1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     strict: NotRequired[bool]
 
 
-class GetOnePromptResponseFormatJSONSchema(BaseModel):
+class GetOnePrompt1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -92,23 +117,35 @@ class GetOnePromptResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class GetOnePromptResponseFormat1TypedDict(TypedDict):
-    type: GetOnePromptResponseFormatType
-    json_schema: GetOnePromptResponseFormatJSONSchemaTypedDict
+class GetOnePrompt11TypedDict(TypedDict):
+    type: GetOnePrompt1Type
+    json_schema: GetOnePrompt1JSONSchemaTypedDict
 
 
-class GetOnePromptResponseFormat1(BaseModel):
-    type: GetOnePromptResponseFormatType
+class GetOnePrompt11(BaseModel):
+    type: GetOnePrompt1Type
 
-    json_schema: GetOnePromptResponseFormatJSONSchema
+    json_schema: GetOnePrompt1JSONSchema
+
+
+GetOnePromptResponseFormat1TypedDict = TypeAliasType(
+    "GetOnePromptResponseFormat1TypedDict",
+    Union[GetOnePrompt12TypedDict, GetOnePrompt13TypedDict, GetOnePrompt11TypedDict],
+)
+
+
+GetOnePromptResponseFormat1 = TypeAliasType(
+    "GetOnePromptResponseFormat1", Union[GetOnePrompt12, GetOnePrompt13, GetOnePrompt11]
+)
 
 
 GetOnePromptResponseFormatTypedDict = TypeAliasType(
     "GetOnePromptResponseFormatTypedDict",
     Union[
-        GetOnePromptResponseFormat2TypedDict,
-        GetOnePromptResponseFormat3TypedDict,
         GetOnePromptResponseFormat1TypedDict,
+        GetOnePromptResponseFormat2,
+        GetOnePromptResponseFormat3,
+        GetOnePromptResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -124,9 +161,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetOnePromptResponseFormat = TypeAliasType(
     "GetOnePromptResponseFormat",
     Union[
+        GetOnePromptResponseFormat1,
         GetOnePromptResponseFormat2,
         GetOnePromptResponseFormat3,
-        GetOnePromptResponseFormat1,
+        GetOnePromptResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -155,6 +193,7 @@ r"""The format to return the embeddings"""
 
 GetOnePromptReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",

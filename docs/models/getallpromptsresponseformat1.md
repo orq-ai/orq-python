@@ -1,9 +1,23 @@
 # GetAllPromptsResponseFormat1
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `type`                                                                                             | [models.GetAllPromptsResponseFormatType](../models/getallpromptsresponseformattype.md)             | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `json_schema`                                                                                      | [models.GetAllPromptsResponseFormatJSONSchema](../models/getallpromptsresponseformatjsonschema.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+### `models.GetAllPrompts11`
+
+```python
+value: models.GetAllPrompts11 = /* values here */
+```
+
+### `models.GetAllPrompts12`
+
+```python
+value: models.GetAllPrompts12 = /* values here */
+```
+
+### `models.GetAllPrompts13`
+
+```python
+value: models.GetAllPrompts13 = /* values here */
+```
+

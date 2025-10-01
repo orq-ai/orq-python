@@ -220,8 +220,11 @@ RetrieveDatapointMessagesDatasetsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-RetrieveDatapointMessagesDatasetsResponse200Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+RetrieveDatapointMessagesDatasetsResponse200Role = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class RetrieveDatapointMessagesAudioTypedDict(TypedDict):
@@ -277,7 +280,7 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
 
 class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[RetrieveDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -298,7 +301,7 @@ class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class RetrieveDatapointMessagesAssistantMessage(BaseModel):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[RetrieveDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -667,5 +670,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-30T08:46:37.543Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-01T15:27:37.468Z")
     r"""The date and time the resource was last updated"""

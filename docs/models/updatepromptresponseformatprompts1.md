@@ -1,9 +1,23 @@
 # UpdatePromptResponseFormatPrompts1
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                             | [models.UpdatePromptResponseFormatPromptsResponseType](../models/updatepromptresponseformatpromptsresponsetype.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
-| `json_schema`                                                                                                      | [models.UpdatePromptResponseFormatJSONSchema](../models/updatepromptresponseformatjsonschema.md)                   | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+### `models.UpdatePrompt1Prompts1`
+
+```python
+value: models.UpdatePrompt1Prompts1 = /* values here */
+```
+
+### `models.UpdatePrompt1Prompts2`
+
+```python
+value: models.UpdatePrompt1Prompts2 = /* values here */
+```
+
+### `models.UpdatePrompt1Prompts3`
+
+```python
+value: models.UpdatePrompt1Prompts3 = /* values here */
+```
+

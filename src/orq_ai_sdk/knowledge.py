@@ -1276,7 +1276,9 @@ class Knowledge(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
+        status: Optional[
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1377,7 +1379,9 @@ class Knowledge(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
-        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
+        status: Optional[
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2466,7 +2470,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2572,7 +2579,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

@@ -206,8 +206,11 @@ UpdateDatapointMessagesDatasetsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-UpdateDatapointMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+UpdateDatapointMessagesDatasetsRequestRequestBodyRole = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class UpdateDatapointMessagesAudioTypedDict(TypedDict):
@@ -263,7 +266,7 @@ class UpdateDatapointMessagesToolCalls(BaseModel):
 
 class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[UpdateDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -284,7 +287,7 @@ class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -837,8 +840,9 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
+    "exception",
 ]
-r"""The role of the messages author, in this case `assistant`."""
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class UpdateDatapointMessagesDatasetsAudioTypedDict(TypedDict):
@@ -894,7 +898,7 @@ class UpdateDatapointMessagesDatasetsToolCalls(BaseModel):
 
 class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[
         Nullable[UpdateDatapointMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -917,7 +921,7 @@ class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesDatasetsAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsResponse200Content] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1287,5 +1291,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-30T08:46:37.543Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-01T15:27:37.468Z")
     r"""The date and time the resource was last updated"""

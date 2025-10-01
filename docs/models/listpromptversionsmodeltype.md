@@ -10,9 +10,9 @@ The modality of the model
 | `CHAT`        | chat          |
 | `COMPLETION`  | completion    |
 | `EMBEDDING`   | embedding     |
-| `VISION`      | vision        |
 | `IMAGE`       | image         |
 | `TTS`         | tts           |
 | `STT`         | stt           |
 | `RERANK`      | rerank        |
 | `MODERATIONS` | moderations   |
+| `VISION`      | vision        |

@@ -1,9 +1,23 @@
 # ResponseFormat1
 
 
-## Fields
+## Supported Types
 
-| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `type`                                                       | [models.ResponseFormatType](../models/responseformattype.md) | :heavy_check_mark:                                           | N/A                                                          |
-| `json_schema`                                                | [models.JSONSchema](../models/jsonschema.md)                 | :heavy_check_mark:                                           | N/A                                                          |
+### `models.One1`
+
+```python
+value: models.One1 = /* values here */
+```
+
+### `models.One2`
+
+```python
+value: models.One2 = /* values here */
+```
+
+### `models.CreatePrompt13`
+
+```python
+value: models.CreatePrompt13 = /* values here */
+```
+

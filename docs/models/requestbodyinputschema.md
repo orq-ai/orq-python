@@ -1,0 +1,12 @@
+# RequestBodyInputSchema
+
+The original MCP tool input schema for LLM conversion
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.UpdateToolRequestBodyToolsRequest4McpType](../models/updatetoolrequestbodytoolsrequest4mcptype.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `properties`                                                                                               | Dict[str, *Any*]                                                                                           | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |
+| `required`                                                                                                 | List[*str*]                                                                                                | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |

@@ -132,12 +132,12 @@ DeploymentsModelType = Literal[
     "chat",
     "completion",
     "embedding",
-    "vision",
     "image",
     "tts",
     "stt",
     "rerank",
     "moderations",
+    "vision",
 ]
 r"""The modality of the model"""
 
@@ -151,38 +151,63 @@ DeploymentsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-DeploymentsResponseFormatDeploymentsType = Literal["text",]
+DeploymentsResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class DeploymentsResponseFormat3TypedDict(TypedDict):
-    type: DeploymentsResponseFormatDeploymentsType
+DeploymentsResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class DeploymentsResponseFormat3(BaseModel):
-    type: DeploymentsResponseFormatDeploymentsType
+DeploymentsResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-DeploymentsResponseFormatType = Literal["json_object",]
+Deployments1DeploymentsType = Literal["text",]
 
 
-class DeploymentsResponseFormat2TypedDict(TypedDict):
-    type: DeploymentsResponseFormatType
+class Deployments13TypedDict(TypedDict):
+    type: Deployments1DeploymentsType
 
 
-class DeploymentsResponseFormat2(BaseModel):
-    type: DeploymentsResponseFormatType
+class Deployments13(BaseModel):
+    type: Deployments1DeploymentsType
 
 
-DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema",]
+Deployments1Type = Literal["json_object",]
 
 
-class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
+class Deployments12TypedDict(TypedDict):
+    type: Deployments1Type
+
+
+class Deployments12(BaseModel):
+    type: Deployments1Type
+
+
+Deployments1DeploymentsResponseType = Literal["json_schema",]
+
+
+class Deployments1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     strict: NotRequired[bool]
 
 
-class DeploymentsResponseFormatJSONSchema(BaseModel):
+class Deployments1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -190,23 +215,35 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class DeploymentsResponseFormat1TypedDict(TypedDict):
-    type: DeploymentsResponseFormatDeploymentsResponseType
-    json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
+class Deployments11TypedDict(TypedDict):
+    type: Deployments1DeploymentsResponseType
+    json_schema: Deployments1JSONSchemaTypedDict
 
 
-class DeploymentsResponseFormat1(BaseModel):
-    type: DeploymentsResponseFormatDeploymentsResponseType
+class Deployments11(BaseModel):
+    type: Deployments1DeploymentsResponseType
 
-    json_schema: DeploymentsResponseFormatJSONSchema
+    json_schema: Deployments1JSONSchema
+
+
+DeploymentsResponseFormat1TypedDict = TypeAliasType(
+    "DeploymentsResponseFormat1TypedDict",
+    Union[Deployments12TypedDict, Deployments13TypedDict, Deployments11TypedDict],
+)
+
+
+DeploymentsResponseFormat1 = TypeAliasType(
+    "DeploymentsResponseFormat1", Union[Deployments12, Deployments13, Deployments11]
+)
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(
     "DeploymentsResponseFormatTypedDict",
     Union[
-        DeploymentsResponseFormat2TypedDict,
-        DeploymentsResponseFormat3TypedDict,
         DeploymentsResponseFormat1TypedDict,
+        DeploymentsResponseFormat2,
+        DeploymentsResponseFormat3,
+        DeploymentsResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -222,9 +259,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentsResponseFormat = TypeAliasType(
     "DeploymentsResponseFormat",
     Union[
+        DeploymentsResponseFormat1,
         DeploymentsResponseFormat2,
         DeploymentsResponseFormat3,
-        DeploymentsResponseFormat1,
+        DeploymentsResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -253,6 +291,7 @@ r"""The format to return the embeddings"""
 
 DeploymentsReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",

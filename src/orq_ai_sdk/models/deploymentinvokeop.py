@@ -38,7 +38,6 @@ DeploymentInvokeObject = Literal[
     "chat",
     "completion",
     "image",
-    "vision",
 ]
 r"""Indicates the type of model used to generate the response"""
 
@@ -376,24 +375,27 @@ class Message1(BaseModel):
         return m
 
 
-MessageTypedDict = TypeAliasType(
-    "MessageTypedDict", Union[Message3TypedDict, Message2TypedDict, Message1TypedDict]
+DeploymentInvokeMessageTypedDict = TypeAliasType(
+    "DeploymentInvokeMessageTypedDict",
+    Union[Message3TypedDict, Message2TypedDict, Message1TypedDict],
 )
 
 
-Message = TypeAliasType("Message", Union[Message3, Message2, Message1])
+DeploymentInvokeMessage = TypeAliasType(
+    "DeploymentInvokeMessage", Union[Message3, Message2, Message1]
+)
 
 
 class DeploymentInvokeChoicesTypedDict(TypedDict):
     index: float
-    message: MessageTypedDict
+    message: DeploymentInvokeMessageTypedDict
     finish_reason: NotRequired[Nullable[str]]
 
 
 class DeploymentInvokeChoices(BaseModel):
     index: float
 
-    message: Message
+    message: DeploymentInvokeMessage
 
     finish_reason: OptionalNullable[str] = UNSET
 

@@ -1,0 +1,10 @@
+# GetAgentKnowledgeBases
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `id`                                                                                         | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | The id of the resource                                                                       |
+| `knowledge_id`                                                                               | *str*                                                                                        | :heavy_check_mark:                                                                           | The id of the resource                                                                       |
+| `configuration`                                                                              | [models.GetAgentKnowledgeBaseConfiguration](../models/getagentknowledgebaseconfiguration.md) | :heavy_check_mark:                                                                           | Defines the configuration settings which can either be for a user message or a text entry.   |

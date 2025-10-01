@@ -5,15 +5,15 @@ Create budget configuration for contact or workspace
 
 ## Supported Types
 
-### `models.RequestBody1`
+### `models.ContactBudget`
 
 ```python
-value: models.RequestBody1 = /* values here */
+value: models.ContactBudget = /* values here */
 ```
 
-### `models.RequestBody2`
+### `models.WorkspaceBudget`
 
 ```python
-value: models.RequestBody2 = /* values here */
+value: models.WorkspaceBudget = /* values here */
 ```
 

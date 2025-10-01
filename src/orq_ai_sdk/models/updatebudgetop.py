@@ -178,8 +178,6 @@ class UpdateBudgetResponseBodyTypedDict(TypedDict):
     r"""Whether this budget configuration is currently active"""
     contact_id: NotRequired[str]
     r"""Contact external identifier (present when type is \"contact\")"""
-    api_key_id: NotRequired[str]
-    r"""API Key identifier (present when type is \"api_key\")"""
     consumption: NotRequired[UpdateBudgetConsumptionTypedDict]
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
@@ -205,13 +203,10 @@ class UpdateBudgetResponseBody(BaseModel):
     contact_id: Optional[str] = None
     r"""Contact external identifier (present when type is \"contact\")"""
 
-    api_key_id: Optional[str] = None
-    r"""API Key identifier (present when type is \"api_key\")"""
-
     consumption: Optional[UpdateBudgetConsumption] = None
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-30T08:46:37.543Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-01T15:27:37.468Z")
     r"""The date and time the resource was last updated"""

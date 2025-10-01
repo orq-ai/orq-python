@@ -1,9 +1,23 @@
 # GetPromptVersionResponseFormat1
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                   | [models.GetPromptVersionResponseFormatType](../models/getpromptversionresponseformattype.md)             | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `json_schema`                                                                                            | [models.GetPromptVersionResponseFormatJSONSchema](../models/getpromptversionresponseformatjsonschema.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+### `models.GetPromptVersion11`
+
+```python
+value: models.GetPromptVersion11 = /* values here */
+```
+
+### `models.GetPromptVersion12`
+
+```python
+value: models.GetPromptVersion12 = /* values here */
+```
+
+### `models.GetPromptVersion13`
+
+```python
+value: models.GetPromptVersion13 = /* values here */
+```
+

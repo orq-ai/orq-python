@@ -23,7 +23,9 @@ RequestBodyPeriod = Literal[
 r"""Budget period type"""
 
 
-class RequestBody2TypedDict(TypedDict):
+class WorkspaceBudgetTypedDict(TypedDict):
+    r"""Budget configuration for the entire workspace"""
+
     type: CreateBudgetRequestBodyBudgetsType
     r"""Workspace budget type"""
     period: RequestBodyPeriod
@@ -32,7 +34,9 @@ class RequestBody2TypedDict(TypedDict):
     r"""Budget amount in USD for the specified period"""
 
 
-class RequestBody2(BaseModel):
+class WorkspaceBudget(BaseModel):
+    r"""Budget configuration for the entire workspace"""
+
     type: CreateBudgetRequestBodyBudgetsType
     r"""Workspace budget type"""
 
@@ -56,7 +60,9 @@ CreateBudgetRequestBodyPeriod = Literal[
 r"""Budget period type"""
 
 
-class RequestBody1TypedDict(TypedDict):
+class ContactBudgetTypedDict(TypedDict):
+    r"""Budget configuration for a specific contact"""
+
     type: CreateBudgetRequestBodyType
     r"""Contact budget type"""
     entity_id: str
@@ -67,7 +73,9 @@ class RequestBody1TypedDict(TypedDict):
     r"""Budget amount in USD for the specified period"""
 
 
-class RequestBody1(BaseModel):
+class ContactBudget(BaseModel):
+    r"""Budget configuration for a specific contact"""
+
     type: CreateBudgetRequestBodyType
     r"""Contact budget type"""
 
@@ -83,13 +91,13 @@ class RequestBody1(BaseModel):
 
 CreateBudgetRequestBodyTypedDict = TypeAliasType(
     "CreateBudgetRequestBodyTypedDict",
-    Union[RequestBody2TypedDict, RequestBody1TypedDict],
+    Union[WorkspaceBudgetTypedDict, ContactBudgetTypedDict],
 )
 r"""Create budget configuration for contact or workspace"""
 
 
 CreateBudgetRequestBody = TypeAliasType(
-    "CreateBudgetRequestBody", Union[RequestBody2, RequestBody1]
+    "CreateBudgetRequestBody", Union[WorkspaceBudget, ContactBudget]
 )
 r"""Create budget configuration for contact or workspace"""
 
@@ -198,8 +206,6 @@ class CreateBudgetResponseBodyTypedDict(TypedDict):
     r"""Whether this budget configuration is currently active"""
     contact_id: NotRequired[str]
     r"""Contact external identifier (present when type is \"contact\")"""
-    api_key_id: NotRequired[str]
-    r"""API Key identifier (present when type is \"api_key\")"""
     consumption: NotRequired[ConsumptionTypedDict]
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
@@ -225,13 +231,10 @@ class CreateBudgetResponseBody(BaseModel):
     contact_id: Optional[str] = None
     r"""Contact external identifier (present when type is \"contact\")"""
 
-    api_key_id: Optional[str] = None
-    r"""API Key identifier (present when type is \"api_key\")"""
-
     consumption: Optional[Consumption] = None
 
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-09-30T08:46:37.543Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-01T15:27:37.468Z")
     r"""The date and time the resource was last updated"""

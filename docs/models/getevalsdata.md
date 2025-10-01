@@ -33,15 +33,15 @@ value: models.DataPython = /* values here */
 value: models.DataFunction = /* values here */
 ```
 
-### `models.Ragas`
+### `models.DataRagas`
 
 ```python
-value: models.Ragas = /* values here */
+value: models.DataRagas = /* values here */
 ```
 
-### `models.Typescript`
+### `models.DataTypescript`
 
 ```python
-value: models.Typescript = /* values here */
+value: models.DataTypescript = /* values here */
 ```
 

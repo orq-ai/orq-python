@@ -186,8 +186,11 @@ PrefixMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentsPrefixMessages4Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+DeploymentsPrefixMessages4Role = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class AudioTypedDict(TypedDict):
@@ -243,7 +246,7 @@ class ToolCalls(BaseModel):
 
 class AssistantMessageTypedDict(TypedDict):
     role: DeploymentsPrefixMessages4Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[PrefixMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -264,7 +267,7 @@ class AssistantMessageTypedDict(TypedDict):
 
 class AssistantMessage(BaseModel):
     role: DeploymentsPrefixMessages4Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[PrefixMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -735,8 +738,11 @@ DeploymentsMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentsMessages4Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+DeploymentsMessages4Role = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class MessagesAudioTypedDict(TypedDict):
@@ -792,7 +798,7 @@ class MessagesToolCalls(BaseModel):
 
 class MessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentsMessages4Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[DeploymentsMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -813,7 +819,7 @@ class MessagesAssistantMessageTypedDict(TypedDict):
 
 class MessagesAssistantMessage(BaseModel):
     role: DeploymentsMessages4Role
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[DeploymentsMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""

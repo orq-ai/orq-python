@@ -24,14 +24,14 @@ class Budgets(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListBudgetsResponseBody]:
-        r"""List contact budget configurations
+        r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Use pagination parameters to navigate through large budget lists efficiently.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type
+        :param type: Filter by budget entity type (contact or workspace)
         :param entity_id:
         :param is_active:
         :param retries: Override the default retry configuration for this method
@@ -127,14 +127,14 @@ class Budgets(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.ListBudgetsResponseBody]:
-        r"""List contact budget configurations
+        r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Use pagination parameters to navigate through large budget lists efficiently.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type
+        :param type: Filter by budget entity type (contact or workspace)
         :param entity_id:
         :param is_active:
         :param retries: Override the default retry configuration for this method
@@ -229,7 +229,7 @@ class Budgets(BaseSDK):
     ) -> Optional[models.CreateBudgetResponseBody]:
         r"""Create budget configuration
 
-        Create a new budget configuration for a contact or workspace.
+        Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -322,7 +322,7 @@ class Budgets(BaseSDK):
     ) -> Optional[models.CreateBudgetResponseBody]:
         r"""Create budget configuration
 
-        Create a new budget configuration for a contact or workspace.
+        Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -411,9 +411,9 @@ class Budgets(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.GetBudgetResponseBody]:
-        r"""Get contact budget configuration
+        r"""Get budget configuration
 
-        Get contact budget configuration by ID
+        Get budget configuration by ID.
 
         :param id:
         :param retries: Override the default retry configuration for this method
@@ -499,9 +499,9 @@ class Budgets(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> Optional[models.GetBudgetResponseBody]:
-        r"""Get contact budget configuration
+        r"""Get budget configuration
 
-        Get contact budget configuration by ID
+        Get budget configuration by ID.
 
         :param id:
         :param retries: Override the default retry configuration for this method

@@ -207,8 +207,11 @@ DeploymentGetConfigPrefixMessagesDeploymentsRequestContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class PrefixMessagesAudioTypedDict(TypedDict):
@@ -264,7 +267,7 @@ class PrefixMessagesToolCalls(BaseModel):
 
 class PrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[
         Nullable[DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict]
     ]
@@ -287,7 +290,7 @@ class PrefixMessagesAssistantMessageTypedDict(TypedDict):
 
 class PrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[
         DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
@@ -803,8 +806,11 @@ DeploymentGetConfigMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant`."""
+DeploymentGetConfigMessagesDeploymentsRequestRole = Literal[
+    "assistant",
+    "exception",
+]
+r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
 class DeploymentGetConfigMessagesAudioTypedDict(TypedDict):
@@ -860,7 +866,7 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
 
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
     content: NotRequired[Nullable[DeploymentGetConfigMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -881,7 +887,7 @@ class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant`."""
+    r"""The role of the messages author, in this case `assistant` or `exception`."""
 
     content: OptionalNullable[DeploymentGetConfigMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1918,12 +1924,12 @@ DeploymentGetConfigType = Literal[
     "chat",
     "completion",
     "embedding",
-    "vision",
     "image",
     "tts",
     "stt",
     "rerank",
     "moderations",
+    "vision",
 ]
 r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
@@ -2126,38 +2132,63 @@ DeploymentGetConfigFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-DeploymentGetConfigResponseFormatDeploymentsType = Literal["text",]
+DeploymentGetConfigResponseFormat4 = Literal[
+    "json",
+    "text",
+    "srt",
+    "verbose_json",
+    "vtt",
+]
 
 
-class DeploymentGetConfigResponseFormat3TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+DeploymentGetConfigResponseFormat3 = Literal[
+    "url",
+    "base64_json",
+]
 
 
-class DeploymentGetConfigResponseFormat3(BaseModel):
-    type: DeploymentGetConfigResponseFormatDeploymentsType
+DeploymentGetConfigResponseFormat2 = Literal[
+    "mp3",
+    "opus",
+    "aac",
+    "flac",
+    "wav",
+    "pcm",
+]
 
 
-DeploymentGetConfigResponseFormatType = Literal["json_object",]
+DeploymentGetConfig1DeploymentsType = Literal["text",]
 
 
-class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatType
+class DeploymentGetConfig13TypedDict(TypedDict):
+    type: DeploymentGetConfig1DeploymentsType
 
 
-class DeploymentGetConfigResponseFormat2(BaseModel):
-    type: DeploymentGetConfigResponseFormatType
+class DeploymentGetConfig13(BaseModel):
+    type: DeploymentGetConfig1DeploymentsType
 
 
-DeploymentGetConfigResponseFormatDeploymentsResponseType = Literal["json_schema",]
+DeploymentGetConfig1Type = Literal["json_object",]
 
 
-class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
+class DeploymentGetConfig12TypedDict(TypedDict):
+    type: DeploymentGetConfig1Type
+
+
+class DeploymentGetConfig12(BaseModel):
+    type: DeploymentGetConfig1Type
+
+
+DeploymentGetConfig1DeploymentsResponseType = Literal["json_schema",]
+
+
+class DeploymentGetConfig1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     strict: NotRequired[bool]
 
 
-class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
+class DeploymentGetConfig1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -2165,23 +2196,40 @@ class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
-    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
-    json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
+class DeploymentGetConfig11TypedDict(TypedDict):
+    type: DeploymentGetConfig1DeploymentsResponseType
+    json_schema: DeploymentGetConfig1JSONSchemaTypedDict
 
 
-class DeploymentGetConfigResponseFormat1(BaseModel):
-    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
+class DeploymentGetConfig11(BaseModel):
+    type: DeploymentGetConfig1DeploymentsResponseType
 
-    json_schema: DeploymentGetConfigResponseFormatJSONSchema
+    json_schema: DeploymentGetConfig1JSONSchema
+
+
+DeploymentGetConfigResponseFormat1TypedDict = TypeAliasType(
+    "DeploymentGetConfigResponseFormat1TypedDict",
+    Union[
+        DeploymentGetConfig12TypedDict,
+        DeploymentGetConfig13TypedDict,
+        DeploymentGetConfig11TypedDict,
+    ],
+)
+
+
+DeploymentGetConfigResponseFormat1 = TypeAliasType(
+    "DeploymentGetConfigResponseFormat1",
+    Union[DeploymentGetConfig12, DeploymentGetConfig13, DeploymentGetConfig11],
+)
 
 
 DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
     "DeploymentGetConfigResponseFormatTypedDict",
     Union[
-        DeploymentGetConfigResponseFormat2TypedDict,
-        DeploymentGetConfigResponseFormat3TypedDict,
         DeploymentGetConfigResponseFormat1TypedDict,
+        DeploymentGetConfigResponseFormat2,
+        DeploymentGetConfigResponseFormat3,
+        DeploymentGetConfigResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2197,9 +2245,10 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
     Union[
+        DeploymentGetConfigResponseFormat1,
         DeploymentGetConfigResponseFormat2,
         DeploymentGetConfigResponseFormat3,
-        DeploymentGetConfigResponseFormat1,
+        DeploymentGetConfigResponseFormat4,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2228,6 +2277,7 @@ r"""The format to return the embeddings"""
 
 DeploymentGetConfigReasoningEffort = Literal[
     "disable",
+    "minimal",
     "low",
     "medium",
     "high",
@@ -2452,13 +2502,13 @@ class DeploymentGetConfigFunction(BaseModel):
     """
 
 
-class ToolsTypedDict(TypedDict):
+class DeploymentGetConfigToolsTypedDict(TypedDict):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigFunctionTypedDict
 
 
-class Tools(BaseModel):
+class DeploymentGetConfigTools(BaseModel):
     type: DeploymentGetConfigDeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
 
@@ -2481,7 +2531,7 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
-    tools: NotRequired[List[ToolsTypedDict]]
+    tools: NotRequired[List[DeploymentGetConfigToolsTypedDict]]
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""
 
 
@@ -2508,5 +2558,5 @@ class DeploymentGetConfigResponseBody(BaseModel):
     type: Optional[DeploymentGetConfigType] = None
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
 
-    tools: Optional[List[Tools]] = None
+    tools: Optional[List[DeploymentGetConfigTools]] = None
     r"""A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for."""

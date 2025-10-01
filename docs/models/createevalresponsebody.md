@@ -29,3 +29,21 @@ value: models.ResponseBodyHTTP = /* values here */
 value: models.ResponseBodyPython = /* values here */
 ```
 
+### `models.ResponseBodyFunction`
+
+```python
+value: models.ResponseBodyFunction = /* values here */
+```
+
+### `models.Ragas`
+
+```python
+value: models.Ragas = /* values here */
+```
+
+### `models.Typescript`
+
+```python
+value: models.Typescript = /* values here */
+```
+

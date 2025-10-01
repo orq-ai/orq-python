@@ -7,7 +7,7 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
-ParseChunkingRequestChunkingRequestRequestBodyReturnType = Literal[
+ParseChunkingRequestChunkingRequestReturnType = Literal[
     "chunks",
     "texts",
 ]
@@ -27,7 +27,7 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     r"""Chat model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy#chat-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ParseChunkingRequestChunkingRequestRequestBodyReturnType]
+    return_type: NotRequired[ParseChunkingRequestChunkingRequestReturnType]
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
     chunk_size: NotRequired[int]
     r"""Maximum tokens per chunk"""
@@ -51,9 +51,7 @@ class AgenticChunkerStrategy(BaseModel):
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
 
-    return_type: Optional[ParseChunkingRequestChunkingRequestRequestBodyReturnType] = (
-        "chunks"
-    )
+    return_type: Optional[ParseChunkingRequestChunkingRequestReturnType] = "chunks"
     r"""Return format: chunks (with metadata) or texts (plain strings)"""
 
     chunk_size: Optional[int] = 1024
@@ -64,90 +62,6 @@ class AgenticChunkerStrategy(BaseModel):
 
     min_characters_per_chunk: Optional[int] = 24
     r"""Minimum characters allowed per chunk"""
-
-
-ParseChunkingRequestChunkingRequestReturnType = Literal[
-    "chunks",
-    "texts",
-]
-r"""Return format: chunks (with metadata) or texts (plain strings)"""
-
-
-SDPMChunker = Literal["sdpm",]
-
-
-ParseThreshold2 = Literal["auto",]
-
-
-ChunkingRequestThresholdTypedDict = TypeAliasType(
-    "ChunkingRequestThresholdTypedDict", Union[float, ParseThreshold2]
-)
-r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
-
-
-ChunkingRequestThreshold = TypeAliasType(
-    "ChunkingRequestThreshold", Union[float, ParseThreshold2]
-)
-r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
-
-
-ChunkingRequestMode = Literal[
-    "window",
-    "sentence",
-]
-r"""Chunking mode: window-based or sentence-based similarity"""
-
-
-class SDPMChunkerStrategyTypedDict(TypedDict):
-    r"""Sub-Document Prose Model chunker that uses skip-gram patterns to identify optimal split points. Good for technical documents with structured content."""
-
-    text: str
-    r"""The text content to be chunked"""
-    strategy: SDPMChunker
-    embedding_model: str
-    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
-    metadata: NotRequired[bool]
-    r"""Whether to include metadata for each chunk"""
-    return_type: NotRequired[ParseChunkingRequestChunkingRequestReturnType]
-    r"""Return format: chunks (with metadata) or texts (plain strings)"""
-    chunk_size: NotRequired[int]
-    r"""Maximum tokens per chunk"""
-    skip_window: NotRequired[int]
-    r"""Window size for skip-gram patterns"""
-    threshold: NotRequired[ChunkingRequestThresholdTypedDict]
-    r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
-    mode: NotRequired[ChunkingRequestMode]
-    r"""Chunking mode: window-based or sentence-based similarity"""
-
-
-class SDPMChunkerStrategy(BaseModel):
-    r"""Sub-Document Prose Model chunker that uses skip-gram patterns to identify optimal split points. Good for technical documents with structured content."""
-
-    text: str
-    r"""The text content to be chunked"""
-
-    strategy: SDPMChunker
-
-    embedding_model: str
-    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
-
-    metadata: Optional[bool] = True
-    r"""Whether to include metadata for each chunk"""
-
-    return_type: Optional[ParseChunkingRequestChunkingRequestReturnType] = "chunks"
-    r"""Return format: chunks (with metadata) or texts (plain strings)"""
-
-    chunk_size: Optional[int] = 512
-    r"""Maximum tokens per chunk"""
-
-    skip_window: Optional[int] = 1
-    r"""Window size for skip-gram patterns"""
-
-    threshold: Optional[ChunkingRequestThreshold] = None
-    r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
-
-    mode: Optional[ChunkingRequestMode] = "window"
-    r"""Chunking mode: window-based or sentence-based similarity"""
 
 
 ParseChunkingRequestChunkingReturnType = Literal[
@@ -389,7 +303,6 @@ ParseChunkingRequestTypedDict = TypeAliasType(
         RecursiveChunkerStrategyTypedDict,
         AgenticChunkerStrategyTypedDict,
         SemanticChunkerStrategyTypedDict,
-        SDPMChunkerStrategyTypedDict,
     ],
 )
 r"""Request payload for text chunking with strategy-specific configuration"""
@@ -403,7 +316,6 @@ ParseChunkingRequest = TypeAliasType(
         RecursiveChunkerStrategy,
         AgenticChunkerStrategy,
         SemanticChunkerStrategy,
-        SDPMChunkerStrategy,
     ],
 )
 r"""Request payload for text chunking with strategy-specific configuration"""
