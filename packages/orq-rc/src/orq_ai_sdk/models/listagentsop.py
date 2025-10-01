@@ -261,7 +261,7 @@ class ListAgentsKnowledgeBases(BaseModel):
     configuration: ListAgentsKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K6DHS9V0T65QNK81BZRZHBAT"
+    id: Optional[str] = "01K6G1JW1KD8WT78B92RS9KF5C"
     r"""The id of the resource"""
 
 
