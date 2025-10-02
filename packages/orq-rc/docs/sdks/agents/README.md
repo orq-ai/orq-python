@@ -107,7 +107,7 @@ Retrieves detailed information about a specific task for a given agent, includin
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{id}/tasks/{task_id}" -->
+<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{agent_key}/tasks/{task_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -117,7 +117,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.retrieve_task(id="<id>", task_id="<id>")
+    res = orq.agents.retrieve_task(agent_key="<value>", task_id="<id>")
 
     assert res is not None
 
@@ -130,7 +130,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 

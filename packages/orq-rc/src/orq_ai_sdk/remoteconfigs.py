@@ -3,9 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    remoteconfigsgetconfigop as models_remoteconfigsgetconfigop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -18,8 +15,8 @@ class Remoteconfigs(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBody,
-                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBodyTypedDict,
+                models.RemoteConfigsGetConfigRequestBody,
+                models.RemoteConfigsGetConfigRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -118,8 +115,8 @@ class Remoteconfigs(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBody,
-                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBodyTypedDict,
+                models.RemoteConfigsGetConfigRequestBody,
+                models.RemoteConfigsGetConfigRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
