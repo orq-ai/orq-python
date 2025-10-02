@@ -89,9 +89,23 @@ EvalsFactCheckingKnowledgeBaseEvalsValue = TypeAliasType(
 )
 
 
+EvalsFactCheckingKnowledgeBaseOriginalValueTypedDict = TypeAliasType(
+    "EvalsFactCheckingKnowledgeBaseOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsFactCheckingKnowledgeBaseOriginalValue = TypeAliasType(
+    "EvalsFactCheckingKnowledgeBaseOriginalValue", Union[float, bool, str]
+)
+
+
 class EvalsFactCheckingKnowledgeBaseValueTypedDict(TypedDict):
     value: EvalsFactCheckingKnowledgeBaseEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[
+        Nullable[EvalsFactCheckingKnowledgeBaseOriginalValueTypedDict]
+    ]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsFactCheckingKnowledgeBaseValue(BaseModel):
@@ -99,10 +113,16 @@ class EvalsFactCheckingKnowledgeBaseValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsFactCheckingKnowledgeBaseOriginalValue] = (
+        UNSET
+    )
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

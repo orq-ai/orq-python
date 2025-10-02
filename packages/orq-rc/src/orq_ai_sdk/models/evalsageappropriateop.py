@@ -84,9 +84,19 @@ EvalsAgeAppropriateEvalsValue = TypeAliasType(
 )
 
 
+OriginalValueTypedDict = TypeAliasType(
+    "OriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+OriginalValue = TypeAliasType("OriginalValue", Union[float, bool, str])
+
+
 class EvalsAgeAppropriateValueTypedDict(TypedDict):
     value: EvalsAgeAppropriateEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[OriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsAgeAppropriateValue(BaseModel):
@@ -94,10 +104,14 @@ class EvalsAgeAppropriateValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[OriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

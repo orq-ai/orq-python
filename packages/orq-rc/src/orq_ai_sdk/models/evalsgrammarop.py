@@ -81,9 +81,21 @@ EvalsGrammarEvalsValue = TypeAliasType(
 )
 
 
+EvalsGrammarOriginalValueTypedDict = TypeAliasType(
+    "EvalsGrammarOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsGrammarOriginalValue = TypeAliasType(
+    "EvalsGrammarOriginalValue", Union[float, bool, str]
+)
+
+
 class EvalsGrammarValueTypedDict(TypedDict):
     value: EvalsGrammarEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[EvalsGrammarOriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsGrammarValue(BaseModel):
@@ -91,10 +103,14 @@ class EvalsGrammarValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsGrammarOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

@@ -82,9 +82,19 @@ EvalsPiiEvalsValueTypedDict = TypeAliasType(
 EvalsPiiEvalsValue = TypeAliasType("EvalsPiiEvalsValue", Union[float, bool, str])
 
 
+EvalsPiiOriginalValueTypedDict = TypeAliasType(
+    "EvalsPiiOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsPiiOriginalValue = TypeAliasType("EvalsPiiOriginalValue", Union[float, bool, str])
+
+
 class EvalsPiiValueTypedDict(TypedDict):
     value: EvalsPiiEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[EvalsPiiOriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsPiiValue(BaseModel):
@@ -92,10 +102,14 @@ class EvalsPiiValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsPiiOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

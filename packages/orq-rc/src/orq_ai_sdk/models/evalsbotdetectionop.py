@@ -81,9 +81,21 @@ EvalsBotDetectionEvalsValue = TypeAliasType(
 )
 
 
+EvalsBotDetectionOriginalValueTypedDict = TypeAliasType(
+    "EvalsBotDetectionOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsBotDetectionOriginalValue = TypeAliasType(
+    "EvalsBotDetectionOriginalValue", Union[float, bool, str]
+)
+
+
 class EvalsBotDetectionValueTypedDict(TypedDict):
     value: EvalsBotDetectionEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[EvalsBotDetectionOriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsBotDetectionValue(BaseModel):
@@ -91,10 +103,14 @@ class EvalsBotDetectionValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsBotDetectionOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

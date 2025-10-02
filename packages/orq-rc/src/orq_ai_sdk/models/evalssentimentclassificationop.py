@@ -84,9 +84,23 @@ EvalsSentimentClassificationEvalsValue = TypeAliasType(
 )
 
 
+EvalsSentimentClassificationOriginalValueTypedDict = TypeAliasType(
+    "EvalsSentimentClassificationOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsSentimentClassificationOriginalValue = TypeAliasType(
+    "EvalsSentimentClassificationOriginalValue", Union[float, bool, str]
+)
+
+
 class EvalsSentimentClassificationValueTypedDict(TypedDict):
     value: EvalsSentimentClassificationEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[
+        Nullable[EvalsSentimentClassificationOriginalValueTypedDict]
+    ]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsSentimentClassificationValue(BaseModel):
@@ -94,10 +108,14 @@ class EvalsSentimentClassificationValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsSentimentClassificationOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)

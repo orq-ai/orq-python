@@ -363,10 +363,22 @@ InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value = TypeAliasType(
 )
 
 
+ResponseBodyOriginalValueTypedDict = TypeAliasType(
+    "ResponseBodyOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+ResponseBodyOriginalValue = TypeAliasType(
+    "ResponseBodyOriginalValue", Union[float, bool, str]
+)
+
+
 class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
     workflow_run_id: str
     value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[ResponseBodyOriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
@@ -376,10 +388,14 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[ResponseBodyOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -618,6 +634,7 @@ InvokeEvalResponseBodyEvalsType = Literal["number",]
 class ResponseBodyNumberTypedDict(TypedDict):
     type: InvokeEvalResponseBodyEvalsType
     value: Nullable[float]
+    original_value: NotRequired[Nullable[float]]
 
 
 class ResponseBodyNumber(BaseModel):
@@ -625,10 +642,12 @@ class ResponseBodyNumber(BaseModel):
 
     value: Nullable[float]
 
+    original_value: OptionalNullable[float] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["value"]
+        optional_fields = ["original_value"]
+        nullable_fields = ["original_value", "value"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -661,18 +680,21 @@ InvokeEvalResponseBodyType = Literal["string",]
 
 class StringTypedDict(TypedDict):
     type: InvokeEvalResponseBodyType
+    original_value: NotRequired[Nullable[str]]
     value: NotRequired[Nullable[str]]
 
 
 class String(BaseModel):
     type: InvokeEvalResponseBodyType
 
+    original_value: OptionalNullable[str] = UNSET
+
     value: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["value"]
-        nullable_fields = ["value"]
+        optional_fields = ["original_value", "value"]
+        nullable_fields = ["original_value", "value"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -703,14 +725,14 @@ class String(BaseModel):
 InvokeEvalResponseBodyTypedDict = TypeAliasType(
     "InvokeEvalResponseBodyTypedDict",
     Union[
-        StringTypedDict,
-        ResponseBodyNumberTypedDict,
         ResponseBodyBooleanTypedDict,
         StringArrayTypedDict,
         RougeNTypedDict,
         BERTScoreTypedDict,
         InvokeEvalResponseBodyLLMTypedDict,
         InvokeEvalResponseBodyHTTPTypedDict,
+        StringTypedDict,
+        ResponseBodyNumberTypedDict,
     ],
 )
 r"""Returns the result of the evaluator run"""
@@ -719,14 +741,14 @@ r"""Returns the result of the evaluator run"""
 InvokeEvalResponseBody = TypeAliasType(
     "InvokeEvalResponseBody",
     Union[
-        String,
-        ResponseBodyNumber,
         ResponseBodyBoolean,
         StringArray,
         RougeN,
         BERTScore,
         InvokeEvalResponseBodyLLM,
         InvokeEvalResponseBodyHTTP,
+        String,
+        ResponseBodyNumber,
     ],
 )
 r"""Returns the result of the evaluator run"""

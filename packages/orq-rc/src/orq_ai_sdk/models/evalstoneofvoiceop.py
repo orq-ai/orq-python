@@ -84,9 +84,21 @@ EvalsToneOfVoiceEvalsValue = TypeAliasType(
 )
 
 
+EvalsToneOfVoiceOriginalValueTypedDict = TypeAliasType(
+    "EvalsToneOfVoiceOriginalValueTypedDict", Union[float, bool, str]
+)
+
+
+EvalsToneOfVoiceOriginalValue = TypeAliasType(
+    "EvalsToneOfVoiceOriginalValue", Union[float, bool, str]
+)
+
+
 class EvalsToneOfVoiceValueTypedDict(TypedDict):
     value: EvalsToneOfVoiceEvalsValueTypedDict
     explanation: NotRequired[Nullable[str]]
+    original_value: NotRequired[Nullable[EvalsToneOfVoiceOriginalValueTypedDict]]
+    original_explanation: NotRequired[Nullable[str]]
 
 
 class EvalsToneOfVoiceValue(BaseModel):
@@ -94,10 +106,14 @@ class EvalsToneOfVoiceValue(BaseModel):
 
     explanation: OptionalNullable[str] = UNSET
 
+    original_value: OptionalNullable[EvalsToneOfVoiceOriginalValue] = UNSET
+
+    original_explanation: OptionalNullable[str] = UNSET
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["explanation"]
-        nullable_fields = ["explanation"]
+        optional_fields = ["explanation", "original_value", "original_explanation"]
+        nullable_fields = ["explanation", "original_value", "original_explanation"]
         null_default_fields = []
 
         serialized = handler(self)
