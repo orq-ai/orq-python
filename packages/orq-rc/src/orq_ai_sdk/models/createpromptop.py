@@ -90,6 +90,7 @@ OneType = Literal["json_schema",]
 class JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -97,6 +98,8 @@ class JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 
@@ -845,6 +848,7 @@ CreatePrompt1PromptsResponseType = Literal["json_schema",]
 class CreatePrompt1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -852,6 +856,8 @@ class CreatePrompt1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 

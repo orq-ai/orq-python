@@ -135,6 +135,7 @@ GetPromptVersion1Type = Literal["json_schema",]
 class GetPromptVersion1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -142,6 +143,8 @@ class GetPromptVersion1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 

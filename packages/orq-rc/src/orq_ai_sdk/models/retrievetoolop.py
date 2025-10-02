@@ -10,11 +10,11 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class RetrieveToolRequestTypedDict(TypedDict):
-    tool_key: str
+    tool_id: str
 
 
 class RetrieveToolRequest(BaseModel):
-    tool_key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
 
@@ -103,7 +103,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5DQ562F8X6WCDY90S1"
+        "01K6JFC6WJTD7CM70C501EF6E5"
     )
 
     created_by_id: Optional[str] = None
@@ -257,7 +257,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5D63FJWZBH828XZHS5"
+        "01K6JFC6WHR5P934HR2JPNAFFR"
     )
 
     created_by_id: Optional[str] = None
@@ -433,7 +433,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5C02QX54YF53RBY8TN"
+        "01K6JFC6WH93HAF01FAPY0Q4GS"
     )
 
     created_by_id: Optional[str] = None
@@ -566,7 +566,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5C55J5VFJ9W69TD74Q"
+        "01K6JFC6WGN92238AMCAZHXK7A"
     )
 
     created_by_id: Optional[str] = None
@@ -669,7 +669,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5CXNJDJCY07Y1X0HWG"
+        "01K6JFC6WG2D5ZZAZCA98SFGXP"
     )
 
     created_by_id: Optional[str] = None

@@ -128,6 +128,7 @@ ListPromptVersions1Type = Literal["json_schema",]
 class ListPromptVersions1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -135,6 +136,8 @@ class ListPromptVersions1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 

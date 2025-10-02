@@ -582,7 +582,6 @@ class RunAgentRequestToolHTTPToolTypedDict(TypedDict):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
     http: RunAgentRequestToolHTTPTypedDict
-    id: NotRequired[str]
     requires_approval: NotRequired[bool]
 
 
@@ -601,10 +600,6 @@ class RunAgentRequestToolHTTPTool(BaseModel):
     type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
 
     http: RunAgentRequestToolHTTP
-
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GBY6KWDFE5DH8SJT0HNV"
-    )
 
     requires_approval: Optional[bool] = False
 

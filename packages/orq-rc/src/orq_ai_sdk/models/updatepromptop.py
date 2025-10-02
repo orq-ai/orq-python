@@ -80,6 +80,7 @@ UpdatePrompt1Type = Literal["json_schema",]
 class OneJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -87,6 +88,8 @@ class OneJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 
@@ -930,6 +933,7 @@ UpdatePrompt1PromptsResponseType = Literal["json_schema",]
 class UpdatePrompt1JSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
@@ -937,6 +941,8 @@ class UpdatePrompt1JSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
     strict: Optional[bool] = None
 

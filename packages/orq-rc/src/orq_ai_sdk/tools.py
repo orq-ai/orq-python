@@ -395,7 +395,7 @@ class Tools(BaseSDK):
     def update(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         request_body: Optional[
             Union[models.UpdateToolRequestBody, models.UpdateToolRequestBodyTypedDict]
         ] = None,
@@ -408,7 +408,7 @@ class Tools(BaseSDK):
 
         Updates a tool in the workspace.
 
-        :param tool_key:
+        :param tool_id:
         :param request_body: The tool to update
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -429,7 +429,7 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
             request_body=utils.get_pydantic_model(
                 request_body, Optional[models.UpdateToolRequestBody]
             ),
@@ -437,7 +437,7 @@ class Tools(BaseSDK):
 
         req = self._build_request(
             method="PATCH",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -503,7 +503,7 @@ class Tools(BaseSDK):
     async def update_async(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         request_body: Optional[
             Union[models.UpdateToolRequestBody, models.UpdateToolRequestBodyTypedDict]
         ] = None,
@@ -516,7 +516,7 @@ class Tools(BaseSDK):
 
         Updates a tool in the workspace.
 
-        :param tool_key:
+        :param tool_id:
         :param request_body: The tool to update
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -537,7 +537,7 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UpdateToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
             request_body=utils.get_pydantic_model(
                 request_body, Optional[models.UpdateToolRequestBody]
             ),
@@ -545,7 +545,7 @@ class Tools(BaseSDK):
 
         req = self._build_request_async(
             method="PATCH",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -611,7 +611,7 @@ class Tools(BaseSDK):
     def delete(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -621,7 +621,7 @@ class Tools(BaseSDK):
 
         Deletes a tool by key.
 
-        :param tool_key:
+        :param tool_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -641,12 +641,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
         )
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -697,7 +697,7 @@ class Tools(BaseSDK):
     async def delete_async(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -707,7 +707,7 @@ class Tools(BaseSDK):
 
         Deletes a tool by key.
 
-        :param tool_key:
+        :param tool_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -727,12 +727,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
         )
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -783,7 +783,7 @@ class Tools(BaseSDK):
     def retrieve(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -791,9 +791,9 @@ class Tools(BaseSDK):
     ) -> Optional[models.RetrieveToolResponseBody]:
         r"""Retrieve tool
 
-        Retrieves a tool by key.
+        Retrieves a tool by id.
 
-        :param tool_key:
+        :param tool_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -813,12 +813,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RetrieveToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -871,7 +871,7 @@ class Tools(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        tool_key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -879,9 +879,9 @@ class Tools(BaseSDK):
     ) -> Optional[models.RetrieveToolResponseBody]:
         r"""Retrieve tool
 
-        Retrieves a tool by key.
+        Retrieves a tool by id.
 
-        :param tool_key:
+        :param tool_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -901,12 +901,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RetrieveToolRequest(
-            tool_key=tool_key,
+            tool_id=tool_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/tools/{tool_key}",
+            path="/v2/tools/{tool_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -959,7 +959,7 @@ class Tools(BaseSDK):
     def duplicate(
         self,
         *,
-        key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -967,9 +967,9 @@ class Tools(BaseSDK):
     ) -> Optional[models.DuplicateToolResponseBody]:
         r"""Duplicate tool
 
-        Creates a copy of an existing tool with a new key and ID.
+        Creates a copy of an existing tool with a new id and ID.
 
-        :param key: The key of the tool to duplicate
+        :param tool_id: The id of the tool to duplicate
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -989,12 +989,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DuplicateToolRequest(
-            key=key,
+            tool_id=tool_id,
         )
 
         req = self._build_request(
             method="POST",
-            path="/v2/tools/{key}/duplicate",
+            path="/v2/tools/{tool_id}/duplicate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1053,7 +1053,7 @@ class Tools(BaseSDK):
     async def duplicate_async(
         self,
         *,
-        key: str,
+        tool_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1061,9 +1061,9 @@ class Tools(BaseSDK):
     ) -> Optional[models.DuplicateToolResponseBody]:
         r"""Duplicate tool
 
-        Creates a copy of an existing tool with a new key and ID.
+        Creates a copy of an existing tool with a new id and ID.
 
-        :param key: The key of the tool to duplicate
+        :param tool_id: The id of the tool to duplicate
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1083,12 +1083,12 @@ class Tools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DuplicateToolRequest(
-            key=key,
+            tool_id=tool_id,
         )
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/tools/{key}/duplicate",
+            path="/v2/tools/{tool_id}/duplicate",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

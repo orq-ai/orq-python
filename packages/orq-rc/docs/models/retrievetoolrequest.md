@@ -5,4 +5,4 @@
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `tool_key`         | *str*              | :heavy_check_mark: | N/A                |
+| `tool_id`          | *str*              | :heavy_check_mark: | N/A                |

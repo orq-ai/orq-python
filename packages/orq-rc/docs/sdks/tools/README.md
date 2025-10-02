@@ -74,7 +74,6 @@ with Orq(
 ) as orq:
 
     res = orq.tools.create(request={
-        "id": "01K5ZT3CYBDREF06WS7W7BX3Y2",
         "path": "Default",
         "key": "<key>",
         "display_name": "Ellie78",
@@ -121,7 +120,7 @@ Updates a tool in the workspace.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="UpdateTool" method="patch" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="UpdateTool" method="patch" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -131,7 +130,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.update(tool_key="<value>", request_body={
+    res = orq.tools.update(tool_id="<id>", request_body={
         "path": "Default",
         "status": "live",
         "type": "function",
@@ -148,7 +147,7 @@ with Orq(
 
 | Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `tool_key`                                                                      | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
+| `tool_id`                                                                       | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
 | `request_body`                                                                  | [Optional[models.UpdateToolRequestBody]](../../models/updatetoolrequestbody.md) | :heavy_minus_sign:                                                              | The tool to update                                                              |
 | `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
@@ -169,7 +168,7 @@ Deletes a tool by key.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="DeleteTool" method="delete" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="DeleteTool" method="delete" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -179,7 +178,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.tools.delete(tool_key="<value>")
+    orq.tools.delete(tool_id="<id>")
 
     # Use the SDK ...
 
@@ -189,7 +188,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `tool_key`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -200,11 +199,11 @@ with Orq(
 
 ## retrieve
 
-Retrieves a tool by key.
+Retrieves a tool by id.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="RetrieveTool" method="get" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="RetrieveTool" method="get" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -214,7 +213,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.retrieve(tool_key="<value>")
+    res = orq.tools.retrieve(tool_id="<id>")
 
     assert res is not None
 
@@ -227,7 +226,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `tool_key`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -242,11 +241,11 @@ with Orq(
 
 ## duplicate
 
-Creates a copy of an existing tool with a new key and ID.
+Creates a copy of an existing tool with a new id and ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="DuplicateTool" method="post" path="/v2/tools/{key}/duplicate" -->
+<!-- UsageSnippet language="python" operationID="DuplicateTool" method="post" path="/v2/tools/{tool_id}/duplicate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -256,7 +255,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.duplicate(key="<key>")
+    res = orq.tools.duplicate(tool_id="<id>")
 
     assert res is not None
 
@@ -269,7 +268,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | The key of the tool to duplicate                                    |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The id of the tool to duplicate                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

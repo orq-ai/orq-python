@@ -7,10 +7,10 @@ from typing_extensions import Annotated, TypedDict
 
 
 class DeleteToolRequestTypedDict(TypedDict):
-    tool_key: str
+    tool_id: str
 
 
 class DeleteToolRequest(BaseModel):
-    tool_key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]

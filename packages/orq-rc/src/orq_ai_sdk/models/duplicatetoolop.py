@@ -13,15 +13,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class DuplicateToolRequestTypedDict(TypedDict):
-    key: str
-    r"""The key of the tool to duplicate"""
+    tool_id: str
+    r"""The id of the tool to duplicate"""
 
 
 class DuplicateToolRequest(BaseModel):
-    key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The key of the tool to duplicate"""
+    r"""The id of the tool to duplicate"""
 
 
 class DuplicateToolToolsResponseBodyData(BaseModel):
@@ -130,7 +130,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5B60EYNT0XCH0TDJ1A"
+        "01K6JFC6WFT9DV8E52T2TY2VKE"
     )
 
     created_by_id: Optional[str] = None
@@ -284,7 +284,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5BTR9X3V7H0CD7YFTG"
+        "01K6JFC6WF7EEK66DVKBF1SX45"
     )
 
     created_by_id: Optional[str] = None
@@ -460,7 +460,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5ABCS9T6VX9ZJW5QDR"
+        "01K6JFC6WFMT0HTTP4QKDG5486"
     )
 
     created_by_id: Optional[str] = None
@@ -593,7 +593,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5A0WMAB16DTM77KFBK"
+        "01K6JFC6WEFAPV3M4TBW5P49EW"
     )
 
     created_by_id: Optional[str] = None
@@ -696,7 +696,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC5A7BZ7TVEYSW8RNKNP"
+        "01K6JFC6WE7G9520Q9HRB1H4MW"
     )
 
     created_by_id: Optional[str] = None

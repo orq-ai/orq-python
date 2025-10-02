@@ -168,6 +168,8 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
     type: UpdateToolRequestBodyToolsRequest4Type
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    key: NotRequired[str]
+    r"""Unique key of the tool as it will be displayed in the UI"""
     description: NotRequired[str]
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
@@ -183,6 +185,9 @@ class UpdateToolRequestBody4(BaseModel):
 
     path: Optional[str] = None
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+
+    key: Optional[str] = None
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
     description: Optional[str] = None
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -305,9 +310,10 @@ class UpdateToolRequestBodyHTTP(BaseModel):
 
 class UpdateToolRequestBody3TypedDict(TypedDict):
     type: UpdateToolRequestBodyToolsRequestType
-    id: NotRequired[str]
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    key: NotRequired[str]
+    r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
@@ -320,12 +326,11 @@ class UpdateToolRequestBody3TypedDict(TypedDict):
 class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC59QVAMCZZ2MBHY7CYJ"
-    )
-
     path: Optional[str] = None
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+
+    key: Optional[str] = None
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -408,9 +413,10 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
 
 class UpdateToolRequestBody2TypedDict(TypedDict):
     type: UpdateToolRequestBodyToolsType
-    id: NotRequired[str]
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    key: NotRequired[str]
+    r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
@@ -423,12 +429,11 @@ class UpdateToolRequestBody2TypedDict(TypedDict):
 class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC59R6X261KSFE5AB71N"
-    )
-
     path: Optional[str] = None
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+
+    key: Optional[str] = None
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -483,6 +488,8 @@ class UpdateToolRequestBody1TypedDict(TypedDict):
     type: UpdateToolRequestBodyType
     path: NotRequired[str]
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    key: NotRequired[str]
+    r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
@@ -497,6 +504,9 @@ class UpdateToolRequestBody1(BaseModel):
 
     path: Optional[str] = None
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+
+    key: Optional[str] = None
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -513,11 +523,11 @@ class UpdateToolRequestBody1(BaseModel):
 UpdateToolRequestBodyTypedDict = TypeAliasType(
     "UpdateToolRequestBodyTypedDict",
     Union[
-        UpdateToolRequestBody1TypedDict,
-        UpdateToolRequestBody4TypedDict,
         UpdateToolRequestBody5TypedDict,
+        UpdateToolRequestBody1TypedDict,
         UpdateToolRequestBody2TypedDict,
         UpdateToolRequestBody3TypedDict,
+        UpdateToolRequestBody4TypedDict,
     ],
 )
 r"""The tool to update"""
@@ -526,24 +536,24 @@ r"""The tool to update"""
 UpdateToolRequestBody = TypeAliasType(
     "UpdateToolRequestBody",
     Union[
-        UpdateToolRequestBody1,
-        UpdateToolRequestBody4,
         UpdateToolRequestBody5,
+        UpdateToolRequestBody1,
         UpdateToolRequestBody2,
         UpdateToolRequestBody3,
+        UpdateToolRequestBody4,
     ],
 )
 r"""The tool to update"""
 
 
 class UpdateToolRequestTypedDict(TypedDict):
-    tool_key: str
+    tool_id: str
     request_body: NotRequired[UpdateToolRequestBodyTypedDict]
     r"""The tool to update"""
 
 
 class UpdateToolRequest(BaseModel):
-    tool_key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
 
@@ -660,7 +670,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC58P386EETHEFBH5JNG"
+        "01K6JFC6WD8KEBA4NR3E791VZS"
     )
 
     created_by_id: Optional[str] = None
@@ -814,7 +824,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC58GF0K8VK9A6G1WEEN"
+        "01K6JFC6WCCVXMESDXXKT1ZXPG"
     )
 
     created_by_id: Optional[str] = None
@@ -990,7 +1000,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC578EFQ51ER8AMD587D"
+        "01K6JFC6WCDC89YAP1FVGZHQ8A"
     )
 
     created_by_id: Optional[str] = None
@@ -1123,7 +1133,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC57SHHBNHHZ0092N969"
+        "01K6JFC6WCD3MKPCYG8E1TQRM4"
     )
 
     created_by_id: Optional[str] = None
@@ -1226,7 +1236,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J0GC56G7RQEXJRHWP1HX3N"
+        "01K6JFC6WB51D6B5Q27472G904"
     )
 
     created_by_id: Optional[str] = None
