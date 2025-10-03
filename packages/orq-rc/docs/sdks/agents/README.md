@@ -5,14 +5,58 @@
 
 ### Available Operations
 
+* [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [list](#list) - List all agents
 * [retrieve](#retrieve) - Get an agent
-* [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [list_tasks](#list_tasks) - List all tasks for an agent
 * [run](#run) - Run an agent
 * [stream_run](#stream_run) - Run and stream agent execution
 * [list_actions](#list_actions) - List all actions
 * [retrieve_action](#retrieve_action) - Retrieve an action executed by an agent task.
+
+## retrieve_task
+
+Retrieves detailed information about a specific task for a given agent, including execution status and results.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{agent_key}/tasks/{task_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.retrieve_task(agent_key="<value>", task_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetAgentTaskResponseBody](../../models/getagenttaskresponsebody.md)**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| models.GetAgentTaskAgentsResponseBody | 404                                   | application/json                      |
+| models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## list
 
@@ -60,11 +104,11 @@ with Orq(
 
 ## retrieve
 
-Retrieves a single agent by ID, including its full configuration with primary and fallback model settings.
+Retrieves a single agent by its unique key, including its full configuration with primary and fallback model settings.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="GetAgent" method="get" path="/v2/agents/{id}" -->
+<!-- UsageSnippet language="python" operationID="GetAgent" method="get" path="/v2/agents/{agent_key}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -74,7 +118,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.retrieve(id="<id>")
+    res = orq.agents.retrieve(agent_key="<value>")
 
     assert res is not None
 
@@ -87,7 +131,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to retrieve                                     |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The unique key of the agent to retrieve                             |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -100,50 +144,6 @@ with Orq(
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | models.GetAgentAgentsResponseBody | 404                               | application/json                  |
 | models.APIError                   | 4XX, 5XX                          | \*/\*                             |
-
-## retrieve_task
-
-Retrieves detailed information about a specific task for a given agent, including execution status and results.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{agent_key}/tasks/{task_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.retrieve_task(agent_key="<value>", task_id="<id>")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.GetAgentTaskResponseBody](../../models/getagenttaskresponsebody.md)**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| models.GetAgentTaskAgentsResponseBody | 404                                   | application/json                      |
-| models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## list_tasks
 
@@ -161,7 +161,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.list_tasks(agent_key="<value>", status=[], limit=10)
+    res = orq.agents.list_tasks(agent_key="<value>", limit=10)
 
     assert res is not None
 
@@ -174,11 +174,11 @@ with Orq(
 
 | Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `agent_key`                                                                                                                                                                                                                                                                                                                             | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
-| `status`                                                                                                                                                                                                                                                                                                                                | List[[models.Status](../../models/status.md)]                                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `agent_key`                                                                                                                                                                                                                                                                                                                             | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | The unique key of the agent                                                                                                                                                                                                                                                                                                             |
 | `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `status`                                                                                                                                                                                                                                                                                                                                | [Optional[models.Status]](../../models/status.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored                                                                                                                                                                                                                 |
 | `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
 
 ### Response

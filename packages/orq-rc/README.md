@@ -253,9 +253,9 @@ with Orq(
 
 ### [agents](docs/sdks/agents/README.md)
 
+* [retrieve_task](docs/sdks/agents/README.md#retrieve_task) - Retrieve a specific agent task
 * [list](docs/sdks/agents/README.md#list) - List all agents
 * [retrieve](docs/sdks/agents/README.md#retrieve) - Get an agent
-* [retrieve_task](docs/sdks/agents/README.md#retrieve_task) - Retrieve a specific agent task
 * [list_tasks](docs/sdks/agents/README.md#list_tasks) - List all tasks for an agent
 * [run](docs/sdks/agents/README.md#run) - Run an agent
 * [stream_run](docs/sdks/agents/README.md#stream_run) - Run and stream agent execution
@@ -651,8 +651,8 @@ with Orq(
 * [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 131 methods.*
-* [`GetAgentAgentsResponseBody`](./src/orq_ai_sdk/models/getagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`GetAgentTaskAgentsResponseBody`](./src/orq_ai_sdk/models/getagenttaskagentsresponsebody.py): Agent task not found. Status code `404`. Applicable to 1 of 131 methods.*
+* [`GetAgentAgentsResponseBody`](./src/orq_ai_sdk/models/getagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`ListAgentTasksAgentsResponseBody`](./src/orq_ai_sdk/models/listagenttasksagentsresponsebody.py): No agent tasks found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 131 methods.*
 * [`UpdatePromptPromptsResponseBody`](./src/orq_ai_sdk/models/updatepromptpromptsresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 131 methods.*
