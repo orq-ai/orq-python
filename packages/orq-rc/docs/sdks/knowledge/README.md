@@ -18,6 +18,9 @@
 * [update_datasource](#update_datasource) - Update a datasource
 * [create_chunks](#create_chunks) - Create chunks for a datasource
 * [list_chunks](#list_chunks) - List all chunks for a datasource
+* [delete_chunks](#delete_chunks) - Delete multiple chunks
+* [list_chunks_paginated](#list_chunks_paginated) - List chunks with offset-based pagination
+* [get_chunks_count](#get_chunks_count) - Get chunks total count
 * [update_chunk](#update_chunk) - Update a chunk
 * [delete_chunk](#delete_chunk) - Delete a chunk
 * [retrieve_chunk](#retrieve_chunk) - Retrieve a chunk
@@ -593,6 +596,147 @@ with Orq(
 ### Response
 
 **[models.ListChunksResponseBody](../../models/listchunksresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## delete_chunks
+
+Delete multiple chunks
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteChunks" method="delete" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.delete_chunks(knowledge_id="<id>", datasource_id="<id>", chunk_ids=[
+        "<value 1>",
+        "<value 2>",
+    ])
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `chunk_ids`                                                         | List[*str*]                                                         | :heavy_check_mark:                                                  | Array of chunk IDs to delete                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.DeleteChunksResponseBody](../../models/deletechunksresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## list_chunks_paginated
+
+List chunks with offset-based pagination
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListChunksPaginated" method="post" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/list" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.list_chunks_paginated(knowledge_id="<id>", datasource_id="<id>", q="", limit=100, page=1)
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `q`                                                                 | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Search query to find chunks by text content                         |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Filter chunks by enabled status                                     |
+| `status`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter chunks by processing status                                  |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListChunksPaginatedResponseBody](../../models/listchunkspaginatedresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_chunks_count
+
+Get chunks total count
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetChunksCount" method="post" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/count" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.get_chunks_count(knowledge_id="<id>", datasource_id="<id>", q="")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `q`                                                                 | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Search query to find chunks by text content                         |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Filter chunks by enabled status                                     |
+| `status`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter chunks by processing status                                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetChunksCountResponseBody](../../models/getchunkscountresponsebody.md)**
 
 ### Errors
 

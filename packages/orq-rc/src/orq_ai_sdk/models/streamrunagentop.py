@@ -336,13 +336,15 @@ class StreamRunAgentKnowledgeBases(BaseModel):
 
 
 class StreamRunAgentTeamOfAgentsTypedDict(TypedDict):
-    id: str
+    key: str
+    r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
 class StreamRunAgentTeamOfAgents(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
+    key: str
+    r"""The unique key of the agent within the workspace"""
 
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""

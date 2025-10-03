@@ -3,16 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createchunkop as models_createchunkop,
-    createdatasourceop as models_createdatasourceop,
-    createknowledgeop as models_createknowledgeop,
-    listchunksop as models_listchunksop,
-    listdatasourcesop as models_listdatasourcesop,
-    searchknowledgeop as models_searchknowledgeop,
-    updatechunkop as models_updatechunkop,
-    updateknowledgeop as models_updateknowledgeop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -216,10 +206,7 @@ class Knowledge(BaseSDK):
         path: str,
         description: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[
-                models_createknowledgeop.RetrievalSettings,
-                models_createknowledgeop.RetrievalSettingsTypedDict,
-            ]
+            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -324,10 +311,7 @@ class Knowledge(BaseSDK):
         path: str,
         description: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[
-                models_createknowledgeop.RetrievalSettings,
-                models_createknowledgeop.RetrievalSettingsTypedDict,
-            ]
+            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -609,8 +593,8 @@ class Knowledge(BaseSDK):
         path: Optional[str] = None,
         retrieval_settings: Optional[
             Union[
-                models_updateknowledgeop.UpdateKnowledgeRetrievalSettings,
-                models_updateknowledgeop.UpdateKnowledgeRetrievalSettingsTypedDict,
+                models.UpdateKnowledgeRetrievalSettings,
+                models.UpdateKnowledgeRetrievalSettingsTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -724,8 +708,8 @@ class Knowledge(BaseSDK):
         path: Optional[str] = None,
         retrieval_settings: Optional[
             Union[
-                models_updateknowledgeop.UpdateKnowledgeRetrievalSettings,
-                models_updateknowledgeop.UpdateKnowledgeRetrievalSettingsTypedDict,
+                models.UpdateKnowledgeRetrievalSettings,
+                models.UpdateKnowledgeRetrievalSettingsTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1009,29 +993,21 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
-        filter_by: Optional[
-            Union[
-                models_searchknowledgeop.FilterBy,
-                models_searchknowledgeop.FilterByTypedDict,
-            ]
-        ] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
-            Union[
-                models_searchknowledgeop.SearchOptions,
-                models_searchknowledgeop.SearchOptionsTypedDict,
-            ]
+            Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
             Union[
-                models_searchknowledgeop.SearchKnowledgeRerankConfig,
-                models_searchknowledgeop.SearchKnowledgeRerankConfigTypedDict,
+                models.SearchKnowledgeRerankConfig,
+                models.SearchKnowledgeRerankConfigTypedDict,
             ]
         ] = None,
         agentic_rag_config: Optional[
             Union[
-                models_searchknowledgeop.SearchKnowledgeAgenticRagConfig,
-                models_searchknowledgeop.SearchKnowledgeAgenticRagConfigTypedDict,
+                models.SearchKnowledgeAgenticRagConfig,
+                models.SearchKnowledgeAgenticRagConfigTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1158,29 +1134,21 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
-        filter_by: Optional[
-            Union[
-                models_searchknowledgeop.FilterBy,
-                models_searchknowledgeop.FilterByTypedDict,
-            ]
-        ] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
-            Union[
-                models_searchknowledgeop.SearchOptions,
-                models_searchknowledgeop.SearchOptionsTypedDict,
-            ]
+            Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
             Union[
-                models_searchknowledgeop.SearchKnowledgeRerankConfig,
-                models_searchknowledgeop.SearchKnowledgeRerankConfigTypedDict,
+                models.SearchKnowledgeRerankConfig,
+                models.SearchKnowledgeRerankConfigTypedDict,
             ]
         ] = None,
         agentic_rag_config: Optional[
             Union[
-                models_searchknowledgeop.SearchKnowledgeAgenticRagConfig,
-                models_searchknowledgeop.SearchKnowledgeAgenticRagConfigTypedDict,
+                models.SearchKnowledgeAgenticRagConfig,
+                models.SearchKnowledgeAgenticRagConfigTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1309,10 +1277,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[
-                models_listdatasourcesop.QueryParamStatus,
-                models_listdatasourcesop.QueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1415,10 +1380,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[
-                models_listdatasourcesop.QueryParamStatus,
-                models_listdatasourcesop.QueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1519,10 +1481,7 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[
-                models_createdatasourceop.ChunkingOptions,
-                models_createdatasourceop.ChunkingOptionsTypedDict,
-            ]
+            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1630,10 +1589,7 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[
-                models_createdatasourceop.ChunkingOptions,
-                models_createdatasourceop.ChunkingOptionsTypedDict,
-            ]
+            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2299,8 +2255,8 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         request_body: Optional[
             Union[
-                List[models_createchunkop.CreateChunkRequestBody],
-                List[models_createchunkop.CreateChunkRequestBodyTypedDict],
+                List[models.CreateChunkRequestBody],
+                List[models.CreateChunkRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2405,8 +2361,8 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         request_body: Optional[
             Union[
-                List[models_createchunkop.CreateChunkRequestBody],
-                List[models_createchunkop.CreateChunkRequestBodyTypedDict],
+                List[models.CreateChunkRequestBody],
+                List[models.CreateChunkRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2515,8 +2471,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.ListChunksQueryParamStatus,
-                models_listchunksop.ListChunksQueryParamStatusTypedDict,
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2624,8 +2580,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.ListChunksQueryParamStatus,
-                models_listchunksop.ListChunksQueryParamStatusTypedDict,
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2722,6 +2678,648 @@ class Knowledge(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    def delete_chunks(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        chunk_ids: List[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.DeleteChunksResponseBody]:
+        r"""Delete multiple chunks
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param chunk_ids: Array of chunk IDs to delete
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteChunksRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.DeleteChunksRequestBody(
+                chunk_ids=chunk_ids,
+            ),
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.DeleteChunksRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteChunks",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.DeleteChunksResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def delete_chunks_async(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        chunk_ids: List[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.DeleteChunksResponseBody]:
+        r"""Delete multiple chunks
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param chunk_ids: Array of chunk IDs to delete
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteChunksRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.DeleteChunksRequestBody(
+                chunk_ids=chunk_ids,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.DeleteChunksRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteChunks",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.DeleteChunksResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def list_chunks_paginated(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        q: Optional[str] = "",
+        enabled: Optional[bool] = None,
+        status: Optional[str] = None,
+        limit: Optional[int] = 100,
+        page: Optional[int] = 1,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.ListChunksPaginatedResponseBody]:
+        r"""List chunks with offset-based pagination
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param q: Search query to find chunks by text content
+        :param enabled: Filter chunks by enabled status
+        :param status: Filter chunks by processing status
+        :param limit:
+        :param page:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListChunksPaginatedRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.ListChunksPaginatedRequestBody(
+                q=q,
+                enabled=enabled,
+                status=status,
+                limit=limit,
+                page=page,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/list",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.ListChunksPaginatedRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListChunksPaginated",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.ListChunksPaginatedResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def list_chunks_paginated_async(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        q: Optional[str] = "",
+        enabled: Optional[bool] = None,
+        status: Optional[str] = None,
+        limit: Optional[int] = 100,
+        page: Optional[int] = 1,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.ListChunksPaginatedResponseBody]:
+        r"""List chunks with offset-based pagination
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param q: Search query to find chunks by text content
+        :param enabled: Filter chunks by enabled status
+        :param status: Filter chunks by processing status
+        :param limit:
+        :param page:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ListChunksPaginatedRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.ListChunksPaginatedRequestBody(
+                q=q,
+                enabled=enabled,
+                status=status,
+                limit=limit,
+                page=page,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/list",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.ListChunksPaginatedRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="ListChunksPaginated",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.ListChunksPaginatedResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def get_chunks_count(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        q: Optional[str] = "",
+        enabled: Optional[bool] = None,
+        status: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.GetChunksCountResponseBody]:
+        r"""Get chunks total count
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param q: Search query to find chunks by text content
+        :param enabled: Filter chunks by enabled status
+        :param status: Filter chunks by processing status
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetChunksCountRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.GetChunksCountRequestBody(
+                q=q,
+                enabled=enabled,
+                status=status,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/count",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.GetChunksCountRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetChunksCount",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.GetChunksCountResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def get_chunks_count_async(
+        self,
+        *,
+        knowledge_id: str,
+        datasource_id: str,
+        q: Optional[str] = "",
+        enabled: Optional[bool] = None,
+        status: Optional[str] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.GetChunksCountResponseBody]:
+        r"""Get chunks total count
+
+        :param knowledge_id: The unique identifier of the knowledge base
+        :param datasource_id: The unique identifier of the datasource.
+        :param q: Search query to find chunks by text content
+        :param enabled: Filter chunks by enabled status
+        :param status: Filter chunks by processing status
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetChunksCountRequest(
+            knowledge_id=knowledge_id,
+            datasource_id=datasource_id,
+            request_body=models.GetChunksCountRequestBody(
+                q=q,
+                enabled=enabled,
+                status=status,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/count",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.GetChunksCountRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="GetChunksCount",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.GetChunksCountResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def update_chunk(
         self,
         *,
@@ -2732,8 +3330,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models_updatechunkop.UpdateChunkMetadata],
-                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
+                Dict[str, models.UpdateChunkMetadata],
+                Dict[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2847,8 +3445,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models_updatechunkop.UpdateChunkMetadata],
-                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
+                Dict[str, models.UpdateChunkMetadata],
+                Dict[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
