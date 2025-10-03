@@ -389,7 +389,7 @@ class Agents(BaseSDK):
     def retrieve_task(
         self,
         *,
-        id: str,
+        agent_key: str,
         task_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -400,7 +400,7 @@ class Agents(BaseSDK):
 
         Retrieves detailed information about a specific task for a given agent, including execution status and results.
 
-        :param id:
+        :param agent_key:
         :param task_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -421,13 +421,13 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentTaskRequest(
-            id=id,
+            agent_key=agent_key,
             task_id=task_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/agents/{id}/tasks/{task_id}",
+            path="/v2/agents/{agent_key}/tasks/{task_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -486,7 +486,7 @@ class Agents(BaseSDK):
     async def retrieve_task_async(
         self,
         *,
-        id: str,
+        agent_key: str,
         task_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -497,7 +497,7 @@ class Agents(BaseSDK):
 
         Retrieves detailed information about a specific task for a given agent, including execution status and results.
 
-        :param id:
+        :param agent_key:
         :param task_id:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -518,13 +518,13 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentTaskRequest(
-            id=id,
+            agent_key=agent_key,
             task_id=task_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/agents/{id}/tasks/{task_id}",
+            path="/v2/agents/{agent_key}/tasks/{task_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

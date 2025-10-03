@@ -314,13 +314,15 @@ class KnowledgeBases(BaseModel):
 
 
 class TeamOfAgentsTypedDict(TypedDict):
-    id: str
+    key: str
+    r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
 class TeamOfAgents(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
+    key: str
+    r"""The unique key of the agent within the workspace"""
 
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
@@ -571,7 +573,7 @@ class HTTPTool(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6J2WBQ9PZV48R9EDRBYRKK1"
+        "01K6MG8VYBFSD5THXPFZH4686D"
     )
 
     requires_approval: Optional[bool] = False

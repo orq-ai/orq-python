@@ -12,12 +12,12 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetAgentTaskRequestTypedDict(TypedDict):
-    id: str
+    agent_key: str
     task_id: str
 
 
 class GetAgentTaskRequest(BaseModel):
-    id: Annotated[
+    agent_key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
 

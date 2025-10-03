@@ -170,13 +170,15 @@ class ListAgentsModel(BaseModel):
 
 
 class ListAgentsTeamOfAgentsTypedDict(TypedDict):
-    id: str
+    key: str
+    r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
 class ListAgentsTeamOfAgents(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
+    key: str
+    r"""The unique key of the agent within the workspace"""
 
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
@@ -261,7 +263,7 @@ class ListAgentsKnowledgeBases(BaseModel):
     configuration: ListAgentsKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K6J2WBPMTRRY6P6VX2PK47FQ"
+    id: Optional[str] = "01K6MG8VXR93QMT4J8YQVZ2RVE"
     r"""The id of the resource"""
 
 
