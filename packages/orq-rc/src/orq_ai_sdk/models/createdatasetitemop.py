@@ -1242,6 +1242,173 @@ CreateDatasetItemDatasetsMessages = TypeAliasType(
 )
 
 
+CreateDatasetItemEvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+CreateDatasetItemEvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+CreateDatasetItemEvaluationsDatasetsType = Literal["string_array",]
+
+
+class Evaluations3TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: CreateDatasetItemEvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: CreateDatasetItemEvaluationsDatasetsType
+    values: List[str]
+    source: NotRequired[CreateDatasetItemEvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations3(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: CreateDatasetItemEvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: CreateDatasetItemEvaluationsDatasetsType
+
+    values: List[str]
+
+    source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-06T13:58:43.160Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+EvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+CreateDatasetItemEvaluationsType = Literal["number",]
+
+
+class Evaluations2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: EvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: CreateDatasetItemEvaluationsType
+    value: float
+    source: NotRequired[EvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations2(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: EvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: CreateDatasetItemEvaluationsType
+
+    value: float
+
+    source: Optional[EvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-06T13:58:43.159Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+Source = Literal[
+    "orq",
+    "external",
+]
+
+
+EvaluationsType = Literal["string",]
+
+
+class Evaluations1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: EvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: EvaluationsType
+    value: str
+    source: NotRequired[Source]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations1(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: EvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: EvaluationsType
+
+    value: str
+
+    source: Optional[Source] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-06T13:58:43.159Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationsTypedDict = TypeAliasType(
+    "EvaluationsTypedDict",
+    Union[Evaluations1TypedDict, Evaluations2TypedDict, Evaluations3TypedDict],
+)
+
+
+Evaluations = TypeAliasType(
+    "Evaluations", Union[Evaluations1, Evaluations2, Evaluations3]
+)
+
+
 class ResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
@@ -1254,6 +1421,10 @@ class ResponseBodyTypedDict(TypedDict):
     messages: NotRequired[List[CreateDatasetItemDatasetsMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
+    evaluations: NotRequired[List[EvaluationsTypedDict]]
+    r"""Evaluations associated with the datapoint"""
+    snapshot_version: NotRequired[str]
+    r"""The version of the dataset snapshot"""
     created_by_id: NotRequired[str]
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
@@ -1282,6 +1453,12 @@ class ResponseBody(BaseModel):
 
     expected_output: Optional[str] = None
 
+    evaluations: Optional[List[Evaluations]] = None
+    r"""Evaluations associated with the datapoint"""
+
+    snapshot_version: Optional[str] = None
+    r"""The version of the dataset snapshot"""
+
     created_by_id: Optional[str] = None
     r"""The unique identifier of the user who created the dataset"""
 
@@ -1291,5 +1468,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-06T11:41:10.403Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-06T13:58:33.810Z")
     r"""The date and time the resource was last updated"""

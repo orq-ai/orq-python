@@ -77,10 +77,6 @@ class UpdateDatasetResponseBodyTypedDict(TypedDict):
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
     r"""The unique identifier of the user who last updated the dataset"""
-    parent_id: NotRequired[str]
-    r"""The unique identifier for the parent of the committed version"""
-    version: NotRequired[str]
-    r"""The version of the dataset"""
     created: NotRequired[datetime]
     r"""The date and time the resource was created"""
     updated: NotRequired[datetime]
@@ -110,14 +106,8 @@ class UpdateDatasetResponseBody(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The unique identifier of the user who last updated the dataset"""
 
-    parent_id: Optional[str] = None
-    r"""The unique identifier for the parent of the committed version"""
-
-    version: Optional[str] = None
-    r"""The version of the dataset"""
-
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-06T11:41:10.403Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-06T13:58:33.810Z")
     r"""The date and time the resource was last updated"""
