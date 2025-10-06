@@ -142,9 +142,9 @@ class ListAgentsSettings(BaseModel):
 class ListAgentsModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
-    integration_id: NotRequired[str]
+    integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    fallback_models: NotRequired[List[str]]
+    fallback_models: NotRequired[Nullable[List[str]]]
     r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
     max_tokens: NotRequired[int]
     r"""Maximum number of tokens for model responses"""
@@ -156,10 +156,10 @@ class ListAgentsModel(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
-    integration_id: Optional[str] = None
+    integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    fallback_models: Optional[List[str]] = None
+    fallback_models: OptionalNullable[List[str]] = UNSET
     r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
 
     max_tokens: Optional[int] = None
@@ -167,6 +167,41 @@ class ListAgentsModel(BaseModel):
 
     temperature: Optional[float] = None
     r"""Temperature setting for model responses"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "integration_id",
+            "fallback_models",
+            "max_tokens",
+            "temperature",
+        ]
+        nullable_fields = ["integration_id", "fallback_models"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class ListAgentsTeamOfAgentsTypedDict(TypedDict):
@@ -263,7 +298,7 @@ class ListAgentsKnowledgeBases(BaseModel):
     configuration: ListAgentsKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K6TNWD5Q8Q4BXRPMP7T9D5D4"
+    id: Optional[str] = "01K6XB25PFQFFF8GKXDDSA9SAM"
     r"""The id of the resource"""
 
 

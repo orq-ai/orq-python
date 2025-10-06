@@ -4,14 +4,16 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import (
-    FieldMetadata,
-    PathParamMetadata,
-    QueryParamMetadata,
-    RequestMetadata,
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -20,32 +22,29 @@ Status = Literal[
     "inactive",
     "approval_required",
     "in_progress",
+    "errored",
 ]
-
-
-class ListAgentTasksRequestBodyTypedDict(TypedDict):
-    status: List[Status]
-
-
-class ListAgentTasksRequestBody(BaseModel):
-    status: List[Status]
+r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
 
 
 class ListAgentTasksRequestTypedDict(TypedDict):
     agent_key: str
+    r"""The unique key of the agent"""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
-    request_body: NotRequired[ListAgentTasksRequestBodyTypedDict]
+    status: NotRequired[Status]
+    r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
 
 
 class ListAgentTasksRequest(BaseModel):
     agent_key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique key of the agent"""
 
     limit: Annotated[
         Optional[float],
@@ -65,10 +64,11 @@ class ListAgentTasksRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
-    request_body: Annotated[
-        Optional[ListAgentTasksRequestBody],
-        FieldMetadata(request=RequestMetadata(media_type="application/json")),
+    status: Annotated[
+        Optional[Status],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
+    r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
 
 
 class ListAgentTasksAgentsResponseBodyData(BaseModel):
@@ -96,9 +96,9 @@ class ListAgentTasksAgentsResponseBody(OrqError):
 class ListAgentTasksModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
-    integration_id: NotRequired[str]
+    integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    fallback_models: NotRequired[List[str]]
+    fallback_models: NotRequired[Nullable[List[str]]]
     r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
     max_tokens: NotRequired[int]
     r"""Maximum number of tokens for model responses"""
@@ -110,10 +110,10 @@ class ListAgentTasksModel(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
-    integration_id: Optional[str] = None
+    integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    fallback_models: Optional[List[str]] = None
+    fallback_models: OptionalNullable[List[str]] = UNSET
     r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
 
     max_tokens: Optional[int] = None
@@ -121,6 +121,41 @@ class ListAgentTasksModel(BaseModel):
 
     temperature: Optional[float] = None
     r"""Temperature setting for model responses"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "integration_id",
+            "fallback_models",
+            "max_tokens",
+            "temperature",
+        ]
+        nullable_fields = ["integration_id", "fallback_models"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 ListAgentTasksToolApprovalRequired = Literal[

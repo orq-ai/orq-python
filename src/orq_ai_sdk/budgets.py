@@ -3,6 +3,11 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createbudgetop as models_createbudgetop,
+    listbudgetsop as models_listbudgetsop,
+    updatebudgetop as models_updatebudgetop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -16,7 +21,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models.QueryParamType] = None,
+        type_: Optional[models_listbudgetsop.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -119,7 +124,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models.QueryParamType] = None,
+        type_: Optional[models_listbudgetsop.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -220,7 +225,8 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
+            models_createbudgetop.CreateBudgetRequestBody,
+            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -313,7 +319,8 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
+            models_createbudgetop.CreateBudgetRequestBody,
+            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -582,7 +589,9 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
+        budget: Optional[
+            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
+        ] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -685,7 +694,9 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
+        budget: Optional[
+            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
+        ] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
