@@ -383,6 +383,7 @@ Provider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 
@@ -1157,6 +1158,7 @@ CreatePromptProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 

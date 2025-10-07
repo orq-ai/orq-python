@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createpromptop as models_createpromptop,
+    updatepromptop as models_updatepromptop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -203,7 +207,8 @@ class Prompts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreatePromptRequestBody, models.CreatePromptRequestBodyTypedDict
+                models_createpromptop.CreatePromptRequestBody,
+                models_createpromptop.CreatePromptRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -296,7 +301,8 @@ class Prompts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreatePromptRequestBody, models.CreatePromptRequestBodyTypedDict
+                models_createpromptop.CreatePromptRequestBody,
+                models_createpromptop.CreatePromptRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -574,12 +580,15 @@ class Prompts(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
             Union[
-                models.UpdatePromptPromptConfig,
-                models.UpdatePromptPromptConfigTypedDict,
+                models_updatepromptop.UpdatePromptPromptConfig,
+                models_updatepromptop.UpdatePromptPromptConfigTypedDict,
             ]
         ] = None,
         metadata: Optional[
-            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
+            Union[
+                models_updatepromptop.UpdatePromptMetadata,
+                models_updatepromptop.UpdatePromptMetadataTypedDict,
+            ]
         ] = None,
         path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -719,12 +728,15 @@ class Prompts(BaseSDK):
         description: OptionalNullable[str] = UNSET,
         prompt_config: Optional[
             Union[
-                models.UpdatePromptPromptConfig,
-                models.UpdatePromptPromptConfigTypedDict,
+                models_updatepromptop.UpdatePromptPromptConfig,
+                models_updatepromptop.UpdatePromptPromptConfigTypedDict,
             ]
         ] = None,
         metadata: Optional[
-            Union[models.UpdatePromptMetadata, models.UpdatePromptMetadataTypedDict]
+            Union[
+                models_updatepromptop.UpdatePromptMetadata,
+                models_updatepromptop.UpdatePromptMetadataTypedDict,
+            ]
         ] = None,
         path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

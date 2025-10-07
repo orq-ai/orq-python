@@ -434,6 +434,7 @@ GetAllPromptsProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 

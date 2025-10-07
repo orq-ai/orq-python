@@ -412,6 +412,7 @@ GetOnePromptProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 

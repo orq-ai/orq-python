@@ -386,6 +386,7 @@ UpdatePromptProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 
@@ -1246,6 +1247,7 @@ UpdatePromptPromptsProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 

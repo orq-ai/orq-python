@@ -1952,6 +1952,7 @@ DeploymentStreamProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 r"""The provider used to generate the response"""
 

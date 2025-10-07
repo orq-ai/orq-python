@@ -204,6 +204,7 @@ UpdateMemoryStoreProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 r"""The provider of the AI service"""
 

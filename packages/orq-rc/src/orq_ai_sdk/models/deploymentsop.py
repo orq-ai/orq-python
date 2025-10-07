@@ -510,6 +510,7 @@ DeploymentsProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 

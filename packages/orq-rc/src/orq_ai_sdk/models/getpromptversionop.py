@@ -448,6 +448,7 @@ GetPromptVersionProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 
