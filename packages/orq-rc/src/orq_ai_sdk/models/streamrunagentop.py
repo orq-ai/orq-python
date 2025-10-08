@@ -35,7 +35,7 @@ r"""Message role (user or tool for continuing executions)"""
 StreamRunAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class PublicMessagePartToolResultPartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: StreamRunAgentPublicMessagePartAgentsRequestKind
@@ -44,7 +44,7 @@ class PublicMessagePartToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartToolResultPart(BaseModel):
+class StreamRunAgentPublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: StreamRunAgentPublicMessagePartAgentsRequestKind
@@ -59,7 +59,7 @@ class PublicMessagePartToolResultPart(BaseModel):
 StreamRunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileFileInURIFormatTypedDict(TypedDict):
+class StreamRunAgentFileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -70,7 +70,7 @@ class FileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileFileInURIFormat(BaseModel):
+class StreamRunAgentFileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -83,7 +83,7 @@ class FileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormatTypedDict(TypedDict):
+class StreamRunAgentFileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -94,7 +94,7 @@ class FileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormat(BaseModel):
+class StreamRunAgentFileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -109,16 +109,20 @@ class FileBinaryFormat(BaseModel):
 
 StreamRunAgentPublicMessagePartFileTypedDict = TypeAliasType(
     "StreamRunAgentPublicMessagePartFileTypedDict",
-    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
+    Union[
+        StreamRunAgentFileBinaryFormatTypedDict,
+        StreamRunAgentFileFileInURIFormatTypedDict,
+    ],
 )
 
 
 StreamRunAgentPublicMessagePartFile = TypeAliasType(
-    "StreamRunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
+    "StreamRunAgentPublicMessagePartFile",
+    Union[StreamRunAgentFileBinaryFormat, StreamRunAgentFileFileInURIFormat],
 )
 
 
-class PublicMessagePartFilePartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: StreamRunAgentPublicMessagePartAgentsKind
@@ -126,7 +130,7 @@ class PublicMessagePartFilePartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartFilePart(BaseModel):
+class StreamRunAgentPublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: StreamRunAgentPublicMessagePartAgentsKind
@@ -139,14 +143,14 @@ class PublicMessagePartFilePart(BaseModel):
 StreamRunAgentPublicMessagePartKind = Literal["text",]
 
 
-class PublicMessagePartTextPartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: StreamRunAgentPublicMessagePartKind
     text: str
 
 
-class PublicMessagePartTextPart(BaseModel):
+class StreamRunAgentPublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: StreamRunAgentPublicMessagePartKind
@@ -157,9 +161,9 @@ class PublicMessagePartTextPart(BaseModel):
 StreamRunAgentPublicMessagePartTypedDict = TypeAliasType(
     "StreamRunAgentPublicMessagePartTypedDict",
     Union[
-        PublicMessagePartTextPartTypedDict,
-        PublicMessagePartFilePartTypedDict,
-        PublicMessagePartToolResultPartTypedDict,
+        StreamRunAgentPublicMessagePartTextPartTypedDict,
+        StreamRunAgentPublicMessagePartFilePartTypedDict,
+        StreamRunAgentPublicMessagePartToolResultPartTypedDict,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -168,9 +172,9 @@ r"""Message part that can be provided by users. Use \"text\" for regular message
 StreamRunAgentPublicMessagePart = TypeAliasType(
     "StreamRunAgentPublicMessagePart",
     Union[
-        PublicMessagePartTextPart,
-        PublicMessagePartFilePart,
-        PublicMessagePartToolResultPart,
+        StreamRunAgentPublicMessagePartTextPart,
+        StreamRunAgentPublicMessagePartFilePart,
+        StreamRunAgentPublicMessagePartToolResultPart,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""

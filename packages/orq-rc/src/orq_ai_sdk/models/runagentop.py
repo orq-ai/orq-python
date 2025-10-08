@@ -7,40 +7,42 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-RoleToolMessage = Literal["tool",]
+RunAgentRoleToolMessage = Literal["tool",]
 r"""Tool message"""
 
 
-RoleUserMessage = Literal["user",]
+RunAgentRoleUserMessage = Literal["user",]
 r"""User message"""
 
 
 RunAgentRoleTypedDict = TypeAliasType(
-    "RunAgentRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
+    "RunAgentRoleTypedDict", Union[RunAgentRoleUserMessage, RunAgentRoleToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
-RunAgentRole = TypeAliasType("RunAgentRole", Union[RoleUserMessage, RoleToolMessage])
+RunAgentRole = TypeAliasType(
+    "RunAgentRole", Union[RunAgentRoleUserMessage, RunAgentRoleToolMessage]
+)
 r"""Message role (user or tool for continuing executions)"""
 
 
-RunAgentPublicMessagePartKind = Literal["tool_result",]
+RunAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class ToolResultPartTypedDict(TypedDict):
+class PublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
-    kind: RunAgentPublicMessagePartKind
+    kind: RunAgentPublicMessagePartAgentsRequestKind
     tool_call_id: str
     result: NotRequired[Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ToolResultPart(BaseModel):
+class PublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
-    kind: RunAgentPublicMessagePartKind
+    kind: RunAgentPublicMessagePartAgentsRequestKind
 
     tool_call_id: str
 
@@ -49,10 +51,10 @@ class ToolResultPart(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-PublicMessagePartKind = Literal["file",]
+RunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileInURIFormatTypedDict(TypedDict):
+class FileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -63,7 +65,7 @@ class FileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileInURIFormat(BaseModel):
+class FileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -76,7 +78,7 @@ class FileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class BinaryFormatTypedDict(TypedDict):
+class FileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -87,7 +89,7 @@ class BinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class BinaryFormat(BaseModel):
+class FileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -100,91 +102,100 @@ class BinaryFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-PublicMessagePartFileTypedDict = TypeAliasType(
-    "PublicMessagePartFileTypedDict",
-    Union[BinaryFormatTypedDict, FileInURIFormatTypedDict],
+RunAgentPublicMessagePartFileTypedDict = TypeAliasType(
+    "RunAgentPublicMessagePartFileTypedDict",
+    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
 )
 
 
-PublicMessagePartFile = TypeAliasType(
-    "PublicMessagePartFile", Union[BinaryFormat, FileInURIFormat]
+RunAgentPublicMessagePartFile = TypeAliasType(
+    "RunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
 )
 
 
-class FilePartTypedDict(TypedDict):
+class PublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
-    kind: PublicMessagePartKind
-    file: PublicMessagePartFileTypedDict
+    kind: RunAgentPublicMessagePartAgentsKind
+    file: RunAgentPublicMessagePartFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class FilePart(BaseModel):
+class PublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
-    kind: PublicMessagePartKind
+    kind: RunAgentPublicMessagePartAgentsKind
 
-    file: PublicMessagePartFile
+    file: RunAgentPublicMessagePartFile
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-Kind = Literal["text",]
+RunAgentPublicMessagePartKind = Literal["text",]
 
 
-class TextPartTypedDict(TypedDict):
+class PublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
-    kind: Kind
+    kind: RunAgentPublicMessagePartKind
     text: str
 
 
-class TextPart(BaseModel):
+class PublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
-    kind: Kind
+    kind: RunAgentPublicMessagePartKind
 
     text: str
 
 
-PublicMessagePartTypedDict = TypeAliasType(
-    "PublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+RunAgentPublicMessagePartTypedDict = TypeAliasType(
+    "RunAgentPublicMessagePartTypedDict",
+    Union[
+        PublicMessagePartTextPartTypedDict,
+        PublicMessagePartFilePartTypedDict,
+        PublicMessagePartToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-PublicMessagePart = TypeAliasType(
-    "PublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
+RunAgentPublicMessagePart = TypeAliasType(
+    "RunAgentPublicMessagePart",
+    Union[
+        PublicMessagePartTextPart,
+        PublicMessagePartFilePart,
+        PublicMessagePartToolResultPart,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class MessageTypedDict(TypedDict):
+class RunAgentMessageTypedDict(TypedDict):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
-    parts: List[PublicMessagePartTypedDict]
+    parts: List[RunAgentPublicMessagePartTypedDict]
     r"""A2A message parts (text, file, or tool_result only)"""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
 
-class Message(BaseModel):
+class RunAgentMessage(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRole
     r"""Message role (user or tool for continuing executions)"""
 
-    parts: List[PublicMessagePart]
+    parts: List[RunAgentPublicMessagePart]
     r"""A2A message parts (text, file, or tool_result only)"""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
 
-class ContactTypedDict(TypedDict):
+class RunAgentContactTypedDict(TypedDict):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     id: str
@@ -201,7 +212,7 @@ class ContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
-class Contact(BaseModel):
+class RunAgentContact(BaseModel):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     id: str
@@ -242,14 +253,14 @@ class RunAgentThread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class MemoryTypedDict(TypedDict):
+class RunAgentMemoryTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-class Memory(BaseModel):
+class RunAgentMemory(BaseModel):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
@@ -870,7 +881,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
-    message: MessageTypedDict
+    message: RunAgentMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
@@ -881,11 +892,11 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
-    contact: NotRequired[ContactTypedDict]
+    contact: NotRequired[RunAgentContactTypedDict]
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
     thread: NotRequired[RunAgentThreadTypedDict]
     r"""Thread information to group related requests"""
-    memory: NotRequired[MemoryTypedDict]
+    memory: NotRequired[RunAgentMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     description: NotRequired[str]
     r"""A brief summary of the agent's purpose."""
@@ -913,7 +924,7 @@ class RunAgentRequestBody(BaseModel):
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
 
-    message: Message
+    message: RunAgentMessage
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
@@ -930,13 +941,13 @@ class RunAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[Contact] = None
+    contact: Optional[RunAgentContact] = None
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     thread: Optional[RunAgentThread] = None
     r"""Thread information to group related requests"""
 
-    memory: Optional[Memory] = None
+    memory: Optional[RunAgentMemory] = None
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     description: Optional[str] = None
@@ -987,7 +998,7 @@ RunAgentAgentsRole = Literal[
 r"""Extended A2A message role"""
 
 
-class RunAgentMessageTypedDict(TypedDict):
+class RunAgentAgentsMessageTypedDict(TypedDict):
     r"""Optional status message"""
 
     kind: RunAgentAgentsKind
@@ -997,7 +1008,7 @@ class RunAgentMessageTypedDict(TypedDict):
     parts: List[Any]
 
 
-class RunAgentMessage(BaseModel):
+class RunAgentAgentsMessage(BaseModel):
     r"""Optional status message"""
 
     kind: RunAgentAgentsKind
@@ -1017,7 +1028,7 @@ class RunAgentStatusTypedDict(TypedDict):
     r"""Current task state"""
     timestamp: NotRequired[str]
     r"""ISO timestamp of status update"""
-    message: NotRequired[RunAgentMessageTypedDict]
+    message: NotRequired[RunAgentAgentsMessageTypedDict]
     r"""Optional status message"""
 
 
@@ -1030,7 +1041,7 @@ class RunAgentStatus(BaseModel):
     timestamp: Optional[str] = None
     r"""ISO timestamp of status update"""
 
-    message: Optional[RunAgentMessage] = None
+    message: Optional[RunAgentAgentsMessage] = None
     r"""Optional status message"""
 
 

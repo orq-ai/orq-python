@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union, cast
+from typing import Any, Dict, Mapping, Optional, Union, cast
 
 
 class Agents(BaseSDK):
@@ -571,6 +571,250 @@ class Agents(BaseSDK):
                 models.GetAgentAgentsResponseBodyData, http_res
             )
             raise models.GetAgentAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def invoke(
+        self,
+        *,
+        key: str,
+        message: Union[models.Message, models.MessageTypedDict],
+        task_id: Optional[str] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
+        thread: Optional[
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.InvokeAgentResponseBody]:
+        r"""Invoke an agent
+
+        Executes an existing agent with the provided input. The agent uses its pre-configured primary model and will automatically fall back to its configured fallback model if the primary model fails. Fallback models are configured at the agent level, not during execution.
+
+        :param key: The key or ID of the agent to invoke
+        :param message:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.InvokeAgentRequest(
+            key=key,
+            request_body=models.InvokeAgentRequestBody(
+                task_id=task_id,
+                message=utils.get_pydantic_model(message, models.Message),
+                variables=variables,
+                contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.InvokeAgentThread]
+                ),
+                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                metadata=metadata,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/{key}/task",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.InvokeAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="InvokeAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.InvokeAgentResponseBody], http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def invoke_async(
+        self,
+        *,
+        key: str,
+        message: Union[models.Message, models.MessageTypedDict],
+        task_id: Optional[str] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
+        thread: Optional[
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.InvokeAgentResponseBody]:
+        r"""Invoke an agent
+
+        Executes an existing agent with the provided input. The agent uses its pre-configured primary model and will automatically fall back to its configured fallback model if the primary model fails. Fallback models are configured at the agent level, not during execution.
+
+        :param key: The key or ID of the agent to invoke
+        :param message:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.InvokeAgentRequest(
+            key=key,
+            request_body=models.InvokeAgentRequestBody(
+                task_id=task_id,
+                message=utils.get_pydantic_model(message, models.Message),
+                variables=variables,
+                contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.InvokeAgentThread]
+                ),
+                memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
+                metadata=metadata,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/{key}/task",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.InvokeAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="InvokeAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.InvokeAgentResponseBody], http_res
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1192,6 +1436,298 @@ class Agents(BaseSDK):
                 models.StreamRunAgentAgentsResponseBodyData, http_res, http_res_text
             )
             raise models.StreamRunAgentAgentsResponseBody(
+                response_data, http_res, http_res_text
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError("Unexpected response received", http_res, http_res_text)
+
+    def stream(
+        self,
+        *,
+        key: str,
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
+        task_id: Optional[str] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        stream_timeout_seconds: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[eventstreaming.EventStream[models.StreamAgentResponseBody]]:
+        r"""Stream agent execution events
+
+        Executes an agent and streams events via Server-Sent Events (SSE). The stream will continue until the agent completes, errors, or reaches the configured timeout.
+
+        :param key: The key or ID of the agent to invoke
+        :param message:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.StreamAgentRequest(
+            key=key,
+            request_body=models.StreamAgentRequestBody(
+                task_id=task_id,
+                message=utils.get_pydantic_model(message, models.StreamAgentMessage),
+                variables=variables,
+                contact=utils.get_pydantic_model(
+                    contact, Optional[models.StreamAgentContact]
+                ),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.StreamAgentThread]
+                ),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.StreamAgentMemory]
+                ),
+                metadata=metadata,
+                stream_timeout_seconds=stream_timeout_seconds,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/{key}/stream-task",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="text/event-stream",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.StreamAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="StreamAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            stream=True,
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "text/event-stream"):
+            return eventstreaming.EventStream(
+                http_res,
+                lambda raw: utils.unmarshal_json(raw, models.StreamAgentResponseBody),
+                client_ref=self,
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            http_res_text = utils.stream_to_text(http_res)
+            response_data = unmarshal_json_response(
+                models.StreamAgentAgentsResponseBodyData, http_res, http_res_text
+            )
+            raise models.StreamAgentAgentsResponseBody(
+                response_data, http_res, http_res_text
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError("Unexpected response received", http_res, http_res_text)
+
+    async def stream_async(
+        self,
+        *,
+        key: str,
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
+        task_id: Optional[str] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        stream_timeout_seconds: Optional[float] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[eventstreaming.EventStreamAsync[models.StreamAgentResponseBody]]:
+        r"""Stream agent execution events
+
+        Executes an agent and streams events via Server-Sent Events (SSE). The stream will continue until the agent completes, errors, or reaches the configured timeout.
+
+        :param key: The key or ID of the agent to invoke
+        :param message:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
+        :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.StreamAgentRequest(
+            key=key,
+            request_body=models.StreamAgentRequestBody(
+                task_id=task_id,
+                message=utils.get_pydantic_model(message, models.StreamAgentMessage),
+                variables=variables,
+                contact=utils.get_pydantic_model(
+                    contact, Optional[models.StreamAgentContact]
+                ),
+                thread=utils.get_pydantic_model(
+                    thread, Optional[models.StreamAgentThread]
+                ),
+                memory=utils.get_pydantic_model(
+                    memory, Optional[models.StreamAgentMemory]
+                ),
+                metadata=metadata,
+                stream_timeout_seconds=stream_timeout_seconds,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/{key}/stream-task",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="text/event-stream",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.StreamAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="StreamAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            stream=True,
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "text/event-stream"):
+            return eventstreaming.EventStreamAsync(
+                http_res,
+                lambda raw: utils.unmarshal_json(raw, models.StreamAgentResponseBody),
+                client_ref=self,
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            response_data = unmarshal_json_response(
+                models.StreamAgentAgentsResponseBodyData, http_res, http_res_text
+            )
+            raise models.StreamAgentAgentsResponseBody(
                 response_data, http_res, http_res_text
             )
         if utils.match_response(http_res, "4XX", "*"):

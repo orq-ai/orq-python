@@ -8,9 +8,11 @@
 * [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [list](#list) - List all agents
 * [retrieve](#retrieve) - Get an agent
+* [invoke](#invoke) - Invoke an agent
 * [list_tasks](#list_tasks) - List all tasks for an agent
 * [run](#run) - Run an agent
 * [stream_run](#stream_run) - Run and stream agent execution
+* [stream](#stream) - Stream agent execution events
 * [list_actions](#list_actions) - List all actions
 * [retrieve_action](#retrieve_action) - Retrieve an action executed by an agent task.
 
@@ -144,6 +146,79 @@ with Orq(
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | models.GetAgentAgentsResponseBody | 404                               | application/json                  |
 | models.APIError                   | 4XX, 5XX                          | \*/\*                             |
+
+## invoke
+
+Executes an existing agent with the provided input. The agent uses its pre-configured primary model and will automatically fall back to its configured fallback model if the primary model fails. Fallback models are configured at the agent level, not during execution.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="InvokeAgent" method="post" path="/v2/agents/{key}/task" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.invoke(key="<key>", message={
+        "role": "user",
+        "parts": [],
+    }, contact={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, thread={
+        "id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "tags": [
+            "customer-support",
+            "priority-high",
+        ],
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                          | Type                                                                                                                                                                                               | Required                                                                                                                                                                                           | Description                                                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                                                                                              | *str*                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                 | The key or ID of the agent to invoke                                                                                                                                                               |
+| `message`                                                                                                                                                                                          | [models.Message](../../models/message.md)                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                 | N/A                                                                                                                                                                                                |
+| `task_id`                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                 | Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue. |
+| `variables`                                                                                                                                                                                        | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional variables for template replacement in system prompt, instructions, and messages                                                                                                           |
+| `contact`                                                                                                                                                                                          | [Optional[models.Contact]](../../models/contact.md)                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                 | Information about the contact making the request. If the contact does not exist, it will be created automatically.                                                                                 |
+| `thread`                                                                                                                                                                                           | [Optional[models.InvokeAgentThread]](../../models/invokeagentthread.md)                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                 | Thread information to group related requests                                                                                                                                                       |
+| `memory`                                                                                                                                                                                           | [Optional[models.Memory]](../../models/memory.md)                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                 | Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.                                                                       |
+| `metadata`                                                                                                                                                                                         | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional metadata for the agent invocation as key-value pairs that will be included in traces                                                                                                      |
+| `retries`                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                |
+
+### Response
+
+**[models.InvokeAgentResponseBody](../../models/invokeagentresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## list_tasks
 
@@ -374,6 +449,83 @@ with Orq(
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | models.StreamRunAgentAgentsResponseBody | 404                                     | application/json                        |
 | models.APIError                         | 4XX, 5XX                                | \*/\*                                   |
+
+## stream
+
+Executes an agent and streams events via Server-Sent Events (SSE). The stream will continue until the agent completes, errors, or reaches the configured timeout.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="StreamAgent" method="post" path="/v2/agents/{key}/stream-task" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.stream(key="<key>", message={
+        "role": "user",
+        "parts": [],
+    }, contact={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, thread={
+        "id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "tags": [
+            "customer-support",
+            "priority-high",
+        ],
+    })
+
+    assert res is not None
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                          | Type                                                                                                                                                                                               | Required                                                                                                                                                                                           | Description                                                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`                                                                                                                                                                                              | *str*                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                 | The key or ID of the agent to invoke                                                                                                                                                               |
+| `message`                                                                                                                                                                                          | [models.StreamAgentMessage](../../models/streamagentmessage.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                 | N/A                                                                                                                                                                                                |
+| `task_id`                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                 | Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue. |
+| `variables`                                                                                                                                                                                        | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional variables for template replacement in system prompt, instructions, and messages                                                                                                           |
+| `contact`                                                                                                                                                                                          | [Optional[models.StreamAgentContact]](../../models/streamagentcontact.md)                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                 | Information about the contact making the request. If the contact does not exist, it will be created automatically.                                                                                 |
+| `thread`                                                                                                                                                                                           | [Optional[models.StreamAgentThread]](../../models/streamagentthread.md)                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                 | Thread information to group related requests                                                                                                                                                       |
+| `memory`                                                                                                                                                                                           | [Optional[models.StreamAgentMemory]](../../models/streamagentmemory.md)                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                 | Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.                                                                       |
+| `metadata`                                                                                                                                                                                         | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional metadata for the agent invocation as key-value pairs that will be included in traces                                                                                                      |
+| `stream_timeout_seconds`                                                                                                                                                                           | *Optional[float]*                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                 | Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)                                                                                                                                     |
+| `retries`                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                |
+
+### Response
+
+**[Union[eventstreaming.EventStream[models.StreamAgentResponseBody], eventstreaming.EventStreamAsync[models.StreamAgentResponseBody]]](../../models/.md)**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| models.StreamAgentAgentsResponseBody | 404                                  | application/json                     |
+| models.APIError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## list_actions
 
