@@ -3,6 +3,11 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createdatasetitemop as models_createdatasetitemop,
+    createdatasetop as models_createdatasetop,
+    updatedatapointop as models_updatedatapointop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -81,7 +86,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -175,7 +180,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -203,8 +208,8 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateDatasetRequestBody,
-                models.CreateDatasetRequestBodyTypedDict,
+                models_createdatasetop.CreateDatasetRequestBody,
+                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -273,7 +278,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -301,8 +306,8 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateDatasetRequestBody,
-                models.CreateDatasetRequestBodyTypedDict,
+                models_createdatasetop.CreateDatasetRequestBody,
+                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -371,7 +376,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -459,7 +464,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -551,7 +556,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -661,7 +666,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -771,7 +776,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -863,7 +868,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -949,7 +954,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1044,7 +1049,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1141,7 +1146,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasetDatapoints",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1169,7 +1174,10 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models_createdatasetitemop.RequestBody],
+                List[models_createdatasetitemop.RequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1243,7 +1251,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1271,7 +1279,10 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models_createdatasetitemop.RequestBody],
+                List[models_createdatasetitemop.RequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1345,7 +1356,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasetItem",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1436,7 +1447,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1531,7 +1542,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1566,8 +1577,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models.UpdateDatapointMessages],
-                List[models.UpdateDatapointMessagesTypedDict],
+                List[models_updatedatapointop.UpdateDatapointMessages],
+                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1649,7 +1660,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1684,8 +1695,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models.UpdateDatapointMessages],
-                List[models.UpdateDatapointMessagesTypedDict],
+                List[models_updatedatapointop.UpdateDatapointMessages],
+                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1767,7 +1778,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1862,7 +1873,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1955,7 +1966,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatapoint",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2045,7 +2056,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ClearDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2131,7 +2142,7 @@ class Datasets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ClearDataset",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

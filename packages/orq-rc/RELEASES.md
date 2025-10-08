@@ -3189,3 +3189,13 @@ Based on:
 - [python v3.14.0-rc.13] packages/orq-rc
 ### Releases
 - [PyPI v3.14.0-rc.13] https://pypi.org/project/orq-ai-sdk/3.14.0-rc.13 - packages/orq-rc
+
+## 2025-10-08 03:28:43
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.636.0 (2.723.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v3.14.0-rc.15] packages/orq-rc
+### Releases
+- [PyPI v3.14.0-rc.15] https://pypi.org/project/orq-ai-sdk/3.14.0-rc.15 - packages/orq-rc

@@ -3,6 +3,7 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import parseop as models_parseop
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -14,7 +15,8 @@ class Chunking(BaseSDK):
         self,
         *,
         request: Union[
-            models.ParseChunkingRequest, models.ParseChunkingRequestTypedDict
+            models_parseop.ParseChunkingRequest,
+            models_parseop.ParseChunkingRequestTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -80,7 +82,7 @@ class Chunking(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="parse",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -105,7 +107,8 @@ class Chunking(BaseSDK):
         self,
         *,
         request: Union[
-            models.ParseChunkingRequest, models.ParseChunkingRequestTypedDict
+            models_parseop.ParseChunkingRequest,
+            models_parseop.ParseChunkingRequestTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -171,7 +174,7 @@ class Chunking(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="parse",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

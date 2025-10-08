@@ -3,6 +3,48 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createevalop as models_createevalop,
+    evalsageappropriateop as models_evalsageappropriateop,
+    evalsbertscoreop as models_evalsbertscoreop,
+    evalsbleuscoreop as models_evalsbleuscoreop,
+    evalsbotdetectionop as models_evalsbotdetectionop,
+    evalscontainsallop as models_evalscontainsallop,
+    evalscontainsanyop as models_evalscontainsanyop,
+    evalscontainsemailop as models_evalscontainsemailop,
+    evalscontainsnoneop as models_evalscontainsnoneop,
+    evalscontainsop as models_evalscontainsop,
+    evalscontainsurlop as models_evalscontainsurlop,
+    evalscontainsvalidlinkop as models_evalscontainsvalidlinkop,
+    evalsendswithop as models_evalsendswithop,
+    evalsexactmatchop as models_evalsexactmatchop,
+    evalsfactcheckingknowledgebaseop as models_evalsfactcheckingknowledgebaseop,
+    evalsgrammarop as models_evalsgrammarop,
+    evalslengthbetweenop as models_evalslengthbetweenop,
+    evalslengthgreaterthanop as models_evalslengthgreaterthanop,
+    evalslengthlessthanop as models_evalslengthlessthanop,
+    evalslocalizationop as models_evalslocalizationop,
+    evalspiiop as models_evalspiiop,
+    evalsragascoherenceop as models_evalsragascoherenceop,
+    evalsragasconcisenessop as models_evalsragasconcisenessop,
+    evalsragascontextentitiesrecallop as models_evalsragascontextentitiesrecallop,
+    evalsragascontextprecisionop as models_evalsragascontextprecisionop,
+    evalsragascontextrecallop as models_evalsragascontextrecallop,
+    evalsragascorrectnessop as models_evalsragascorrectnessop,
+    evalsragasfaithfulnessop as models_evalsragasfaithfulnessop,
+    evalsragasharmfulnessop as models_evalsragasharmfulnessop,
+    evalsragasmaliciousnessop as models_evalsragasmaliciousnessop,
+    evalsragasnoisesensitivityop as models_evalsragasnoisesensitivityop,
+    evalsragasresponserelevancyop as models_evalsragasresponserelevancyop,
+    evalsragassummarizationop as models_evalsragassummarizationop,
+    evalssentimentclassificationop as models_evalssentimentclassificationop,
+    evalssummarizationop as models_evalssummarizationop,
+    evalstoneofvoiceop as models_evalstoneofvoiceop,
+    evalstranslationop as models_evalstranslationop,
+    evalsvalidjsonop as models_evalsvalidjsonop,
+    invokeevalop as models_invokeevalop,
+    updateevalop as models_updateevalop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -79,7 +121,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetEvals",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -177,7 +219,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetEvals",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -210,7 +252,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -274,7 +319,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -307,7 +352,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -371,7 +419,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -405,7 +453,10 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -477,7 +528,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -511,7 +562,10 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -583,7 +637,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -675,7 +729,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -765,7 +819,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -797,8 +851,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBertScoreRequestBody,
-                models.EvalsBertScoreRequestBodyTypedDict,
+                models_evalsbertscoreop.EvalsBertScoreRequestBody,
+                models_evalsbertscoreop.EvalsBertScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -865,7 +919,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBertScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -906,8 +960,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBertScoreRequestBody,
-                models.EvalsBertScoreRequestBodyTypedDict,
+                models_evalsbertscoreop.EvalsBertScoreRequestBody,
+                models_evalsbertscoreop.EvalsBertScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -974,7 +1028,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBertScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1015,8 +1069,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBleuScoreRequestBody,
-                models.EvalsBleuScoreRequestBodyTypedDict,
+                models_evalsbleuscoreop.EvalsBleuScoreRequestBody,
+                models_evalsbleuscoreop.EvalsBleuScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1083,7 +1137,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBleuScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1124,8 +1178,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBleuScoreRequestBody,
-                models.EvalsBleuScoreRequestBodyTypedDict,
+                models_evalsbleuscoreop.EvalsBleuScoreRequestBody,
+                models_evalsbleuscoreop.EvalsBleuScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1192,7 +1246,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBleuScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1233,8 +1287,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsAllRequestBody,
-                models.EvalsContainsAllRequestBodyTypedDict,
+                models_evalscontainsallop.EvalsContainsAllRequestBody,
+                models_evalscontainsallop.EvalsContainsAllRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1305,7 +1359,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAll",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1346,8 +1400,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsAllRequestBody,
-                models.EvalsContainsAllRequestBodyTypedDict,
+                models_evalscontainsallop.EvalsContainsAllRequestBody,
+                models_evalscontainsallop.EvalsContainsAllRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1418,7 +1472,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAll",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1459,8 +1513,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsAnyRequestBody,
-                models.EvalsContainsAnyRequestBodyTypedDict,
+                models_evalscontainsanyop.EvalsContainsAnyRequestBody,
+                models_evalscontainsanyop.EvalsContainsAnyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1531,7 +1585,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAny",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1572,8 +1626,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsAnyRequestBody,
-                models.EvalsContainsAnyRequestBodyTypedDict,
+                models_evalscontainsanyop.EvalsContainsAnyRequestBody,
+                models_evalscontainsanyop.EvalsContainsAnyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1644,7 +1698,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAny",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1685,8 +1739,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsEmailRequestBody,
-                models.EvalsContainsEmailRequestBodyTypedDict,
+                models_evalscontainsemailop.EvalsContainsEmailRequestBody,
+                models_evalscontainsemailop.EvalsContainsEmailRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1757,7 +1811,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsEmail",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1798,8 +1852,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsEmailRequestBody,
-                models.EvalsContainsEmailRequestBodyTypedDict,
+                models_evalscontainsemailop.EvalsContainsEmailRequestBody,
+                models_evalscontainsemailop.EvalsContainsEmailRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1870,7 +1924,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsEmail",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1911,8 +1965,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsNoneRequestBody,
-                models.EvalsContainsNoneRequestBodyTypedDict,
+                models_evalscontainsnoneop.EvalsContainsNoneRequestBody,
+                models_evalscontainsnoneop.EvalsContainsNoneRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1983,7 +2037,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsNone",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2024,8 +2078,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsNoneRequestBody,
-                models.EvalsContainsNoneRequestBodyTypedDict,
+                models_evalscontainsnoneop.EvalsContainsNoneRequestBody,
+                models_evalscontainsnoneop.EvalsContainsNoneRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2096,7 +2150,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsNone",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2137,8 +2191,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsURLRequestBody,
-                models.EvalsContainsURLRequestBodyTypedDict,
+                models_evalscontainsurlop.EvalsContainsURLRequestBody,
+                models_evalscontainsurlop.EvalsContainsURLRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2209,7 +2263,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsUrl",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2250,8 +2304,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsURLRequestBody,
-                models.EvalsContainsURLRequestBodyTypedDict,
+                models_evalscontainsurlop.EvalsContainsURLRequestBody,
+                models_evalscontainsurlop.EvalsContainsURLRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2322,7 +2376,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsUrl",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2363,8 +2417,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsValidLinkRequestBody,
-                models.EvalsContainsValidLinkRequestBodyTypedDict,
+                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBody,
+                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2435,7 +2489,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsValidLink",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2478,8 +2532,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsValidLinkRequestBody,
-                models.EvalsContainsValidLinkRequestBodyTypedDict,
+                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBody,
+                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2550,7 +2604,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsValidLink",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2593,8 +2647,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsRequestBody,
-                models.EvalsContainsRequestBodyTypedDict,
+                models_evalscontainsop.EvalsContainsRequestBody,
+                models_evalscontainsop.EvalsContainsRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2661,7 +2715,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContains",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2700,8 +2754,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsContainsRequestBody,
-                models.EvalsContainsRequestBodyTypedDict,
+                models_evalscontainsop.EvalsContainsRequestBody,
+                models_evalscontainsop.EvalsContainsRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2768,7 +2822,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContains",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2807,8 +2861,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsEndsWithRequestBody,
-                models.EvalsEndsWithRequestBodyTypedDict,
+                models_evalsendswithop.EvalsEndsWithRequestBody,
+                models_evalsendswithop.EvalsEndsWithRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2875,7 +2929,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsEndsWith",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2914,8 +2968,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsEndsWithRequestBody,
-                models.EvalsEndsWithRequestBodyTypedDict,
+                models_evalsendswithop.EvalsEndsWithRequestBody,
+                models_evalsendswithop.EvalsEndsWithRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2982,7 +3036,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsEndsWith",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3021,8 +3075,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsExactMatchRequestBody,
-                models.EvalsExactMatchRequestBodyTypedDict,
+                models_evalsexactmatchop.EvalsExactMatchRequestBody,
+                models_evalsexactmatchop.EvalsExactMatchRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3093,7 +3147,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsExactMatch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3134,8 +3188,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsExactMatchRequestBody,
-                models.EvalsExactMatchRequestBodyTypedDict,
+                models_evalsexactmatchop.EvalsExactMatchRequestBody,
+                models_evalsexactmatchop.EvalsExactMatchRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3206,7 +3260,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsExactMatch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3247,8 +3301,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthBetweenRequestBody,
-                models.EvalsLengthBetweenRequestBodyTypedDict,
+                models_evalslengthbetweenop.EvalsLengthBetweenRequestBody,
+                models_evalslengthbetweenop.EvalsLengthBetweenRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3319,7 +3373,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthBetween",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3360,8 +3414,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthBetweenRequestBody,
-                models.EvalsLengthBetweenRequestBodyTypedDict,
+                models_evalslengthbetweenop.EvalsLengthBetweenRequestBody,
+                models_evalslengthbetweenop.EvalsLengthBetweenRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3432,7 +3486,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthBetween",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3473,8 +3527,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthGreaterThanRequestBody,
-                models.EvalsLengthGreaterThanRequestBodyTypedDict,
+                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBody,
+                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3545,7 +3599,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthGreaterThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3588,8 +3642,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthGreaterThanRequestBody,
-                models.EvalsLengthGreaterThanRequestBodyTypedDict,
+                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBody,
+                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3660,7 +3714,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthGreaterThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3703,8 +3757,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthLessThanRequestBody,
-                models.EvalsLengthLessThanRequestBodyTypedDict,
+                models_evalslengthlessthanop.EvalsLengthLessThanRequestBody,
+                models_evalslengthlessthanop.EvalsLengthLessThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3775,7 +3829,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthLessThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3816,8 +3870,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLengthLessThanRequestBody,
-                models.EvalsLengthLessThanRequestBodyTypedDict,
+                models_evalslengthlessthanop.EvalsLengthLessThanRequestBody,
+                models_evalslengthlessthanop.EvalsLengthLessThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3888,7 +3942,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthLessThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3929,8 +3983,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsValidJSONRequestBody,
-                models.EvalsValidJSONRequestBodyTypedDict,
+                models_evalsvalidjsonop.EvalsValidJSONRequestBody,
+                models_evalsvalidjsonop.EvalsValidJSONRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3997,7 +4051,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsValidJson",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4038,8 +4092,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsValidJSONRequestBody,
-                models.EvalsValidJSONRequestBodyTypedDict,
+                models_evalsvalidjsonop.EvalsValidJSONRequestBody,
+                models_evalsvalidjsonop.EvalsValidJSONRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4106,7 +4160,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsValidJson",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4147,8 +4201,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsAgeAppropriateRequestBody,
-                models.EvalsAgeAppropriateRequestBodyTypedDict,
+                models_evalsageappropriateop.EvalsAgeAppropriateRequestBody,
+                models_evalsageappropriateop.EvalsAgeAppropriateRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4219,7 +4273,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsAgeAppropriate",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4260,8 +4314,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsAgeAppropriateRequestBody,
-                models.EvalsAgeAppropriateRequestBodyTypedDict,
+                models_evalsageappropriateop.EvalsAgeAppropriateRequestBody,
+                models_evalsageappropriateop.EvalsAgeAppropriateRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4332,7 +4386,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsAgeAppropriate",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4373,8 +4427,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBotDetectionRequestBody,
-                models.EvalsBotDetectionRequestBodyTypedDict,
+                models_evalsbotdetectionop.EvalsBotDetectionRequestBody,
+                models_evalsbotdetectionop.EvalsBotDetectionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4445,7 +4499,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBotDetection",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4486,8 +4540,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsBotDetectionRequestBody,
-                models.EvalsBotDetectionRequestBodyTypedDict,
+                models_evalsbotdetectionop.EvalsBotDetectionRequestBody,
+                models_evalsbotdetectionop.EvalsBotDetectionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4558,7 +4612,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBotDetection",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4599,8 +4653,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsFactCheckingKnowledgeBaseRequestBody,
-                models.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
+                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBody,
+                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4673,7 +4727,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsFactCheckingKnowledgeBase",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4717,8 +4771,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsFactCheckingKnowledgeBaseRequestBody,
-                models.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
+                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBody,
+                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4791,7 +4845,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsFactCheckingKnowledgeBase",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4835,7 +4889,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsGrammarRequestBody, models.EvalsGrammarRequestBodyTypedDict
+                models_evalsgrammarop.EvalsGrammarRequestBody,
+                models_evalsgrammarop.EvalsGrammarRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4900,7 +4955,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsGrammar",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4939,7 +4994,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsGrammarRequestBody, models.EvalsGrammarRequestBodyTypedDict
+                models_evalsgrammarop.EvalsGrammarRequestBody,
+                models_evalsgrammarop.EvalsGrammarRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5004,7 +5060,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsGrammar",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5043,8 +5099,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLocalizationRequestBody,
-                models.EvalsLocalizationRequestBodyTypedDict,
+                models_evalslocalizationop.EvalsLocalizationRequestBody,
+                models_evalslocalizationop.EvalsLocalizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5115,7 +5171,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLocalization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5156,8 +5212,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsLocalizationRequestBody,
-                models.EvalsLocalizationRequestBodyTypedDict,
+                models_evalslocalizationop.EvalsLocalizationRequestBody,
+                models_evalslocalizationop.EvalsLocalizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5228,7 +5284,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLocalization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5268,7 +5324,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.EvalsPiiRequestBody, models.EvalsPiiRequestBodyTypedDict]
+            Union[
+                models_evalspiiop.EvalsPiiRequestBody,
+                models_evalspiiop.EvalsPiiRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -5332,7 +5391,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsPii",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5370,7 +5429,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.EvalsPiiRequestBody, models.EvalsPiiRequestBodyTypedDict]
+            Union[
+                models_evalspiiop.EvalsPiiRequestBody,
+                models_evalspiiop.EvalsPiiRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -5434,7 +5496,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsPii",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5473,8 +5535,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsSentimentClassificationRequestBody,
-                models.EvalsSentimentClassificationRequestBodyTypedDict,
+                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBody,
+                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5547,7 +5609,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSentimentClassification",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5591,8 +5653,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsSentimentClassificationRequestBody,
-                models.EvalsSentimentClassificationRequestBodyTypedDict,
+                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBody,
+                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5665,7 +5727,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSentimentClassification",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5709,8 +5771,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsSummarizationRequestBody,
-                models.EvalsSummarizationRequestBodyTypedDict,
+                models_evalssummarizationop.EvalsSummarizationRequestBody,
+                models_evalssummarizationop.EvalsSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5781,7 +5843,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5822,8 +5884,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsSummarizationRequestBody,
-                models.EvalsSummarizationRequestBodyTypedDict,
+                models_evalssummarizationop.EvalsSummarizationRequestBody,
+                models_evalssummarizationop.EvalsSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5894,7 +5956,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5935,8 +5997,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsToneOfVoiceRequestBody,
-                models.EvalsToneOfVoiceRequestBodyTypedDict,
+                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBody,
+                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6007,7 +6069,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsToneOfVoice",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6048,8 +6110,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsToneOfVoiceRequestBody,
-                models.EvalsToneOfVoiceRequestBodyTypedDict,
+                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBody,
+                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6120,7 +6182,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsToneOfVoice",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6161,8 +6223,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsTranslationRequestBody,
-                models.EvalsTranslationRequestBodyTypedDict,
+                models_evalstranslationop.EvalsTranslationRequestBody,
+                models_evalstranslationop.EvalsTranslationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6233,7 +6295,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsTranslation",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6274,8 +6336,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsTranslationRequestBody,
-                models.EvalsTranslationRequestBodyTypedDict,
+                models_evalstranslationop.EvalsTranslationRequestBody,
+                models_evalstranslationop.EvalsTranslationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6346,7 +6408,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsTranslation",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6387,8 +6449,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasCoherenceRequestBody,
-                models.EvalsRagasCoherenceRequestBodyTypedDict,
+                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBody,
+                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6459,7 +6521,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCoherence",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6500,8 +6562,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasCoherenceRequestBody,
-                models.EvalsRagasCoherenceRequestBodyTypedDict,
+                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBody,
+                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6572,7 +6634,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCoherence",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6613,8 +6675,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasConcisenessRequestBody,
-                models.EvalsRagasConcisenessRequestBodyTypedDict,
+                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBody,
+                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6685,7 +6747,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasConciseness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6726,8 +6788,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasConcisenessRequestBody,
-                models.EvalsRagasConcisenessRequestBodyTypedDict,
+                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBody,
+                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6798,7 +6860,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasConciseness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6839,8 +6901,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextPrecisionRequestBody,
-                models.EvalsRagasContextPrecisionRequestBodyTypedDict,
+                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBody,
+                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6911,7 +6973,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextPrecision",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6954,8 +7016,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextPrecisionRequestBody,
-                models.EvalsRagasContextPrecisionRequestBodyTypedDict,
+                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBody,
+                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7026,7 +7088,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextPrecision",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7069,8 +7131,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextRecallRequestBody,
-                models.EvalsRagasContextRecallRequestBodyTypedDict,
+                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBody,
+                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7141,7 +7203,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7184,8 +7246,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextRecallRequestBody,
-                models.EvalsRagasContextRecallRequestBodyTypedDict,
+                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBody,
+                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7256,7 +7318,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7299,8 +7361,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextEntitiesRecallRequestBody,
-                models.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
+                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBody,
+                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7373,7 +7435,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextEntitiesRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7417,8 +7479,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasContextEntitiesRecallRequestBody,
-                models.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
+                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBody,
+                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7491,7 +7553,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextEntitiesRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7535,8 +7597,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasCorrectnessRequestBody,
-                models.EvalsRagasCorrectnessRequestBodyTypedDict,
+                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBody,
+                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7607,7 +7669,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCorrectness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7648,8 +7710,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasCorrectnessRequestBody,
-                models.EvalsRagasCorrectnessRequestBodyTypedDict,
+                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBody,
+                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7720,7 +7782,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCorrectness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7761,8 +7823,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasFaithfulnessRequestBody,
-                models.EvalsRagasFaithfulnessRequestBodyTypedDict,
+                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBody,
+                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7833,7 +7895,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasFaithfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7876,8 +7938,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasFaithfulnessRequestBody,
-                models.EvalsRagasFaithfulnessRequestBodyTypedDict,
+                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBody,
+                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7948,7 +8010,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasFaithfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7991,8 +8053,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasHarmfulnessRequestBody,
-                models.EvalsRagasHarmfulnessRequestBodyTypedDict,
+                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBody,
+                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8063,7 +8125,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasHarmfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8104,8 +8166,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasHarmfulnessRequestBody,
-                models.EvalsRagasHarmfulnessRequestBodyTypedDict,
+                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBody,
+                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8176,7 +8238,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasHarmfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8217,8 +8279,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasMaliciousnessRequestBody,
-                models.EvalsRagasMaliciousnessRequestBodyTypedDict,
+                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBody,
+                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8289,7 +8351,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasMaliciousness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8332,8 +8394,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasMaliciousnessRequestBody,
-                models.EvalsRagasMaliciousnessRequestBodyTypedDict,
+                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBody,
+                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8404,7 +8466,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasMaliciousness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8447,8 +8509,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasNoiseSensitivityRequestBody,
-                models.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
+                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBody,
+                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8519,7 +8581,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasNoiseSensitivity",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8562,8 +8624,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasNoiseSensitivityRequestBody,
-                models.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
+                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBody,
+                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8634,7 +8696,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasNoiseSensitivity",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8677,8 +8739,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasResponseRelevancyRequestBody,
-                models.EvalsRagasResponseRelevancyRequestBodyTypedDict,
+                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBody,
+                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8749,7 +8811,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasResponseRelevancy",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8793,8 +8855,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasResponseRelevancyRequestBody,
-                models.EvalsRagasResponseRelevancyRequestBodyTypedDict,
+                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBody,
+                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8865,7 +8927,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasResponseRelevancy",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8909,8 +8971,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasSummarizationRequestBody,
-                models.EvalsRagasSummarizationRequestBodyTypedDict,
+                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBody,
+                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8981,7 +9043,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9024,8 +9086,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.EvalsRagasSummarizationRequestBody,
-                models.EvalsRagasSummarizationRequestBodyTypedDict,
+                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBody,
+                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9096,7 +9158,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9144,8 +9206,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
+                List[models_invokeevalop.InvokeEvalMessages],
+                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9228,7 +9290,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="InvokeEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9272,8 +9334,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
+                List[models_invokeevalop.InvokeEvalMessages],
+                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9356,7 +9418,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="InvokeEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

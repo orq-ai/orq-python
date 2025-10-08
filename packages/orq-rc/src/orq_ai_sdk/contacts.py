@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createcontactop as models_createcontactop,
+    listcontactsop as models_listcontactsop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,8 +19,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -85,7 +89,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -113,8 +117,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -183,7 +187,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -213,7 +217,10 @@ class Contacts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -287,7 +294,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListContacts",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -317,7 +324,10 @@ class Contacts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -391,7 +401,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListContacts",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -479,7 +489,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -573,7 +583,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -691,7 +701,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -809,7 +819,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -903,7 +913,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -995,7 +1005,7 @@ class Contacts(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteContact",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
