@@ -41,7 +41,7 @@ class GetPromptVersionPromptsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetPromptVersionPromptsResponseBody(OrqError):
     r"""Not Found - The prompt or prompt version does not exist."""
 

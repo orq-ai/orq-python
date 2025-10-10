@@ -24,7 +24,7 @@ class DeleteEvalResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteEvalResponseBody(OrqError):
     r"""Workspace ID is not found on the request"""
 

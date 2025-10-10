@@ -34,7 +34,7 @@ class EvalsSentimentClassificationEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsSentimentClassificationEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -56,7 +56,7 @@ class EvalsSentimentClassificationEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsSentimentClassificationEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

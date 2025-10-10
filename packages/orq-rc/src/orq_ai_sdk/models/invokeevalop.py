@@ -242,7 +242,7 @@ class InvokeEvalEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class InvokeEvalEvalsResponseResponseBody(OrqError):
     r"""Error running the evaluator"""
 
@@ -264,7 +264,7 @@ class InvokeEvalEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class InvokeEvalEvalsResponseBody(OrqError):
     r"""Workspace ID is not found on the request"""
 

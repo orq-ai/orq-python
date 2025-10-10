@@ -37,7 +37,7 @@ class EvalsRagasCoherenceEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasCoherenceEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -59,7 +59,7 @@ class EvalsRagasCoherenceEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasCoherenceEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

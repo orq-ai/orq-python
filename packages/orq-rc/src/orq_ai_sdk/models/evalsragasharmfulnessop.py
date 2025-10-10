@@ -32,7 +32,7 @@ class EvalsRagasHarmfulnessEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasHarmfulnessEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -54,7 +54,7 @@ class EvalsRagasHarmfulnessEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasHarmfulnessEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

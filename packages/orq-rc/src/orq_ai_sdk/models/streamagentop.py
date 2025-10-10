@@ -336,7 +336,7 @@ class StreamAgentAgentsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class StreamAgentAgentsResponseBody(OrqError):
     r"""Agent not found"""
 

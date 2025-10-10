@@ -16,7 +16,7 @@ class HonoAPIErrorData(BaseModel):
     r"""HTTP status code"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class HonoAPIError(OrqError):
     data: HonoAPIErrorData = field(hash=False)
 

@@ -34,7 +34,7 @@ class EvalsToneOfVoiceEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsToneOfVoiceEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -56,7 +56,7 @@ class EvalsToneOfVoiceEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsToneOfVoiceEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

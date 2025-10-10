@@ -1006,7 +1006,7 @@ class StreamRunAgentAgentsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class StreamRunAgentAgentsResponseBody(OrqError):
     r"""Model not found"""
 

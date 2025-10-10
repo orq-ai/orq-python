@@ -24,7 +24,7 @@ class EvalsBertScoreEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsBertScoreEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -46,7 +46,7 @@ class EvalsBertScoreEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsBertScoreEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

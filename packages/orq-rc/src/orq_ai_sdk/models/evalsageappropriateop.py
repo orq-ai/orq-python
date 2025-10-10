@@ -34,7 +34,7 @@ class EvalsAgeAppropriateEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsAgeAppropriateEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -56,7 +56,7 @@ class EvalsAgeAppropriateEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsAgeAppropriateEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

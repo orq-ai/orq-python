@@ -44,7 +44,7 @@ class GetEvalsEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetEvalsEvalsResponseBody(OrqError):
     r"""Workspace ID is not found on the request"""
 
@@ -163,9 +163,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -285,9 +285,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -954,9 +954,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -1052,9 +1052,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -1160,9 +1160,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1271,9 +1271,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1383,9 +1383,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-08T21:44:55.347Z"
+    created: Optional[str] = "2025-10-10T04:39:42.737Z"
 
-    updated: Optional[str] = "2025-10-08T21:44:55.347Z"
+    updated: Optional[str] = "2025-10-10T04:39:42.737Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

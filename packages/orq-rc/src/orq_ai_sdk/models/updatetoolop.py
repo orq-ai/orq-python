@@ -569,7 +569,7 @@ class UpdateToolToolsResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class UpdateToolToolsResponseBody(OrqError):
     r"""Tool not found."""
 
@@ -670,7 +670,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K72WHTHZPM1RC4KAQC5BV11Y"
+        "01K766P1SKMSK63076M9D8EB6E"
     )
 
     created_by_id: Optional[str] = None
@@ -824,7 +824,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K72WHTHZ5DYA2X1R5G8NAZT9"
+        "01K766P1SK66ENRZ7TA3QEC7ZD"
     )
 
     created_by_id: Optional[str] = None
@@ -1000,7 +1000,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K72WHTHY7X074GSZJ9R1VRA8"
+        "01K766P1SKQ8NEF97BKD5W67RG"
     )
 
     created_by_id: Optional[str] = None
@@ -1133,7 +1133,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K72WHTHYYQ1PKVCVMDEMT8N8"
+        "01K766P1SJSD68DJVPYX85TWK1"
     )
 
     created_by_id: Optional[str] = None
@@ -1236,7 +1236,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K72WHTHXHGTAQBQAGCSFR3S4"
+        "01K766P1SJ04QJNAT04CA78XKB"
     )
 
     created_by_id: Optional[str] = None

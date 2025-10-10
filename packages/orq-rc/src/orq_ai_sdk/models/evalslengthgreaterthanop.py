@@ -33,7 +33,7 @@ class EvalsLengthGreaterThanEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsLengthGreaterThanEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -55,7 +55,7 @@ class EvalsLengthGreaterThanEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsLengthGreaterThanEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 
