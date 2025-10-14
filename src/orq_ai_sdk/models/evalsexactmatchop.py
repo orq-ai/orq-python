@@ -25,7 +25,7 @@ class EvalsExactMatchEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsExactMatchEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -47,7 +47,7 @@ class EvalsExactMatchEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsExactMatchEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

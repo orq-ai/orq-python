@@ -321,7 +321,7 @@ class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XT2CS33ESXQMRB16Y5"
+        "01K7GS4C2X56QE4DXYV85W7VNY"
     )
 
     path: Optional[str] = None
@@ -424,7 +424,7 @@ class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XT1FRDE163X99R5HPX"
+        "01K7GS4C2XHZFZFEN61RJYETM0"
     )
 
     path: Optional[str] = None
@@ -559,7 +559,7 @@ class UpdateToolToolsResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class UpdateToolToolsResponseBody(OrqError):
     r"""Tool not found."""
 
@@ -660,7 +660,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XTYK0QD9RXC241RNSC"
+        "01K7GS4C2W4ABHEMEW5E4MXK80"
     )
 
     created_by_id: Optional[str] = None
@@ -814,7 +814,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XSVK03FVBDMJ94ZS5C"
+        "01K7GS4C2WXW9FDNEK6TXBBAQW"
     )
 
     created_by_id: Optional[str] = None
@@ -990,7 +990,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XS5EDKG52RVQH0XZEM"
+        "01K7GS4C2VZP0RE82G6RD7ETY3"
     )
 
     created_by_id: Optional[str] = None
@@ -1123,7 +1123,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XRJXRRCH9DGJ2CSQZB"
+        "01K7GS4C2TCFB9QRPVJ5Z5QTAK"
     )
 
     created_by_id: Optional[str] = None
@@ -1226,7 +1226,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XR2NJAFW4PBM3FM7R0"
+        "01K7GS4C2TENRMP9X0Y3KM416A"
     )
 
     created_by_id: Optional[str] = None

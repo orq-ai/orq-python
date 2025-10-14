@@ -121,7 +121,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetEvals",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -219,7 +219,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetEvals",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -319,7 +319,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -419,7 +419,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -528,7 +528,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -637,7 +637,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -729,7 +729,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -819,7 +819,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -919,7 +919,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBertScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1028,7 +1028,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBertScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1137,7 +1137,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBleuScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1246,7 +1246,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBleuScore",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1359,7 +1359,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAll",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1472,7 +1472,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAll",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1585,7 +1585,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAny",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1698,7 +1698,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsAny",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1811,7 +1811,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsEmail",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1924,7 +1924,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsEmail",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2037,7 +2037,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsNone",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2150,7 +2150,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsNone",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2263,7 +2263,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsUrl",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2376,7 +2376,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsUrl",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2489,7 +2489,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsValidLink",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2604,7 +2604,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContainsValidLink",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2715,7 +2715,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContains",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2822,7 +2822,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsContains",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2929,7 +2929,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsEndsWith",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3036,7 +3036,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsEndsWith",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3147,7 +3147,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsExactMatch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3260,7 +3260,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsExactMatch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3373,7 +3373,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthBetween",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3486,7 +3486,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthBetween",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3599,7 +3599,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthGreaterThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3714,7 +3714,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthGreaterThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3829,7 +3829,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthLessThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3942,7 +3942,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLengthLessThan",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4051,7 +4051,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsValidJson",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4160,7 +4160,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsValidJson",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4273,7 +4273,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsAgeAppropriate",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4386,7 +4386,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsAgeAppropriate",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4499,7 +4499,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBotDetection",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4612,7 +4612,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsBotDetection",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4727,7 +4727,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsFactCheckingKnowledgeBase",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4845,7 +4845,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsFactCheckingKnowledgeBase",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -4955,7 +4955,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsGrammar",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5060,7 +5060,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsGrammar",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5171,7 +5171,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLocalization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5284,7 +5284,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsLocalization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5391,7 +5391,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsPii",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5496,7 +5496,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsPii",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5609,7 +5609,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSentimentClassification",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5727,7 +5727,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSentimentClassification",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5843,7 +5843,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -5956,7 +5956,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6069,7 +6069,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsToneOfVoice",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6182,7 +6182,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsToneOfVoice",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6295,7 +6295,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsTranslation",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6408,7 +6408,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsTranslation",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6521,7 +6521,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCoherence",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6634,7 +6634,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCoherence",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6747,7 +6747,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasConciseness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6860,7 +6860,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasConciseness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -6973,7 +6973,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextPrecision",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7088,7 +7088,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextPrecision",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7203,7 +7203,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7318,7 +7318,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7435,7 +7435,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextEntitiesRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7553,7 +7553,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasContextEntitiesRecall",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7669,7 +7669,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCorrectness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7782,7 +7782,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasCorrectness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -7895,7 +7895,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasFaithfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8010,7 +8010,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasFaithfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8125,7 +8125,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasHarmfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8238,7 +8238,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasHarmfulness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8351,7 +8351,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasMaliciousness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8466,7 +8466,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasMaliciousness",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8581,7 +8581,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasNoiseSensitivity",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8696,7 +8696,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasNoiseSensitivity",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8811,7 +8811,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasResponseRelevancy",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -8927,7 +8927,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasResponseRelevancy",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9043,7 +9043,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9158,7 +9158,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="EvalsRagasSummarization",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9290,7 +9290,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="InvokeEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -9418,7 +9418,7 @@ class Evals(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="InvokeEval",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

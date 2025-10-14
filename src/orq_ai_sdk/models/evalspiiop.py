@@ -34,7 +34,7 @@ class EvalsPiiEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsPiiEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -56,7 +56,7 @@ class EvalsPiiEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsPiiEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

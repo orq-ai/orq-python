@@ -36,7 +36,7 @@ class EvalsLengthBetweenEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsLengthBetweenEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -58,7 +58,7 @@ class EvalsLengthBetweenEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsLengthBetweenEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

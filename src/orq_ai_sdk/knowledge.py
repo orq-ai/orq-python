@@ -3,6 +3,16 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createchunkop as models_createchunkop,
+    createdatasourceop as models_createdatasourceop,
+    createknowledgeop as models_createknowledgeop,
+    listchunksop as models_listchunksop,
+    listdatasourcesop as models_listdatasourcesop,
+    searchknowledgeop as models_searchknowledgeop,
+    updatechunkop as models_updatechunkop,
+    updateknowledgeop as models_updateknowledgeop,
+)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -81,7 +91,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListKnowledgeBases",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -175,7 +185,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListKnowledgeBases",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -206,7 +216,10 @@ class Knowledge(BaseSDK):
         path: str,
         description: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+            Union[
+                models_createknowledgeop.RetrievalSettings,
+                models_createknowledgeop.RetrievalSettingsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -280,7 +293,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -311,7 +324,10 @@ class Knowledge(BaseSDK):
         path: str,
         description: Optional[str] = None,
         retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
+            Union[
+                models_createknowledgeop.RetrievalSettings,
+                models_createknowledgeop.RetrievalSettingsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -385,7 +401,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -473,7 +489,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetOneKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -561,7 +577,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetOneKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -593,8 +609,8 @@ class Knowledge(BaseSDK):
         path: Optional[str] = None,
         retrieval_settings: Optional[
             Union[
-                models.UpdateKnowledgeRetrievalSettings,
-                models.UpdateKnowledgeRetrievalSettingsTypedDict,
+                models_updateknowledgeop.UpdateKnowledgeRetrievalSettings,
+                models_updateknowledgeop.UpdateKnowledgeRetrievalSettingsTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -676,7 +692,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -708,8 +724,8 @@ class Knowledge(BaseSDK):
         path: Optional[str] = None,
         retrieval_settings: Optional[
             Union[
-                models.UpdateKnowledgeRetrievalSettings,
-                models.UpdateKnowledgeRetrievalSettingsTypedDict,
+                models_updateknowledgeop.UpdateKnowledgeRetrievalSettings,
+                models_updateknowledgeop.UpdateKnowledgeRetrievalSettingsTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -791,7 +807,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -879,7 +895,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -965,7 +981,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -993,21 +1009,29 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models.SearchType] = "hybrid_search",
-        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
+        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
+        filter_by: Optional[
+            Union[
+                models_searchknowledgeop.FilterBy,
+                models_searchknowledgeop.FilterByTypedDict,
+            ]
+        ] = None,
         search_options: Optional[
-            Union[models.SearchOptions, models.SearchOptionsTypedDict]
+            Union[
+                models_searchknowledgeop.SearchOptions,
+                models_searchknowledgeop.SearchOptionsTypedDict,
+            ]
         ] = None,
         rerank_config: Optional[
             Union[
-                models.SearchKnowledgeRerankConfig,
-                models.SearchKnowledgeRerankConfigTypedDict,
+                models_searchknowledgeop.SearchKnowledgeRerankConfig,
+                models_searchknowledgeop.SearchKnowledgeRerankConfigTypedDict,
             ]
         ] = None,
         agentic_rag_config: Optional[
             Union[
-                models.SearchKnowledgeAgenticRagConfig,
-                models.SearchKnowledgeAgenticRagConfigTypedDict,
+                models_searchknowledgeop.SearchKnowledgeAgenticRagConfig,
+                models_searchknowledgeop.SearchKnowledgeAgenticRagConfigTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1104,7 +1128,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="SearchKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1134,21 +1158,29 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models.SearchType] = "hybrid_search",
-        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
+        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
+        filter_by: Optional[
+            Union[
+                models_searchknowledgeop.FilterBy,
+                models_searchknowledgeop.FilterByTypedDict,
+            ]
+        ] = None,
         search_options: Optional[
-            Union[models.SearchOptions, models.SearchOptionsTypedDict]
+            Union[
+                models_searchknowledgeop.SearchOptions,
+                models_searchknowledgeop.SearchOptionsTypedDict,
+            ]
         ] = None,
         rerank_config: Optional[
             Union[
-                models.SearchKnowledgeRerankConfig,
-                models.SearchKnowledgeRerankConfigTypedDict,
+                models_searchknowledgeop.SearchKnowledgeRerankConfig,
+                models_searchknowledgeop.SearchKnowledgeRerankConfigTypedDict,
             ]
         ] = None,
         agentic_rag_config: Optional[
             Union[
-                models.SearchKnowledgeAgenticRagConfig,
-                models.SearchKnowledgeAgenticRagConfigTypedDict,
+                models_searchknowledgeop.SearchKnowledgeAgenticRagConfig,
+                models_searchknowledgeop.SearchKnowledgeAgenticRagConfigTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1245,7 +1277,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="SearchKnowledge",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1277,7 +1309,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models_listdatasourcesop.QueryParamStatus,
+                models_listdatasourcesop.QueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1348,7 +1383,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasources",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1380,7 +1415,10 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
+            Union[
+                models_listdatasourcesop.QueryParamStatus,
+                models_listdatasourcesop.QueryParamStatusTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1451,7 +1489,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListDatasources",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1481,7 +1519,10 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
+            Union[
+                models_createdatasourceop.ChunkingOptions,
+                models_createdatasourceop.ChunkingOptionsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1559,7 +1600,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1589,7 +1630,10 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
+            Union[
+                models_createdatasourceop.ChunkingOptions,
+                models_createdatasourceop.ChunkingOptionsTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1667,7 +1711,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1756,7 +1800,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1845,7 +1889,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="RetrieveDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1936,7 +1980,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2025,7 +2069,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2124,7 +2168,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2225,7 +2269,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateDatasource",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2255,8 +2299,8 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         request_body: Optional[
             Union[
-                List[models.CreateChunkRequestBody],
-                List[models.CreateChunkRequestBodyTypedDict],
+                List[models_createchunkop.CreateChunkRequestBody],
+                List[models_createchunkop.CreateChunkRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2331,7 +2375,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2361,8 +2405,8 @@ class Knowledge(BaseSDK):
         datasource_id: str,
         request_body: Optional[
             Union[
-                List[models.CreateChunkRequestBody],
-                List[models.CreateChunkRequestBodyTypedDict],
+                List[models_createchunkop.CreateChunkRequestBody],
+                List[models_createchunkop.CreateChunkRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2437,7 +2481,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2471,8 +2515,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models.ListChunksQueryParamStatus,
-                models.ListChunksQueryParamStatusTypedDict,
+                models_listchunksop.ListChunksQueryParamStatus,
+                models_listchunksop.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2546,7 +2590,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListChunks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2580,8 +2624,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models.ListChunksQueryParamStatus,
-                models.ListChunksQueryParamStatusTypedDict,
+                models_listchunksop.ListChunksQueryParamStatus,
+                models_listchunksop.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2655,7 +2699,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListChunks",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2688,8 +2732,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models.UpdateChunkMetadata],
-                Dict[str, models.UpdateChunkMetadataTypedDict],
+                Dict[str, models_updatechunkop.UpdateChunkMetadata],
+                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2770,7 +2814,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2803,8 +2847,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models.UpdateChunkMetadata],
-                Dict[str, models.UpdateChunkMetadataTypedDict],
+                Dict[str, models_updatechunkop.UpdateChunkMetadata],
+                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2885,7 +2929,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -2977,7 +3021,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3067,7 +3111,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3157,7 +3201,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetOneChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -3249,7 +3293,7 @@ class Knowledge(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetOneChunk",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

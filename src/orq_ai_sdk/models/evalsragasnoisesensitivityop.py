@@ -42,7 +42,7 @@ class EvalsRagasNoiseSensitivityEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasNoiseSensitivityEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -64,7 +64,7 @@ class EvalsRagasNoiseSensitivityEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsRagasNoiseSensitivityEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

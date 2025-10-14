@@ -833,7 +833,7 @@ class UpdatePromptPromptsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class UpdatePromptPromptsResponseBody(OrqError):
     r"""Prompt not found."""
 

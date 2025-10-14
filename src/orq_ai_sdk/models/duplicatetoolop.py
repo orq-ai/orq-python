@@ -29,7 +29,7 @@ class DuplicateToolToolsResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DuplicateToolToolsResponseBody(OrqError):
     r"""Tool not found."""
 
@@ -130,7 +130,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XXJFR2FN5E0F76X6W1"
+        "01K7GS4C30BHNWSG66PNNGEC4F"
     )
 
     created_by_id: Optional[str] = None
@@ -284,7 +284,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XWPS81HN1R68FQFMK5"
+        "01K7GS4C2ZX0R7S9PCWGW2AAHR"
     )
 
     created_by_id: Optional[str] = None
@@ -460,7 +460,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XWZ0KTSDT8QC23PK1Q"
+        "01K7GS4C2ZQSRCBTEG8RK4JBPZ"
     )
 
     created_by_id: Optional[str] = None
@@ -593,7 +593,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XW104TAF7GRD023M00"
+        "01K7GS4C2Y0AY6YZZAXM4NRXQ6"
     )
 
     created_by_id: Optional[str] = None
@@ -696,7 +696,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25XVSC89QPXRQDNGKHHB"
+        "01K7GS4C2YP5FBAM9E8HDAWSVF"
     )
 
     created_by_id: Optional[str] = None

@@ -22,7 +22,7 @@ class EvalsValidJSONEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsValidJSONEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -44,7 +44,7 @@ class EvalsValidJSONEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsValidJSONEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

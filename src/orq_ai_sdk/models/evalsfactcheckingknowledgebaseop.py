@@ -37,7 +37,7 @@ class EvalsFactCheckingKnowledgeBaseEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsFactCheckingKnowledgeBaseEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -61,7 +61,7 @@ class EvalsFactCheckingKnowledgeBaseEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsFactCheckingKnowledgeBaseEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

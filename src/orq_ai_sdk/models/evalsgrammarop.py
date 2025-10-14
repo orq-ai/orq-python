@@ -31,7 +31,7 @@ class EvalsGrammarEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsGrammarEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -53,7 +53,7 @@ class EvalsGrammarEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsGrammarEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

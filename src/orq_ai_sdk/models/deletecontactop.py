@@ -27,7 +27,7 @@ class DeleteContactResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class DeleteContactResponseBody(OrqError):
     r"""Contact not found"""
 

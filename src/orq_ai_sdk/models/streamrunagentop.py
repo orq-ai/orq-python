@@ -605,7 +605,7 @@ class RunAgentRequestToolHTTPTool(BaseModel):
     http: RunAgentRequestToolHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K6XB25Q2WWBA9C2M19VTSJS0"
+        "01K7GS4BW1G5A0QEJ0XEZ00QNJ"
     )
 
     requires_approval: Optional[bool] = False
@@ -1007,7 +1007,7 @@ class StreamRunAgentAgentsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class StreamRunAgentAgentsResponseBody(OrqError):
     r"""Model not found"""
 

@@ -22,7 +22,7 @@ class EvalsContainsEmailEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsContainsEmailEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -44,7 +44,7 @@ class EvalsContainsEmailEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsContainsEmailEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

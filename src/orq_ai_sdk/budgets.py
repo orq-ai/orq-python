@@ -3,11 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createbudgetop as models_createbudgetop,
-    listbudgetsop as models_listbudgetsop,
-    updatebudgetop as models_updatebudgetop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -21,7 +16,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listbudgetsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -95,7 +90,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListBudgets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -124,7 +119,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listbudgetsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -198,7 +193,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="ListBudgets",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -225,8 +220,7 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models_createbudgetop.CreateBudgetRequestBody,
-            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
+            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -292,7 +286,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -319,8 +313,7 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models_createbudgetop.CreateBudgetRequestBody,
-            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
+            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -386,7 +379,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="CreateBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -474,7 +467,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -562,7 +555,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="GetBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -589,9 +582,7 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[
-            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
-        ] = None,
+        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -667,7 +658,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -694,9 +685,7 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[
-            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
-        ] = None,
+        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -772,7 +761,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="UpdateBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -860,7 +849,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -946,7 +935,7 @@ class Budgets(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="DeleteBudget",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

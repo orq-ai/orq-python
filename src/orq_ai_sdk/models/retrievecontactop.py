@@ -36,7 +36,7 @@ class RetrieveContactContactsResponseBodyData(BaseModel):
     r"""Error message"""
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class RetrieveContactContactsResponseBody(OrqError):
     r"""Contact not found"""
 
@@ -103,7 +103,7 @@ class RetrieveContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-06T18:03:02.644Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-14T07:14:29.280Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -30,7 +30,7 @@ class GetAgentTaskAgentsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetAgentTaskAgentsResponseBody(OrqError):
     r"""Agent task not found"""
 

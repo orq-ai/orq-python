@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from orq_ai_sdk.models import OrqError
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class ResponseValidationError(OrqError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 

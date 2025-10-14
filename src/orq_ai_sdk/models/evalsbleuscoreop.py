@@ -25,7 +25,7 @@ class EvalsBleuScoreEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsBleuScoreEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -47,7 +47,7 @@ class EvalsBleuScoreEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsBleuScoreEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

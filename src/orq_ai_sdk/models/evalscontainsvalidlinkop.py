@@ -22,7 +22,7 @@ class EvalsContainsValidLinkEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsContainsValidLinkEvalsResponseResponseBody(OrqError):
     r"""Internal server error"""
 
@@ -44,7 +44,7 @@ class EvalsContainsValidLinkEvalsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class EvalsContainsValidLinkEvalsResponseBody(OrqError):
     r"""Evaluator not found"""
 

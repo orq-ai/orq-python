@@ -34,7 +34,7 @@ class GetAgentAgentsResponseBodyData(BaseModel):
     message: str
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GetAgentAgentsResponseBody(OrqError):
     r"""Agent not found"""
 
@@ -303,7 +303,7 @@ class GetAgentKnowledgeBases(BaseModel):
     configuration: GetAgentKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K6XB25PEBNJCJE8PKJ4Y6S2M"
+    id: Optional[str] = "01K7GS4BVFQF2P51VQ74J0QXJ9"
     r"""The id of the resource"""
 
 

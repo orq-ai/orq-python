@@ -3,6 +3,7 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import fileuploadop as models_fileuploadop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -13,8 +14,11 @@ class Files(BaseSDK):
     def create(
         self,
         *,
-        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
-        purpose: Optional[models.Purpose] = "retrieval",
+        file: Union[
+            models_fileuploadop.FileUploadFile,
+            models_fileuploadop.FileUploadFileTypedDict,
+        ],
+        purpose: Optional[models_fileuploadop.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -81,7 +85,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileUpload",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -107,8 +111,11 @@ class Files(BaseSDK):
     async def create_async(
         self,
         *,
-        file: Union[models.FileUploadFile, models.FileUploadFileTypedDict],
-        purpose: Optional[models.Purpose] = "retrieval",
+        file: Union[
+            models_fileuploadop.FileUploadFile,
+            models_fileuploadop.FileUploadFileTypedDict,
+        ],
+        purpose: Optional[models_fileuploadop.Purpose] = "retrieval",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -175,7 +182,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileUpload",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -269,7 +276,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileList",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -363,7 +370,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileList",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -451,7 +458,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileGet",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -539,7 +546,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileGet",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -625,7 +632,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileDelete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -709,7 +716,7 @@ class Files(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="FileDelete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
