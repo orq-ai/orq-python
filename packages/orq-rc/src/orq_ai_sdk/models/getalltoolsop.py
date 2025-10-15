@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class GetAllToolsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 300"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
@@ -22,8 +22,8 @@ class GetAllToolsRequest(BaseModel):
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 300
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 300"""
+    ] = 10
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
     starting_after: Annotated[
         Optional[str],
@@ -135,7 +135,7 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KP695BEW2T07P9GACG6KHD"
+        "01K7KZ4X0JGTHW3N6RGCRJW960"
     )
 
     created_by_id: Optional[str] = None
@@ -297,7 +297,7 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KP695AHK2T8GCM73BT48ST"
+        "01K7KZ4X0JHB2K9STK311YB4EX"
     )
 
     created_by_id: Optional[str] = None
@@ -481,7 +481,7 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KP695AZ7NN32EF78QJ6NTW"
+        "01K7KZ4X0HRYTHX0BK790KJ010"
     )
 
     created_by_id: Optional[str] = None
@@ -624,7 +624,7 @@ class GetAllToolsData2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KP69592Q93RE0P6XSJ54YD"
+        "01K7KZ4X0HEVBHZ7HKFCNSRY7C"
     )
 
     created_by_id: Optional[str] = None
@@ -737,7 +737,7 @@ class GetAllToolsData1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KP6959SWK33M95JXSH1W8B"
+        "01K7KZ4X0H2ZMJANR3VK47F2JF"
     )
 
     created_by_id: Optional[str] = None

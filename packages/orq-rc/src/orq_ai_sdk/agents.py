@@ -3,13 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    invokeagentop as models_invokeagentop,
-    listagenttasksop as models_listagenttasksop,
-    runagentop as models_runagentop,
-    streamagentop as models_streamagentop,
-    streamrunagentop as models_streamrunagentop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -591,23 +584,14 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
-        ],
+        message: Union[models.Message, models.MessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
-        memory: Optional[
-            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -722,23 +706,14 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
-        ],
+        message: Union[models.Message, models.MessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
-        memory: Optional[
-            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -856,7 +831,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models_listagenttasksop.Status] = None,
+        status: Optional[models.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -962,7 +937,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models_listagenttasksop.Status] = None,
+        status: Optional[models.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1065,10 +1040,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_runagentop.RunAgentRequestBody,
-                models_runagentop.RunAgentRequestBodyTypedDict,
-            ]
+            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1161,10 +1133,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_runagentop.RunAgentRequestBody,
-                models_runagentop.RunAgentRequestBodyTypedDict,
-            ]
+            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1258,8 +1227,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_streamrunagentop.StreamRunAgentRequestBody,
-                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
+                models.StreamRunAgentRequestBody,
+                models.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1371,8 +1340,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_streamrunagentop.StreamRunAgentRequestBody,
-                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
+                models.StreamRunAgentRequestBody,
+                models.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1483,29 +1452,17 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_streamagentop.StreamAgentMessage,
-            models_streamagentop.StreamAgentMessageTypedDict,
-        ],
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -1641,29 +1598,17 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_streamagentop.StreamAgentMessage,
-            models_streamagentop.StreamAgentMessageTypedDict,
-        ],
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
