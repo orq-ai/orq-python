@@ -573,7 +573,7 @@ class HTTPTool(BaseModel):
     http: HTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7KDRXH22K7ASXHT84H6RYX8"
+        "01K7MSPE0T41QSF31KPHCNC7XE"
     )
 
     requires_approval: Optional[bool] = False
