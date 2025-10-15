@@ -255,7 +255,6 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole = Literal[
     "assistant",
-    "exception",
 ]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
@@ -875,10 +874,7 @@ DeploymentCreateMetricChoicesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 

@@ -8,4 +8,3 @@ The role of the messages author, in this case `assistant` or `exception`.
 | Name        | Value       |
 | ----------- | ----------- |
 | `ASSISTANT` | assistant   |
-| `EXCEPTION` | exception   |
