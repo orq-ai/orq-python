@@ -78,15 +78,20 @@ CreateEvalRequestBodyEvalsOutputType = Literal[
 ]
 
 
-CreateEvalRequestBodyEvalsRequestType = Literal["python_eval",]
+CreateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 
 
 class PythonTypedDict(TypedDict):
     output_type: CreateEvalRequestBodyEvalsOutputType
     code: str
-    type: CreateEvalRequestBodyEvalsRequestType
+    type: CreateEvalRequestBodyEvalsRequest4Type
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     guardrail_config: NotRequired[CreateEvalRequestBodyEvalsGuardrailConfigTypedDict]
     description: NotRequired[str]
@@ -97,10 +102,15 @@ class Python(BaseModel):
 
     code: str
 
-    type: CreateEvalRequestBodyEvalsRequestType
+    type: CreateEvalRequestBodyEvalsRequest4Type
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
 
@@ -178,7 +188,7 @@ CreateEvalRequestBodyOutputType = Literal[
 ]
 
 
-CreateEvalRequestBodyEvalsType = Literal["http_eval",]
+CreateEvalRequestBodyEvalsRequestType = Literal["http_eval",]
 
 
 RequestBodyMethod = Literal[
@@ -189,13 +199,18 @@ RequestBodyMethod = Literal[
 
 class RequestBodyHTTPTypedDict(TypedDict):
     output_type: CreateEvalRequestBodyOutputType
-    type: CreateEvalRequestBodyEvalsType
+    type: CreateEvalRequestBodyEvalsRequestType
     url: str
     method: RequestBodyMethod
     headers: Dict[str, str]
     payload: Dict[str, Any]
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     guardrail_config: NotRequired[CreateEvalRequestBodyGuardrailConfigTypedDict]
     description: NotRequired[str]
@@ -204,7 +219,7 @@ class RequestBodyHTTPTypedDict(TypedDict):
 class RequestBodyHTTP(BaseModel):
     output_type: CreateEvalRequestBodyOutputType
 
-    type: CreateEvalRequestBodyEvalsType
+    type: CreateEvalRequestBodyEvalsRequestType
 
     url: str
 
@@ -215,7 +230,12 @@ class RequestBodyHTTP(BaseModel):
     payload: Dict[str, Any]
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
 
@@ -285,15 +305,20 @@ RequestBodyGuardrailConfig = TypeAliasType(
 RequestBodyOutputType = Literal["boolean",]
 
 
-CreateEvalRequestBodyType = Literal["json_schema",]
+CreateEvalRequestBodyEvalsType = Literal["json_schema",]
 
 
 class JSONTypedDict(TypedDict):
     output_type: RequestBodyOutputType
-    type: CreateEvalRequestBodyType
+    type: CreateEvalRequestBodyEvalsType
     schema_: str
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     guardrail_config: NotRequired[RequestBodyGuardrailConfigTypedDict]
     description: NotRequired[str]
@@ -302,12 +327,17 @@ class JSONTypedDict(TypedDict):
 class JSON(BaseModel):
     output_type: RequestBodyOutputType
 
-    type: CreateEvalRequestBodyType
+    type: CreateEvalRequestBodyEvalsType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
 
@@ -378,15 +408,20 @@ OutputType = Literal[
 ]
 
 
-RequestBodyType = Literal["llm_eval",]
+CreateEvalRequestBodyType = Literal["llm_eval",]
 
 
 class LlmTypedDict(TypedDict):
     output_type: OutputType
-    type: RequestBodyType
+    type: CreateEvalRequestBodyType
     prompt: str
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     model: str
     key: str
     guardrail_config: NotRequired[GuardrailConfigTypedDict]
@@ -396,12 +431,17 @@ class LlmTypedDict(TypedDict):
 class Llm(BaseModel):
     output_type: OutputType
 
-    type: RequestBodyType
+    type: CreateEvalRequestBodyType
 
     prompt: str
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     model: str
 
@@ -553,9 +593,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -643,7 +683,7 @@ CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig = TypeAlias
 )
 
 
-CreateEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["ragas",]
+CreateEvalResponseBodyEvalsResponse200ApplicationJSON6Type = Literal["ragas",]
 
 
 RagasMetric = Literal[
@@ -665,7 +705,7 @@ RagasMetric = Literal[
 class RagasTypedDict(TypedDict):
     id: str
     description: str
-    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON6Type
     ragas_metric: RagasMetric
     key: str
     model: str
@@ -681,7 +721,7 @@ class Ragas(BaseModel):
 
     description: str
 
-    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSON6Type
 
     ragas_metric: RagasMetric
 
@@ -689,9 +729,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -779,7 +819,7 @@ CreateEvalResponseBodyEvalsResponse200GuardrailConfig = TypeAliasType(
 )
 
 
-CreateEvalResponseBodyEvalsResponse200Type = Literal["function_eval",]
+CreateEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["function_eval",]
 
 
 CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type = Literal[
@@ -1351,7 +1391,7 @@ CreateEvalResponseBodyFunctionParams = TypeAliasType(
 class ResponseBodyFunctionTypedDict(TypedDict):
     id: str
     description: str
-    type: CreateEvalResponseBodyEvalsResponse200Type
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
     function_params: CreateEvalResponseBodyFunctionParamsTypedDict
     key: str
     created: NotRequired[str]
@@ -1366,15 +1406,15 @@ class ResponseBodyFunction(BaseModel):
 
     description: str
 
-    type: CreateEvalResponseBodyEvalsResponse200Type
+    type: CreateEvalResponseBodyEvalsResponse200ApplicationJSONType
 
     function_params: CreateEvalResponseBodyFunctionParams
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1462,14 +1502,14 @@ CreateEvalResponseBodyEvalsResponseGuardrailConfig = TypeAliasType(
 )
 
 
-CreateEvalResponseBodyEvalsResponseType = Literal["python_eval",]
+CreateEvalResponseBodyEvalsResponse200Type = Literal["python_eval",]
 
 
 class ResponseBodyPythonTypedDict(TypedDict):
     id: str
     description: str
     code: str
-    type: CreateEvalResponseBodyEvalsResponseType
+    type: CreateEvalResponseBodyEvalsResponse200Type
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -1485,13 +1525,13 @@ class ResponseBodyPython(BaseModel):
 
     code: str
 
-    type: CreateEvalResponseBodyEvalsResponseType
+    type: CreateEvalResponseBodyEvalsResponse200Type
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1571,7 +1611,7 @@ CreateEvalResponseBodyEvalsGuardrailConfig = TypeAliasType(
 )
 
 
-CreateEvalResponseBodyEvalsType = Literal["http_eval",]
+CreateEvalResponseBodyEvalsResponseType = Literal["http_eval",]
 
 
 ResponseBodyMethod = Literal[
@@ -1583,7 +1623,7 @@ ResponseBodyMethod = Literal[
 class ResponseBodyHTTPTypedDict(TypedDict):
     id: str
     description: str
-    type: CreateEvalResponseBodyEvalsType
+    type: CreateEvalResponseBodyEvalsResponseType
     url: str
     method: ResponseBodyMethod
     headers: Dict[str, str]
@@ -1599,7 +1639,7 @@ class ResponseBodyHTTP(BaseModel):
 
     description: str
 
-    type: CreateEvalResponseBodyEvalsType
+    type: CreateEvalResponseBodyEvalsResponseType
 
     url: str
 
@@ -1611,9 +1651,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1685,13 +1725,13 @@ CreateEvalResponseBodyGuardrailConfig = TypeAliasType(
 )
 
 
-CreateEvalResponseBodyType = Literal["json_schema",]
+CreateEvalResponseBodyEvalsType = Literal["json_schema",]
 
 
 class ResponseBodyJSONTypedDict(TypedDict):
     id: str
     description: str
-    type: CreateEvalResponseBodyType
+    type: CreateEvalResponseBodyEvalsType
     schema_: str
     key: str
     created: NotRequired[str]
@@ -1704,15 +1744,15 @@ class ResponseBodyJSON(BaseModel):
 
     description: str
 
-    type: CreateEvalResponseBodyType
+    type: CreateEvalResponseBodyEvalsType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -1782,13 +1822,13 @@ ResponseBodyGuardrailConfig = TypeAliasType(
 )
 
 
-ResponseBodyType = Literal["llm_eval",]
+CreateEvalResponseBodyType = Literal["llm_eval",]
 
 
 class ResponseBodyLLMTypedDict(TypedDict):
     id: str
     description: str
-    type: ResponseBodyType
+    type: CreateEvalResponseBodyType
     prompt: str
     key: str
     model: str
@@ -1802,7 +1842,7 @@ class ResponseBodyLLM(BaseModel):
 
     description: str
 
-    type: ResponseBodyType
+    type: CreateEvalResponseBodyType
 
     prompt: str
 
@@ -1810,9 +1850,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 

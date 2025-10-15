@@ -50,7 +50,12 @@ class UpdateToolRequestBody5TypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     type: UpdateToolRequestBodyToolsRequest5Type
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     description: NotRequired[str]
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest5Status]
@@ -65,7 +70,12 @@ class UpdateToolRequestBody5(BaseModel):
     type: UpdateToolRequestBodyToolsRequest5Type
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     description: Optional[str] = None
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -167,7 +177,12 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     type: UpdateToolRequestBodyToolsRequest4Type
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: NotRequired[str]
@@ -184,7 +199,12 @@ class UpdateToolRequestBody4(BaseModel):
     type: UpdateToolRequestBodyToolsRequest4Type
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: Optional[str] = None
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -311,7 +331,12 @@ class UpdateToolRequestBodyHTTP(BaseModel):
 class UpdateToolRequestBody3TypedDict(TypedDict):
     type: UpdateToolRequestBodyToolsRequestType
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
@@ -327,7 +352,12 @@ class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: Optional[str] = None
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -414,7 +444,12 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
 class UpdateToolRequestBody2TypedDict(TypedDict):
     type: UpdateToolRequestBodyToolsType
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
@@ -430,7 +465,12 @@ class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: Optional[str] = None
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -487,7 +527,12 @@ class UpdateToolRequestBodyFunction(BaseModel):
 class UpdateToolRequestBody1TypedDict(TypedDict):
     type: UpdateToolRequestBodyType
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
@@ -503,7 +548,12 @@ class UpdateToolRequestBody1(BaseModel):
     type: UpdateToolRequestBodyType
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: Optional[str] = None
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -621,7 +671,12 @@ class UpdateToolResponseBodyCodeTool(BaseModel):
 
 class UpdateToolResponseBody5TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -646,7 +701,12 @@ class UpdateToolResponseBody5TypedDict(TypedDict):
 
 class UpdateToolResponseBody5(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -670,7 +730,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7HH3FBYAV2Y100BE695Z1S2"
+        "01K7K4ZPHND97KSSZ4DPJWT4AS"
     )
 
     created_by_id: Optional[str] = None
@@ -775,7 +835,12 @@ class UpdateToolResponseBodyMcp(BaseModel):
 
 class UpdateToolResponseBody4TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -800,7 +865,12 @@ class UpdateToolResponseBody4TypedDict(TypedDict):
 
 class UpdateToolResponseBody4(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -824,7 +894,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7HH3FBXTFVPWEAZB3GD8SAN"
+        "01K7K4ZPHNS1TWS2Q9K6A9285J"
     )
 
     created_by_id: Optional[str] = None
@@ -951,7 +1021,12 @@ class UpdateToolResponseBodyHTTP(BaseModel):
 
 class UpdateToolResponseBody3TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -976,7 +1051,12 @@ class UpdateToolResponseBody3TypedDict(TypedDict):
 
 class UpdateToolResponseBody3(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1000,7 +1080,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7HH3FBW3AFPJ6KJWP6MPVE3"
+        "01K7K4ZPHM3VMNE8QCY7XNVHRF"
     )
 
     created_by_id: Optional[str] = None
@@ -1084,7 +1164,12 @@ class UpdateToolResponseBodyJSONSchema(BaseModel):
 
 class UpdateToolResponseBody2TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -1109,7 +1194,12 @@ class UpdateToolResponseBody2TypedDict(TypedDict):
 
 class UpdateToolResponseBody2(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1133,7 +1223,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7HH3FBWMACRCVPR21BVKW3V"
+        "01K7K4ZPHMMRXQGQBSPTT99NXC"
     )
 
     created_by_id: Optional[str] = None
@@ -1187,7 +1277,12 @@ class UpdateToolResponseBodyFunction(BaseModel):
 
 class UpdateToolResponseBody1TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: str
@@ -1212,7 +1307,12 @@ class UpdateToolResponseBody1TypedDict(TypedDict):
 
 class UpdateToolResponseBody1(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1236,7 +1336,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7HH3FBVVQE2A093A59Z8FSZ"
+        "01K7K4ZPHK95ZQRH14JCYKJAZ6"
     )
 
     created_by_id: Optional[str] = None

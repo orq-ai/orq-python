@@ -220,10 +220,7 @@ DeploymentStreamPrefixMessagesDeploymentsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
@@ -809,10 +806,7 @@ DeploymentStreamMessagesDeploymentsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentStreamMessagesDeploymentsRequestRequestBodyRole = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentStreamMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 

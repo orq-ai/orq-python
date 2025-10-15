@@ -208,10 +208,7 @@ CreateDatasetItemMessagesDatasetsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal[
-    "assistant",
-    "exception",
-]
+CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
@@ -842,7 +839,6 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
-    "exception",
 ]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
@@ -1290,7 +1286,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.570Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.798Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1342,7 +1338,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.569Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.798Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1394,7 +1390,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.569Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.798Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1468,5 +1464,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-14T14:13:25.174Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-15T05:20:08.470Z")
     r"""The date and time the resource was last updated"""

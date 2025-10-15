@@ -145,7 +145,12 @@ class UpdateMemoryStoreRequestBodyTypedDict(TypedDict):
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
@@ -157,7 +162,12 @@ class UpdateMemoryStoreRequestBody(BaseModel):
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     ttl: Optional[float] = None
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""

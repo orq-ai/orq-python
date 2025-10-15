@@ -88,7 +88,12 @@ UpdateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 class RequestBodyPythonTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsRequest4Type
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     guardrail_config: NotRequired[
         UpdateEvalRequestBodyEvalsRequest4GuardrailConfigTypedDict
     ]
@@ -102,7 +107,12 @@ class RequestBodyPython(BaseModel):
     type: UpdateEvalRequestBodyEvalsRequest4Type
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsRequest4GuardrailConfig] = None
 
@@ -199,7 +209,12 @@ UpdateEvalRequestBodyMethod = Literal[
 class UpdateEvalRequestBodyHTTPTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsRequestType
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     guardrail_config: NotRequired[
         UpdateEvalRequestBodyEvalsRequestGuardrailConfigTypedDict
     ]
@@ -216,7 +231,12 @@ class UpdateEvalRequestBodyHTTP(BaseModel):
     type: UpdateEvalRequestBodyEvalsRequestType
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsRequestGuardrailConfig] = None
 
@@ -306,7 +326,12 @@ UpdateEvalRequestBodyEvalsType = Literal["json_schema",]
 class RequestBodyJSONTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsType
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     guardrail_config: NotRequired[UpdateEvalRequestBodyEvalsGuardrailConfigTypedDict]
     output_type: NotRequired[UpdateEvalRequestBodyEvalsOutputType]
     schema_: NotRequired[str]
@@ -318,7 +343,12 @@ class RequestBodyJSON(BaseModel):
     type: UpdateEvalRequestBodyEvalsType
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsGuardrailConfig] = None
 
@@ -406,7 +436,12 @@ UpdateEvalRequestBodyType = Literal["llm_eval",]
 class RequestBodyLLMTypedDict(TypedDict):
     type: UpdateEvalRequestBodyType
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     guardrail_config: NotRequired[UpdateEvalRequestBodyGuardrailConfigTypedDict]
     output_type: NotRequired[UpdateEvalRequestBodyOutputType]
     prompt: NotRequired[str]
@@ -419,7 +454,12 @@ class RequestBodyLLM(BaseModel):
     type: UpdateEvalRequestBodyType
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     guardrail_config: Optional[UpdateEvalRequestBodyGuardrailConfig] = None
 
@@ -599,9 +639,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -735,9 +775,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1420,9 +1460,9 @@ class UpdateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1537,9 +1577,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1661,9 +1701,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1762,9 +1802,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1862,9 +1902,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 

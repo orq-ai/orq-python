@@ -220,10 +220,7 @@ RetrieveDatapointMessagesDatasetsContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-RetrieveDatapointMessagesDatasetsResponse200Role = Literal[
-    "assistant",
-    "exception",
-]
+RetrieveDatapointMessagesDatasetsResponse200Role = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
@@ -665,7 +662,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.567Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.795Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -717,7 +714,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.567Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.795Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -769,7 +766,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-14T14:13:34.567Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-15T05:20:16.795Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -856,5 +853,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-14T14:13:25.174Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-15T05:20:08.470Z")
     r"""The date and time the resource was last updated"""

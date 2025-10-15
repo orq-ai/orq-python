@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `HTTP_EVAL` | http_eval   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `JSON_SCHEMA` | json_schema   |

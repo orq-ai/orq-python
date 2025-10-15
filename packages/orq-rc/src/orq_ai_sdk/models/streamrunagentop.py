@@ -913,7 +913,12 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     message: StreamRunAgentMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     settings: StreamRunAgentSettingsTypedDict
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
@@ -959,7 +964,12 @@ class StreamRunAgentRequestBody(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     settings: StreamRunAgentSettings
 

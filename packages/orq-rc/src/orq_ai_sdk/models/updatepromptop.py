@@ -743,7 +743,12 @@ class UpdatePromptRequestBodyTypedDict(TypedDict):
     prompt_config: NotRequired[UpdatePromptPromptConfigTypedDict]
     metadata: NotRequired[UpdatePromptMetadataTypedDict]
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
 
 class UpdatePromptRequestBody(BaseModel):
@@ -770,7 +775,12 @@ class UpdatePromptRequestBody(BaseModel):
     metadata: Optional[UpdatePromptMetadata] = None
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

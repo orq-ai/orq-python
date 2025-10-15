@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.Data1`
+### `models.GetAllToolsData1`
 
 ```python
-value: models.Data1 = /* values here */
+value: models.GetAllToolsData1 = /* values here */
 ```
 
-### `models.Data2`
+### `models.GetAllToolsData2`
 
 ```python
-value: models.Data2 = /* values here */
+value: models.GetAllToolsData2 = /* values here */
 ```
 
 ### `models.Data3`

@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+| Name            | Value           |
+| --------------- | --------------- |
+| `FUNCTION_EVAL` | function_eval   |

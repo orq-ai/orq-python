@@ -20,7 +20,12 @@ class UpdateDatasetRequestBodyTypedDict(TypedDict):
     project_id: NotRequired[str]
     r"""The unique identifier of the project it belongs to"""
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
 
 class UpdateDatasetRequestBody(BaseModel):
@@ -31,7 +36,12 @@ class UpdateDatasetRequestBody(BaseModel):
     r"""The unique identifier of the project it belongs to"""
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
 
 class UpdateDatasetRequestTypedDict(TypedDict):
@@ -109,5 +119,5 @@ class UpdateDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-14T14:13:25.174Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-15T05:20:08.470Z")
     r"""The date and time the resource was last updated"""

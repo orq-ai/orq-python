@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.types import OptionalNullable, UNSET
+from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Dict, List, Mapping, Optional, Union, cast
 
 
 class Knowledge(BaseSDK):
@@ -201,13 +201,10 @@ class Knowledge(BaseSDK):
     def create(
         self,
         *,
-        key: str,
-        embedding_model: str,
-        path: str,
-        description: Optional[str] = None,
-        retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
-        ] = None,
+        request: Union[
+            models.CreateKnowledgeRequestBody,
+            models.CreateKnowledgeRequestBodyTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -215,11 +212,7 @@ class Knowledge(BaseSDK):
     ) -> Optional[models.CreateKnowledgeResponseBody]:
         r"""Create a knowledge
 
-        :param key:
-        :param embedding_model: The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
-        :param description:
-        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -238,15 +231,9 @@ class Knowledge(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateKnowledgeRequestBody(
-            key=key,
-            description=description,
-            embedding_model=embedding_model,
-            retrieval_settings=utils.get_pydantic_model(
-                retrieval_settings, Optional[models.RetrievalSettings]
-            ),
-            path=path,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.CreateKnowledgeRequestBody)
+        request = cast(models.CreateKnowledgeRequestBody, request)
 
         req = self._build_request(
             method="POST",
@@ -306,13 +293,10 @@ class Knowledge(BaseSDK):
     async def create_async(
         self,
         *,
-        key: str,
-        embedding_model: str,
-        path: str,
-        description: Optional[str] = None,
-        retrieval_settings: Optional[
-            Union[models.RetrievalSettings, models.RetrievalSettingsTypedDict]
-        ] = None,
+        request: Union[
+            models.CreateKnowledgeRequestBody,
+            models.CreateKnowledgeRequestBodyTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -320,11 +304,7 @@ class Knowledge(BaseSDK):
     ) -> Optional[models.CreateKnowledgeResponseBody]:
         r"""Create a knowledge
 
-        :param key:
-        :param embedding_model: The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
-        :param description:
-        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -343,15 +323,9 @@ class Knowledge(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateKnowledgeRequestBody(
-            key=key,
-            description=description,
-            embedding_model=embedding_model,
-            retrieval_settings=utils.get_pydantic_model(
-                retrieval_settings, Optional[models.RetrievalSettings]
-            ),
-            path=path,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.CreateKnowledgeRequestBody)
+        request = cast(models.CreateKnowledgeRequestBody, request)
 
         req = self._build_request_async(
             method="POST",
@@ -588,15 +562,10 @@ class Knowledge(BaseSDK):
         self,
         *,
         knowledge_id: str,
-        description: OptionalNullable[str] = UNSET,
-        embedding_model: Optional[str] = None,
-        path: Optional[str] = None,
-        retrieval_settings: Optional[
-            Union[
-                models.UpdateKnowledgeRetrievalSettings,
-                models.UpdateKnowledgeRetrievalSettingsTypedDict,
-            ]
-        ] = None,
+        request_body: Union[
+            models.UpdateKnowledgeRequestBody,
+            models.UpdateKnowledgeRequestBodyTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -605,10 +574,7 @@ class Knowledge(BaseSDK):
         r"""Updates a knowledge
 
         :param knowledge_id: The unique identifier of the knowledge base
-        :param description: The description of the knowledge base.
-        :param embedding_model: The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded.
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
-        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -629,14 +595,8 @@ class Knowledge(BaseSDK):
 
         request = models.UpdateKnowledgeRequest(
             knowledge_id=knowledge_id,
-            request_body=models.UpdateKnowledgeRequestBody(
-                description=description,
-                embedding_model=embedding_model,
-                path=path,
-                retrieval_settings=utils.get_pydantic_model(
-                    retrieval_settings,
-                    Optional[models.UpdateKnowledgeRetrievalSettings],
-                ),
+            request_body=utils.get_pydantic_model(
+                request_body, models.UpdateKnowledgeRequestBody
             ),
         )
 
@@ -703,15 +663,10 @@ class Knowledge(BaseSDK):
         self,
         *,
         knowledge_id: str,
-        description: OptionalNullable[str] = UNSET,
-        embedding_model: Optional[str] = None,
-        path: Optional[str] = None,
-        retrieval_settings: Optional[
-            Union[
-                models.UpdateKnowledgeRetrievalSettings,
-                models.UpdateKnowledgeRetrievalSettingsTypedDict,
-            ]
-        ] = None,
+        request_body: Union[
+            models.UpdateKnowledgeRequestBody,
+            models.UpdateKnowledgeRequestBodyTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -720,10 +675,7 @@ class Knowledge(BaseSDK):
         r"""Updates a knowledge
 
         :param knowledge_id: The unique identifier of the knowledge base
-        :param description: The description of the knowledge base.
-        :param embedding_model: The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded.
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
-        :param retrieval_settings: The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.
+        :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -744,14 +696,8 @@ class Knowledge(BaseSDK):
 
         request = models.UpdateKnowledgeRequest(
             knowledge_id=knowledge_id,
-            request_body=models.UpdateKnowledgeRequestBody(
-                description=description,
-                embedding_model=embedding_model,
-                path=path,
-                retrieval_settings=utils.get_pydantic_model(
-                    retrieval_settings,
-                    Optional[models.UpdateKnowledgeRetrievalSettings],
-                ),
+            request_body=utils.get_pydantic_model(
+                request_body, models.UpdateKnowledgeRequestBody
             ),
         )
 
@@ -999,16 +945,10 @@ class Knowledge(BaseSDK):
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
-            Union[
-                models.SearchKnowledgeRerankConfig,
-                models.SearchKnowledgeRerankConfigTypedDict,
-            ]
+            Union[models.RerankConfig, models.RerankConfigTypedDict]
         ] = None,
         agentic_rag_config: Optional[
-            Union[
-                models.SearchKnowledgeAgenticRagConfig,
-                models.SearchKnowledgeAgenticRagConfigTypedDict,
-            ]
+            Union[models.AgenticRagConfig, models.AgenticRagConfigTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1060,10 +1000,10 @@ class Knowledge(BaseSDK):
                     search_options, Optional[models.SearchOptions]
                 ),
                 rerank_config=utils.get_pydantic_model(
-                    rerank_config, Optional[models.SearchKnowledgeRerankConfig]
+                    rerank_config, Optional[models.RerankConfig]
                 ),
                 agentic_rag_config=utils.get_pydantic_model(
-                    agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
+                    agentic_rag_config, Optional[models.AgenticRagConfig]
                 ),
             ),
         )
@@ -1140,16 +1080,10 @@ class Knowledge(BaseSDK):
             Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
-            Union[
-                models.SearchKnowledgeRerankConfig,
-                models.SearchKnowledgeRerankConfigTypedDict,
-            ]
+            Union[models.RerankConfig, models.RerankConfigTypedDict]
         ] = None,
         agentic_rag_config: Optional[
-            Union[
-                models.SearchKnowledgeAgenticRagConfig,
-                models.SearchKnowledgeAgenticRagConfigTypedDict,
-            ]
+            Union[models.AgenticRagConfig, models.AgenticRagConfigTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1201,10 +1135,10 @@ class Knowledge(BaseSDK):
                     search_options, Optional[models.SearchOptions]
                 ),
                 rerank_config=utils.get_pydantic_model(
-                    rerank_config, Optional[models.SearchKnowledgeRerankConfig]
+                    rerank_config, Optional[models.RerankConfig]
                 ),
                 agentic_rag_config=utils.get_pydantic_model(
-                    agentic_rag_config, Optional[models.SearchKnowledgeAgenticRagConfig]
+                    agentic_rag_config, Optional[models.AgenticRagConfig]
                 ),
             ),
         )

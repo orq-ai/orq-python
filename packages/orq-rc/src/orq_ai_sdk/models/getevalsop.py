@@ -134,7 +134,7 @@ GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType = Literal[
+GetEvalsDataEvalsResponse200ApplicationJSONResponseBody7Type = Literal[
     "typescript_eval",
 ]
 
@@ -143,7 +143,7 @@ class DataTypescriptTypedDict(TypedDict):
     id: str
     description: str
     code: str
-    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType
+    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBody7Type
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -159,13 +159,13 @@ class DataTypescript(BaseModel):
 
     code: str
 
-    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType
+    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBody7Type
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -241,7 +241,7 @@ GetEvalsDataEvalsResponse200GuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONType = Literal["ragas",]
+GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType = Literal["ragas",]
 
 
 DataRagasMetric = Literal[
@@ -263,7 +263,7 @@ DataRagasMetric = Literal[
 class DataRagasTypedDict(TypedDict):
     id: str
     description: str
-    type: GetEvalsDataEvalsResponse200ApplicationJSONType
+    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType
     ragas_metric: DataRagasMetric
     key: str
     model: str
@@ -277,7 +277,7 @@ class DataRagas(BaseModel):
 
     description: str
 
-    type: GetEvalsDataEvalsResponse200ApplicationJSONType
+    type: GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType
 
     ragas_metric: DataRagasMetric
 
@@ -285,9 +285,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -361,7 +361,7 @@ GetEvalsDataEvalsResponseGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200Type = Literal["function_eval",]
+GetEvalsDataEvalsResponse200ApplicationJSONType = Literal["function_eval",]
 
 
 GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData535Type = Literal[
@@ -935,7 +935,7 @@ DataFunctionParams = TypeAliasType(
 class DataFunctionTypedDict(TypedDict):
     id: str
     description: str
-    type: GetEvalsDataEvalsResponse200Type
+    type: GetEvalsDataEvalsResponse200ApplicationJSONType
     function_params: DataFunctionParamsTypedDict
     key: str
     created: NotRequired[str]
@@ -948,15 +948,15 @@ class DataFunction(BaseModel):
 
     description: str
 
-    type: GetEvalsDataEvalsResponse200Type
+    type: GetEvalsDataEvalsResponse200ApplicationJSONType
 
     function_params: DataFunctionParams
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -1027,14 +1027,14 @@ GetEvalsDataEvalsGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponseType = Literal["python_eval",]
+GetEvalsDataEvalsResponse200Type = Literal["python_eval",]
 
 
 class DataPythonTypedDict(TypedDict):
     id: str
     description: str
     code: str
-    type: GetEvalsDataEvalsResponseType
+    type: GetEvalsDataEvalsResponse200Type
     key: str
     created: NotRequired[str]
     updated: NotRequired[str]
@@ -1048,13 +1048,13 @@ class DataPython(BaseModel):
 
     code: str
 
-    type: GetEvalsDataEvalsResponseType
+    type: GetEvalsDataEvalsResponse200Type
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -1120,7 +1120,7 @@ GetEvalsDataGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsType = Literal["http_eval",]
+GetEvalsDataEvalsResponseType = Literal["http_eval",]
 
 
 DataMethod = Literal[
@@ -1132,7 +1132,7 @@ DataMethod = Literal[
 class DataHTTPTypedDict(TypedDict):
     id: str
     description: str
-    type: GetEvalsDataEvalsType
+    type: GetEvalsDataEvalsResponseType
     url: str
     method: DataMethod
     headers: Dict[str, str]
@@ -1148,7 +1148,7 @@ class DataHTTP(BaseModel):
 
     description: str
 
-    type: GetEvalsDataEvalsType
+    type: GetEvalsDataEvalsResponseType
 
     url: str
 
@@ -1160,9 +1160,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1246,13 +1246,13 @@ DataGuardrailConfig = TypeAliasType(
 )
 
 
-GetEvalsDataType = Literal["json_schema",]
+GetEvalsDataEvalsType = Literal["json_schema",]
 
 
 class DataJSONTypedDict(TypedDict):
     id: str
     description: str
-    type: GetEvalsDataType
+    type: GetEvalsDataEvalsType
     schema_: str
     key: str
     created: NotRequired[str]
@@ -1265,15 +1265,15 @@ class DataJSON(BaseModel):
 
     description: str
 
-    type: GetEvalsDataType
+    type: GetEvalsDataEvalsType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
 
     key: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1353,13 +1353,13 @@ GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig = TypeAli
 )
 
 
-DataType = Literal["llm_eval",]
+GetEvalsDataType = Literal["llm_eval",]
 
 
 class DataLLMTypedDict(TypedDict):
     id: str
     description: str
-    type: DataType
+    type: GetEvalsDataType
     prompt: str
     key: str
     model: str
@@ -1375,7 +1375,7 @@ class DataLLM(BaseModel):
 
     description: str
 
-    type: DataType
+    type: GetEvalsDataType
 
     prompt: str
 
@@ -1383,9 +1383,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-14T14:13:27.558Z"
+    created: Optional[str] = "2025-10-15T05:20:10.646Z"
 
-    updated: Optional[str] = "2025-10-14T14:13:27.558Z"
+    updated: Optional[str] = "2025-10-15T05:20:10.646Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

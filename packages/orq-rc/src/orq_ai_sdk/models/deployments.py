@@ -186,10 +186,7 @@ PrefixMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentsPrefixMessages4Role = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentsPrefixMessages4Role = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
@@ -738,10 +735,7 @@ DeploymentsMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentsMessages4Role = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentsMessages4Role = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 

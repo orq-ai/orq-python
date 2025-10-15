@@ -11,8 +11,8 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class ListKnowledgeBasesRequestTypedDict(TypedDict):
@@ -47,15 +47,10 @@ class ListKnowledgeBasesRequest(BaseModel):
 ListKnowledgeBasesObject = Literal["list",]
 
 
-ListKnowledgeBasesRetrievalType = Literal[
-    "vector_search",
-    "keyword_search",
-    "hybrid_search",
-]
-r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+ListKnowledgeBasesDataType = Literal["external",]
 
 
-class ListKnowledgeBasesRerankConfigTypedDict(TypedDict):
+class DataRerankConfigTypedDict(TypedDict):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -66,7 +61,7 @@ class ListKnowledgeBasesRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class ListKnowledgeBasesRerankConfig(BaseModel):
+class DataRerankConfig(BaseModel):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -79,41 +74,268 @@ class ListKnowledgeBasesRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class ListKnowledgeBasesAgenticRagConfigTypedDict(TypedDict):
+class DataAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class ListKnowledgeBasesAgenticRagConfig(BaseModel):
+class DataAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class ListKnowledgeBasesRetrievalSettingsTypedDict(TypedDict):
+class DataRetrievalSettingsTypedDict(TypedDict):
+    r"""The retrieval settings for the knowledge base."""
+
+    top_k: NotRequired[int]
+    r"""The number of results to return from the search."""
+    threshold: NotRequired[float]
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+    rerank_config: NotRequired[Nullable[DataRerankConfigTypedDict]]
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    agentic_rag_config: NotRequired[Nullable[DataAgenticRagConfigTypedDict]]
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+
+class DataRetrievalSettings(BaseModel):
+    r"""The retrieval settings for the knowledge base."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return from the search."""
+
+    threshold: Optional[float] = 0
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+
+    rerank_config: OptionalNullable[DataRerankConfig] = UNSET
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    agentic_rag_config: OptionalNullable[DataAgenticRagConfig] = UNSET
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
+        nullable_fields = ["rerank_config", "agentic_rag_config"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataExternalConfigTypedDict(TypedDict):
+    name: str
+    r"""The name of the external knowledge base."""
+    api_url: str
+    r"""The API URL of the external knowledge base."""
+
+
+class DataExternalConfig(BaseModel):
+    name: str
+    r"""The name of the external knowledge base."""
+
+    api_url: str
+    r"""The API URL of the external knowledge base."""
+
+
+class Data2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the knowledge base."""
+    created: str
+    r"""The creation date of the knowledge base."""
+    key: str
+    r"""The unique key of the knowledge base."""
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
+    updated: str
+    r"""The last update date of the knowledge base."""
+    external_config: DataExternalConfigTypedDict
+    description: NotRequired[str]
+    r"""The description of the knowledge base."""
+    path: NotRequired[str]
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
+    type: NotRequired[ListKnowledgeBasesDataType]
+    retrieval_settings: NotRequired[DataRetrievalSettingsTypedDict]
+    r"""The retrieval settings for the knowledge base."""
+
+
+class Data2(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+    r"""The unique identifier of the knowledge base."""
+
+    created: str
+    r"""The creation date of the knowledge base."""
+
+    key: str
+    r"""The unique key of the knowledge base."""
+
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
+
+    updated: str
+    r"""The last update date of the knowledge base."""
+
+    external_config: DataExternalConfig
+
+    description: Optional[str] = None
+    r"""The description of the knowledge base."""
+
+    path: Optional[str] = None
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+
+    created_by_id: OptionalNullable[str] = UNSET
+
+    updated_by_id: OptionalNullable[str] = UNSET
+
+    type: Optional[ListKnowledgeBasesDataType] = "external"
+
+    retrieval_settings: Optional[DataRetrievalSettings] = None
+    r"""The retrieval settings for the knowledge base."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "description",
+            "path",
+            "created_by_id",
+            "updated_by_id",
+            "type",
+            "retrieval_settings",
+        ]
+        nullable_fields = ["created_by_id", "updated_by_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+DataType = Literal["internal",]
+
+
+DataRetrievalType = Literal[
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
+]
+r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+
+
+class ListKnowledgeBasesDataRerankConfigTypedDict(TypedDict):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+    top_k: NotRequired[int]
+    r"""The number of results to return by the reranking model"""
+    rerank_threshold: NotRequired[float]
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+
+class ListKnowledgeBasesDataRerankConfig(BaseModel):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return by the reranking model"""
+
+    rerank_threshold: Optional[float] = 0.5
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+
+class ListKnowledgeBasesDataAgenticRagConfigTypedDict(TypedDict):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class ListKnowledgeBasesDataAgenticRagConfig(BaseModel):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class ListKnowledgeBasesDataRetrievalSettingsTypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: NotRequired[ListKnowledgeBasesRetrievalType]
+    retrieval_type: NotRequired[DataRetrievalType]
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
     top_k: NotRequired[int]
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[ListKnowledgeBasesRerankConfigTypedDict]]
+    rerank_config: NotRequired[Nullable[ListKnowledgeBasesDataRerankConfigTypedDict]]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
     agentic_rag_config: NotRequired[
-        Nullable[ListKnowledgeBasesAgenticRagConfigTypedDict]
+        Nullable[ListKnowledgeBasesDataAgenticRagConfigTypedDict]
     ]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class ListKnowledgeBasesRetrievalSettings(BaseModel):
+class ListKnowledgeBasesDataRetrievalSettings(BaseModel):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
-    retrieval_type: Optional[ListKnowledgeBasesRetrievalType] = "hybrid_search"
+    retrieval_type: Optional[DataRetrievalType] = "hybrid_search"
     r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
     top_k: Optional[int] = 5
@@ -122,10 +344,10 @@ class ListKnowledgeBasesRetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[ListKnowledgeBasesRerankConfig] = UNSET
+    rerank_config: OptionalNullable[ListKnowledgeBasesDataRerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
-    agentic_rag_config: OptionalNullable[ListKnowledgeBasesAgenticRagConfig] = UNSET
+    agentic_rag_config: OptionalNullable[ListKnowledgeBasesDataAgenticRagConfig] = UNSET
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -165,34 +387,36 @@ class ListKnowledgeBasesRetrievalSettings(BaseModel):
         return m
 
 
-class ListKnowledgeBasesDataTypedDict(TypedDict):
-    r"""Knowledge Base object"""
-
+class Data1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
     r"""The creation date of the knowledge base."""
     key: str
     r"""The unique key of the knowledge base."""
-    model: str
-    r"""The embeddings model used for the knowledge base."""
     domain_id: str
     r"""The project/domain ID of the knowledge base."""
     updated: str
     r"""The last update date of the knowledge base."""
+    model: str
+    r"""The embeddings model used for the knowledge base."""
     description: NotRequired[str]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-    retrieval_settings: NotRequired[ListKnowledgeBasesRetrievalSettingsTypedDict]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    type: NotRequired[DataType]
+    retrieval_settings: NotRequired[ListKnowledgeBasesDataRetrievalSettingsTypedDict]
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class ListKnowledgeBasesData(BaseModel):
-    r"""Knowledge Base object"""
-
+class Data1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -202,36 +426,44 @@ class ListKnowledgeBasesData(BaseModel):
     key: str
     r"""The unique key of the knowledge base."""
 
-    model: str
-    r"""The embeddings model used for the knowledge base."""
-
     domain_id: str
     r"""The project/domain ID of the knowledge base."""
 
     updated: str
     r"""The last update date of the knowledge base."""
 
+    model: str
+    r"""The embeddings model used for the knowledge base."""
+
     description: Optional[str] = None
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    retrieval_settings: Optional[ListKnowledgeBasesRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    type: Optional[DataType] = "internal"
+
+    retrieval_settings: Optional[ListKnowledgeBasesDataRetrievalSettings] = None
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
             "description",
             "path",
-            "retrieval_settings",
             "created_by_id",
             "updated_by_id",
+            "type",
+            "retrieval_settings",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []
@@ -259,6 +491,14 @@ class ListKnowledgeBasesData(BaseModel):
                 m[k] = val
 
         return m
+
+
+ListKnowledgeBasesDataTypedDict = TypeAliasType(
+    "ListKnowledgeBasesDataTypedDict", Union[Data1TypedDict, Data2TypedDict]
+)
+
+
+ListKnowledgeBasesData = TypeAliasType("ListKnowledgeBasesData", Union[Data1, Data2])
 
 
 class ListKnowledgeBasesResponseBodyTypedDict(TypedDict):

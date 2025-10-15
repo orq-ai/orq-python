@@ -10,8 +10,51 @@ from orq_ai_sdk.types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+CreateKnowledgeRequestBodyType = Literal["external",]
+
+
+class ExternalConfigTypedDict(TypedDict):
+    name: str
+    r"""The name of the external knowledge base."""
+    api_url: str
+    r"""The API URL of the external knowledge base."""
+    api_key: str
+    r"""The API key to access the external knowledge base."""
+
+
+class ExternalConfig(BaseModel):
+    name: str
+    r"""The name of the external knowledge base."""
+
+    api_url: str
+    r"""The API URL of the external knowledge base."""
+
+    api_key: str
+    r"""The API key to access the external knowledge base."""
+
+
+class RequestBody2TypedDict(TypedDict):
+    key: str
+    external_config: ExternalConfigTypedDict
+    type: NotRequired[CreateKnowledgeRequestBodyType]
+    description: NotRequired[str]
+
+
+class RequestBody2(BaseModel):
+    key: str
+
+    external_config: ExternalConfig
+
+    type: Optional[CreateKnowledgeRequestBodyType] = "external"
+
+    description: Optional[str] = None
+
+
+RequestBodyType = Literal["internal",]
 
 
 RetrievalType = Literal[
@@ -22,7 +65,7 @@ RetrievalType = Literal[
 r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
 
 
-class RerankConfigTypedDict(TypedDict):
+class CreateKnowledgeRequestBodyRerankConfigTypedDict(TypedDict):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -33,7 +76,7 @@ class RerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class RerankConfig(BaseModel):
+class CreateKnowledgeRequestBodyRerankConfig(BaseModel):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -46,14 +89,14 @@ class RerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class AgenticRagConfigTypedDict(TypedDict):
+class CreateKnowledgeRequestBodyAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class AgenticRagConfig(BaseModel):
+class CreateKnowledgeRequestBodyAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
@@ -69,9 +112,13 @@ class RetrievalSettingsTypedDict(TypedDict):
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[RerankConfigTypedDict]]
+    rerank_config: NotRequired[
+        Nullable[CreateKnowledgeRequestBodyRerankConfigTypedDict]
+    ]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-    agentic_rag_config: NotRequired[Nullable[AgenticRagConfigTypedDict]]
+    agentic_rag_config: NotRequired[
+        Nullable[CreateKnowledgeRequestBodyAgenticRagConfigTypedDict]
+    ]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
@@ -87,10 +134,12 @@ class RetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[RerankConfig] = UNSET
+    rerank_config: OptionalNullable[CreateKnowledgeRequestBodyRerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
-    agentic_rag_config: OptionalNullable[AgenticRagConfig] = UNSET
+    agentic_rag_config: OptionalNullable[CreateKnowledgeRequestBodyAgenticRagConfig] = (
+        UNSET
+    )
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
@@ -130,41 +179,63 @@ class RetrievalSettings(BaseModel):
         return m
 
 
-class CreateKnowledgeRequestBodyTypedDict(TypedDict):
+class RequestBody1TypedDict(TypedDict):
     key: str
     embedding_model: str
     r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+    type: NotRequired[RequestBodyType]
     description: NotRequired[str]
+    is_private_model: NotRequired[bool]
     retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class CreateKnowledgeRequestBody(BaseModel):
+class RequestBody1(BaseModel):
     key: str
 
     embedding_model: str
     r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+
+    type: Optional[RequestBodyType] = "internal"
 
     description: Optional[str] = None
+
+    is_private_model: Optional[bool] = False
 
     retrieval_settings: Optional[RetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-CreateKnowledgeRetrievalType = Literal[
-    "vector_search",
-    "keyword_search",
-    "hybrid_search",
-]
-r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+CreateKnowledgeRequestBodyTypedDict = TypeAliasType(
+    "CreateKnowledgeRequestBodyTypedDict",
+    Union[RequestBody2TypedDict, RequestBody1TypedDict],
+)
 
 
-class CreateKnowledgeRerankConfigTypedDict(TypedDict):
+CreateKnowledgeRequestBody = TypeAliasType(
+    "CreateKnowledgeRequestBody", Union[RequestBody2, RequestBody1]
+)
+
+
+CreateKnowledgeResponseBodyType = Literal["external",]
+
+
+class CreateKnowledgeResponseBodyRerankConfigTypedDict(TypedDict):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -175,7 +246,7 @@ class CreateKnowledgeRerankConfigTypedDict(TypedDict):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class CreateKnowledgeRerankConfig(BaseModel):
+class CreateKnowledgeResponseBodyRerankConfig(BaseModel):
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
     rerank_model: str
@@ -188,40 +259,39 @@ class CreateKnowledgeRerankConfig(BaseModel):
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
 
-class CreateKnowledgeAgenticRagConfigTypedDict(TypedDict):
+class CreateKnowledgeResponseBodyAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class CreateKnowledgeAgenticRagConfig(BaseModel):
+class CreateKnowledgeResponseBodyAgenticRagConfig(BaseModel):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     model: str
     r"""The model to use for the Agentic RAG"""
 
 
-class CreateKnowledgeRetrievalSettingsTypedDict(TypedDict):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+class CreateKnowledgeResponseBodyRetrievalSettingsTypedDict(TypedDict):
+    r"""The retrieval settings for the knowledge base."""
 
-    retrieval_type: NotRequired[CreateKnowledgeRetrievalType]
-    r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
     top_k: NotRequired[int]
     r"""The number of results to return from the search."""
     threshold: NotRequired[float]
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
-    rerank_config: NotRequired[Nullable[CreateKnowledgeRerankConfigTypedDict]]
+    rerank_config: NotRequired[
+        Nullable[CreateKnowledgeResponseBodyRerankConfigTypedDict]
+    ]
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
-    agentic_rag_config: NotRequired[Nullable[CreateKnowledgeAgenticRagConfigTypedDict]]
+    agentic_rag_config: NotRequired[
+        Nullable[CreateKnowledgeResponseBodyAgenticRagConfigTypedDict]
+    ]
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
 
-class CreateKnowledgeRetrievalSettings(BaseModel):
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
-
-    retrieval_type: Optional[CreateKnowledgeRetrievalType] = "hybrid_search"
-    r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+class CreateKnowledgeResponseBodyRetrievalSettings(BaseModel):
+    r"""The retrieval settings for the knowledge base."""
 
     top_k: Optional[int] = 5
     r"""The number of results to return from the search."""
@@ -229,21 +299,17 @@ class CreateKnowledgeRetrievalSettings(BaseModel):
     threshold: Optional[float] = 0
     r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
 
-    rerank_config: OptionalNullable[CreateKnowledgeRerankConfig] = UNSET
+    rerank_config: OptionalNullable[CreateKnowledgeResponseBodyRerankConfig] = UNSET
     r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
 
-    agentic_rag_config: OptionalNullable[CreateKnowledgeAgenticRagConfig] = UNSET
+    agentic_rag_config: OptionalNullable[
+        CreateKnowledgeResponseBodyAgenticRagConfig
+    ] = UNSET
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "retrieval_type",
-            "top_k",
-            "threshold",
-            "rerank_config",
-            "agentic_rag_config",
-        ]
+        optional_fields = ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
         nullable_fields = ["rerank_config", "agentic_rag_config"]
         null_default_fields = []
 
@@ -272,34 +338,52 @@ class CreateKnowledgeRetrievalSettings(BaseModel):
         return m
 
 
-class CreateKnowledgeResponseBodyTypedDict(TypedDict):
-    r"""Knowledge Base object"""
+class ResponseBodyExternalConfigTypedDict(TypedDict):
+    name: str
+    r"""The name of the external knowledge base."""
+    api_url: str
+    r"""The API URL of the external knowledge base."""
 
+
+class ResponseBodyExternalConfig(BaseModel):
+    name: str
+    r"""The name of the external knowledge base."""
+
+    api_url: str
+    r"""The API URL of the external knowledge base."""
+
+
+class ResponseBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
     r"""The creation date of the knowledge base."""
     key: str
     r"""The unique key of the knowledge base."""
-    model: str
-    r"""The embeddings model used for the knowledge base."""
     domain_id: str
     r"""The project/domain ID of the knowledge base."""
     updated: str
     r"""The last update date of the knowledge base."""
+    external_config: ResponseBodyExternalConfigTypedDict
     description: NotRequired[str]
     r"""The description of the knowledge base."""
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
-    retrieval_settings: NotRequired[CreateKnowledgeRetrievalSettingsTypedDict]
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
+    type: NotRequired[CreateKnowledgeResponseBodyType]
+    retrieval_settings: NotRequired[
+        CreateKnowledgeResponseBodyRetrievalSettingsTypedDict
+    ]
+    r"""The retrieval settings for the knowledge base."""
 
 
-class CreateKnowledgeResponseBody(BaseModel):
-    r"""Knowledge Base object"""
-
+class ResponseBody2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -309,36 +393,43 @@ class CreateKnowledgeResponseBody(BaseModel):
     key: str
     r"""The unique key of the knowledge base."""
 
-    model: str
-    r"""The embeddings model used for the knowledge base."""
-
     domain_id: str
     r"""The project/domain ID of the knowledge base."""
 
     updated: str
     r"""The last update date of the knowledge base."""
 
+    external_config: ResponseBodyExternalConfig
+
     description: Optional[str] = None
     r"""The description of the knowledge base."""
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
 
-    retrieval_settings: Optional[CreateKnowledgeRetrievalSettings] = None
-    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
+
+    type: Optional[CreateKnowledgeResponseBodyType] = "external"
+
+    retrieval_settings: Optional[CreateKnowledgeResponseBodyRetrievalSettings] = None
+    r"""The retrieval settings for the knowledge base."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
             "description",
             "path",
-            "retrieval_settings",
             "created_by_id",
             "updated_by_id",
+            "type",
+            "retrieval_settings",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []
@@ -366,3 +457,241 @@ class CreateKnowledgeResponseBody(BaseModel):
                 m[k] = val
 
         return m
+
+
+ResponseBodyType = Literal["internal",]
+
+
+ResponseBodyRetrievalType = Literal[
+    "vector_search",
+    "keyword_search",
+    "hybrid_search",
+]
+r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+
+
+class ResponseBodyRerankConfigTypedDict(TypedDict):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+    top_k: NotRequired[int]
+    r"""The number of results to return by the reranking model"""
+    rerank_threshold: NotRequired[float]
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+
+class ResponseBodyRerankConfig(BaseModel):
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    rerank_model: str
+    r"""The rerank model to use for the knowledge base."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return by the reranking model"""
+
+    rerank_threshold: Optional[float] = 0.5
+    r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+
+class ResponseBodyAgenticRagConfigTypedDict(TypedDict):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class ResponseBodyAgenticRagConfig(BaseModel):
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    model: str
+    r"""The model to use for the Agentic RAG"""
+
+
+class ResponseBodyRetrievalSettingsTypedDict(TypedDict):
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+
+    retrieval_type: NotRequired[ResponseBodyRetrievalType]
+    r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+    top_k: NotRequired[int]
+    r"""The number of results to return from the search."""
+    threshold: NotRequired[float]
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+    rerank_config: NotRequired[Nullable[ResponseBodyRerankConfigTypedDict]]
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+    agentic_rag_config: NotRequired[Nullable[ResponseBodyAgenticRagConfigTypedDict]]
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+
+class ResponseBodyRetrievalSettings(BaseModel):
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+
+    retrieval_type: Optional[ResponseBodyRetrievalType] = "hybrid_search"
+    r"""The retrieval type to use for the knowledge base. If not provided, Hybrid Search will be used as a default query strategy."""
+
+    top_k: Optional[int] = 5
+    r"""The number of results to return from the search."""
+
+    threshold: Optional[float] = 0
+    r"""The threshold value used to filter the search results, only documents with a relevance score greater than the threshold will be returned"""
+
+    rerank_config: OptionalNullable[ResponseBodyRerankConfig] = UNSET
+    r"""The rerank configuration for the knowledge base. In case the model is provided it will be used to enhance the search precision."""
+
+    agentic_rag_config: OptionalNullable[ResponseBodyAgenticRagConfig] = UNSET
+    r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "retrieval_type",
+            "top_k",
+            "threshold",
+            "rerank_config",
+            "agentic_rag_config",
+        ]
+        nullable_fields = ["rerank_config", "agentic_rag_config"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class ResponseBody1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the knowledge base."""
+    created: str
+    r"""The creation date of the knowledge base."""
+    key: str
+    r"""The unique key of the knowledge base."""
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
+    updated: str
+    r"""The last update date of the knowledge base."""
+    model: str
+    r"""The embeddings model used for the knowledge base."""
+    description: NotRequired[str]
+    r"""The description of the knowledge base."""
+    path: NotRequired[str]
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
+    type: NotRequired[ResponseBodyType]
+    retrieval_settings: NotRequired[ResponseBodyRetrievalSettingsTypedDict]
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+
+
+class ResponseBody1(BaseModel):
+    id: Annotated[str, pydantic.Field(alias="_id")]
+    r"""The unique identifier of the knowledge base."""
+
+    created: str
+    r"""The creation date of the knowledge base."""
+
+    key: str
+    r"""The unique key of the knowledge base."""
+
+    domain_id: str
+    r"""The project/domain ID of the knowledge base."""
+
+    updated: str
+    r"""The last update date of the knowledge base."""
+
+    model: str
+    r"""The embeddings model used for the knowledge base."""
+
+    description: Optional[str] = None
+    r"""The description of the knowledge base."""
+
+    path: Optional[str] = None
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+
+    created_by_id: OptionalNullable[str] = UNSET
+
+    updated_by_id: OptionalNullable[str] = UNSET
+
+    type: Optional[ResponseBodyType] = "internal"
+
+    retrieval_settings: Optional[ResponseBodyRetrievalSettings] = None
+    r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "description",
+            "path",
+            "created_by_id",
+            "updated_by_id",
+            "type",
+            "retrieval_settings",
+        ]
+        nullable_fields = ["created_by_id", "updated_by_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+CreateKnowledgeResponseBodyTypedDict = TypeAliasType(
+    "CreateKnowledgeResponseBodyTypedDict",
+    Union[ResponseBody1TypedDict, ResponseBody2TypedDict],
+)
+r"""Knowledge successfully created"""
+
+
+CreateKnowledgeResponseBody = TypeAliasType(
+    "CreateKnowledgeResponseBody", Union[ResponseBody1, ResponseBody2]
+)
+r"""Knowledge successfully created"""

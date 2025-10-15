@@ -207,10 +207,7 @@ DeploymentGetConfigPrefixMessagesDeploymentsRequestContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
@@ -806,10 +803,7 @@ DeploymentGetConfigMessagesContent = TypeAliasType(
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-DeploymentGetConfigMessagesDeploymentsRequestRole = Literal[
-    "assistant",
-    "exception",
-]
+DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["assistant",]
 r"""The role of the messages author, in this case `assistant` or `exception`."""
 
 
