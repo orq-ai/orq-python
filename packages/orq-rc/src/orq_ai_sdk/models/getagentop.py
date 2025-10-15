@@ -303,7 +303,7 @@ class GetAgentKnowledgeBases(BaseModel):
     configuration: GetAgentKnowledgeBaseConfiguration
     r"""Defines the configuration settings which can either be for a user message or a text entry."""
 
-    id: Optional[str] = "01K7KE87TJWAADE0VWZRZE3GXV"
+    id: Optional[str] = "01K7KP68Y19R037V6GPGK6RZE3"
     r"""The id of the resource"""
 
 
