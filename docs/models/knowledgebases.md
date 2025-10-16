@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `configuration`                                                                            | [models.KnowledgeBaseConfiguration](../models/knowledgebaseconfiguration.md)               | :heavy_check_mark:                                                                         | Defines the configuration settings which can either be for a user message or a text entry. |
+| Field                                             | Type                                              | Required                                          | Description                                       | Example                                           |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `knowledge_id`                                    | *str*                                             | :heavy_check_mark:                                | Unique identifier of the knowledge base to search | customer-knowledge-base                           |

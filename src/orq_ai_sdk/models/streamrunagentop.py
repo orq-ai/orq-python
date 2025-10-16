@@ -35,7 +35,7 @@ r"""Message role (user or tool for continuing executions)"""
 StreamRunAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class PublicMessagePartToolResultPartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: StreamRunAgentPublicMessagePartAgentsRequestKind
@@ -44,7 +44,7 @@ class PublicMessagePartToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartToolResultPart(BaseModel):
+class StreamRunAgentPublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: StreamRunAgentPublicMessagePartAgentsRequestKind
@@ -59,7 +59,7 @@ class PublicMessagePartToolResultPart(BaseModel):
 StreamRunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileFileInURIFormatTypedDict(TypedDict):
+class StreamRunAgentFileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -70,7 +70,7 @@ class FileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileFileInURIFormat(BaseModel):
+class StreamRunAgentFileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -83,7 +83,7 @@ class FileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormatTypedDict(TypedDict):
+class StreamRunAgentFileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -94,7 +94,7 @@ class FileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormat(BaseModel):
+class StreamRunAgentFileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -109,16 +109,20 @@ class FileBinaryFormat(BaseModel):
 
 StreamRunAgentPublicMessagePartFileTypedDict = TypeAliasType(
     "StreamRunAgentPublicMessagePartFileTypedDict",
-    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
+    Union[
+        StreamRunAgentFileBinaryFormatTypedDict,
+        StreamRunAgentFileFileInURIFormatTypedDict,
+    ],
 )
 
 
 StreamRunAgentPublicMessagePartFile = TypeAliasType(
-    "StreamRunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
+    "StreamRunAgentPublicMessagePartFile",
+    Union[StreamRunAgentFileBinaryFormat, StreamRunAgentFileFileInURIFormat],
 )
 
 
-class PublicMessagePartFilePartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: StreamRunAgentPublicMessagePartAgentsKind
@@ -126,7 +130,7 @@ class PublicMessagePartFilePartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartFilePart(BaseModel):
+class StreamRunAgentPublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: StreamRunAgentPublicMessagePartAgentsKind
@@ -139,14 +143,14 @@ class PublicMessagePartFilePart(BaseModel):
 StreamRunAgentPublicMessagePartKind = Literal["text",]
 
 
-class PublicMessagePartTextPartTypedDict(TypedDict):
+class StreamRunAgentPublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: StreamRunAgentPublicMessagePartKind
     text: str
 
 
-class PublicMessagePartTextPart(BaseModel):
+class StreamRunAgentPublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: StreamRunAgentPublicMessagePartKind
@@ -157,9 +161,9 @@ class PublicMessagePartTextPart(BaseModel):
 StreamRunAgentPublicMessagePartTypedDict = TypeAliasType(
     "StreamRunAgentPublicMessagePartTypedDict",
     Union[
-        PublicMessagePartTextPartTypedDict,
-        PublicMessagePartFilePartTypedDict,
-        PublicMessagePartToolResultPartTypedDict,
+        StreamRunAgentPublicMessagePartTextPartTypedDict,
+        StreamRunAgentPublicMessagePartFilePartTypedDict,
+        StreamRunAgentPublicMessagePartToolResultPartTypedDict,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -168,9 +172,9 @@ r"""Message part that can be provided by users. Use \"text\" for regular message
 StreamRunAgentPublicMessagePart = TypeAliasType(
     "StreamRunAgentPublicMessagePart",
     Union[
-        PublicMessagePartTextPart,
-        PublicMessagePartFilePart,
-        PublicMessagePartToolResultPart,
+        StreamRunAgentPublicMessagePartTextPart,
+        StreamRunAgentPublicMessagePartFilePart,
+        StreamRunAgentPublicMessagePartToolResultPart,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -272,67 +276,14 @@ class StreamRunAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-StreamRunAgentKnowledgeBaseConfigurationAgentsType = Literal["query",]
-
-
-class KnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
-    r"""Defines the configuration settings for a static query."""
-
-    type: StreamRunAgentKnowledgeBaseConfigurationAgentsType
-    query: str
-
-
-class KnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
-    r"""Defines the configuration settings for a static query."""
-
-    type: StreamRunAgentKnowledgeBaseConfigurationAgentsType
-
-    query: str
-
-
-StreamRunAgentKnowledgeBaseConfigurationType = Literal["last_user_message",]
-
-
-class KnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(TypedDict):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: StreamRunAgentKnowledgeBaseConfigurationType
-
-
-class KnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: StreamRunAgentKnowledgeBaseConfigurationType
-
-
-StreamRunAgentKnowledgeBaseConfigurationTypedDict = TypeAliasType(
-    "StreamRunAgentKnowledgeBaseConfigurationTypedDict",
-    Union[
-        KnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
-        KnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
-StreamRunAgentKnowledgeBaseConfiguration = TypeAliasType(
-    "StreamRunAgentKnowledgeBaseConfiguration",
-    Union[
-        KnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
-        KnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
 class StreamRunAgentKnowledgeBasesTypedDict(TypedDict):
-    configuration: StreamRunAgentKnowledgeBaseConfigurationTypedDict
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
 
 
 class StreamRunAgentKnowledgeBases(BaseModel):
-    configuration: StreamRunAgentKnowledgeBaseConfiguration
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
 
 
 class StreamRunAgentTeamOfAgentsTypedDict(TypedDict):
@@ -350,48 +301,58 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
 
 
-class StreamRunAgentRunAgentRequestToolFunctionTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunFunctionTypedDict(TypedDict):
     name: str
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
+    r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
     parameters: NotRequired[Dict[str, Any]]
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class StreamRunAgentRunAgentRequestToolFunction(BaseModel):
+class StreamRunAgentAgentToolInputRunFunction(BaseModel):
     name: str
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
     description: Optional[str] = None
+    r"""A description of what the function does, used by the model to choose when and how to call the function."""
 
     strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
     parameters: Optional[Dict[str, Any]] = None
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RunAgentRequestToolFunctionToolTypedDict(TypedDict):
-    r"""Custom function tool with configurable parameters"""
+class AgentToolInputRunFunctionToolRunTypedDict(TypedDict):
+    r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
     key: str
-    function: StreamRunAgentRunAgentRequestToolFunctionTypedDict
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    function: StreamRunAgentAgentToolInputRunFunctionTypedDict
     id: NotRequired[str]
     display_name: NotRequired[str]
     description: NotRequired[str]
     requires_approval: NotRequired[bool]
 
 
-class RunAgentRequestToolFunctionTool(BaseModel):
-    r"""Custom function tool with configurable parameters"""
+class AgentToolInputRunFunctionToolRun(BaseModel):
+    r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools14Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
 
     key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
-    function: StreamRunAgentRunAgentRequestToolFunction
+    function: StreamRunAgentAgentToolInputRunFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
 
@@ -402,24 +363,24 @@ class RunAgentRequestToolFunctionTool(BaseModel):
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal[
     "code",
 ]
 
 
-RunAgentRequestToolLanguage = Literal["python",]
+AgentToolInputRunLanguage = Literal["python",]
 
 
-class RunAgentRequestToolCodeToolTypedDict(TypedDict):
-    language: RunAgentRequestToolLanguage
+class AgentToolInputRunCodeToolTypedDict(TypedDict):
+    language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
     parameters: NotRequired[Dict[str, Any]]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RunAgentRequestToolCodeTool(BaseModel):
-    language: RunAgentRequestToolLanguage
+class AgentToolInputRunCodeTool(BaseModel):
+    language: AgentToolInputRunLanguage
 
     code: str
     r"""The code to execute."""
@@ -428,48 +389,46 @@ class RunAgentRequestToolCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RunAgentRequestToolCodeExecutionToolTypedDict(TypedDict):
-    r"""Executes code in a secure sandbox environment"""
+class AgentToolInputRunCodeToolRunTypedDict(TypedDict):
+    r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
 
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
-    code_tool: RunAgentRequestToolCodeToolTypedDict
+    code_tool: AgentToolInputRunCodeToolTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
 
 
-class RunAgentRequestToolCodeExecutionTool(BaseModel):
-    r"""Executes code in a secure sandbox environment"""
+class AgentToolInputRunCodeToolRun(BaseModel):
+    r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools13Type
-
-    code_tool: RunAgentRequestToolCodeTool
+    code_tool: AgentToolInputRunCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
 
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal[
     "http",
 ]
 
 
-RunAgentRequestToolMethod = Literal[
+AgentToolInputRunMethod = Literal[
     "GET",
     "POST",
     "PUT",
@@ -478,12 +437,12 @@ RunAgentRequestToolMethod = Literal[
 r"""The HTTP method to use."""
 
 
-class RunAgentRequestToolBlueprintTypedDict(TypedDict):
+class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
     url: str
     r"""The URL to send the request to."""
-    method: RunAgentRequestToolMethod
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, str]]
     r"""The headers to send with the request."""
@@ -491,13 +450,13 @@ class RunAgentRequestToolBlueprintTypedDict(TypedDict):
     r"""The body to send with the request."""
 
 
-class RunAgentRequestToolBlueprint(BaseModel):
+class AgentToolInputRunBlueprint(BaseModel):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
     url: str
     r"""The URL to send the request to."""
 
-    method: RunAgentRequestToolMethod
+    method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, str]] = None
@@ -507,7 +466,7 @@ class RunAgentRequestToolBlueprint(BaseModel):
     r"""The body to send with the request."""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType = (
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType = (
     Literal[
         "string",
         "number",
@@ -517,35 +476,31 @@ StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
 r"""The type of the argument."""
 
 
-RunAgentRequestToolDefaultValueTypedDict = TypeAliasType(
-    "RunAgentRequestToolDefaultValueTypedDict", Union[str, float, bool]
+AgentToolInputRunDefaultValueTypedDict = TypeAliasType(
+    "AgentToolInputRunDefaultValueTypedDict", Union[str, float, bool]
 )
 r"""The default value of the argument."""
 
 
-RunAgentRequestToolDefaultValue = TypeAliasType(
-    "RunAgentRequestToolDefaultValue", Union[str, float, bool]
+AgentToolInputRunDefaultValue = TypeAliasType(
+    "AgentToolInputRunDefaultValue", Union[str, float, bool]
 )
 r"""The default value of the argument."""
 
 
-class RunAgentRequestToolArgumentsTypedDict(TypedDict):
-    type: (
-        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
-    )
+class AgentToolInputRunArgumentsTypedDict(TypedDict):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
     r"""The type of the argument."""
     description: str
     r"""A description of the argument."""
     send_to_model: NotRequired[bool]
     r"""Whether to send the argument to the model. If set to false, the argument will not be sent to the model and needs to be provided by the user or it will be left blank."""
-    default_value: NotRequired[RunAgentRequestToolDefaultValueTypedDict]
+    default_value: NotRequired[AgentToolInputRunDefaultValueTypedDict]
     r"""The default value of the argument."""
 
 
-class RunAgentRequestToolArguments(BaseModel):
-    type: (
-        StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12HTTPType
-    )
+class AgentToolInputRunArguments(BaseModel):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType
     r"""The type of the argument."""
 
     description: str
@@ -554,319 +509,337 @@ class RunAgentRequestToolArguments(BaseModel):
     send_to_model: Optional[bool] = True
     r"""Whether to send the argument to the model. If set to false, the argument will not be sent to the model and needs to be provided by the user or it will be left blank."""
 
-    default_value: Optional[RunAgentRequestToolDefaultValue] = None
+    default_value: Optional[AgentToolInputRunDefaultValue] = None
     r"""The default value of the argument."""
 
 
-class RunAgentRequestToolHTTPTypedDict(TypedDict):
-    blueprint: RunAgentRequestToolBlueprintTypedDict
+class AgentToolInputRunHTTPTypedDict(TypedDict):
+    blueprint: AgentToolInputRunBlueprintTypedDict
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
-    arguments: NotRequired[Dict[str, RunAgentRequestToolArgumentsTypedDict]]
+    arguments: NotRequired[Dict[str, AgentToolInputRunArgumentsTypedDict]]
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class RunAgentRequestToolHTTP(BaseModel):
-    blueprint: RunAgentRequestToolBlueprint
+class AgentToolInputRunHTTP(BaseModel):
+    blueprint: AgentToolInputRunBlueprint
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
-    arguments: Optional[Dict[str, RunAgentRequestToolArguments]] = None
+    arguments: Optional[Dict[str, AgentToolInputRunArguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class RunAgentRequestToolHTTPToolTypedDict(TypedDict):
-    r"""Makes HTTP requests to external APIs"""
+class AgentToolInputRunHTTPToolRunTypedDict(TypedDict):
+    r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
 
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
-    http: RunAgentRequestToolHTTPTypedDict
+    http: AgentToolInputRunHTTPTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
 
 
-class RunAgentRequestToolHTTPTool(BaseModel):
-    r"""Makes HTTP requests to external APIs"""
+class AgentToolInputRunHTTPToolRun(BaseModel):
+    r"""HTTP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools12Type
+    http: AgentToolInputRunHTTP
 
-    http: RunAgentRequestToolHTTP
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
 
-    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE0Z4J7XQ2KWT5FD6EAF"
-    )
+    display_name: Optional[str] = None
 
     requires_approval: Optional[bool] = False
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type = Literal[
     "current_date",
 ]
 
 
-class RunAgentRequestToolCurrentDateToolTypedDict(TypedDict):
-    r"""Provides the current date and time"""
+class StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict(TypedDict):
+    r"""Returns the current date and time"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolCurrentDateTool(BaseModel):
-    r"""Provides the current date and time"""
+class StreamRunAgentAgentToolInputRunCurrentDateTool(BaseModel):
+    r"""Returns the current date and time"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools11Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type = Literal[
     "query_knowledge_base",
 ]
 
 
-class RunAgentRequestToolQueryKnowledgeBaseToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict(TypedDict):
     r"""Queries knowledge bases for information"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolQueryKnowledgeBaseTool(BaseModel):
+class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
     r"""Queries knowledge bases for information"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools10Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type = Literal[
     "retrieve_knowledge_bases",
 ]
 
 
-class RunAgentRequestToolRetrieveKnowledgeBasesToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict(TypedDict):
     r"""Lists available knowledge bases"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolRetrieveKnowledgeBasesTool(BaseModel):
+class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
     r"""Lists available knowledge bases"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools9Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type = Literal[
     "delete_memory_document",
 ]
 
 
-class RunAgentRequestToolDeleteMemoryStoreToolTypedDict(TypedDict):
-    r"""Deletes a memory store"""
+class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict(TypedDict):
+    r"""Deletes documents from memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolDeleteMemoryStoreTool(BaseModel):
-    r"""Deletes a memory store"""
+class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
+    r"""Deletes documents from memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools8Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools7Type = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools7Type = Literal[
     "retrieve_memory_stores",
 ]
 
 
-class RunAgentRequestToolRetrieveMemoryStoresToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict(TypedDict):
     r"""Lists available memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools7Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools7Type
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolRetrieveMemoryStoresTool(BaseModel):
+class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
     r"""Lists available memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsTools7Type
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools7Type
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsToolsType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType = Literal[
     "write_memory_store",
 ]
 
 
-class RunAgentRequestToolWriteMemoryStoreToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict(TypedDict):
     r"""Writes information to agent memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsToolsType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolWriteMemoryStoreTool(BaseModel):
+class StreamRunAgentAgentToolInputRunWriteMemoryStoreTool(BaseModel):
     r"""Writes information to agent memory stores"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsToolsType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType = Literal[
     "query_memory_store",
 ]
 
 
-class RunAgentRequestToolQueryMemoryStoreToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict(TypedDict):
     r"""Queries agent memory stores for context"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolQueryMemoryStoreTool(BaseModel):
+class StreamRunAgentAgentToolInputRunQueryMemoryStoreTool(BaseModel):
     r"""Queries agent memory stores for context"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodySettingsType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodyType = Literal[
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType = Literal[
     "retrieve_agents",
 ]
 
 
-class RunAgentRequestToolRetrieveAgentsToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict(TypedDict):
     r"""Retrieves available agents in the system"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodyType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolRetrieveAgentsTool(BaseModel):
+class StreamRunAgentAgentToolInputRunRetrieveAgentsTool(BaseModel):
     r"""Retrieves available agents in the system"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestRequestBodyType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsRequestType = Literal["call_sub_agent",]
+StreamRunAgentAgentToolInputRunAgentsRequestType = Literal["call_sub_agent",]
 
 
-class RunAgentRequestToolCallSubAgentToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict(TypedDict):
     r"""Delegates tasks to specialized sub-agents"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolCallSubAgentTool(BaseModel):
+class StreamRunAgentAgentToolInputRunCallSubAgentTool(BaseModel):
     r"""Delegates tasks to specialized sub-agents"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsRequestType
+    type: StreamRunAgentAgentToolInputRunAgentsRequestType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolAgentsType = Literal["web_scraper",]
+StreamRunAgentAgentToolInputRunAgentsType = Literal["web_scraper",]
 
 
-class RunAgentRequestToolWebScraperToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunWebScraperToolTypedDict(TypedDict):
     r"""Scrapes and extracts content from web pages"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsType
+    type: StreamRunAgentAgentToolInputRunAgentsType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolWebScraperTool(BaseModel):
+class StreamRunAgentAgentToolInputRunWebScraperTool(BaseModel):
     r"""Scrapes and extracts content from web pages"""
 
-    type: StreamRunAgentRunAgentRequestToolAgentsType
+    type: StreamRunAgentAgentToolInputRunAgentsType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolType = Literal["google_search",]
+StreamRunAgentAgentToolInputRunType = Literal["google_search",]
 
 
-class RunAgentRequestToolGoogleSearchToolTypedDict(TypedDict):
+class StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict(TypedDict):
     r"""Performs Google searches to retrieve web content"""
 
-    type: StreamRunAgentRunAgentRequestToolType
+    type: StreamRunAgentAgentToolInputRunType
     requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
 
 
-class RunAgentRequestToolGoogleSearchTool(BaseModel):
+class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
     r"""Performs Google searches to retrieve web content"""
 
-    type: StreamRunAgentRunAgentRequestToolType
+    type: StreamRunAgentAgentToolInputRunType
 
     requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
 
 
-StreamRunAgentRunAgentRequestToolTypedDict = TypeAliasType(
-    "StreamRunAgentRunAgentRequestToolTypedDict",
+StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
+    "StreamRunAgentAgentToolInputRunTypedDict",
     Union[
-        RunAgentRequestToolGoogleSearchToolTypedDict,
-        RunAgentRequestToolWebScraperToolTypedDict,
-        RunAgentRequestToolCallSubAgentToolTypedDict,
-        RunAgentRequestToolRetrieveAgentsToolTypedDict,
-        RunAgentRequestToolQueryMemoryStoreToolTypedDict,
-        RunAgentRequestToolWriteMemoryStoreToolTypedDict,
-        RunAgentRequestToolRetrieveMemoryStoresToolTypedDict,
-        RunAgentRequestToolDeleteMemoryStoreToolTypedDict,
-        RunAgentRequestToolRetrieveKnowledgeBasesToolTypedDict,
-        RunAgentRequestToolQueryKnowledgeBaseToolTypedDict,
-        RunAgentRequestToolCurrentDateToolTypedDict,
-        RunAgentRequestToolHTTPToolTypedDict,
-        RunAgentRequestToolCodeExecutionToolTypedDict,
-        RunAgentRequestToolFunctionToolTypedDict,
+        StreamRunAgentAgentToolInputRunGoogleSearchToolTypedDict,
+        StreamRunAgentAgentToolInputRunWebScraperToolTypedDict,
+        StreamRunAgentAgentToolInputRunCallSubAgentToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveAgentsToolTypedDict,
+        StreamRunAgentAgentToolInputRunQueryMemoryStoreToolTypedDict,
+        StreamRunAgentAgentToolInputRunWriteMemoryStoreToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveMemoryStoresToolTypedDict,
+        StreamRunAgentAgentToolInputRunDeleteMemoryDocumentToolTypedDict,
+        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesToolTypedDict,
+        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseToolTypedDict,
+        StreamRunAgentAgentToolInputRunCurrentDateToolTypedDict,
+        AgentToolInputRunHTTPToolRunTypedDict,
+        AgentToolInputRunCodeToolRunTypedDict,
+        AgentToolInputRunFunctionToolRunTypedDict,
     ],
 )
-r"""Available tools for agent execution. Each tool provides specific capabilities to interact with external systems, retrieve information, or perform specialized tasks."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
 
 
-StreamRunAgentRunAgentRequestTool = TypeAliasType(
-    "StreamRunAgentRunAgentRequestTool",
+StreamRunAgentAgentToolInputRun = TypeAliasType(
+    "StreamRunAgentAgentToolInputRun",
     Union[
-        RunAgentRequestToolGoogleSearchTool,
-        RunAgentRequestToolWebScraperTool,
-        RunAgentRequestToolCallSubAgentTool,
-        RunAgentRequestToolRetrieveAgentsTool,
-        RunAgentRequestToolQueryMemoryStoreTool,
-        RunAgentRequestToolWriteMemoryStoreTool,
-        RunAgentRequestToolRetrieveMemoryStoresTool,
-        RunAgentRequestToolDeleteMemoryStoreTool,
-        RunAgentRequestToolRetrieveKnowledgeBasesTool,
-        RunAgentRequestToolQueryKnowledgeBaseTool,
-        RunAgentRequestToolCurrentDateTool,
-        RunAgentRequestToolHTTPTool,
-        RunAgentRequestToolCodeExecutionTool,
-        RunAgentRequestToolFunctionTool,
+        StreamRunAgentAgentToolInputRunGoogleSearchTool,
+        StreamRunAgentAgentToolInputRunWebScraperTool,
+        StreamRunAgentAgentToolInputRunCallSubAgentTool,
+        StreamRunAgentAgentToolInputRunRetrieveAgentsTool,
+        StreamRunAgentAgentToolInputRunQueryMemoryStoreTool,
+        StreamRunAgentAgentToolInputRunWriteMemoryStoreTool,
+        StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool,
+        StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool,
+        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool,
+        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool,
+        StreamRunAgentAgentToolInputRunCurrentDateTool,
+        AgentToolInputRunHTTPToolRun,
+        AgentToolInputRunCodeToolRun,
+        AgentToolInputRunFunctionToolRun,
     ],
 )
-r"""Available tools for agent execution. Each tool provides specific capabilities to interact with external systems, retrieve information, or perform specialized tasks."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentToolApprovalRequired = Literal[
@@ -878,7 +851,7 @@ r"""If all, the agent will require approval for all tools. If respect_tool, the 
 
 
 class StreamRunAgentSettingsTypedDict(TypedDict):
-    tools: List[StreamRunAgentRunAgentRequestToolTypedDict]
+    tools: List[StreamRunAgentAgentToolInputRunTypedDict]
     r"""Tools available to the agent"""
     tool_approval_required: NotRequired[StreamRunAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -889,7 +862,7 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
 
 
 class StreamRunAgentSettings(BaseModel):
-    tools: List[StreamRunAgentRunAgentRequestTool]
+    tools: List[StreamRunAgentAgentToolInputRun]
     r"""Tools available to the agent"""
 
     tool_approval_required: Optional[StreamRunAgentToolApprovalRequired] = "none"
@@ -935,6 +908,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     memory_stores: NotRequired[List[str]]
     r"""The list of keys of the memory stores that are accessible to the agent."""
     knowledge_bases: NotRequired[List[StreamRunAgentKnowledgeBasesTypedDict]]
+    r"""Knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[StreamRunAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metadata: NotRequired[Dict[str, Any]]
@@ -964,7 +938,7 @@ class StreamRunAgentRequestBody(BaseModel):
 
     settings: StreamRunAgentSettings
 
-    task_id: Annotated[Optional[str], pydantic.Field(alias="taskId")] = None
+    task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
     fallback_models: Optional[List[str]] = None
@@ -992,6 +966,7 @@ class StreamRunAgentRequestBody(BaseModel):
     r"""The list of keys of the memory stores that are accessible to the agent."""
 
     knowledge_bases: Optional[List[StreamRunAgentKnowledgeBases]] = None
+    r"""Knowledge base configurations for the agent to access"""
 
     team_of_agents: Optional[List[StreamRunAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""

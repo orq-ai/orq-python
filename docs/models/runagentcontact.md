@@ -1,0 +1,15 @@
+# RunAgentContact
+
+Information about the contact making the request. If the contact does not exist, it will be created automatically.
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           | Example                                                               |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `id`                                                                  | *str*                                                                 | :heavy_check_mark:                                                    | Unique identifier for the contact                                     | contact_01ARZ3NDEKTSV4RRFFQ69G5FAV                                    |
+| `display_name`                                                        | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | Display name of the contact                                           | Jane Doe                                                              |
+| `email`                                                               | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | Email address of the contact                                          | jane.doe@example.com                                                  |
+| `metadata`                                                            | List[Dict[str, *Any*]]                                                | :heavy_minus_sign:                                                    | A hash of key/value pairs containing any other data about the contact | [<br/>{<br/>"department": "Engineering",<br/>"role": "Senior Developer"<br/>}<br/>] |
+| `logo_url`                                                            | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | URL to the contact's avatar or logo                                   | https://example.com/avatars/jane-doe.jpg                              |
+| `tags`                                                                | List[*str*]                                                           | :heavy_minus_sign:                                                    | A list of tags associated with the contact                            | [<br/>"hr",<br/>"engineering"<br/>]                                   |

@@ -1,0 +1,8 @@
+# StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type
+
+
+## Values
+
+| Name       | Value      |
+| ---------- | ---------- |
+| `FUNCTION` | function   |

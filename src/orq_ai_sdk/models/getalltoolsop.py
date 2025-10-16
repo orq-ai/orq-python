@@ -79,8 +79,6 @@ class Data5TypedDict(TypedDict):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -90,6 +88,8 @@ class Data5TypedDict(TypedDict):
     type: GetAllToolsDataToolsResponse200ApplicationJSONType
     code_tool: DataCodeToolTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -105,9 +105,6 @@ class Data5(BaseModel):
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -125,8 +122,11 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE88J72X5HA14HZPRNXB"
+        "01K7NZKQ5SKSGG0B5Y6FCXJ8W6"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -231,8 +231,6 @@ class Data4TypedDict(TypedDict):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -242,6 +240,8 @@ class Data4TypedDict(TypedDict):
     type: GetAllToolsDataToolsResponse200Type
     mcp: DataMcpTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -257,9 +257,6 @@ class Data4(BaseModel):
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -277,8 +274,11 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE87H7N8ACH2Z3B4ZB50"
+        "01K7NZKQ5MVR5Q2634V37V2AJ5"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -405,8 +405,6 @@ class Data3TypedDict(TypedDict):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -416,6 +414,8 @@ class Data3TypedDict(TypedDict):
     type: GetAllToolsDataToolsResponseType
     http: GetAllToolsDataHTTPTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -431,9 +431,6 @@ class Data3(BaseModel):
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -451,8 +448,11 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE861KQ0W1MT39M6VBA6"
+        "01K7NZKQ5K9H5WH3EZ63R07AMR"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -538,8 +538,6 @@ class Data2TypedDict(TypedDict):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -549,6 +547,8 @@ class Data2TypedDict(TypedDict):
     type: GetAllToolsDataToolsType
     json_schema: DataJSONSchemaTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -564,9 +564,6 @@ class Data2(BaseModel):
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -584,8 +581,11 @@ class Data2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE847KY90QAX59600S54"
+        "01K7NZKQ5KHQZ1WVCRAR1F6270"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -641,8 +641,6 @@ class Data1TypedDict(TypedDict):
     r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -652,6 +650,8 @@ class Data1TypedDict(TypedDict):
     type: GetAllToolsDataType
     function: GetAllToolsDataFunctionTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -667,9 +667,6 @@ class Data1(BaseModel):
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -687,8 +684,11 @@ class Data1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7MSPE83Q120HH4NHZ7PYB55"
+        "01K7NZKQ5J073QWKD7Z7GT950A"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""

@@ -11,8 +11,8 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing import Any, Dict, List, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ListAgentsRequestTypedDict(TypedDict):
@@ -88,6 +88,8 @@ class ListAgentsToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ListAgentsConditionsTypedDict]]
@@ -102,6 +104,9 @@ class ListAgentsTools(BaseModel):
     r"""The id of the resource"""
 
     action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
 
     display_name: Optional[str] = None
 
@@ -227,79 +232,14 @@ class ListAgentsMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-ListAgentsKnowledgeBaseConfigurationType = Literal["query",]
-
-
-class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
-    r"""Defines the configuration settings for a static query."""
-
-    type: ListAgentsKnowledgeBaseConfigurationType
-    query: str
-
-
-class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
-    r"""Defines the configuration settings for a static query."""
-
-    type: ListAgentsKnowledgeBaseConfigurationType
-
-    query: str
-
-
-ListAgentsKnowledgeBaseConfigurationAgentsType = Literal["last_user_message",]
-
-
-class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(
-    TypedDict
-):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: ListAgentsKnowledgeBaseConfigurationAgentsType
-
-
-class ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: ListAgentsKnowledgeBaseConfigurationAgentsType
-
-
-ListAgentsKnowledgeBaseConfigurationTypedDict = TypeAliasType(
-    "ListAgentsKnowledgeBaseConfigurationTypedDict",
-    Union[
-        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
-        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
-ListAgentsKnowledgeBaseConfiguration = TypeAliasType(
-    "ListAgentsKnowledgeBaseConfiguration",
-    Union[
-        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
-        ListAgentsKnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
 class ListAgentsKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
-    r"""The id of the resource"""
-    configuration: ListAgentsKnowledgeBaseConfigurationTypedDict
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
-    id: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Unique identifier of the knowledge base to search"""
 
 
 class ListAgentsKnowledgeBases(BaseModel):
     knowledge_id: str
-    r"""The id of the resource"""
-
-    configuration: ListAgentsKnowledgeBaseConfiguration
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-    id: Optional[str] = "01K7MSPE0H56MTQ6R6YACZ9J4T"
-    r"""The id of the resource"""
+    r"""Unique identifier of the knowledge base to search"""
 
 
 ListAgentsHiddenPanels = Literal[
