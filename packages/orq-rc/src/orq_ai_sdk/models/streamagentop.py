@@ -292,7 +292,7 @@ class StreamAgentRequestBodyTypedDict(TypedDict):
 class StreamAgentRequestBody(BaseModel):
     message: StreamAgentMessage
 
-    task_id: Annotated[Optional[str], pydantic.Field(alias="taskId")] = None
+    task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
     variables: Optional[Dict[str, Any]] = None

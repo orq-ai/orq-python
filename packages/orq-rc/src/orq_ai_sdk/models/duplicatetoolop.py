@@ -89,8 +89,6 @@ class DuplicateToolResponseBody5TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -100,6 +98,8 @@ class DuplicateToolResponseBody5TypedDict(TypedDict):
     type: DuplicateToolResponseBodyToolsResponse200ApplicationJSONType
     code_tool: DuplicateToolResponseBodyCodeToolTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -121,9 +121,6 @@ class DuplicateToolResponseBody5(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -140,8 +137,11 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ERBM7G0TCY95HM1C8N7"
+        "01K7NYJMFV3XNM5AGDPZ4EJZ0G"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -253,8 +253,6 @@ class DuplicateToolResponseBody4TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -264,6 +262,8 @@ class DuplicateToolResponseBody4TypedDict(TypedDict):
     type: DuplicateToolResponseBodyToolsResponse200Type
     mcp: DuplicateToolResponseBodyMcpTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -285,9 +285,6 @@ class DuplicateToolResponseBody4(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -304,8 +301,11 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ERBQKTVXX3CB70ZE93J"
+        "01K7NYJMFV4RXBW12TJ9TS2NBJ"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -439,8 +439,6 @@ class DuplicateToolResponseBody3TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -450,6 +448,8 @@ class DuplicateToolResponseBody3TypedDict(TypedDict):
     type: DuplicateToolResponseBodyToolsResponseType
     http: DuplicateToolResponseBodyHTTPTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -471,9 +471,6 @@ class DuplicateToolResponseBody3(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -490,8 +487,11 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ERAC6CGG8NNZY0Y7PDC"
+        "01K7NYJMFTQG8VZ8VSNAR1G8H2"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -582,8 +582,6 @@ class DuplicateToolResponseBody2TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -593,6 +591,8 @@ class DuplicateToolResponseBody2TypedDict(TypedDict):
     type: DuplicateToolResponseBodyToolsType
     json_schema: DuplicateToolResponseBodyJSONSchemaTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -614,9 +614,6 @@ class DuplicateToolResponseBody2(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -633,8 +630,11 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ERAP1C89WFAYZ4J9Y93"
+        "01K7NYJMFS7M5YXNKA1VNKE9AF"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -695,8 +695,6 @@ class DuplicateToolResponseBody1TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -706,6 +704,8 @@ class DuplicateToolResponseBody1TypedDict(TypedDict):
     type: DuplicateToolResponseBodyType
     function: DuplicateToolResponseBodyFunctionTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -727,9 +727,6 @@ class DuplicateToolResponseBody1(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -746,8 +743,11 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER93JRZD11ABEB3GPMC"
+        "01K7NYJMFSY32FN3D8WB7QTFGC"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""

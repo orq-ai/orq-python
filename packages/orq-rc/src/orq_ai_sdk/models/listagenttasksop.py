@@ -190,6 +190,8 @@ class ListAgentTasksToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ListAgentTasksConditionsTypedDict]]
@@ -204,6 +206,9 @@ class ListAgentTasksTools(BaseModel):
     r"""The id of the resource"""
 
     action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
 
     display_name: Optional[str] = None
 

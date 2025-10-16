@@ -3,10 +3,19 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createagentop as models_createagentop,
+    invokeagentop as models_invokeagentop,
+    listagenttasksop as models_listagenttasksop,
+    runagentop as models_runagentop,
+    streamagentop as models_streamagentop,
+    streamrunagentop as models_streamrunagentop,
+    updateagentop as models_updateagentop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Agents(BaseSDK):
@@ -204,6 +213,210 @@ class Agents(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    def create(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models_createagentop.CreateAgentRequestBody,
+                models_createagentop.CreateAgentRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateAgentResponseBody]:
+        r"""Create a new agent
+
+        Creates a new AI agent with specified configuration. Agents can be configured with a primary model and an optional fallback model that will be used automatically if the primary model fails.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.CreateAgentRequestBody])
+        request = cast(Optional[models.CreateAgentRequestBody], request)
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/agents/",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, True, "json", Optional[models.CreateAgentRequestBody]
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.CreateAgentResponseBody], http_res
+            )
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateAgentAgentsResponseBodyData, http_res
+            )
+            raise models.CreateAgentAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def create_async(
+        self,
+        *,
+        request: Optional[
+            Union[
+                models_createagentop.CreateAgentRequestBody,
+                models_createagentop.CreateAgentRequestBodyTypedDict,
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.CreateAgentResponseBody]:
+        r"""Create a new agent
+
+        Creates a new AI agent with specified configuration. Agents can be configured with a primary model and an optional fallback model that will be used automatically if the primary model fails.
+
+        :param request: The request object to send.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.CreateAgentRequestBody])
+        request = cast(Optional[models.CreateAgentRequestBody], request)
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/agents/",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, True, "json", Optional[models.CreateAgentRequestBody]
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.CreateAgentResponseBody], http_res
+            )
+        if utils.match_response(http_res, "409", "application/json"):
+            response_data = unmarshal_json_response(
+                models.CreateAgentAgentsResponseBodyData, http_res
+            )
+            raise models.CreateAgentAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def list(
         self,
         *,
@@ -383,6 +596,190 @@ class Agents(BaseSDK):
             return unmarshal_json_response(
                 Optional[models.ListAgentsResponseBody], http_res
             )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    def delete(
+        self,
+        *,
+        agent_key: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete an agent
+
+        Permanently deletes an agent and all its configuration, including primary and fallback model settings.
+
+        :param agent_key: The unique key of the agent to delete
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteAgentRequest(
+            agent_key=agent_key,
+        )
+
+        req = self._build_request(
+            method="DELETE",
+            path="/v2/agents/{agent_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteAgentResponseBodyData, http_res
+            )
+            raise models.DeleteAgentResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def delete_async(
+        self,
+        *,
+        agent_key: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ):
+        r"""Delete an agent
+
+        Permanently deletes an agent and all its configuration, including primary and fallback model settings.
+
+        :param agent_key: The unique key of the agent to delete
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.DeleteAgentRequest(
+            agent_key=agent_key,
+        )
+
+        req = self._build_request_async(
+            method="DELETE",
+            path="/v2/agents/{agent_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="DeleteAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "204", "*"):
+            return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeleteAgentResponseBodyData, http_res
+            )
+            raise models.DeleteAgentResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -580,18 +977,333 @@ class Agents(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    def update(
+        self,
+        *,
+        agent_key: str,
+        key: Optional[str] = None,
+        project_id: Optional[str] = None,
+        role: Optional[str] = None,
+        description: Optional[str] = None,
+        instructions: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        model: Optional[str] = None,
+        fallback_models: Optional[List[str]] = None,
+        settings: Optional[
+            Union[
+                models_updateagentop.UpdateAgentSettings,
+                models_updateagentop.UpdateAgentSettingsTypedDict,
+            ]
+        ] = None,
+        path: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models_updateagentop.UpdateAgentKnowledgeBases],
+                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.UpdateAgentResponseBody]:
+        r"""Update an agent
+
+        Updates an existing agent's configuration. You can update various fields including the model configuration and fallback model settings.
+
+        :param agent_key: The unique key of the agent to update
+        :param key:
+        :param project_id:
+        :param role:
+        :param description:
+        :param instructions:
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
+        :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param settings:
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param memory_stores:
+        :param knowledge_bases:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateAgentRequest(
+            agent_key=agent_key,
+            request_body=models.UpdateAgentRequestBody(
+                key=key,
+                project_id=project_id,
+                role=role,
+                description=description,
+                instructions=instructions,
+                system_prompt=system_prompt,
+                model=model,
+                fallback_models=fallback_models,
+                settings=utils.get_pydantic_model(
+                    settings, Optional[models.UpdateAgentSettings]
+                ),
+                path=path,
+                memory_stores=memory_stores,
+                knowledge_bases=utils.get_pydantic_model(
+                    knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="PATCH",
+            path="/v2/agents/{agent_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.UpdateAgentResponseBody], http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateAgentAgentsResponseBodyData, http_res
+            )
+            raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
+    async def update_async(
+        self,
+        *,
+        agent_key: str,
+        key: Optional[str] = None,
+        project_id: Optional[str] = None,
+        role: Optional[str] = None,
+        description: Optional[str] = None,
+        instructions: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        model: Optional[str] = None,
+        fallback_models: Optional[List[str]] = None,
+        settings: Optional[
+            Union[
+                models_updateagentop.UpdateAgentSettings,
+                models_updateagentop.UpdateAgentSettingsTypedDict,
+            ]
+        ] = None,
+        path: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models_updateagentop.UpdateAgentKnowledgeBases],
+                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> Optional[models.UpdateAgentResponseBody]:
+        r"""Update an agent
+
+        Updates an existing agent's configuration. You can update various fields including the model configuration and fallback model settings.
+
+        :param agent_key: The unique key of the agent to update
+        :param key:
+        :param project_id:
+        :param role:
+        :param description:
+        :param instructions:
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
+        :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param settings:
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param memory_stores:
+        :param knowledge_bases:
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.UpdateAgentRequest(
+            agent_key=agent_key,
+            request_body=models.UpdateAgentRequestBody(
+                key=key,
+                project_id=project_id,
+                role=role,
+                description=description,
+                instructions=instructions,
+                system_prompt=system_prompt,
+                model=model,
+                fallback_models=fallback_models,
+                settings=utils.get_pydantic_model(
+                    settings, Optional[models.UpdateAgentSettings]
+                ),
+                path=path,
+                memory_stores=memory_stores,
+                knowledge_bases=utils.get_pydantic_model(
+                    knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="PATCH",
+            path="/v2/agents/{agent_key}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.UpdateAgentRequestBody],
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="UpdateAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                Optional[models.UpdateAgentResponseBody], http_res
+            )
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.UpdateAgentAgentsResponseBodyData, http_res
+            )
+            raise models.UpdateAgentAgentsResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        raise models.APIError("Unexpected response received", http_res)
+
     def invoke(
         self,
         *,
         key: str,
-        message: Union[models.Message, models.MessageTypedDict],
+        message: Union[
+            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[
-            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
+        contact: Optional[
+            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        thread: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentThread,
+                models_invokeagentop.InvokeAgentThreadTypedDict,
+            ]
+        ] = None,
+        memory: Optional[
+            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
+        ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -706,14 +1418,23 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[models.Message, models.MessageTypedDict],
+        message: Union[
+            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
-        thread: Optional[
-            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
+        contact: Optional[
+            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
         ] = None,
-        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
+        thread: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentThread,
+                models_invokeagentop.InvokeAgentThreadTypedDict,
+            ]
+        ] = None,
+        memory: Optional[
+            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
+        ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -831,7 +1552,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models.Status] = None,
+        status: Optional[models_listagenttasksop.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -937,7 +1658,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models.Status] = None,
+        status: Optional[models_listagenttasksop.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1040,7 +1761,10 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
+            Union[
+                models_runagentop.RunAgentRequestBody,
+                models_runagentop.RunAgentRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1133,7 +1857,10 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
+            Union[
+                models_runagentop.RunAgentRequestBody,
+                models_runagentop.RunAgentRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1227,8 +1954,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.StreamRunAgentRequestBody,
-                models.StreamRunAgentRequestBodyTypedDict,
+                models_streamrunagentop.StreamRunAgentRequestBody,
+                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1340,8 +2067,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.StreamRunAgentRequestBody,
-                models.StreamRunAgentRequestBodyTypedDict,
+                models_streamrunagentop.StreamRunAgentRequestBody,
+                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1452,17 +2179,29 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
+        message: Union[
+            models_streamagentop.StreamAgentMessage,
+            models_streamagentop.StreamAgentMessageTypedDict,
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
+            Union[
+                models_streamagentop.StreamAgentContact,
+                models_streamagentop.StreamAgentContactTypedDict,
+            ]
         ] = None,
         thread: Optional[
-            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
+            Union[
+                models_streamagentop.StreamAgentThread,
+                models_streamagentop.StreamAgentThreadTypedDict,
+            ]
         ] = None,
         memory: Optional[
-            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
+            Union[
+                models_streamagentop.StreamAgentMemory,
+                models_streamagentop.StreamAgentMemoryTypedDict,
+            ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -1598,17 +2337,29 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
+        message: Union[
+            models_streamagentop.StreamAgentMessage,
+            models_streamagentop.StreamAgentMessageTypedDict,
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
+            Union[
+                models_streamagentop.StreamAgentContact,
+                models_streamagentop.StreamAgentContactTypedDict,
+            ]
         ] = None,
         thread: Optional[
-            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
+            Union[
+                models_streamagentop.StreamAgentThread,
+                models_streamagentop.StreamAgentThreadTypedDict,
+            ]
         ] = None,
         memory: Optional[
-            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
+            Union[
+                models_streamagentop.StreamAgentMemory,
+                models_streamagentop.StreamAgentMemoryTypedDict,
+            ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,

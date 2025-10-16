@@ -274,7 +274,7 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
 class InvokeAgentRequestBody(BaseModel):
     message: Message
 
-    task_id: Annotated[Optional[str], pydantic.Field(alias="taskId")] = None
+    task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
     variables: Optional[Dict[str, Any]] = None
@@ -394,13 +394,13 @@ class InvokeAgentResponseBodyTypedDict(TypedDict):
     id: str
     r"""The ID of the created agent execution task"""
     context_id: str
-    r"""The context ID (workspace ID)"""
+    r"""The correlation ID for this execution"""
     kind: InvokeAgentKind
     r"""A2A entity type"""
     status: InvokeAgentStatusTypedDict
     r"""Task status information"""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Task metadata"""
+    r"""Task metadata containing workspace_id and trace_id for feedback"""
 
 
 class InvokeAgentResponseBody(BaseModel):
@@ -410,7 +410,7 @@ class InvokeAgentResponseBody(BaseModel):
     r"""The ID of the created agent execution task"""
 
     context_id: Annotated[str, pydantic.Field(alias="contextId")]
-    r"""The context ID (workspace ID)"""
+    r"""The correlation ID for this execution"""
 
     kind: InvokeAgentKind
     r"""A2A entity type"""
@@ -419,4 +419,4 @@ class InvokeAgentResponseBody(BaseModel):
     r"""Task status information"""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Task metadata"""
+    r"""Task metadata containing workspace_id and trace_id for feedback"""

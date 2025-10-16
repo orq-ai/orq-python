@@ -6,8 +6,11 @@
 ### Available Operations
 
 * [retrieve_task](#retrieve_task) - Retrieve a specific agent task
+* [create](#create) - Create a new agent
 * [list](#list) - List all agents
+* [delete](#delete) - Delete an agent
 * [retrieve](#retrieve) - Get an agent
+* [update](#update) - Update an agent
 * [invoke](#invoke) - Invoke an agent
 * [list_tasks](#list_tasks) - List all tasks for an agent
 * [run](#run) - Run an agent
@@ -60,6 +63,69 @@ with Orq(
 | models.GetAgentTaskAgentsResponseBody | 404                                   | application/json                      |
 | models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
 
+## create
+
+Creates a new AI agent with specified configuration. Agents can be configured with a primary model and an optional fallback model that will be used automatically if the primary model fails.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="CreateAgent" method="post" path="/v2/agents/" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.create(request={
+        "path": "Default",
+        "key": "<key>",
+        "role": "<value>",
+        "description": "neatly unless refine aside platter alarmed shampoo shakily yippee",
+        "instructions": "<value>",
+        "model": "Camaro",
+        "settings": {
+            "tools": [
+                {
+                    "type": "http",
+                    "requires_approval": False,
+                },
+            ],
+        },
+        "knowledge_bases": [
+            {
+                "knowledge_id": "customer-knowledge-base",
+            },
+        ],
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `request`                                                               | [models.CreateAgentRequestBody](../../models/createagentrequestbody.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
+| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+
+### Response
+
+**[models.CreateAgentResponseBody](../../models/createagentresponsebody.md)**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| models.CreateAgentAgentsResponseBody | 409                                  | application/json                     |
+| models.APIError                      | 4XX, 5XX                             | \*/\*                                |
+
 ## list
 
 Retrieves a paginated list of all agents in your workspace. Each agent includes its configuration, primary model, and optional fallback model settings.
@@ -104,6 +170,42 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
+## delete
+
+Permanently deletes an agent and all its configuration, including primary and fallback model settings.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteAgent" method="delete" path="/v2/agents/{agent_key}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    orq.agents.delete(agent_key="<value>")
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The unique key of the agent to delete                               |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Errors
+
+| Error Type                     | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| models.DeleteAgentResponseBody | 404                            | application/json               |
+| models.APIError                | 4XX, 5XX                       | \*/\*                          |
+
 ## retrieve
 
 Retrieves a single agent by its unique key, including its full configuration with primary and fallback model settings.
@@ -146,6 +248,65 @@ with Orq(
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | models.GetAgentAgentsResponseBody | 404                               | application/json                  |
 | models.APIError                   | 4XX, 5XX                          | \*/\*                             |
+
+## update
+
+Updates an existing agent's configuration. You can update various fields including the model configuration and fallback model settings.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="UpdateAgent" method="patch" path="/v2/agents/{agent_key}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.update(agent_key="<value>", path="Default", knowledge_bases=[
+        {
+            "knowledge_id": "customer-knowledge-base",
+        },
+    ])
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                      | Type                                                                                                                                                                                                                                                                                           | Required                                                                                                                                                                                                                                                                                       | Description                                                                                                                                                                                                                                                                                    | Example                                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent_key`                                                                                                                                                                                                                                                                                    | *str*                                                                                                                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                                                             | The unique key of the agent to update                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                |
+| `key`                                                                                                                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `project_id`                                                                                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `role`                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `description`                                                                                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `instructions`                                                                                                                                                                                                                                                                                 | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `system_prompt`                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | A custom system prompt template for the agent. If omitted, the default template is used.                                                                                                                                                                                                       |                                                                                                                                                                                                                                                                                                |
+| `model`                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | The primary language model that powers the agent (e.g., "anthropic/claude-3-sonnet-20240229")                                                                                                                                                                                                  |                                                                                                                                                                                                                                                                                                |
+| `fallback_models`                                                                                                                                                                                                                                                                              | List[*str*]                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.                                                                                                                                        |                                                                                                                                                                                                                                                                                                |
+| `settings`                                                                                                                                                                                                                                                                                     | [Optional[models.UpdateAgentSettings]](../../models/updateagentsettings.md)                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `path`                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Entity storage path in the format: `project/folder/subfolder/...`<br/><br/>The first element identifies the project, followed by nested folders (auto-created as needed).<br/><br/>With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key. | Default                                                                                                                                                                                                                                                                                        |
+| `memory_stores`                                                                                                                                                                                                                                                                                | List[*str*]                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `knowledge_bases`                                                                                                                                                                                                                                                                              | List[[models.UpdateAgentKnowledgeBases](../../models/updateagentknowledgebases.md)]                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `retries`                                                                                                                                                                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+
+### Response
+
+**[models.UpdateAgentResponseBody](../../models/updateagentresponsebody.md)**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| models.UpdateAgentAgentsResponseBody | 404                                  | application/json                     |
+| models.APIError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## invoke
 
@@ -323,6 +484,11 @@ with Orq(
             ],
         },
         "path": "Default",
+        "knowledge_bases": [
+            {
+                "knowledge_id": "customer-knowledge-base",
+            },
+        ],
         "settings": {
             "tools": [
                 {
@@ -413,6 +579,11 @@ with Orq(
             ],
         },
         "path": "Default",
+        "knowledge_bases": [
+            {
+                "knowledge_id": "customer-knowledge-base",
+            },
+        ],
         "settings": {
             "tools": [
                 {

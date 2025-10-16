@@ -46,8 +46,6 @@ class UpdateToolRequestBodyCodeTool(BaseModel):
 
 
 class UpdateToolRequestBody5TypedDict(TypedDict):
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     type: UpdateToolRequestBodyToolsRequest5Type
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -56,6 +54,8 @@ class UpdateToolRequestBody5TypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest5Status]
@@ -64,9 +64,6 @@ class UpdateToolRequestBody5TypedDict(TypedDict):
 
 
 class UpdateToolRequestBody5(BaseModel):
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     type: UpdateToolRequestBodyToolsRequest5Type
 
     path: Optional[str] = None
@@ -76,6 +73,9 @@ class UpdateToolRequestBody5(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: Optional[str] = None
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -173,8 +173,6 @@ class RequestBodyMcp(BaseModel):
 
 
 class UpdateToolRequestBody4TypedDict(TypedDict):
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     type: UpdateToolRequestBodyToolsRequest4Type
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -185,6 +183,8 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
     """
     key: NotRequired[str]
     r"""Unique key of the tool as it will be displayed in the UI"""
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
@@ -193,9 +193,6 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
 
 
 class UpdateToolRequestBody4(BaseModel):
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     type: UpdateToolRequestBodyToolsRequest4Type
 
     path: Optional[str] = None
@@ -208,6 +205,9 @@ class UpdateToolRequestBody4(BaseModel):
 
     key: Optional[str] = None
     r"""Unique key of the tool as it will be displayed in the UI"""
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     description: Optional[str] = None
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
@@ -679,8 +679,6 @@ class UpdateToolResponseBody5TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -690,6 +688,8 @@ class UpdateToolResponseBody5TypedDict(TypedDict):
     type: UpdateToolResponseBodyToolsResponse200ApplicationJSONType
     code_tool: UpdateToolResponseBodyCodeToolTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -711,9 +711,6 @@ class UpdateToolResponseBody5(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -730,8 +727,11 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER7A11KHWADV7KEGNH7"
+        "01K7NYJMFPBJRHX99X20FN0WY6"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -843,8 +843,6 @@ class UpdateToolResponseBody4TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -854,6 +852,8 @@ class UpdateToolResponseBody4TypedDict(TypedDict):
     type: UpdateToolResponseBodyToolsResponse200Type
     mcp: UpdateToolResponseBodyMcpTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -875,9 +875,6 @@ class UpdateToolResponseBody4(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -894,8 +891,11 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER6EDF7S7E2MVDFYDMB"
+        "01K7NYJMFN33MNW6CMD0M36Z2E"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -1029,8 +1029,6 @@ class UpdateToolResponseBody3TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -1040,6 +1038,8 @@ class UpdateToolResponseBody3TypedDict(TypedDict):
     type: UpdateToolResponseBodyToolsResponseType
     http: UpdateToolResponseBodyHTTPTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -1061,9 +1061,6 @@ class UpdateToolResponseBody3(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -1080,8 +1077,11 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER5W5PW1AQT6E49FY4Q"
+        "01K7NYJMFNNCAPT3BT2CVDAFSA"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -1172,8 +1172,6 @@ class UpdateToolResponseBody2TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -1183,6 +1181,8 @@ class UpdateToolResponseBody2TypedDict(TypedDict):
     type: UpdateToolResponseBodyToolsType
     json_schema: UpdateToolResponseBodyJSONSchemaTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -1204,9 +1204,6 @@ class UpdateToolResponseBody2(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -1223,8 +1220,11 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER59FH9M0KP1FP0DW7M"
+        "01K7NYJMFM3A2CNNMYME5166BF"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""
@@ -1285,8 +1285,6 @@ class UpdateToolResponseBody1TypedDict(TypedDict):
     """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     project_id: str
@@ -1296,6 +1294,8 @@ class UpdateToolResponseBody1TypedDict(TypedDict):
     type: UpdateToolResponseBodyType
     function: UpdateToolResponseBodyFunctionTypedDict
     id: NotRequired[str]
+    display_name: NotRequired[str]
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     created_by_id: NotRequired[str]
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
@@ -1317,9 +1317,6 @@ class UpdateToolResponseBody1(BaseModel):
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
 
-    display_name: str
-    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-
     description: str
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
@@ -1336,8 +1333,11 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NW4ER4548GMM6Q22GEPPCP"
+        "01K7NYJMFKEZ03PWYMGZMWRGX3"
     )
+
+    display_name: Optional[str] = None
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
     created_by_id: Optional[str] = None
     r"""The id of the user that created the tool"""

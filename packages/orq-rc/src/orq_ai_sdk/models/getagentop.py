@@ -14,8 +14,8 @@ from orq_ai_sdk.types import (
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing import Any, Dict, List, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetAgentRequestTypedDict(TypedDict):
@@ -69,7 +69,7 @@ GetAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-class ConditionsTypedDict(TypedDict):
+class GetAgentConditionsTypedDict(TypedDict):
     condition: str
     r"""The argument of the tool call to evaluate"""
     operator: str
@@ -78,7 +78,7 @@ class ConditionsTypedDict(TypedDict):
     r"""The value to compare against"""
 
 
-class Conditions(BaseModel):
+class GetAgentConditions(BaseModel):
     condition: str
     r"""The argument of the tool call to evaluate"""
 
@@ -93,9 +93,11 @@ class GetAgentToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
     display_name: NotRequired[str]
     requires_approval: NotRequired[bool]
-    conditions: NotRequired[List[ConditionsTypedDict]]
+    conditions: NotRequired[List[GetAgentConditionsTypedDict]]
     mcp_server: NotRequired[str]
     r"""The id of the resource"""
     timeout: NotRequired[float]
@@ -108,11 +110,14 @@ class GetAgentTools(BaseModel):
 
     action_type: str
 
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
+
     display_name: Optional[str] = None
 
     requires_approval: Optional[bool] = False
 
-    conditions: Optional[List[Conditions]] = None
+    conditions: Optional[List[GetAgentConditions]] = None
 
     mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
     r"""The id of the resource"""
@@ -232,82 +237,17 @@ class GetAgentMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
 
-GetAgentKnowledgeBaseConfigurationType = Literal["query",]
-
-
-class GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict(TypedDict):
-    r"""Defines the configuration settings for a static query."""
-
-    type: GetAgentKnowledgeBaseConfigurationType
-    query: str
-
-
-class GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQuery(BaseModel):
-    r"""Defines the configuration settings for a static query."""
-
-    type: GetAgentKnowledgeBaseConfigurationType
-
-    query: str
-
-
-GetAgentKnowledgeBaseConfigurationAgentsType = Literal["last_user_message",]
-
-
-class GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict(
-    TypedDict
-):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: GetAgentKnowledgeBaseConfigurationAgentsType
-
-
-class GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage(BaseModel):
-    r"""Defines the configuration settings for a last user message type retrieval."""
-
-    type: GetAgentKnowledgeBaseConfigurationAgentsType
-
-
-GetAgentKnowledgeBaseConfigurationTypedDict = TypeAliasType(
-    "GetAgentKnowledgeBaseConfigurationTypedDict",
-    Union[
-        GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessageTypedDict,
-        GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQueryTypedDict,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
-GetAgentKnowledgeBaseConfiguration = TypeAliasType(
-    "GetAgentKnowledgeBaseConfiguration",
-    Union[
-        GetAgentKnowledgeBaseConfigurationKnowledgeBaseLastUserMessage,
-        GetAgentKnowledgeBaseConfigurationKnowledgeBaseStaticQuery,
-    ],
-)
-r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-
 class GetAgentKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
-    r"""The id of the resource"""
-    configuration: GetAgentKnowledgeBaseConfigurationTypedDict
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
-    id: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Unique identifier of the knowledge base to search"""
 
 
 class GetAgentKnowledgeBases(BaseModel):
     knowledge_id: str
-    r"""The id of the resource"""
-
-    configuration: GetAgentKnowledgeBaseConfiguration
-    r"""Defines the configuration settings which can either be for a user message or a text entry."""
-
-    id: Optional[str] = "01K7NW4EG52RA4Y5QXMJZ6PA69"
-    r"""The id of the resource"""
+    r"""Unique identifier of the knowledge base to search"""
 
 
-HiddenPanels = Literal[
+GetAgentHiddenPanels = Literal[
     "model",
     "tools",
     "knowledge_bases",
@@ -351,7 +291,7 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[GetAgentKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    hidden_panels: NotRequired[List[HiddenPanels]]
+    hidden_panels: NotRequired[List[GetAgentHiddenPanels]]
     r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
 
 
@@ -412,7 +352,7 @@ class GetAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[GetAgentKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    hidden_panels: Optional[List[HiddenPanels]] = None
+    hidden_panels: Optional[List[GetAgentHiddenPanels]] = None
     r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
 
     @model_serializer(mode="wrap")
