@@ -209,7 +209,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class CreateDatasetItemMessagesAudioTypedDict(TypedDict):
@@ -265,7 +265,7 @@ class CreateDatasetItemMessagesToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[CreateDatasetItemMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -286,7 +286,7 @@ class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -840,7 +840,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
 ]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class CreateDatasetItemMessagesDatasetsAudioTypedDict(TypedDict):
@@ -896,7 +896,7 @@ class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -919,7 +919,7 @@ class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsResponse200Content] = (
         UNSET
@@ -1286,7 +1286,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.529Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.198Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1338,7 +1338,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.529Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.198Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1390,7 +1390,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.529Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.198Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1464,5 +1464,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-16T10:40:20.235Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-16T14:53:40.726Z")
     r"""The date and time the resource was last updated"""

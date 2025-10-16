@@ -207,7 +207,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 UpdateDatapointMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class UpdateDatapointMessagesAudioTypedDict(TypedDict):
@@ -263,7 +263,7 @@ class UpdateDatapointMessagesToolCalls(BaseModel):
 
 class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[UpdateDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -284,7 +284,7 @@ class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -838,7 +838,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
 ]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class UpdateDatapointMessagesDatasetsAudioTypedDict(TypedDict):
@@ -894,7 +894,7 @@ class UpdateDatapointMessagesDatasetsToolCalls(BaseModel):
 
 class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[UpdateDatapointMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -917,7 +917,7 @@ class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesDatasetsAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsResponse200Content] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1282,7 +1282,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.535Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.205Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1334,7 +1334,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.535Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.205Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1386,7 +1386,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.535Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.205Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1473,5 +1473,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-16T10:40:20.235Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-16T14:53:40.726Z")
     r"""The date and time the resource was last updated"""

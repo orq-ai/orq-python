@@ -221,7 +221,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentStreamPrefixMessagesAudioTypedDict(TypedDict):
@@ -277,7 +277,7 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
 
 class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[DeploymentStreamPrefixMessagesDeploymentsContentTypedDict]
     ]
@@ -300,7 +300,7 @@ class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentStreamPrefixMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -807,7 +807,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentStreamMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentStreamMessagesAudioTypedDict(TypedDict):
@@ -863,7 +863,7 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
 
 class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[DeploymentStreamMessagesDeploymentsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -884,7 +884,7 @@ class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentStreamMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentStreamMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""

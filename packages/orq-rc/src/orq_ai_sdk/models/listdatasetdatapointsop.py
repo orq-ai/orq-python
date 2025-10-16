@@ -252,7 +252,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 ListDatasetDatapointsMessagesDatasetsResponse200Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class ListDatasetDatapointsMessagesAudioTypedDict(TypedDict):
@@ -308,7 +308,7 @@ class ListDatasetDatapointsMessagesToolCalls(BaseModel):
 
 class ListDatasetDatapointsMessagesAssistantMessageTypedDict(TypedDict):
     role: ListDatasetDatapointsMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[ListDatasetDatapointsMessagesDatasetsContentTypedDict]
     ]
@@ -331,7 +331,7 @@ class ListDatasetDatapointsMessagesAssistantMessageTypedDict(TypedDict):
 
 class ListDatasetDatapointsMessagesAssistantMessage(BaseModel):
     role: ListDatasetDatapointsMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[ListDatasetDatapointsMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -696,7 +696,7 @@ class ListDatasetDatapointsEvaluations3(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.524Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.189Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -750,7 +750,7 @@ class ListDatasetDatapointsEvaluations2(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.524Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.189Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -802,7 +802,7 @@ class ListDatasetDatapointsEvaluations1(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.523Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.189Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -885,7 +885,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-16T10:40:20.235Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-16T14:53:40.726Z")
     r"""The date and time the resource was last updated"""
 
 

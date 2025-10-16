@@ -208,7 +208,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class PrefixMessagesAudioTypedDict(TypedDict):
@@ -264,7 +264,7 @@ class PrefixMessagesToolCalls(BaseModel):
 
 class PrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict]
     ]
@@ -287,7 +287,7 @@ class PrefixMessagesAssistantMessageTypedDict(TypedDict):
 
 class PrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[
         DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
@@ -804,7 +804,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentGetConfigMessagesAudioTypedDict(TypedDict):
@@ -860,7 +860,7 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
 
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[DeploymentGetConfigMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -881,7 +881,7 @@ class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentGetConfigMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""

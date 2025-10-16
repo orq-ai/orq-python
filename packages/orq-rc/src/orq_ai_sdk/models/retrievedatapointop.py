@@ -221,7 +221,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 RetrieveDatapointMessagesDatasetsResponse200Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class RetrieveDatapointMessagesAudioTypedDict(TypedDict):
@@ -277,7 +277,7 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
 
 class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[RetrieveDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -298,7 +298,7 @@ class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class RetrieveDatapointMessagesAssistantMessage(BaseModel):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[RetrieveDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -662,7 +662,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.526Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.196Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -714,7 +714,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.526Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.195Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -766,7 +766,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T10:40:29.526Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-16T14:53:50.194Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -853,5 +853,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-16T10:40:20.235Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-16T14:53:40.726Z")
     r"""The date and time the resource was last updated"""
