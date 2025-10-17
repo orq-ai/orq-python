@@ -321,7 +321,7 @@ class UpdateToolRequestBody3(BaseModel):
     type: UpdateToolRequestBodyToolsRequestType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6QNV11MV7WF6QZA6Z0"
+        "01K7SNTG6MAHJP7PE5R8TYVF8N"
     )
 
     path: Optional[str] = None
@@ -424,7 +424,7 @@ class UpdateToolRequestBody2(BaseModel):
     type: UpdateToolRequestBodyToolsType
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6QCYXFS38TXV5JMHX7"
+        "01K7SNTG6M1Q1VNJRFANWCZ3YC"
     )
 
     path: Optional[str] = None
@@ -657,7 +657,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6PAXFJ0MCHZKHDV8E5"
+        "01K7SNTG6K2H75Y20HBYG0C1HR"
     )
 
     display_name: Optional[str] = None
@@ -811,7 +811,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6M992PQZ71ZAJBBTRV"
+        "01K7SNTG6KXKWAPHJ4YWEY2KDY"
     )
 
     display_name: Optional[str] = None
@@ -987,7 +987,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6KZ7JYFFSHQ6G0C6CM"
+        "01K7SNTG6JPBX8M2PND9AZYQFX"
     )
 
     display_name: Optional[str] = None
@@ -1120,7 +1120,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6JPDJM160PAF84MGBE"
+        "01K7SNTG6J4E9ZNXFVRS55BBFC"
     )
 
     display_name: Optional[str] = None
@@ -1223,7 +1223,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K7NZKQ6J9QXNRMACB9J7KAZG"
+        "01K7SNTG6JC1XMCSA04HE0QSKG"
     )
 
     display_name: Optional[str] = None
