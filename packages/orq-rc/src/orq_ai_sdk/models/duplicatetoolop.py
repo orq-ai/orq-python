@@ -137,7 +137,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K80GSNWVB806HM64M7TKGSMC"
+        "01K80QWCQ32HZ9B9Z0VCTQ2SMQ"
     )
 
     display_name: Optional[str] = None
@@ -301,7 +301,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K80GSNWTKXZWDBYS3383GF41"
+        "01K80QWCQ2QP849JCFDXD05KDE"
     )
 
     display_name: Optional[str] = None
@@ -487,7 +487,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K80GSNWSV9RT7FQZZA0K5NZE"
+        "01K80QWCQ2FXYSEXE1K4BCER8B"
     )
 
     display_name: Optional[str] = None
@@ -630,7 +630,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K80GSNWR3BGNZG2MFSSE0B76"
+        "01K80QWCQ1GDTW3HQD915Y03G0"
     )
 
     display_name: Optional[str] = None
@@ -743,7 +743,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K80GSNWR2B27X6ZSW6C0H9SK"
+        "01K80QWCQ144RV54VYCFKNMEZK"
     )
 
     display_name: Optional[str] = None
