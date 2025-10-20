@@ -4,7 +4,13 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
-from typing import TYPE_CHECKING, Any, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
+
+# Type aliases for better clarity
+SpanInputData = Union[str, List[Dict[str, object]], Dict[str, object]]
+SpanOutputData = Union[str, List[Dict[str, object]], Dict[str, object]]
+UsageData = object
+ErrorData = Optional[Dict[str, object]]
 
 from agents.tracing import Span, Trace, TracingProcessor
 from agents.tracing.span_data import (
@@ -24,7 +30,7 @@ from opentelemetry.trace import (
 )
 from opentelemetry.util.types import AttributeValue
 
-from openai_agents_instrumentation.constants import (
+from constants import (
     GenAIAttributes,
     GenAIOperation,
     GenAISystem,
@@ -44,8 +50,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # Track agent spans and their child spans to aggregate input/output
         self._agent_spans: dict[str, str] = {}  # span_id -> agent_name
         self._span_hierarchy: dict[str, str] = {}  # child_span_id -> parent_agent_span_id
-        self._agent_inputs: dict[str, list[Any]] = {}  # agent_span_id -> inputs
-        self._agent_outputs: dict[str, list[Any]] = {}  # agent_span_id -> outputs
+        self._agent_inputs: Dict[str, Optional[SpanInputData]] = {}  # agent_span_id -> first LLM input
+        self._agent_outputs: Dict[str, Optional[SpanOutputData]] = {}  # agent_span_id -> last LLM output
 
     def on_trace_start(self, trace: Trace) -> None:
         """Called when a trace is started."""
@@ -65,7 +71,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             root_span.set_status(Status(StatusCode.OK))
             root_span.end()
 
-    def on_span_start(self, span: Span[Any]) -> None:
+    def on_span_start(self, span: Span[SpanData]) -> None:
         """Called when a span is started."""
         if not span.started_at:
             return
@@ -98,16 +104,16 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             agent_name = span.span_data.name
             self._agent_spans[span.span_id] = agent_name
             if span.span_id not in self._agent_inputs:
-                self._agent_inputs[span.span_id] = []
+                self._agent_inputs[span.span_id] = None
             if span.span_id not in self._agent_outputs:
-                self._agent_outputs[span.span_id] = []
+                self._agent_outputs[span.span_id] = None
         else:
             # For non-agent spans, find their parent agent span
             parent_agent_span_id = self._find_parent_agent_span(span.parent_id)
             if parent_agent_span_id:
                 self._span_hierarchy[span.span_id] = parent_agent_span_id
 
-    def on_span_end(self, span: Span[Any]) -> None:
+    def on_span_end(self, span: Span[SpanData]) -> None:
         """Called when a span is finished."""
         if token := self._tokens.pop(span.span_id, None):
             detach(token)
@@ -143,15 +149,15 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Handle agent span with enhanced input/output collection."""
         otel_span.set_attribute(SpanAttributes.AGENT_NAME.value, data.name)
         
-        # Add aggregated input/output from child spans as JSON strings
-        if span_id in self._agent_inputs and self._agent_inputs[span_id]:
+        # Add first LLM input and last LLM output as JSON strings
+        if span_id in self._agent_inputs and self._agent_inputs[span_id] is not None:
             try:
                 json_input = json.dumps(self._agent_inputs[span_id])
                 otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, json_input)
             except (TypeError, ValueError):
                 otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(self._agent_inputs[span_id]))
         
-        if span_id in self._agent_outputs and self._agent_outputs[span_id]:
+        if span_id in self._agent_outputs and self._agent_outputs[span_id] is not None:
             try:
                 json_output = json.dumps(self._agent_outputs[span_id])
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
@@ -231,7 +237,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
 
     def _collect_agent_data(self, span_id: str, data: SpanData, *data_types: str) -> None:
-        """Collect input/output data for agent spans."""
+        """Collect input/output data for agent spans - first LLM input and last LLM output per agent."""
         # Find the parent agent span for this child span
         parent_agent_span_id = self._span_hierarchy.get(span_id)
         if not parent_agent_span_id:
@@ -240,24 +246,19 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         for data_type in data_types:
             if data_type == "input" and hasattr(data, "input") and data.input:
                 if parent_agent_span_id in self._agent_inputs:
-                    # Preserve structured input data for agent aggregation
-                    self._agent_inputs[parent_agent_span_id].extend(
-                        data.input if isinstance(data.input, list) else [data.input]
-                    )
+                    # Only capture the first LLM input for this specific agent if none exists yet
+                    if self._agent_inputs[parent_agent_span_id] is None:
+                        self._agent_inputs[parent_agent_span_id] = data.input
             elif data_type == "output":
                 if hasattr(data, "output") and data.output:
                     if parent_agent_span_id in self._agent_outputs:
-                        # Preserve structured output data for agent aggregation
-                        self._agent_outputs[parent_agent_span_id].extend(
-                            data.output if isinstance(data.output, list) else [data.output]
-                        )
+                        # Always capture the latest LLM output for this specific agent (last one wins)
+                        self._agent_outputs[parent_agent_span_id] = data.output
                 elif hasattr(data, "response") and data.response:
                     if parent_agent_span_id in self._agent_outputs:
-                        # Extract structured output from response
+                        # Extract output from response and always update for this specific agent (last one wins)
                         if hasattr(data.response, "output") and data.response.output:
-                            self._agent_outputs[parent_agent_span_id].extend(
-                                data.response.output if isinstance(data.response.output, list) else [data.response.output]
-                            )
+                            self._agent_outputs[parent_agent_span_id] = data.response.output
 
     def _find_parent_agent_span(self, parent_id: Optional[str]) -> Optional[str]:
         """Find the nearest parent agent span ID."""
@@ -271,7 +272,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # Recursively check up the hierarchy
         return self._span_hierarchy.get(parent_id)
 
-    def _get_span_name(self, span: Span[Any]) -> str:
+    def _get_span_name(self, span: Span[SpanData]) -> str:
         """Get span name from span data."""
         if hasattr(data := span.span_data, "name") and isinstance(name := data.name, str):
             return name
@@ -290,16 +291,19 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         else:
             return SpanKind.CHAIN.value
 
-    def _get_span_status(self, span: Span[Any]) -> Status:
+    def _get_span_status(self, span: Span[SpanData]) -> Status:
         """Get span status from span error information."""
-        if error := getattr(span, "error", None):
+        error: ErrorData = getattr(span, "error", None)
+        if error:
+            message = error.get('message', '') if isinstance(error, dict) else ''
+            data = error.get('data', '') if isinstance(error, dict) else ''
             return Status(
                 status_code=StatusCode.ERROR,
-                description=f"{error.get('message', '')}: {error.get('data', '')}"
+                description=f"{message}: {data}"
             )
         return Status(StatusCode.OK)
 
-    def _extract_text_from_input(self, input_data: Any) -> Optional[str]:
+    def _extract_text_from_input(self, input_data: SpanInputData) -> Optional[str]:
         """Extract text content from input data."""
         if isinstance(input_data, str):
             return input_data
@@ -321,7 +325,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 return str(input_data["text"])
         return str(input_data) if input_data else None
 
-    def _extract_text_from_output(self, output_data: Any) -> Optional[str]:
+    def _extract_text_from_output(self, output_data: SpanOutputData) -> Optional[str]:
         """Extract text content from output data."""
         if isinstance(output_data, str):
             return output_data
@@ -342,7 +346,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             return " ".join(texts) if texts else None
         return str(output_data) if output_data else None
 
-    def _set_usage_attributes(self, otel_span: OtelSpan, usage: Any) -> None:
+    def _set_usage_attributes(self, otel_span: OtelSpan, usage: UsageData) -> None:
         """Set usage-related attributes on the span."""
         if hasattr(usage, "input_tokens"):
             otel_span.set_attribute(GenAIAttributes.USAGE_INPUT_TOKENS.value, usage.input_tokens)

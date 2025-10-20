@@ -4,7 +4,10 @@ A simplified OpenTelemetry instrumentation package for OpenAI agents with enhanc
 agent span input/output tracking capabilities.
 """
 
-from openai_agents_instrumentation.instrumentor import OpenAIAgentsInstrumentor
-from openai_agents_instrumentation.version import __version__
+from dependencies import validate_dependencies
+from instrumentor import OpenAIAgentsInstrumentor
 
-__all__ = ["OpenAIAgentsInstrumentor", "__version__"]
+# Validate dependencies on import for immediate feedback
+validate_dependencies()
+
+__all__ = ["OpenAIAgentsInstrumentor"]
