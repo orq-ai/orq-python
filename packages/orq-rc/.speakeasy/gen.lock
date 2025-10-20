@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 179bef65466048d44f92a5e71ea1dd0d
+  docChecksum: c5db0ccf08583b887eb5c694ca6a438e
   docVersion: "2.0"
   speakeasyVersion: 1.637.0
   generationVersion: 2.727.4
-  releaseVersion: 3.14.0-rc.35
-  configChecksum: 4a9251e520b06b8d96ed9bef15c8c591
+  releaseVersion: 3.14.0-rc.36
+  configChecksum: d99726a576ed4060f89b0d4fcd759e0c
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -17,6 +17,7 @@ features:
     constsAndDefaults: 1.0.5
     core: 5.23.0
     defaultEnabledRetries: 0.2.0
+    deprecations: 3.0.2
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
     flatRequests: 1.0.1
@@ -429,6 +430,7 @@ generatedFiles:
   - docs/models/creatememorystoremodel20.md
   - docs/models/creatememorystoremodel21.md
   - docs/models/creatememorystoremodel22.md
+  - docs/models/creatememorystoremodel23.md
   - docs/models/creatememorystoremodel3.md
   - docs/models/creatememorystoremodel4.md
   - docs/models/creatememorystoremodel5.md
@@ -451,31 +453,73 @@ generatedFiles:
   - docs/models/createprompt21.md
   - docs/models/createprompt22.md
   - docs/models/createprompt23.md
+  - docs/models/createprompt24.md
+  - docs/models/createprompt2annotations.md
+  - docs/models/createprompt2detail.md
   - docs/models/createprompt2file.md
+  - docs/models/createprompt2format.md
   - docs/models/createprompt2imageurl.md
+  - docs/models/createprompt2inputaudio.md
   - docs/models/createprompt2prompts1.md
   - docs/models/createprompt2prompts2.md
   - docs/models/createprompt2prompts3.md
   - docs/models/createprompt2promptsfile.md
   - docs/models/createprompt2promptsimageurl.md
+  - docs/models/createprompt2promptsrequestrequestbodypromptmessages2type.md
+  - docs/models/createprompt2promptsrequestrequestbodypromptmessages3contenttype.md
+  - docs/models/createprompt2promptsrequestrequestbodypromptmessages3type.md
+  - docs/models/createprompt2promptsrequestrequestbodypromptmessagestype.md
+  - docs/models/createprompt2promptsrequestrequestbodyprompttype.md
+  - docs/models/createprompt2promptsrequestrequestbodytype.md
   - docs/models/createprompt2promptsrequesttype.md
+  - docs/models/createprompt2promptsresponse1.md
+  - docs/models/createprompt2promptsresponse2.md
   - docs/models/createprompt2promptsresponse200applicationjsontype.md
   - docs/models/createprompt2promptsresponse200type.md
+  - docs/models/createprompt2promptsresponse3.md
+  - docs/models/createprompt2promptsresponsefile.md
+  - docs/models/createprompt2promptsresponseimageurl.md
   - docs/models/createprompt2promptsresponsetype.md
   - docs/models/createprompt2promptstype.md
+  - docs/models/createprompt2refusalcontentpart.md
+  - docs/models/createprompt2textcontentpart.md
   - docs/models/createprompt2type.md
+  - docs/models/createpromptannotations1.md
+  - docs/models/createpromptannotations2.md
+  - docs/models/createpromptannotationsfilecitation.md
+  - docs/models/createpromptannotationsfilepath.md
+  - docs/models/createpromptannotationspromptstype.md
+  - docs/models/createpromptannotationstype.md
   - docs/models/createpromptcontent.md
   - docs/models/createpromptcontent2.md
   - docs/models/createpromptcontentprompts2.md
+  - docs/models/createpromptcontentpromptsrequest2.md
+  - docs/models/createpromptcontentpromptsresponse2.md
   - docs/models/createpromptencodingformat.md
   - docs/models/createpromptformat.md
   - docs/models/createpromptfunction.md
   - docs/models/createpromptlanguage.md
   - docs/models/createpromptmessages.md
+  - docs/models/createpromptmessagesassistantmessage.md
+  - docs/models/createpromptmessagesaudio.md
+  - docs/models/createpromptmessagescontent.md
+  - docs/models/createpromptmessagesfunction.md
+  - docs/models/createpromptmessagespromptscontent.md
+  - docs/models/createpromptmessagespromptsrequestcontent.md
+  - docs/models/createpromptmessagespromptsrequestrequestbodyrole.md
+  - docs/models/createpromptmessagespromptsrequestrole.md
+  - docs/models/createpromptmessagespromptsrole.md
+  - docs/models/createpromptmessagesrole.md
+  - docs/models/createpromptmessagessystemmessage.md
+  - docs/models/createpromptmessagestoolcalls.md
+  - docs/models/createpromptmessagestoolmessage.md
+  - docs/models/createpromptmessagestype.md
+  - docs/models/createpromptmessagesusermessage.md
   - docs/models/createpromptmetadata.md
   - docs/models/createpromptmodelparameters.md
   - docs/models/createpromptmodeltype.md
   - docs/models/createpromptphotorealversion.md
+  - docs/models/createpromptprompt.md
   - docs/models/createpromptpromptconfig.md
   - docs/models/createpromptpromptscontent.md
   - docs/models/createpromptpromptsformat.md
@@ -483,6 +527,8 @@ generatedFiles:
   - docs/models/createpromptpromptslanguage.md
   - docs/models/createpromptpromptsmessages.md
   - docs/models/createpromptpromptsmetadata.md
+  - docs/models/createpromptpromptsresponseformat.md
+  - docs/models/createpromptpromptsresponsemessages.md
   - docs/models/createpromptpromptsresponsetype.md
   - docs/models/createpromptpromptsrole.md
   - docs/models/createpromptpromptstoolcalls.md
@@ -490,12 +536,16 @@ generatedFiles:
   - docs/models/createpromptprovider.md
   - docs/models/createpromptreasoningeffort.md
   - docs/models/createpromptrequestbody.md
-  - docs/models/createpromptresponsebody.md
   - docs/models/createpromptresponseformat.md
   - docs/models/createpromptresponseformat1.md
   - docs/models/createpromptresponseformat2.md
   - docs/models/createpromptresponseformat3.md
   - docs/models/createpromptresponseformat4.md
+  - docs/models/createpromptresponseformatprompts1.md
+  - docs/models/createpromptresponseformatprompts2.md
+  - docs/models/createpromptresponseformatprompts3.md
+  - docs/models/createpromptresponseformatpromptstype.md
+  - docs/models/createpromptresponseformattype.md
   - docs/models/createpromptrole.md
   - docs/models/createprompttoolcalls.md
   - docs/models/createprompttype.md
@@ -1450,6 +1500,7 @@ generatedFiles:
   - docs/models/getallmemorystoresmodel20.md
   - docs/models/getallmemorystoresmodel21.md
   - docs/models/getallmemorystoresmodel22.md
+  - docs/models/getallmemorystoresmodel23.md
   - docs/models/getallmemorystoresmodel3.md
   - docs/models/getallmemorystoresmodel4.md
   - docs/models/getallmemorystoresmodel5.md
@@ -1477,7 +1528,6 @@ generatedFiles:
   - docs/models/getallprompts2type.md
   - docs/models/getallpromptscontent.md
   - docs/models/getallpromptscontent2.md
-  - docs/models/getallpromptsdata.md
   - docs/models/getallpromptsencodingformat.md
   - docs/models/getallpromptsformat.md
   - docs/models/getallpromptsfunction.md
@@ -1700,12 +1750,12 @@ generatedFiles:
   - docs/models/getonepromptmodelparameters.md
   - docs/models/getonepromptmodeltype.md
   - docs/models/getonepromptphotorealversion.md
+  - docs/models/getonepromptprompt.md
   - docs/models/getonepromptpromptconfig.md
   - docs/models/getonepromptpromptstype.md
   - docs/models/getonepromptprovider.md
   - docs/models/getonepromptreasoningeffort.md
   - docs/models/getonepromptrequest.md
-  - docs/models/getonepromptresponsebody.md
   - docs/models/getonepromptresponseformat.md
   - docs/models/getonepromptresponseformat1.md
   - docs/models/getonepromptresponseformat2.md
@@ -2062,6 +2112,7 @@ generatedFiles:
   - docs/models/model20.md
   - docs/models/model21.md
   - docs/models/model22.md
+  - docs/models/model23.md
   - docs/models/model3.md
   - docs/models/model4.md
   - docs/models/model5.md
@@ -2127,7 +2178,10 @@ generatedFiles:
   - docs/models/prefixmessagestoolmessage.md
   - docs/models/prefixmessagestype.md
   - docs/models/prefixmessagesusermessage.md
+  - docs/models/prompt.md
   - docs/models/promptconfig.md
+  - docs/models/promptconfiguration.md
+  - docs/models/promptinput.md
   - docs/models/provider.md
   - docs/models/publicmessagepart.md
   - docs/models/publicmessagepartfile.md
@@ -2227,6 +2281,8 @@ generatedFiles:
   - docs/models/responseformat2.md
   - docs/models/responseformat3.md
   - docs/models/responseformat4.md
+  - docs/models/responseformatjsonschema.md
+  - docs/models/responseformattype.md
   - docs/models/retrievals.md
   - docs/models/retrievalsettings.md
   - docs/models/retrievaltype.md
@@ -2323,6 +2379,7 @@ generatedFiles:
   - docs/models/retrievememorystoremodel20.md
   - docs/models/retrievememorystoremodel21.md
   - docs/models/retrievememorystoremodel22.md
+  - docs/models/retrievememorystoremodel23.md
   - docs/models/retrievememorystoremodel3.md
   - docs/models/retrievememorystoremodel4.md
   - docs/models/retrievememorystoremodel5.md
@@ -2774,6 +2831,7 @@ generatedFiles:
   - docs/models/updateevalfunctionparams20.md
   - docs/models/updateevalfunctionparams21.md
   - docs/models/updateevalfunctionparams22.md
+  - docs/models/updateevalfunctionparams23.md
   - docs/models/updateevalfunctionparams3.md
   - docs/models/updateevalfunctionparams4.md
   - docs/models/updateevalfunctionparams5.md
@@ -2963,32 +3021,75 @@ generatedFiles:
   - docs/models/updateprompt21.md
   - docs/models/updateprompt22.md
   - docs/models/updateprompt23.md
+  - docs/models/updateprompt24.md
+  - docs/models/updateprompt2annotations.md
+  - docs/models/updateprompt2detail.md
   - docs/models/updateprompt2file.md
+  - docs/models/updateprompt2format.md
   - docs/models/updateprompt2imageurl.md
+  - docs/models/updateprompt2inputaudio.md
   - docs/models/updateprompt2prompts1.md
   - docs/models/updateprompt2prompts2.md
   - docs/models/updateprompt2prompts3.md
   - docs/models/updateprompt2promptsfile.md
   - docs/models/updateprompt2promptsimageurl.md
+  - docs/models/updateprompt2promptsrequestrequestbodypromptmessages2type.md
+  - docs/models/updateprompt2promptsrequestrequestbodypromptmessages3contenttype.md
+  - docs/models/updateprompt2promptsrequestrequestbodypromptmessages3type.md
+  - docs/models/updateprompt2promptsrequestrequestbodypromptmessagestype.md
+  - docs/models/updateprompt2promptsrequestrequestbodyprompttype.md
+  - docs/models/updateprompt2promptsrequestrequestbodytype.md
   - docs/models/updateprompt2promptsrequesttype.md
+  - docs/models/updateprompt2promptsresponse1.md
+  - docs/models/updateprompt2promptsresponse2.md
   - docs/models/updateprompt2promptsresponse200applicationjsontype.md
   - docs/models/updateprompt2promptsresponse200type.md
+  - docs/models/updateprompt2promptsresponse3.md
+  - docs/models/updateprompt2promptsresponsefile.md
+  - docs/models/updateprompt2promptsresponseimageurl.md
   - docs/models/updateprompt2promptsresponsetype.md
   - docs/models/updateprompt2promptstype.md
+  - docs/models/updateprompt2refusalcontentpart.md
+  - docs/models/updateprompt2textcontentpart.md
   - docs/models/updateprompt2type.md
+  - docs/models/updatepromptannotations1.md
+  - docs/models/updatepromptannotations2.md
+  - docs/models/updatepromptannotationsfilecitation.md
+  - docs/models/updatepromptannotationsfilepath.md
+  - docs/models/updatepromptannotationspromptstype.md
+  - docs/models/updatepromptannotationstype.md
   - docs/models/updatepromptcontent.md
   - docs/models/updatepromptcontent2.md
   - docs/models/updatepromptcontentprompts2.md
+  - docs/models/updatepromptcontentpromptsrequest2.md
+  - docs/models/updatepromptcontentpromptsresponse2.md
   - docs/models/updatepromptencodingformat.md
   - docs/models/updatepromptformat.md
   - docs/models/updatepromptfunction.md
   - docs/models/updatepromptlanguage.md
   - docs/models/updatepromptmessages.md
+  - docs/models/updatepromptmessagesassistantmessage.md
+  - docs/models/updatepromptmessagesaudio.md
+  - docs/models/updatepromptmessagescontent.md
+  - docs/models/updatepromptmessagesfunction.md
+  - docs/models/updatepromptmessagespromptscontent.md
+  - docs/models/updatepromptmessagespromptsrequestcontent.md
+  - docs/models/updatepromptmessagespromptsrequestrequestbodyrole.md
+  - docs/models/updatepromptmessagespromptsrequestrole.md
+  - docs/models/updatepromptmessagespromptsrole.md
+  - docs/models/updatepromptmessagesrole.md
+  - docs/models/updatepromptmessagessystemmessage.md
+  - docs/models/updatepromptmessagestoolcalls.md
+  - docs/models/updatepromptmessagestoolmessage.md
+  - docs/models/updatepromptmessagestype.md
+  - docs/models/updatepromptmessagesusermessage.md
   - docs/models/updatepromptmetadata.md
   - docs/models/updatepromptmodelparameters.md
   - docs/models/updatepromptmodeltype.md
   - docs/models/updatepromptphotorealversion.md
+  - docs/models/updatepromptprompt.md
   - docs/models/updatepromptpromptconfig.md
+  - docs/models/updatepromptpromptinput.md
   - docs/models/updatepromptpromptscontent.md
   - docs/models/updatepromptpromptsencodingformat.md
   - docs/models/updatepromptpromptsformat.md
@@ -2997,13 +3098,11 @@ generatedFiles:
   - docs/models/updatepromptpromptsmessages.md
   - docs/models/updatepromptpromptsmetadata.md
   - docs/models/updatepromptpromptsmodelparameters.md
-  - docs/models/updatepromptpromptsmodeltype.md
   - docs/models/updatepromptpromptsphotorealversion.md
-  - docs/models/updatepromptpromptspromptconfig.md
-  - docs/models/updatepromptpromptsprovider.md
   - docs/models/updatepromptpromptsreasoningeffort.md
-  - docs/models/updatepromptpromptsresponsebody.md
   - docs/models/updatepromptpromptsresponseformat.md
+  - docs/models/updatepromptpromptsresponsemessages.md
+  - docs/models/updatepromptpromptsresponseresponseformat.md
   - docs/models/updatepromptpromptsresponsetype.md
   - docs/models/updatepromptpromptsrole.md
   - docs/models/updatepromptpromptstoolcalls.md
@@ -3020,10 +3119,17 @@ generatedFiles:
   - docs/models/updatepromptresponseformat2.md
   - docs/models/updatepromptresponseformat3.md
   - docs/models/updatepromptresponseformat4.md
+  - docs/models/updatepromptresponseformatjsonschema.md
   - docs/models/updatepromptresponseformatprompts1.md
   - docs/models/updatepromptresponseformatprompts2.md
   - docs/models/updatepromptresponseformatprompts3.md
   - docs/models/updatepromptresponseformatprompts4.md
+  - docs/models/updatepromptresponseformatpromptsrequesttype.md
+  - docs/models/updatepromptresponseformatpromptsresponse1.md
+  - docs/models/updatepromptresponseformatpromptsresponse2.md
+  - docs/models/updatepromptresponseformatpromptsresponse3.md
+  - docs/models/updatepromptresponseformatpromptstype.md
+  - docs/models/updatepromptresponseformattype.md
   - docs/models/updatepromptrole.md
   - docs/models/updateprompttoolcalls.md
   - docs/models/updateprompttype.md
@@ -3320,7 +3426,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-20T05:21:44.691Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -3394,7 +3500,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-10-17T05:54:14.823Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-10-20T05:21:48.210Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3410,7 +3516,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-10-17T05:54:14.823Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-10-20T05:21:48.210Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3427,7 +3533,7 @@ examples:
   CreatePrompt:
     speakeasy-default-create-prompt:
       requestBody:
-        application/json: {"display_name": "Raymundo83", "prompt_config": {"messages": [{"role": "assistant", "content": "<value>"}, {"role": "assistant", "content": "<value>"}]}, "path": "Default"}
+        application/json: {"display_name": "Raymundo83", "prompt": {"messages": [{"role": "system", "content": "You are a helpful assistant"}, {"role": "user", "content": "What is the weather today?"}], "model": "openai/gpt-4o", "temperature": 0.7, "max_tokens": 1000}, "path": "Default"}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "a6f7f356-27b0-432e-b908-0fbcfbcd161b", "created": "<value>", "updated": "<value>", "display_name": "Palma13", "prompt_config": {"messages": [{"role": "prompt", "content": "<value>"}, {"role": "prompt", "content": "<value>"}]}}
@@ -3445,7 +3551,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"path": "Default"}
+        application/json: {"path": "Default", "prompt": {"messages": [{"role": "system", "content": "You are a helpful assistant"}, {"role": "user", "content": "Hello!"}], "model": "anthropic/claude-3-5-sonnet-20241022", "temperature": 0.5}}
       responses:
         "200":
           application/json: {"_id": "<id>", "type": "prompt", "owner": "<value>", "domain_id": "511bb3cc-2197-477d-9cfe-36a524598f64", "created": "<value>", "updated": "<value>", "display_name": "Brandy.Kunze62", "prompt_config": {"messages": [{"role": "tool", "content": [{"type": "image_url", "image_url": {"url": "https://perfumed-boyfriend.biz"}}]}, {"role": "tool", "content": [{"type": "image_url", "image_url": {"url": "https://perfumed-boyfriend.biz"}}]}]}}
@@ -3501,7 +3607,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-10-20T05:21:44.691Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -3509,7 +3615,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -3521,7 +3627,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -3565,7 +3671,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -3576,7 +3682,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -3659,7 +3765,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01K7RBQGRKMSWZFDFF7R4KSQFQ", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01K80129AAEGER4N8KW0WJ8AK1", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -3668,7 +3774,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01K7RBQGRKXBXZXWCPJ6GHCQTQ", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01K80129A99XG1TX4ZW94RSCX3", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -3685,7 +3791,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01K7RBQGRMAQBTYNYJWKZ8274K", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01K80129ABK01GAXB3E817A34M", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4094,7 +4200,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4115,7 +4221,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-10-20T05:21:44.691Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4361,7 +4467,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-20T05:21:44.691Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4369,7 +4475,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-20T05:21:44.691Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4379,7 +4485,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-17T05:54:11.779Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-10-20T05:21:44.691Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -4738,3 +4844,4 @@ examples:
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Python SDK Changes Detected:\n* `orq.prompts.create()`:  `request` **Changed** **Breaking** :warning:\n* `orq.prompts.update()`:  `request.prompt` **Added**\n* `orq.memory_stores.list()`:  `response.data.[].embedding_config.model.[23]` **Added**\n* `orq.memory_stores.create()`: \n  *  `request.embedding_config.model.[23]` **Added**\n  *  `response.embedding_config.model.[23]` **Added**\n* `orq.memory_stores.retrieve()`:  `response.embedding_config.model.[23]` **Added**\n* `orq.memory_stores.update()`: \n  *  `request.embedding_config.model.[23]` **Added**\n* `orq.tools.list()`:  `request.limit` **Changed**\n"

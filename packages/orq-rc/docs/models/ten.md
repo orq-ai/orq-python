@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                          | Value                         |
-| ----------------------------- | ----------------------------- |
-| `GOOGLE_GEMINI_EMBEDDING_001` | google/gemini-embedding-001   |
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `OPENAI_TEXT_EMBEDDING_ADA_002` | openai/text-embedding-ada-002   |

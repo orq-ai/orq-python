@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `AZURE_TEXT_EMBEDDING_ADA_002` | azure/text-embedding-ada-002   |
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `COHERE_EMBED_V4_0` | cohere/embed-v4.0   |

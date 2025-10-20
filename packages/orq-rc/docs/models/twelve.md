@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                                     | Value                                    |
-| ---------------------------------------- | ---------------------------------------- |
-| `GOOGLE_TEXT_MULTILINGUAL_EMBEDDING_002` | google/text-multilingual-embedding-002   |
+| Name                        | Value                       |
+| --------------------------- | --------------------------- |
+| `GOOGLE_TEXT_EMBEDDING_005` | google/text-embedding-005   |

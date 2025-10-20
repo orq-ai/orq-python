@@ -1,9 +1,9 @@
 # UpdatePromptResponseFormatPrompts3
 
 
-## Values
+## Fields
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `BASE64_JSON` | base64_json   |
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                           | [models.UpdatePromptResponseFormatPromptsRequestType](../models/updatepromptresponseformatpromptsrequesttype.md) | :heavy_check_mark:                                                                                               | N/A                                                                                                              |
+| `json_schema`                                                                                                    | [models.UpdatePromptResponseFormatJSONSchema](../models/updatepromptresponseformatjsonschema.md)                 | :heavy_check_mark:                                                                                               | N/A                                                                                                              |

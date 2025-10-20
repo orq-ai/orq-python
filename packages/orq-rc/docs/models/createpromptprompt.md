@@ -1,6 +1,6 @@
-# CreatePromptResponseBody
+# CreatePromptPrompt
 
-Prompt created.
+A prompt entity with configuration, metadata, and versioning.
 
 
 ## Fields

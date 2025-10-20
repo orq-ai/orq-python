@@ -758,8 +758,8 @@ class GetOnePromptMetadata(BaseModel):
         return m
 
 
-class GetOnePromptResponseBodyTypedDict(TypedDict):
-    r"""Prompt retrieved."""
+class GetOnePromptPromptTypedDict(TypedDict):
+    r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: str
     type: GetOnePromptType
@@ -778,8 +778,8 @@ class GetOnePromptResponseBodyTypedDict(TypedDict):
     metadata: NotRequired[GetOnePromptMetadataTypedDict]
 
 
-class GetOnePromptResponseBody(BaseModel):
-    r"""Prompt retrieved."""
+class GetOnePromptPrompt(BaseModel):
+    r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 

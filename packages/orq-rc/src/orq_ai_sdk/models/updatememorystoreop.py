@@ -8,58 +8,61 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Model22 = Literal["jina/jina-embeddings-v3",]
+Model23 = Literal["jina/jina-embeddings-v3",]
 
 
-Model21 = Literal["jina/jina-clip-v2",]
+Model22 = Literal["jina/jina-clip-v2",]
 
 
-Model20 = Literal["jina/jina-embeddings-v2-base-de",]
+Model21 = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-Model19 = Literal["jina/jina-embeddings-v2-base-code",]
+Model20 = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-Model18 = Literal["jina/jina-embeddings-v2-base-zh",]
+Model19 = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-Model17 = Literal["jina/jina-embeddings-v2-base-en",]
+Model18 = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-Model16 = Literal["jina/jina-embeddings-v2-base-es",]
+Model17 = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-Model15 = Literal["jina/jina-clip-v1",]
+Model16 = Literal["jina/jina-clip-v1",]
 
 
-Model14 = Literal["google-ai/text-embedding-004",]
+Model15 = Literal["google-ai/text-embedding-004",]
 
 
-Model13 = Literal["google/multimodalembedding@001",]
+Model14 = Literal["google/multimodalembedding@001",]
 
 
-Model12 = Literal["google/text-multilingual-embedding-002",]
+Model13 = Literal["google/text-multilingual-embedding-002",]
 
 
-Model11 = Literal["google/text-embedding-005",]
+Model12 = Literal["google/text-embedding-005",]
 
 
-Model10 = Literal["google/gemini-embedding-001",]
+Model11 = Literal["google/gemini-embedding-001",]
 
 
-Model9 = Literal["openai/text-embedding-ada-002",]
+Model10 = Literal["openai/text-embedding-ada-002",]
 
 
-Model8 = Literal["openai/text-embedding-3-small",]
+Model9 = Literal["openai/text-embedding-3-small",]
 
 
-Model7 = Literal["openai/text-embedding-3-large",]
+Model8 = Literal["openai/text-embedding-3-large",]
 
 
-Model6 = Literal["azure/text-embedding-3-small",]
+Model7 = Literal["azure/text-embedding-3-small",]
 
 
-Model5 = Literal["azure/text-embedding-ada-002",]
+Model6 = Literal["azure/text-embedding-ada-002",]
+
+
+Model5 = Literal["cohere/embed-v4.0",]
 
 
 UpdateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
@@ -99,6 +102,7 @@ UpdateMemoryStoreModelTypedDict = TypeAliasType(
         Model20,
         Model21,
         Model22,
+        Model23,
     ],
 )
 
@@ -128,6 +132,7 @@ UpdateMemoryStoreModel = TypeAliasType(
         Model20,
         Model21,
         Model22,
+        Model23,
     ],
 )
 

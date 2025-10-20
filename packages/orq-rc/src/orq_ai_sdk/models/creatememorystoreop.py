@@ -7,58 +7,61 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-TwentyTwo = Literal["jina/jina-embeddings-v3",]
+TwentyThree = Literal["jina/jina-embeddings-v3",]
 
 
-TwentyOne = Literal["jina/jina-clip-v2",]
+TwentyTwo = Literal["jina/jina-clip-v2",]
 
 
-Twenty = Literal["jina/jina-embeddings-v2-base-de",]
+TwentyOne = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-Nineteen = Literal["jina/jina-embeddings-v2-base-code",]
+Twenty = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-Eighteen = Literal["jina/jina-embeddings-v2-base-zh",]
+Nineteen = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-Seventeen = Literal["jina/jina-embeddings-v2-base-en",]
+Eighteen = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-Sixteen = Literal["jina/jina-embeddings-v2-base-es",]
+Seventeen = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-Fifteen = Literal["jina/jina-clip-v1",]
+Sixteen = Literal["jina/jina-clip-v1",]
 
 
-Fourteen = Literal["google-ai/text-embedding-004",]
+Fifteen = Literal["google-ai/text-embedding-004",]
 
 
-Thirteen = Literal["google/multimodalembedding@001",]
+Fourteen = Literal["google/multimodalembedding@001",]
 
 
-Twelve = Literal["google/text-multilingual-embedding-002",]
+Thirteen = Literal["google/text-multilingual-embedding-002",]
 
 
-Eleven = Literal["google/text-embedding-005",]
+Twelve = Literal["google/text-embedding-005",]
 
 
-Ten = Literal["google/gemini-embedding-001",]
+Eleven = Literal["google/gemini-embedding-001",]
 
 
-Nine = Literal["openai/text-embedding-ada-002",]
+Ten = Literal["openai/text-embedding-ada-002",]
 
 
-Eight = Literal["openai/text-embedding-3-small",]
+Nine = Literal["openai/text-embedding-3-small",]
 
 
-Seven = Literal["openai/text-embedding-3-large",]
+Eight = Literal["openai/text-embedding-3-large",]
 
 
-Six = Literal["azure/text-embedding-3-small",]
+Seven = Literal["azure/text-embedding-3-small",]
 
 
-Five = Literal["azure/text-embedding-ada-002",]
+Six = Literal["azure/text-embedding-ada-002",]
+
+
+Five = Literal["cohere/embed-v4.0",]
 
 
 Model4 = Literal["cohere/embed-english-v3.0",]
@@ -98,6 +101,7 @@ ModelTypedDict = TypeAliasType(
         Twenty,
         TwentyOne,
         TwentyTwo,
+        TwentyThree,
     ],
 )
 
@@ -127,6 +131,7 @@ Model = TypeAliasType(
         Twenty,
         TwentyOne,
         TwentyTwo,
+        TwentyThree,
     ],
 )
 
@@ -177,58 +182,61 @@ class CreateMemoryStoreRequestBody(BaseModel):
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
-CreateMemoryStoreModel22 = Literal["jina/jina-embeddings-v3",]
+CreateMemoryStoreModel23 = Literal["jina/jina-embeddings-v3",]
 
 
-CreateMemoryStoreModel21 = Literal["jina/jina-clip-v2",]
+CreateMemoryStoreModel22 = Literal["jina/jina-clip-v2",]
 
 
-CreateMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-de",]
+CreateMemoryStoreModel21 = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-CreateMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-code",]
+CreateMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-CreateMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-zh",]
+CreateMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-en",]
+CreateMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-CreateMemoryStoreModel16 = Literal["jina/jina-embeddings-v2-base-es",]
+CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-CreateMemoryStoreModel15 = Literal["jina/jina-clip-v1",]
+CreateMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
 
 
-CreateMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
+CreateMemoryStoreModel15 = Literal["google-ai/text-embedding-004",]
 
 
-CreateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
+CreateMemoryStoreModel14 = Literal["google/multimodalembedding@001",]
 
 
-CreateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
+CreateMemoryStoreModel13 = Literal["google/text-multilingual-embedding-002",]
 
 
-CreateMemoryStoreModel11 = Literal["google/text-embedding-005",]
+CreateMemoryStoreModel12 = Literal["google/text-embedding-005",]
 
 
-CreateMemoryStoreModel10 = Literal["google/gemini-embedding-001",]
+CreateMemoryStoreModel11 = Literal["google/gemini-embedding-001",]
 
 
-CreateMemoryStoreModel9 = Literal["openai/text-embedding-ada-002",]
+CreateMemoryStoreModel10 = Literal["openai/text-embedding-ada-002",]
 
 
-CreateMemoryStoreModel8 = Literal["openai/text-embedding-3-small",]
+CreateMemoryStoreModel9 = Literal["openai/text-embedding-3-small",]
 
 
-CreateMemoryStoreModel7 = Literal["openai/text-embedding-3-large",]
+CreateMemoryStoreModel8 = Literal["openai/text-embedding-3-large",]
 
 
-CreateMemoryStoreModel6 = Literal["azure/text-embedding-3-small",]
+CreateMemoryStoreModel7 = Literal["azure/text-embedding-3-small",]
 
 
-CreateMemoryStoreModel5 = Literal["azure/text-embedding-ada-002",]
+CreateMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
+
+
+CreateMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
 
 
 CreateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
@@ -268,6 +276,7 @@ CreateMemoryStoreModelTypedDict = TypeAliasType(
         CreateMemoryStoreModel20,
         CreateMemoryStoreModel21,
         CreateMemoryStoreModel22,
+        CreateMemoryStoreModel23,
     ],
 )
 
@@ -297,6 +306,7 @@ CreateMemoryStoreModel = TypeAliasType(
         CreateMemoryStoreModel20,
         CreateMemoryStoreModel21,
         CreateMemoryStoreModel22,
+        CreateMemoryStoreModel23,
     ],
 )
 

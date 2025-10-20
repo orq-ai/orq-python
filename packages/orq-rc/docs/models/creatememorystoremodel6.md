@@ -5,4 +5,4 @@
 
 | Name                           | Value                          |
 | ------------------------------ | ------------------------------ |
-| `AZURE_TEXT_EMBEDDING_3_SMALL` | azure/text-embedding-3-small   |
+| `AZURE_TEXT_EMBEDDING_ADA_002` | azure/text-embedding-ada-002   |

@@ -1,10 +1,8 @@
-# UpdatePromptPromptsResponseBody
-
-Prompt not found.
+# UpdatePromptAnnotationsFilePath
 
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `message`          | *str*              | :heavy_check_mark: | N/A                |
+| `file_id`          | *str*              | :heavy_check_mark: | N/A                |

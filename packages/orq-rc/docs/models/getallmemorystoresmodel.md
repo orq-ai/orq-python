@@ -135,3 +135,9 @@ value: models.GetAllMemoryStoresModel21 = /* values here */
 value: models.GetAllMemoryStoresModel22 = /* values here */
 ```
 
+### `models.GetAllMemoryStoresModel23`
+
+```python
+value: models.GetAllMemoryStoresModel23 = /* values here */
+```
+

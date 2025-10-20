@@ -75,17 +75,20 @@ with Orq(
 
     res = orq.prompts.create(request={
         "display_name": "Raymundo83",
-        "prompt_config": {
+        "prompt": {
             "messages": [
                 {
-                    "role": "assistant",
-                    "content": "<value>",
+                    "role": "system",
+                    "content": "You are a helpful assistant",
                 },
                 {
-                    "role": "assistant",
-                    "content": "<value>",
+                    "role": "user",
+                    "content": "What is the weather today?",
                 },
             ],
+            "model": "openai/gpt-4o",
+            "temperature": 0.7,
+            "max_tokens": 1000,
         },
         "path": "Default",
     })
@@ -106,7 +109,7 @@ with Orq(
 
 ### Response
 
-**[models.CreatePromptResponseBody](../../models/createpromptresponsebody.md)**
+**[models.CreatePromptPrompt](../../models/createpromptprompt.md)**
 
 ### Errors
 
@@ -148,7 +151,7 @@ with Orq(
 
 ### Response
 
-**[models.GetOnePromptResponseBody](../../models/getonepromptresponsebody.md)**
+**[models.GetOnePromptPrompt](../../models/getonepromptprompt.md)**
 
 ### Errors
 
@@ -172,7 +175,20 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.prompts.update(id="<id>", path="Default")
+    res = orq.prompts.update(id="<id>", path="Default", prompt={
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant",
+            },
+            {
+                "role": "user",
+                "content": "Hello!",
+            },
+        ],
+        "model": "anthropic/claude-3-5-sonnet-20241022",
+        "temperature": 0.5,
+    })
 
     assert res is not None
 
@@ -194,21 +210,22 @@ with Orq(
 | `updated_by_id`                                                                                                                                                                                                                                                                                | *OptionalNullable[str]*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
 | `display_name`                                                                                                                                                                                                                                                                                 | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | The prompt’s name, meant to be displayable in the UI.                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                |
 | `description`                                                                                                                                                                                                                                                                                  | *OptionalNullable[str]*                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose                                                                                                                                     |                                                                                                                                                                                                                                                                                                |
-| `prompt_config`                                                                                                                                                                                                                                                                                | [Optional[models.UpdatePromptPromptConfig]](../../models/updatepromptpromptconfig.md)                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
+| `prompt_config`                                                                                                                                                                                                                                                                                | [Optional[models.PromptConfig]](../../models/promptconfig.md)                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | : warning: ** DEPRECATED **: This will be removed in a future release, please migrate away from it as soon as possible.<br/><br/>[DEPRECATED]. Please use the `prompt` property instead.                                                                                                       |                                                                                                                                                                                                                                                                                                |
 | `metadata`                                                                                                                                                                                                                                                                                     | [Optional[models.UpdatePromptMetadata]](../../models/updatepromptmetadata.md)                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
 | `path`                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Entity storage path in the format: `project/folder/subfolder/...`<br/><br/>The first element identifies the project, followed by nested folders (auto-created as needed).<br/><br/>With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key. | Default                                                                                                                                                                                                                                                                                        |
+| `prompt`                                                                                                                                                                                                                                                                                       | [Optional[models.UpdatePromptPromptInput]](../../models/updatepromptpromptinput.md)                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Prompt configuration with model and messages. Use this to update the prompt.                                                                                                                                                                                                                   | {<br/>"model": "anthropic/claude-3-5-sonnet-20241022",<br/>"messages": [<br/>{<br/>"role": "system",<br/>"content": "You are a helpful assistant"<br/>},<br/>{<br/>"role": "user",<br/>"content": "Hello!"<br/>}<br/>],<br/>"temperature": 0.5<br/>}                                           |
 | `retries`                                                                                                                                                                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                |
 
 ### Response
 
-**[models.UpdatePromptResponseBody](../../models/updatepromptresponsebody.md)**
+**[models.UpdatePromptPrompt](../../models/updatepromptprompt.md)**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models.UpdatePromptPromptsResponseBody | 404                                    | application/json                       |
-| models.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                      | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| models.UpdatePromptResponseBody | 404                             | application/json                |
+| models.APIError                 | 4XX, 5XX                        | \*/\*                           |
 
 ## delete
 

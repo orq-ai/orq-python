@@ -639,9 +639,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -775,9 +775,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1035,11 +1035,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type = Lit
 ]
 
 
-class FunctionParams23TypedDict(TypedDict):
+class UpdateEvalFunctionParams23TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
-class FunctionParams23(BaseModel):
+class UpdateEvalFunctionParams23(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
@@ -1377,7 +1377,7 @@ ResponseBodyFunctionParamsTypedDict = TypeAliasType(
         UpdateEvalFunctionParams20TypedDict,
         UpdateEvalFunctionParams21TypedDict,
         UpdateEvalFunctionParams22TypedDict,
-        FunctionParams23TypedDict,
+        UpdateEvalFunctionParams23TypedDict,
         UpdateEvalFunctionParams9TypedDict,
         FunctionParams25TypedDict,
         FunctionParams26TypedDict,
@@ -1419,7 +1419,7 @@ ResponseBodyFunctionParams = TypeAliasType(
         UpdateEvalFunctionParams20,
         UpdateEvalFunctionParams21,
         UpdateEvalFunctionParams22,
-        FunctionParams23,
+        UpdateEvalFunctionParams23,
         UpdateEvalFunctionParams9,
         FunctionParams25,
         FunctionParams26,
@@ -1460,9 +1460,9 @@ class UpdateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1577,9 +1577,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1701,9 +1701,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1802,9 +1802,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1902,9 +1902,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 

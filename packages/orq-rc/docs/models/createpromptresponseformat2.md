@@ -1,13 +1,8 @@
 # CreatePromptResponseFormat2
 
 
-## Values
+## Fields
 
-| Name   | Value  |
-| ------ | ------ |
-| `MP3`  | mp3    |
-| `OPUS` | opus   |
-| `AAC`  | aac    |
-| `FLAC` | flac   |
-| `WAV`  | wav    |
-| `PCM`  | pcm    |
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `type`                                                                               | [models.CreatePromptResponseFormatType](../models/createpromptresponseformattype.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |

@@ -1,11 +1,29 @@
 # UpdatePromptPromptsMessages
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `role`                                                                                                                                                                                                                                                                   | [models.UpdatePromptPromptsRole](../models/updatepromptpromptsrole.md)                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                       | The role of the prompt message                                                                                                                                                                                                                                           |
-| `content`                                                                                                                                                                                                                                                                | [models.UpdatePromptPromptsContent](../models/updatepromptpromptscontent.md)                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                       | The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts.  |
-| `tool_calls`                                                                                                                                                                                                                                                             | List[[models.UpdatePromptPromptsToolCalls](../models/updatepromptpromptstoolcalls.md)]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
-| `tool_call_id`                                                                                                                                                                                                                                                           | *Optional[str]*                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                      |
+### `models.UpdatePromptMessagesSystemMessage`
+
+```python
+value: models.UpdatePromptMessagesSystemMessage = /* values here */
+```
+
+### `models.UpdatePromptMessagesUserMessage`
+
+```python
+value: models.UpdatePromptMessagesUserMessage = /* values here */
+```
+
+### `models.UpdatePromptMessagesAssistantMessage`
+
+```python
+value: models.UpdatePromptMessagesAssistantMessage = /* values here */
+```
+
+### `models.UpdatePromptMessagesToolMessage`
+
+```python
+value: models.UpdatePromptMessagesToolMessage = /* values here */
+```
+

@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `GOOGLE_AI_TEXT_EMBEDDING_004` | google-ai/text-embedding-004   |
+| Name                                | Value                               |
+| ----------------------------------- | ----------------------------------- |
+| `GOOGLE_MULTIMODALEMBEDDING_AT_001` | google/multimodalembedding@001      |

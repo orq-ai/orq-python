@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `JINA_JINA_CLIP_V1` | jina/jina-clip-v1   |
+| Name                           | Value                          |
+| ------------------------------ | ------------------------------ |
+| `GOOGLE_AI_TEXT_EMBEDDING_004` | google-ai/text-embedding-004   |

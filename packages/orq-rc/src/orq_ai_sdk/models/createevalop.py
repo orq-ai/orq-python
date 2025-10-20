@@ -593,9 +593,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -729,9 +729,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -989,11 +989,11 @@ CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type = Lit
 ]
 
 
-class TwentyThreeTypedDict(TypedDict):
+class FunctionParams23TypedDict(TypedDict):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
-class TwentyThree(BaseModel):
+class FunctionParams23(BaseModel):
     type: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
@@ -1329,7 +1329,7 @@ CreateEvalResponseBodyFunctionParamsTypedDict = TypeAliasType(
         FunctionParams20TypedDict,
         FunctionParams21TypedDict,
         FunctionParams22TypedDict,
-        TwentyThreeTypedDict,
+        FunctionParams23TypedDict,
         FunctionParams9TypedDict,
         TwentyFiveTypedDict,
         TwentySixTypedDict,
@@ -1371,7 +1371,7 @@ CreateEvalResponseBodyFunctionParams = TypeAliasType(
         FunctionParams20,
         FunctionParams21,
         FunctionParams22,
-        TwentyThree,
+        FunctionParams23,
         FunctionParams9,
         TwentyFive,
         TwentySix,
@@ -1412,9 +1412,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1529,9 +1529,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1651,9 +1651,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1750,9 +1750,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -1850,9 +1850,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-17T05:54:14.168Z"
+    created: Optional[str] = "2025-10-20T05:21:47.307Z"
 
-    updated: Optional[str] = "2025-10-17T05:54:14.168Z"
+    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
