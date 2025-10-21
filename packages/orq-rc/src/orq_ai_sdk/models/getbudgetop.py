@@ -154,5 +154,5 @@ class GetBudgetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-21T10:57:44.779Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-21T12:55:38.257Z")
     r"""The date and time the resource was last updated"""
