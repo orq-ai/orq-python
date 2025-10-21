@@ -17,6 +17,7 @@ from agents.tracing.span_data import (
     AgentSpanData,
     FunctionSpanData,
     GenerationSpanData,
+    HandoffSpanData,
     ResponseSpanData,
     SpanData,
 )
@@ -120,7 +121,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if not (otel_span := self._otel_spans.pop(span.span_id, None)):
             return
 
-        otel_span.update_name(self._get_span_name(span))
+        span_name = self._get_span_name(span)
+        otel_span.update_name(span_name)
+        otel_span.set_attribute(GenAIAttributes.OPERATION_NAME.value, span_name)
         data = span.span_data
 
         # Handle different span types and collect input/output for agent spans
@@ -134,6 +137,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             self._collect_agent_data(span.span_id, data, "input")
         elif isinstance(data, FunctionSpanData):
             self._handle_function_span(otel_span, data)
+        elif isinstance(data, HandoffSpanData):
+            self._handle_handoff_span(otel_span, data)
 
         end_time: Optional[int] = None
         if span.ended_at:
@@ -159,7 +164,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         
         if span_id in self._agent_outputs and self._agent_outputs[span_id] is not None:
             try:
-                json_output = json.dumps(self._agent_outputs[span_id])
+                # Transform the output to the required format
+                formatted_output = self._format_agent_output(self._agent_outputs[span_id])
+                json_output = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
             except (TypeError, ValueError):
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(self._agent_outputs[span_id]))
@@ -181,11 +188,16 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if hasattr(response, "id"):
                 otel_span.set_attribute(GenAIAttributes.RESPONSE_ID.value, response.id)
             
-            # Extract text content from response output
+            # Extract and format output from response
             if hasattr(response, "output") and response.output:
-                text_content = self._extract_text_from_output(response.output)
-                if text_content:
-                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
+                try:
+                    formatted_output = self._format_agent_output(response.output)
+                    json_output = json.dumps(formatted_output)
+                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
+                except (TypeError, ValueError):
+                    text_content = self._extract_text_from_output(response.output)
+                    if text_content:
+                        otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
             
             # Extract usage information
             if hasattr(response, "usage") and response.usage:
@@ -219,8 +231,14 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             try:
                 output_json = json.dumps(data.output)
                 otel_span.set_attribute(GenAIAttributes.RESPONSE_MESSAGES.value, output_json)
+                
+                # Also set formatted output for orq.output.value
+                formatted_output = self._format_agent_output(data.output)
+                formatted_json = json.dumps(formatted_output)
+                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, formatted_json)
             except (TypeError, ValueError):
                 otel_span.set_attribute(GenAIAttributes.RESPONSE_MESSAGES.value, str(data.output))
+                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
         
         # Extract usage information if available
         if hasattr(data, "usage") and data.usage:
@@ -235,6 +253,11 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         
         if data.output is not None:
             otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
+
+    def _handle_handoff_span(self, otel_span: OtelSpan, data: HandoffSpanData) -> None:
+        """Handle handoff span."""
+        # Additional handoff-specific attributes can be added here if needed
+        pass
 
     def _collect_agent_data(self, span_id: str, data: SpanData, *data_types: str) -> None:
         """Collect input/output data for agent spans - first LLM input and last LLM output per agent."""
@@ -274,7 +297,20 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _get_span_name(self, span: Span[SpanData]) -> str:
         """Get span name from span data."""
-        if hasattr(data := span.span_data, "name") and isinstance(name := data.name, str):
+        data = span.span_data
+        
+        # Handle HandoffSpanData specifically
+        if isinstance(data, HandoffSpanData):
+            # Extract target agent name from to_agent attribute
+            if hasattr(data, 'to_agent') and data.to_agent:
+                if hasattr(data.to_agent, 'name'):
+                    return f"handoff to {data.to_agent.name}"
+                elif isinstance(data.to_agent, str):
+                    return f"handoff to {data.to_agent}"
+            return "handoff"
+        
+        # Handle other span types with name attribute
+        if hasattr(data, "name") and isinstance(name := data.name, str):
             return name
         return getattr(data, "type", "unknown")
 
@@ -288,6 +324,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             return SpanKind.LLM.value
         elif isinstance(data, ResponseSpanData):
             return SpanKind.LLM.value
+        elif isinstance(data, HandoffSpanData):
+            return SpanKind.CHAIN.value
         else:
             return SpanKind.CHAIN.value
 
@@ -324,6 +362,73 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             elif "text" in input_data:
                 return str(input_data["text"])
         return str(input_data) if input_data else None
+
+    def _format_agent_output(self, output_data: SpanOutputData) -> List[Dict[str, object]]:
+        """Format output data to match the required structure."""
+        formatted_output = []
+        
+        if isinstance(output_data, str):
+            formatted_output.append({
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": output_data
+                },
+                "finish_reason": "stop"
+            })
+        elif isinstance(output_data, list):
+            for index, item in enumerate(output_data):
+                if hasattr(item, "content") and item.content:
+                    # Extract text from content items
+                    content_texts = []
+                    for content_item in item.content:
+                        if hasattr(content_item, "text"):
+                            content_texts.append(content_item.text)
+                    content = " ".join(content_texts) if content_texts else ""
+                    
+                    # Get role from item if available, default to "assistant"
+                    role = getattr(item, "role", "assistant")
+                    
+                    formatted_output.append({
+                        "index": index,
+                        "message": {
+                            "role": role,
+                            "content": content
+                        },
+                        "finish_reason": "stop"
+                    })
+                elif isinstance(item, dict):
+                    content = item.get("content", item.get("text", ""))
+                    role = item.get("role", "assistant")
+                    formatted_output.append({
+                        "index": index,
+                        "message": {
+                            "role": role,
+                            "content": str(content)
+                        },
+                        "finish_reason": "stop"
+                    })
+                elif isinstance(item, str):
+                    formatted_output.append({
+                        "index": index,
+                        "message": {
+                            "role": "assistant",
+                            "content": item
+                        },
+                        "finish_reason": "stop"
+                    })
+        else:
+            # Fallback for other types
+            formatted_output.append({
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": str(output_data)
+                },
+                "finish_reason": "stop"
+            })
+        
+        return formatted_output
 
     def _extract_text_from_output(self, output_data: SpanOutputData) -> Optional[str]:
         """Extract text content from output data."""

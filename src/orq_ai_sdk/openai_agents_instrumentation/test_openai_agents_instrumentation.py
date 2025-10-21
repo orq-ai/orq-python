@@ -1,30 +1,26 @@
-"""Example usage of the enhanced OpenAI Agents instrumentation."""
-
-from agents import Agent, Runner
-# from opentelemetry.exporter.console import ConsoleSpanExporter
+from agents import Agent, HandoffInputData, Runner, function_tool, handoff, trace as agent_trace   
+from agents.extensions import handoff_filters
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor, ConsoleSpanExporter
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+
+import random
+import os
 
 from __init__ import OpenAIAgentsInstrumentor
 
 # Set up OpenTelemetry with console exporter for debugging
 tracer_provider = TracerProvider()
-tracer_provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+
+exporter = os.environ['EXPORTER'] or 'console'
+
+if exporter == 'console':
+    tracer_provider.add_span_processor(SimpleSpanProcessor(ConsoleSpanExporter()))
+elif exporter == 'otlp':
+    tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 
 # Instrument OpenAI agents with our enhanced processor
 OpenAIAgentsInstrumentor().instrument(tracer_provider=tracer_provider)
-
-# # Create and run an agent
-# agent = Agent(name="Assistant", instructions="You are a helpful assistant")
-
-# result = Runner.run_sync(agent, "Write a haiku about recursion in programming.")
-# print(result.final_output)
-
-# from __future__ import annotations
-import random
-
-from agents import Agent, HandoffInputData, Runner, function_tool, handoff, trace as agent_trace   
-from agents.extensions import handoff_filters
 
 @function_tool
 def random_number_tool(max: int) -> int:
@@ -113,9 +109,6 @@ async def run_multi_agent_workflow():
         print(f"{i}. {message['role']}: {message['content'][:100]}...")
 
 async def main():
-    import nest_asyncio
-    nest_asyncio.apply()
-
     # Run the workflow
     await run_multi_agent_workflow()
 
