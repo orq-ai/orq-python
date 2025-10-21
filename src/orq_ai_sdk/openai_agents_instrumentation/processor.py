@@ -12,24 +12,36 @@ SpanOutputData = Union[str, List[Dict[str, object]], Dict[str, object]]
 UsageData = object
 ErrorData = Optional[Dict[str, object]]
 
-from agents.tracing import Span, Trace, TracingProcessor
-from agents.tracing.span_data import (
-    AgentSpanData,
-    FunctionSpanData,
-    GenerationSpanData,
-    HandoffSpanData,
-    ResponseSpanData,
-    SpanData,
-)
-from opentelemetry.context import attach, detach
-from opentelemetry.trace import Span as OtelSpan
-from opentelemetry.trace import (
-    Status,
-    StatusCode,
-    Tracer,
-    set_span_in_context,
-)
-from opentelemetry.util.types import AttributeValue
+# Try to import required dependencies
+try:
+    from agents.tracing import Span, Trace, TracingProcessor
+    from agents.tracing.span_data import (
+        AgentSpanData,
+        FunctionSpanData,
+        GenerationSpanData,
+        HandoffSpanData,
+        ResponseSpanData,
+        SpanData,
+    )
+except ImportError:
+    raise ImportError(
+        "OpenAI Agents not available. Install with: pip install openai-agents"
+    )
+
+try:
+    from opentelemetry.context import attach, detach
+    from opentelemetry.trace import Span as OtelSpan
+    from opentelemetry.trace import (
+        Status,
+        StatusCode,
+        Tracer,
+        set_span_in_context,
+    )
+    from opentelemetry.util.types import AttributeValue
+except ImportError:
+    raise ImportError(
+        "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
+    )
 
 from constants import (
     GenAIAttributes,

@@ -2,10 +2,22 @@
 
 from typing import Collection, Dict, Optional
 
-from agents import set_trace_processors
-from opentelemetry import trace as trace_api
-from opentelemetry.instrumentation.instrumentor import BaseInstrumentor
-from opentelemetry.trace import Tracer, TracerProvider
+# Try to import required dependencies
+try:
+    from agents import set_trace_processors
+except ImportError:
+    raise ImportError(
+        "OpenAI Agents not available. Install with: pip install openai-agents"
+    )
+
+try:
+    from opentelemetry import trace as trace_api
+    from opentelemetry.instrumentation.instrumentor import BaseInstrumentor
+    from opentelemetry.trace import Tracer, TracerProvider
+except ImportError:
+    raise ImportError(
+        "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
+    )
 
 from processor import EnhancedOpenAIAgentsProcessor
 
