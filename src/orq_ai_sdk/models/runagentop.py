@@ -277,14 +277,14 @@ class RunAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-class TeamOfAgentsTypedDict(TypedDict):
+class RunAgentTeamOfAgentsTypedDict(TypedDict):
     key: str
     r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-class TeamOfAgents(BaseModel):
+class RunAgentTeamOfAgents(BaseModel):
     key: str
     r"""The unique key of the agent within the workspace"""
 
@@ -886,7 +886,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""The list of keys of the memory stores that are accessible to the agent."""
     knowledge_bases: NotRequired[List[RunAgentKnowledgeBasesTypedDict]]
     r"""Knowledge base configurations for the agent to access"""
-    team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
+    team_of_agents: NotRequired[List[RunAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
@@ -943,7 +943,7 @@ class RunAgentRequestBody(BaseModel):
     knowledge_bases: Optional[List[RunAgentKnowledgeBases]] = None
     r"""Knowledge base configurations for the agent to access"""
 
-    team_of_agents: Optional[List[TeamOfAgents]] = None
+    team_of_agents: Optional[List[RunAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
     metadata: Optional[Dict[str, Any]] = None

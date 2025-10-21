@@ -985,6 +985,12 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1007,6 +1013,7 @@ class Agents(BaseSDK):
         :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param memory_stores:
         :param knowledge_bases:
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1043,6 +1050,9 @@ class Agents(BaseSDK):
                 memory_stores=memory_stores,
                 knowledge_bases=utils.get_pydantic_model(
                     knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
+                ),
+                team_of_agents=utils.get_pydantic_model(
+                    team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
             ),
         )
@@ -1135,6 +1145,12 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1157,6 +1173,7 @@ class Agents(BaseSDK):
         :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
         :param memory_stores:
         :param knowledge_bases:
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1193,6 +1210,9 @@ class Agents(BaseSDK):
                 memory_stores=memory_stores,
                 knowledge_bases=utils.get_pydantic_model(
                     knowledge_bases, Optional[List[models.UpdateAgentKnowledgeBases]]
+                ),
+                team_of_agents=utils.get_pydantic_model(
+                    team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
             ),
         )
