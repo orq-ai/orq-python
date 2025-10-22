@@ -1306,7 +1306,7 @@ class PromptInputTypedDict(TypedDict):
 
     messages: List[CreatePromptPromptsMessagesTypedDict]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
-    model: str
+    model: NotRequired[str]
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1325,7 +1325,7 @@ class PromptInput(BaseModel):
     messages: List[CreatePromptPromptsMessages]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
-    model: str
+    model: Optional[str] = None
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
 
     temperature: OptionalNullable[float] = UNSET
@@ -1342,7 +1342,7 @@ class PromptInput(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["temperature", "max_tokens", "response_format"]
+        optional_fields = ["model", "temperature", "max_tokens", "response_format"]
         nullable_fields = ["temperature", "max_tokens"]
         null_default_fields = []
 
