@@ -215,13 +215,24 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if hasattr(response, "usage") and response.usage:
                 self._set_usage_attributes(otel_span, response.usage)
         
+        # Also check for output directly on data (not just in data.response)
+        if hasattr(data, "output") and data.output:
+            try:
+                formatted_output = self._format_agent_output(data.output)
+                json_output = json.dumps(formatted_output)
+                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
+            except (TypeError, ValueError):
+                text_content = self._extract_text_from_output(data.output)
+                if text_content:
+                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
+        
         if hasattr(data, "input") and data.input:
-            # Set structured input messages for LLM spans
+            # Set input for LLM spans
             try:
                 input_json = json.dumps(data.input)
-                otel_span.set_attribute(GenAIAttributes.REQUEST_MESSAGES.value, input_json)
+                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
             except (TypeError, ValueError):
-                otel_span.set_attribute(GenAIAttributes.REQUEST_MESSAGES.value, str(data.input))
+                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
 
     def _handle_generation_span(self, otel_span: OtelSpan, data: GenerationSpanData) -> None:
         """Handle generation span."""
@@ -231,12 +242,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             otel_span.set_attribute(GenAIAttributes.REQUEST_MODEL.value, data.model)
         
         if hasattr(data, "input") and data.input:
-            # Set structured input messages for LLM spans
+            # Set input for LLM spans
             try:
                 input_json = json.dumps(data.input)
-                otel_span.set_attribute(GenAIAttributes.REQUEST_MESSAGES.value, input_json)
+                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
             except (TypeError, ValueError):
-                otel_span.set_attribute(GenAIAttributes.REQUEST_MESSAGES.value, str(data.input))
+                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
         
         if hasattr(data, "output") and data.output:
             # Set structured output messages for LLM spans
@@ -408,6 +419,24 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                             "content": content
                         },
                         "finish_reason": "stop"
+                    })
+                elif hasattr(item, "type") and getattr(item, "type", None) == "function_call":
+                    # Handle tool calls (ResponseFunctionToolCall)
+                    tool_call_data = {
+                        "role": "assistant",
+                        "tool_calls": [{
+                            "id": getattr(item, "id", getattr(item, "call_id", "")),
+                            "type": "function",
+                            "function": {
+                                "name": getattr(item, "name", ""),
+                                "arguments": getattr(item, "arguments", "")
+                            }
+                        }]
+                    }
+                    formatted_output.append({
+                        "index": index,
+                        "message": tool_call_data,
+                        "finish_reason": "tool_calls"
                     })
                 elif isinstance(item, dict):
                     content = item.get("content", item.get("text", ""))
