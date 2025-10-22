@@ -176,7 +176,7 @@ with Orq(
 ) as orq:
 
     res = orq.memory_stores.update(memory_store_key="<value>", embedding_config={
-        "model": "google/text-embedding-005",
+        "model": "google/text-multilingual-embedding-002",
     }, description="wherever cash since now exempt proliferate aha tabulate ack", path="Default")
 
     assert res is not None

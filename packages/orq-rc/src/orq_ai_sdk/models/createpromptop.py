@@ -612,10 +612,10 @@ class ModelParameters(BaseModel):
 class PromptConfigurationTypedDict(TypedDict):
     r"""[DEPRECATED]. Please use the `prompt` property instead. The current `prompt_config` will keep working but it will be deprecated in future versions. Configuration for the prompt including model and messages."""
 
-    model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     messages: List[CreatePromptMessagesTypedDict]
     r"""Array of messages that make up the conversation."""
+    model: NotRequired[str]
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     model_parameters: NotRequired[ModelParametersTypedDict]
     r"""Optional model parameters like temperature and maxTokens."""
 
@@ -626,11 +626,11 @@ class PromptConfigurationTypedDict(TypedDict):
 class PromptConfiguration(BaseModel):
     r"""[DEPRECATED]. Please use the `prompt` property instead. The current `prompt_config` will keep working but it will be deprecated in future versions. Configuration for the prompt including model and messages."""
 
-    model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
-
     messages: List[CreatePromptMessages]
     r"""Array of messages that make up the conversation."""
+
+    model: Optional[str] = None
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
 
     model_parameters: Optional[ModelParameters] = None
     r"""Optional model parameters like temperature and maxTokens."""
@@ -1460,7 +1460,7 @@ CreatePromptModelType = Literal[
     "tts",
     "stt",
     "rerank",
-    "moderations",
+    "moderation",
     "vision",
 ]
 r"""The modality of the model"""
