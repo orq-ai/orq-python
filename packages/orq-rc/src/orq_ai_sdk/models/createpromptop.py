@@ -119,15 +119,25 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreatePrompt2FileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreatePrompt2File(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -612,10 +622,10 @@ class ModelParameters(BaseModel):
 class PromptConfigurationTypedDict(TypedDict):
     r"""[DEPRECATED]. Please use the `prompt` property instead. The current `prompt_config` will keep working but it will be deprecated in future versions. Configuration for the prompt including model and messages."""
 
-    model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     messages: List[CreatePromptMessagesTypedDict]
     r"""Array of messages that make up the conversation."""
+    model: NotRequired[str]
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     model_parameters: NotRequired[ModelParametersTypedDict]
     r"""Optional model parameters like temperature and maxTokens."""
 
@@ -626,11 +636,11 @@ class PromptConfigurationTypedDict(TypedDict):
 class PromptConfiguration(BaseModel):
     r"""[DEPRECATED]. Please use the `prompt` property instead. The current `prompt_config` will keep working but it will be deprecated in future versions. Configuration for the prompt including model and messages."""
 
-    model: str
-    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
-
     messages: List[CreatePromptMessages]
     r"""Array of messages that make up the conversation."""
+
+    model: Optional[str] = None
+    r"""Model ID used to generate the response, like `openai/gpt-4o` or `google/gemini-2.5-pro`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
 
     model_parameters: Optional[ModelParameters] = None
     r"""Optional model parameters like temperature and maxTokens."""
@@ -973,17 +983,27 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreatePrompt2PromptsFileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreatePrompt2PromptsFile(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -1306,7 +1326,7 @@ class PromptInputTypedDict(TypedDict):
 
     messages: List[CreatePromptPromptsMessagesTypedDict]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
-    model: str
+    model: NotRequired[str]
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1325,7 +1345,7 @@ class PromptInput(BaseModel):
     messages: List[CreatePromptPromptsMessages]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
-    model: str
+    model: Optional[str] = None
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
 
     temperature: OptionalNullable[float] = UNSET
@@ -1342,7 +1362,7 @@ class PromptInput(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["temperature", "max_tokens", "response_format"]
+        optional_fields = ["model", "temperature", "max_tokens", "response_format"]
         nullable_fields = ["temperature", "max_tokens"]
         null_default_fields = []
 
@@ -1460,7 +1480,7 @@ CreatePromptModelType = Literal[
     "tts",
     "stt",
     "rerank",
-    "moderations",
+    "moderation",
     "vision",
 ]
 r"""The modality of the model"""
@@ -1859,15 +1879,25 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreatePrompt2PromptsResponseFileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreatePrompt2PromptsResponseFile(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""

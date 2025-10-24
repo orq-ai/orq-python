@@ -31,16 +31,16 @@ Seventeen = Literal["jina/jina-embeddings-v2-base-es",]
 Sixteen = Literal["jina/jina-clip-v1",]
 
 
-Fifteen = Literal["google-ai/text-embedding-004",]
+Fifteen = Literal["mistral/mistral-embed",]
 
 
-Fourteen = Literal["google/multimodalembedding@001",]
+Fourteen = Literal["google-ai/text-embedding-004",]
 
 
-Thirteen = Literal["google/text-multilingual-embedding-002",]
+Thirteen = Literal["google/multimodalembedding@001",]
 
 
-Twelve = Literal["google/text-embedding-005",]
+Twelve = Literal["google/text-multilingual-embedding-002",]
 
 
 Eleven = Literal["google/gemini-embedding-001",]
@@ -206,16 +206,16 @@ CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
 CreateMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
 
 
-CreateMemoryStoreModel15 = Literal["google-ai/text-embedding-004",]
+CreateMemoryStoreModel15 = Literal["mistral/mistral-embed",]
 
 
-CreateMemoryStoreModel14 = Literal["google/multimodalembedding@001",]
+CreateMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
 
 
-CreateMemoryStoreModel13 = Literal["google/text-multilingual-embedding-002",]
+CreateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
 
 
-CreateMemoryStoreModel12 = Literal["google/text-embedding-005",]
+CreateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
 
 
 CreateMemoryStoreModel11 = Literal["google/gemini-embedding-001",]

@@ -257,12 +257,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -582,12 +585,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -1225,7 +1231,7 @@ components:
             - "tts"
             - "stt"
             - "rerank"
-            - "moderations"
+            - "moderation"
             - "vision"
           description: "The type of the model. Current `chat`,`completion` and `image` are supported"
         "version":
@@ -1311,11 +1317,15 @@ components:
                                 "file_data":
                                   type: "string"
                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                "uri":
+                                  type: "string"
+                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                "mimeType":
+                                  type: "string"
+                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                 "filename":
                                   type: "string"
                                   description: "The name of the file, used when passing the file to the model as a string."
-                              required:
-                                - "file_data"
                           required:
                             - "type"
                             - "file"
@@ -1689,12 +1699,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -2014,12 +2027,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -2376,12 +2392,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -2701,12 +2720,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -3793,7 +3815,7 @@ components:
                     - "tts"
                     - "stt"
                     - "rerank"
-                    - "moderations"
+                    - "moderation"
                     - "vision"
                   description: "The modality of the model"
                 "model_parameters":
@@ -4042,11 +4064,15 @@ components:
                                         "file_data":
                                           type: "string"
                                           description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                        "uri":
+                                          type: "string"
+                                          description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                        "mimeType":
+                                          type: "string"
+                                          description: "MIME type of the file (e.g., application/pdf, image/png)"
                                         "filename":
                                           type: "string"
                                           description: "The name of the file, used when passing the file to the model as a string."
-                                      required:
-                                        - "file_data"
                                   required:
                                     - "type"
                                     - "file"
@@ -4426,7 +4452,7 @@ components:
                                 - "tts"
                                 - "stt"
                                 - "rerank"
-                                - "moderations"
+                                - "moderation"
                                 - "vision"
                               description: "The modality of the model"
                             "model_parameters":
@@ -4741,7 +4767,7 @@ components:
                                 - "tts"
                                 - "stt"
                                 - "rerank"
-                                - "moderations"
+                                - "moderation"
                                 - "vision"
                               description: "The modality of the model"
                             "model_parameters":
@@ -5111,7 +5137,7 @@ components:
                             - "tts"
                             - "stt"
                             - "rerank"
-                            - "moderations"
+                            - "moderation"
                             - "vision"
                           description: "The modality of the model"
                         "model_parameters":
@@ -6299,7 +6325,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-10-20T05:21:48.210Z"
+          default: "2025-10-24T12:43:25.704Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -6362,7 +6388,7 @@ components:
           "created":
             type: "string"
             format: "date-time"
-            default: "2025-10-20T05:21:48.210Z"
+            default: "2025-10-24T12:43:25.704Z"
             description: "The date and time the resource was created"
             readOnly: true
         required:
@@ -6442,7 +6468,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-10-20T05:21:48.210Z"
+          default: "2025-10-24T12:43:25.704Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -6488,7 +6514,7 @@ components:
               "created":
                 type: "string"
                 format: "date-time"
-                default: "2025-10-20T05:21:48.210Z"
+                default: "2025-10-24T12:43:25.704Z"
                 description: "The date and time the resource was created"
                 readOnly: true
             required:
@@ -6531,7 +6557,7 @@ components:
         "created":
           type: "string"
           format: "date-time"
-          default: "2025-10-20T05:21:48.210Z"
+          default: "2025-10-24T12:43:25.704Z"
           description: "The date and time the resource was created"
           readOnly: true
       required:
@@ -6579,7 +6605,7 @@ components:
                 - "tts"
                 - "stt"
                 - "rerank"
-                - "moderations"
+                - "moderation"
                 - "vision"
               description: "The modality of the model"
             "model_parameters":
@@ -6837,11 +6863,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
                               required:
                                 - "type"
                                 - "file"
@@ -7329,11 +7359,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
                               required:
                                 - "type"
                                 - "file"
@@ -7386,7 +7420,7 @@ components:
                 - "tts"
                 - "stt"
                 - "rerank"
-                - "moderations"
+                - "moderation"
                 - "vision"
               description: "The modality of the model"
           required:
@@ -7553,12 +7587,15 @@ components:
                                         "file_data":
                                           type: "string"
                                           description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                        "uri":
+                                          type: "string"
+                                          description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                        "mimeType":
+                                          type: "string"
+                                          description: "MIME type of the file (e.g., application/pdf, image/png)"
                                         "filename":
                                           type: "string"
                                           description: "The name of the file, used when passing the file to the model as a string."
-                                      required:
-                                        - "file_data"
-                                        - "filename"
                                   required:
                                     - "type"
                                     - "file"
@@ -7880,7 +7917,7 @@ components:
                 - "tts"
                 - "stt"
                 - "rerank"
-                - "moderations"
+                - "moderation"
                 - "vision"
               description: "The modality of the model"
             "model_parameters":
@@ -8138,11 +8175,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
                               required:
                                 - "type"
                                 - "file"
@@ -8296,7 +8337,7 @@ components:
                 - "tts"
                 - "stt"
                 - "rerank"
-                - "moderations"
+                - "moderation"
                 - "vision"
               description: "The modality of the model"
             "model_parameters":
@@ -8554,11 +8595,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
                               required:
                                 - "type"
                                 - "file"
@@ -8706,7 +8751,7 @@ components:
                           - "tts"
                           - "stt"
                           - "rerank"
-                          - "moderations"
+                          - "moderation"
                           - "vision"
                         description: "The modality of the model"
                       "model_parameters":
@@ -8964,11 +9009,15 @@ components:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
                                         required:
                                           - "type"
                                           - "file"
@@ -9113,7 +9162,7 @@ components:
                     - "tts"
                     - "stt"
                     - "rerank"
-                    - "moderations"
+                    - "moderation"
                     - "vision"
                   description: "The modality of the model"
                 "model_parameters":
@@ -9371,11 +9420,15 @@ components:
                                         "file_data":
                                           type: "string"
                                           description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                        "uri":
+                                          type: "string"
+                                          description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                        "mimeType":
+                                          type: "string"
+                                          description: "MIME type of the file (e.g., application/pdf, image/png)"
                                         "filename":
                                           type: "string"
                                           description: "The name of the file, used when passing the file to the model as a string."
-                                      required:
-                                        - "file_data"
                                   required:
                                     - "type"
                                     - "file"
@@ -9518,7 +9571,7 @@ components:
             - "tts"
             - "stt"
             - "rerank"
-            - "moderations"
+            - "moderation"
             - "vision"
           description: "The modality of the model"
         "owned_by":
@@ -9678,9 +9731,6 @@ components:
                     - "google/gemini-embedding-001"
                 - type: "string"
                   enum:
-                    - "google/text-embedding-005"
-                - type: "string"
-                  enum:
                     - "google/text-multilingual-embedding-002"
                 - type: "string"
                   enum:
@@ -9688,6 +9738,9 @@ components:
                 - type: "string"
                   enum:
                     - "google-ai/text-embedding-004"
+                - type: "string"
+                  enum:
+                    - "mistral/mistral-embed"
                 - type: "string"
                   enum:
                     - "jina/jina-clip-v1"
@@ -9767,9 +9820,6 @@ components:
                     - "google/gemini-embedding-001"
                 - type: "string"
                   enum:
-                    - "google/text-embedding-005"
-                - type: "string"
-                  enum:
                     - "google/text-multilingual-embedding-002"
                 - type: "string"
                   enum:
@@ -9777,6 +9827,9 @@ components:
                 - type: "string"
                   enum:
                     - "google-ai/text-embedding-004"
+                - type: "string"
+                  enum:
+                    - "mistral/mistral-embed"
                 - type: "string"
                   enum:
                     - "jina/jina-clip-v1"
@@ -10015,7 +10068,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-10-20T05:21:44.690Z"
+          default: "2025-10-24T12:43:22.641Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -10023,7 +10076,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-10-20T05:21:44.691Z"
+              default: "2025-10-24T12:43:22.642Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -10119,7 +10172,7 @@ components:
                   - type: "string"
                     format: "date-time"
                   - type: "string"
-                default: "2025-10-20T05:21:44.690Z"
+                default: "2025-10-24T12:43:22.641Z"
                 description: "The date and time the resource was created"
                 readOnly: true
                 format: "date-time"
@@ -10127,7 +10180,7 @@ components:
                 anyOf:
                   - type: "string"
                     format: "date-time"
-                    default: "2025-10-20T05:21:44.691Z"
+                    default: "2025-10-24T12:43:22.642Z"
                   - type: "string"
                 description: "The date and time the resource was last updated"
                 readOnly: true
@@ -10220,7 +10273,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-10-20T05:21:44.690Z"
+          default: "2025-10-24T12:43:22.641Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -10228,7 +10281,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-10-20T05:21:44.691Z"
+              default: "2025-10-24T12:43:22.642Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -10315,7 +10368,7 @@ components:
             - type: "string"
               format: "date-time"
             - type: "string"
-          default: "2025-10-20T05:21:44.690Z"
+          default: "2025-10-24T12:43:22.641Z"
           description: "The date and time the resource was created"
           readOnly: true
           format: "date-time"
@@ -10323,7 +10376,7 @@ components:
           anyOf:
             - type: "string"
               format: "date-time"
-              default: "2025-10-20T05:21:44.691Z"
+              default: "2025-10-24T12:43:22.642Z"
             - type: "string"
           description: "The date and time the resource was last updated"
           readOnly: true
@@ -10635,7 +10688,7 @@ components:
                 "top_k":
                   type: "integer"
                   minimum: 1
-                  maximum: 20
+                  maximum: 100
                   default: 5
                   description: "Used to filter chunks that are most similar to the query"
                 "threshold":
@@ -10715,7 +10768,7 @@ components:
                 "top_k":
                   type: "integer"
                   minimum: 1
-                  maximum: 20
+                  maximum: 100
                   default: 5
                   description: "Used to filter chunks that are most similar to the query"
                 "threshold":
@@ -10795,7 +10848,7 @@ components:
                 "top_k":
                   type: "integer"
                   minimum: 1
-                  maximum: 20
+                  maximum: 100
                   default: 5
                   description: "Used to filter chunks that are most similar to the query"
                 "threshold":
@@ -11901,7 +11954,6 @@ components:
               minLength: 1
               pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
           required:
-            - "output_type"
             - "type"
             - "prompt"
             - "path"
@@ -11974,7 +12026,6 @@ components:
               minLength: 1
               pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
           required:
-            - "output_type"
             - "type"
             - "schema"
             - "path"
@@ -12060,7 +12111,6 @@ components:
               minLength: 1
               pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
           required:
-            - "output_type"
             - "type"
             - "url"
             - "method"
@@ -12136,7 +12186,6 @@ components:
               minLength: 1
               pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
           required:
-            - "output_type"
             - "code"
             - "type"
             - "path"
@@ -12152,10 +12201,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12226,10 +12275,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12297,10 +12346,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12383,10 +12432,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12454,10 +12503,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12852,10 +12901,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -12939,10 +12988,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -13036,10 +13085,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13110,10 +13159,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13181,10 +13230,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13267,10 +13316,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13338,10 +13387,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13736,10 +13785,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -13823,10 +13872,10 @@ components:
                     type: "string"
                   "created":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "updated":
                     type: "string"
-                    default: "2025-10-20T05:21:47.307Z"
+                    default: "2025-10-24T12:43:24.884Z"
                   "guardrail_config":
                     oneOf:
                       - type: "object"
@@ -14217,10 +14266,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -14291,10 +14340,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -14362,10 +14411,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -14448,10 +14497,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -14519,10 +14568,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -14917,10 +14966,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -15004,10 +15053,10 @@ components:
               type: "string"
             "created":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "updated":
               type: "string"
-              default: "2025-10-20T05:21:47.307Z"
+              default: "2025-10-24T12:43:24.884Z"
             "guardrail_config":
               oneOf:
                 - type: "object"
@@ -16238,11 +16287,15 @@ components:
                                 "file_data":
                                   type: "string"
                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                "uri":
+                                  type: "string"
+                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                "mimeType":
+                                  type: "string"
+                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                 "filename":
                                   type: "string"
                                   description: "The name of the file, used when passing the file to the model as a string."
-                              required:
-                                - "file_data"
                           required:
                             - "type"
                             - "file"
@@ -16590,11 +16643,15 @@ components:
                                 "file_data":
                                   type: "string"
                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                "uri":
+                                  type: "string"
+                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                "mimeType":
+                                  type: "string"
+                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                 "filename":
                                   type: "string"
                                   description: "The name of the file, used when passing the file to the model as a string."
-                              required:
-                                - "file_data"
                           required:
                             - "type"
                             - "file"
@@ -18551,7 +18608,7 @@ components:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K8012937E5W2KK0X58T29EK3"
+                    default: "01K8B3XRWEK37RSVDEMKBH0C41"
                   "path":
                     type: "string"
                     description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -18630,7 +18687,7 @@ components:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K80129371R8272XTPZ0QDEQQ"
+                    default: "01K8B3XRWF2FNHRB1K9WND6F5Q"
                   "path":
                     type: "string"
                     description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -18713,7 +18770,7 @@ components:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K801293822ZF0SVVWNKTQZM8"
+                    default: "01K8B3XRWG15GJRJ97M3M6CRSD"
                   "path":
                     type: "string"
                     description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -18836,7 +18893,7 @@ components:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K8012939Q9GN4DK0BAQSX3R1"
+                    default: "01K8B3XRWHCBM162DTVZVRV0BJ"
                   "path":
                     type: "string"
                     description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -18953,7 +19010,7 @@ components:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K801293AARYF6GZNFZK4FTH2"
+                    default: "01K8B3XRWJJV3VRJYN27XZ1EE6"
                   "path":
                     type: "string"
                     description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19039,7 +19096,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293AVPKEQQKJ4PJWG6BG"
+              default: "01K8B3XRWJ9K4N3ZH93RKV0GRG"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19118,7 +19175,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293B0WER3E35W5973K70"
+              default: "01K8B3XRWKAWKW1ZFWNXWBASCX"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19201,7 +19258,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293CST477B7Q8CYG19JD"
+              default: "01K8B3XRWMDZWHG5E9F6F6QDJZ"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19324,7 +19381,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293DW0E4Q3J54S5NNAWJ"
+              default: "01K8B3XRWMBM3A5PWYXGTZJAP1"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19441,7 +19498,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293DGY6C6C3KZFEV2TJD"
+              default: "01K8B3XRWNER0VT22ZB0R9Y692"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19521,7 +19578,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293EA6RBBF3A64MVQNB2"
+              default: "01K8B3XRWPC91KZXEN8VH6AB67"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19600,7 +19657,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293EHRK127W5N6DGDEXY"
+              default: "01K8B3XRWQZAF8C1YN2FM0XRNK"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19683,7 +19740,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293FG2SEVQMM432PKYA5"
+              default: "01K8B3XRWQH7W58M85MDD4RKDC"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19806,7 +19863,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293G5VM9V0QCD3V16J17"
+              default: "01K8B3XRWSHZ38ADYD6TGK4FBK"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -19923,7 +19980,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293HJX75HCXPRAM3K7BS"
+              default: "01K8B3XRWSDDBJEA0TZ0J4Q0MC"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20003,7 +20060,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293JQMDQ8S8BR96BAVY8"
+              default: "01K8B3XRWTMHPHAM5VSXE21VRT"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20082,7 +20139,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293JRE8SYPR1SRHDCWHY"
+              default: "01K8B3XRWVR2AHR7MDC709RS3V"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20165,7 +20222,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293KPMQYHHHZASP380VD"
+              default: "01K8B3XRWVT3276AXZ6644A3FS"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20288,7 +20345,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293M82RPTG5E17RPC769"
+              default: "01K8B3XRWWA438DGWES73674ZE"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20405,7 +20462,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293MKR80N1GNWEEXD4AV"
+              default: "01K8B3XRWXVWSWT58P4HKSK74P"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20485,7 +20542,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293M0RW70WPJRYF70FPB"
+              default: "01K8B3XRWYVNDJJ61KE8T82XRW"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20564,7 +20621,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293N9AEF7PP1Z4AJTESG"
+              default: "01K8B3XRWYVW3TC76CB7XX2TEA"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20647,7 +20704,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293P7A0CNEJHXDNZJ2HP"
+              default: "01K8B3XRWZ5XMXAXGSPQC3EAKS"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20770,7 +20827,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293QKM1ZAPFS2YJXZ0YM"
+              default: "01K8B3XRXF1KMHE83746NJJQKJ"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -20887,7 +20944,7 @@ components:
             "_id":
               type: "string"
               format: "ulid"
-              default: "01K801293R1853F078R7CW1A68"
+              default: "01K8B3XRXF2Z8RR19E770P5EWB"
             "path":
               type: "string"
               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -21117,12 +21174,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -21442,12 +21502,15 @@ components:
                                     "file_data":
                                       type: "string"
                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                    "uri":
+                                      type: "string"
+                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                    "mimeType":
+                                      type: "string"
+                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                     "filename":
                                       type: "string"
                                       description: "The name of the file, used when passing the file to the model as a string."
-                                  required:
-                                    - "file_data"
-                                    - "filename"
                               required:
                                 - "type"
                                 - "file"
@@ -22181,7 +22244,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -22189,7 +22252,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -22320,7 +22383,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-10-20T05:21:44.690Z"
+                          default: "2025-10-24T12:43:22.641Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -22328,7 +22391,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:44.691Z"
+                              default: "2025-10-24T12:43:22.642Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -22574,7 +22637,7 @@ paths:
                                 - "tts"
                                 - "stt"
                                 - "rerank"
-                                - "moderations"
+                                - "moderation"
                                 - "vision"
                               description: "The modality of the model"
                             "model_parameters":
@@ -22823,11 +22886,15 @@ paths:
                                                     "file_data":
                                                       type: "string"
                                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                    "uri":
+                                                      type: "string"
+                                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                    "mimeType":
+                                                      type: "string"
+                                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                     "filename":
                                                       type: "string"
                                                       description: "The name of the file, used when passing the file to the model as a string."
-                                                  required:
-                                                    - "file_data"
                                               required:
                                                 - "type"
                                                 - "file"
@@ -23049,12 +23116,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -23374,12 +23444,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -24022,7 +24095,7 @@ paths:
                       - "tts"
                       - "stt"
                       - "rerank"
-                      - "moderations"
+                      - "moderation"
                       - "vision"
                     description: "The type of the model. Current `chat`,`completion` and `image` are supported"
                   "version":
@@ -24108,11 +24181,15 @@ paths:
                                           "file_data":
                                             type: "string"
                                             description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                          "uri":
+                                            type: "string"
+                                            description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                          "mimeType":
+                                            type: "string"
+                                            description: "MIME type of the file (e.g., application/pdf, image/png)"
                                           "filename":
                                             type: "string"
                                             description: "The name of the file, used when passing the file to the model as a string."
-                                        required:
-                                          - "file_data"
                                     required:
                                       - "type"
                                       - "file"
@@ -24797,12 +24874,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -25122,12 +25202,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -25504,12 +25587,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -25829,12 +25915,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -27113,6 +27202,22 @@ paths:
                     required:
                       - "knowledge_id"
                   description: "Optional array of knowledge base configurations for the agent to access"
+                "team_of_agents":
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      "key":
+                        type: "string"
+                        description: "The unique key of the agent within the workspace"
+                      "role":
+                        type: "string"
+                        description: "The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."
+                    required:
+                      - "key"
+                  default: []
+                  description: "The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."
+                  title: "Team of agents"
               required:
                 - "path"
                 - "key"
@@ -28235,7 +28340,21 @@ paths:
                         example: "customer-knowledge-base"
                     required:
                       - "knowledge_id"
-              description: "Request body for updating an existing agent via the API. Uses simplified tool input format."
+                "team_of_agents":
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      "key":
+                        type: "string"
+                        description: "The unique key of the agent within the workspace"
+                      "role":
+                        type: "string"
+                        description: "The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."
+                    required:
+                      - "key"
+                  description: "The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."
+                  title: "Team of agents"
       responses:
         "200":
           description: "Agent updated successfully"
@@ -30974,7 +31093,7 @@ paths:
                   "created":
                     type: "string"
                     format: "date-time"
-                    default: "2025-10-20T05:21:48.210Z"
+                    default: "2025-10-24T12:43:25.704Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                 required:
@@ -31062,7 +31181,7 @@ paths:
                         "created":
                           type: "string"
                           format: "date-time"
-                          default: "2025-10-20T05:21:48.210Z"
+                          default: "2025-10-24T12:43:25.704Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                       required:
@@ -31129,7 +31248,7 @@ paths:
                   "created":
                     type: "string"
                     format: "date-time"
-                    default: "2025-10-20T05:21:48.210Z"
+                    default: "2025-10-24T12:43:25.704Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                 required:
@@ -31276,7 +31395,7 @@ paths:
                                 - "tts"
                                 - "stt"
                                 - "rerank"
-                                - "moderations"
+                                - "moderation"
                                 - "vision"
                               description: "The modality of the model"
                             "model_parameters":
@@ -31534,11 +31653,15 @@ paths:
                                                     "file_data":
                                                       type: "string"
                                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                    "uri":
+                                                      type: "string"
+                                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                    "mimeType":
+                                                      type: "string"
+                                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                     "filename":
                                                       type: "string"
                                                       description: "The name of the file, used when passing the file to the model as a string."
-                                                  required:
-                                                    - "file_data"
                                               required:
                                                 - "type"
                                                 - "file"
@@ -31792,11 +31915,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
                                       required:
                                         - "type"
                                         - "file"
@@ -31976,7 +32103,6 @@ paths:
                       description: "Optional model parameters like temperature and maxTokens."
                       example: {"temperature": 0.7, "maxTokens": 1000}
                   required:
-                    - "model"
                     - "messages"
                   description: "[DEPRECATED]. Please use the `prompt` property instead. The current `prompt_config` will keep working but it will be deprecated in future versions. Configuration for the prompt including model and messages."
                   title: "PromptConfiguration"
@@ -32094,12 +32220,15 @@ paths:
                                                 "file_data":
                                                   type: "string"
                                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                "uri":
+                                                  type: "string"
+                                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                "mimeType":
+                                                  type: "string"
+                                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                 "filename":
                                                   type: "string"
                                                   description: "The name of the file, used when passing the file to the model as a string."
-                                              required:
-                                                - "file_data"
-                                                - "filename"
                                           required:
                                             - "type"
                                             - "file"
@@ -32355,7 +32484,6 @@ paths:
                       description: "An object specifying the format that the model must output"
                   required:
                     - "messages"
-                    - "model"
                   description: "Prompt configuration with model and messages. Either this field or `prompt_config` must be provided."
                   title: "PromptInput"
                   example: {"model": "openai/gpt-4o", "messages": [{"role": "system", "content": "You are a helpful assistant"}, {"role": "user", "content": "What is the weather today?"}], "temperature": 0.7, "max_tokens": 1000}
@@ -32434,7 +32562,7 @@ paths:
                           - "tts"
                           - "stt"
                           - "rerank"
-                          - "moderations"
+                          - "moderation"
                           - "vision"
                         description: "The modality of the model"
                       "model_parameters":
@@ -32692,11 +32820,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
                                         required:
                                           - "type"
                                           - "file"
@@ -32877,7 +33009,7 @@ paths:
                           - "tts"
                           - "stt"
                           - "rerank"
-                          - "moderations"
+                          - "moderation"
                           - "vision"
                         description: "The modality of the model"
                       "model_parameters":
@@ -33135,11 +33267,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
                                         required:
                                           - "type"
                                           - "file"
@@ -33546,11 +33682,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
                                       required:
                                         - "type"
                                         - "file"
@@ -33603,7 +33743,7 @@ paths:
                         - "tts"
                         - "stt"
                         - "rerank"
-                        - "moderations"
+                        - "moderation"
                         - "vision"
                       description: "The modality of the model"
                   required:
@@ -33770,12 +33910,15 @@ paths:
                                                 "file_data":
                                                   type: "string"
                                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                "uri":
+                                                  type: "string"
+                                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                "mimeType":
+                                                  type: "string"
+                                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                 "filename":
                                                   type: "string"
                                                   description: "The name of the file, used when passing the file to the model as a string."
-                                              required:
-                                                - "file_data"
-                                                - "filename"
                                           required:
                                             - "type"
                                             - "file"
@@ -34100,7 +34243,7 @@ paths:
                           - "tts"
                           - "stt"
                           - "rerank"
-                          - "moderations"
+                          - "moderation"
                           - "vision"
                         description: "The modality of the model"
                       "model_parameters":
@@ -34358,11 +34501,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
                                         required:
                                           - "type"
                                           - "file"
@@ -34589,7 +34736,7 @@ paths:
                                     - "tts"
                                     - "stt"
                                     - "rerank"
-                                    - "moderations"
+                                    - "moderation"
                                     - "vision"
                                   description: "The modality of the model"
                                 "model_parameters":
@@ -34847,11 +34994,15 @@ paths:
                                                         "file_data":
                                                           type: "string"
                                                           description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                        "uri":
+                                                          type: "string"
+                                                          description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                        "mimeType":
+                                                          type: "string"
+                                                          description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                         "filename":
                                                           type: "string"
                                                           description: "The name of the file, used when passing the file to the model as a string."
-                                                      required:
-                                                        - "file_data"
                                                   required:
                                                     - "type"
                                                     - "file"
@@ -35027,7 +35178,7 @@ paths:
                               - "tts"
                               - "stt"
                               - "rerank"
-                              - "moderations"
+                              - "moderation"
                               - "vision"
                             description: "The modality of the model"
                           "model_parameters":
@@ -35285,11 +35436,15 @@ paths:
                                                   "file_data":
                                                     type: "string"
                                                     description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                  "uri":
+                                                    type: "string"
+                                                    description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                  "mimeType":
+                                                    type: "string"
+                                                    description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                   "filename":
                                                     type: "string"
                                                     description: "The name of the file, used when passing the file to the model as a string."
-                                                required:
-                                                  - "file_data"
                                             required:
                                               - "type"
                                               - "file"
@@ -35494,7 +35649,7 @@ paths:
                             - "tts"
                             - "stt"
                             - "rerank"
-                            - "moderations"
+                            - "moderation"
                             - "vision"
                           description: "The modality of the model"
                         "owned_by":
@@ -35632,9 +35787,6 @@ paths:
                                     - "google/gemini-embedding-001"
                                 - type: "string"
                                   enum:
-                                    - "google/text-embedding-005"
-                                - type: "string"
-                                  enum:
                                     - "google/text-multilingual-embedding-002"
                                 - type: "string"
                                   enum:
@@ -35642,6 +35794,9 @@ paths:
                                 - type: "string"
                                   enum:
                                     - "google-ai/text-embedding-004"
+                                - type: "string"
+                                  enum:
+                                    - "mistral/mistral-embed"
                                 - type: "string"
                                   enum:
                                     - "jina/jina-clip-v1"
@@ -35744,9 +35899,6 @@ paths:
                             - "google/gemini-embedding-001"
                         - type: "string"
                           enum:
-                            - "google/text-embedding-005"
-                        - type: "string"
-                          enum:
                             - "google/text-multilingual-embedding-002"
                         - type: "string"
                           enum:
@@ -35754,6 +35906,9 @@ paths:
                         - type: "string"
                           enum:
                             - "google-ai/text-embedding-004"
+                        - type: "string"
+                          enum:
+                            - "mistral/mistral-embed"
                         - type: "string"
                           enum:
                             - "jina/jina-clip-v1"
@@ -35867,9 +36022,6 @@ paths:
                               - "google/gemini-embedding-001"
                           - type: "string"
                             enum:
-                              - "google/text-embedding-005"
-                          - type: "string"
-                            enum:
                               - "google/text-multilingual-embedding-002"
                           - type: "string"
                             enum:
@@ -35877,6 +36029,9 @@ paths:
                           - type: "string"
                             enum:
                               - "google-ai/text-embedding-004"
+                          - type: "string"
+                            enum:
+                              - "mistral/mistral-embed"
                           - type: "string"
                             enum:
                               - "jina/jina-clip-v1"
@@ -36006,9 +36161,6 @@ paths:
                               - "google/gemini-embedding-001"
                           - type: "string"
                             enum:
-                              - "google/text-embedding-005"
-                          - type: "string"
-                            enum:
                               - "google/text-multilingual-embedding-002"
                           - type: "string"
                             enum:
@@ -36016,6 +36168,9 @@ paths:
                           - type: "string"
                             enum:
                               - "google-ai/text-embedding-004"
+                          - type: "string"
+                            enum:
+                              - "mistral/mistral-embed"
                           - type: "string"
                             enum:
                               - "jina/jina-clip-v1"
@@ -36128,9 +36283,6 @@ paths:
                             - "google/gemini-embedding-001"
                         - type: "string"
                           enum:
-                            - "google/text-embedding-005"
-                        - type: "string"
-                          enum:
                             - "google/text-multilingual-embedding-002"
                         - type: "string"
                           enum:
@@ -36138,6 +36290,9 @@ paths:
                         - type: "string"
                           enum:
                             - "google-ai/text-embedding-004"
+                        - type: "string"
+                          enum:
+                            - "mistral/mistral-embed"
                         - type: "string"
                           enum:
                             - "jina/jina-clip-v1"
@@ -37224,7 +37379,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-10-20T05:21:44.690Z"
+                          default: "2025-10-24T12:43:22.641Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -37232,7 +37387,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:44.691Z"
+                              default: "2025-10-24T12:43:22.642Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -37356,7 +37511,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -37364,7 +37519,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -37474,7 +37629,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -37482,7 +37637,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -37620,7 +37775,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -37628,7 +37783,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -37862,12 +38017,15 @@ paths:
                                                     "file_data":
                                                       type: "string"
                                                       description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                    "uri":
+                                                      type: "string"
+                                                      description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                    "mimeType":
+                                                      type: "string"
+                                                      description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                     "filename":
                                                       type: "string"
                                                       description: "The name of the file, used when passing the file to the model as a string."
-                                                  required:
-                                                    - "file_data"
-                                                    - "filename"
                                               required:
                                                 - "type"
                                                 - "file"
@@ -38091,7 +38249,7 @@ paths:
                                   "reviewed_at":
                                     type: "string"
                                     format: "date-time"
-                                    default: "2025-10-20T05:21:54.974Z"
+                                    default: "2025-10-24T12:43:31.770Z"
                                     description: "The date and time the item was reviewed"
                                   "type":
                                     type: "string"
@@ -38131,7 +38289,7 @@ paths:
                                   "reviewed_at":
                                     type: "string"
                                     format: "date-time"
-                                    default: "2025-10-20T05:21:54.974Z"
+                                    default: "2025-10-24T12:43:31.771Z"
                                     description: "The date and time the item was reviewed"
                                   "type":
                                     type: "string"
@@ -38171,7 +38329,7 @@ paths:
                                   "reviewed_at":
                                     type: "string"
                                     format: "date-time"
-                                    default: "2025-10-20T05:21:54.975Z"
+                                    default: "2025-10-24T12:43:31.771Z"
                                     description: "The date and time the item was reviewed"
                                   "type":
                                     type: "string"
@@ -38206,7 +38364,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-10-20T05:21:44.690Z"
+                          default: "2025-10-24T12:43:22.641Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -38214,7 +38372,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:44.691Z"
+                              default: "2025-10-24T12:43:22.642Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -38385,12 +38543,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
-                                              - "filename"
                                         required:
                                           - "type"
                                           - "file"
@@ -38735,12 +38896,15 @@ paths:
                                                 "file_data":
                                                   type: "string"
                                                   description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                                "uri":
+                                                  type: "string"
+                                                  description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                                "mimeType":
+                                                  type: "string"
+                                                  description: "MIME type of the file (e.g., application/pdf, image/png)"
                                                 "filename":
                                                   type: "string"
                                                   description: "The name of the file, used when passing the file to the model as a string."
-                                              required:
-                                                - "file_data"
-                                                - "filename"
                                           required:
                                             - "type"
                                             - "file"
@@ -38964,7 +39128,7 @@ paths:
                               "reviewed_at":
                                 type: "string"
                                 format: "date-time"
-                                default: "2025-10-20T05:21:54.979Z"
+                                default: "2025-10-24T12:43:31.779Z"
                                 description: "The date and time the item was reviewed"
                               "type":
                                 type: "string"
@@ -39004,7 +39168,7 @@ paths:
                               "reviewed_at":
                                 type: "string"
                                 format: "date-time"
-                                default: "2025-10-20T05:21:54.979Z"
+                                default: "2025-10-24T12:43:31.779Z"
                                 description: "The date and time the item was reviewed"
                               "type":
                                 type: "string"
@@ -39044,7 +39208,7 @@ paths:
                               "reviewed_at":
                                 type: "string"
                                 format: "date-time"
-                                default: "2025-10-20T05:21:54.979Z"
+                                default: "2025-10-24T12:43:31.779Z"
                                 description: "The date and time the item was reviewed"
                               "type":
                                 type: "string"
@@ -39079,7 +39243,7 @@ paths:
                         - type: "string"
                           format: "date-time"
                         - type: "string"
-                      default: "2025-10-20T05:21:44.690Z"
+                      default: "2025-10-24T12:43:22.641Z"
                       description: "The date and time the resource was created"
                       readOnly: true
                       format: "date-time"
@@ -39087,7 +39251,7 @@ paths:
                       anyOf:
                         - type: "string"
                           format: "date-time"
-                          default: "2025-10-20T05:21:44.691Z"
+                          default: "2025-10-24T12:43:22.642Z"
                         - type: "string"
                       description: "The date and time the resource was last updated"
                       readOnly: true
@@ -39265,12 +39429,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
-                                              - "filename"
                                         required:
                                           - "type"
                                           - "file"
@@ -39494,7 +39661,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.977Z"
+                              default: "2025-10-24T12:43:31.777Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -39534,7 +39701,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.977Z"
+                              default: "2025-10-24T12:43:31.777Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -39574,7 +39741,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.977Z"
+                              default: "2025-10-24T12:43:31.777Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -39609,7 +39776,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -39617,7 +39784,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -39790,12 +39957,15 @@ paths:
                                             "file_data":
                                               type: "string"
                                               description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                            "uri":
+                                              type: "string"
+                                              description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                            "mimeType":
+                                              type: "string"
+                                              description: "MIME type of the file (e.g., application/pdf, image/png)"
                                             "filename":
                                               type: "string"
                                               description: "The name of the file, used when passing the file to the model as a string."
-                                          required:
-                                            - "file_data"
-                                            - "filename"
                                       required:
                                         - "type"
                                         - "file"
@@ -40135,12 +40305,15 @@ paths:
                                               "file_data":
                                                 type: "string"
                                                 description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                              "uri":
+                                                type: "string"
+                                                description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                              "mimeType":
+                                                type: "string"
+                                                description: "MIME type of the file (e.g., application/pdf, image/png)"
                                               "filename":
                                                 type: "string"
                                                 description: "The name of the file, used when passing the file to the model as a string."
-                                            required:
-                                              - "file_data"
-                                              - "filename"
                                         required:
                                           - "type"
                                           - "file"
@@ -40364,7 +40537,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.986Z"
+                              default: "2025-10-24T12:43:31.793Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -40404,7 +40577,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.986Z"
+                              default: "2025-10-24T12:43:31.793Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -40444,7 +40617,7 @@ paths:
                             "reviewed_at":
                               type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:54.986Z"
+                              default: "2025-10-24T12:43:31.793Z"
                               description: "The date and time the item was reviewed"
                             "type":
                               type: "string"
@@ -40479,7 +40652,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -40487,7 +40660,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -42408,7 +42581,7 @@ paths:
                         "_id":
                           type: "string"
                           format: "ulid"
-                          default: "01K80129A933MRBY6BBSH3QWKY"
+                          default: "01K8B3XS3F9WAXDZS9CHG3XNAM"
                           description: "The id of the resource"
                           readOnly: true
                         "display_name":
@@ -42571,7 +42744,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K80129AAEGER4N8KW0WJ8AK1"
+                    default: "01K8B3XS3G0J5HRHJYSC9W744T"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
@@ -42664,7 +42837,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K80129A99XG1TX4ZW94RSCX3"
+                    default: "01K8B3XS3F5YNDH24ZR0GVDXHG"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
@@ -42793,7 +42966,7 @@ paths:
                   "_id":
                     type: "string"
                     format: "ulid"
-                    default: "01K80129ABK01GAXB3E817A34M"
+                    default: "01K8B3XS3G9DBP9Y0633Q27Q1N"
                     description: "The id of the resource"
                     readOnly: true
                   "display_name":
@@ -43921,10 +44094,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -43995,10 +44168,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44066,10 +44239,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44152,10 +44325,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44223,10 +44396,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44621,10 +44794,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44708,10 +44881,10 @@ paths:
                               type: "string"
                             "created":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "updated":
                               type: "string"
-                              default: "2025-10-20T05:21:47.307Z"
+                              default: "2025-10-24T12:43:24.884Z"
                             "guardrail_config":
                               oneOf:
                                 - type: "object"
@@ -44872,7 +45045,6 @@ paths:
                       minLength: 1
                       pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
                   required:
-                    - "output_type"
                     - "type"
                     - "prompt"
                     - "path"
@@ -44945,7 +45117,6 @@ paths:
                       minLength: 1
                       pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
                   required:
-                    - "output_type"
                     - "type"
                     - "schema"
                     - "path"
@@ -45031,7 +45202,6 @@ paths:
                       minLength: 1
                       pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
                   required:
-                    - "output_type"
                     - "type"
                     - "url"
                     - "method"
@@ -45107,7 +45277,6 @@ paths:
                       minLength: 1
                       pattern: "^[a-zA-Z0-9]([a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
                   required:
-                    - "output_type"
                     - "code"
                     - "type"
                     - "path"
@@ -45128,10 +45297,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45202,10 +45371,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45273,10 +45442,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45359,10 +45528,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45430,10 +45599,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45828,10 +45997,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -45915,10 +46084,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -46318,10 +46487,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -46392,10 +46561,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -46463,10 +46632,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -46549,10 +46718,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -46620,10 +46789,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -47018,10 +47187,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -47105,10 +47274,10 @@ paths:
                         type: "string"
                       "created":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "updated":
                         type: "string"
-                        default: "2025-10-20T05:21:47.307Z"
+                        default: "2025-10-24T12:43:24.884Z"
                       "guardrail_config":
                         oneOf:
                           - type: "object"
@@ -49936,11 +50105,15 @@ paths:
                                         "file_data":
                                           type: "string"
                                           description: "The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"
+                                        "uri":
+                                          type: "string"
+                                          description: "URL to the file. Only supported by Anthropic Claude models for PDF files."
+                                        "mimeType":
+                                          type: "string"
+                                          description: "MIME type of the file (e.g., application/pdf, image/png)"
                                         "filename":
                                           type: "string"
                                           description: "The name of the file, used when passing the file to the model as a string."
-                                      required:
-                                        - "file_data"
                                   required:
                                     - "type"
                                     - "file"
@@ -50290,7 +50463,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -50298,7 +50471,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -50432,7 +50605,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -50440,7 +50613,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -50652,7 +50825,7 @@ paths:
                             - type: "string"
                               format: "date-time"
                             - type: "string"
-                          default: "2025-10-20T05:21:44.690Z"
+                          default: "2025-10-24T12:43:22.641Z"
                           description: "The date and time the resource was created"
                           readOnly: true
                           format: "date-time"
@@ -50660,7 +50833,7 @@ paths:
                           anyOf:
                             - type: "string"
                               format: "date-time"
-                              default: "2025-10-20T05:21:44.691Z"
+                              default: "2025-10-24T12:43:22.642Z"
                             - type: "string"
                           description: "The date and time the resource was last updated"
                           readOnly: true
@@ -50840,7 +51013,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -50848,7 +51021,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -50967,7 +51140,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -50975,7 +51148,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -51120,7 +51293,7 @@ paths:
                       - type: "string"
                         format: "date-time"
                       - type: "string"
-                    default: "2025-10-20T05:21:44.690Z"
+                    default: "2025-10-24T12:43:22.641Z"
                     description: "The date and time the resource was created"
                     readOnly: true
                     format: "date-time"
@@ -51128,7 +51301,7 @@ paths:
                     anyOf:
                       - type: "string"
                         format: "date-time"
-                        default: "2025-10-20T05:21:44.691Z"
+                        default: "2025-10-24T12:43:22.642Z"
                       - type: "string"
                     description: "The date and time the resource was last updated"
                     readOnly: true
@@ -51225,7 +51398,7 @@ paths:
                             "_id":
                               type: "string"
                               format: "ulid"
-                              default: "01K80129DMVS2WXRMV16GQVHZH"
+                              default: "01K8B3XS6C8XNB6YJKYKH5SWPF"
                             "path":
                               type: "string"
                               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -51304,7 +51477,7 @@ paths:
                             "_id":
                               type: "string"
                               format: "ulid"
-                              default: "01K80129DMRQAFDCYDXTFXSBCY"
+                              default: "01K8B3XS6CWVQJS27GPTH6RQFY"
                             "path":
                               type: "string"
                               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -51387,7 +51560,7 @@ paths:
                             "_id":
                               type: "string"
                               format: "ulid"
-                              default: "01K80129DNBF4WKV2QFG1QYZE8"
+                              default: "01K8B3XS6C28TRP1D02QSTJPEQ"
                             "path":
                               type: "string"
                               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -51510,7 +51683,7 @@ paths:
                             "_id":
                               type: "string"
                               format: "ulid"
-                              default: "01K80129DPE8PG89X0ZZE9TG7P"
+                              default: "01K8B3XS6DNDQ9KNGQVSZMCSQK"
                             "path":
                               type: "string"
                               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -51627,7 +51800,7 @@ paths:
                             "_id":
                               type: "string"
                               format: "ulid"
-                              default: "01K80129DPHF8RDDF3KY36ZC21"
+                              default: "01K8B3XS6DXENDHFPD8DQ64VWJ"
                             "path":
                               type: "string"
                               description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52099,7 +52272,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129DTTBDHXYFKZE65B277"
+                        default: "01K8B3XS6JTZZ6BXE67319CCRP"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52178,7 +52351,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129DVKH6RS094QSC234PC"
+                        default: "01K8B3XS6JNBZJ4EACVK6P92D2"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52261,7 +52434,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129DW7AMD504WHH31H8Z2"
+                        default: "01K8B3XS6KNW19YWW837KTPE0N"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52384,7 +52557,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129DXVBSJHRBRVVEZYZTH"
+                        default: "01K8B3XS6MFJ78FYETJ8CGEKC8"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52501,7 +52674,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129DX9NNSGJZME6W8V6K4"
+                        default: "01K8B3XS6W5RGJJW0VB0MC6A11"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -52943,7 +53116,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E0VYV5X7R18FBJSHWE"
+                        default: "01K8B3XS6YD6SFTK0GB2CJ2S9T"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53022,7 +53195,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E0W7HQBXMFKV7JRME2"
+                        default: "01K8B3XS6ZEY1P2B91ATB1JVE2"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53105,7 +53278,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E1FYX489Z41BFBPRB7"
+                        default: "01K8B3XS6Z9R5VC2G5QWXGE3PP"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53228,7 +53401,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E1V07V7X08HEV6WX9H"
+                        default: "01K8B3XS707VP1EJNK3V4AKCB9"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53345,7 +53518,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E2TJCG1QBHDC7N3JN2"
+                        default: "01K8B3XS71XGE3Y3KCZ302Y5WT"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53478,7 +53651,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E8FNH4C0SBSH09X0EM"
+                        default: "01K8B3XS769A32V4K6C4RKZPGS"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53557,7 +53730,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E8GE3C3W0ATZCDT12T"
+                        default: "01K8B3XS768FWDNT9E8EFB0HMH"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53640,7 +53813,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E9K3R4TNCC3CSKW1B8"
+                        default: "01K8B3XS77B5FKQ9F6HYP4H0WM"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53763,7 +53936,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E9MQM6K91V3GPAKE71"
+                        default: "01K8B3XS77PC3X0K6KWCF0ZQ9M"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53880,7 +54053,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129EARTAX2XAK9G58N8W7"
+                        default: "01K8B3XS7802T7PPS4626Y5J4A"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -53984,7 +54157,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E4SX2KJYPRB8Q03PZR"
+                        default: "01K8B3XS73P2NJP4C63CJHFPJJ"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -54063,7 +54236,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E5F4ZEA25888P2YBW2"
+                        default: "01K8B3XS7332YTSYR0P85RWGJ3"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -54146,7 +54319,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E577NG0BZR8SC5THYD"
+                        default: "01K8B3XS7452CMFE0CYVV96AN8"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -54269,7 +54442,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E6KZKQNEQ1V9C57DW2"
+                        default: "01K8B3XS75MMJ4WQJAJYDWQH82"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."
@@ -54386,7 +54559,7 @@ paths:
                       "_id":
                         type: "string"
                         format: "ulid"
-                        default: "01K80129E7SNRGNS75PBWZF19N"
+                        default: "01K8B3XS75M53QSKVJHFT5XBYH"
                       "path":
                         type: "string"
                         description: "Entity storage path in the format: `project/folder/subfolder/...`\n\nThe first element identifies the project, followed by nested folders (auto-created as needed).\n\nWith project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key."

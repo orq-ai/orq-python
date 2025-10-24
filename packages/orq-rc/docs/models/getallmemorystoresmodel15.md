@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `GOOGLE_AI_TEXT_EMBEDDING_004` | google-ai/text-embedding-004   |
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `MISTRAL_MISTRAL_EMBED` | mistral/mistral-embed   |

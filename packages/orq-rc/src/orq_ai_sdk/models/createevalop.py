@@ -82,7 +82,6 @@ CreateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 
 
 class PythonTypedDict(TypedDict):
-    output_type: CreateEvalRequestBodyEvalsOutputType
     code: str
     type: CreateEvalRequestBodyEvalsRequest4Type
     path: str
@@ -94,12 +93,11 @@ class PythonTypedDict(TypedDict):
     """
     key: str
     guardrail_config: NotRequired[CreateEvalRequestBodyEvalsGuardrailConfigTypedDict]
+    output_type: NotRequired[CreateEvalRequestBodyEvalsOutputType]
     description: NotRequired[str]
 
 
 class Python(BaseModel):
-    output_type: CreateEvalRequestBodyEvalsOutputType
-
     code: str
 
     type: CreateEvalRequestBodyEvalsRequest4Type
@@ -115,6 +113,8 @@ class Python(BaseModel):
     key: str
 
     guardrail_config: Optional[CreateEvalRequestBodyEvalsGuardrailConfig] = None
+
+    output_type: Optional[CreateEvalRequestBodyEvalsOutputType] = None
 
     description: Optional[str] = ""
 
@@ -198,7 +198,6 @@ RequestBodyMethod = Literal[
 
 
 class RequestBodyHTTPTypedDict(TypedDict):
-    output_type: CreateEvalRequestBodyOutputType
     type: CreateEvalRequestBodyEvalsRequestType
     url: str
     method: RequestBodyMethod
@@ -213,12 +212,11 @@ class RequestBodyHTTPTypedDict(TypedDict):
     """
     key: str
     guardrail_config: NotRequired[CreateEvalRequestBodyGuardrailConfigTypedDict]
+    output_type: NotRequired[CreateEvalRequestBodyOutputType]
     description: NotRequired[str]
 
 
 class RequestBodyHTTP(BaseModel):
-    output_type: CreateEvalRequestBodyOutputType
-
     type: CreateEvalRequestBodyEvalsRequestType
 
     url: str
@@ -240,6 +238,8 @@ class RequestBodyHTTP(BaseModel):
     key: str
 
     guardrail_config: Optional[CreateEvalRequestBodyGuardrailConfig] = None
+
+    output_type: Optional[CreateEvalRequestBodyOutputType] = None
 
     description: Optional[str] = ""
 
@@ -309,7 +309,6 @@ CreateEvalRequestBodyEvalsType = Literal["json_schema",]
 
 
 class JSONTypedDict(TypedDict):
-    output_type: RequestBodyOutputType
     type: CreateEvalRequestBodyEvalsType
     schema_: str
     path: str
@@ -321,12 +320,11 @@ class JSONTypedDict(TypedDict):
     """
     key: str
     guardrail_config: NotRequired[RequestBodyGuardrailConfigTypedDict]
+    output_type: NotRequired[RequestBodyOutputType]
     description: NotRequired[str]
 
 
 class JSON(BaseModel):
-    output_type: RequestBodyOutputType
-
     type: CreateEvalRequestBodyEvalsType
 
     schema_: Annotated[str, pydantic.Field(alias="schema")]
@@ -342,6 +340,8 @@ class JSON(BaseModel):
     key: str
 
     guardrail_config: Optional[RequestBodyGuardrailConfig] = None
+
+    output_type: Optional[RequestBodyOutputType] = None
 
     description: Optional[str] = ""
 
@@ -412,7 +412,6 @@ CreateEvalRequestBodyType = Literal["llm_eval",]
 
 
 class LlmTypedDict(TypedDict):
-    output_type: OutputType
     type: CreateEvalRequestBodyType
     prompt: str
     path: str
@@ -425,12 +424,11 @@ class LlmTypedDict(TypedDict):
     model: str
     key: str
     guardrail_config: NotRequired[GuardrailConfigTypedDict]
+    output_type: NotRequired[OutputType]
     description: NotRequired[str]
 
 
 class Llm(BaseModel):
-    output_type: OutputType
-
     type: CreateEvalRequestBodyType
 
     prompt: str
@@ -448,6 +446,8 @@ class Llm(BaseModel):
     key: str
 
     guardrail_config: Optional[GuardrailConfig] = None
+
+    output_type: Optional[OutputType] = None
 
     description: Optional[str] = ""
 
@@ -593,9 +593,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -729,9 +729,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1412,9 +1412,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1529,9 +1529,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1651,9 +1651,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1750,9 +1750,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -1850,9 +1850,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-20T05:21:47.307Z"
+    created: Optional[str] = "2025-10-24T12:43:24.884Z"
 
-    updated: Optional[str] = "2025-10-20T05:21:47.307Z"
+    updated: Optional[str] = "2025-10-24T12:43:24.884Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 

@@ -447,6 +447,21 @@ class KnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+class TeamOfAgentsTypedDict(TypedDict):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+    role: NotRequired[str]
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
+class TeamOfAgents(BaseModel):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+
+    role: Optional[str] = None
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
 class CreateAgentRequestBodyTypedDict(TypedDict):
     path: str
     r"""The path where the agent will be stored in the project structure"""
@@ -470,6 +485,8 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of memory store keys for the agent to access"""
     knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
     r"""Optional array of knowledge base configurations for the agent to access"""
+    team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
 
 class CreateAgentRequestBody(BaseModel):
@@ -505,6 +522,9 @@ class CreateAgentRequestBody(BaseModel):
 
     knowledge_bases: Optional[List[KnowledgeBases]] = None
     r"""Optional array of knowledge base configurations for the agent to access"""
+
+    team_of_agents: Optional[List[TeamOfAgents]] = None
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
 
 class CreateAgentAgentsResponseBodyData(BaseModel):

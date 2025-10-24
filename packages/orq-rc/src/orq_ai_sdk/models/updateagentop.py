@@ -444,9 +444,22 @@ class UpdateAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-class UpdateAgentRequestBodyTypedDict(TypedDict):
-    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
+class UpdateAgentTeamOfAgentsTypedDict(TypedDict):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+    role: NotRequired[str]
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
+
+class UpdateAgentTeamOfAgents(BaseModel):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+
+    role: Optional[str] = None
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
+class UpdateAgentRequestBodyTypedDict(TypedDict):
     key: NotRequired[str]
     project_id: NotRequired[str]
     role: NotRequired[str]
@@ -468,11 +481,11 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     """
     memory_stores: NotRequired[List[str]]
     knowledge_bases: NotRequired[List[UpdateAgentKnowledgeBasesTypedDict]]
+    team_of_agents: NotRequired[List[UpdateAgentTeamOfAgentsTypedDict]]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
 
 class UpdateAgentRequestBody(BaseModel):
-    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
-
     key: Optional[str] = None
 
     project_id: Optional[str] = None
@@ -505,6 +518,9 @@ class UpdateAgentRequestBody(BaseModel):
     memory_stores: Optional[List[str]] = None
 
     knowledge_bases: Optional[List[UpdateAgentKnowledgeBases]] = None
+
+    team_of_agents: Optional[List[UpdateAgentTeamOfAgents]] = None
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
 
 class UpdateAgentRequestTypedDict(TypedDict):
@@ -711,14 +727,14 @@ class UpdateAgentModel(BaseModel):
         return m
 
 
-class UpdateAgentTeamOfAgentsTypedDict(TypedDict):
+class UpdateAgentAgentsTeamOfAgentsTypedDict(TypedDict):
     key: str
     r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-class UpdateAgentTeamOfAgents(BaseModel):
+class UpdateAgentAgentsTeamOfAgents(BaseModel):
     key: str
     r"""The unique key of the agent within the workspace"""
 
@@ -774,7 +790,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     memory_stores: List[str]
-    team_of_agents: List[UpdateAgentTeamOfAgentsTypedDict]
+    team_of_agents: List[UpdateAgentAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -824,7 +840,7 @@ class UpdateAgentResponseBody(BaseModel):
 
     memory_stores: List[str]
 
-    team_of_agents: List[UpdateAgentTeamOfAgents]
+    team_of_agents: List[UpdateAgentAgentsTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
     created_by_id: OptionalNullable[str] = UNSET

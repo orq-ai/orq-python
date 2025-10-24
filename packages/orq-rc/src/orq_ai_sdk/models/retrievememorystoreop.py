@@ -44,16 +44,16 @@ RetrieveMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
 RetrieveMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
 
 
-RetrieveMemoryStoreModel15 = Literal["google-ai/text-embedding-004",]
+RetrieveMemoryStoreModel15 = Literal["mistral/mistral-embed",]
 
 
-RetrieveMemoryStoreModel14 = Literal["google/multimodalembedding@001",]
+RetrieveMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
 
 
-RetrieveMemoryStoreModel13 = Literal["google/text-multilingual-embedding-002",]
+RetrieveMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
 
 
-RetrieveMemoryStoreModel12 = Literal["google/text-embedding-005",]
+RetrieveMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
 
 
 RetrieveMemoryStoreModel11 = Literal["google/gemini-embedding-001",]

@@ -32,16 +32,16 @@ Model17 = Literal["jina/jina-embeddings-v2-base-es",]
 Model16 = Literal["jina/jina-clip-v1",]
 
 
-Model15 = Literal["google-ai/text-embedding-004",]
+Model15 = Literal["mistral/mistral-embed",]
 
 
-Model14 = Literal["google/multimodalembedding@001",]
+Model14 = Literal["google-ai/text-embedding-004",]
 
 
-Model13 = Literal["google/text-multilingual-embedding-002",]
+Model13 = Literal["google/multimodalembedding@001",]
 
 
-Model12 = Literal["google/text-embedding-005",]
+Model12 = Literal["google/text-multilingual-embedding-002",]
 
 
 Model11 = Literal["google/gemini-embedding-001",]
