@@ -361,17 +361,27 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2FileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreateDatasetItem2File(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -996,17 +1006,27 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2DatasetsFileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreateDatasetItem2DatasetsFile(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -1286,7 +1306,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-23T13:46:21.435Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-24T04:50:09.601Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1338,7 +1358,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-23T13:46:21.434Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-24T04:50:09.601Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1390,7 +1410,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-23T13:46:21.434Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-24T04:50:09.601Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1464,5 +1484,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-23T13:46:12.112Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-24T04:49:59.822Z")
     r"""The date and time the resource was last updated"""
