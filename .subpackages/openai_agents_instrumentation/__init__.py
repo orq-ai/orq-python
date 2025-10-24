@@ -1,4 +1,4 @@
-"""OpenAI Agents Instrumentation SDK.
+"""Orq OpenAI Agents Instrumentation SDK.
 
 A simplified OpenTelemetry instrumentation package for OpenAI agents with enhanced
 agent span input/output tracking capabilities.
