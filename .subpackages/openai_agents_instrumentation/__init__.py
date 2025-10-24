@@ -20,6 +20,6 @@ except ImportError:
         "OpenAI Agents not available. Install with: pip install openai-agents"
     )
 
-from instrumentor import OpenAIAgentsInstrumentor
+from .instrumentor import OpenAIAgentsInstrumentor
 
 __all__ = ["OpenAIAgentsInstrumentor"]

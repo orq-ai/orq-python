@@ -7,7 +7,7 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 import random
 import os
 
-from __init__ import OpenAIAgentsInstrumentor
+from orq_ai_sdk.openai_agents_instrumentation import OpenAIAgentsInstrumentor
 
 # Set up OpenTelemetry with console exporter for debugging
 tracer_provider = TracerProvider()

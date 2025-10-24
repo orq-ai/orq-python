@@ -1,10 +1,10 @@
-"""Custom OpenAI Agents tracing processor with enhanced agent span support."""
+"""Orq Custom OpenAI Agents tracing processor with enhanced agent span support."""
 
 from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 # Type aliases for better clarity
 SpanInputData = Union[str, List[Dict[str, object]], Dict[str, object]]
@@ -37,16 +37,12 @@ try:
         Tracer,
         set_span_in_context,
     )
-    from opentelemetry.util.types import AttributeValue
 except ImportError:
     raise ImportError(
         "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
     )
 
-from constants import (
-    GenAIAttributes,
-    GenAIOperation,
-    GenAISystem,
+from .constants import (
     SpanAttributes,
     SpanKind,
 )
@@ -72,8 +68,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             name=trace.name,
             attributes={
                 SpanAttributes.KIND.value: SpanKind.WORKFLOW.value,
-                GenAIAttributes.OPERATION_NAME.value: trace.name,
-                GenAIAttributes.SYSTEM.value: GenAISystem.OPENAI.value,
+                SpanAttributes.OPERATION_NAME.value: trace.name
             },
         )
         self._root_spans[trace.trace_id] = otel_span
@@ -88,8 +83,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Called when a span is started."""
         if not span.started_at:
             return
-        
-        start_time = datetime.fromisoformat(span.started_at)
+
         parent_span = (
             self._otel_spans.get(span.parent_id)
             if span.parent_id
@@ -97,15 +91,14 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         )
         context = set_span_in_context(parent_span) if parent_span else None
         span_name = self._get_span_name(span)
-        
+
         otel_span = self._tracer.start_span(
             name=span_name,
             context=context,
-            start_time=self._as_utc_nano(start_time),
+            start_time=self._as_utc_nano(span.started_at),
             attributes={
                 SpanAttributes.KIND.value: self._get_span_kind(span.span_data),
-                GenAIAttributes.OPERATION_NAME.value: span_name,
-                GenAIAttributes.SYSTEM.value: GenAISystem.OPENAI.value,
+                SpanAttributes.OPERATION_NAME.value: span_name,
             },
         )
         
@@ -135,7 +128,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
         span_name = self._get_span_name(span)
         otel_span.update_name(span_name)
-        otel_span.set_attribute(GenAIAttributes.OPERATION_NAME.value, span_name)
+        otel_span.set_attribute(SpanAttributes.OPERATION_NAME.value, span_name)
         data = span.span_data
 
         # Handle different span types and collect input/output for agent spans
@@ -146,7 +139,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             self._collect_agent_data(span.span_id, data, "input", "output")
         elif isinstance(data, GenerationSpanData):
             self._handle_generation_span(otel_span, data)
-            self._collect_agent_data(span.span_id, data, "input")
+            self._collect_agent_data(span.span_id, data, "input", "output")
         elif isinstance(data, FunctionSpanData):
             self._handle_function_span(otel_span, data)
         elif isinstance(data, HandoffSpanData):
@@ -155,7 +148,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         end_time: Optional[int] = None
         if span.ended_at:
             try:
-                end_time = self._as_utc_nano(datetime.fromisoformat(span.ended_at))
+                end_time = self._as_utc_nano(span.ended_at)
             except ValueError:
                 pass
 
@@ -165,6 +158,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     def _handle_agent_span(self, otel_span: OtelSpan, data: AgentSpanData, span_id: str) -> None:
         """Handle agent span with enhanced input/output collection."""
         otel_span.set_attribute(SpanAttributes.AGENT_NAME.value, data.name)
+        otel_span.set_attribute(SpanAttributes.GEN_AI_AGENT_NAME.value, data.name)
         
         # Add first LLM input and last LLM output as JSON strings
         if span_id in self._agent_inputs and self._agent_inputs[span_id] is not None:
@@ -177,7 +171,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if span_id in self._agent_outputs and self._agent_outputs[span_id] is not None:
             try:
                 # Transform the output to the required format
-                formatted_output = self._format_agent_output(self._agent_outputs[span_id])
+                formatted_output = self._format_llm_output(self._agent_outputs[span_id])
                 json_output = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
             except (TypeError, ValueError):
@@ -196,14 +190,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             
             # Set basic response info
             if hasattr(response, "model"):
-                otel_span.set_attribute(GenAIAttributes.RESPONSE_MODEL.value, response.model)
-            if hasattr(response, "id"):
-                otel_span.set_attribute(GenAIAttributes.RESPONSE_ID.value, response.id)
+                otel_span.set_attribute(SpanAttributes.REQUEST_MODEL.value, response.model)
             
             # Extract and format output from response
             if hasattr(response, "output") and response.output:
                 try:
-                    formatted_output = self._format_agent_output(response.output)
+                    formatted_output = self._format_llm_output(response.output)
                     json_output = json.dumps(formatted_output)
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
                 except (TypeError, ValueError):
@@ -218,7 +210,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # Also check for output directly on data (not just in data.response)
         if hasattr(data, "output") and data.output:
             try:
-                formatted_output = self._format_agent_output(data.output)
+                formatted_output = self._format_llm_output(data.output)
                 json_output = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
             except (TypeError, ValueError):
@@ -227,40 +219,42 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
         
         if hasattr(data, "input") and data.input:
-            # Set input for LLM spans
+            # Set input for LLM spans, including system message from instructions if not already present
             try:
-                input_json = json.dumps(data.input)
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
+                enhanced_input = self._format_llm_input(data)
+                if enhanced_input is not None:
+                    input_json = json.dumps(enhanced_input)
+                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
+                else:
+                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
             except (TypeError, ValueError):
                 otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
 
     def _handle_generation_span(self, otel_span: OtelSpan, data: GenerationSpanData) -> None:
         """Handle generation span."""
-        otel_span.set_attribute(GenAIAttributes.OPERATION_NAME.value, GenAIOperation.CHAT.value)
-        
         if hasattr(data, "model") and isinstance(data.model, str):
-            otel_span.set_attribute(GenAIAttributes.REQUEST_MODEL.value, data.model)
+            otel_span.set_attribute(SpanAttributes.REQUEST_MODEL.value, data.model)
         
         if hasattr(data, "input") and data.input:
-            # Set input for LLM spans
+            # Set input for LLM spans, including system message from instructions if not already present
             try:
-                input_json = json.dumps(data.input)
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
+                enhanced_input = self._format_llm_input(data)
+                if enhanced_input is not None:
+                    input_json = json.dumps(enhanced_input)
+                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
+                else:
+                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
             except (TypeError, ValueError):
                 otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
         
         if hasattr(data, "output") and data.output:
             # Set structured output messages for LLM spans
             try:
-                output_json = json.dumps(data.output)
-                otel_span.set_attribute(GenAIAttributes.RESPONSE_MESSAGES.value, output_json)
-                
                 # Also set formatted output for orq.output.value
-                formatted_output = self._format_agent_output(data.output)
+                formatted_output = self._format_llm_output(data.output)
                 formatted_json = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, formatted_json)
             except (TypeError, ValueError):
-                otel_span.set_attribute(GenAIAttributes.RESPONSE_MESSAGES.value, str(data.output))
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
         
         # Extract usage information if available
@@ -269,11 +263,17 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _handle_function_span(self, otel_span: OtelSpan, data: FunctionSpanData) -> None:
         """Handle function span."""
-        otel_span.set_attribute(GenAIAttributes.TOOL_NAME.value, data.name)
-        
+        otel_span.set_attribute(SpanAttributes.TOOL_NAME.value, data.name)
+
+        # Add tool call ID if available
+        if hasattr(data, 'call_id') and data.call_id:
+            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data.call_id)
+        elif hasattr(data, 'id') and data.id:
+            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data.id)
+
         if data.input:
             otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, data.input)
-        
+
         if data.output is not None:
             otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(data.output))
 
@@ -281,6 +281,37 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Handle handoff span."""
         # Additional handoff-specific attributes can be added here if needed
         pass
+
+    def _format_llm_input(self, data: SpanData) -> Optional[SpanInputData]:
+        """Format LLM input that includes system message from instructions if not already present."""
+        if not hasattr(data, "input") or not data.input:
+            return None
+            
+        try:
+            input_messages = []
+            
+            # Check if system message already exists in input
+            has_system_message = False
+            if isinstance(data.input, list):
+                has_system_message = any(
+                    isinstance(msg, dict) and msg.get("role") == "system" 
+                    for msg in data.input
+                )
+                input_messages = list(data.input)
+            else:
+                input_messages = [data.input]
+            
+            # Add system message FIRST only if not already present
+            if not has_system_message and hasattr(data, "response") and data.response and hasattr(data.response, "instructions") and data.response.instructions:
+                system_message = {
+                    "role": "system",
+                    "content": data.response.instructions
+                }
+                input_messages.insert(0, system_message)
+            
+            return input_messages
+        except (TypeError, ValueError):
+            return data.input
 
     def _collect_agent_data(self, span_id: str, data: SpanData, *data_types: str) -> None:
         """Collect input/output data for agent spans - first LLM input and last LLM output per agent."""
@@ -294,7 +325,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 if parent_agent_span_id in self._agent_inputs:
                     # Only capture the first LLM input for this specific agent if none exists yet
                     if self._agent_inputs[parent_agent_span_id] is None:
-                        self._agent_inputs[parent_agent_span_id] = data.input
+                        # Use enhanced input that includes system message
+                        enhanced_input = self._format_llm_input(data)
+                        self._agent_inputs[parent_agent_span_id] = enhanced_input
             elif data_type == "output":
                 if hasattr(data, "output") and data.output:
                     if parent_agent_span_id in self._agent_outputs:
@@ -348,9 +381,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         elif isinstance(data, ResponseSpanData):
             return SpanKind.LLM.value
         elif isinstance(data, HandoffSpanData):
-            return SpanKind.CHAIN.value
+            return SpanKind.TOOL.value
         else:
-            return SpanKind.CHAIN.value
+            return SpanKind.GENERIC.value
 
     def _get_span_status(self, span: Span[SpanData]) -> Status:
         """Get span status from span error information."""
@@ -364,29 +397,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             )
         return Status(StatusCode.OK)
 
-    def _extract_text_from_input(self, input_data: SpanInputData) -> Optional[str]:
-        """Extract text content from input data."""
-        if isinstance(input_data, str):
-            return input_data
-        elif isinstance(input_data, list):
-            texts = []
-            for item in input_data:
-                if isinstance(item, dict):
-                    if "content" in item:
-                        texts.append(str(item["content"]))
-                    elif "text" in item:
-                        texts.append(str(item["text"]))
-                elif isinstance(item, str):
-                    texts.append(item)
-            return " ".join(texts) if texts else None
-        elif isinstance(input_data, dict):
-            if "content" in input_data:
-                return str(input_data["content"])
-            elif "text" in input_data:
-                return str(input_data["text"])
-        return str(input_data) if input_data else None
-
-    def _format_agent_output(self, output_data: SpanOutputData) -> List[Dict[str, object]]:
+    def _format_llm_output(self, output_data: SpanOutputData) -> List[Dict[str, object]]:
         """Format output data to match the required structure."""
         formatted_output = []
         
@@ -495,13 +506,13 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     def _set_usage_attributes(self, otel_span: OtelSpan, usage: UsageData) -> None:
         """Set usage-related attributes on the span."""
         if hasattr(usage, "input_tokens"):
-            otel_span.set_attribute(GenAIAttributes.USAGE_INPUT_TOKENS.value, usage.input_tokens)
+            otel_span.set_attribute(SpanAttributes.USAGE_INPUT_TOKENS.value, usage.input_tokens)
         if hasattr(usage, "output_tokens"):
-            otel_span.set_attribute(GenAIAttributes.USAGE_OUTPUT_TOKENS.value, usage.output_tokens)
+            otel_span.set_attribute(SpanAttributes.USAGE_OUTPUT_TOKENS.value, usage.output_tokens)
 
-    def _as_utc_nano(self, dt: datetime) -> int:
-        """Convert datetime to nanoseconds since epoch."""
-        return int(dt.astimezone(timezone.utc).timestamp() * 1_000_000_000)
+    def _as_utc_nano(self, dt: str) -> int:
+        """Convert ISO format datetime string to nanoseconds since epoch."""
+        return int(datetime.fromisoformat(dt).astimezone(timezone.utc).timestamp() * 1_000_000_000)
 
     def force_flush(self) -> None:
         """Forces an immediate flush of all queued spans/traces."""

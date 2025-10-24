@@ -1,5 +1,3 @@
-"""Simplified OpenAI Agents instrumentor."""
-
 from typing import Collection, Dict, Optional
 
 # Try to import required dependencies
@@ -19,17 +17,22 @@ except ImportError:
         "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
     )
 
-from processor import EnhancedOpenAIAgentsProcessor
+from .processor import EnhancedOpenAIAgentsProcessor
+
+# Import version from the parent package
+try:
+    from orq_ai_sdk._version import __version__
+except ImportError:
+    __version__ = "unknown"
 
 
 class OpenAIAgentsInstrumentor(BaseInstrumentor):
     """
-    A simplified instrumentor for openai-agents with enhanced agent span support.
+    Orq simplified instrumentor for openai-agents with enhanced agent span support.
     
     This instrumentor provides:
     - Basic OpenTelemetry tracing for OpenAI agents
     - Enhanced agent spans with aggregated input/output from child spans
-    - Simplified configuration without complex dependencies
     """
 
     def instrumentation_dependencies(self) -> Collection[str]:
@@ -43,8 +46,11 @@ class OpenAIAgentsInstrumentor(BaseInstrumentor):
         if not tracer_provider:
             tracer_provider = trace_api.get_tracer_provider()
 
-        # Create tracer
-        tracer: Tracer = tracer_provider.get_tracer(__name__)
+        # Create tracer with version from orq_ai_sdk package
+        tracer: Tracer = tracer_provider.get_tracer(
+            instrumenting_module_name=__name__,
+            instrumenting_library_version=__version__
+        )
 
         # Create our enhanced processor
         processor = EnhancedOpenAIAgentsProcessor(tracer)
