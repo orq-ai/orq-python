@@ -28,7 +28,9 @@ python:
   additionalDependencies:
     dev:
       opentelemetry-api: ^1.20.0
+      opentelemetry-instrumentation: ==0.59b0
       opentelemetry-sdk: ^1.20.0
+      openai-agents: ==0.4.0
       types-requests: ^2.32.4.20250809
     main:
       requests: ==2.32.4
