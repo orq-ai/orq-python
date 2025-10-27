@@ -1,6 +1,6 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsContent
 
-The contents of the user message.
+The contents of the tool message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentGetConfigContentDeploymentsRequest2]`
+### `List[str]`
 
 ```python
-value: List[models.DeploymentGetConfigContentDeploymentsRequest2] = /* values here */
+value: List[str] = /* values here */
 ```
 

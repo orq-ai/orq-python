@@ -339,6 +339,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -350,6 +352,8 @@ class FileTypedDict(TypedDict):
 
 
 class File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -367,6 +371,7 @@ class FourTypedDict(TypedDict):
     type: Deployments2PrefixMessagesType
     r"""The type of the content part. Always `file`."""
     file: FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class Four(BaseModel):
@@ -374,6 +379,7 @@ class Four(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 Deployments2Type = Literal["input_audio",]
@@ -898,6 +904,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class TwoFileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -909,6 +917,8 @@ class TwoFileTypedDict(TypedDict):
 
 
 class TwoFile(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -926,6 +936,7 @@ class Two4TypedDict(TypedDict):
     type: Deployments2Messages3Content4Type
     r"""The type of the content part. Always `file`."""
     file: TwoFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class Two4(BaseModel):
@@ -933,6 +944,7 @@ class Two4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: TwoFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 Deployments2Messages3ContentType = Literal["input_audio",]

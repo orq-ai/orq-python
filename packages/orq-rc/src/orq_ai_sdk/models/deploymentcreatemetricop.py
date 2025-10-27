@@ -412,6 +412,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentCreateMetric2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -423,6 +425,8 @@ class DeploymentCreateMetric2FileTypedDict(TypedDict):
 
 
 class DeploymentCreateMetric2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -440,6 +444,7 @@ class DeploymentCreateMetric24TypedDict(TypedDict):
     type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: DeploymentCreateMetric2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentCreateMetric24(BaseModel):
@@ -447,6 +452,7 @@ class DeploymentCreateMetric24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentCreateMetric2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["input_audio",]
@@ -1039,6 +1045,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentCreateMetric2DeploymentsMetricsFileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -1050,6 +1058,8 @@ class DeploymentCreateMetric2DeploymentsMetricsFileTypedDict(TypedDict):
 
 
 class DeploymentCreateMetric2DeploymentsMetricsFile(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -1069,6 +1079,7 @@ class DeploymentCreateMetric2DeploymentsMetrics4TypedDict(TypedDict):
     )
     r"""The type of the content part. Always `file`."""
     file: DeploymentCreateMetric2DeploymentsMetricsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
@@ -1078,6 +1089,7 @@ class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentCreateMetric2DeploymentsMetricsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType = (

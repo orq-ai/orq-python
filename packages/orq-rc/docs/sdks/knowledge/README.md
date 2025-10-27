@@ -537,16 +537,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `knowledge_id`                                                                | *str*                                                                         | :heavy_check_mark:                                                            | Unique identifier of the knowledge                                            |
-| `datasource_id`                                                               | *str*                                                                         | :heavy_check_mark:                                                            | Unique identifier of the datasource                                           |
-| `request_body`                                                                | List[[models.CreateChunkRequestBody](../../models/createchunkrequestbody.md)] | :heavy_minus_sign:                                                            | N/A                                                                           |
-| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the knowledge                                  |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the datasource                                 |
+| `request_body`                                                      | List[[models.RequestBody](../../models/requestbody.md)]             | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[List[models.CreateChunkResponseBody]](../../models/.md)**
+**[List[models.ResponseBody]](../../models/.md)**
 
 ### Errors
 

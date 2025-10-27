@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FUNCTION_EVAL` | function_eval   |
+| Name              | Value             |
+| ----------------- | ----------------- |
+| `TYPESCRIPT_EVAL` | typescript_eval   |

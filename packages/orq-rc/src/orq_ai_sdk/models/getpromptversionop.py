@@ -82,7 +82,7 @@ GetPromptVersionFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetPromptVersionResponseFormat4 = Literal[
+GetPromptVersionResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -91,13 +91,13 @@ GetPromptVersionResponseFormat4 = Literal[
 ]
 
 
-GetPromptVersionResponseFormat3 = Literal[
+GetPromptVersionResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-GetPromptVersionResponseFormat2 = Literal[
+GetPromptVersionResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -107,39 +107,39 @@ GetPromptVersionResponseFormat2 = Literal[
 ]
 
 
-GetPromptVersion1PromptsResponseType = Literal["text",]
+GetPromptVersionResponseFormatPromptsResponseType = Literal["text",]
 
 
-class GetPromptVersion13TypedDict(TypedDict):
-    type: GetPromptVersion1PromptsResponseType
+class GetPromptVersionResponseFormat3TypedDict(TypedDict):
+    type: GetPromptVersionResponseFormatPromptsResponseType
 
 
-class GetPromptVersion13(BaseModel):
-    type: GetPromptVersion1PromptsResponseType
+class GetPromptVersionResponseFormat3(BaseModel):
+    type: GetPromptVersionResponseFormatPromptsResponseType
 
 
-GetPromptVersion1PromptsType = Literal["json_object",]
+GetPromptVersionResponseFormatPromptsType = Literal["json_object",]
 
 
-class GetPromptVersion12TypedDict(TypedDict):
-    type: GetPromptVersion1PromptsType
+class GetPromptVersionResponseFormat2TypedDict(TypedDict):
+    type: GetPromptVersionResponseFormatPromptsType
 
 
-class GetPromptVersion12(BaseModel):
-    type: GetPromptVersion1PromptsType
+class GetPromptVersionResponseFormat2(BaseModel):
+    type: GetPromptVersionResponseFormatPromptsType
 
 
-GetPromptVersion1Type = Literal["json_schema",]
+GetPromptVersionResponseFormatType = Literal["json_schema",]
 
 
-class GetPromptVersion1JSONSchemaTypedDict(TypedDict):
+class GetPromptVersionResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class GetPromptVersion1JSONSchema(BaseModel):
+class GetPromptVersionResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -149,40 +149,26 @@ class GetPromptVersion1JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class GetPromptVersion11TypedDict(TypedDict):
-    type: GetPromptVersion1Type
-    json_schema: GetPromptVersion1JSONSchemaTypedDict
+class GetPromptVersionResponseFormat1TypedDict(TypedDict):
+    type: GetPromptVersionResponseFormatType
+    json_schema: GetPromptVersionResponseFormatJSONSchemaTypedDict
 
 
-class GetPromptVersion11(BaseModel):
-    type: GetPromptVersion1Type
+class GetPromptVersionResponseFormat1(BaseModel):
+    type: GetPromptVersionResponseFormatType
 
-    json_schema: GetPromptVersion1JSONSchema
-
-
-GetPromptVersionResponseFormat1TypedDict = TypeAliasType(
-    "GetPromptVersionResponseFormat1TypedDict",
-    Union[
-        GetPromptVersion12TypedDict,
-        GetPromptVersion13TypedDict,
-        GetPromptVersion11TypedDict,
-    ],
-)
-
-
-GetPromptVersionResponseFormat1 = TypeAliasType(
-    "GetPromptVersionResponseFormat1",
-    Union[GetPromptVersion12, GetPromptVersion13, GetPromptVersion11],
-)
+    json_schema: GetPromptVersionResponseFormatJSONSchema
 
 
 GetPromptVersionResponseFormatTypedDict = TypeAliasType(
     "GetPromptVersionResponseFormatTypedDict",
     Union[
+        GetPromptVersionResponseFormat2TypedDict,
+        GetPromptVersionResponseFormat3TypedDict,
         GetPromptVersionResponseFormat1TypedDict,
-        GetPromptVersionResponseFormat2,
-        GetPromptVersionResponseFormat3,
         GetPromptVersionResponseFormat4,
+        GetPromptVersionResponseFormat5,
+        GetPromptVersionResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -198,10 +184,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetPromptVersionResponseFormat = TypeAliasType(
     "GetPromptVersionResponseFormat",
     Union[
-        GetPromptVersionResponseFormat1,
         GetPromptVersionResponseFormat2,
         GetPromptVersionResponseFormat3,
+        GetPromptVersionResponseFormat1,
         GetPromptVersionResponseFormat4,
+        GetPromptVersionResponseFormat5,
+        GetPromptVersionResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -660,7 +648,7 @@ class GetPromptVersionPromptConfigTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetPromptVersionProvider]
     integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
 
 
@@ -685,7 +673,7 @@ class GetPromptVersionPromptConfig(BaseModel):
     provider: Optional[GetPromptVersionProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
 
     version: Optional[str] = None
 

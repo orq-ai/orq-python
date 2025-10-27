@@ -442,7 +442,7 @@ class RequestBodyJSONSchema(BaseModel):
         return m
 
 
-class CreateToolRequestBody2TypedDict(TypedDict):
+class RequestBody2TypedDict(TypedDict):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -462,7 +462,7 @@ class CreateToolRequestBody2TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class CreateToolRequestBody2(BaseModel):
+class RequestBody2(BaseModel):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -525,7 +525,7 @@ class RequestBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class CreateToolRequestBody1TypedDict(TypedDict):
+class RequestBody1TypedDict(TypedDict):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -545,7 +545,7 @@ class CreateToolRequestBody1TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class CreateToolRequestBody1(BaseModel):
+class RequestBody1(BaseModel):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -574,8 +574,8 @@ class CreateToolRequestBody1(BaseModel):
 CreateToolRequestBodyTypedDict = TypeAliasType(
     "CreateToolRequestBodyTypedDict",
     Union[
-        CreateToolRequestBody1TypedDict,
-        CreateToolRequestBody2TypedDict,
+        RequestBody1TypedDict,
+        RequestBody2TypedDict,
         RequestBody3TypedDict,
         RequestBody4TypedDict,
         RequestBody5TypedDict,
@@ -586,13 +586,7 @@ r"""The tool to create"""
 
 CreateToolRequestBody = TypeAliasType(
     "CreateToolRequestBody",
-    Union[
-        CreateToolRequestBody1,
-        CreateToolRequestBody2,
-        RequestBody3,
-        RequestBody4,
-        RequestBody5,
-    ],
+    Union[RequestBody1, RequestBody2, RequestBody3, RequestBody4, RequestBody5],
 )
 r"""The tool to create"""
 
@@ -688,7 +682,7 @@ class ResponseBody5(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8DH20D9HHJ8EDA93CBXBDB5"
+        "01K8J1YQ5339NVSCV0AWV3YTNY"
     )
 
     display_name: Optional[str] = None
@@ -850,7 +844,7 @@ class ResponseBody4(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8DH20D9X2HBT1HB9D557ZWK"
+        "01K8J1YQ51YJYD0EZQ9TTYVRFA"
     )
 
     display_name: Optional[str] = None
@@ -1036,7 +1030,7 @@ class ResponseBody3(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8DH20D8BECBS35R2WE7SQ4E"
+        "01K8J1YQ4R2J9N8RJJ50CJZSKT"
     )
 
     display_name: Optional[str] = None
@@ -1121,7 +1115,7 @@ class ResponseBodyJSONSchema(BaseModel):
         return m
 
 
-class CreateToolResponseBody2TypedDict(TypedDict):
+class ResponseBody2TypedDict(TypedDict):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1151,7 +1145,7 @@ class CreateToolResponseBody2TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class CreateToolResponseBody2(BaseModel):
+class ResponseBody2(BaseModel):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1179,7 +1173,7 @@ class CreateToolResponseBody2(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8DH20D7C7H0BEJZ8YYK9KWW"
+        "01K8J1YQ4QV8DT2XHGFJTZKDTY"
     )
 
     display_name: Optional[str] = None
@@ -1234,7 +1228,7 @@ class CreateToolResponseBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class CreateToolResponseBody1TypedDict(TypedDict):
+class ResponseBody1TypedDict(TypedDict):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1264,7 +1258,7 @@ class CreateToolResponseBody1TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class CreateToolResponseBody1(BaseModel):
+class ResponseBody1(BaseModel):
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1292,7 +1286,7 @@ class CreateToolResponseBody1(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8DH20D7CXXZVG93NMJ90Z6X"
+        "01K8J1YQ4PWF6ZA7GAWP1XJF9T"
     )
 
     display_name: Optional[str] = None
@@ -1313,8 +1307,8 @@ class CreateToolResponseBody1(BaseModel):
 CreateToolResponseBodyTypedDict = TypeAliasType(
     "CreateToolResponseBodyTypedDict",
     Union[
-        CreateToolResponseBody1TypedDict,
-        CreateToolResponseBody2TypedDict,
+        ResponseBody1TypedDict,
+        ResponseBody2TypedDict,
         ResponseBody3TypedDict,
         ResponseBody4TypedDict,
         ResponseBody5TypedDict,
@@ -1325,12 +1319,6 @@ r"""Successfully created the tool."""
 
 CreateToolResponseBody = TypeAliasType(
     "CreateToolResponseBody",
-    Union[
-        CreateToolResponseBody1,
-        CreateToolResponseBody2,
-        ResponseBody3,
-        ResponseBody4,
-        ResponseBody5,
-    ],
+    Union[ResponseBody1, ResponseBody2, ResponseBody3, ResponseBody4, ResponseBody5],
 )
 r"""Successfully created the tool."""

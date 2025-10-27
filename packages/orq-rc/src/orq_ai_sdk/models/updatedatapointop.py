@@ -359,6 +359,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class UpdateDatapoint2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -370,6 +372,8 @@ class UpdateDatapoint2FileTypedDict(TypedDict):
 
 
 class UpdateDatapoint2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -387,6 +391,7 @@ class UpdateDatapoint24TypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: UpdateDatapoint2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class UpdateDatapoint24(BaseModel):
@@ -394,6 +399,7 @@ class UpdateDatapoint24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: UpdateDatapoint2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 UpdateDatapoint2DatasetsRequestType = Literal["input_audio",]
@@ -625,7 +631,9 @@ class UpdateDatapointRequestBody(BaseModel):
 
 class UpdateDatapointRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     datapoint_id: str
+    r"""The unique identifier of the datapoint"""
     request_body: NotRequired[UpdateDatapointRequestBodyTypedDict]
 
 
@@ -633,10 +641,12 @@ class UpdateDatapointRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     datapoint_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the datapoint"""
 
     request_body: Annotated[
         Optional[UpdateDatapointRequestBody],
@@ -1002,6 +1012,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class UpdateDatapoint2DatasetsFileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -1013,6 +1025,8 @@ class UpdateDatapoint2DatasetsFileTypedDict(TypedDict):
 
 
 class UpdateDatapoint2DatasetsFile(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -1030,6 +1044,7 @@ class UpdateDatapoint2Datasets4TypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: UpdateDatapoint2DatasetsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class UpdateDatapoint2Datasets4(BaseModel):
@@ -1037,6 +1052,7 @@ class UpdateDatapoint2Datasets4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: UpdateDatapoint2DatasetsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 UpdateDatapoint2DatasetsResponse200ApplicationJSONType = Literal["input_audio",]
@@ -1302,7 +1318,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.586Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.812Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1354,7 +1370,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.586Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.812Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1406,7 +1422,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.586Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.811Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1493,5 +1509,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""

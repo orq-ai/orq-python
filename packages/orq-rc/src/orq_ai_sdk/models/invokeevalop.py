@@ -31,7 +31,7 @@ InvokeEvalRole = Literal[
 r"""The role of the prompt message"""
 
 
-InvokeEval2EvalsRequestType = Literal["file",]
+InvokeEval2Type = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -61,19 +61,19 @@ class InvokeEval2File(BaseModel):
 
 
 class InvokeEval23TypedDict(TypedDict):
-    type: InvokeEval2EvalsRequestType
+    type: InvokeEval2Type
     r"""The type of the content part. Always `file`."""
     file: InvokeEval2FileTypedDict
 
 
 class InvokeEval23(BaseModel):
-    type: InvokeEval2EvalsRequestType
+    type: InvokeEval2Type
     r"""The type of the content part. Always `file`."""
 
     file: InvokeEval2File
 
 
-InvokeEval2EvalsType = Literal["image_url",]
+InvokeEval2EvalsRequestType = Literal["image_url",]
 
 
 class InvokeEval2ImageURLTypedDict(TypedDict):
@@ -94,32 +94,32 @@ class InvokeEval2ImageURL(BaseModel):
 class InvokeEval22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: InvokeEval2EvalsType
+    type: InvokeEval2EvalsRequestType
     image_url: InvokeEval2ImageURLTypedDict
 
 
 class InvokeEval22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: InvokeEval2EvalsType
+    type: InvokeEval2EvalsRequestType
 
     image_url: InvokeEval2ImageURL
 
 
-InvokeEval2Type = Literal["text",]
+InvokeEval2EvalsType = Literal["text",]
 
 
 class InvokeEval21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: InvokeEval2Type
+    type: InvokeEval2EvalsType
     text: str
 
 
 class InvokeEval21(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: InvokeEval2Type
+    type: InvokeEval2EvalsType
 
     text: str
 

@@ -3,10 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createcontactop as models_createcontactop,
-    listcontactsop as models_listcontactsop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -19,8 +15,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createcontactop.CreateContactRequestBody,
-                models_createcontactop.CreateContactRequestBodyTypedDict,
+                models.CreateContactRequestBody,
+                models.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -117,8 +113,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createcontactop.CreateContactRequestBody,
-                models_createcontactop.CreateContactRequestBodyTypedDict,
+                models.CreateContactRequestBody,
+                models.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -217,10 +213,7 @@ class Contacts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         filter_by: Optional[
-            Union[
-                models_listcontactsop.QueryParamFilterBy,
-                models_listcontactsop.QueryParamFilterByTypedDict,
-            ]
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -236,7 +229,7 @@ class Contacts(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
-        :param include_metrics:
+        :param include_metrics: Include usage metrics of the last 30 days for each contact.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -324,10 +317,7 @@ class Contacts(BaseSDK):
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         filter_by: Optional[
-            Union[
-                models_listcontactsop.QueryParamFilterBy,
-                models_listcontactsop.QueryParamFilterByTypedDict,
-            ]
+            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -343,7 +333,7 @@ class Contacts(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
-        :param include_metrics:
+        :param include_metrics: Include usage metrics of the last 30 days for each contact.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

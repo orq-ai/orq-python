@@ -5,16 +5,16 @@ Successfully created the tool.
 
 ## Supported Types
 
-### `models.CreateToolResponseBody1`
+### `models.ResponseBody1`
 
 ```python
-value: models.CreateToolResponseBody1 = /* values here */
+value: models.ResponseBody1 = /* values here */
 ```
 
-### `models.CreateToolResponseBody2`
+### `models.ResponseBody2`
 
 ```python
-value: models.CreateToolResponseBody2 = /* values here */
+value: models.ResponseBody2 = /* values here */
 ```
 
 ### `models.ResponseBody3`

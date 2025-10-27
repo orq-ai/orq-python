@@ -23,6 +23,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class ListDatasetDatapointsRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -35,6 +36,7 @@ class ListDatasetDatapointsRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     limit: Annotated[
         Optional[float],
@@ -406,6 +408,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class ListDatasetDatapoints2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -417,6 +421,8 @@ class ListDatasetDatapoints2FileTypedDict(TypedDict):
 
 
 class ListDatasetDatapoints2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -434,6 +440,7 @@ class ListDatasetDatapoints24TypedDict(TypedDict):
     type: ListDatasetDatapoints2DatasetsResponse200Type
     r"""The type of the content part. Always `file`."""
     file: ListDatasetDatapoints2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class ListDatasetDatapoints24(BaseModel):
@@ -441,6 +448,7 @@ class ListDatasetDatapoints24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: ListDatasetDatapoints2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 ListDatasetDatapoints2DatasetsResponseType = Literal["input_audio",]
@@ -706,7 +714,7 @@ class ListDatasetDatapointsEvaluations3(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.575Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.761Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -760,7 +768,7 @@ class ListDatasetDatapointsEvaluations2(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.575Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.760Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -812,7 +820,7 @@ class ListDatasetDatapointsEvaluations1(BaseModel):
 
     source: Optional[ListDatasetDatapointsEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.575Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.759Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -895,7 +903,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""
 
 

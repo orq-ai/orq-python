@@ -5,4 +5,4 @@
 
 | Name       | Value      |
 | ---------- | ---------- |
-| `EXTERNAL` | external   |
+| `INTERNAL` | internal   |

@@ -53,7 +53,7 @@ GetOnePromptFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetOnePromptResponseFormat4 = Literal[
+GetOnePromptResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -62,13 +62,13 @@ GetOnePromptResponseFormat4 = Literal[
 ]
 
 
-GetOnePromptResponseFormat3 = Literal[
+GetOnePromptResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-GetOnePromptResponseFormat2 = Literal[
+GetOnePromptResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -78,39 +78,39 @@ GetOnePromptResponseFormat2 = Literal[
 ]
 
 
-GetOnePrompt1PromptsResponseType = Literal["text",]
+GetOnePromptResponseFormatPromptsResponseType = Literal["text",]
 
 
-class GetOnePrompt13TypedDict(TypedDict):
-    type: GetOnePrompt1PromptsResponseType
+class GetOnePromptResponseFormat3TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatPromptsResponseType
 
 
-class GetOnePrompt13(BaseModel):
-    type: GetOnePrompt1PromptsResponseType
+class GetOnePromptResponseFormat3(BaseModel):
+    type: GetOnePromptResponseFormatPromptsResponseType
 
 
-GetOnePrompt1PromptsType = Literal["json_object",]
+GetOnePromptResponseFormatPromptsType = Literal["json_object",]
 
 
-class GetOnePrompt12TypedDict(TypedDict):
-    type: GetOnePrompt1PromptsType
+class GetOnePromptResponseFormat2TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatPromptsType
 
 
-class GetOnePrompt12(BaseModel):
-    type: GetOnePrompt1PromptsType
+class GetOnePromptResponseFormat2(BaseModel):
+    type: GetOnePromptResponseFormatPromptsType
 
 
-GetOnePrompt1Type = Literal["json_schema",]
+GetOnePromptResponseFormatType = Literal["json_schema",]
 
 
-class GetOnePrompt1JSONSchemaTypedDict(TypedDict):
+class GetOnePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class GetOnePrompt1JSONSchema(BaseModel):
+class GetOnePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -120,35 +120,26 @@ class GetOnePrompt1JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class GetOnePrompt11TypedDict(TypedDict):
-    type: GetOnePrompt1Type
-    json_schema: GetOnePrompt1JSONSchemaTypedDict
+class GetOnePromptResponseFormat1TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatType
+    json_schema: GetOnePromptResponseFormatJSONSchemaTypedDict
 
 
-class GetOnePrompt11(BaseModel):
-    type: GetOnePrompt1Type
+class GetOnePromptResponseFormat1(BaseModel):
+    type: GetOnePromptResponseFormatType
 
-    json_schema: GetOnePrompt1JSONSchema
-
-
-GetOnePromptResponseFormat1TypedDict = TypeAliasType(
-    "GetOnePromptResponseFormat1TypedDict",
-    Union[GetOnePrompt12TypedDict, GetOnePrompt13TypedDict, GetOnePrompt11TypedDict],
-)
-
-
-GetOnePromptResponseFormat1 = TypeAliasType(
-    "GetOnePromptResponseFormat1", Union[GetOnePrompt12, GetOnePrompt13, GetOnePrompt11]
-)
+    json_schema: GetOnePromptResponseFormatJSONSchema
 
 
 GetOnePromptResponseFormatTypedDict = TypeAliasType(
     "GetOnePromptResponseFormatTypedDict",
     Union[
+        GetOnePromptResponseFormat2TypedDict,
+        GetOnePromptResponseFormat3TypedDict,
         GetOnePromptResponseFormat1TypedDict,
-        GetOnePromptResponseFormat2,
-        GetOnePromptResponseFormat3,
         GetOnePromptResponseFormat4,
+        GetOnePromptResponseFormat5,
+        GetOnePromptResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -164,10 +155,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetOnePromptResponseFormat = TypeAliasType(
     "GetOnePromptResponseFormat",
     Union[
-        GetOnePromptResponseFormat1,
         GetOnePromptResponseFormat2,
         GetOnePromptResponseFormat3,
+        GetOnePromptResponseFormat1,
         GetOnePromptResponseFormat4,
+        GetOnePromptResponseFormat5,
+        GetOnePromptResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -618,7 +611,7 @@ class GetOnePromptPromptConfigTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetOnePromptProvider]
     integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
 
 
@@ -643,7 +636,7 @@ class GetOnePromptPromptConfig(BaseModel):
     provider: Optional[GetOnePromptProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
 
     version: Optional[str] = None
 

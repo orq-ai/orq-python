@@ -5,16 +5,16 @@ The tool to create
 
 ## Supported Types
 
-### `models.CreateToolRequestBody1`
+### `models.RequestBody1`
 
 ```python
-value: models.CreateToolRequestBody1 = /* values here */
+value: models.RequestBody1 = /* values here */
 ```
 
-### `models.CreateToolRequestBody2`
+### `models.RequestBody2`
 
 ```python
-value: models.CreateToolRequestBody2 = /* values here */
+value: models.RequestBody2 = /* values here */
 ```
 
 ### `models.RequestBody3`

@@ -1879,7 +1879,17 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.evals.invoke(id="<id>")
+    res = orq.evals.invoke(id="<id>", messages=[
+        {
+            "role": "tool",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "<value>",
+                },
+            ],
+        },
+    ])
 
     assert res is not None
 

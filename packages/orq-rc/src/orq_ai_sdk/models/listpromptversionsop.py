@@ -75,7 +75,7 @@ ListPromptVersionsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-ListPromptVersionsResponseFormat4 = Literal[
+ListPromptVersionsResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -84,13 +84,13 @@ ListPromptVersionsResponseFormat4 = Literal[
 ]
 
 
-ListPromptVersionsResponseFormat3 = Literal[
+ListPromptVersionsResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-ListPromptVersionsResponseFormat2 = Literal[
+ListPromptVersionsResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -100,39 +100,39 @@ ListPromptVersionsResponseFormat2 = Literal[
 ]
 
 
-ListPromptVersions1PromptsResponseType = Literal["text",]
+ListPromptVersionsResponseFormatPromptsResponseType = Literal["text",]
 
 
-class ListPromptVersions13TypedDict(TypedDict):
-    type: ListPromptVersions1PromptsResponseType
+class ListPromptVersionsResponseFormat3TypedDict(TypedDict):
+    type: ListPromptVersionsResponseFormatPromptsResponseType
 
 
-class ListPromptVersions13(BaseModel):
-    type: ListPromptVersions1PromptsResponseType
+class ListPromptVersionsResponseFormat3(BaseModel):
+    type: ListPromptVersionsResponseFormatPromptsResponseType
 
 
-ListPromptVersions1PromptsType = Literal["json_object",]
+ListPromptVersionsResponseFormatPromptsType = Literal["json_object",]
 
 
-class ListPromptVersions12TypedDict(TypedDict):
-    type: ListPromptVersions1PromptsType
+class ListPromptVersionsResponseFormat2TypedDict(TypedDict):
+    type: ListPromptVersionsResponseFormatPromptsType
 
 
-class ListPromptVersions12(BaseModel):
-    type: ListPromptVersions1PromptsType
+class ListPromptVersionsResponseFormat2(BaseModel):
+    type: ListPromptVersionsResponseFormatPromptsType
 
 
-ListPromptVersions1Type = Literal["json_schema",]
+ListPromptVersionsResponseFormatType = Literal["json_schema",]
 
 
-class ListPromptVersions1JSONSchemaTypedDict(TypedDict):
+class ListPromptVersionsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class ListPromptVersions1JSONSchema(BaseModel):
+class ListPromptVersionsResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -142,40 +142,26 @@ class ListPromptVersions1JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class ListPromptVersions11TypedDict(TypedDict):
-    type: ListPromptVersions1Type
-    json_schema: ListPromptVersions1JSONSchemaTypedDict
+class ListPromptVersionsResponseFormat1TypedDict(TypedDict):
+    type: ListPromptVersionsResponseFormatType
+    json_schema: ListPromptVersionsResponseFormatJSONSchemaTypedDict
 
 
-class ListPromptVersions11(BaseModel):
-    type: ListPromptVersions1Type
+class ListPromptVersionsResponseFormat1(BaseModel):
+    type: ListPromptVersionsResponseFormatType
 
-    json_schema: ListPromptVersions1JSONSchema
-
-
-ListPromptVersionsResponseFormat1TypedDict = TypeAliasType(
-    "ListPromptVersionsResponseFormat1TypedDict",
-    Union[
-        ListPromptVersions12TypedDict,
-        ListPromptVersions13TypedDict,
-        ListPromptVersions11TypedDict,
-    ],
-)
-
-
-ListPromptVersionsResponseFormat1 = TypeAliasType(
-    "ListPromptVersionsResponseFormat1",
-    Union[ListPromptVersions12, ListPromptVersions13, ListPromptVersions11],
-)
+    json_schema: ListPromptVersionsResponseFormatJSONSchema
 
 
 ListPromptVersionsResponseFormatTypedDict = TypeAliasType(
     "ListPromptVersionsResponseFormatTypedDict",
     Union[
+        ListPromptVersionsResponseFormat2TypedDict,
+        ListPromptVersionsResponseFormat3TypedDict,
         ListPromptVersionsResponseFormat1TypedDict,
-        ListPromptVersionsResponseFormat2,
-        ListPromptVersionsResponseFormat3,
         ListPromptVersionsResponseFormat4,
+        ListPromptVersionsResponseFormat5,
+        ListPromptVersionsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -191,10 +177,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 ListPromptVersionsResponseFormat = TypeAliasType(
     "ListPromptVersionsResponseFormat",
     Union[
-        ListPromptVersionsResponseFormat1,
         ListPromptVersionsResponseFormat2,
         ListPromptVersionsResponseFormat3,
+        ListPromptVersionsResponseFormat1,
         ListPromptVersionsResponseFormat4,
+        ListPromptVersionsResponseFormat5,
+        ListPromptVersionsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -653,7 +641,7 @@ class ListPromptVersionsPromptConfigTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[ListPromptVersionsProvider]
     integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
 
 
@@ -678,7 +666,7 @@ class ListPromptVersionsPromptConfig(BaseModel):
     provider: Optional[ListPromptVersionsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
 
     version: Optional[str] = None
 

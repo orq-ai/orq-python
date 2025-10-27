@@ -1,23 +1,9 @@
 # DeploymentGetConfigResponseFormat1
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentGetConfig11`
-
-```python
-value: models.DeploymentGetConfig11 = /* values here */
-```
-
-### `models.DeploymentGetConfig12`
-
-```python
-value: models.DeploymentGetConfig12 = /* values here */
-```
-
-### `models.DeploymentGetConfig13`
-
-```python
-value: models.DeploymentGetConfig13 = /* values here */
-```
-
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                   | [models.DeploymentGetConfigResponseFormatDeploymentsResponseType](../models/deploymentgetconfigresponseformatdeploymentsresponsetype.md) | :heavy_check_mark:                                                                                                                       | N/A                                                                                                                                      |
+| `json_schema`                                                                                                                            | [models.DeploymentGetConfigResponseFormatJSONSchema](../models/deploymentgetconfigresponseformatjsonschema.md)                           | :heavy_check_mark:                                                                                                                       | N/A                                                                                                                                      |

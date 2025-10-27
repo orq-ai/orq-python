@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `LLM_EVAL` | llm_eval   |

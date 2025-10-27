@@ -3,6 +3,7 @@
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `COHERE_EMBED_V4_0` | cohere/embed-v4.0   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `URL`         | url           |
+| `BASE64_JSON` | base64_json   |

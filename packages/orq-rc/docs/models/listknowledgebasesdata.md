@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.Data1`
+### `models.ListKnowledgeBasesData1`
 
 ```python
-value: models.Data1 = /* values here */
+value: models.ListKnowledgeBasesData1 = /* values here */
 ```
 
-### `models.Data2`
+### `models.ListKnowledgeBasesData2`
 
 ```python
-value: models.Data2 = /* values here */
+value: models.ListKnowledgeBasesData2 = /* values here */
 ```
 

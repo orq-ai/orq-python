@@ -196,7 +196,7 @@ class ListAgentTasksToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ListAgentTasksConditionsTypedDict]]
     mcp_server: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -217,7 +217,7 @@ class ListAgentTasksTools(BaseModel):
     conditions: Optional[List[ListAgentTasksConditions]] = None
 
     mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""

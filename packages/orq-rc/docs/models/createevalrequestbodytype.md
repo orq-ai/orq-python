@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `LLM_EVAL` | llm_eval   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `HTTP_EVAL` | http_eval   |

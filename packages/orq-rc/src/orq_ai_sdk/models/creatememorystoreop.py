@@ -58,10 +58,10 @@ Eight = Literal["openai/text-embedding-3-large",]
 Seven = Literal["azure/text-embedding-3-small",]
 
 
-Six = Literal["azure/text-embedding-ada-002",]
+Model6 = Literal["azure/text-embedding-ada-002",]
 
 
-Five = Literal["cohere/embed-v4.0",]
+Model5 = Literal["cohere/embed-v4.0",]
 
 
 Model4 = Literal["cohere/embed-english-v3.0",]
@@ -83,8 +83,8 @@ ModelTypedDict = TypeAliasType(
         Model2,
         Model3,
         Model4,
-        Five,
-        Six,
+        Model5,
+        Model6,
         Seven,
         Eight,
         Nine,
@@ -113,8 +113,8 @@ Model = TypeAliasType(
         Model2,
         Model3,
         Model4,
-        Five,
-        Six,
+        Model5,
+        Model6,
         Seven,
         Eight,
         Nine,

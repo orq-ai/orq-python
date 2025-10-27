@@ -47,7 +47,7 @@ class ListKnowledgeBasesRequest(BaseModel):
 ListKnowledgeBasesObject = Literal["list",]
 
 
-ListKnowledgeBasesDataType = Literal["external",]
+ListKnowledgeBasesDataKnowledgeType = Literal["external",]
 
 
 class DataRerankConfigTypedDict(TypedDict):
@@ -162,7 +162,7 @@ class DataExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class Data2TypedDict(TypedDict):
+class ListKnowledgeBasesData2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -185,12 +185,12 @@ class Data2TypedDict(TypedDict):
     """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
-    type: NotRequired[ListKnowledgeBasesDataType]
+    type: NotRequired[ListKnowledgeBasesDataKnowledgeType]
     retrieval_settings: NotRequired[DataRetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base."""
 
 
-class Data2(BaseModel):
+class ListKnowledgeBasesData2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -223,7 +223,7 @@ class Data2(BaseModel):
 
     updated_by_id: OptionalNullable[str] = UNSET
 
-    type: Optional[ListKnowledgeBasesDataType] = "external"
+    type: Optional[ListKnowledgeBasesDataKnowledgeType] = "external"
 
     retrieval_settings: Optional[DataRetrievalSettings] = None
     r"""The retrieval settings for the knowledge base."""
@@ -266,7 +266,7 @@ class Data2(BaseModel):
         return m
 
 
-DataType = Literal["internal",]
+ListKnowledgeBasesDataType = Literal["internal",]
 
 
 DataRetrievalType = Literal[
@@ -387,7 +387,7 @@ class ListKnowledgeBasesDataRetrievalSettings(BaseModel):
         return m
 
 
-class Data1TypedDict(TypedDict):
+class ListKnowledgeBasesData1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -411,12 +411,12 @@ class Data1TypedDict(TypedDict):
     """
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
-    type: NotRequired[DataType]
+    type: NotRequired[ListKnowledgeBasesDataType]
     retrieval_settings: NotRequired[ListKnowledgeBasesDataRetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class Data1(BaseModel):
+class ListKnowledgeBasesData1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -450,7 +450,7 @@ class Data1(BaseModel):
 
     updated_by_id: OptionalNullable[str] = UNSET
 
-    type: Optional[DataType] = "internal"
+    type: Optional[ListKnowledgeBasesDataType] = "internal"
 
     retrieval_settings: Optional[ListKnowledgeBasesDataRetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
@@ -494,11 +494,14 @@ class Data1(BaseModel):
 
 
 ListKnowledgeBasesDataTypedDict = TypeAliasType(
-    "ListKnowledgeBasesDataTypedDict", Union[Data1TypedDict, Data2TypedDict]
+    "ListKnowledgeBasesDataTypedDict",
+    Union[ListKnowledgeBasesData1TypedDict, ListKnowledgeBasesData2TypedDict],
 )
 
 
-ListKnowledgeBasesData = TypeAliasType("ListKnowledgeBasesData", Union[Data1, Data2])
+ListKnowledgeBasesData = TypeAliasType(
+    "ListKnowledgeBasesData", Union[ListKnowledgeBasesData1, ListKnowledgeBasesData2]
+)
 
 
 class ListKnowledgeBasesResponseBodyTypedDict(TypedDict):

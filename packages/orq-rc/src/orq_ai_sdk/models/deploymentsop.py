@@ -151,7 +151,7 @@ DeploymentsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-DeploymentsResponseFormat4 = Literal[
+DeploymentsResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -160,13 +160,13 @@ DeploymentsResponseFormat4 = Literal[
 ]
 
 
-DeploymentsResponseFormat3 = Literal[
+DeploymentsResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-DeploymentsResponseFormat2 = Literal[
+DeploymentsResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -176,39 +176,39 @@ DeploymentsResponseFormat2 = Literal[
 ]
 
 
-Deployments1DeploymentsType = Literal["text",]
+DeploymentsResponseFormatDeploymentsType = Literal["text",]
 
 
-class Deployments13TypedDict(TypedDict):
-    type: Deployments1DeploymentsType
+class DeploymentsResponseFormat3TypedDict(TypedDict):
+    type: DeploymentsResponseFormatDeploymentsType
 
 
-class Deployments13(BaseModel):
-    type: Deployments1DeploymentsType
+class DeploymentsResponseFormat3(BaseModel):
+    type: DeploymentsResponseFormatDeploymentsType
 
 
-Deployments1Type = Literal["json_object",]
+DeploymentsResponseFormatType = Literal["json_object",]
 
 
-class Deployments12TypedDict(TypedDict):
-    type: Deployments1Type
+class DeploymentsResponseFormat2TypedDict(TypedDict):
+    type: DeploymentsResponseFormatType
 
 
-class Deployments12(BaseModel):
-    type: Deployments1Type
+class DeploymentsResponseFormat2(BaseModel):
+    type: DeploymentsResponseFormatType
 
 
-Deployments1DeploymentsResponseType = Literal["json_schema",]
+DeploymentsResponseFormatDeploymentsResponseType = Literal["json_schema",]
 
 
-class Deployments1JSONSchemaTypedDict(TypedDict):
+class DeploymentsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class Deployments1JSONSchema(BaseModel):
+class DeploymentsResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -218,35 +218,26 @@ class Deployments1JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class Deployments11TypedDict(TypedDict):
-    type: Deployments1DeploymentsResponseType
-    json_schema: Deployments1JSONSchemaTypedDict
+class DeploymentsResponseFormat1TypedDict(TypedDict):
+    type: DeploymentsResponseFormatDeploymentsResponseType
+    json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
 
 
-class Deployments11(BaseModel):
-    type: Deployments1DeploymentsResponseType
+class DeploymentsResponseFormat1(BaseModel):
+    type: DeploymentsResponseFormatDeploymentsResponseType
 
-    json_schema: Deployments1JSONSchema
-
-
-DeploymentsResponseFormat1TypedDict = TypeAliasType(
-    "DeploymentsResponseFormat1TypedDict",
-    Union[Deployments12TypedDict, Deployments13TypedDict, Deployments11TypedDict],
-)
-
-
-DeploymentsResponseFormat1 = TypeAliasType(
-    "DeploymentsResponseFormat1", Union[Deployments12, Deployments13, Deployments11]
-)
+    json_schema: DeploymentsResponseFormatJSONSchema
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(
     "DeploymentsResponseFormatTypedDict",
     Union[
+        DeploymentsResponseFormat2TypedDict,
+        DeploymentsResponseFormat3TypedDict,
         DeploymentsResponseFormat1TypedDict,
-        DeploymentsResponseFormat2,
-        DeploymentsResponseFormat3,
         DeploymentsResponseFormat4,
+        DeploymentsResponseFormat5,
+        DeploymentsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -262,10 +253,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentsResponseFormat = TypeAliasType(
     "DeploymentsResponseFormat",
     Union[
-        DeploymentsResponseFormat1,
         DeploymentsResponseFormat2,
         DeploymentsResponseFormat3,
+        DeploymentsResponseFormat1,
         DeploymentsResponseFormat4,
+        DeploymentsResponseFormat5,
+        DeploymentsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -527,7 +520,7 @@ DeploymentsRole = Literal[
 r"""The role of the prompt message"""
 
 
-Deployments2DeploymentsType = Literal["file",]
+Deployments2DeploymentsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -557,19 +550,19 @@ class Deployments2File(BaseModel):
 
 
 class Deployments2Deployments3TypedDict(TypedDict):
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
     file: Deployments2FileTypedDict
 
 
 class Deployments2Deployments3(BaseModel):
-    type: Deployments2DeploymentsType
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
 
     file: Deployments2File
 
 
-Deployments2DeploymentsResponse200Type = Literal["image_url",]
+Deployments2DeploymentsType = Literal["image_url",]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -595,32 +588,32 @@ class Deployments2ImageURL(BaseModel):
 class Deployments2Deployments2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponse200Type
+    type: Deployments2DeploymentsType
     image_url: Deployments2ImageURLTypedDict
 
 
 class Deployments2Deployments2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponse200Type
+    type: Deployments2DeploymentsType
 
     image_url: Deployments2ImageURL
 
 
-Deployments2DeploymentsResponseType = Literal["text",]
+Deployments2DeploymentsResponse200Type = Literal["text",]
 
 
 class Deployments2Deployments1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsResponse200Type
     text: str
 
 
 class Deployments2Deployments1(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2DeploymentsResponse200Type
 
     text: str
 

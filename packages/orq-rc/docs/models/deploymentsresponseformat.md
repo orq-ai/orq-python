@@ -35,3 +35,15 @@ value: models.DeploymentsResponseFormat3 = /* values here */
 value: models.DeploymentsResponseFormat4 = /* values here */
 ```
 
+### `models.DeploymentsResponseFormat5`
+
+```python
+value: models.DeploymentsResponseFormat5 = /* values here */
+```
+
+### `models.DeploymentsResponseFormat6`
+
+```python
+value: models.DeploymentsResponseFormat6 = /* values here */
+```
+

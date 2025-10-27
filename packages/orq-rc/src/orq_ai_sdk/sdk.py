@@ -40,35 +40,35 @@ class Orq(BaseSDK):
 
     contacts: "Contacts"
     feedback: "Feedback"
+    evals: "Evals"
     deployments: "DeploymentsSDK"
     agents: "Agents"
     files: "Files"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
     models: "Models"
-    memory_stores: "MemoryStores"
-    datasets: "Datasets"
+    tools: "Tools"
+    budgets: "Budgets"
     knowledge: "Knowledge"
     chunking: "Chunking"
-    evals: "Evals"
-    budgets: "Budgets"
-    tools: "Tools"
+    memory_stores: "MemoryStores"
+    datasets: "Datasets"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
+        "evals": ("orq_ai_sdk.evals", "Evals"),
         "deployments": ("orq_ai_sdk.deployments_sdk", "DeploymentsSDK"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "models": ("orq_ai_sdk.models_", "Models"),
-        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
-        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "tools": ("orq_ai_sdk.tools", "Tools"),
+        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
-        "evals": ("orq_ai_sdk.evals", "Evals"),
-        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
-        "tools": ("orq_ai_sdk.tools", "Tools"),
+        "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
+        "datasets": ("orq_ai_sdk.datasets", "Datasets"),
     }
 
     def __init__(

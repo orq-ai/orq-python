@@ -5,4 +5,4 @@
 
 | Name       | Value      |
 | ---------- | ---------- |
-| `INTERNAL` | internal   |
+| `LLM_EVAL` | llm_eval   |

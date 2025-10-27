@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `JSON_SCHEMA` | json_schema   |

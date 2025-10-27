@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteDatasetRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
 
 
 class DeleteDatasetRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""

@@ -375,6 +375,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentStream2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -386,6 +388,8 @@ class DeploymentStream2FileTypedDict(TypedDict):
 
 
 class DeploymentStream2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -403,6 +407,7 @@ class DeploymentStream24TypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: DeploymentStream2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentStream24(BaseModel):
@@ -410,6 +415,7 @@ class DeploymentStream24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentStream2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentStream2DeploymentsRequestType = Literal["input_audio",]
@@ -969,6 +975,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentStream2DeploymentsFileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -980,6 +988,8 @@ class DeploymentStream2DeploymentsFileTypedDict(TypedDict):
 
 
 class DeploymentStream2DeploymentsFile(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -997,6 +1007,7 @@ class DeploymentStream2Deployments4TypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Content4Type
     r"""The type of the content part. Always `file`."""
     file: DeploymentStream2DeploymentsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentStream2Deployments4(BaseModel):
@@ -1004,6 +1015,7 @@ class DeploymentStream2Deployments4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentStream2DeploymentsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentStream2DeploymentsRequestRequestBodyMessages3ContentType = Literal[

@@ -195,18 +195,19 @@ UpdateEvalRequestBodyEvalsRequestOutputType = Literal[
     "number",
     "string",
 ]
+r"""The type of output expected from the evaluator"""
 
 
 UpdateEvalRequestBodyEvalsRequestType = Literal["http_eval",]
 
 
-UpdateEvalRequestBodyMethod = Literal[
+RequestBodyMethod = Literal[
     "GET",
     "POST",
 ]
 
 
-class UpdateEvalRequestBodyHTTPTypedDict(TypedDict):
+class RequestBodyHTTPTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsRequestType
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -219,15 +220,16 @@ class UpdateEvalRequestBodyHTTPTypedDict(TypedDict):
         UpdateEvalRequestBodyEvalsRequestGuardrailConfigTypedDict
     ]
     output_type: NotRequired[UpdateEvalRequestBodyEvalsRequestOutputType]
+    r"""The type of output expected from the evaluator"""
     url: NotRequired[str]
-    method: NotRequired[UpdateEvalRequestBodyMethod]
+    method: NotRequired[RequestBodyMethod]
     headers: NotRequired[Dict[str, str]]
     payload: NotRequired[Dict[str, Any]]
     description: NotRequired[str]
     key: NotRequired[str]
 
 
-class UpdateEvalRequestBodyHTTP(BaseModel):
+class RequestBodyHTTP(BaseModel):
     type: UpdateEvalRequestBodyEvalsRequestType
 
     path: str
@@ -241,10 +243,11 @@ class UpdateEvalRequestBodyHTTP(BaseModel):
     guardrail_config: Optional[UpdateEvalRequestBodyEvalsRequestGuardrailConfig] = None
 
     output_type: Optional[UpdateEvalRequestBodyEvalsRequestOutputType] = None
+    r"""The type of output expected from the evaluator"""
 
     url: Optional[str] = None
 
-    method: Optional[UpdateEvalRequestBodyMethod] = None
+    method: Optional[RequestBodyMethod] = None
 
     headers: Optional[Dict[str, str]] = None
 
@@ -428,6 +431,7 @@ UpdateEvalRequestBodyOutputType = Literal[
     "number",
     "string",
 ]
+r"""The type of output expected from the evaluator"""
 
 
 UpdateEvalRequestBodyType = Literal["llm_eval",]
@@ -444,6 +448,7 @@ class RequestBodyLLMTypedDict(TypedDict):
     """
     guardrail_config: NotRequired[UpdateEvalRequestBodyGuardrailConfigTypedDict]
     output_type: NotRequired[UpdateEvalRequestBodyOutputType]
+    r"""The type of output expected from the evaluator"""
     prompt: NotRequired[str]
     description: NotRequired[str]
     model: NotRequired[str]
@@ -464,6 +469,7 @@ class RequestBodyLLM(BaseModel):
     guardrail_config: Optional[UpdateEvalRequestBodyGuardrailConfig] = None
 
     output_type: Optional[UpdateEvalRequestBodyOutputType] = None
+    r"""The type of output expected from the evaluator"""
 
     prompt: Optional[str] = None
 
@@ -480,16 +486,14 @@ UpdateEvalRequestBodyTypedDict = TypeAliasType(
         RequestBodyJSONTypedDict,
         RequestBodyPythonTypedDict,
         RequestBodyLLMTypedDict,
-        UpdateEvalRequestBodyHTTPTypedDict,
+        RequestBodyHTTPTypedDict,
     ],
 )
 
 
 UpdateEvalRequestBody = TypeAliasType(
     "UpdateEvalRequestBody",
-    Union[
-        RequestBodyJSON, RequestBodyPython, RequestBodyLLM, UpdateEvalRequestBodyHTTP
-    ],
+    Union[RequestBodyJSON, RequestBodyPython, RequestBodyLLM, RequestBodyHTTP],
 )
 
 
@@ -639,9 +643,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -775,9 +779,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1035,11 +1039,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams23TypedDict(TypedDict):
+class FunctionParams23TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
-class UpdateEvalFunctionParams23(BaseModel):
+class FunctionParams23(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Type
 
 
@@ -1048,11 +1052,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams22TypedDict(TypedDict):
+class FunctionParams22TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type
 
 
-class UpdateEvalFunctionParams22(BaseModel):
+class FunctionParams22(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody522Type
 
 
@@ -1061,11 +1065,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams21TypedDict(TypedDict):
+class FunctionParams21TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type
 
 
-class UpdateEvalFunctionParams21(BaseModel):
+class FunctionParams21(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody521Type
 
 
@@ -1074,11 +1078,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams20TypedDict(TypedDict):
+class FunctionParams20TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type
 
 
-class UpdateEvalFunctionParams20(BaseModel):
+class FunctionParams20(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody520Type
 
 
@@ -1087,11 +1091,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams19TypedDict(TypedDict):
+class FunctionParams19TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type
 
 
-class UpdateEvalFunctionParams19(BaseModel):
+class FunctionParams19(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody519Type
 
 
@@ -1100,11 +1104,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams18TypedDict(TypedDict):
+class FunctionParams18TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type
 
 
-class UpdateEvalFunctionParams18(BaseModel):
+class FunctionParams18(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Type
 
 
@@ -1113,11 +1117,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams17TypedDict(TypedDict):
+class FunctionParams17TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type
 
 
-class UpdateEvalFunctionParams17(BaseModel):
+class FunctionParams17(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Type
 
 
@@ -1126,11 +1130,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams16TypedDict(TypedDict):
+class FunctionParams16TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type
 
 
-class UpdateEvalFunctionParams16(BaseModel):
+class FunctionParams16(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody516Type
 
 
@@ -1139,12 +1143,12 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams15TypedDict(TypedDict):
+class FunctionParams15TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type
     pattern: str
 
 
-class UpdateEvalFunctionParams15(BaseModel):
+class FunctionParams15(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody515Type
 
     pattern: str
@@ -1155,11 +1159,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams14TypedDict(TypedDict):
+class FunctionParams14TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type
 
 
-class UpdateEvalFunctionParams14(BaseModel):
+class FunctionParams14(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Type
 
 
@@ -1168,12 +1172,12 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams13TypedDict(TypedDict):
+class FunctionParams13TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type
     value: float
 
 
-class UpdateEvalFunctionParams13(BaseModel):
+class FunctionParams13(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody513Type
 
     value: float
@@ -1184,13 +1188,13 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams12TypedDict(TypedDict):
+class FunctionParams12TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type
     min: float
     max: float
 
 
-class UpdateEvalFunctionParams12(BaseModel):
+class FunctionParams12(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Type
 
     min: float
@@ -1203,12 +1207,12 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams11TypedDict(TypedDict):
+class FunctionParams11TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type
     value: float
 
 
-class UpdateEvalFunctionParams11(BaseModel):
+class FunctionParams11(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody511Type
 
     value: float
@@ -1219,11 +1223,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type = Lit
 ]
 
 
-class UpdateEvalFunctionParams10TypedDict(TypedDict):
+class FunctionParams10TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type
 
 
-class UpdateEvalFunctionParams10(BaseModel):
+class FunctionParams10(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Type
 
 
@@ -1232,12 +1236,12 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type = Lite
 ]
 
 
-class UpdateEvalFunctionParams9TypedDict(TypedDict):
+class FunctionParams9TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type
     value: str
 
 
-class UpdateEvalFunctionParams9(BaseModel):
+class FunctionParams9(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody59Type
 
     value: str
@@ -1248,12 +1252,12 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody58Type = Lite
 ]
 
 
-class UpdateEvalFunctionParams8TypedDict(TypedDict):
+class FunctionParams8TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody58Type
     value: str
 
 
-class UpdateEvalFunctionParams8(BaseModel):
+class FunctionParams8(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody58Type
 
     value: str
@@ -1264,11 +1268,11 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type = Liter
 ]
 
 
-class UpdateEvalFunctionParams7TypedDict(TypedDict):
+class FunctionParams7TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type
 
 
-class UpdateEvalFunctionParams7(BaseModel):
+class FunctionParams7(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody5Type
 
 
@@ -1277,34 +1281,34 @@ UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType = Litera
 ]
 
 
-class UpdateEvalFunctionParams6TypedDict(TypedDict):
+class FunctionParams6TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType
 
 
-class UpdateEvalFunctionParams6(BaseModel):
+class FunctionParams6(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBodyType
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONType = Literal["contains_email",]
 
 
-class UpdateEvalFunctionParams5TypedDict(TypedDict):
+class FunctionParams5TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
-class UpdateEvalFunctionParams5(BaseModel):
+class FunctionParams5(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONType
 
 
 UpdateEvalFunctionParamsEvalsResponse200Type = Literal["contains_any",]
 
 
-class UpdateEvalFunctionParams4TypedDict(TypedDict):
+class FunctionParams4TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200Type
     keywords: List[str]
 
 
-class UpdateEvalFunctionParams4(BaseModel):
+class FunctionParams4(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200Type
 
     keywords: List[str]
@@ -1313,12 +1317,12 @@ class UpdateEvalFunctionParams4(BaseModel):
 UpdateEvalFunctionParamsEvalsResponseType = Literal["contains_all",]
 
 
-class UpdateEvalFunctionParams3TypedDict(TypedDict):
+class FunctionParams3TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponseType
     keywords: List[str]
 
 
-class UpdateEvalFunctionParams3(BaseModel):
+class FunctionParams3(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponseType
 
     keywords: List[str]
@@ -1327,12 +1331,12 @@ class UpdateEvalFunctionParams3(BaseModel):
 UpdateEvalFunctionParamsEvalsType = Literal["contains_none",]
 
 
-class UpdateEvalFunctionParams2TypedDict(TypedDict):
+class FunctionParams2TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsType
     keywords: List[str]
 
 
-class UpdateEvalFunctionParams2(BaseModel):
+class FunctionParams2(BaseModel):
     type: UpdateEvalFunctionParamsEvalsType
 
     keywords: List[str]
@@ -1341,12 +1345,12 @@ class UpdateEvalFunctionParams2(BaseModel):
 UpdateEvalFunctionParamsType = Literal["contains",]
 
 
-class UpdateEvalFunctionParams1TypedDict(TypedDict):
+class FunctionParams1TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsType
     value: str
 
 
-class UpdateEvalFunctionParams1(BaseModel):
+class FunctionParams1(BaseModel):
     type: UpdateEvalFunctionParamsType
 
     value: str
@@ -1359,37 +1363,37 @@ ResponseBodyFunctionParamsTypedDict = TypeAliasType(
         FunctionParams31TypedDict,
         FunctionParams34TypedDict,
         FunctionParams33TypedDict,
-        UpdateEvalFunctionParams5TypedDict,
-        UpdateEvalFunctionParams6TypedDict,
-        UpdateEvalFunctionParams7TypedDict,
+        FunctionParams5TypedDict,
+        FunctionParams6TypedDict,
+        FunctionParams7TypedDict,
         FunctionParams28TypedDict,
         FunctionParams29TypedDict,
-        UpdateEvalFunctionParams10TypedDict,
+        FunctionParams10TypedDict,
         FunctionParams35TypedDict,
         FunctionParams24TypedDict,
         FunctionParams32TypedDict,
-        UpdateEvalFunctionParams14TypedDict,
+        FunctionParams14TypedDict,
         FunctionParams27TypedDict,
-        UpdateEvalFunctionParams16TypedDict,
-        UpdateEvalFunctionParams17TypedDict,
-        UpdateEvalFunctionParams18TypedDict,
-        UpdateEvalFunctionParams19TypedDict,
-        UpdateEvalFunctionParams20TypedDict,
-        UpdateEvalFunctionParams21TypedDict,
-        UpdateEvalFunctionParams22TypedDict,
-        UpdateEvalFunctionParams23TypedDict,
-        UpdateEvalFunctionParams9TypedDict,
+        FunctionParams16TypedDict,
+        FunctionParams17TypedDict,
+        FunctionParams18TypedDict,
+        FunctionParams19TypedDict,
+        FunctionParams20TypedDict,
+        FunctionParams21TypedDict,
+        FunctionParams22TypedDict,
+        FunctionParams23TypedDict,
+        FunctionParams9TypedDict,
         FunctionParams25TypedDict,
         FunctionParams26TypedDict,
-        UpdateEvalFunctionParams15TypedDict,
-        UpdateEvalFunctionParams13TypedDict,
-        UpdateEvalFunctionParams11TypedDict,
-        UpdateEvalFunctionParams1TypedDict,
-        UpdateEvalFunctionParams8TypedDict,
-        UpdateEvalFunctionParams4TypedDict,
-        UpdateEvalFunctionParams3TypedDict,
-        UpdateEvalFunctionParams2TypedDict,
-        UpdateEvalFunctionParams12TypedDict,
+        FunctionParams15TypedDict,
+        FunctionParams13TypedDict,
+        FunctionParams11TypedDict,
+        FunctionParams1TypedDict,
+        FunctionParams8TypedDict,
+        FunctionParams4TypedDict,
+        FunctionParams3TypedDict,
+        FunctionParams2TypedDict,
+        FunctionParams12TypedDict,
     ],
 )
 
@@ -1401,42 +1405,42 @@ ResponseBodyFunctionParams = TypeAliasType(
         FunctionParams31,
         FunctionParams34,
         FunctionParams33,
-        UpdateEvalFunctionParams5,
-        UpdateEvalFunctionParams6,
-        UpdateEvalFunctionParams7,
+        FunctionParams5,
+        FunctionParams6,
+        FunctionParams7,
         FunctionParams28,
         FunctionParams29,
-        UpdateEvalFunctionParams10,
+        FunctionParams10,
         FunctionParams35,
         FunctionParams24,
         FunctionParams32,
-        UpdateEvalFunctionParams14,
+        FunctionParams14,
         FunctionParams27,
-        UpdateEvalFunctionParams16,
-        UpdateEvalFunctionParams17,
-        UpdateEvalFunctionParams18,
-        UpdateEvalFunctionParams19,
-        UpdateEvalFunctionParams20,
-        UpdateEvalFunctionParams21,
-        UpdateEvalFunctionParams22,
-        UpdateEvalFunctionParams23,
-        UpdateEvalFunctionParams9,
+        FunctionParams16,
+        FunctionParams17,
+        FunctionParams18,
+        FunctionParams19,
+        FunctionParams20,
+        FunctionParams21,
+        FunctionParams22,
+        FunctionParams23,
+        FunctionParams9,
         FunctionParams25,
         FunctionParams26,
-        UpdateEvalFunctionParams15,
-        UpdateEvalFunctionParams13,
-        UpdateEvalFunctionParams11,
-        UpdateEvalFunctionParams1,
-        UpdateEvalFunctionParams8,
-        UpdateEvalFunctionParams4,
-        UpdateEvalFunctionParams3,
-        UpdateEvalFunctionParams2,
-        UpdateEvalFunctionParams12,
+        FunctionParams15,
+        FunctionParams13,
+        FunctionParams11,
+        FunctionParams1,
+        FunctionParams8,
+        FunctionParams4,
+        FunctionParams3,
+        FunctionParams2,
+        FunctionParams12,
     ],
 )
 
 
-class UpdateEvalResponseBodyFunctionTypedDict(TypedDict):
+class ResponseBodyFunctionTypedDict(TypedDict):
     id: str
     description: str
     type: UpdateEvalResponseBodyEvalsResponse200ApplicationJSONType
@@ -1449,7 +1453,7 @@ class UpdateEvalResponseBodyFunctionTypedDict(TypedDict):
     ]
 
 
-class UpdateEvalResponseBodyFunction(BaseModel):
+class ResponseBodyFunction(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     description: str
@@ -1460,9 +1464,9 @@ class UpdateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1577,9 +1581,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1701,9 +1705,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1802,9 +1806,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1902,9 +1906,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-10-25T11:11:23.488Z"
+    created: Optional[str] = "2025-10-27T05:23:37.413Z"
 
-    updated: Optional[str] = "2025-10-25T11:11:23.488Z"
+    updated: Optional[str] = "2025-10-27T05:23:37.413Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
@@ -1914,7 +1918,7 @@ UpdateEvalResponseBodyTypedDict = TypeAliasType(
     Union[
         UpdateEvalResponseBodyJSONTypedDict,
         UpdateEvalResponseBodyPythonTypedDict,
-        UpdateEvalResponseBodyFunctionTypedDict,
+        ResponseBodyFunctionTypedDict,
         ResponseBodyTypescriptTypedDict,
         UpdateEvalResponseBodyLLMTypedDict,
         ResponseBodyRagasTypedDict,
@@ -1929,7 +1933,7 @@ UpdateEvalResponseBody = TypeAliasType(
     Union[
         UpdateEvalResponseBodyJSON,
         UpdateEvalResponseBodyPython,
-        UpdateEvalResponseBodyFunction,
+        ResponseBodyFunction,
         ResponseBodyTypescript,
         UpdateEvalResponseBodyLLM,
         ResponseBodyRagas,

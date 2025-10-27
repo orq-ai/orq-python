@@ -11,12 +11,14 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class RetrieveDatasetRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
 
 
 class RetrieveDatasetRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
 
 class RetrieveDatasetMetadataTypedDict(TypedDict):
@@ -78,5 +80,5 @@ class RetrieveDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""

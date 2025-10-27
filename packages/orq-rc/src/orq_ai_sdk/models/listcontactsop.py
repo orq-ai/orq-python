@@ -38,6 +38,7 @@ class ListContactsRequestTypedDict(TypedDict):
     filter_by: NotRequired[QueryParamFilterByTypedDict]
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
     include_metrics: NotRequired[Nullable[bool]]
+    r"""Include usage metrics of the last 30 days for each contact."""
 
 
 class ListContactsRequest(BaseModel):
@@ -69,6 +70,7 @@ class ListContactsRequest(BaseModel):
         OptionalNullable[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = False
+    r"""Include usage metrics of the last 30 days for each contact."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -184,7 +186,7 @@ class Data(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

@@ -59,10 +59,10 @@ Model8 = Literal["openai/text-embedding-3-large",]
 Model7 = Literal["azure/text-embedding-3-small",]
 
 
-Model6 = Literal["azure/text-embedding-ada-002",]
+UpdateMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
 
 
-Model5 = Literal["cohere/embed-v4.0",]
+UpdateMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
 
 
 UpdateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
@@ -84,8 +84,8 @@ UpdateMemoryStoreModelTypedDict = TypeAliasType(
         UpdateMemoryStoreModel2,
         UpdateMemoryStoreModel3,
         UpdateMemoryStoreModel4,
-        Model5,
-        Model6,
+        UpdateMemoryStoreModel5,
+        UpdateMemoryStoreModel6,
         Model7,
         Model8,
         Model9,
@@ -114,8 +114,8 @@ UpdateMemoryStoreModel = TypeAliasType(
         UpdateMemoryStoreModel2,
         UpdateMemoryStoreModel3,
         UpdateMemoryStoreModel4,
-        Model5,
-        Model6,
+        UpdateMemoryStoreModel5,
+        UpdateMemoryStoreModel6,
         Model7,
         Model8,
         Model9,

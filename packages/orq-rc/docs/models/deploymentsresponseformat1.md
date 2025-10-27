@@ -1,23 +1,9 @@
 # DeploymentsResponseFormat1
 
 
-## Supported Types
+## Fields
 
-### `models.Deployments11`
-
-```python
-value: models.Deployments11 = /* values here */
-```
-
-### `models.Deployments12`
-
-```python
-value: models.Deployments12 = /* values here */
-```
-
-### `models.Deployments13`
-
-```python
-value: models.Deployments13 = /* values here */
-```
-
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                   | [models.DeploymentsResponseFormatDeploymentsResponseType](../models/deploymentsresponseformatdeploymentsresponsetype.md) | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |
+| `json_schema`                                                                                                            | [models.DeploymentsResponseFormatJSONSchema](../models/deploymentsresponseformatjsonschema.md)                           | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |

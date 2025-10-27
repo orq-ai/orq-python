@@ -8,9 +8,11 @@ from typing_extensions import Annotated, TypedDict
 
 class DeleteBudgetRequestTypedDict(TypedDict):
     id: str
+    r"""Budget ID"""
 
 
 class DeleteBudgetRequest(BaseModel):
     id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""Budget ID"""

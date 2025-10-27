@@ -18,17 +18,21 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class RetrieveDatapointRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     datapoint_id: str
+    r"""The unique identifier of the datapoint"""
 
 
 class RetrieveDatapointRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     datapoint_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the datapoint"""
 
 
 RetrieveDatapointMessagesDatasetsResponse200ApplicationJSONRole = Literal["tool",]
@@ -373,6 +377,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class RetrieveDatapoint2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -384,6 +390,8 @@ class RetrieveDatapoint2FileTypedDict(TypedDict):
 
 
 class RetrieveDatapoint2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -401,6 +409,7 @@ class RetrieveDatapoint24TypedDict(TypedDict):
     type: RetrieveDatapoint2DatasetsResponse200Type
     r"""The type of the content part. Always `file`."""
     file: RetrieveDatapoint2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class RetrieveDatapoint24(BaseModel):
@@ -408,6 +417,7 @@ class RetrieveDatapoint24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: RetrieveDatapoint2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 RetrieveDatapoint2DatasetsResponseType = Literal["input_audio",]
@@ -672,7 +682,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.578Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.768Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -724,7 +734,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.577Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.768Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -776,7 +786,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.577Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.767Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -863,5 +873,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""

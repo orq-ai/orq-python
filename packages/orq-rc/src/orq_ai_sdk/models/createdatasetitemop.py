@@ -361,6 +361,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2FileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -372,6 +374,8 @@ class CreateDatasetItem2FileTypedDict(TypedDict):
 
 
 class CreateDatasetItem2File(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -389,6 +393,7 @@ class CreateDatasetItem24TypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: CreateDatasetItem2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class CreateDatasetItem24(BaseModel):
@@ -396,6 +401,7 @@ class CreateDatasetItem24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: CreateDatasetItem2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 CreateDatasetItem2DatasetsRequestType = Literal["input_audio",]
@@ -612,7 +618,7 @@ CreateDatasetItemMessages = TypeAliasType(
 )
 
 
-class RequestBodyTypedDict(TypedDict):
+class CreateDatasetItemRequestBodyTypedDict(TypedDict):
     inputs: NotRequired[Dict[str, Any]]
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
     messages: NotRequired[List[CreateDatasetItemMessagesTypedDict]]
@@ -620,7 +626,7 @@ class RequestBodyTypedDict(TypedDict):
     expected_output: NotRequired[str]
 
 
-class RequestBody(BaseModel):
+class CreateDatasetItemRequestBody(BaseModel):
     inputs: Optional[Dict[str, Any]] = None
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
 
@@ -632,16 +638,18 @@ class RequestBody(BaseModel):
 
 class CreateDatasetItemRequestTypedDict(TypedDict):
     dataset_id: str
-    request_body: NotRequired[List[RequestBodyTypedDict]]
+    r"""The unique identifier of the dataset"""
+    request_body: NotRequired[List[CreateDatasetItemRequestBodyTypedDict]]
 
 
 class CreateDatasetItemRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     request_body: Annotated[
-        Optional[List[RequestBody]],
+        Optional[List[CreateDatasetItemRequestBody]],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 
@@ -1006,6 +1014,8 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2DatasetsFileTypedDict(TypedDict):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -1017,6 +1027,8 @@ class CreateDatasetItem2DatasetsFileTypedDict(TypedDict):
 
 
 class CreateDatasetItem2DatasetsFile(BaseModel):
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -1034,6 +1046,7 @@ class CreateDatasetItem2Datasets4TypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: CreateDatasetItem2DatasetsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class CreateDatasetItem2Datasets4(BaseModel):
@@ -1041,6 +1054,7 @@ class CreateDatasetItem2Datasets4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: CreateDatasetItem2DatasetsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 CreateDatasetItem2DatasetsResponse200ApplicationJSONType = Literal["input_audio",]
@@ -1306,7 +1320,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.579Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.775Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1358,7 +1372,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.579Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.774Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1410,7 +1424,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-10-25T11:11:30.579Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-27T05:23:46.774Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1425,7 +1439,7 @@ Evaluations = TypeAliasType(
 )
 
 
-class ResponseBodyTypedDict(TypedDict):
+class CreateDatasetItemResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
     workspace_id: str
@@ -1451,7 +1465,7 @@ class ResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class ResponseBody(BaseModel):
+class CreateDatasetItemResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the dataset item"""
 
@@ -1484,5 +1498,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-25T11:11:21.225Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-27T05:23:34.900Z")
     r"""The date and time the resource was last updated"""
