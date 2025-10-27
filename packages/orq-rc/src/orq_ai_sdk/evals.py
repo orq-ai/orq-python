@@ -3,48 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createevalop as models_createevalop,
-    evalsageappropriateop as models_evalsageappropriateop,
-    evalsbertscoreop as models_evalsbertscoreop,
-    evalsbleuscoreop as models_evalsbleuscoreop,
-    evalsbotdetectionop as models_evalsbotdetectionop,
-    evalscontainsallop as models_evalscontainsallop,
-    evalscontainsanyop as models_evalscontainsanyop,
-    evalscontainsemailop as models_evalscontainsemailop,
-    evalscontainsnoneop as models_evalscontainsnoneop,
-    evalscontainsop as models_evalscontainsop,
-    evalscontainsurlop as models_evalscontainsurlop,
-    evalscontainsvalidlinkop as models_evalscontainsvalidlinkop,
-    evalsendswithop as models_evalsendswithop,
-    evalsexactmatchop as models_evalsexactmatchop,
-    evalsfactcheckingknowledgebaseop as models_evalsfactcheckingknowledgebaseop,
-    evalsgrammarop as models_evalsgrammarop,
-    evalslengthbetweenop as models_evalslengthbetweenop,
-    evalslengthgreaterthanop as models_evalslengthgreaterthanop,
-    evalslengthlessthanop as models_evalslengthlessthanop,
-    evalslocalizationop as models_evalslocalizationop,
-    evalspiiop as models_evalspiiop,
-    evalsragascoherenceop as models_evalsragascoherenceop,
-    evalsragasconcisenessop as models_evalsragasconcisenessop,
-    evalsragascontextentitiesrecallop as models_evalsragascontextentitiesrecallop,
-    evalsragascontextprecisionop as models_evalsragascontextprecisionop,
-    evalsragascontextrecallop as models_evalsragascontextrecallop,
-    evalsragascorrectnessop as models_evalsragascorrectnessop,
-    evalsragasfaithfulnessop as models_evalsragasfaithfulnessop,
-    evalsragasharmfulnessop as models_evalsragasharmfulnessop,
-    evalsragasmaliciousnessop as models_evalsragasmaliciousnessop,
-    evalsragasnoisesensitivityop as models_evalsragasnoisesensitivityop,
-    evalsragasresponserelevancyop as models_evalsragasresponserelevancyop,
-    evalsragassummarizationop as models_evalsragassummarizationop,
-    evalssentimentclassificationop as models_evalssentimentclassificationop,
-    evalssummarizationop as models_evalssummarizationop,
-    evalstoneofvoiceop as models_evalstoneofvoiceop,
-    evalstranslationop as models_evalstranslationop,
-    evalsvalidjsonop as models_evalsvalidjsonop,
-    invokeevalop as models_invokeevalop,
-    updateevalop as models_updateevalop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -252,10 +210,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createevalop.CreateEvalRequestBody,
-                models_createevalop.CreateEvalRequestBodyTypedDict,
-            ]
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -352,10 +307,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createevalop.CreateEvalRequestBody,
-                models_createevalop.CreateEvalRequestBodyTypedDict,
-            ]
+            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -453,10 +405,7 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[
-                models_updateevalop.UpdateEvalRequestBody,
-                models_updateevalop.UpdateEvalRequestBodyTypedDict,
-            ]
+            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -562,10 +511,7 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[
-                models_updateevalop.UpdateEvalRequestBody,
-                models_updateevalop.UpdateEvalRequestBodyTypedDict,
-            ]
+            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -851,8 +797,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbertscoreop.EvalsBertScoreRequestBody,
-                models_evalsbertscoreop.EvalsBertScoreRequestBodyTypedDict,
+                models.EvalsBertScoreRequestBody,
+                models.EvalsBertScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -960,8 +906,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbertscoreop.EvalsBertScoreRequestBody,
-                models_evalsbertscoreop.EvalsBertScoreRequestBodyTypedDict,
+                models.EvalsBertScoreRequestBody,
+                models.EvalsBertScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1069,8 +1015,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbleuscoreop.EvalsBleuScoreRequestBody,
-                models_evalsbleuscoreop.EvalsBleuScoreRequestBodyTypedDict,
+                models.EvalsBleuScoreRequestBody,
+                models.EvalsBleuScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1178,8 +1124,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbleuscoreop.EvalsBleuScoreRequestBody,
-                models_evalsbleuscoreop.EvalsBleuScoreRequestBodyTypedDict,
+                models.EvalsBleuScoreRequestBody,
+                models.EvalsBleuScoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1287,8 +1233,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsallop.EvalsContainsAllRequestBody,
-                models_evalscontainsallop.EvalsContainsAllRequestBodyTypedDict,
+                models.EvalsContainsAllRequestBody,
+                models.EvalsContainsAllRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1400,8 +1346,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsallop.EvalsContainsAllRequestBody,
-                models_evalscontainsallop.EvalsContainsAllRequestBodyTypedDict,
+                models.EvalsContainsAllRequestBody,
+                models.EvalsContainsAllRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1513,8 +1459,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsanyop.EvalsContainsAnyRequestBody,
-                models_evalscontainsanyop.EvalsContainsAnyRequestBodyTypedDict,
+                models.EvalsContainsAnyRequestBody,
+                models.EvalsContainsAnyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1626,8 +1572,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsanyop.EvalsContainsAnyRequestBody,
-                models_evalscontainsanyop.EvalsContainsAnyRequestBodyTypedDict,
+                models.EvalsContainsAnyRequestBody,
+                models.EvalsContainsAnyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1739,8 +1685,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsemailop.EvalsContainsEmailRequestBody,
-                models_evalscontainsemailop.EvalsContainsEmailRequestBodyTypedDict,
+                models.EvalsContainsEmailRequestBody,
+                models.EvalsContainsEmailRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1852,8 +1798,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsemailop.EvalsContainsEmailRequestBody,
-                models_evalscontainsemailop.EvalsContainsEmailRequestBodyTypedDict,
+                models.EvalsContainsEmailRequestBody,
+                models.EvalsContainsEmailRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1965,8 +1911,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsnoneop.EvalsContainsNoneRequestBody,
-                models_evalscontainsnoneop.EvalsContainsNoneRequestBodyTypedDict,
+                models.EvalsContainsNoneRequestBody,
+                models.EvalsContainsNoneRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2078,8 +2024,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsnoneop.EvalsContainsNoneRequestBody,
-                models_evalscontainsnoneop.EvalsContainsNoneRequestBodyTypedDict,
+                models.EvalsContainsNoneRequestBody,
+                models.EvalsContainsNoneRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2191,8 +2137,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsurlop.EvalsContainsURLRequestBody,
-                models_evalscontainsurlop.EvalsContainsURLRequestBodyTypedDict,
+                models.EvalsContainsURLRequestBody,
+                models.EvalsContainsURLRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2304,8 +2250,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsurlop.EvalsContainsURLRequestBody,
-                models_evalscontainsurlop.EvalsContainsURLRequestBodyTypedDict,
+                models.EvalsContainsURLRequestBody,
+                models.EvalsContainsURLRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2417,8 +2363,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBody,
-                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBodyTypedDict,
+                models.EvalsContainsValidLinkRequestBody,
+                models.EvalsContainsValidLinkRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2532,8 +2478,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBody,
-                models_evalscontainsvalidlinkop.EvalsContainsValidLinkRequestBodyTypedDict,
+                models.EvalsContainsValidLinkRequestBody,
+                models.EvalsContainsValidLinkRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2647,8 +2593,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsop.EvalsContainsRequestBody,
-                models_evalscontainsop.EvalsContainsRequestBodyTypedDict,
+                models.EvalsContainsRequestBody,
+                models.EvalsContainsRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2754,8 +2700,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalscontainsop.EvalsContainsRequestBody,
-                models_evalscontainsop.EvalsContainsRequestBodyTypedDict,
+                models.EvalsContainsRequestBody,
+                models.EvalsContainsRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2861,8 +2807,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsendswithop.EvalsEndsWithRequestBody,
-                models_evalsendswithop.EvalsEndsWithRequestBodyTypedDict,
+                models.EvalsEndsWithRequestBody,
+                models.EvalsEndsWithRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2968,8 +2914,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsendswithop.EvalsEndsWithRequestBody,
-                models_evalsendswithop.EvalsEndsWithRequestBodyTypedDict,
+                models.EvalsEndsWithRequestBody,
+                models.EvalsEndsWithRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3075,8 +3021,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsexactmatchop.EvalsExactMatchRequestBody,
-                models_evalsexactmatchop.EvalsExactMatchRequestBodyTypedDict,
+                models.EvalsExactMatchRequestBody,
+                models.EvalsExactMatchRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3188,8 +3134,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsexactmatchop.EvalsExactMatchRequestBody,
-                models_evalsexactmatchop.EvalsExactMatchRequestBodyTypedDict,
+                models.EvalsExactMatchRequestBody,
+                models.EvalsExactMatchRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3301,8 +3247,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthbetweenop.EvalsLengthBetweenRequestBody,
-                models_evalslengthbetweenop.EvalsLengthBetweenRequestBodyTypedDict,
+                models.EvalsLengthBetweenRequestBody,
+                models.EvalsLengthBetweenRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3414,8 +3360,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthbetweenop.EvalsLengthBetweenRequestBody,
-                models_evalslengthbetweenop.EvalsLengthBetweenRequestBodyTypedDict,
+                models.EvalsLengthBetweenRequestBody,
+                models.EvalsLengthBetweenRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3527,8 +3473,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBody,
-                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBodyTypedDict,
+                models.EvalsLengthGreaterThanRequestBody,
+                models.EvalsLengthGreaterThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3642,8 +3588,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBody,
-                models_evalslengthgreaterthanop.EvalsLengthGreaterThanRequestBodyTypedDict,
+                models.EvalsLengthGreaterThanRequestBody,
+                models.EvalsLengthGreaterThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3757,8 +3703,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthlessthanop.EvalsLengthLessThanRequestBody,
-                models_evalslengthlessthanop.EvalsLengthLessThanRequestBodyTypedDict,
+                models.EvalsLengthLessThanRequestBody,
+                models.EvalsLengthLessThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3870,8 +3816,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslengthlessthanop.EvalsLengthLessThanRequestBody,
-                models_evalslengthlessthanop.EvalsLengthLessThanRequestBodyTypedDict,
+                models.EvalsLengthLessThanRequestBody,
+                models.EvalsLengthLessThanRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3983,8 +3929,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsvalidjsonop.EvalsValidJSONRequestBody,
-                models_evalsvalidjsonop.EvalsValidJSONRequestBodyTypedDict,
+                models.EvalsValidJSONRequestBody,
+                models.EvalsValidJSONRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4092,8 +4038,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsvalidjsonop.EvalsValidJSONRequestBody,
-                models_evalsvalidjsonop.EvalsValidJSONRequestBodyTypedDict,
+                models.EvalsValidJSONRequestBody,
+                models.EvalsValidJSONRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4201,8 +4147,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsageappropriateop.EvalsAgeAppropriateRequestBody,
-                models_evalsageappropriateop.EvalsAgeAppropriateRequestBodyTypedDict,
+                models.EvalsAgeAppropriateRequestBody,
+                models.EvalsAgeAppropriateRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4314,8 +4260,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsageappropriateop.EvalsAgeAppropriateRequestBody,
-                models_evalsageappropriateop.EvalsAgeAppropriateRequestBodyTypedDict,
+                models.EvalsAgeAppropriateRequestBody,
+                models.EvalsAgeAppropriateRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4427,8 +4373,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbotdetectionop.EvalsBotDetectionRequestBody,
-                models_evalsbotdetectionop.EvalsBotDetectionRequestBodyTypedDict,
+                models.EvalsBotDetectionRequestBody,
+                models.EvalsBotDetectionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4540,8 +4486,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsbotdetectionop.EvalsBotDetectionRequestBody,
-                models_evalsbotdetectionop.EvalsBotDetectionRequestBodyTypedDict,
+                models.EvalsBotDetectionRequestBody,
+                models.EvalsBotDetectionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4653,8 +4599,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBody,
-                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
+                models.EvalsFactCheckingKnowledgeBaseRequestBody,
+                models.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4771,8 +4717,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBody,
-                models_evalsfactcheckingknowledgebaseop.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
+                models.EvalsFactCheckingKnowledgeBaseRequestBody,
+                models.EvalsFactCheckingKnowledgeBaseRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4889,8 +4835,7 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsgrammarop.EvalsGrammarRequestBody,
-                models_evalsgrammarop.EvalsGrammarRequestBodyTypedDict,
+                models.EvalsGrammarRequestBody, models.EvalsGrammarRequestBodyTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -4994,8 +4939,7 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsgrammarop.EvalsGrammarRequestBody,
-                models_evalsgrammarop.EvalsGrammarRequestBodyTypedDict,
+                models.EvalsGrammarRequestBody, models.EvalsGrammarRequestBodyTypedDict
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5099,8 +5043,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslocalizationop.EvalsLocalizationRequestBody,
-                models_evalslocalizationop.EvalsLocalizationRequestBodyTypedDict,
+                models.EvalsLocalizationRequestBody,
+                models.EvalsLocalizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5212,8 +5156,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalslocalizationop.EvalsLocalizationRequestBody,
-                models_evalslocalizationop.EvalsLocalizationRequestBodyTypedDict,
+                models.EvalsLocalizationRequestBody,
+                models.EvalsLocalizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5324,10 +5268,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_evalspiiop.EvalsPiiRequestBody,
-                models_evalspiiop.EvalsPiiRequestBodyTypedDict,
-            ]
+            Union[models.EvalsPiiRequestBody, models.EvalsPiiRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -5429,10 +5370,7 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_evalspiiop.EvalsPiiRequestBody,
-                models_evalspiiop.EvalsPiiRequestBodyTypedDict,
-            ]
+            Union[models.EvalsPiiRequestBody, models.EvalsPiiRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -5535,8 +5473,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBody,
-                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBodyTypedDict,
+                models.EvalsSentimentClassificationRequestBody,
+                models.EvalsSentimentClassificationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5653,8 +5591,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBody,
-                models_evalssentimentclassificationop.EvalsSentimentClassificationRequestBodyTypedDict,
+                models.EvalsSentimentClassificationRequestBody,
+                models.EvalsSentimentClassificationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5771,8 +5709,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalssummarizationop.EvalsSummarizationRequestBody,
-                models_evalssummarizationop.EvalsSummarizationRequestBodyTypedDict,
+                models.EvalsSummarizationRequestBody,
+                models.EvalsSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5884,8 +5822,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalssummarizationop.EvalsSummarizationRequestBody,
-                models_evalssummarizationop.EvalsSummarizationRequestBodyTypedDict,
+                models.EvalsSummarizationRequestBody,
+                models.EvalsSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -5997,8 +5935,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBody,
-                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBodyTypedDict,
+                models.EvalsToneOfVoiceRequestBody,
+                models.EvalsToneOfVoiceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6110,8 +6048,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBody,
-                models_evalstoneofvoiceop.EvalsToneOfVoiceRequestBodyTypedDict,
+                models.EvalsToneOfVoiceRequestBody,
+                models.EvalsToneOfVoiceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6223,8 +6161,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalstranslationop.EvalsTranslationRequestBody,
-                models_evalstranslationop.EvalsTranslationRequestBodyTypedDict,
+                models.EvalsTranslationRequestBody,
+                models.EvalsTranslationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6336,8 +6274,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalstranslationop.EvalsTranslationRequestBody,
-                models_evalstranslationop.EvalsTranslationRequestBodyTypedDict,
+                models.EvalsTranslationRequestBody,
+                models.EvalsTranslationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6449,8 +6387,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBody,
-                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBodyTypedDict,
+                models.EvalsRagasCoherenceRequestBody,
+                models.EvalsRagasCoherenceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6562,8 +6500,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBody,
-                models_evalsragascoherenceop.EvalsRagasCoherenceRequestBodyTypedDict,
+                models.EvalsRagasCoherenceRequestBody,
+                models.EvalsRagasCoherenceRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6675,8 +6613,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBody,
-                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBodyTypedDict,
+                models.EvalsRagasConcisenessRequestBody,
+                models.EvalsRagasConcisenessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6788,8 +6726,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBody,
-                models_evalsragasconcisenessop.EvalsRagasConcisenessRequestBodyTypedDict,
+                models.EvalsRagasConcisenessRequestBody,
+                models.EvalsRagasConcisenessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -6901,8 +6839,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBody,
-                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBodyTypedDict,
+                models.EvalsRagasContextPrecisionRequestBody,
+                models.EvalsRagasContextPrecisionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7016,8 +6954,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBody,
-                models_evalsragascontextprecisionop.EvalsRagasContextPrecisionRequestBodyTypedDict,
+                models.EvalsRagasContextPrecisionRequestBody,
+                models.EvalsRagasContextPrecisionRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7131,8 +7069,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBody,
-                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBodyTypedDict,
+                models.EvalsRagasContextRecallRequestBody,
+                models.EvalsRagasContextRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7246,8 +7184,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBody,
-                models_evalsragascontextrecallop.EvalsRagasContextRecallRequestBodyTypedDict,
+                models.EvalsRagasContextRecallRequestBody,
+                models.EvalsRagasContextRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7361,8 +7299,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBody,
-                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
+                models.EvalsRagasContextEntitiesRecallRequestBody,
+                models.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7479,8 +7417,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBody,
-                models_evalsragascontextentitiesrecallop.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
+                models.EvalsRagasContextEntitiesRecallRequestBody,
+                models.EvalsRagasContextEntitiesRecallRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7597,8 +7535,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBody,
-                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBodyTypedDict,
+                models.EvalsRagasCorrectnessRequestBody,
+                models.EvalsRagasCorrectnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7710,8 +7648,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBody,
-                models_evalsragascorrectnessop.EvalsRagasCorrectnessRequestBodyTypedDict,
+                models.EvalsRagasCorrectnessRequestBody,
+                models.EvalsRagasCorrectnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7823,8 +7761,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBody,
-                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBodyTypedDict,
+                models.EvalsRagasFaithfulnessRequestBody,
+                models.EvalsRagasFaithfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -7938,8 +7876,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBody,
-                models_evalsragasfaithfulnessop.EvalsRagasFaithfulnessRequestBodyTypedDict,
+                models.EvalsRagasFaithfulnessRequestBody,
+                models.EvalsRagasFaithfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8053,8 +7991,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBody,
-                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBodyTypedDict,
+                models.EvalsRagasHarmfulnessRequestBody,
+                models.EvalsRagasHarmfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8166,8 +8104,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBody,
-                models_evalsragasharmfulnessop.EvalsRagasHarmfulnessRequestBodyTypedDict,
+                models.EvalsRagasHarmfulnessRequestBody,
+                models.EvalsRagasHarmfulnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8279,8 +8217,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBody,
-                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBodyTypedDict,
+                models.EvalsRagasMaliciousnessRequestBody,
+                models.EvalsRagasMaliciousnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8394,8 +8332,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBody,
-                models_evalsragasmaliciousnessop.EvalsRagasMaliciousnessRequestBodyTypedDict,
+                models.EvalsRagasMaliciousnessRequestBody,
+                models.EvalsRagasMaliciousnessRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8509,8 +8447,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBody,
-                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
+                models.EvalsRagasNoiseSensitivityRequestBody,
+                models.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8624,8 +8562,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBody,
-                models_evalsragasnoisesensitivityop.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
+                models.EvalsRagasNoiseSensitivityRequestBody,
+                models.EvalsRagasNoiseSensitivityRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8739,8 +8677,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBody,
-                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBodyTypedDict,
+                models.EvalsRagasResponseRelevancyRequestBody,
+                models.EvalsRagasResponseRelevancyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8855,8 +8793,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBody,
-                models_evalsragasresponserelevancyop.EvalsRagasResponseRelevancyRequestBodyTypedDict,
+                models.EvalsRagasResponseRelevancyRequestBody,
+                models.EvalsRagasResponseRelevancyRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -8971,8 +8909,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBody,
-                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBodyTypedDict,
+                models.EvalsRagasSummarizationRequestBody,
+                models.EvalsRagasSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9086,8 +9024,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBody,
-                models_evalsragassummarizationop.EvalsRagasSummarizationRequestBodyTypedDict,
+                models.EvalsRagasSummarizationRequestBody,
+                models.EvalsRagasSummarizationRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9206,8 +9144,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models_invokeevalop.InvokeEvalMessages],
-                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
+                List[models.InvokeEvalMessages],
+                List[models.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -9334,8 +9272,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models_invokeevalop.InvokeEvalMessages],
-                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
+                List[models.InvokeEvalMessages],
+                List[models.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
