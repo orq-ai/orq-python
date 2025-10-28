@@ -122,18 +122,16 @@ class ListAgentsTools(BaseModel):
 
 
 class ListAgentsSettingsTypedDict(TypedDict):
-    tools: List[ListAgentsToolsTypedDict]
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[ListAgentsToolsTypedDict]]
 
 
 class ListAgentsSettings(BaseModel):
-    tools: List[ListAgentsTools]
-
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -142,6 +140,8 @@ class ListAgentsSettings(BaseModel):
 
     tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[ListAgentsTools]] = None
 
 
 class ListAgentsModelTypedDict(TypedDict):

@@ -828,7 +828,7 @@ r"""If all, the agent will require approval for all tools. If respect_tool, the 
 
 
 class RunAgentSettingsTypedDict(TypedDict):
-    tools: List[AgentToolInputRunTypedDict]
+    tools: NotRequired[List[AgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
     tool_approval_required: NotRequired[RunAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -839,7 +839,7 @@ class RunAgentSettingsTypedDict(TypedDict):
 
 
 class RunAgentSettings(BaseModel):
-    tools: List[AgentToolInputRun]
+    tools: Optional[List[AgentToolInputRun]] = None
     r"""Tools available to the agent"""
 
     tool_approval_required: Optional[RunAgentToolApprovalRequired] = "none"

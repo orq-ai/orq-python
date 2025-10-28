@@ -851,7 +851,7 @@ r"""If all, the agent will require approval for all tools. If respect_tool, the 
 
 
 class StreamRunAgentSettingsTypedDict(TypedDict):
-    tools: List[StreamRunAgentAgentToolInputRunTypedDict]
+    tools: NotRequired[List[StreamRunAgentAgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
     tool_approval_required: NotRequired[StreamRunAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -862,7 +862,7 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
 
 
 class StreamRunAgentSettings(BaseModel):
-    tools: List[StreamRunAgentAgentToolInputRun]
+    tools: Optional[List[StreamRunAgentAgentToolInputRun]] = None
     r"""Tools available to the agent"""
 
     tool_approval_required: Optional[StreamRunAgentToolApprovalRequired] = "none"

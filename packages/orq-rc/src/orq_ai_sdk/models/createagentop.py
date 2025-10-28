@@ -411,21 +411,18 @@ r"""Tool configuration for agent create/update operations. Built-in tools only r
 class SettingsTypedDict(TypedDict):
     r"""Configuration settings for the agent's behavior"""
 
-    tools: List[AgentToolInputCRUDTypedDict]
-    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[AgentToolInputCRUDTypedDict]]
+    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
 
 class Settings(BaseModel):
     r"""Configuration settings for the agent's behavior"""
-
-    tools: List[AgentToolInputCRUD]
-    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -435,6 +432,9 @@ class Settings(BaseModel):
 
     tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[AgentToolInputCRUD]] = None
+    r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
 
 class KnowledgeBasesTypedDict(TypedDict):
@@ -624,18 +624,16 @@ class CreateAgentTools(BaseModel):
 
 
 class CreateAgentSettingsTypedDict(TypedDict):
-    tools: List[CreateAgentToolsTypedDict]
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[CreateAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[CreateAgentToolsTypedDict]]
 
 
 class CreateAgentSettings(BaseModel):
-    tools: List[CreateAgentTools]
-
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -644,6 +642,8 @@ class CreateAgentSettings(BaseModel):
 
     tool_approval_required: Optional[CreateAgentToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[CreateAgentTools]] = None
 
 
 class CreateAgentModelTypedDict(TypedDict):

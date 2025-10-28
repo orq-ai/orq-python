@@ -86,14 +86,7 @@ with Orq(
         "description": "neatly unless refine aside platter alarmed shampoo shakily yippee",
         "instructions": "<value>",
         "model": "Camaro",
-        "settings": {
-            "tools": [
-                {
-                    "type": "http",
-                    "requires_approval": False,
-                },
-            ],
-        },
+        "settings": {},
         "knowledge_bases": [
             {
                 "knowledge_id": "customer-knowledge-base",
@@ -490,14 +483,7 @@ with Orq(
                 "knowledge_id": "customer-knowledge-base",
             },
         ],
-        "settings": {
-            "tools": [
-                {
-                    "type": "query_memory_store",
-                    "requires_approval": False,
-                },
-            ],
-        },
+        "settings": {},
     })
 
     assert res is not None
@@ -585,14 +571,7 @@ with Orq(
                 "knowledge_id": "customer-knowledge-base",
             },
         ],
-        "settings": {
-            "tools": [
-                {
-                    "type": "query_memory_store",
-                    "requires_approval": False,
-                },
-            ],
-        },
+        "settings": {},
     })
 
     assert res is not None
