@@ -96,7 +96,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-28T15:44:09.058Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-29T04:55:50.891Z")
     r"""The date and time the resource was last updated"""
 
 

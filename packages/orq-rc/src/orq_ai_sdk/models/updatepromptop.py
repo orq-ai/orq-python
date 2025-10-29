@@ -602,6 +602,7 @@ class PromptConfigTypedDict(TypedDict):
     model_db_id: NotRequired[Nullable[str]]
     model_type: NotRequired[Nullable[ModelType]]
     r"""The modality of the model"""
+    is_private: NotRequired[bool]
 
 
 @deprecated(
@@ -628,6 +629,8 @@ class PromptConfig(BaseModel):
     model_type: OptionalNullable[ModelType] = UNSET
     r"""The modality of the model"""
 
+    is_private: Optional[bool] = False
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -638,6 +641,7 @@ class PromptConfig(BaseModel):
             "version",
             "model_db_id",
             "model_type",
+            "is_private",
         ]
         nullable_fields = ["model_db_id", "model_type"]
         null_default_fields = []
@@ -1436,6 +1440,7 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[str]
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
+    is_private: NotRequired[bool]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1456,6 +1461,8 @@ class UpdatePromptPromptInput(BaseModel):
     model: Optional[str] = None
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
 
+    is_private: Optional[bool] = False
+
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
 
@@ -1473,6 +1480,7 @@ class UpdatePromptPromptInput(BaseModel):
         optional_fields = [
             "messages",
             "model",
+            "is_private",
             "temperature",
             "max_tokens",
             "response_format",
