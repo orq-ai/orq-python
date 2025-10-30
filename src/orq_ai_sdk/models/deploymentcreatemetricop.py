@@ -256,7 +256,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole = Literal[
     "assistant",
 ]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentCreateMetricMessagesAudioTypedDict(TypedDict):
@@ -312,7 +312,7 @@ class DeploymentCreateMetricMessagesToolCalls(BaseModel):
 
 class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict]
     ]
@@ -335,7 +335,7 @@ class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentCreateMetricMessagesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[
         DeploymentCreateMetricMessagesDeploymentsMetricsContent
@@ -412,17 +412,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentCreateMetric2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentCreateMetric2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -430,6 +444,7 @@ class DeploymentCreateMetric24TypedDict(TypedDict):
     type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: DeploymentCreateMetric2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentCreateMetric24(BaseModel):
@@ -437,6 +452,7 @@ class DeploymentCreateMetric24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentCreateMetric2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["input_audio",]
@@ -875,7 +891,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class ChoicesAudioTypedDict(TypedDict):
@@ -931,7 +947,7 @@ class ChoicesToolCalls(BaseModel):
 
 class ChoicesAssistantMessageTypedDict(TypedDict):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[DeploymentCreateMetricChoicesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -952,7 +968,7 @@ class ChoicesAssistantMessageTypedDict(TypedDict):
 
 class ChoicesAssistantMessage(BaseModel):
     role: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentCreateMetricChoicesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1029,17 +1045,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentCreateMetric2DeploymentsMetricsFileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentCreateMetric2DeploymentsMetricsFile(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -1049,6 +1079,7 @@ class DeploymentCreateMetric2DeploymentsMetrics4TypedDict(TypedDict):
     )
     r"""The type of the content part. Always `file`."""
     file: DeploymentCreateMetric2DeploymentsMetricsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
@@ -1058,6 +1089,7 @@ class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentCreateMetric2DeploymentsMetricsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType = (

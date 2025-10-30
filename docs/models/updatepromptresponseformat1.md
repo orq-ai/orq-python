@@ -1,23 +1,9 @@
 # UpdatePromptResponseFormat1
 
 
-## Supported Types
+## Fields
 
-### `models.UpdatePrompt11`
-
-```python
-value: models.UpdatePrompt11 = /* values here */
-```
-
-### `models.UpdatePrompt12`
-
-```python
-value: models.UpdatePrompt12 = /* values here */
-```
-
-### `models.UpdatePrompt13`
-
-```python
-value: models.UpdatePrompt13 = /* values here */
-```
-
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.UpdatePromptResponseFormatType](../models/updatepromptresponseformattype.md)             | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `json_schema`                                                                                    | [models.UpdatePromptResponseFormatJSONSchema](../models/updatepromptresponseformatjsonschema.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |

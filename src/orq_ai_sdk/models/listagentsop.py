@@ -94,7 +94,7 @@ class ListAgentsToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ListAgentsConditionsTypedDict]]
     mcp_server: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -115,25 +115,23 @@ class ListAgentsTools(BaseModel):
     conditions: Optional[List[ListAgentsConditions]] = None
 
     mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
 class ListAgentsSettingsTypedDict(TypedDict):
-    tools: List[ListAgentsToolsTypedDict]
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[ListAgentsToolsTypedDict]]
 
 
 class ListAgentsSettings(BaseModel):
-    tools: List[ListAgentsTools]
-
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -142,6 +140,8 @@ class ListAgentsSettings(BaseModel):
 
     tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[ListAgentsTools]] = None
 
 
 class ListAgentsModelTypedDict(TypedDict):
@@ -263,7 +263,12 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     model: ListAgentsModelTypedDict
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     memory_stores: List[str]
     team_of_agents: List[ListAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -304,7 +309,12 @@ class ListAgentsData(BaseModel):
     model: ListAgentsModel
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     memory_stores: List[str]
 

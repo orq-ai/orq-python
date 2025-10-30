@@ -196,7 +196,7 @@ class ListAgentTasksToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ListAgentTasksConditionsTypedDict]]
     mcp_server: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -217,25 +217,23 @@ class ListAgentTasksTools(BaseModel):
     conditions: Optional[List[ListAgentTasksConditions]] = None
 
     mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
 class ListAgentTasksSettingsTypedDict(TypedDict):
-    tools: List[ListAgentTasksToolsTypedDict]
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[ListAgentTasksToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[ListAgentTasksToolsTypedDict]]
 
 
 class ListAgentTasksSettings(BaseModel):
-    tools: List[ListAgentTasksTools]
-
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -246,6 +244,8 @@ class ListAgentTasksSettings(BaseModel):
         "respect_tool"
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[ListAgentTasksTools]] = None
 
 
 class AgentManifestSnapshotTypedDict(TypedDict):

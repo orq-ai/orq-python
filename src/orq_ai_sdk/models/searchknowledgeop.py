@@ -609,7 +609,7 @@ class SearchOptions(BaseModel):
     r"""Whether to include the scores in the chunk"""
 
 
-class SearchKnowledgeRerankConfigTypedDict(TypedDict):
+class RerankConfigTypedDict(TypedDict):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
@@ -620,7 +620,7 @@ class SearchKnowledgeRerankConfigTypedDict(TypedDict):
     r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
 
 
-class SearchKnowledgeRerankConfig(BaseModel):
+class RerankConfig(BaseModel):
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
     model: str
@@ -633,14 +633,14 @@ class SearchKnowledgeRerankConfig(BaseModel):
     r"""The number of top results to return after reranking. If not provided, will default to the knowledge base configured `top_k`."""
 
 
-class SearchKnowledgeAgenticRagConfigTypedDict(TypedDict):
+class AgenticRagConfigTypedDict(TypedDict):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
     r"""The name of the model for the Agent to use. Refer to the [model list](https://docs.orq.ai/docs/proxy#/chat-models)."""
 
 
-class SearchKnowledgeAgenticRagConfig(BaseModel):
+class AgenticRagConfig(BaseModel):
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
     model: str
@@ -662,9 +662,9 @@ class SearchKnowledgeRequestBodyTypedDict(TypedDict):
     r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
     search_options: NotRequired[SearchOptionsTypedDict]
     r"""Additional search options"""
-    rerank_config: NotRequired[SearchKnowledgeRerankConfigTypedDict]
+    rerank_config: NotRequired[RerankConfigTypedDict]
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
-    agentic_rag_config: NotRequired[SearchKnowledgeAgenticRagConfigTypedDict]
+    agentic_rag_config: NotRequired[AgenticRagConfigTypedDict]
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
 
@@ -689,10 +689,10 @@ class SearchKnowledgeRequestBody(BaseModel):
     search_options: Optional[SearchOptions] = None
     r"""Additional search options"""
 
-    rerank_config: Optional[SearchKnowledgeRerankConfig] = None
+    rerank_config: Optional[RerankConfig] = None
     r"""Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings."""
 
-    agentic_rag_config: Optional[SearchKnowledgeAgenticRagConfig] = None
+    agentic_rag_config: Optional[AgenticRagConfig] = None
     r"""Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings."""
 
 

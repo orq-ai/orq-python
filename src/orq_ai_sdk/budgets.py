@@ -3,11 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createbudgetop as models_createbudgetop,
-    listbudgetsop as models_listbudgetsop,
-    updatebudgetop as models_updatebudgetop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -21,7 +16,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listbudgetsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -37,8 +32,8 @@ class Budgets(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param type: Filter by budget entity type (contact or workspace)
-        :param entity_id:
-        :param is_active:
+        :param entity_id: Filter by specific entity ID
+        :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -124,7 +119,7 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models_listbudgetsop.QueryParamType] = None,
+        type_: Optional[models.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -140,8 +135,8 @@ class Budgets(BaseSDK):
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param type: Filter by budget entity type (contact or workspace)
-        :param entity_id:
-        :param is_active:
+        :param entity_id: Filter by specific entity ID
+        :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -225,8 +220,7 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models_createbudgetop.CreateBudgetRequestBody,
-            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
+            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -319,8 +313,7 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models_createbudgetop.CreateBudgetRequestBody,
-            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
+            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -422,7 +415,7 @@ class Budgets(BaseSDK):
 
         Get budget configuration by ID.
 
-        :param id:
+        :param id: Budget ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -510,7 +503,7 @@ class Budgets(BaseSDK):
 
         Get budget configuration by ID.
 
-        :param id:
+        :param id: Budget ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -589,9 +582,7 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[
-            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
-        ] = None,
+        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -602,7 +593,7 @@ class Budgets(BaseSDK):
 
         Update budget configuration by ID
 
-        :param id:
+        :param id: Budget ID
         :param budget: Budget configuration to update
         :param is_active: Whether this budget configuration is currently active
         :param retries: Override the default retry configuration for this method
@@ -694,9 +685,7 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[
-            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
-        ] = None,
+        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -707,7 +696,7 @@ class Budgets(BaseSDK):
 
         Update budget configuration by ID
 
-        :param id:
+        :param id: Budget ID
         :param budget: Budget configuration to update
         :param is_active: Whether this budget configuration is currently active
         :param retries: Override the default retry configuration for this method
@@ -808,7 +797,7 @@ class Budgets(BaseSDK):
 
         Delete budget configuration by ID
 
-        :param id:
+        :param id: Budget ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -894,7 +883,7 @@ class Budgets(BaseSDK):
 
         Delete budget configuration by ID
 
-        :param id:
+        :param id: Budget ID
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

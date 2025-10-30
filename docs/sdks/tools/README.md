@@ -14,7 +14,7 @@
 
 ## list
 
-Retrieves a paginated list of tools in the workspace. Use cursor-based pagination parameters to navigate through the results.
+Lists all workspace tools. By default, returns all tools in a single response. Set `limit` to enable cursor-based pagination with `starting_after` and `ending_before`.
 
 ### Example Usage
 
@@ -41,7 +41,7 @@ with Orq(
 
 | Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 300                                                                                                                                                                                                                              |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Maximum number of tools per page (1-200). Omit to return all tools.                                                                                                                                                                                                                                                                     |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
 | `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
@@ -74,10 +74,8 @@ with Orq(
 ) as orq:
 
     res = orq.tools.create(request={
-        "id": "01K6G66073E5M0V2DAKZ0A31SD",
         "path": "Default",
         "key": "<key>",
-        "display_name": "Ellie78",
         "description": "runway border pro mortally recount accredit promptly",
         "status": "live",
         "type": "json_schema",
@@ -121,7 +119,7 @@ Updates a tool in the workspace.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="UpdateTool" method="patch" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="UpdateTool" method="patch" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -131,7 +129,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.update(tool_key="<value>", request_body={
+    res = orq.tools.update(tool_id="<id>", request_body={
         "path": "Default",
         "status": "live",
         "type": "function",
@@ -148,7 +146,7 @@ with Orq(
 
 | Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `tool_key`                                                                      | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
+| `tool_id`                                                                       | *str*                                                                           | :heavy_check_mark:                                                              | N/A                                                                             |
 | `request_body`                                                                  | [Optional[models.UpdateToolRequestBody]](../../models/updatetoolrequestbody.md) | :heavy_minus_sign:                                                              | The tool to update                                                              |
 | `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
@@ -169,7 +167,7 @@ Deletes a tool by key.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="DeleteTool" method="delete" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="DeleteTool" method="delete" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -179,7 +177,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    orq.tools.delete(tool_key="<value>")
+    orq.tools.delete(tool_id="<id>")
 
     # Use the SDK ...
 
@@ -189,7 +187,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `tool_key`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
@@ -200,11 +198,11 @@ with Orq(
 
 ## retrieve
 
-Retrieves a tool by key.
+Retrieves a tool by id.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="RetrieveTool" method="get" path="/v2/tools/{tool_key}" -->
+<!-- UsageSnippet language="python" operationID="RetrieveTool" method="get" path="/v2/tools/{tool_id}" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -214,7 +212,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.retrieve(tool_key="<value>")
+    res = orq.tools.retrieve(tool_id="<id>")
 
     assert res is not None
 
@@ -227,7 +225,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `tool_key`                                                          | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -242,11 +240,11 @@ with Orq(
 
 ## duplicate
 
-Creates a copy of an existing tool with a new key and ID.
+Creates a copy of an existing tool with a new id and ID.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="DuplicateTool" method="post" path="/v2/tools/{key}/duplicate" -->
+<!-- UsageSnippet language="python" operationID="DuplicateTool" method="post" path="/v2/tools/{tool_id}/duplicate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -256,7 +254,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.duplicate(key="<key>")
+    res = orq.tools.duplicate(tool_id="<id>")
 
     assert res is not None
 
@@ -269,7 +267,7 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | The key of the tool to duplicate                                    |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The id of the tool to duplicate                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

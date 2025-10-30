@@ -7,28 +7,31 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-TwentyTwo = Literal["jina/jina-embeddings-v3",]
+TwentyThree = Literal["jina/jina-embeddings-v3",]
 
 
-TwentyOne = Literal["jina/jina-clip-v2",]
+TwentyTwo = Literal["jina/jina-clip-v2",]
 
 
-Twenty = Literal["jina/jina-embeddings-v2-base-de",]
+TwentyOne = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-Nineteen = Literal["jina/jina-embeddings-v2-base-code",]
+Twenty = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-Eighteen = Literal["jina/jina-embeddings-v2-base-zh",]
+Nineteen = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-Seventeen = Literal["jina/jina-embeddings-v2-base-en",]
+Eighteen = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-Sixteen = Literal["jina/jina-embeddings-v2-base-es",]
+Seventeen = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-Fifteen = Literal["jina/jina-clip-v1",]
+Sixteen = Literal["jina/jina-clip-v1",]
+
+
+Fifteen = Literal["mistral/mistral-embed",]
 
 
 Fourteen = Literal["google-ai/text-embedding-004",]
@@ -40,25 +43,25 @@ Thirteen = Literal["google/multimodalembedding@001",]
 Twelve = Literal["google/text-multilingual-embedding-002",]
 
 
-Eleven = Literal["google/text-embedding-005",]
+Eleven = Literal["google/gemini-embedding-001",]
 
 
-Ten = Literal["google/gemini-embedding-001",]
+Ten = Literal["openai/text-embedding-ada-002",]
 
 
-Nine = Literal["openai/text-embedding-ada-002",]
+Nine = Literal["openai/text-embedding-3-small",]
 
 
-Eight = Literal["openai/text-embedding-3-small",]
+Eight = Literal["openai/text-embedding-3-large",]
 
 
-Seven = Literal["openai/text-embedding-3-large",]
+Seven = Literal["azure/text-embedding-3-small",]
 
 
-Six = Literal["azure/text-embedding-3-small",]
+Model6 = Literal["azure/text-embedding-ada-002",]
 
 
-Five = Literal["azure/text-embedding-ada-002",]
+Model5 = Literal["cohere/embed-v4.0",]
 
 
 Model4 = Literal["cohere/embed-english-v3.0",]
@@ -80,8 +83,8 @@ ModelTypedDict = TypeAliasType(
         Model2,
         Model3,
         Model4,
-        Five,
-        Six,
+        Model5,
+        Model6,
         Seven,
         Eight,
         Nine,
@@ -98,6 +101,7 @@ ModelTypedDict = TypeAliasType(
         Twenty,
         TwentyOne,
         TwentyTwo,
+        TwentyThree,
     ],
 )
 
@@ -109,8 +113,8 @@ Model = TypeAliasType(
         Model2,
         Model3,
         Model4,
-        Five,
-        Six,
+        Model5,
+        Model6,
         Seven,
         Eight,
         Nine,
@@ -127,6 +131,7 @@ Model = TypeAliasType(
         Twenty,
         TwentyOne,
         TwentyTwo,
+        TwentyThree,
     ],
 )
 
@@ -146,7 +151,12 @@ class CreateMemoryStoreRequestBodyTypedDict(TypedDict):
     description: str
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
@@ -161,34 +171,42 @@ class CreateMemoryStoreRequestBody(BaseModel):
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     ttl: Optional[float] = None
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
-CreateMemoryStoreModel22 = Literal["jina/jina-embeddings-v3",]
+CreateMemoryStoreModel23 = Literal["jina/jina-embeddings-v3",]
 
 
-CreateMemoryStoreModel21 = Literal["jina/jina-clip-v2",]
+CreateMemoryStoreModel22 = Literal["jina/jina-clip-v2",]
 
 
-CreateMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-de",]
+CreateMemoryStoreModel21 = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-CreateMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-code",]
+CreateMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-CreateMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-zh",]
+CreateMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-en",]
+CreateMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-CreateMemoryStoreModel16 = Literal["jina/jina-embeddings-v2-base-es",]
+CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-CreateMemoryStoreModel15 = Literal["jina/jina-clip-v1",]
+CreateMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
+
+
+CreateMemoryStoreModel15 = Literal["mistral/mistral-embed",]
 
 
 CreateMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
@@ -200,25 +218,25 @@ CreateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
 CreateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
 
 
-CreateMemoryStoreModel11 = Literal["google/text-embedding-005",]
+CreateMemoryStoreModel11 = Literal["google/gemini-embedding-001",]
 
 
-CreateMemoryStoreModel10 = Literal["google/gemini-embedding-001",]
+CreateMemoryStoreModel10 = Literal["openai/text-embedding-ada-002",]
 
 
-CreateMemoryStoreModel9 = Literal["openai/text-embedding-ada-002",]
+CreateMemoryStoreModel9 = Literal["openai/text-embedding-3-small",]
 
 
-CreateMemoryStoreModel8 = Literal["openai/text-embedding-3-small",]
+CreateMemoryStoreModel8 = Literal["openai/text-embedding-3-large",]
 
 
-CreateMemoryStoreModel7 = Literal["openai/text-embedding-3-large",]
+CreateMemoryStoreModel7 = Literal["azure/text-embedding-3-small",]
 
 
-CreateMemoryStoreModel6 = Literal["azure/text-embedding-3-small",]
+CreateMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
 
 
-CreateMemoryStoreModel5 = Literal["azure/text-embedding-ada-002",]
+CreateMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
 
 
 CreateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
@@ -258,6 +276,7 @@ CreateMemoryStoreModelTypedDict = TypeAliasType(
         CreateMemoryStoreModel20,
         CreateMemoryStoreModel21,
         CreateMemoryStoreModel22,
+        CreateMemoryStoreModel23,
     ],
 )
 
@@ -287,6 +306,7 @@ CreateMemoryStoreModel = TypeAliasType(
         CreateMemoryStoreModel20,
         CreateMemoryStoreModel21,
         CreateMemoryStoreModel22,
+        CreateMemoryStoreModel23,
     ],
 )
 

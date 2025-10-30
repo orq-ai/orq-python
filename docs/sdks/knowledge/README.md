@@ -18,6 +18,9 @@
 * [update_datasource](#update_datasource) - Update a datasource
 * [create_chunks](#create_chunks) - Create chunks for a datasource
 * [list_chunks](#list_chunks) - List all chunks for a datasource
+* [delete_chunks](#delete_chunks) - Delete multiple chunks
+* [list_chunks_paginated](#list_chunks_paginated) - List chunks with offset-based pagination
+* [get_chunks_count](#get_chunks_count) - Get chunks total count
 * [update_chunk](#update_chunk) - Update a chunk
 * [delete_chunk](#delete_chunk) - Delete a chunk
 * [retrieve_chunk](#retrieve_chunk) - Retrieve a chunk
@@ -82,7 +85,13 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.create(key="<key>", embedding_model="<value>", path="Default")
+    res = orq.knowledge.create(request={
+        "type": "internal",
+        "key": "<key>",
+        "embedding_model": "<value>",
+        "is_private_model": False,
+        "path": "Default",
+    })
 
     assert res is not None
 
@@ -93,14 +102,10 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `key`                                                                                                                                                                                                                                           | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
-| `embedding_model`                                                                                                                                                                                                                               | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base.                                                                                                      |                                                                                                                                                                                                                                                 |
-| `path`                                                                                                                                                                                                                                          | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists. | Default                                                                                                                                                                                                                                         |
-| `description`                                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
-| `retrieval_settings`                                                                                                                                                                                                                            | [Optional[models.RetrievalSettings]](../../models/retrievalsettings.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.                                                                                                                         |                                                                                                                                                                                                                                                 |
-| `retries`                                                                                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `request`                                                                       | [models.CreateKnowledgeRequestBody](../../models/createknowledgerequestbody.md) | :heavy_check_mark:                                                              | The request object to use for the request.                                      |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
 ### Response
 
@@ -170,7 +175,10 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.knowledge.update(knowledge_id="<id>", path="Default")
+    res = orq.knowledge.update(knowledge_id="<id>", request_body={
+        "path": "Default",
+        "type": "external",
+    })
 
     assert res is not None
 
@@ -181,14 +189,11 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                                       | Type                                                                                                                                                                                                                                            | Required                                                                                                                                                                                                                                        | Description                                                                                                                                                                                                                                     | Example                                                                                                                                                                                                                                         |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `knowledge_id`                                                                                                                                                                                                                                  | *str*                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                              | The unique identifier of the knowledge base                                                                                                                                                                                                     |                                                                                                                                                                                                                                                 |
-| `description`                                                                                                                                                                                                                                   | *OptionalNullable[str]*                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                              | The description of the knowledge base.                                                                                                                                                                                                          |                                                                                                                                                                                                                                                 |
-| `embedding_model`                                                                                                                                                                                                                               | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | The embeddings model used for the knowledge base. If the models is provided and is different than the previous set model, all the datasources in the knowledge base will be re-embedded.                                                        |                                                                                                                                                                                                                                                 |
-| `path`                                                                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                              | The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists. | Default                                                                                                                                                                                                                                         |
-| `retrieval_settings`                                                                                                                                                                                                                            | [Optional[models.UpdateKnowledgeRetrievalSettings]](../../models/updateknowledgeretrievalsettings.md)                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                              | The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy.                                                                                                                         |                                                                                                                                                                                                                                                 |
-| `retries`                                                                                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                                                                                             |                                                                                                                                                                                                                                                 |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `knowledge_id`                                                                  | *str*                                                                           | :heavy_check_mark:                                                              | The unique identifier of the knowledge base                                     |
+| `request_body`                                                                  | [models.UpdateKnowledgeRequestBody](../../models/updateknowledgerequestbody.md) | :heavy_check_mark:                                                              | N/A                                                                             |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
 ### Response
 
@@ -273,8 +278,8 @@ with Orq(
 | `search_type`                                                                                                                                                                        | [Optional[models.SearchType]](../../models/searchtype.md)                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                   | The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`                                                                       |
 | `filter_by`                                                                                                                                                                          | [Optional[models.FilterBy]](../../models/filterby.md)                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                   | The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information. |
 | `search_options`                                                                                                                                                                     | [Optional[models.SearchOptions]](../../models/searchoptions.md)                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                   | Additional search options                                                                                                                                                            |
-| `rerank_config`                                                                                                                                                                      | [Optional[models.SearchKnowledgeRerankConfig]](../../models/searchknowledgererankconfig.md)                                                                                          | :heavy_minus_sign:                                                                                                                                                                   | Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.                                                          |
-| `agentic_rag_config`                                                                                                                                                                 | [Optional[models.SearchKnowledgeAgenticRagConfig]](../../models/searchknowledgeagenticragconfig.md)                                                                                  | :heavy_minus_sign:                                                                                                                                                                   | Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.                                                |
+| `rerank_config`                                                                                                                                                                      | [Optional[models.RerankConfig]](../../models/rerankconfig.md)                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                   | Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.                                                          |
+| `agentic_rag_config`                                                                                                                                                                 | [Optional[models.AgenticRagConfig]](../../models/agenticragconfig.md)                                                                                                                | :heavy_minus_sign:                                                                                                                                                                   | Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.                                                |
 | `retries`                                                                                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                   | Configuration to override the default retry behavior of the client.                                                                                                                  |
 
 ### Response
@@ -532,16 +537,16 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `knowledge_id`                                                                | *str*                                                                         | :heavy_check_mark:                                                            | Unique identifier of the knowledge                                            |
-| `datasource_id`                                                               | *str*                                                                         | :heavy_check_mark:                                                            | Unique identifier of the datasource                                           |
-| `request_body`                                                                | List[[models.CreateChunkRequestBody](../../models/createchunkrequestbody.md)] | :heavy_minus_sign:                                                            | N/A                                                                           |
-| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the knowledge                                  |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the datasource                                 |
+| `request_body`                                                      | List[[models.RequestBody](../../models/requestbody.md)]             | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
-**[List[models.CreateChunkResponseBody]](../../models/.md)**
+**[List[models.ResponseBody]](../../models/.md)**
 
 ### Errors
 
@@ -593,6 +598,147 @@ with Orq(
 ### Response
 
 **[models.ListChunksResponseBody](../../models/listchunksresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## delete_chunks
+
+Delete multiple chunks
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="DeleteChunks" method="delete" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.delete_chunks(knowledge_id="<id>", datasource_id="<id>", chunk_ids=[
+        "<value 1>",
+        "<value 2>",
+    ])
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `chunk_ids`                                                         | List[*str*]                                                         | :heavy_check_mark:                                                  | Array of chunk IDs to delete                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.DeleteChunksResponseBody](../../models/deletechunksresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## list_chunks_paginated
+
+List chunks with offset-based pagination
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListChunksPaginated" method="post" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/list" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.list_chunks_paginated(knowledge_id="<id>", datasource_id="<id>", q="", limit=100, page=1)
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `q`                                                                 | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Search query to find chunks by text content                         |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Filter chunks by enabled status                                     |
+| `status`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter chunks by processing status                                  |
+| `limit`                                                             | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `page`                                                              | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ListChunksPaginatedResponseBody](../../models/listchunkspaginatedresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_chunks_count
+
+Get chunks total count
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetChunksCount" method="post" path="/v2/knowledge/{knowledge_id}/datasources/{datasource_id}/chunks/count" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.knowledge.get_chunks_count(knowledge_id="<id>", datasource_id="<id>", q="")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `knowledge_id`                                                      | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the knowledge base                         |
+| `datasource_id`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the datasource.                            |
+| `q`                                                                 | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Search query to find chunks by text content                         |
+| `enabled`                                                           | *Optional[bool]*                                                    | :heavy_minus_sign:                                                  | Filter chunks by enabled status                                     |
+| `status`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Filter chunks by processing status                                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetChunksCountResponseBody](../../models/getchunkscountresponsebody.md)**
 
 ### Errors
 

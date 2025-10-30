@@ -207,7 +207,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 UpdateDatapointMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class UpdateDatapointMessagesAudioTypedDict(TypedDict):
@@ -263,7 +263,7 @@ class UpdateDatapointMessagesToolCalls(BaseModel):
 
 class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[UpdateDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -284,7 +284,7 @@ class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -359,17 +359,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class UpdateDatapoint2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class UpdateDatapoint2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -377,6 +391,7 @@ class UpdateDatapoint24TypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: UpdateDatapoint2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class UpdateDatapoint24(BaseModel):
@@ -384,6 +399,7 @@ class UpdateDatapoint24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: UpdateDatapoint2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 UpdateDatapoint2DatasetsRequestType = Literal["input_audio",]
@@ -615,7 +631,9 @@ class UpdateDatapointRequestBody(BaseModel):
 
 class UpdateDatapointRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     datapoint_id: str
+    r"""The unique identifier of the datapoint"""
     request_body: NotRequired[UpdateDatapointRequestBodyTypedDict]
 
 
@@ -623,10 +641,12 @@ class UpdateDatapointRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     datapoint_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the datapoint"""
 
     request_body: Annotated[
         Optional[UpdateDatapointRequestBody],
@@ -838,7 +858,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
 ]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class UpdateDatapointMessagesDatasetsAudioTypedDict(TypedDict):
@@ -894,7 +914,7 @@ class UpdateDatapointMessagesDatasetsToolCalls(BaseModel):
 
 class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[UpdateDatapointMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -917,7 +937,7 @@ class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class UpdateDatapointMessagesDatasetsAssistantMessage(BaseModel):
     role: UpdateDatapointMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[UpdateDatapointMessagesDatasetsResponse200Content] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -992,17 +1012,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class UpdateDatapoint2DatasetsFileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class UpdateDatapoint2DatasetsFile(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -1010,6 +1044,7 @@ class UpdateDatapoint2Datasets4TypedDict(TypedDict):
     type: UpdateDatapoint2DatasetsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: UpdateDatapoint2DatasetsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class UpdateDatapoint2Datasets4(BaseModel):
@@ -1017,6 +1052,7 @@ class UpdateDatapoint2Datasets4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: UpdateDatapoint2DatasetsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 UpdateDatapoint2DatasetsResponse200ApplicationJSONType = Literal["input_audio",]
@@ -1234,6 +1270,182 @@ UpdateDatapointDatasetsMessages = TypeAliasType(
 )
 
 
+UpdateDatapointEvaluationsDatasetsResponseEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+UpdateDatapointEvaluationsDatasetsResponseSource = Literal[
+    "orq",
+    "external",
+]
+
+
+UpdateDatapointEvaluationsDatasetsResponseType = Literal["string_array",]
+
+
+class UpdateDatapointEvaluations3TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: UpdateDatapointEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: UpdateDatapointEvaluationsDatasetsResponseType
+    values: List[str]
+    source: NotRequired[UpdateDatapointEvaluationsDatasetsResponseSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class UpdateDatapointEvaluations3(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: UpdateDatapointEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: UpdateDatapointEvaluationsDatasetsResponseType
+
+    values: List[str]
+
+    source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.532Z")
+    r"""The date and time the item was reviewed"""
+
+
+UpdateDatapointEvaluationsDatasetsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+UpdateDatapointEvaluationsDatasetsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+UpdateDatapointEvaluationsDatasetsType = Literal["number",]
+
+
+class UpdateDatapointEvaluations2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: UpdateDatapointEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: UpdateDatapointEvaluationsDatasetsType
+    value: float
+    source: NotRequired[UpdateDatapointEvaluationsDatasetsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class UpdateDatapointEvaluations2(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: UpdateDatapointEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: UpdateDatapointEvaluationsDatasetsType
+
+    value: float
+
+    source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.531Z")
+    r"""The date and time the item was reviewed"""
+
+
+UpdateDatapointEvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+UpdateDatapointEvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+UpdateDatapointEvaluationsType = Literal["string",]
+
+
+class UpdateDatapointEvaluations1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: UpdateDatapointEvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: UpdateDatapointEvaluationsType
+    value: str
+    source: NotRequired[UpdateDatapointEvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class UpdateDatapointEvaluations1(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: UpdateDatapointEvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: UpdateDatapointEvaluationsType
+
+    value: str
+
+    source: Optional[UpdateDatapointEvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.531Z")
+    r"""The date and time the item was reviewed"""
+
+
+UpdateDatapointEvaluationsTypedDict = TypeAliasType(
+    "UpdateDatapointEvaluationsTypedDict",
+    Union[
+        UpdateDatapointEvaluations1TypedDict,
+        UpdateDatapointEvaluations2TypedDict,
+        UpdateDatapointEvaluations3TypedDict,
+    ],
+)
+
+
+UpdateDatapointEvaluations = TypeAliasType(
+    "UpdateDatapointEvaluations",
+    Union[
+        UpdateDatapointEvaluations1,
+        UpdateDatapointEvaluations2,
+        UpdateDatapointEvaluations3,
+    ],
+)
+
+
 class UpdateDatapointResponseBodyTypedDict(TypedDict):
     r"""Dataset item updated."""
 
@@ -1248,6 +1460,10 @@ class UpdateDatapointResponseBodyTypedDict(TypedDict):
     messages: NotRequired[List[UpdateDatapointDatasetsMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
+    evaluations: NotRequired[List[UpdateDatapointEvaluationsTypedDict]]
+    r"""Evaluations associated with the datapoint"""
+    snapshot_version: NotRequired[str]
+    r"""The version of the dataset snapshot"""
     created_by_id: NotRequired[str]
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
@@ -1278,6 +1494,12 @@ class UpdateDatapointResponseBody(BaseModel):
 
     expected_output: Optional[str] = None
 
+    evaluations: Optional[List[UpdateDatapointEvaluations]] = None
+    r"""Evaluations associated with the datapoint"""
+
+    snapshot_version: Optional[str] = None
+    r"""The version of the dataset snapshot"""
+
     created_by_id: Optional[str] = None
     r"""The unique identifier of the user who created the dataset"""
 
@@ -1287,5 +1509,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-24T08:19:33.740Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-30T20:23:01.859Z")
     r"""The date and time the resource was last updated"""

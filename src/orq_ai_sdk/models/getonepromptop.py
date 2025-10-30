@@ -38,7 +38,7 @@ GetOnePromptModelType = Literal[
     "tts",
     "stt",
     "rerank",
-    "moderations",
+    "moderation",
     "vision",
 ]
 r"""The modality of the model"""
@@ -53,7 +53,7 @@ GetOnePromptFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetOnePromptResponseFormat4 = Literal[
+GetOnePromptResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -62,13 +62,13 @@ GetOnePromptResponseFormat4 = Literal[
 ]
 
 
-GetOnePromptResponseFormat3 = Literal[
+GetOnePromptResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-GetOnePromptResponseFormat2 = Literal[
+GetOnePromptResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -78,74 +78,68 @@ GetOnePromptResponseFormat2 = Literal[
 ]
 
 
-GetOnePrompt1PromptsResponseType = Literal["text",]
+GetOnePromptResponseFormatPromptsResponseType = Literal["text",]
 
 
-class GetOnePrompt13TypedDict(TypedDict):
-    type: GetOnePrompt1PromptsResponseType
+class GetOnePromptResponseFormat3TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatPromptsResponseType
 
 
-class GetOnePrompt13(BaseModel):
-    type: GetOnePrompt1PromptsResponseType
+class GetOnePromptResponseFormat3(BaseModel):
+    type: GetOnePromptResponseFormatPromptsResponseType
 
 
-GetOnePrompt1PromptsType = Literal["json_object",]
+GetOnePromptResponseFormatPromptsType = Literal["json_object",]
 
 
-class GetOnePrompt12TypedDict(TypedDict):
-    type: GetOnePrompt1PromptsType
+class GetOnePromptResponseFormat2TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatPromptsType
 
 
-class GetOnePrompt12(BaseModel):
-    type: GetOnePrompt1PromptsType
+class GetOnePromptResponseFormat2(BaseModel):
+    type: GetOnePromptResponseFormatPromptsType
 
 
-GetOnePrompt1Type = Literal["json_schema",]
+GetOnePromptResponseFormatType = Literal["json_schema",]
 
 
-class GetOnePrompt1JSONSchemaTypedDict(TypedDict):
+class GetOnePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class GetOnePrompt1JSONSchema(BaseModel):
+class GetOnePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
+    description: Optional[str] = None
+
     strict: Optional[bool] = None
 
 
-class GetOnePrompt11TypedDict(TypedDict):
-    type: GetOnePrompt1Type
-    json_schema: GetOnePrompt1JSONSchemaTypedDict
+class GetOnePromptResponseFormat1TypedDict(TypedDict):
+    type: GetOnePromptResponseFormatType
+    json_schema: GetOnePromptResponseFormatJSONSchemaTypedDict
 
 
-class GetOnePrompt11(BaseModel):
-    type: GetOnePrompt1Type
+class GetOnePromptResponseFormat1(BaseModel):
+    type: GetOnePromptResponseFormatType
 
-    json_schema: GetOnePrompt1JSONSchema
-
-
-GetOnePromptResponseFormat1TypedDict = TypeAliasType(
-    "GetOnePromptResponseFormat1TypedDict",
-    Union[GetOnePrompt12TypedDict, GetOnePrompt13TypedDict, GetOnePrompt11TypedDict],
-)
-
-
-GetOnePromptResponseFormat1 = TypeAliasType(
-    "GetOnePromptResponseFormat1", Union[GetOnePrompt12, GetOnePrompt13, GetOnePrompt11]
-)
+    json_schema: GetOnePromptResponseFormatJSONSchema
 
 
 GetOnePromptResponseFormatTypedDict = TypeAliasType(
     "GetOnePromptResponseFormatTypedDict",
     Union[
+        GetOnePromptResponseFormat2TypedDict,
+        GetOnePromptResponseFormat3TypedDict,
         GetOnePromptResponseFormat1TypedDict,
-        GetOnePromptResponseFormat2,
-        GetOnePromptResponseFormat3,
         GetOnePromptResponseFormat4,
+        GetOnePromptResponseFormat5,
+        GetOnePromptResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -161,10 +155,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetOnePromptResponseFormat = TypeAliasType(
     "GetOnePromptResponseFormat",
     Union[
-        GetOnePromptResponseFormat1,
         GetOnePromptResponseFormat2,
         GetOnePromptResponseFormat3,
+        GetOnePromptResponseFormat1,
         GetOnePromptResponseFormat4,
+        GetOnePromptResponseFormat5,
+        GetOnePromptResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -409,6 +405,7 @@ GetOnePromptProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 
@@ -430,15 +427,25 @@ r"""The type of the content part. Always `file`."""
 
 
 class GetOnePrompt2FileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class GetOnePrompt2File(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -604,7 +611,7 @@ class GetOnePromptPromptConfigTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetOnePromptProvider]
     integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
 
 
@@ -629,7 +636,7 @@ class GetOnePromptPromptConfig(BaseModel):
     provider: Optional[GetOnePromptProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
 
     version: Optional[str] = None
 
@@ -754,8 +761,8 @@ class GetOnePromptMetadata(BaseModel):
         return m
 
 
-class GetOnePromptResponseBodyTypedDict(TypedDict):
-    r"""Prompt retrieved."""
+class GetOnePromptPromptTypedDict(TypedDict):
+    r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: str
     type: GetOnePromptType
@@ -774,8 +781,8 @@ class GetOnePromptResponseBodyTypedDict(TypedDict):
     metadata: NotRequired[GetOnePromptMetadataTypedDict]
 
 
-class GetOnePromptResponseBody(BaseModel):
-    r"""Prompt retrieved."""
+class GetOnePromptPrompt(BaseModel):
+    r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 

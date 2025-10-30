@@ -1,9 +1,0 @@
-# ResponseBodyBoolean
-
-
-## Fields
-
-| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                 | [models.InvokeEvalResponseBodyEvalsResponseType](../models/invokeevalresponsebodyevalsresponsetype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
-| `value`                                                                                                | [Nullable[models.ResponseBodyValue]](../models/responsebodyvalue.md)                                   | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

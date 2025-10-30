@@ -318,44 +318,6 @@ with Orq(
 * [create](docs/sdks/evals/README.md#create) - Create an Evaluator
 * [update](docs/sdks/evals/README.md#update) - Update an Evaluator
 * [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
-* [bert_score](docs/sdks/evals/README.md#bert_score) - Run BertScore Evaluator
-* [bleu_score](docs/sdks/evals/README.md#bleu_score) - Run BLEU Score Evaluator
-* [contains_all](docs/sdks/evals/README.md#contains_all) - Run Contains All Evaluator
-* [contains_any](docs/sdks/evals/README.md#contains_any) - Run Contains Any Evaluator
-* [contains_email](docs/sdks/evals/README.md#contains_email) - Run Contains Email Evaluator
-* [contains_none](docs/sdks/evals/README.md#contains_none) - Run Contains None Evaluator
-* [contains_url](docs/sdks/evals/README.md#contains_url) - Run Contains URL Evaluator
-* [contains_valid_link](docs/sdks/evals/README.md#contains_valid_link) - Run Contains Valid Link Evaluator
-* [contains](docs/sdks/evals/README.md#contains) - Run Contains Evaluator
-* [ends_with](docs/sdks/evals/README.md#ends_with) - Run Ends With Evaluator
-* [exact_match](docs/sdks/evals/README.md#exact_match) - Run Exact Match Evaluator
-* [length_between](docs/sdks/evals/README.md#length_between) - Run Length Between Evaluator
-* [length_greater_than](docs/sdks/evals/README.md#length_greater_than) - Run Length Greater Than Evaluator
-* [length_less_than](docs/sdks/evals/README.md#length_less_than) - Run Length Less Than Evaluator
-* [valid_json](docs/sdks/evals/README.md#valid_json) - Run JSON Validation Evaluator
-* [age_appropriate](docs/sdks/evals/README.md#age_appropriate) - Run Age Appropriate Evaluator
-* [bot_detection](docs/sdks/evals/README.md#bot_detection) - Run Bot Detection Evaluator
-* [fact_checking_knowledge_base](docs/sdks/evals/README.md#fact_checking_knowledge_base) - Run Fact Checking Knowledge Base Evaluator
-* [grammar](docs/sdks/evals/README.md#grammar) - Run Grammar Evaluator
-* [localization](docs/sdks/evals/README.md#localization) - Run Localization Evaluator
-* [pii](docs/sdks/evals/README.md#pii) - Run PII Evaluator
-* [sentiment_classification](docs/sdks/evals/README.md#sentiment_classification) - Run Sentiment Classification Evaluator
-* [summarization](docs/sdks/evals/README.md#summarization) - Run Summarization Evaluator
-* [tone_of_voice](docs/sdks/evals/README.md#tone_of_voice) - Run Tone of Voice Evaluator
-* [translation](docs/sdks/evals/README.md#translation) - Run Translation Evaluator
-* [ragas_coherence](docs/sdks/evals/README.md#ragas_coherence) - Run Coherence Evaluator
-* [ragas_conciseness](docs/sdks/evals/README.md#ragas_conciseness) - Run Conciseness Evaluator
-* [ragas_context_precision](docs/sdks/evals/README.md#ragas_context_precision) - Run Context Precision Evaluator
-* [ragas_context_recall](docs/sdks/evals/README.md#ragas_context_recall) - Run Context Recall Evaluator
-* [ragas_context_entities_recall](docs/sdks/evals/README.md#ragas_context_entities_recall) - Run Context Entities Recall Evaluator
-* [ragas_correctness](docs/sdks/evals/README.md#ragas_correctness) - Run Correctness Evaluator
-* [ragas_faithfulness](docs/sdks/evals/README.md#ragas_faithfulness) - Run Faithfulness Evaluator
-* [ragas_harmfulness](docs/sdks/evals/README.md#ragas_harmfulness) - Run Harmfulness Evaluator
-* [ragas_maliciousness](docs/sdks/evals/README.md#ragas_maliciousness) - Run Maliciousness Evaluator
-* [ragas_noise_sensitivity](docs/sdks/evals/README.md#ragas_noise_sensitivity) - Run Noise Sensitivity Evaluator
-* [ragas_response_relevancy](docs/sdks/evals/README.md#ragas_response_relevancy) - Run Response Relevancy Evaluator
-* [ragas_summarization](docs/sdks/evals/README.md#ragas_summarization) - Run Summarization Evaluator
-* [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
 
 ### [feedback](docs/sdks/feedback/README.md)
 
@@ -383,6 +345,9 @@ with Orq(
 * [update_datasource](docs/sdks/knowledge/README.md#update_datasource) - Update a datasource
 * [create_chunks](docs/sdks/knowledge/README.md#create_chunks) - Create chunks for a datasource
 * [list_chunks](docs/sdks/knowledge/README.md#list_chunks) - List all chunks for a datasource
+* [delete_chunks](docs/sdks/knowledge/README.md#delete_chunks) - Delete multiple chunks
+* [list_chunks_paginated](docs/sdks/knowledge/README.md#list_chunks_paginated) - List chunks with offset-based pagination
+* [get_chunks_count](docs/sdks/knowledge/README.md#get_chunks_count) - Get chunks total count
 * [update_chunk](docs/sdks/knowledge/README.md#update_chunk) - Update a chunk
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
@@ -637,7 +602,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (101)</summary>
+<details><summary>Less common errors (25)</summary>
 
 <br />
 
@@ -648,102 +613,26 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 10 of 133 methods.*
-* [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`GetAgentTaskAgentsResponseBody`](./src/orq_ai_sdk/models/getagenttaskagentsresponsebody.py): Agent task not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`GetAgentAgentsResponseBody`](./src/orq_ai_sdk/models/getagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`ListAgentTasksAgentsResponseBody`](./src/orq_ai_sdk/models/listagenttasksagentsresponsebody.py): No agent tasks found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`UpdatePromptPromptsResponseBody`](./src/orq_ai_sdk/models/updatepromptpromptsresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 133 methods.*
-* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 133 methods.*
-* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 133 methods.*
-* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 133 methods.*
-* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsBertScoreEvalsResponseBody`](./src/orq_ai_sdk/models/evalsbertscoreevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsBleuScoreEvalsResponseBody`](./src/orq_ai_sdk/models/evalsbleuscoreevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsAllEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsallevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsAnyEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsanyevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsEmailEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsemailevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsNoneEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsnoneevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsURLEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsurlevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsValidLinkEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsvalidlinkevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsEvalsResponseBody`](./src/orq_ai_sdk/models/evalscontainsevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsEndsWithEvalsResponseBody`](./src/orq_ai_sdk/models/evalsendswithevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsExactMatchEvalsResponseBody`](./src/orq_ai_sdk/models/evalsexactmatchevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthBetweenEvalsResponseBody`](./src/orq_ai_sdk/models/evalslengthbetweenevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthGreaterThanEvalsResponseBody`](./src/orq_ai_sdk/models/evalslengthgreaterthanevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthLessThanEvalsResponseBody`](./src/orq_ai_sdk/models/evalslengthlessthanevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsValidJSONEvalsResponseBody`](./src/orq_ai_sdk/models/evalsvalidjsonevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsAgeAppropriateEvalsResponseBody`](./src/orq_ai_sdk/models/evalsageappropriateevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsBotDetectionEvalsResponseBody`](./src/orq_ai_sdk/models/evalsbotdetectionevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsFactCheckingKnowledgeBaseEvalsResponseBody`](./src/orq_ai_sdk/models/evalsfactcheckingknowledgebaseevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsGrammarEvalsResponseBody`](./src/orq_ai_sdk/models/evalsgrammarevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsLocalizationEvalsResponseBody`](./src/orq_ai_sdk/models/evalslocalizationevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsPiiEvalsResponseBody`](./src/orq_ai_sdk/models/evalspiievalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsSentimentClassificationEvalsResponseBody`](./src/orq_ai_sdk/models/evalssentimentclassificationevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsSummarizationEvalsResponseBody`](./src/orq_ai_sdk/models/evalssummarizationevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsToneOfVoiceEvalsResponseBody`](./src/orq_ai_sdk/models/evalstoneofvoiceevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsTranslationEvalsResponseBody`](./src/orq_ai_sdk/models/evalstranslationevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasCoherenceEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragascoherenceevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasConcisenessEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasconcisenessevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextPrecisionEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragascontextprecisionevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextRecallEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragascontextrecallevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextEntitiesRecallEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragascontextentitiesrecallevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasCorrectnessEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragascorrectnessevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasFaithfulnessEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasfaithfulnessevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasHarmfulnessEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasharmfulnessevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasMaliciousnessEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasmaliciousnessevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasNoiseSensitivityEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasnoisesensitivityevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasResponseRelevancyEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragasresponserelevancyevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasSummarizationEvalsResponseBody`](./src/orq_ai_sdk/models/evalsragassummarizationevalsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`InvokeEvalEvalsResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 133 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`DuplicateToolToolsResponseBody`](./src/orq_ai_sdk/models/duplicatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 133 methods.*
-* [`CreateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/createagentagentsresponsebody.py): Agent with this key already exists in the workspace. Status code `409`. Applicable to 1 of 133 methods.*
-* [`EvalsBertScoreEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsbertscoreevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsBleuScoreEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsbleuscoreevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsAllEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsallevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsAnyEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsanyevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsEmailEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsemailevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsNoneEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsnoneevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsURLEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsurlevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsValidLinkEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsvalidlinkevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsContainsEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalscontainsevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsEndsWithEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsendswithevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsExactMatchEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsexactmatchevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthBetweenEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalslengthbetweenevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthGreaterThanEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalslengthgreaterthanevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsLengthLessThanEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalslengthlessthanevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsValidJSONEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsvalidjsonevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsAgeAppropriateEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsageappropriateevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsBotDetectionEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsbotdetectionevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsFactCheckingKnowledgeBaseEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsfactcheckingknowledgebaseevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsGrammarEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsgrammarevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsLocalizationEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalslocalizationevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsPiiEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalspiievalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsSentimentClassificationEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalssentimentclassificationevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsSummarizationEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalssummarizationevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsToneOfVoiceEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalstoneofvoiceevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsTranslationEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalstranslationevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasCoherenceEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragascoherenceevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasConcisenessEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasconcisenessevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextPrecisionEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragascontextprecisionevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextRecallEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragascontextrecallevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasContextEntitiesRecallEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragascontextentitiesrecallevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasCorrectnessEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragascorrectnessevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasFaithfulnessEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasfaithfulnessevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasHarmfulnessEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasharmfulnessevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasMaliciousnessEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasmaliciousnessevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasNoiseSensitivityEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasnoisesensitivityevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasResponseRelevancyEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragasresponserelevancyevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`EvalsRagasSummarizationEvalsResponseResponseBody`](./src/orq_ai_sdk/models/evalsragassummarizationevalsresponseresponsebody.py): Internal server error. Status code `500`. Applicable to 1 of 133 methods.*
-* [`InvokeEvalEvalsResponseResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponseresponsebody.py): Error running the evaluator. Status code `500`. Applicable to 1 of 133 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 10 of 98 methods.*
+* [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 98 methods.*
+* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 98 methods.*
+* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 98 methods.*
+* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 98 methods.*
+* [`GetAgentTaskAgentsResponseBody`](./src/orq_ai_sdk/models/getagenttaskagentsresponsebody.py): Agent task not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`GetAgentAgentsResponseBody`](./src/orq_ai_sdk/models/getagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`ListAgentTasksAgentsResponseBody`](./src/orq_ai_sdk/models/listagenttasksagentsresponsebody.py): No agent tasks found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 98 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`DuplicateToolToolsResponseBody`](./src/orq_ai_sdk/models/duplicatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 98 methods.*
+* [`CreateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/createagentagentsresponsebody.py): Agent with this key already exists in the workspace. Status code `409`. Applicable to 1 of 98 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>

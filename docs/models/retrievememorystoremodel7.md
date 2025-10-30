@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                            | Value                           |
-| ------------------------------- | ------------------------------- |
-| `OPENAI_TEXT_EMBEDDING_3_LARGE` | openai/text-embedding-3-large   |
+| Name                           | Value                          |
+| ------------------------------ | ------------------------------ |
+| `AZURE_TEXT_EMBEDDING_3_SMALL` | azure/text-embedding-3-small   |

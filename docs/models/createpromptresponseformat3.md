@@ -1,9 +1,9 @@
 # CreatePromptResponseFormat3
 
 
-## Values
+## Fields
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `BASE64_JSON` | base64_json   |
+| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                             | [models.CreatePromptResponseFormatPromptsRequestRequestBodyPromptType](../models/createpromptresponseformatpromptsrequestrequestbodyprompttype.md) | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
+| `json_schema`                                                                                                                                      | [models.ResponseFormatJSONSchema](../models/responseformatjsonschema.md)                                                                           | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |

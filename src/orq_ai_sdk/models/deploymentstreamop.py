@@ -221,7 +221,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentStreamPrefixMessagesAudioTypedDict(TypedDict):
@@ -277,7 +277,7 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
 
 class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[DeploymentStreamPrefixMessagesDeploymentsContentTypedDict]
     ]
@@ -300,7 +300,7 @@ class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentStreamPrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentStreamPrefixMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -375,17 +375,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentStream2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentStream2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -393,6 +407,7 @@ class DeploymentStream24TypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: DeploymentStream2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentStream24(BaseModel):
@@ -400,6 +415,7 @@ class DeploymentStream24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentStream2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentStream2DeploymentsRequestType = Literal["input_audio",]
@@ -807,7 +823,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentStreamMessagesDeploymentsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentStreamMessagesAudioTypedDict(TypedDict):
@@ -863,7 +879,7 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
 
 class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[DeploymentStreamMessagesDeploymentsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -884,7 +900,7 @@ class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentStreamMessagesAssistantMessage(BaseModel):
     role: DeploymentStreamMessagesDeploymentsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentStreamMessagesDeploymentsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -959,17 +975,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentStream2DeploymentsFileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentStream2DeploymentsFile(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -977,6 +1007,7 @@ class DeploymentStream2Deployments4TypedDict(TypedDict):
     type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Content4Type
     r"""The type of the content part. Always `file`."""
     file: DeploymentStream2DeploymentsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentStream2Deployments4(BaseModel):
@@ -984,6 +1015,7 @@ class DeploymentStream2Deployments4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentStream2DeploymentsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentStream2DeploymentsRequestRequestBodyMessages3ContentType = Literal[
@@ -1946,6 +1978,7 @@ DeploymentStreamProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 r"""The provider used to generate the response"""
 

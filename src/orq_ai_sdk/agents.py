@@ -3,15 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentop as models_createagentop,
-    invokeagentop as models_invokeagentop,
-    listagenttasksop as models_listagenttasksop,
-    runagentop as models_runagentop,
-    streamagentop as models_streamagentop,
-    streamrunagentop as models_streamrunagentop,
-    updateagentop as models_updateagentop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -217,10 +208,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createagentop.CreateAgentRequestBody,
-                models_createagentop.CreateAgentRequestBodyTypedDict,
-            ]
+            Union[models.CreateAgentRequestBody, models.CreateAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -319,10 +307,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_createagentop.CreateAgentRequestBody,
-                models_createagentop.CreateAgentRequestBodyTypedDict,
-            ]
+            Union[models.CreateAgentRequestBody, models.CreateAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -990,23 +975,20 @@ class Agents(BaseSDK):
         model: Optional[str] = None,
         fallback_models: Optional[List[str]] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1028,7 +1010,7 @@ class Agents(BaseSDK):
         :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
         :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
         :param settings:
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -1153,23 +1135,20 @@ class Agents(BaseSDK):
         model: Optional[str] = None,
         fallback_models: Optional[List[str]] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1191,7 +1170,7 @@ class Agents(BaseSDK):
         :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
         :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
         :param settings:
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -1307,23 +1286,14 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
-        ],
+        message: Union[models.Message, models.MessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
-        memory: Optional[
-            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1438,23 +1408,14 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_invokeagentop.Message, models_invokeagentop.MessageTypedDict
-        ],
+        message: Union[models.Message, models.MessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[models_invokeagentop.Contact, models_invokeagentop.ContactTypedDict]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
-        memory: Optional[
-            Union[models_invokeagentop.Memory, models_invokeagentop.MemoryTypedDict]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1572,7 +1533,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models_listagenttasksop.Status] = None,
+        status: Optional[models.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1678,7 +1639,7 @@ class Agents(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        status: Optional[models_listagenttasksop.Status] = None,
+        status: Optional[models.Status] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1781,10 +1742,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_runagentop.RunAgentRequestBody,
-                models_runagentop.RunAgentRequestBodyTypedDict,
-            ]
+            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1877,10 +1835,7 @@ class Agents(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[
-                models_runagentop.RunAgentRequestBody,
-                models_runagentop.RunAgentRequestBodyTypedDict,
-            ]
+            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1974,8 +1929,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_streamrunagentop.StreamRunAgentRequestBody,
-                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
+                models.StreamRunAgentRequestBody,
+                models.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2087,8 +2042,8 @@ class Agents(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_streamrunagentop.StreamRunAgentRequestBody,
-                models_streamrunagentop.StreamRunAgentRequestBodyTypedDict,
+                models.StreamRunAgentRequestBody,
+                models.StreamRunAgentRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2199,29 +2154,17 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_streamagentop.StreamAgentMessage,
-            models_streamagentop.StreamAgentMessageTypedDict,
-        ],
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -2357,29 +2300,17 @@ class Agents(BaseSDK):
         self,
         *,
         key: str,
-        message: Union[
-            models_streamagentop.StreamAgentMessage,
-            models_streamagentop.StreamAgentMessageTypedDict,
-        ],
+        message: Union[models.StreamAgentMessage, models.StreamAgentMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,

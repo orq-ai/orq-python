@@ -13,7 +13,12 @@ class CreateDatasetRequestBodyTypedDict(TypedDict):
     display_name: str
     r"""The display name of the dataset"""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
 
 class CreateDatasetRequestBody(BaseModel):
@@ -21,7 +26,12 @@ class CreateDatasetRequestBody(BaseModel):
     r"""The display name of the dataset"""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
 
 class CreateDatasetMetadataTypedDict(TypedDict):
@@ -83,5 +93,5 @@ class CreateDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-24T08:19:33.740Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-30T20:23:01.859Z")
     r"""The date and time the resource was last updated"""

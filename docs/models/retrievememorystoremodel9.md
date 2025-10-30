@@ -5,4 +5,4 @@
 
 | Name                            | Value                           |
 | ------------------------------- | ------------------------------- |
-| `OPENAI_TEXT_EMBEDDING_ADA_002` | openai/text-embedding-ada-002   |
+| `OPENAI_TEXT_EMBEDDING_3_SMALL` | openai/text-embedding-3-small   |

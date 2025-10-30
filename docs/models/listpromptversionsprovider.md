@@ -27,3 +27,4 @@
 | `OPENAILIKE`  | openailike    |
 | `CEREBRAS`    | cerebras      |
 | `BYTEDANCE`   | bytedance     |
+| `MISTRAL`     | mistral       |

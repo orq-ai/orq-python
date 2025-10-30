@@ -384,7 +384,7 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDFunctionToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
 UpdateAgentAgentToolInputCRUD = TypeAliasType(
@@ -406,7 +406,7 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDFunctionTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
 class UpdateAgentSettingsTypedDict(TypedDict):
@@ -473,7 +473,12 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
     settings: NotRequired[UpdateAgentSettingsTypedDict]
     path: NotRequired[str]
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     memory_stores: NotRequired[List[str]]
     knowledge_bases: NotRequired[List[UpdateAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[UpdateAgentTeamOfAgentsTypedDict]]
@@ -503,7 +508,12 @@ class UpdateAgentRequestBody(BaseModel):
     settings: Optional[UpdateAgentSettings] = None
 
     path: Optional[str] = None
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     memory_stores: Optional[List[str]] = None
 
@@ -600,7 +610,7 @@ class UpdateAgentToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[UpdateAgentConditionsTypedDict]]
     mcp_server: NotRequired[str]
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -621,25 +631,23 @@ class UpdateAgentTools(BaseModel):
     conditions: Optional[List[UpdateAgentConditions]] = None
 
     mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
-    r"""The id of the resource"""
+    r"""Optional MCP server reference for tools from MCP servers"""
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
 class UpdateAgentAgentsSettingsTypedDict(TypedDict):
-    tools: List[UpdateAgentToolsTypedDict]
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     tool_approval_required: NotRequired[UpdateAgentAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[UpdateAgentToolsTypedDict]]
 
 
 class UpdateAgentAgentsSettings(BaseModel):
-    tools: List[UpdateAgentTools]
-
     max_iterations: Optional[int] = 15
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -650,6 +658,8 @@ class UpdateAgentAgentsSettings(BaseModel):
         "respect_tool"
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[UpdateAgentTools]] = None
 
 
 class UpdateAgentModelTypedDict(TypedDict):
@@ -773,7 +783,12 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     model: UpdateAgentModelTypedDict
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     memory_stores: List[str]
     team_of_agents: List[UpdateAgentAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -816,7 +831,12 @@ class UpdateAgentResponseBody(BaseModel):
     model: UpdateAgentModel
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     memory_stores: List[str]
 

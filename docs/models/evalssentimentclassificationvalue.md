@@ -1,9 +1,0 @@
-# EvalsSentimentClassificationValue
-
-
-## Fields
-
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `value`                                                                                              | [models.EvalsSentimentClassificationEvalsValue](../models/evalssentimentclassificationevalsvalue.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `explanation`                                                                                        | *OptionalNullable[str]*                                                                              | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |

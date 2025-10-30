@@ -21,3 +21,9 @@ value: models.CreatePrompt2Prompts2 = /* values here */
 value: models.CreatePrompt2Prompts3 = /* values here */
 ```
 
+### `models.CreatePrompt24`
+
+```python
+value: models.CreatePrompt24 = /* values here */
+```
+

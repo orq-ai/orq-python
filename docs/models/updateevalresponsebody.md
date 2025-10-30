@@ -29,10 +29,10 @@ value: models.UpdateEvalResponseBodyHTTP = /* values here */
 value: models.UpdateEvalResponseBodyPython = /* values here */
 ```
 
-### `models.UpdateEvalResponseBodyFunction`
+### `models.ResponseBodyFunction`
 
 ```python
-value: models.UpdateEvalResponseBodyFunction = /* values here */
+value: models.ResponseBodyFunction = /* values here */
 ```
 
 ### `models.ResponseBodyRagas`

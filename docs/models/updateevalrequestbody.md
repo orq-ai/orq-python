@@ -15,10 +15,10 @@ value: models.RequestBodyLLM = /* values here */
 value: models.RequestBodyJSON = /* values here */
 ```
 
-### `models.UpdateEvalRequestBodyHTTP`
+### `models.RequestBodyHTTP`
 
 ```python
-value: models.UpdateEvalRequestBodyHTTP = /* values here */
+value: models.RequestBodyHTTP = /* values here */
 ```
 
 ### `models.RequestBodyPython`

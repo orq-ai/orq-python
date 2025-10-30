@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `JINA_JINA_CLIP_V1` | jina/jina-clip-v1   |
+| Name                    | Value                   |
+| ----------------------- | ----------------------- |
+| `MISTRAL_MISTRAL_EMBED` | mistral/mistral-embed   |

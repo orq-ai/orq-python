@@ -1,6 +1,6 @@
 # ModelParameters
 
-Model Parameters: Not all parameters apply to every model
+Optional model parameters like temperature and maxTokens.
 
 
 ## Fields

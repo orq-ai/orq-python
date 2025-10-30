@@ -208,7 +208,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class PrefixMessagesAudioTypedDict(TypedDict):
@@ -264,7 +264,7 @@ class PrefixMessagesToolCalls(BaseModel):
 
 class PrefixMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[DeploymentGetConfigPrefixMessagesDeploymentsRequestContentTypedDict]
     ]
@@ -287,7 +287,7 @@ class PrefixMessagesAssistantMessageTypedDict(TypedDict):
 
 class PrefixMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigPrefixMessagesDeploymentsRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[
         DeploymentGetConfigPrefixMessagesDeploymentsRequestContent
@@ -364,17 +364,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentGetConfig2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentGetConfig2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -382,6 +396,7 @@ class DeploymentGetConfig24TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentGetConfig24(BaseModel):
@@ -389,6 +404,7 @@ class DeploymentGetConfig24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentGetConfig2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentGetConfig2Type = Literal["input_audio",]
@@ -804,7 +820,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 DeploymentGetConfigMessagesDeploymentsRequestRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class DeploymentGetConfigMessagesAudioTypedDict(TypedDict):
@@ -860,7 +876,7 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
 
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[DeploymentGetConfigMessagesContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -881,7 +897,7 @@ class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
 
 class DeploymentGetConfigMessagesAssistantMessage(BaseModel):
     role: DeploymentGetConfigMessagesDeploymentsRequestRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[DeploymentGetConfigMessagesContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -958,17 +974,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentGetConfig2DeploymentsFileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentGetConfig2DeploymentsFile(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -976,6 +1006,7 @@ class DeploymentGetConfig2Deployments4TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsRequestRequestBodyMessages3Content4Type
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2DeploymentsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class DeploymentGetConfig2Deployments4(BaseModel):
@@ -983,6 +1014,7 @@ class DeploymentGetConfig2Deployments4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: DeploymentGetConfig2DeploymentsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 DeploymentGetConfig2DeploymentsRequestRequestBodyMessages3ContentType = Literal[
@@ -1922,7 +1954,7 @@ DeploymentGetConfigType = Literal[
     "tts",
     "stt",
     "rerank",
-    "moderations",
+    "moderation",
     "vision",
 ]
 r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
@@ -1946,15 +1978,25 @@ r"""The type of the content part. Always `file`."""
 
 
 class DeploymentGetConfig2DeploymentsResponseFileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class DeploymentGetConfig2DeploymentsResponseFile(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -2126,7 +2168,7 @@ DeploymentGetConfigFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-DeploymentGetConfigResponseFormat4 = Literal[
+DeploymentGetConfigResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -2135,13 +2177,13 @@ DeploymentGetConfigResponseFormat4 = Literal[
 ]
 
 
-DeploymentGetConfigResponseFormat3 = Literal[
+DeploymentGetConfigResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-DeploymentGetConfigResponseFormat2 = Literal[
+DeploymentGetConfigResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -2151,79 +2193,68 @@ DeploymentGetConfigResponseFormat2 = Literal[
 ]
 
 
-DeploymentGetConfig1DeploymentsType = Literal["text",]
+DeploymentGetConfigResponseFormatDeploymentsType = Literal["text",]
 
 
-class DeploymentGetConfig13TypedDict(TypedDict):
-    type: DeploymentGetConfig1DeploymentsType
+class DeploymentGetConfigResponseFormat3TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
-class DeploymentGetConfig13(BaseModel):
-    type: DeploymentGetConfig1DeploymentsType
+class DeploymentGetConfigResponseFormat3(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
-DeploymentGetConfig1Type = Literal["json_object",]
+DeploymentGetConfigResponseFormatType = Literal["json_object",]
 
 
-class DeploymentGetConfig12TypedDict(TypedDict):
-    type: DeploymentGetConfig1Type
+class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatType
 
 
-class DeploymentGetConfig12(BaseModel):
-    type: DeploymentGetConfig1Type
+class DeploymentGetConfigResponseFormat2(BaseModel):
+    type: DeploymentGetConfigResponseFormatType
 
 
-DeploymentGetConfig1DeploymentsResponseType = Literal["json_schema",]
+DeploymentGetConfigResponseFormatDeploymentsResponseType = Literal["json_schema",]
 
 
-class DeploymentGetConfig1JSONSchemaTypedDict(TypedDict):
+class DeploymentGetConfigResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class DeploymentGetConfig1JSONSchema(BaseModel):
+class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
+    description: Optional[str] = None
+
     strict: Optional[bool] = None
 
 
-class DeploymentGetConfig11TypedDict(TypedDict):
-    type: DeploymentGetConfig1DeploymentsResponseType
-    json_schema: DeploymentGetConfig1JSONSchemaTypedDict
+class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
+    json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
 
 
-class DeploymentGetConfig11(BaseModel):
-    type: DeploymentGetConfig1DeploymentsResponseType
+class DeploymentGetConfigResponseFormat1(BaseModel):
+    type: DeploymentGetConfigResponseFormatDeploymentsResponseType
 
-    json_schema: DeploymentGetConfig1JSONSchema
-
-
-DeploymentGetConfigResponseFormat1TypedDict = TypeAliasType(
-    "DeploymentGetConfigResponseFormat1TypedDict",
-    Union[
-        DeploymentGetConfig12TypedDict,
-        DeploymentGetConfig13TypedDict,
-        DeploymentGetConfig11TypedDict,
-    ],
-)
-
-
-DeploymentGetConfigResponseFormat1 = TypeAliasType(
-    "DeploymentGetConfigResponseFormat1",
-    Union[DeploymentGetConfig12, DeploymentGetConfig13, DeploymentGetConfig11],
-)
+    json_schema: DeploymentGetConfigResponseFormatJSONSchema
 
 
 DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
     "DeploymentGetConfigResponseFormatTypedDict",
     Union[
+        DeploymentGetConfigResponseFormat2TypedDict,
+        DeploymentGetConfigResponseFormat3TypedDict,
         DeploymentGetConfigResponseFormat1TypedDict,
-        DeploymentGetConfigResponseFormat2,
-        DeploymentGetConfigResponseFormat3,
         DeploymentGetConfigResponseFormat4,
+        DeploymentGetConfigResponseFormat5,
+        DeploymentGetConfigResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2239,10 +2270,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
     Union[
-        DeploymentGetConfigResponseFormat1,
         DeploymentGetConfigResponseFormat2,
         DeploymentGetConfigResponseFormat3,
+        DeploymentGetConfigResponseFormat1,
         DeploymentGetConfigResponseFormat4,
+        DeploymentGetConfigResponseFormat5,
+        DeploymentGetConfigResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.

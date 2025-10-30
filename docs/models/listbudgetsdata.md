@@ -1,5 +1,7 @@
 # ListBudgetsData
 
+Budget configuration details (public API response)
+
 
 ## Fields
 

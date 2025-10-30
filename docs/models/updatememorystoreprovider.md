@@ -29,3 +29,4 @@ The provider of the AI service
 | `OPENAILIKE`  | openailike    |
 | `CEREBRAS`    | cerebras      |
 | `BYTEDANCE`   | bytedance     |
+| `MISTRAL`     | mistral       |

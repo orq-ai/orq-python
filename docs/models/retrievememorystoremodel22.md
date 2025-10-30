@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                      | Value                     |
-| ------------------------- | ------------------------- |
-| `JINA_JINA_EMBEDDINGS_V3` | jina/jina-embeddings-v3   |
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `JINA_JINA_CLIP_V2` | jina/jina-clip-v2   |

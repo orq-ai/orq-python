@@ -18,17 +18,21 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class RetrieveDatapointRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     datapoint_id: str
+    r"""The unique identifier of the datapoint"""
 
 
 class RetrieveDatapointRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     datapoint_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the datapoint"""
 
 
 RetrieveDatapointMessagesDatasetsResponse200ApplicationJSONRole = Literal["tool",]
@@ -221,7 +225,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 RetrieveDatapointMessagesDatasetsResponse200Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class RetrieveDatapointMessagesAudioTypedDict(TypedDict):
@@ -277,7 +281,7 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
 
 class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[RetrieveDatapointMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -298,7 +302,7 @@ class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
 
 class RetrieveDatapointMessagesAssistantMessage(BaseModel):
     role: RetrieveDatapointMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[RetrieveDatapointMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -373,17 +377,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class RetrieveDatapoint2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class RetrieveDatapoint2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -391,6 +409,7 @@ class RetrieveDatapoint24TypedDict(TypedDict):
     type: RetrieveDatapoint2DatasetsResponse200Type
     r"""The type of the content part. Always `file`."""
     file: RetrieveDatapoint2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class RetrieveDatapoint24(BaseModel):
@@ -398,6 +417,7 @@ class RetrieveDatapoint24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: RetrieveDatapoint2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 RetrieveDatapoint2DatasetsResponseType = Literal["input_audio",]
@@ -614,6 +634,182 @@ RetrieveDatapointMessages = TypeAliasType(
 )
 
 
+RetrieveDatapointEvaluationsDatasetsResponseEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+RetrieveDatapointEvaluationsDatasetsResponseSource = Literal[
+    "orq",
+    "external",
+]
+
+
+RetrieveDatapointEvaluationsDatasetsResponseType = Literal["string_array",]
+
+
+class RetrieveDatapointEvaluations3TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: RetrieveDatapointEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: RetrieveDatapointEvaluationsDatasetsResponseType
+    values: List[str]
+    source: NotRequired[RetrieveDatapointEvaluationsDatasetsResponseSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class RetrieveDatapointEvaluations3(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: RetrieveDatapointEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: RetrieveDatapointEvaluationsDatasetsResponseType
+
+    values: List[str]
+
+    source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.491Z")
+    r"""The date and time the item was reviewed"""
+
+
+RetrieveDatapointEvaluationsDatasetsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+RetrieveDatapointEvaluationsDatasetsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+RetrieveDatapointEvaluationsDatasetsType = Literal["number",]
+
+
+class RetrieveDatapointEvaluations2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: RetrieveDatapointEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: RetrieveDatapointEvaluationsDatasetsType
+    value: float
+    source: NotRequired[RetrieveDatapointEvaluationsDatasetsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class RetrieveDatapointEvaluations2(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: RetrieveDatapointEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: RetrieveDatapointEvaluationsDatasetsType
+
+    value: float
+
+    source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.491Z")
+    r"""The date and time the item was reviewed"""
+
+
+RetrieveDatapointEvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+RetrieveDatapointEvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+RetrieveDatapointEvaluationsType = Literal["string",]
+
+
+class RetrieveDatapointEvaluations1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: RetrieveDatapointEvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: RetrieveDatapointEvaluationsType
+    value: str
+    source: NotRequired[RetrieveDatapointEvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class RetrieveDatapointEvaluations1(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: RetrieveDatapointEvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: RetrieveDatapointEvaluationsType
+
+    value: str
+
+    source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.490Z")
+    r"""The date and time the item was reviewed"""
+
+
+RetrieveDatapointEvaluationsTypedDict = TypeAliasType(
+    "RetrieveDatapointEvaluationsTypedDict",
+    Union[
+        RetrieveDatapointEvaluations1TypedDict,
+        RetrieveDatapointEvaluations2TypedDict,
+        RetrieveDatapointEvaluations3TypedDict,
+    ],
+)
+
+
+RetrieveDatapointEvaluations = TypeAliasType(
+    "RetrieveDatapointEvaluations",
+    Union[
+        RetrieveDatapointEvaluations1,
+        RetrieveDatapointEvaluations2,
+        RetrieveDatapointEvaluations3,
+    ],
+)
+
+
 class RetrieveDatapointResponseBodyTypedDict(TypedDict):
     r"""Datapoint retrieved."""
 
@@ -628,6 +824,10 @@ class RetrieveDatapointResponseBodyTypedDict(TypedDict):
     messages: NotRequired[List[RetrieveDatapointMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
+    evaluations: NotRequired[List[RetrieveDatapointEvaluationsTypedDict]]
+    r"""Evaluations associated with the datapoint"""
+    snapshot_version: NotRequired[str]
+    r"""The version of the dataset snapshot"""
     created_by_id: NotRequired[str]
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
@@ -658,6 +858,12 @@ class RetrieveDatapointResponseBody(BaseModel):
 
     expected_output: Optional[str] = None
 
+    evaluations: Optional[List[RetrieveDatapointEvaluations]] = None
+    r"""Evaluations associated with the datapoint"""
+
+    snapshot_version: Optional[str] = None
+    r"""The version of the dataset snapshot"""
+
     created_by_id: Optional[str] = None
     r"""The unique identifier of the user who created the dataset"""
 
@@ -667,5 +873,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-24T08:19:33.740Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-30T20:23:01.859Z")
     r"""The date and time the resource was last updated"""

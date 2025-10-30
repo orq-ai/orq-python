@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class GetAllToolsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 300"""
+    r"""Maximum number of tools per page (1-200). Omit to return all tools."""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
@@ -22,8 +22,8 @@ class GetAllToolsRequest(BaseModel):
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 300
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 300, and the default is 300"""
+    ] = None
+    r"""Maximum number of tools per page (1-200). Omit to return all tools."""
 
     starting_after: Annotated[
         Optional[str],
@@ -76,7 +76,12 @@ class DataCodeTool(BaseModel):
 
 class Data5TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -101,7 +106,12 @@ class Data5TypedDict(TypedDict):
 
 class Data5(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -122,7 +132,7 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMH219379X3HP2XR19B"
+        "01K8VCKT2H8K9Z1QB8DJ9MWNH5"
     )
 
     display_name: Optional[str] = None
@@ -228,7 +238,12 @@ class DataMcp(BaseModel):
 
 class Data4TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -253,7 +268,12 @@ class Data4TypedDict(TypedDict):
 
 class Data4(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -274,7 +294,7 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMG352W8PSB39QE9M8T"
+        "01K8VCKT2F8KGQAWE0JKC40V2K"
     )
 
     display_name: Optional[str] = None
@@ -402,7 +422,12 @@ class GetAllToolsDataHTTP(BaseModel):
 
 class Data3TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -427,7 +452,12 @@ class Data3TypedDict(TypedDict):
 
 class Data3(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -448,7 +478,7 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMF05AQ730XMVQ7D8VB"
+        "01K8VCKT2CYQ1Y42C34D0QWB2Y"
     )
 
     display_name: Optional[str] = None
@@ -535,7 +565,12 @@ class DataJSONSchema(BaseModel):
 
 class Data2TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -560,7 +595,12 @@ class Data2TypedDict(TypedDict):
 
 class Data2(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -581,7 +621,7 @@ class Data2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMFFT4CV4DQASSE84SR"
+        "01K8VCKT2AT6CQME3NZ167W5ZT"
     )
 
     display_name: Optional[str] = None
@@ -638,7 +678,12 @@ class GetAllToolsDataFunction(BaseModel):
 
 class Data1TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -663,7 +708,12 @@ class Data1TypedDict(TypedDict):
 
 class Data1(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -684,7 +734,7 @@ class Data1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMFJZENT483JC6ARKZN"
+        "01K8VCKT285VC9K5DTSBXD90R3"
     )
 
     display_name: Optional[str] = None

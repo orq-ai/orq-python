@@ -1,23 +1,9 @@
 # ListPromptVersionsResponseFormat1
 
 
-## Supported Types
+## Fields
 
-### `models.ListPromptVersions11`
-
-```python
-value: models.ListPromptVersions11 = /* values here */
-```
-
-### `models.ListPromptVersions12`
-
-```python
-value: models.ListPromptVersions12 = /* values here */
-```
-
-### `models.ListPromptVersions13`
-
-```python
-value: models.ListPromptVersions13 = /* values here */
-```
-
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                       | [models.ListPromptVersionsResponseFormatType](../models/listpromptversionsresponseformattype.md)             | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `json_schema`                                                                                                | [models.ListPromptVersionsResponseFormatJSONSchema](../models/listpromptversionsresponseformatjsonschema.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

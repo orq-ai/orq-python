@@ -407,7 +407,7 @@ class Datasets(BaseSDK):
 
         Retrieves a specific dataset by its unique identifier
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -499,7 +499,7 @@ class Datasets(BaseSDK):
 
         Retrieves a specific dataset by its unique identifier
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -594,10 +594,10 @@ class Datasets(BaseSDK):
 
         Update a dataset
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param display_name: The display name of the dataset
         :param project_id: The unique identifier of the project it belongs to
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -704,10 +704,10 @@ class Datasets(BaseSDK):
 
         Update a dataset
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param display_name: The display name of the dataset
         :param project_id: The unique identifier of the project it belongs to
-        :param path: The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -811,7 +811,7 @@ class Datasets(BaseSDK):
 
         Permanently deletes a dataset and all its datapoints. This action is irreversible.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -897,7 +897,7 @@ class Datasets(BaseSDK):
 
         Permanently deletes a dataset and all its datapoints. This action is irreversible.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -986,7 +986,7 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datapoints from a specific dataset.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1083,7 +1083,7 @@ class Datasets(BaseSDK):
 
         Retrieves a paginated list of datapoints from a specific dataset.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -1169,18 +1169,21 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> Optional[List[models.CreateDatasetItemResponseBody]]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1203,7 +1206,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, Optional[List[models.CreateDatasetItemRequestBody]]
             ),
         )
 
@@ -1225,7 +1228,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.RequestBody]],
+                Optional[List[models.CreateDatasetItemRequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -1255,7 +1258,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
+                Optional[List[models.CreateDatasetItemResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1271,18 +1274,21 @@ class Datasets(BaseSDK):
         *,
         dataset_id: str,
         request_body: Optional[
-            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
+            Union[
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> Optional[List[models.CreateDatasetItemResponseBody]]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1305,7 +1311,7 @@ class Datasets(BaseSDK):
         request = models.CreateDatasetItemRequest(
             dataset_id=dataset_id,
             request_body=utils.get_pydantic_model(
-                request_body, Optional[List[models.RequestBody]]
+                request_body, Optional[List[models.CreateDatasetItemRequestBody]]
             ),
         )
 
@@ -1327,7 +1333,7 @@ class Datasets(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[List[models.RequestBody]],
+                Optional[List[models.CreateDatasetItemRequestBody]],
             ),
             timeout_ms=timeout_ms,
         )
@@ -1357,7 +1363,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
+                Optional[List[models.CreateDatasetItemResponseBody]], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1382,8 +1388,8 @@ class Datasets(BaseSDK):
 
         Retrieves a datapoint object
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1477,8 +1483,8 @@ class Datasets(BaseSDK):
 
         Retrieves a datapoint object
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1578,8 +1584,8 @@ class Datasets(BaseSDK):
     ) -> Optional[models.UpdateDatapointResponseBody]:
         r"""Update a datapoint
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
         :param messages: A list of messages comprising the conversation so far
         :param expected_output:
@@ -1696,8 +1702,8 @@ class Datasets(BaseSDK):
     ) -> Optional[models.UpdateDatapointResponseBody]:
         r"""Update a datapoint
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param inputs: The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported.
         :param messages: A list of messages comprising the conversation so far
         :param expected_output:
@@ -1808,8 +1814,8 @@ class Datasets(BaseSDK):
 
         Permanently deletes a specific datapoint from a dataset.
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1901,8 +1907,8 @@ class Datasets(BaseSDK):
 
         Permanently deletes a specific datapoint from a dataset.
 
-        :param dataset_id:
-        :param datapoint_id:
+        :param dataset_id: The unique identifier of the dataset
+        :param datapoint_id: The unique identifier of the datapoint
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1993,7 +1999,7 @@ class Datasets(BaseSDK):
 
         Delete all datapoints from a dataset. This action is irreversible.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2079,7 +2085,7 @@ class Datasets(BaseSDK):
 
         Delete all datapoints from a dataset. This action is irreversible.
 
-        :param dataset_id:
+        :param dataset_id: The unique identifier of the dataset
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

@@ -23,6 +23,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class ListDatasetDatapointsRequestTypedDict(TypedDict):
     dataset_id: str
+    r"""The unique identifier of the dataset"""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
@@ -35,6 +36,7 @@ class ListDatasetDatapointsRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     limit: Annotated[
         Optional[float],
@@ -252,7 +254,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 ListDatasetDatapointsMessagesDatasetsResponse200Role = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class ListDatasetDatapointsMessagesAudioTypedDict(TypedDict):
@@ -308,7 +310,7 @@ class ListDatasetDatapointsMessagesToolCalls(BaseModel):
 
 class ListDatasetDatapointsMessagesAssistantMessageTypedDict(TypedDict):
     role: ListDatasetDatapointsMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[ListDatasetDatapointsMessagesDatasetsContentTypedDict]
     ]
@@ -331,7 +333,7 @@ class ListDatasetDatapointsMessagesAssistantMessageTypedDict(TypedDict):
 
 class ListDatasetDatapointsMessagesAssistantMessage(BaseModel):
     role: ListDatasetDatapointsMessagesDatasetsResponse200Role
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[ListDatasetDatapointsMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -406,17 +408,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class ListDatasetDatapoints2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class ListDatasetDatapoints2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -424,6 +440,7 @@ class ListDatasetDatapoints24TypedDict(TypedDict):
     type: ListDatasetDatapoints2DatasetsResponse200Type
     r"""The type of the content part. Always `file`."""
     file: ListDatasetDatapoints2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class ListDatasetDatapoints24(BaseModel):
@@ -431,6 +448,7 @@ class ListDatasetDatapoints24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: ListDatasetDatapoints2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 ListDatasetDatapoints2DatasetsResponseType = Literal["input_audio",]
@@ -648,6 +666,184 @@ ListDatasetDatapointsMessages = TypeAliasType(
 )
 
 
+ListDatasetDatapointsEvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+ListDatasetDatapointsEvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+ListDatasetDatapointsEvaluationsDatasetsType = Literal["string_array",]
+
+
+class ListDatasetDatapointsEvaluations3TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: ListDatasetDatapointsEvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: ListDatasetDatapointsEvaluationsDatasetsType
+    values: List[str]
+    source: NotRequired[ListDatasetDatapointsEvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class ListDatasetDatapointsEvaluations3(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: ListDatasetDatapointsEvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: ListDatasetDatapointsEvaluationsDatasetsType
+
+    values: List[str]
+
+    source: Optional[ListDatasetDatapointsEvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.483Z")
+    r"""The date and time the item was reviewed"""
+
+
+ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType = Literal[
+    "human_review",
+]
+r"""The type of evaluation"""
+
+
+ListDatasetDatapointsEvaluationsDatasetsResponseSource = Literal[
+    "orq",
+    "external",
+]
+
+
+ListDatasetDatapointsEvaluationsType = Literal["number",]
+
+
+class ListDatasetDatapointsEvaluations2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: ListDatasetDatapointsEvaluationsType
+    value: float
+    source: NotRequired[ListDatasetDatapointsEvaluationsDatasetsResponseSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class ListDatasetDatapointsEvaluations2(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: ListDatasetDatapointsEvaluationsDatasetsResponseEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: ListDatasetDatapointsEvaluationsType
+
+    value: float
+
+    source: Optional[ListDatasetDatapointsEvaluationsDatasetsResponseSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.481Z")
+    r"""The date and time the item was reviewed"""
+
+
+ListDatasetDatapointsEvaluationsDatasetsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+ListDatasetDatapointsEvaluationsDatasetsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+ListDatasetDatapointsEvaluationsDatasetsResponseType = Literal["string",]
+
+
+class ListDatasetDatapointsEvaluations1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: ListDatasetDatapointsEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: ListDatasetDatapointsEvaluationsDatasetsResponseType
+    value: str
+    source: NotRequired[ListDatasetDatapointsEvaluationsDatasetsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class ListDatasetDatapointsEvaluations1(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: ListDatasetDatapointsEvaluationsDatasetsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: ListDatasetDatapointsEvaluationsDatasetsResponseType
+
+    value: str
+
+    source: Optional[ListDatasetDatapointsEvaluationsDatasetsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.478Z")
+    r"""The date and time the item was reviewed"""
+
+
+ListDatasetDatapointsEvaluationsTypedDict = TypeAliasType(
+    "ListDatasetDatapointsEvaluationsTypedDict",
+    Union[
+        ListDatasetDatapointsEvaluations1TypedDict,
+        ListDatasetDatapointsEvaluations2TypedDict,
+        ListDatasetDatapointsEvaluations3TypedDict,
+    ],
+)
+
+
+ListDatasetDatapointsEvaluations = TypeAliasType(
+    "ListDatasetDatapointsEvaluations",
+    Union[
+        ListDatasetDatapointsEvaluations1,
+        ListDatasetDatapointsEvaluations2,
+        ListDatasetDatapointsEvaluations3,
+    ],
+)
+
+
 class ListDatasetDatapointsDataTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
@@ -660,6 +856,10 @@ class ListDatasetDatapointsDataTypedDict(TypedDict):
     messages: NotRequired[List[ListDatasetDatapointsMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
+    evaluations: NotRequired[List[ListDatasetDatapointsEvaluationsTypedDict]]
+    r"""Evaluations associated with the datapoint"""
+    snapshot_version: NotRequired[str]
+    r"""The version of the dataset snapshot"""
     created_by_id: NotRequired[str]
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
@@ -688,6 +888,12 @@ class ListDatasetDatapointsData(BaseModel):
 
     expected_output: Optional[str] = None
 
+    evaluations: Optional[List[ListDatasetDatapointsEvaluations]] = None
+    r"""Evaluations associated with the datapoint"""
+
+    snapshot_version: Optional[str] = None
+    r"""The version of the dataset snapshot"""
+
     created_by_id: Optional[str] = None
     r"""The unique identifier of the user who created the dataset"""
 
@@ -697,7 +903,7 @@ class ListDatasetDatapointsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-24T08:19:33.740Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-30T20:23:01.859Z")
     r"""The date and time the resource was last updated"""
 
 

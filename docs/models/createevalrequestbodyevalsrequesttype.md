@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `PYTHON_EVAL` | python_eval   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `LLM_EVAL` | llm_eval   |

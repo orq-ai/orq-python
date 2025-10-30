@@ -10,11 +10,11 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class RetrieveToolRequestTypedDict(TypedDict):
-    tool_key: str
+    tool_id: str
 
 
 class RetrieveToolRequest(BaseModel):
-    tool_key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
 
@@ -54,7 +54,12 @@ class RetrieveToolResponseBodyCodeTool(BaseModel):
 
 class RetrieveToolResponseBody5TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -79,7 +84,12 @@ class RetrieveToolResponseBody5TypedDict(TypedDict):
 
 class RetrieveToolResponseBody5(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -100,7 +110,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQN0B94HYPSVXVJTTCHQ"
+        "01K8VCKT4NMP1NP3QKE19SWT7Z"
     )
 
     display_name: Optional[str] = None
@@ -208,7 +218,12 @@ class RetrieveToolResponseBodyMcp(BaseModel):
 
 class RetrieveToolResponseBody4TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -233,7 +248,12 @@ class RetrieveToolResponseBody4TypedDict(TypedDict):
 
 class RetrieveToolResponseBody4(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -254,7 +274,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQN00SMQPXX9PJ2B2KGT"
+        "01K8VCKT4KXFP3XNDBF7HPZNWX"
     )
 
     display_name: Optional[str] = None
@@ -384,7 +404,12 @@ class RetrieveToolResponseBodyHTTP(BaseModel):
 
 class RetrieveToolResponseBody3TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -409,7 +434,12 @@ class RetrieveToolResponseBody3TypedDict(TypedDict):
 
 class RetrieveToolResponseBody3(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -430,7 +460,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMZMRMZ68E3Y1ZNA3M3"
+        "01K8VCKT4H6DGQAX3GS7SDQ4NX"
     )
 
     display_name: Optional[str] = None
@@ -517,7 +547,12 @@ class RetrieveToolResponseBodyJSONSchema(BaseModel):
 
 class RetrieveToolResponseBody2TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -542,7 +577,12 @@ class RetrieveToolResponseBody2TypedDict(TypedDict):
 
 class RetrieveToolResponseBody2(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -563,7 +603,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMZ6D5WC410688WNN2K"
+        "01K8VCKT4G8VBRS7HERG9S3RAN"
     )
 
     display_name: Optional[str] = None
@@ -620,7 +660,12 @@ class RetrieveToolResponseBodyFunction(BaseModel):
 
 class RetrieveToolResponseBody1TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -645,7 +690,12 @@ class RetrieveToolResponseBody1TypedDict(TypedDict):
 
 class RetrieveToolResponseBody1(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -666,7 +716,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMZGF61T484MEAAZ28T"
+        "01K8VCKT4F0760PAJYP7XF128K"
     )
 
     display_name: Optional[str] = None

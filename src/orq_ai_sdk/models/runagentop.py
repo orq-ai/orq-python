@@ -794,7 +794,7 @@ AgentToolInputRunTypedDict = TypeAliasType(
         FunctionToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
 
 
 AgentToolInputRun = TypeAliasType(
@@ -816,7 +816,7 @@ AgentToolInputRun = TypeAliasType(
         FunctionToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
 
 
 RunAgentToolApprovalRequired = Literal[
@@ -828,7 +828,7 @@ r"""If all, the agent will require approval for all tools. If respect_tool, the 
 
 
 class RunAgentSettingsTypedDict(TypedDict):
-    tools: List[AgentToolInputRunTypedDict]
+    tools: NotRequired[List[AgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
     tool_approval_required: NotRequired[RunAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
@@ -839,7 +839,7 @@ class RunAgentSettingsTypedDict(TypedDict):
 
 
 class RunAgentSettings(BaseModel):
-    tools: List[AgentToolInputRun]
+    tools: Optional[List[AgentToolInputRun]] = None
     r"""Tools available to the agent"""
 
     tool_approval_required: Optional[RunAgentToolApprovalRequired] = "none"
@@ -864,7 +864,12 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     message: RunAgentMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     settings: RunAgentSettingsTypedDict
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
@@ -909,7 +914,12 @@ class RunAgentRequestBody(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     settings: RunAgentSettings
 

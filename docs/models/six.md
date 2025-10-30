@@ -3,6 +3,10 @@
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `AZURE_TEXT_EMBEDDING_3_SMALL` | azure/text-embedding-3-small   |
+| Name           | Value          |
+| -------------- | -------------- |
+| `JSON`         | json           |
+| `TEXT`         | text           |
+| `SRT`          | srt            |
+| `VERBOSE_JSON` | verbose_json   |
+| `VTT`          | vtt            |

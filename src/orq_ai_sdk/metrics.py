@@ -3,9 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    deploymentcreatemetricop as models_deploymentcreatemetricop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -18,36 +15,23 @@ class Metrics(BaseSDK):
         *,
         id: str,
         metadata: Optional[Dict[str, Any]] = None,
-        usage: Optional[
-            Union[
-                models_deploymentcreatemetricop.Usage,
-                models_deploymentcreatemetricop.UsageTypedDict,
-            ]
-        ] = None,
+        usage: Optional[Union[models.Usage, models.UsageTypedDict]] = None,
         performance: Optional[
-            Union[
-                models_deploymentcreatemetricop.Performance,
-                models_deploymentcreatemetricop.PerformanceTypedDict,
-            ]
+            Union[models.Performance, models.PerformanceTypedDict]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentcreatemetricop.DeploymentCreateMetricMessages],
-                List[
-                    models_deploymentcreatemetricop.DeploymentCreateMetricMessagesTypedDict
-                ],
+                List[models.DeploymentCreateMetricMessages],
+                List[models.DeploymentCreateMetricMessagesTypedDict],
             ]
         ] = None,
         choices: Optional[
-            Union[
-                List[models_deploymentcreatemetricop.Choices],
-                List[models_deploymentcreatemetricop.ChoicesTypedDict],
-            ]
+            Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
         feedback: Optional[
             Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedback,
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedbackTypedDict,
+                models.DeploymentCreateMetricFeedback,
+                models.DeploymentCreateMetricFeedbackTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -168,36 +152,23 @@ class Metrics(BaseSDK):
         *,
         id: str,
         metadata: Optional[Dict[str, Any]] = None,
-        usage: Optional[
-            Union[
-                models_deploymentcreatemetricop.Usage,
-                models_deploymentcreatemetricop.UsageTypedDict,
-            ]
-        ] = None,
+        usage: Optional[Union[models.Usage, models.UsageTypedDict]] = None,
         performance: Optional[
-            Union[
-                models_deploymentcreatemetricop.Performance,
-                models_deploymentcreatemetricop.PerformanceTypedDict,
-            ]
+            Union[models.Performance, models.PerformanceTypedDict]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentcreatemetricop.DeploymentCreateMetricMessages],
-                List[
-                    models_deploymentcreatemetricop.DeploymentCreateMetricMessagesTypedDict
-                ],
+                List[models.DeploymentCreateMetricMessages],
+                List[models.DeploymentCreateMetricMessagesTypedDict],
             ]
         ] = None,
         choices: Optional[
-            Union[
-                List[models_deploymentcreatemetricop.Choices],
-                List[models_deploymentcreatemetricop.ChoicesTypedDict],
-            ]
+            Union[List[models.Choices], List[models.ChoicesTypedDict]]
         ] = None,
         feedback: Optional[
             Union[
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedback,
-                models_deploymentcreatemetricop.DeploymentCreateMetricFeedbackTypedDict,
+                models.DeploymentCreateMetricFeedback,
+                models.DeploymentCreateMetricFeedbackTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

@@ -3,6 +3,7 @@
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `AZURE_TEXT_EMBEDDING_ADA_002` | azure/text-embedding-ada-002   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `URL`         | url           |
+| `BASE64_JSON` | base64_json   |

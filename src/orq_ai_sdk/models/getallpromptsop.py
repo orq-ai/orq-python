@@ -58,7 +58,7 @@ GetAllPromptsModelType = Literal[
     "tts",
     "stt",
     "rerank",
-    "moderations",
+    "moderation",
     "vision",
 ]
 r"""The modality of the model"""
@@ -73,7 +73,7 @@ GetAllPromptsFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-GetAllPromptsResponseFormat4 = Literal[
+GetAllPromptsResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -82,13 +82,13 @@ GetAllPromptsResponseFormat4 = Literal[
 ]
 
 
-GetAllPromptsResponseFormat3 = Literal[
+GetAllPromptsResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-GetAllPromptsResponseFormat2 = Literal[
+GetAllPromptsResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -98,75 +98,68 @@ GetAllPromptsResponseFormat2 = Literal[
 ]
 
 
-GetAllPrompts1PromptsResponseType = Literal["text",]
+GetAllPromptsResponseFormatPromptsResponseType = Literal["text",]
 
 
-class GetAllPrompts13TypedDict(TypedDict):
-    type: GetAllPrompts1PromptsResponseType
+class GetAllPromptsResponseFormat3TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsResponseType
 
 
-class GetAllPrompts13(BaseModel):
-    type: GetAllPrompts1PromptsResponseType
+class GetAllPromptsResponseFormat3(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsResponseType
 
 
-GetAllPrompts1PromptsType = Literal["json_object",]
+GetAllPromptsResponseFormatPromptsType = Literal["json_object",]
 
 
-class GetAllPrompts12TypedDict(TypedDict):
-    type: GetAllPrompts1PromptsType
+class GetAllPromptsResponseFormat2TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatPromptsType
 
 
-class GetAllPrompts12(BaseModel):
-    type: GetAllPrompts1PromptsType
+class GetAllPromptsResponseFormat2(BaseModel):
+    type: GetAllPromptsResponseFormatPromptsType
 
 
-GetAllPrompts1Type = Literal["json_schema",]
+GetAllPromptsResponseFormatType = Literal["json_schema",]
 
 
-class GetAllPrompts1JSONSchemaTypedDict(TypedDict):
+class GetAllPromptsResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
+    description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class GetAllPrompts1JSONSchema(BaseModel):
+class GetAllPromptsResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
 
+    description: Optional[str] = None
+
     strict: Optional[bool] = None
 
 
-class GetAllPrompts11TypedDict(TypedDict):
-    type: GetAllPrompts1Type
-    json_schema: GetAllPrompts1JSONSchemaTypedDict
+class GetAllPromptsResponseFormat1TypedDict(TypedDict):
+    type: GetAllPromptsResponseFormatType
+    json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
 
 
-class GetAllPrompts11(BaseModel):
-    type: GetAllPrompts1Type
+class GetAllPromptsResponseFormat1(BaseModel):
+    type: GetAllPromptsResponseFormatType
 
-    json_schema: GetAllPrompts1JSONSchema
-
-
-GetAllPromptsResponseFormat1TypedDict = TypeAliasType(
-    "GetAllPromptsResponseFormat1TypedDict",
-    Union[GetAllPrompts12TypedDict, GetAllPrompts13TypedDict, GetAllPrompts11TypedDict],
-)
-
-
-GetAllPromptsResponseFormat1 = TypeAliasType(
-    "GetAllPromptsResponseFormat1",
-    Union[GetAllPrompts12, GetAllPrompts13, GetAllPrompts11],
-)
+    json_schema: GetAllPromptsResponseFormatJSONSchema
 
 
 GetAllPromptsResponseFormatTypedDict = TypeAliasType(
     "GetAllPromptsResponseFormatTypedDict",
     Union[
+        GetAllPromptsResponseFormat2TypedDict,
+        GetAllPromptsResponseFormat3TypedDict,
         GetAllPromptsResponseFormat1TypedDict,
-        GetAllPromptsResponseFormat2,
-        GetAllPromptsResponseFormat3,
         GetAllPromptsResponseFormat4,
+        GetAllPromptsResponseFormat5,
+        GetAllPromptsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -182,10 +175,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 GetAllPromptsResponseFormat = TypeAliasType(
     "GetAllPromptsResponseFormat",
     Union[
-        GetAllPromptsResponseFormat1,
         GetAllPromptsResponseFormat2,
         GetAllPromptsResponseFormat3,
+        GetAllPromptsResponseFormat1,
         GetAllPromptsResponseFormat4,
+        GetAllPromptsResponseFormat5,
+        GetAllPromptsResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -431,6 +426,7 @@ GetAllPromptsProvider = Literal[
     "openailike",
     "cerebras",
     "bytedance",
+    "mistral",
 ]
 
 
@@ -452,15 +448,25 @@ r"""The type of the content part. Always `file`."""
 
 
 class GetAllPrompts2FileTypedDict(TypedDict):
-    file_data: str
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
     filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class GetAllPrompts2File(BaseModel):
-    file_data: str
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
+
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
 
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
@@ -626,7 +632,7 @@ class GetAllPromptsPromptConfigTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[GetAllPromptsProvider]
     integration_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
 
 
@@ -651,7 +657,7 @@ class GetAllPromptsPromptConfig(BaseModel):
     provider: Optional[GetAllPromptsProvider] = None
 
     integration_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The ID of the integration to use"""
 
     version: Optional[str] = None
 
@@ -776,7 +782,9 @@ class GetAllPromptsMetadata(BaseModel):
         return m
 
 
-class GetAllPromptsDataTypedDict(TypedDict):
+class PromptTypedDict(TypedDict):
+    r"""A prompt entity with configuration, metadata, and versioning."""
+
     id: str
     type: GetAllPromptsType
     owner: str
@@ -794,7 +802,9 @@ class GetAllPromptsDataTypedDict(TypedDict):
     metadata: NotRequired[GetAllPromptsMetadataTypedDict]
 
 
-class GetAllPromptsData(BaseModel):
+class Prompt(BaseModel):
+    r"""A prompt entity with configuration, metadata, and versioning."""
+
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     type: GetAllPromptsType
@@ -857,7 +867,7 @@ class GetAllPromptsResponseBodyTypedDict(TypedDict):
     r"""Prompts retrieved."""
 
     object: GetAllPromptsObject
-    data: List[GetAllPromptsDataTypedDict]
+    data: List[PromptTypedDict]
     has_more: bool
 
 
@@ -866,6 +876,6 @@ class GetAllPromptsResponseBody(BaseModel):
 
     object: GetAllPromptsObject
 
-    data: List[GetAllPromptsData]
+    data: List[Prompt]
 
     has_more: bool

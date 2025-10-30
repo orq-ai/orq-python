@@ -13,15 +13,15 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class DuplicateToolRequestTypedDict(TypedDict):
-    key: str
-    r"""The key of the tool to duplicate"""
+    tool_id: str
+    r"""The id of the tool to duplicate"""
 
 
 class DuplicateToolRequest(BaseModel):
-    key: Annotated[
+    tool_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The key of the tool to duplicate"""
+    r"""The id of the tool to duplicate"""
 
 
 class DuplicateToolToolsResponseBodyData(BaseModel):
@@ -81,7 +81,12 @@ class DuplicateToolResponseBodyCodeTool(BaseModel):
 
 class DuplicateToolResponseBody5TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -106,7 +111,12 @@ class DuplicateToolResponseBody5TypedDict(TypedDict):
 
 class DuplicateToolResponseBody5(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -127,7 +137,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMYP9459W7K1MA6MHEJ"
+        "01K8VCKT4DT573JT2KDMVAPTZ1"
     )
 
     display_name: Optional[str] = None
@@ -235,7 +245,12 @@ class DuplicateToolResponseBodyMcp(BaseModel):
 
 class DuplicateToolResponseBody4TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -260,7 +275,12 @@ class DuplicateToolResponseBody4TypedDict(TypedDict):
 
 class DuplicateToolResponseBody4(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -281,7 +301,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMYN6PQZD0NJTZACDPA"
+        "01K8VCKT4BVQHRVTFHX5C180ND"
     )
 
     display_name: Optional[str] = None
@@ -411,7 +431,12 @@ class DuplicateToolResponseBodyHTTP(BaseModel):
 
 class DuplicateToolResponseBody3TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -436,7 +461,12 @@ class DuplicateToolResponseBody3TypedDict(TypedDict):
 
 class DuplicateToolResponseBody3(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -457,7 +487,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMY5D8M1BECTT690GM7"
+        "01K8VCKT48DVX7RMGSYC7FEWZ9"
     )
 
     display_name: Optional[str] = None
@@ -544,7 +574,12 @@ class DuplicateToolResponseBodyJSONSchema(BaseModel):
 
 class DuplicateToolResponseBody2TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -569,7 +604,12 @@ class DuplicateToolResponseBody2TypedDict(TypedDict):
 
 class DuplicateToolResponseBody2(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -590,7 +630,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMX5V9B1ZMTYDBB3JHN"
+        "01K8VCKT46CZ47F0MHHCDQ6QWJ"
     )
 
     display_name: Optional[str] = None
@@ -647,7 +687,12 @@ class DuplicateToolResponseBodyFunction(BaseModel):
 
 class DuplicateToolResponseBody1TypedDict(TypedDict):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -672,7 +717,12 @@ class DuplicateToolResponseBody1TypedDict(TypedDict):
 
 class DuplicateToolResponseBody1(BaseModel):
     path: str
-    r"""The path where the entity is stored in the project structure. The first element of the path always represents the project name. Any subsequent path element after the project will be created as a folder in the project if it does not exists."""
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -693,7 +743,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQMXMKGRFB34MF4768MH"
+        "01K8VCKT44NRDM29B1984FQM8A"
     )
 
     display_name: Optional[str] = None

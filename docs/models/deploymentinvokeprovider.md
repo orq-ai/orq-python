@@ -29,3 +29,4 @@ The provider used to generate the response
 | `OPENAILIKE`  | openailike    |
 | `CEREBRAS`    | cerebras      |
 | `BYTEDANCE`   | bytedance     |
+| `MISTRAL`     | mistral       |

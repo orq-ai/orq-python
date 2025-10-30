@@ -135,3 +135,9 @@ value: models.CreateMemoryStoreModel21 = /* values here */
 value: models.CreateMemoryStoreModel22 = /* values here */
 ```
 
+### `models.CreateMemoryStoreModel23`
+
+```python
+value: models.CreateMemoryStoreModel23 = /* values here */
+```
+

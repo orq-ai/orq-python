@@ -1,9 +1,0 @@
-# DeploymentGetConfig11
-
-
-## Fields
-
-| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                         | [models.DeploymentGetConfig1DeploymentsResponseType](../models/deploymentgetconfig1deploymentsresponsetype.md) | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
-| `json_schema`                                                                                                  | [models.DeploymentGetConfig1JSONSchema](../models/deploymentgetconfig1jsonschema.md)                           | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

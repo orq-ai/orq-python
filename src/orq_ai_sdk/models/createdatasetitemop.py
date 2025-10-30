@@ -209,7 +209,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 
 CreateDatasetItemMessagesDatasetsRequestRequestBodyRole = Literal["assistant",]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class CreateDatasetItemMessagesAudioTypedDict(TypedDict):
@@ -265,7 +265,7 @@ class CreateDatasetItemMessagesToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[Nullable[CreateDatasetItemMessagesDatasetsContentTypedDict]]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -286,7 +286,7 @@ class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsRequestRequestBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsContent] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -361,17 +361,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2FileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreateDatasetItem2File(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -379,6 +393,7 @@ class CreateDatasetItem24TypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsRequestRequestBodyType
     r"""The type of the content part. Always `file`."""
     file: CreateDatasetItem2FileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class CreateDatasetItem24(BaseModel):
@@ -386,6 +401,7 @@ class CreateDatasetItem24(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: CreateDatasetItem2File
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 CreateDatasetItem2DatasetsRequestType = Literal["input_audio",]
@@ -602,7 +618,7 @@ CreateDatasetItemMessages = TypeAliasType(
 )
 
 
-class RequestBodyTypedDict(TypedDict):
+class CreateDatasetItemRequestBodyTypedDict(TypedDict):
     inputs: NotRequired[Dict[str, Any]]
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
     messages: NotRequired[List[CreateDatasetItemMessagesTypedDict]]
@@ -610,7 +626,7 @@ class RequestBodyTypedDict(TypedDict):
     expected_output: NotRequired[str]
 
 
-class RequestBody(BaseModel):
+class CreateDatasetItemRequestBody(BaseModel):
     inputs: Optional[Dict[str, Any]] = None
     r"""The inputs of the dataset. Key value pairs where the key is the input name and the value is the input value. Nested objects are not supported."""
 
@@ -622,16 +638,18 @@ class RequestBody(BaseModel):
 
 class CreateDatasetItemRequestTypedDict(TypedDict):
     dataset_id: str
-    request_body: NotRequired[List[RequestBodyTypedDict]]
+    r"""The unique identifier of the dataset"""
+    request_body: NotRequired[List[CreateDatasetItemRequestBodyTypedDict]]
 
 
 class CreateDatasetItemRequest(BaseModel):
     dataset_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
+    r"""The unique identifier of the dataset"""
 
     request_body: Annotated[
-        Optional[List[RequestBody]],
+        Optional[List[CreateDatasetItemRequestBody]],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 
@@ -840,7 +858,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole = Literal[
     "assistant",
 ]
-r"""The role of the messages author, in this case `assistant` or `exception`."""
+r"""The role of the messages author, in this case `assistant`."""
 
 
 class CreateDatasetItemMessagesDatasetsAudioTypedDict(TypedDict):
@@ -896,7 +914,7 @@ class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
         Nullable[CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict]
     ]
@@ -919,7 +937,7 @@ class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
 
 class CreateDatasetItemMessagesDatasetsAssistantMessage(BaseModel):
     role: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRole
-    r"""The role of the messages author, in this case `assistant` or `exception`."""
+    r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[CreateDatasetItemMessagesDatasetsResponse200Content] = (
         UNSET
@@ -996,17 +1014,31 @@ r"""The type of the content part. Always `file`."""
 
 
 class CreateDatasetItem2DatasetsFileTypedDict(TypedDict):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
-    filename: str
+    uri: NotRequired[str]
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+    mime_type: NotRequired[str]
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+    filename: NotRequired[str]
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
 class CreateDatasetItem2DatasetsFile(BaseModel):
-    file_data: str
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
+
+    file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
-    filename: str
+    uri: Optional[str] = None
+    r"""URL to the file. Only supported by Anthropic Claude models for PDF files."""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""MIME type of the file (e.g., application/pdf, image/png)"""
+
+    filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
@@ -1014,6 +1046,7 @@ class CreateDatasetItem2Datasets4TypedDict(TypedDict):
     type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyType
     r"""The type of the content part. Always `file`."""
     file: CreateDatasetItem2DatasetsFileTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 class CreateDatasetItem2Datasets4(BaseModel):
@@ -1021,6 +1054,7 @@ class CreateDatasetItem2Datasets4(BaseModel):
     r"""The type of the content part. Always `file`."""
 
     file: CreateDatasetItem2DatasetsFile
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
 CreateDatasetItem2DatasetsResponse200ApplicationJSONType = Literal["input_audio",]
@@ -1238,7 +1272,174 @@ CreateDatasetItemDatasetsMessages = TypeAliasType(
 )
 
 
-class ResponseBodyTypedDict(TypedDict):
+CreateDatasetItemEvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+CreateDatasetItemEvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+CreateDatasetItemEvaluationsDatasetsType = Literal["string_array",]
+
+
+class Evaluations3TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: CreateDatasetItemEvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: CreateDatasetItemEvaluationsDatasetsType
+    values: List[str]
+    source: NotRequired[CreateDatasetItemEvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations3(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: CreateDatasetItemEvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: CreateDatasetItemEvaluationsDatasetsType
+
+    values: List[str]
+
+    source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.498Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationsEvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+EvaluationsSource = Literal[
+    "orq",
+    "external",
+]
+
+
+CreateDatasetItemEvaluationsType = Literal["number",]
+
+
+class Evaluations2TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: EvaluationsEvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: CreateDatasetItemEvaluationsType
+    value: float
+    source: NotRequired[EvaluationsSource]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations2(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: EvaluationsEvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: CreateDatasetItemEvaluationsType
+
+    value: float
+
+    source: Optional[EvaluationsSource] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.498Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationType = Literal["human_review",]
+r"""The type of evaluation"""
+
+
+Source = Literal[
+    "orq",
+    "external",
+]
+
+
+EvaluationsType = Literal["string",]
+
+
+class Evaluations1TypedDict(TypedDict):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+    evaluation_type: EvaluationType
+    r"""The type of evaluation"""
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+    type: EvaluationsType
+    value: str
+    source: NotRequired[Source]
+    reviewed_at: NotRequired[datetime]
+    r"""The date and time the item was reviewed"""
+
+
+class Evaluations1(BaseModel):
+    id: str
+    r"""The unique identifier of the human evaluation"""
+
+    evaluation_type: EvaluationType
+    r"""The type of evaluation"""
+
+    human_review_id: str
+    r"""The unique identifier of the human review"""
+
+    reviewed_by_id: str
+    r"""The unique identifier of the user who reviewed the item"""
+
+    type: EvaluationsType
+
+    value: str
+
+    source: Optional[Source] = "orq"
+
+    reviewed_at: Optional[datetime] = parse_datetime("2025-10-30T20:23:13.497Z")
+    r"""The date and time the item was reviewed"""
+
+
+EvaluationsTypedDict = TypeAliasType(
+    "EvaluationsTypedDict",
+    Union[Evaluations1TypedDict, Evaluations2TypedDict, Evaluations3TypedDict],
+)
+
+
+Evaluations = TypeAliasType(
+    "Evaluations", Union[Evaluations1, Evaluations2, Evaluations3]
+)
+
+
+class CreateDatasetItemResponseBodyTypedDict(TypedDict):
     id: str
     r"""The unique identifier of the dataset item"""
     workspace_id: str
@@ -1250,6 +1451,10 @@ class ResponseBodyTypedDict(TypedDict):
     messages: NotRequired[List[CreateDatasetItemDatasetsMessagesTypedDict]]
     r"""A list of messages comprising the conversation so far"""
     expected_output: NotRequired[str]
+    evaluations: NotRequired[List[EvaluationsTypedDict]]
+    r"""Evaluations associated with the datapoint"""
+    snapshot_version: NotRequired[str]
+    r"""The version of the dataset snapshot"""
     created_by_id: NotRequired[str]
     r"""The unique identifier of the user who created the dataset"""
     updated_by_id: NotRequired[str]
@@ -1260,7 +1465,7 @@ class ResponseBodyTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class ResponseBody(BaseModel):
+class CreateDatasetItemResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the dataset item"""
 
@@ -1278,6 +1483,12 @@ class ResponseBody(BaseModel):
 
     expected_output: Optional[str] = None
 
+    evaluations: Optional[List[Evaluations]] = None
+    r"""Evaluations associated with the datapoint"""
+
+    snapshot_version: Optional[str] = None
+    r"""The version of the dataset snapshot"""
+
     created_by_id: Optional[str] = None
     r"""The unique identifier of the user who created the dataset"""
 
@@ -1287,5 +1498,5 @@ class ResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-10-24T08:19:33.740Z")
+    updated: Optional[datetime] = parse_datetime("2025-10-30T20:23:01.859Z")
     r"""The date and time the resource was last updated"""

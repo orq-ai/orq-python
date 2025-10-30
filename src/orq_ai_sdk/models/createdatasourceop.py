@@ -198,15 +198,15 @@ class CreateDatasourceResponseBodyTypedDict(TypedDict):
     chunks_count: float
     r"""The number of chunks in the datasource"""
     id: NotRequired[str]
-    r"""The id of the resource"""
+    r"""The unique identifier of the data source"""
     description: NotRequired[str]
     r"""The description of the knowledge base"""
     file_id: NotRequired[Nullable[str]]
     r"""The unique identifier of the file used to create the datasource."""
     created_by_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The user ID of the creator of the knowledge base"""
     update_by_id: NotRequired[Nullable[str]]
-    r"""The id of the resource"""
+    r"""The user ID of the last user who updated the knowledge base"""
 
 
 class CreateDatasourceResponseBody(BaseModel):
@@ -230,9 +230,9 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8AMTQHJ0VPCWVS8BNJ9HXD0"
+        "01K8VCKT7FRYW6F6G4YBF0RR1S"
     )
-    r"""The id of the resource"""
+    r"""The unique identifier of the data source"""
 
     description: Optional[str] = None
     r"""The description of the knowledge base"""
@@ -241,10 +241,10 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The unique identifier of the file used to create the datasource."""
 
     created_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The user ID of the creator of the knowledge base"""
 
     update_by_id: OptionalNullable[str] = UNSET
-    r"""The id of the resource"""
+    r"""The user ID of the last user who updated the knowledge base"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

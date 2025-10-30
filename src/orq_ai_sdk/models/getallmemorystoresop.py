@@ -40,28 +40,31 @@ class GetAllMemoryStoresRequest(BaseModel):
 GetAllMemoryStoresObject = Literal["list",]
 
 
-GetAllMemoryStoresModel22 = Literal["jina/jina-embeddings-v3",]
+GetAllMemoryStoresModel23 = Literal["jina/jina-embeddings-v3",]
 
 
-GetAllMemoryStoresModel21 = Literal["jina/jina-clip-v2",]
+GetAllMemoryStoresModel22 = Literal["jina/jina-clip-v2",]
 
 
-GetAllMemoryStoresModel20 = Literal["jina/jina-embeddings-v2-base-de",]
+GetAllMemoryStoresModel21 = Literal["jina/jina-embeddings-v2-base-de",]
 
 
-GetAllMemoryStoresModel19 = Literal["jina/jina-embeddings-v2-base-code",]
+GetAllMemoryStoresModel20 = Literal["jina/jina-embeddings-v2-base-code",]
 
 
-GetAllMemoryStoresModel18 = Literal["jina/jina-embeddings-v2-base-zh",]
+GetAllMemoryStoresModel19 = Literal["jina/jina-embeddings-v2-base-zh",]
 
 
-GetAllMemoryStoresModel17 = Literal["jina/jina-embeddings-v2-base-en",]
+GetAllMemoryStoresModel18 = Literal["jina/jina-embeddings-v2-base-en",]
 
 
-GetAllMemoryStoresModel16 = Literal["jina/jina-embeddings-v2-base-es",]
+GetAllMemoryStoresModel17 = Literal["jina/jina-embeddings-v2-base-es",]
 
 
-GetAllMemoryStoresModel15 = Literal["jina/jina-clip-v1",]
+GetAllMemoryStoresModel16 = Literal["jina/jina-clip-v1",]
+
+
+GetAllMemoryStoresModel15 = Literal["mistral/mistral-embed",]
 
 
 GetAllMemoryStoresModel14 = Literal["google-ai/text-embedding-004",]
@@ -73,25 +76,25 @@ GetAllMemoryStoresModel13 = Literal["google/multimodalembedding@001",]
 GetAllMemoryStoresModel12 = Literal["google/text-multilingual-embedding-002",]
 
 
-GetAllMemoryStoresModel11 = Literal["google/text-embedding-005",]
+GetAllMemoryStoresModel11 = Literal["google/gemini-embedding-001",]
 
 
-GetAllMemoryStoresModel10 = Literal["google/gemini-embedding-001",]
+GetAllMemoryStoresModel10 = Literal["openai/text-embedding-ada-002",]
 
 
-GetAllMemoryStoresModel9 = Literal["openai/text-embedding-ada-002",]
+GetAllMemoryStoresModel9 = Literal["openai/text-embedding-3-small",]
 
 
-GetAllMemoryStoresModel8 = Literal["openai/text-embedding-3-small",]
+GetAllMemoryStoresModel8 = Literal["openai/text-embedding-3-large",]
 
 
-GetAllMemoryStoresModel7 = Literal["openai/text-embedding-3-large",]
+GetAllMemoryStoresModel7 = Literal["azure/text-embedding-3-small",]
 
 
-GetAllMemoryStoresModel6 = Literal["azure/text-embedding-3-small",]
+GetAllMemoryStoresModel6 = Literal["azure/text-embedding-ada-002",]
 
 
-GetAllMemoryStoresModel5 = Literal["azure/text-embedding-ada-002",]
+GetAllMemoryStoresModel5 = Literal["cohere/embed-v4.0",]
 
 
 GetAllMemoryStoresModel4 = Literal["cohere/embed-english-v3.0",]
@@ -131,6 +134,7 @@ GetAllMemoryStoresModelTypedDict = TypeAliasType(
         GetAllMemoryStoresModel20,
         GetAllMemoryStoresModel21,
         GetAllMemoryStoresModel22,
+        GetAllMemoryStoresModel23,
     ],
 )
 
@@ -160,6 +164,7 @@ GetAllMemoryStoresModel = TypeAliasType(
         GetAllMemoryStoresModel20,
         GetAllMemoryStoresModel21,
         GetAllMemoryStoresModel22,
+        GetAllMemoryStoresModel23,
     ],
 )
 

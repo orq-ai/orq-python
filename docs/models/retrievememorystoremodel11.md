@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                        | Value                       |
-| --------------------------- | --------------------------- |
-| `GOOGLE_TEXT_EMBEDDING_005` | google/text-embedding-005   |
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `GOOGLE_GEMINI_EMBEDDING_001` | google/gemini-embedding-001   |

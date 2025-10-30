@@ -1,9 +1,0 @@
-# EvalsFactCheckingKnowledgeBaseValue
-
-
-## Fields
-
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `value`                                                                                                  | [models.EvalsFactCheckingKnowledgeBaseEvalsValue](../models/evalsfactcheckingknowledgebaseevalsvalue.md) | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `explanation`                                                                                            | *OptionalNullable[str]*                                                                                  | :heavy_minus_sign:                                                                                       | N/A                                                                                                      |
