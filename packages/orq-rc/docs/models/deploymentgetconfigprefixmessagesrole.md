@@ -1,10 +1,10 @@
 # DeploymentGetConfigPrefixMessagesRole
 
-The role of the messages author, in this case `system`.
+The role of the messages author, in this case `user`.
 
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+| Name   | Value  |
+| ------ | ------ |
+| `USER` | user   |

@@ -817,7 +817,7 @@ StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
         AgentToolInputRunFunctionToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentAgentToolInputRun = TypeAliasType(
@@ -839,7 +839,7 @@ StreamRunAgentAgentToolInputRun = TypeAliasType(
         AgentToolInputRunFunctionToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (http, code, function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentToolApprovalRequired = Literal[

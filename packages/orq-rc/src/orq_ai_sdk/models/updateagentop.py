@@ -384,7 +384,7 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDFunctionToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
 UpdateAgentAgentToolInputCRUD = TypeAliasType(
@@ -406,7 +406,7 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDFunctionTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
 class UpdateAgentSettingsTypedDict(TypedDict):

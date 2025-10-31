@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `IMAGE_URL` | image_url   |

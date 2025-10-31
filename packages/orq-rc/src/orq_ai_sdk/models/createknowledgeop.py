@@ -37,14 +37,14 @@ class ExternalConfig(BaseModel):
     r"""The API key to access the external knowledge base."""
 
 
-class CreateKnowledgeRequestBody2TypedDict(TypedDict):
+class RequestBody2TypedDict(TypedDict):
     key: str
     external_config: ExternalConfigTypedDict
     type: NotRequired[CreateKnowledgeRequestBodyKnowledgeType]
     description: NotRequired[str]
 
 
-class CreateKnowledgeRequestBody2(BaseModel):
+class RequestBody2(BaseModel):
     key: str
 
     external_config: ExternalConfig
@@ -179,7 +179,7 @@ class RetrievalSettings(BaseModel):
         return m
 
 
-class CreateKnowledgeRequestBody1TypedDict(TypedDict):
+class RequestBody1TypedDict(TypedDict):
     key: str
     embedding_model: str
     r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
@@ -197,7 +197,7 @@ class CreateKnowledgeRequestBody1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class CreateKnowledgeRequestBody1(BaseModel):
+class RequestBody1(BaseModel):
     key: str
 
     embedding_model: str
@@ -223,13 +223,12 @@ class CreateKnowledgeRequestBody1(BaseModel):
 
 CreateKnowledgeRequestBodyTypedDict = TypeAliasType(
     "CreateKnowledgeRequestBodyTypedDict",
-    Union[CreateKnowledgeRequestBody2TypedDict, CreateKnowledgeRequestBody1TypedDict],
+    Union[RequestBody2TypedDict, RequestBody1TypedDict],
 )
 
 
 CreateKnowledgeRequestBody = TypeAliasType(
-    "CreateKnowledgeRequestBody",
-    Union[CreateKnowledgeRequestBody2, CreateKnowledgeRequestBody1],
+    "CreateKnowledgeRequestBody", Union[RequestBody2, RequestBody1]
 )
 
 

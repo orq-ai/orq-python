@@ -1,10 +1,10 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsRequestRole
 
-The role of the messages author, in this case `assistant`.
+The role of the messages author, in this case tool.
 
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+| Name   | Value  |
+| ------ | ------ |
+| `TOOL` | tool   |

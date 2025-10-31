@@ -41,7 +41,9 @@ class RequestBodyCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RequestBody5TypedDict(TypedDict):
+class RequestBodyCodeExecutionToolTypedDict(TypedDict):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -61,7 +63,9 @@ class RequestBody5TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBody5(BaseModel):
+class RequestBodyCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -173,7 +177,9 @@ class Mcp(BaseModel):
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
-class RequestBody4TypedDict(TypedDict):
+class MCPToolTypedDict(TypedDict):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -193,7 +199,9 @@ class RequestBody4TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBody4(BaseModel):
+class MCPTool(BaseModel):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -329,7 +337,9 @@ class CreateToolRequestBodyHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class RequestBody3TypedDict(TypedDict):
+class RequestBodyHTTPToolTypedDict(TypedDict):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -349,7 +359,9 @@ class RequestBody3TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBody3(BaseModel):
+class RequestBodyHTTPTool(BaseModel):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -442,7 +454,9 @@ class RequestBodyJSONSchema(BaseModel):
         return m
 
 
-class RequestBody2TypedDict(TypedDict):
+class JSONSchemaToolTypedDict(TypedDict):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -462,7 +476,9 @@ class RequestBody2TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBody2(BaseModel):
+class JSONSchemaTool(BaseModel):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -525,7 +541,9 @@ class RequestBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RequestBody1TypedDict(TypedDict):
+class RequestBodyFunctionToolTypedDict(TypedDict):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -545,7 +563,9 @@ class RequestBody1TypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class RequestBody1(BaseModel):
+class RequestBodyFunctionTool(BaseModel):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -574,11 +594,11 @@ class RequestBody1(BaseModel):
 CreateToolRequestBodyTypedDict = TypeAliasType(
     "CreateToolRequestBodyTypedDict",
     Union[
-        RequestBody1TypedDict,
-        RequestBody2TypedDict,
-        RequestBody3TypedDict,
-        RequestBody4TypedDict,
-        RequestBody5TypedDict,
+        RequestBodyFunctionToolTypedDict,
+        JSONSchemaToolTypedDict,
+        RequestBodyHTTPToolTypedDict,
+        MCPToolTypedDict,
+        RequestBodyCodeExecutionToolTypedDict,
     ],
 )
 r"""The tool to create"""
@@ -586,7 +606,13 @@ r"""The tool to create"""
 
 CreateToolRequestBody = TypeAliasType(
     "CreateToolRequestBody",
-    Union[RequestBody1, RequestBody2, RequestBody3, RequestBody4, RequestBody5],
+    Union[
+        RequestBodyFunctionTool,
+        JSONSchemaTool,
+        RequestBodyHTTPTool,
+        MCPTool,
+        RequestBodyCodeExecutionTool,
+    ],
 )
 r"""The tool to create"""
 
@@ -682,7 +708,7 @@ class ResponseBody5(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRDZYGQYNGDQ6DWEM9J"
+        "01K8WYAS7A2PV6VP6VK3ANPG47"
     )
 
     display_name: Optional[str] = None
@@ -844,7 +870,7 @@ class ResponseBody4(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRBGBEJKWYNZ18AAK2V"
+        "01K8WYAS794WCZC6FJYQAP4DZT"
     )
 
     display_name: Optional[str] = None
@@ -1030,7 +1056,7 @@ class ResponseBody3(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZR9EVFF7F5SSJ28HMZF"
+        "01K8WYAS77XKSH8BYYPANAJZP1"
     )
 
     display_name: Optional[str] = None
@@ -1173,7 +1199,7 @@ class ResponseBody2(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZR8VW8DQK93DTJ2FA4Z"
+        "01K8WYAS76J4ZSYDV6470SRHXN"
     )
 
     display_name: Optional[str] = None
@@ -1286,7 +1312,7 @@ class ResponseBody1(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZR720ZQCSYQWMC0A9EJ"
+        "01K8WYAS75RPPWEQ69QMDRSE50"
     )
 
     display_name: Optional[str] = None

@@ -1224,7 +1224,7 @@ class ResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -1238,38 +1238,8 @@ class ResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: OptionalNullable[bool] = UNSET
+    strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "schema", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class CreatePromptResponseFormat3TypedDict(TypedDict):

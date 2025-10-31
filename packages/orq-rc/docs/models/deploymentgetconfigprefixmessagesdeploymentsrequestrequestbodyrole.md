@@ -1,10 +1,10 @@
 # DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBodyRole
 
-The role of the messages author, in this case tool.
+The role of the messages author, in this case  `developer`.
 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `DEVELOPER` | developer   |

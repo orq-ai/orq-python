@@ -1,10 +1,10 @@
 # DeploymentGetConfig2DeploymentsRequestRequestBodyType
 
-The type of the content part. Always `file`.
+The type of the content part.
 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+| Name      | Value     |
+| --------- | --------- |
+| `REFUSAL` | refusal   |

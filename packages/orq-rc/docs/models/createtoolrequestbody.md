@@ -5,33 +5,33 @@ The tool to create
 
 ## Supported Types
 
-### `models.RequestBody1`
+### `models.RequestBodyFunctionTool`
 
 ```python
-value: models.RequestBody1 = /* values here */
+value: models.RequestBodyFunctionTool = /* values here */
 ```
 
-### `models.RequestBody2`
+### `models.JSONSchemaTool`
 
 ```python
-value: models.RequestBody2 = /* values here */
+value: models.JSONSchemaTool = /* values here */
 ```
 
-### `models.RequestBody3`
+### `models.RequestBodyHTTPTool`
 
 ```python
-value: models.RequestBody3 = /* values here */
+value: models.RequestBodyHTTPTool = /* values here */
 ```
 
-### `models.RequestBody4`
+### `models.MCPTool`
 
 ```python
-value: models.RequestBody4 = /* values here */
+value: models.MCPTool = /* values here */
 ```
 
-### `models.RequestBody5`
+### `models.RequestBodyCodeExecutionTool`
 
 ```python
-value: models.RequestBody5 = /* values here */
+value: models.RequestBodyCodeExecutionTool = /* values here */
 ```
 

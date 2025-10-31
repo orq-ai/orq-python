@@ -1,8 +1,10 @@
 # DeploymentGetConfig2DeploymentsRequestType
 
+The type of the content part.
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_AUDIO` | input_audio   |
+| Name   | Value  |
+| ------ | ------ |
+| `TEXT` | text   |

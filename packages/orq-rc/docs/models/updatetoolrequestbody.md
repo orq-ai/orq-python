@@ -5,33 +5,33 @@ The tool to update
 
 ## Supported Types
 
-### `models.UpdateToolRequestBody1`
+### `models.UpdateFunctionTool`
 
 ```python
-value: models.UpdateToolRequestBody1 = /* values here */
+value: models.UpdateFunctionTool = /* values here */
 ```
 
-### `models.UpdateToolRequestBody2`
+### `models.UpdateJSONSchemaTool`
 
 ```python
-value: models.UpdateToolRequestBody2 = /* values here */
+value: models.UpdateJSONSchemaTool = /* values here */
 ```
 
-### `models.UpdateToolRequestBody3`
+### `models.UpdateHTTPTool`
 
 ```python
-value: models.UpdateToolRequestBody3 = /* values here */
+value: models.UpdateHTTPTool = /* values here */
 ```
 
-### `models.UpdateToolRequestBody4`
+### `models.UpdateMCPTool`
 
 ```python
-value: models.UpdateToolRequestBody4 = /* values here */
+value: models.UpdateMCPTool = /* values here */
 ```
 
-### `models.UpdateToolRequestBody5`
+### `models.UpdateCodeExecutionTool`
 
 ```python
-value: models.UpdateToolRequestBody5 = /* values here */
+value: models.UpdateCodeExecutionTool = /* values here */
 ```
 

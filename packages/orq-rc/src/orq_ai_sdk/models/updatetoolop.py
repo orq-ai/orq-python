@@ -45,7 +45,9 @@ class UpdateToolRequestBodyCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class UpdateToolRequestBody5TypedDict(TypedDict):
+class UpdateCodeExecutionToolTypedDict(TypedDict):
+    r"""Updates an existing code execution tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequest5Type
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -63,7 +65,9 @@ class UpdateToolRequestBody5TypedDict(TypedDict):
     code_tool: NotRequired[UpdateToolRequestBodyCodeToolTypedDict]
 
 
-class UpdateToolRequestBody5(BaseModel):
+class UpdateCodeExecutionTool(BaseModel):
+    r"""Updates an existing code execution tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequest5Type
 
     path: Optional[str] = None
@@ -172,7 +176,9 @@ class RequestBodyMcp(BaseModel):
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
-class UpdateToolRequestBody4TypedDict(TypedDict):
+class UpdateMCPToolTypedDict(TypedDict):
+    r"""Updates an existing MCP tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequest4Type
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -192,7 +198,9 @@ class UpdateToolRequestBody4TypedDict(TypedDict):
     mcp: NotRequired[RequestBodyMcpTypedDict]
 
 
-class UpdateToolRequestBody4(BaseModel):
+class UpdateMCPTool(BaseModel):
+    r"""Updates an existing MCP tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequest4Type
 
     path: Optional[str] = None
@@ -328,7 +336,9 @@ class UpdateToolRequestBodyHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class UpdateToolRequestBody3TypedDict(TypedDict):
+class UpdateHTTPToolTypedDict(TypedDict):
+    r"""Updates an existing HTTP tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequestType
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -348,7 +358,9 @@ class UpdateToolRequestBody3TypedDict(TypedDict):
     http: NotRequired[UpdateToolRequestBodyHTTPTypedDict]
 
 
-class UpdateToolRequestBody3(BaseModel):
+class UpdateHTTPTool(BaseModel):
+    r"""Updates an existing HTTP tool configuration."""
+
     type: UpdateToolRequestBodyToolsRequestType
 
     path: Optional[str] = None
@@ -441,7 +453,9 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
         return m
 
 
-class UpdateToolRequestBody2TypedDict(TypedDict):
+class UpdateJSONSchemaToolTypedDict(TypedDict):
+    r"""Updates an existing JSON Schema tool configuration."""
+
     type: UpdateToolRequestBodyToolsType
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -461,7 +475,9 @@ class UpdateToolRequestBody2TypedDict(TypedDict):
     json_schema: NotRequired[UpdateToolRequestBodyJSONSchemaTypedDict]
 
 
-class UpdateToolRequestBody2(BaseModel):
+class UpdateJSONSchemaTool(BaseModel):
+    r"""Updates an existing JSON Schema tool configuration."""
+
     type: UpdateToolRequestBodyToolsType
 
     path: Optional[str] = None
@@ -524,7 +540,9 @@ class UpdateToolRequestBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class UpdateToolRequestBody1TypedDict(TypedDict):
+class UpdateFunctionToolTypedDict(TypedDict):
+    r"""Updates an existing function tool configuration."""
+
     type: UpdateToolRequestBodyType
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -544,7 +562,9 @@ class UpdateToolRequestBody1TypedDict(TypedDict):
     function: NotRequired[UpdateToolRequestBodyFunctionTypedDict]
 
 
-class UpdateToolRequestBody1(BaseModel):
+class UpdateFunctionTool(BaseModel):
+    r"""Updates an existing function tool configuration."""
+
     type: UpdateToolRequestBodyType
 
     path: Optional[str] = None
@@ -573,11 +593,11 @@ class UpdateToolRequestBody1(BaseModel):
 UpdateToolRequestBodyTypedDict = TypeAliasType(
     "UpdateToolRequestBodyTypedDict",
     Union[
-        UpdateToolRequestBody5TypedDict,
-        UpdateToolRequestBody1TypedDict,
-        UpdateToolRequestBody2TypedDict,
-        UpdateToolRequestBody3TypedDict,
-        UpdateToolRequestBody4TypedDict,
+        UpdateCodeExecutionToolTypedDict,
+        UpdateFunctionToolTypedDict,
+        UpdateJSONSchemaToolTypedDict,
+        UpdateHTTPToolTypedDict,
+        UpdateMCPToolTypedDict,
     ],
 )
 r"""The tool to update"""
@@ -586,11 +606,11 @@ r"""The tool to update"""
 UpdateToolRequestBody = TypeAliasType(
     "UpdateToolRequestBody",
     Union[
-        UpdateToolRequestBody5,
-        UpdateToolRequestBody1,
-        UpdateToolRequestBody2,
-        UpdateToolRequestBody3,
-        UpdateToolRequestBody4,
+        UpdateCodeExecutionTool,
+        UpdateFunctionTool,
+        UpdateJSONSchemaTool,
+        UpdateHTTPTool,
+        UpdateMCPTool,
     ],
 )
 r"""The tool to update"""
@@ -727,7 +747,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRYY8Y5CH6V6XHMADPB"
+        "01K8WYAS7TSRZ8SFB16T1Z31ZJ"
     )
 
     display_name: Optional[str] = None
@@ -891,7 +911,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRS9M4AHMJE6EVTECPV"
+        "01K8WYAS7Q1K650NVEJ77GFM9M"
     )
 
     display_name: Optional[str] = None
@@ -1077,7 +1097,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRP1VCQ8DR3V9V9R5C1"
+        "01K8WYAS7MQXF40HMG6MK2Z90B"
     )
 
     display_name: Optional[str] = None
@@ -1220,7 +1240,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRMWHM5KDNVNDZANR00"
+        "01K8WYAS7JZYYJQMGNANAJQJVS"
     )
 
     display_name: Optional[str] = None
@@ -1333,7 +1353,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K8SPGZRJDNZSNAE5X4B351F0"
+        "01K8WYAS7GHR1EEK1Y2HF87BB1"
     )
 
     display_name: Optional[str] = None
