@@ -4,10 +4,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET_SENTINEL
+from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
-from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -137,7 +136,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K90EABDXK66VMXXGH0VH1CTA"
+        "01K953WCH6FV46YD3FDF40CG8T"
     )
 
     display_name: Optional[str] = None
@@ -301,7 +300,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K90EABDVW221A6E1V5YQW814"
+        "01K953WCH4DF8X5XM9C496PAEX"
     )
 
     display_name: Optional[str] = None
@@ -487,7 +486,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K90EABDRYDB0BT1TWPH8TX03"
+        "01K953WCH17SMP5ZF57QVCYJ7W"
     )
 
     display_name: Optional[str] = None
@@ -524,7 +523,7 @@ class DuplicateToolResponseBodyJSONSchemaTypedDict(TypedDict):
     r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
     description: NotRequired[str]
     r"""A description of what the response format is for. This will be shown to the user."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
@@ -538,38 +537,8 @@ class DuplicateToolResponseBodyJSONSchema(BaseModel):
     description: Optional[str] = None
     r"""A description of what the response format is for. This will be shown to the user."""
 
-    strict: OptionalNullable[bool] = False
+    strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class DuplicateToolResponseBody2TypedDict(TypedDict):
@@ -630,7 +599,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K90EABDPM3XHGHFCBA3PV4S8"
+        "01K953WCGZFHGWWFMXNM3DYVY9"
     )
 
     display_name: Optional[str] = None
@@ -743,7 +712,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K90EABDMYCWNA097R3FE6M5W"
+        "01K953WCGXJ2880MZCP00GPKFP"
     )
 
     display_name: Optional[str] = None
