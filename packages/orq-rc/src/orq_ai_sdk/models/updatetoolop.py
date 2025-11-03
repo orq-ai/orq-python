@@ -4,10 +4,9 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel, Nullable, OptionalNullable, UNSET_SENTINEL
+from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
-from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -405,7 +404,7 @@ class UpdateToolRequestBodyJSONSchemaTypedDict(TypedDict):
     r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
     description: NotRequired[str]
     r"""A description of what the response format is for. This will be shown to the user."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
@@ -419,38 +418,8 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
     description: Optional[str] = None
     r"""A description of what the response format is for. This will be shown to the user."""
 
-    strict: OptionalNullable[bool] = False
+    strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class UpdateJSONSchemaToolTypedDict(TypedDict):
@@ -747,7 +716,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K94ZA4T60K6464XZKHVH2Y6E"
+        "01K9510ECS1TMYB9DTKAHM8RRG"
     )
 
     display_name: Optional[str] = None
@@ -911,7 +880,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K94ZA4T4VW8A4VGCC9G7TPJC"
+        "01K9510ECP1NRV4DS0P134W1XH"
     )
 
     display_name: Optional[str] = None
@@ -1097,7 +1066,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K94ZA4T1HWYEY2EG9QJB5NHJ"
+        "01K9510ECK59AZTZ699BP96Y80"
     )
 
     display_name: Optional[str] = None
@@ -1134,7 +1103,7 @@ class UpdateToolResponseBodyJSONSchemaTypedDict(TypedDict):
     r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
     description: NotRequired[str]
     r"""A description of what the response format is for. This will be shown to the user."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
@@ -1148,38 +1117,8 @@ class UpdateToolResponseBodyJSONSchema(BaseModel):
     description: Optional[str] = None
     r"""A description of what the response format is for. This will be shown to the user."""
 
-    strict: OptionalNullable[bool] = False
+    strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class UpdateToolResponseBody2TypedDict(TypedDict):
@@ -1240,7 +1179,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K94ZA4SRKBJ4Z1PT54NVW7Z6"
+        "01K9510ECH6ZY8T093080J2SVG"
     )
 
     display_name: Optional[str] = None
@@ -1353,7 +1292,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K94ZA4SPKAVSPRVHWRBCNM2Q"
+        "01K9510EC75JV18QBJ5HYHPMQJ"
     )
 
     display_name: Optional[str] = None
