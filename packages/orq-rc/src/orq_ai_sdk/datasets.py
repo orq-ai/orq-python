@@ -3,11 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createdatasetitemop as models_createdatasetitemop,
-    createdatasetop as models_createdatasetop,
-    updatedatapointop as models_updatedatapointop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -208,8 +203,8 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createdatasetop.CreateDatasetRequestBody,
-                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
+                models.CreateDatasetRequestBody,
+                models.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -306,8 +301,8 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createdatasetop.CreateDatasetRequestBody,
-                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
+                models.CreateDatasetRequestBody,
+                models.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1175,8 +1170,8 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models_createdatasetitemop.CreateDatasetItemRequestBody],
-                List[models_createdatasetitemop.CreateDatasetItemRequestBodyTypedDict],
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1280,8 +1275,8 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models_createdatasetitemop.CreateDatasetItemRequestBody],
-                List[models_createdatasetitemop.CreateDatasetItemRequestBodyTypedDict],
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1577,8 +1572,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models_updatedatapointop.UpdateDatapointMessages],
-                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
+                List[models.UpdateDatapointMessages],
+                List[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1695,8 +1690,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models_updatedatapointop.UpdateDatapointMessages],
-                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
+                List[models.UpdateDatapointMessages],
+                List[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,

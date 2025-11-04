@@ -5,11 +5,6 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.metrics import Metrics
-from orq_ai_sdk.models import (
-    deploymentgetconfigop as models_deploymentgetconfigop,
-    deployments as models_deployments,
-    deploymentstreamop as models_deploymentstreamop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -233,16 +228,14 @@ class DeploymentsSDK(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigPrefixMessages],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigPrefixMessagesTypedDict
-                ],
+                List[models.DeploymentGetConfigPrefixMessages],
+                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessages],
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessagesTypedDict],
+                List[models.DeploymentGetConfigMessages],
+                List[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -250,28 +243,26 @@ class DeploymentsSDK(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigDocuments],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigDocumentsTypedDict
-                ],
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptions,
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptionsTypedDict,
+                models.DeploymentGetConfigInvokeOptions,
+                models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigThread,
-                models_deploymentgetconfigop.DeploymentGetConfigThreadTypedDict,
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilter,
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilterTypedDict,
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -406,16 +397,14 @@ class DeploymentsSDK(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigPrefixMessages],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigPrefixMessagesTypedDict
-                ],
+                List[models.DeploymentGetConfigPrefixMessages],
+                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessages],
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessagesTypedDict],
+                List[models.DeploymentGetConfigMessages],
+                List[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -423,28 +412,26 @@ class DeploymentsSDK(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigDocuments],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigDocumentsTypedDict
-                ],
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptions,
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptionsTypedDict,
+                models.DeploymentGetConfigInvokeOptions,
+                models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigThread,
-                models_deploymentgetconfigop.DeploymentGetConfigThreadTypedDict,
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilter,
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilterTypedDict,
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -578,40 +565,23 @@ class DeploymentsSDK(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
-            Union[
-                List[models_deployments.PrefixMessages],
-                List[models_deployments.PrefixMessagesTypedDict],
-            ]
+            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
         ] = None,
         messages: Optional[
-            Union[
-                List[models_deployments.Messages],
-                List[models_deployments.MessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
-            Union[
-                List[models_deployments.Documents],
-                List[models_deployments.DocumentsTypedDict],
-            ]
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
-            Union[
-                models_deployments.InvokeOptions,
-                models_deployments.InvokeOptionsTypedDict,
-            ]
+            Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
-        thread: Optional[
-            Union[models_deployments.Thread, models_deployments.ThreadTypedDict]
-        ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         knowledge_filter: Optional[
-            Union[
-                models_deployments.KnowledgeFilter,
-                models_deployments.KnowledgeFilterTypedDict,
-            ]
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -745,40 +715,23 @@ class DeploymentsSDK(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
-            Union[
-                List[models_deployments.PrefixMessages],
-                List[models_deployments.PrefixMessagesTypedDict],
-            ]
+            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
         ] = None,
         messages: Optional[
-            Union[
-                List[models_deployments.Messages],
-                List[models_deployments.MessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
-            Union[
-                List[models_deployments.Documents],
-                List[models_deployments.DocumentsTypedDict],
-            ]
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
-            Union[
-                models_deployments.InvokeOptions,
-                models_deployments.InvokeOptionsTypedDict,
-            ]
+            Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
-        thread: Optional[
-            Union[models_deployments.Thread, models_deployments.ThreadTypedDict]
-        ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         knowledge_filter: Optional[
-            Union[
-                models_deployments.KnowledgeFilter,
-                models_deployments.KnowledgeFilterTypedDict,
-            ]
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -913,14 +866,14 @@ class DeploymentsSDK(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessages],
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessagesTypedDict],
+                List[models.DeploymentStreamPrefixMessages],
+                List[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamMessages],
-                List[models_deploymentstreamop.DeploymentStreamMessagesTypedDict],
+                List[models.DeploymentStreamMessages],
+                List[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -928,26 +881,23 @@ class DeploymentsSDK(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamDocuments],
-                List[models_deploymentstreamop.DeploymentStreamDocumentsTypedDict],
+                List[models.DeploymentStreamDocuments],
+                List[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamInvokeOptions,
-                models_deploymentstreamop.DeploymentStreamInvokeOptionsTypedDict,
+                models.DeploymentStreamInvokeOptions,
+                models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
-            Union[
-                models_deploymentstreamop.DeploymentStreamThread,
-                models_deploymentstreamop.DeploymentStreamThreadTypedDict,
-            ]
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilter,
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilterTypedDict,
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1090,14 +1040,14 @@ class DeploymentsSDK(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessages],
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessagesTypedDict],
+                List[models.DeploymentStreamPrefixMessages],
+                List[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamMessages],
-                List[models_deploymentstreamop.DeploymentStreamMessagesTypedDict],
+                List[models.DeploymentStreamMessages],
+                List[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -1105,26 +1055,23 @@ class DeploymentsSDK(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamDocuments],
-                List[models_deploymentstreamop.DeploymentStreamDocumentsTypedDict],
+                List[models.DeploymentStreamDocuments],
+                List[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamInvokeOptions,
-                models_deploymentstreamop.DeploymentStreamInvokeOptionsTypedDict,
+                models.DeploymentStreamInvokeOptions,
+                models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
-            Union[
-                models_deploymentstreamop.DeploymentStreamThread,
-                models_deploymentstreamop.DeploymentStreamThreadTypedDict,
-            ]
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilter,
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilterTypedDict,
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
