@@ -18,6 +18,986 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+ModelVoice = Literal[
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+]
+r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+
+UpdateAgentModelFormat = Literal[
+    "wav",
+    "mp3",
+    "flac",
+    "opus",
+    "pcm16",
+]
+r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentModelAudioTypedDict(TypedDict):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: ModelVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+    format_: UpdateAgentModelFormat
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentModelAudio(BaseModel):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: ModelVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+    format_: Annotated[UpdateAgentModelFormat, pydantic.Field(alias="format")]
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+UpdateAgentResponseFormatAgentsRequestType = Literal["json_schema",]
+
+
+class UpdateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: NotRequired[str]
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+    schema_: NotRequired[Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: Optional[str] = None
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+
+    schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
+    r"""The schema for the response format, described as a JSON Schema object."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormat3TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsRequestType
+    json_schema: UpdateAgentResponseFormatJSONSchemaTypedDict
+
+
+class UpdateAgentResponseFormat3(BaseModel):
+    type: UpdateAgentResponseFormatAgentsRequestType
+
+    json_schema: UpdateAgentResponseFormatJSONSchema
+
+
+UpdateAgentResponseFormatAgentsType = Literal["json_object",]
+
+
+class UpdateAgentResponseFormat2TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsType
+
+
+class UpdateAgentResponseFormat2(BaseModel):
+    type: UpdateAgentResponseFormatAgentsType
+
+
+UpdateAgentResponseFormatType = Literal["text",]
+
+
+class UpdateAgentResponseFormat1TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatType
+
+
+class UpdateAgentResponseFormat1(BaseModel):
+    type: UpdateAgentResponseFormatType
+
+
+ModelResponseFormatTypedDict = TypeAliasType(
+    "ModelResponseFormatTypedDict",
+    Union[
+        UpdateAgentResponseFormat1TypedDict,
+        UpdateAgentResponseFormat2TypedDict,
+        UpdateAgentResponseFormat3TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+ModelResponseFormat = TypeAliasType(
+    "ModelResponseFormat",
+    Union[
+        UpdateAgentResponseFormat1,
+        UpdateAgentResponseFormat2,
+        UpdateAgentResponseFormat3,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+ModelStopTypedDict = TypeAliasType("ModelStopTypedDict", Union[str, List[str]])
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+ModelStop = TypeAliasType("ModelStop", Union[str, List[str]])
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+class ModelStreamOptionsTypedDict(TypedDict):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: NotRequired[bool]
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+class ModelStreamOptions(BaseModel):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: Optional[bool] = None
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+UpdateAgentModelType = Literal[
+    "enabled",
+    "disabled",
+]
+r"""Enables or disables the thinking mode capability"""
+
+
+class ModelThinkingTypedDict(TypedDict):
+    type: UpdateAgentModelType
+    r"""Enables or disables the thinking mode capability"""
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+class ModelThinking(BaseModel):
+    type: UpdateAgentModelType
+    r"""Enables or disables the thinking mode capability"""
+
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+UpdateAgentToolChoiceType = Literal["function",]
+r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceFunction(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoice2TypedDict(TypedDict):
+    function: UpdateAgentToolChoiceFunctionTypedDict
+    type: NotRequired[UpdateAgentToolChoiceType]
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoice2(BaseModel):
+    function: UpdateAgentToolChoiceFunction
+
+    type: Optional[UpdateAgentToolChoiceType] = None
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+UpdateAgentToolChoice1 = Literal[
+    "none",
+    "auto",
+    "required",
+]
+
+
+ModelToolChoiceTypedDict = TypeAliasType(
+    "ModelToolChoiceTypedDict",
+    Union[UpdateAgentToolChoice2TypedDict, UpdateAgentToolChoice1],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+ModelToolChoice = TypeAliasType(
+    "ModelToolChoice", Union[UpdateAgentToolChoice2, UpdateAgentToolChoice1]
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+ModelModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+class ModelWebSearchOptionsTypedDict(TypedDict):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: NotRequired[bool]
+    r"""Whether to enable web search for this request."""
+
+
+class ModelWebSearchOptions(BaseModel):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: Optional[bool] = None
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentModelParametersTypedDict(TypedDict):
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+
+    audio: NotRequired[Nullable[UpdateAgentModelAudioTypedDict]]
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    logprobs: NotRequired[Nullable[bool]]
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+    top_logprobs: NotRequired[Nullable[int]]
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+    n: NotRequired[Nullable[int]]
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[ModelResponseFormatTypedDict]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[str]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[Nullable[ModelStopTypedDict]]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    stream_options: NotRequired[Nullable[ModelStreamOptionsTypedDict]]
+    r"""Options for streaming response. Only set this when you set stream: true."""
+    thinking: NotRequired[ModelThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[ModelToolChoiceTypedDict]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[Nullable[List[ModelModalities]]]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    web_search_options: NotRequired[ModelWebSearchOptionsTypedDict]
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+
+class UpdateAgentModelParameters(BaseModel):
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+
+    audio: OptionalNullable[UpdateAgentModelAudio] = UNSET
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    logprobs: OptionalNullable[bool] = UNSET
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+
+    top_logprobs: OptionalNullable[int] = UNSET
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+
+    n: OptionalNullable[int] = UNSET
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[ModelResponseFormat] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[str] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[ModelStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    stream_options: OptionalNullable[ModelStreamOptions] = UNSET
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    thinking: Optional[ModelThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[ModelToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[List[ModelModalities]] = UNSET
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    web_search_options: Optional[ModelWebSearchOptions] = None
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "response_format",
+            "reasoning_effort",
+            "verbosity",
+            "seed",
+            "stop",
+            "stream_options",
+            "thinking",
+            "temperature",
+            "top_p",
+            "top_k",
+            "tool_choice",
+            "parallel_tool_calls",
+            "modalities",
+            "web_search_options",
+        ]
+        nullable_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "stream_options",
+            "temperature",
+            "top_p",
+            "top_k",
+            "modalities",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class UpdateAgentModel2TypedDict(TypedDict):
+    r"""Model configuration with parameters"""
+
+    id: str
+    r"""Model ID or provider/model string"""
+    integration_id: NotRequired[Nullable[str]]
+    r"""Optional integration ID for custom configurations"""
+    parameters: NotRequired[UpdateAgentModelParametersTypedDict]
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+
+
+class UpdateAgentModel2(BaseModel):
+    r"""Model configuration with parameters"""
+
+    id: str
+    r"""Model ID or provider/model string"""
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""Optional integration ID for custom configurations"""
+
+    parameters: Optional[UpdateAgentModelParameters] = None
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["integration_id", "parameters"]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+UpdateAgentModelTypedDict = TypeAliasType(
+    "UpdateAgentModelTypedDict", Union[UpdateAgentModel2TypedDict, str]
+)
+r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+
+
+UpdateAgentModel = TypeAliasType("UpdateAgentModel", Union[UpdateAgentModel2, str])
+r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+
+
+UpdateAgentFallbackModelsVoice = Literal[
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+]
+r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+
+UpdateAgentFallbackModelsFormat = Literal[
+    "wav",
+    "mp3",
+    "flac",
+    "opus",
+    "pcm16",
+]
+r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentFallbackModelsAudioTypedDict(TypedDict):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentFallbackModelsVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+    format_: UpdateAgentFallbackModelsFormat
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentFallbackModelsAudio(BaseModel):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentFallbackModelsVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+    format_: Annotated[UpdateAgentFallbackModelsFormat, pydantic.Field(alias="format")]
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type = Literal[
+    "json_schema",
+]
+
+
+class UpdateAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: NotRequired[str]
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+    schema_: NotRequired[Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: Optional[str] = None
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+
+    schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
+    r"""The schema for the response format, described as a JSON Schema object."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgents3TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
+    json_schema: UpdateAgentResponseFormatAgentsJSONSchemaTypedDict
+
+
+class UpdateAgentResponseFormatAgents3(BaseModel):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
+
+    json_schema: UpdateAgentResponseFormatAgentsJSONSchema
+
+
+UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
+    "json_object",
+]
+
+
+class UpdateAgentResponseFormatAgents2TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
+
+
+class UpdateAgentResponseFormatAgents2(BaseModel):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
+
+
+UpdateAgentResponseFormatAgentsRequestRequestBodyType = Literal["text",]
+
+
+class UpdateAgentResponseFormatAgents1TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyType
+
+
+class UpdateAgentResponseFormatAgents1(BaseModel):
+    type: UpdateAgentResponseFormatAgentsRequestRequestBodyType
+
+
+UpdateAgentFallbackModelsResponseFormatTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsResponseFormatTypedDict",
+    Union[
+        UpdateAgentResponseFormatAgents1TypedDict,
+        UpdateAgentResponseFormatAgents2TypedDict,
+        UpdateAgentResponseFormatAgents3TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelsResponseFormat = TypeAliasType(
+    "UpdateAgentFallbackModelsResponseFormat",
+    Union[
+        UpdateAgentResponseFormatAgents1,
+        UpdateAgentResponseFormatAgents2,
+        UpdateAgentResponseFormatAgents3,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelsStopTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsStopTypedDict", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+UpdateAgentFallbackModelsStop = TypeAliasType(
+    "UpdateAgentFallbackModelsStop", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+class UpdateAgentFallbackModelsStreamOptionsTypedDict(TypedDict):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: NotRequired[bool]
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+class UpdateAgentFallbackModelsStreamOptions(BaseModel):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: Optional[bool] = None
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+UpdateAgentFallbackModelsType = Literal[
+    "enabled",
+    "disabled",
+]
+r"""Enables or disables the thinking mode capability"""
+
+
+class UpdateAgentFallbackModelsThinkingTypedDict(TypedDict):
+    type: UpdateAgentFallbackModelsType
+    r"""Enables or disables the thinking mode capability"""
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+class UpdateAgentFallbackModelsThinking(BaseModel):
+    type: UpdateAgentFallbackModelsType
+    r"""Enables or disables the thinking mode capability"""
+
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+UpdateAgentToolChoiceAgentsType = Literal["function",]
+r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsFunction(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgents2TypedDict(TypedDict):
+    function: UpdateAgentToolChoiceAgentsFunctionTypedDict
+    type: NotRequired[UpdateAgentToolChoiceAgentsType]
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgents2(BaseModel):
+    function: UpdateAgentToolChoiceAgentsFunction
+
+    type: Optional[UpdateAgentToolChoiceAgentsType] = None
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+UpdateAgentToolChoiceAgents1 = Literal[
+    "none",
+    "auto",
+    "required",
+]
+
+
+UpdateAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsToolChoiceTypedDict",
+    Union[UpdateAgentToolChoiceAgents2TypedDict, UpdateAgentToolChoiceAgents1],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelsToolChoice = TypeAliasType(
+    "UpdateAgentFallbackModelsToolChoice",
+    Union[UpdateAgentToolChoiceAgents2, UpdateAgentToolChoiceAgents1],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelsModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+class UpdateAgentFallbackModelsWebSearchOptionsTypedDict(TypedDict):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: NotRequired[bool]
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentFallbackModelsWebSearchOptions(BaseModel):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: Optional[bool] = None
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentFallbackModelsParametersTypedDict(TypedDict):
+    audio: NotRequired[Nullable[UpdateAgentFallbackModelsAudioTypedDict]]
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    logprobs: NotRequired[Nullable[bool]]
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+    top_logprobs: NotRequired[Nullable[int]]
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+    n: NotRequired[Nullable[int]]
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[UpdateAgentFallbackModelsResponseFormatTypedDict]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[str]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[Nullable[UpdateAgentFallbackModelsStopTypedDict]]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    stream_options: NotRequired[
+        Nullable[UpdateAgentFallbackModelsStreamOptionsTypedDict]
+    ]
+    r"""Options for streaming response. Only set this when you set stream: true."""
+    thinking: NotRequired[UpdateAgentFallbackModelsThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[UpdateAgentFallbackModelsToolChoiceTypedDict]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[Nullable[List[UpdateAgentFallbackModelsModalities]]]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    web_search_options: NotRequired[UpdateAgentFallbackModelsWebSearchOptionsTypedDict]
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+
+class UpdateAgentFallbackModelsParameters(BaseModel):
+    audio: OptionalNullable[UpdateAgentFallbackModelsAudio] = UNSET
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    logprobs: OptionalNullable[bool] = UNSET
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+
+    top_logprobs: OptionalNullable[int] = UNSET
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+
+    n: OptionalNullable[int] = UNSET
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[UpdateAgentFallbackModelsResponseFormat] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[str] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[UpdateAgentFallbackModelsStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    stream_options: OptionalNullable[UpdateAgentFallbackModelsStreamOptions] = UNSET
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    thinking: Optional[UpdateAgentFallbackModelsThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[UpdateAgentFallbackModelsToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[List[UpdateAgentFallbackModelsModalities]] = UNSET
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    web_search_options: Optional[UpdateAgentFallbackModelsWebSearchOptions] = None
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "response_format",
+            "reasoning_effort",
+            "verbosity",
+            "seed",
+            "stop",
+            "stream_options",
+            "thinking",
+            "temperature",
+            "top_p",
+            "top_k",
+            "tool_choice",
+            "parallel_tool_calls",
+            "modalities",
+            "web_search_options",
+        ]
+        nullable_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "stream_options",
+            "temperature",
+            "top_p",
+            "top_k",
+            "modalities",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class UpdateAgentFallbackModels2TypedDict(TypedDict):
+    id: str
+    r"""Fallback model ID"""
+    integration_id: NotRequired[Nullable[str]]
+    parameters: NotRequired[UpdateAgentFallbackModelsParametersTypedDict]
+
+
+class UpdateAgentFallbackModels2(BaseModel):
+    id: str
+    r"""Fallback model ID"""
+
+    integration_id: OptionalNullable[str] = UNSET
+
+    parameters: Optional[UpdateAgentFallbackModelsParameters] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["integration_id", "parameters"]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+UpdateAgentFallbackModelsTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsTypedDict",
+    Union[UpdateAgentFallbackModels2TypedDict, str],
+)
+
+
+UpdateAgentFallbackModels = TypeAliasType(
+    "UpdateAgentFallbackModels", Union[UpdateAgentFallbackModels2, str]
+)
+
+
 UpdateAgentToolApprovalRequired = Literal[
     "all",
     "respect_tool",
@@ -467,10 +1447,10 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     instructions: NotRequired[str]
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
-    model: NotRequired[str]
-    r"""The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")"""
-    fallback_models: NotRequired[List[str]]
-    r"""Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    model: NotRequired[UpdateAgentModelTypedDict]
+    r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+    fallback_models: NotRequired[List[UpdateAgentFallbackModelsTypedDict]]
+    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
     settings: NotRequired[UpdateAgentSettingsTypedDict]
     path: NotRequired[str]
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -499,11 +1479,11 @@ class UpdateAgentRequestBody(BaseModel):
     system_prompt: Optional[str] = None
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
-    model: Optional[str] = None
-    r"""The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")"""
+    model: Optional[UpdateAgentModel] = None
+    r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
 
-    fallback_models: Optional[List[str]] = None
-    r"""Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: Optional[List[UpdateAgentFallbackModels]] = None
+    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
 
     settings: Optional[UpdateAgentSettings] = None
 
@@ -662,43 +1642,972 @@ class UpdateAgentAgentsSettings(BaseModel):
     tools: Optional[List[UpdateAgentTools]] = None
 
 
-class UpdateAgentModelTypedDict(TypedDict):
+UpdateAgentVoice = Literal[
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+]
+r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+
+UpdateAgentFormat = Literal[
+    "wav",
+    "mp3",
+    "flac",
+    "opus",
+    "pcm16",
+]
+r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentAudioTypedDict(TypedDict):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+    format_: UpdateAgentFormat
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentAudio(BaseModel):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+    format_: Annotated[UpdateAgentFormat, pydantic.Field(alias="format")]
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONType = Literal["json_schema",]
+
+
+class UpdateAgentResponseFormatAgentsResponseJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: NotRequired[str]
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+    schema_: NotRequired[Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsResponseJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: Optional[str] = None
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+
+    schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
+    r"""The schema for the response format, described as a JSON Schema object."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsResponse3TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONType
+    json_schema: UpdateAgentResponseFormatAgentsResponseJSONSchemaTypedDict
+
+
+class UpdateAgentResponseFormatAgentsResponse3(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONType
+
+    json_schema: UpdateAgentResponseFormatAgentsResponseJSONSchema
+
+
+UpdateAgentResponseFormatAgentsResponse200Type = Literal["json_object",]
+
+
+class UpdateAgentResponseFormatAgentsResponse2TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponse200Type
+
+
+class UpdateAgentResponseFormatAgentsResponse2(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponse200Type
+
+
+UpdateAgentResponseFormatAgentsResponseType = Literal["text",]
+
+
+class UpdateAgentResponseFormatAgentsResponse1TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponseType
+
+
+class UpdateAgentResponseFormatAgentsResponse1(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponseType
+
+
+UpdateAgentResponseFormatTypedDict = TypeAliasType(
+    "UpdateAgentResponseFormatTypedDict",
+    Union[
+        UpdateAgentResponseFormatAgentsResponse1TypedDict,
+        UpdateAgentResponseFormatAgentsResponse2TypedDict,
+        UpdateAgentResponseFormatAgentsResponse3TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentResponseFormat = TypeAliasType(
+    "UpdateAgentResponseFormat",
+    Union[
+        UpdateAgentResponseFormatAgentsResponse1,
+        UpdateAgentResponseFormatAgentsResponse2,
+        UpdateAgentResponseFormatAgentsResponse3,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentStopTypedDict = TypeAliasType(
+    "UpdateAgentStopTypedDict", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+UpdateAgentStop = TypeAliasType("UpdateAgentStop", Union[str, List[str]])
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+class UpdateAgentStreamOptionsTypedDict(TypedDict):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: NotRequired[bool]
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+class UpdateAgentStreamOptions(BaseModel):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: Optional[bool] = None
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+UpdateAgentType = Literal[
+    "enabled",
+    "disabled",
+]
+r"""Enables or disables the thinking mode capability"""
+
+
+class UpdateAgentThinkingTypedDict(TypedDict):
+    type: UpdateAgentType
+    r"""Enables or disables the thinking mode capability"""
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+class UpdateAgentThinking(BaseModel):
+    type: UpdateAgentType
+    r"""Enables or disables the thinking mode capability"""
+
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+UpdateAgentToolChoiceAgentsResponseType = Literal["function",]
+r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponseFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponseFunction(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2TypedDict(TypedDict):
+    function: UpdateAgentToolChoiceAgentsResponseFunctionTypedDict
+    type: NotRequired[UpdateAgentToolChoiceAgentsResponseType]
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2(BaseModel):
+    function: UpdateAgentToolChoiceAgentsResponseFunction
+
+    type: Optional[UpdateAgentToolChoiceAgentsResponseType] = None
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+UpdateAgentToolChoiceAgentsResponse1 = Literal[
+    "none",
+    "auto",
+    "required",
+]
+
+
+UpdateAgentToolChoiceTypedDict = TypeAliasType(
+    "UpdateAgentToolChoiceTypedDict",
+    Union[
+        UpdateAgentToolChoiceAgentsResponse2TypedDict,
+        UpdateAgentToolChoiceAgentsResponse1,
+    ],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentToolChoice = TypeAliasType(
+    "UpdateAgentToolChoice",
+    Union[UpdateAgentToolChoiceAgentsResponse2, UpdateAgentToolChoiceAgentsResponse1],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+class UpdateAgentWebSearchOptionsTypedDict(TypedDict):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: NotRequired[bool]
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentWebSearchOptions(BaseModel):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: Optional[bool] = None
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentParametersTypedDict(TypedDict):
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+
+    audio: NotRequired[Nullable[UpdateAgentAudioTypedDict]]
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    logprobs: NotRequired[Nullable[bool]]
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+    top_logprobs: NotRequired[Nullable[int]]
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+    n: NotRequired[Nullable[int]]
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[UpdateAgentResponseFormatTypedDict]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[str]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[Nullable[UpdateAgentStopTypedDict]]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    stream_options: NotRequired[Nullable[UpdateAgentStreamOptionsTypedDict]]
+    r"""Options for streaming response. Only set this when you set stream: true."""
+    thinking: NotRequired[UpdateAgentThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[UpdateAgentToolChoiceTypedDict]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[Nullable[List[UpdateAgentModalities]]]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    web_search_options: NotRequired[UpdateAgentWebSearchOptionsTypedDict]
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+
+class UpdateAgentParameters(BaseModel):
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+
+    audio: OptionalNullable[UpdateAgentAudio] = UNSET
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    logprobs: OptionalNullable[bool] = UNSET
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+
+    top_logprobs: OptionalNullable[int] = UNSET
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+
+    n: OptionalNullable[int] = UNSET
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[UpdateAgentResponseFormat] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[str] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[UpdateAgentStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    stream_options: OptionalNullable[UpdateAgentStreamOptions] = UNSET
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    thinking: Optional[UpdateAgentThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[UpdateAgentToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[List[UpdateAgentModalities]] = UNSET
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    web_search_options: Optional[UpdateAgentWebSearchOptions] = None
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "response_format",
+            "reasoning_effort",
+            "verbosity",
+            "seed",
+            "stop",
+            "stream_options",
+            "thinking",
+            "temperature",
+            "top_p",
+            "top_k",
+            "tool_choice",
+            "parallel_tool_calls",
+            "modalities",
+            "web_search_options",
+        ]
+        nullable_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "stream_options",
+            "temperature",
+            "top_p",
+            "top_k",
+            "modalities",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+UpdateAgentFallbackModelsAgentsVoice = Literal[
+    "alloy",
+    "echo",
+    "fable",
+    "onyx",
+    "nova",
+    "shimmer",
+]
+r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+
+UpdateAgentFallbackModelsAgentsFormat = Literal[
+    "wav",
+    "mp3",
+    "flac",
+    "opus",
+    "pcm16",
+]
+r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentFallbackModelsAgentsAudioTypedDict(TypedDict):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentFallbackModelsAgentsVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+    format_: UpdateAgentFallbackModelsAgentsFormat
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+class UpdateAgentFallbackModelsAgentsAudio(BaseModel):
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    voice: UpdateAgentFallbackModelsAgentsVoice
+    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
+
+    format_: Annotated[
+        UpdateAgentFallbackModelsAgentsFormat, pydantic.Field(alias="format")
+    ]
+    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType = Literal[
+    "json_schema",
+]
+
+
+class UpdateAgentResponseFormatAgentsResponse200JSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: NotRequired[str]
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+    schema_: NotRequired[Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsResponse200JSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: Optional[str] = None
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+
+    schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
+    r"""The schema for the response format, described as a JSON Schema object."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsResponse2003TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType
+    json_schema: UpdateAgentResponseFormatAgentsResponse200JSONSchemaTypedDict
+
+
+class UpdateAgentResponseFormatAgentsResponse2003(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType
+
+    json_schema: UpdateAgentResponseFormatAgentsResponse200JSONSchema
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType = (
+    Literal["json_object",]
+)
+
+
+class UpdateAgentResponseFormatAgentsResponse2002TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType
+
+
+class UpdateAgentResponseFormatAgentsResponse2002(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = Literal[
+    "text",
+]
+
+
+class UpdateAgentResponseFormatAgentsResponse2001TypedDict(TypedDict):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
+
+
+class UpdateAgentResponseFormatAgentsResponse2001(BaseModel):
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
+
+
+UpdateAgentFallbackModelsAgentsResponseFormatTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsResponseFormatTypedDict",
+    Union[
+        UpdateAgentResponseFormatAgentsResponse2001TypedDict,
+        UpdateAgentResponseFormatAgentsResponse2002TypedDict,
+        UpdateAgentResponseFormatAgentsResponse2003TypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelsAgentsResponseFormat = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsResponseFormat",
+    Union[
+        UpdateAgentResponseFormatAgentsResponse2001,
+        UpdateAgentResponseFormatAgentsResponse2002,
+        UpdateAgentResponseFormatAgentsResponse2003,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelsAgentsStopTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsStopTypedDict", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+UpdateAgentFallbackModelsAgentsStop = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsStop", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+class UpdateAgentFallbackModelsAgentsStreamOptionsTypedDict(TypedDict):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: NotRequired[bool]
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+class UpdateAgentFallbackModelsAgentsStreamOptions(BaseModel):
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    include_usage: Optional[bool] = None
+    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
+
+
+UpdateAgentFallbackModelsAgentsType = Literal[
+    "enabled",
+    "disabled",
+]
+r"""Enables or disables the thinking mode capability"""
+
+
+class UpdateAgentFallbackModelsAgentsThinkingTypedDict(TypedDict):
+    type: UpdateAgentFallbackModelsAgentsType
+    r"""Enables or disables the thinking mode capability"""
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+class UpdateAgentFallbackModelsAgentsThinking(BaseModel):
+    type: UpdateAgentFallbackModelsAgentsType
+    r"""Enables or disables the thinking mode capability"""
+
+    budget_tokens: float
+    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+
+UpdateAgentToolChoiceAgentsResponse200Type = Literal["function",]
+r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponse200FunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponse200Function(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2002TypedDict(TypedDict):
+    function: UpdateAgentToolChoiceAgentsResponse200FunctionTypedDict
+    type: NotRequired[UpdateAgentToolChoiceAgentsResponse200Type]
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2002(BaseModel):
+    function: UpdateAgentToolChoiceAgentsResponse200Function
+
+    type: Optional[UpdateAgentToolChoiceAgentsResponse200Type] = None
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+UpdateAgentToolChoiceAgentsResponse2001 = Literal[
+    "none",
+    "auto",
+    "required",
+]
+
+
+UpdateAgentFallbackModelsAgentsToolChoiceTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsToolChoiceTypedDict",
+    Union[
+        UpdateAgentToolChoiceAgentsResponse2002TypedDict,
+        UpdateAgentToolChoiceAgentsResponse2001,
+    ],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelsAgentsToolChoice = TypeAliasType(
+    "UpdateAgentFallbackModelsAgentsToolChoice",
+    Union[
+        UpdateAgentToolChoiceAgentsResponse2002, UpdateAgentToolChoiceAgentsResponse2001
+    ],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelsAgentsModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+class UpdateAgentFallbackModelsAgentsWebSearchOptionsTypedDict(TypedDict):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: NotRequired[bool]
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentFallbackModelsAgentsWebSearchOptions(BaseModel):
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    enabled: Optional[bool] = None
+    r"""Whether to enable web search for this request."""
+
+
+class UpdateAgentFallbackModelsAgentsParametersTypedDict(TypedDict):
+    audio: NotRequired[Nullable[UpdateAgentFallbackModelsAgentsAudioTypedDict]]
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    logprobs: NotRequired[Nullable[bool]]
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+    top_logprobs: NotRequired[Nullable[int]]
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+    n: NotRequired[Nullable[int]]
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[UpdateAgentFallbackModelsAgentsResponseFormatTypedDict]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[str]
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[Nullable[UpdateAgentFallbackModelsAgentsStopTypedDict]]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    stream_options: NotRequired[
+        Nullable[UpdateAgentFallbackModelsAgentsStreamOptionsTypedDict]
+    ]
+    r"""Options for streaming response. Only set this when you set stream: true."""
+    thinking: NotRequired[UpdateAgentFallbackModelsAgentsThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[UpdateAgentFallbackModelsAgentsToolChoiceTypedDict]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[Nullable[List[UpdateAgentFallbackModelsAgentsModalities]]]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    web_search_options: NotRequired[
+        UpdateAgentFallbackModelsAgentsWebSearchOptionsTypedDict
+    ]
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+
+class UpdateAgentFallbackModelsAgentsParameters(BaseModel):
+    audio: OptionalNullable[UpdateAgentFallbackModelsAgentsAudio] = UNSET
+    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    logprobs: OptionalNullable[bool] = UNSET
+    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
+
+    top_logprobs: OptionalNullable[int] = UNSET
+    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
+
+    n: OptionalNullable[int] = UNSET
+    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[UpdateAgentFallbackModelsAgentsResponseFormat] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[str] = None
+    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[UpdateAgentFallbackModelsAgentsStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    stream_options: OptionalNullable[UpdateAgentFallbackModelsAgentsStreamOptions] = (
+        UNSET
+    )
+    r"""Options for streaming response. Only set this when you set stream: true."""
+
+    thinking: Optional[UpdateAgentFallbackModelsAgentsThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[UpdateAgentFallbackModelsAgentsToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[List[UpdateAgentFallbackModelsAgentsModalities]] = (
+        UNSET
+    )
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    web_search_options: Optional[UpdateAgentFallbackModelsAgentsWebSearchOptions] = None
+    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "response_format",
+            "reasoning_effort",
+            "verbosity",
+            "seed",
+            "stop",
+            "stream_options",
+            "thinking",
+            "temperature",
+            "top_p",
+            "top_k",
+            "tool_choice",
+            "parallel_tool_calls",
+            "modalities",
+            "web_search_options",
+        ]
+        nullable_fields = [
+            "audio",
+            "frequency_penalty",
+            "max_tokens",
+            "max_completion_tokens",
+            "logprobs",
+            "top_logprobs",
+            "n",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "stream_options",
+            "temperature",
+            "top_p",
+            "top_k",
+            "modalities",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class UpdateAgentFallbackModelsAgents2TypedDict(TypedDict):
+    id: str
+    r"""Fallback model ID"""
+    integration_id: NotRequired[Nullable[str]]
+    parameters: NotRequired[UpdateAgentFallbackModelsAgentsParametersTypedDict]
+
+
+class UpdateAgentFallbackModelsAgents2(BaseModel):
+    id: str
+    r"""Fallback model ID"""
+
+    integration_id: OptionalNullable[str] = UNSET
+
+    parameters: Optional[UpdateAgentFallbackModelsAgentsParameters] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["integration_id", "parameters"]
+        nullable_fields = ["integration_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+UpdateAgentAgentsFallbackModelsTypedDict = TypeAliasType(
+    "UpdateAgentAgentsFallbackModelsTypedDict",
+    Union[UpdateAgentFallbackModelsAgents2TypedDict, str],
+)
+
+
+UpdateAgentAgentsFallbackModels = TypeAliasType(
+    "UpdateAgentAgentsFallbackModels", Union[UpdateAgentFallbackModelsAgents2, str]
+)
+
+
+class UpdateAgentAgentsModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    fallback_models: NotRequired[Nullable[List[str]]]
-    r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
-    max_tokens: NotRequired[int]
-    r"""Maximum number of tokens for model responses"""
-    temperature: NotRequired[float]
-    r"""Temperature setting for model responses"""
+    parameters: NotRequired[UpdateAgentParametersTypedDict]
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    fallback_models: NotRequired[
+        Nullable[List[UpdateAgentAgentsFallbackModelsTypedDict]]
+    ]
+    r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
-class UpdateAgentModel(BaseModel):
+class UpdateAgentAgentsModel(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    fallback_models: OptionalNullable[List[str]] = UNSET
-    r"""Optional array of fallback model IDs that will be used automatically in order if the primary model fails"""
+    parameters: Optional[UpdateAgentParameters] = None
+    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
 
-    max_tokens: Optional[int] = None
-    r"""Maximum number of tokens for model responses"""
-
-    temperature: Optional[float] = None
-    r"""Temperature setting for model responses"""
+    fallback_models: OptionalNullable[List[UpdateAgentAgentsFallbackModels]] = UNSET
+    r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "integration_id",
-            "fallback_models",
-            "max_tokens",
-            "temperature",
-        ]
+        optional_fields = ["integration_id", "parameters", "fallback_models"]
         nullable_fields = ["integration_id", "fallback_models"]
         null_default_fields = []
 
@@ -781,7 +2690,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     instructions: str
     status: UpdateAgentStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    model: UpdateAgentModelTypedDict
+    model: UpdateAgentAgentsModelTypedDict
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -828,7 +2737,7 @@ class UpdateAgentResponseBody(BaseModel):
     status: UpdateAgentStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    model: UpdateAgentModel
+    model: UpdateAgentAgentsModel
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`

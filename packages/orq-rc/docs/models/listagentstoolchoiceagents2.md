@@ -1,0 +1,9 @@
+# ListAgentsToolChoiceAgents2
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `type`                                                                                         | [Optional[models.ListAgentsToolChoiceAgentsType]](../models/listagentstoolchoiceagentstype.md) | :heavy_minus_sign:                                                                             | The type of the tool. Currently, only function is supported.                                   |
+| `function`                                                                                     | [models.ListAgentsToolChoiceAgentsFunction](../models/listagentstoolchoiceagentsfunction.md)   | :heavy_check_mark:                                                                             | N/A                                                                                            |

@@ -1,0 +1,9 @@
+# CreateAgentToolChoiceAgentsResponse2
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                           | [Optional[models.CreateAgentToolChoiceAgentsResponseType]](../models/createagenttoolchoiceagentsresponsetype.md) | :heavy_minus_sign:                                                                                               | The type of the tool. Currently, only function is supported.                                                     |
+| `function`                                                                                                       | [models.CreateAgentToolChoiceAgentsResponseFunction](../models/createagenttoolchoiceagentsresponsefunction.md)   | :heavy_check_mark:                                                                                               | N/A                                                                                                              |

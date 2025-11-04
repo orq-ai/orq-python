@@ -534,13 +534,13 @@ GetOnePromptContent2 = TypeAliasType(
 GetOnePromptContentTypedDict = TypeAliasType(
     "GetOnePromptContentTypedDict", Union[str, List[GetOnePromptContent2TypedDict]]
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 GetOnePromptContent = TypeAliasType(
     "GetOnePromptContent", Union[str, List[GetOnePromptContent2]]
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 GetOnePromptPromptsType = Literal["function",]
@@ -579,8 +579,8 @@ class GetOnePromptToolCalls(BaseModel):
 class GetOnePromptMessagesTypedDict(TypedDict):
     role: GetOnePromptRole
     r"""The role of the prompt message"""
-    content: GetOnePromptContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[GetOnePromptContentTypedDict]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[GetOnePromptToolCallsTypedDict]]
     tool_call_id: NotRequired[str]
 
@@ -589,12 +589,42 @@ class GetOnePromptMessages(BaseModel):
     role: GetOnePromptRole
     r"""The role of the prompt message"""
 
-    content: GetOnePromptContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[GetOnePromptContent]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
     tool_calls: Optional[List[GetOnePromptToolCalls]] = None
 
     tool_call_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["tool_calls", "tool_call_id"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class GetOnePromptPromptConfigTypedDict(TypedDict):

@@ -1,0 +1,9 @@
+# UpdateAgentToolChoiceAgents2
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [Optional[models.UpdateAgentToolChoiceAgentsType]](../models/updateagenttoolchoiceagentstype.md) | :heavy_minus_sign:                                                                               | The type of the tool. Currently, only function is supported.                                     |
+| `function`                                                                                       | [models.UpdateAgentToolChoiceAgentsFunction](../models/updateagenttoolchoiceagentsfunction.md)   | :heavy_check_mark:                                                                               | N/A                                                                                              |

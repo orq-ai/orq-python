@@ -221,13 +221,13 @@ CreatePromptContent2 = TypeAliasType(
 CreatePromptContentTypedDict = TypeAliasType(
     "CreatePromptContentTypedDict", Union[str, List[CreatePromptContent2TypedDict]]
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 CreatePromptContent = TypeAliasType(
     "CreatePromptContent", Union[str, List[CreatePromptContent2]]
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 CreatePromptType = Literal["function",]
@@ -266,8 +266,8 @@ class CreatePromptToolCalls(BaseModel):
 class CreatePromptMessagesTypedDict(TypedDict):
     role: CreatePromptRole
     r"""The role of the prompt message"""
-    content: CreatePromptContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[CreatePromptContentTypedDict]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptToolCallsTypedDict]]
     tool_call_id: NotRequired[str]
 
@@ -276,12 +276,42 @@ class CreatePromptMessages(BaseModel):
     role: CreatePromptRole
     r"""The role of the prompt message"""
 
-    content: CreatePromptContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[CreatePromptContent]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
     tool_calls: Optional[List[CreatePromptToolCalls]] = None
 
     tool_call_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["tool_calls", "tool_call_id"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 CreatePromptFormat = Literal[
@@ -318,39 +348,39 @@ ResponseFormat4 = Literal[
 ]
 
 
-CreatePromptResponseFormatPromptsType = Literal["text",]
+CreatePromptResponseFormatPromptsRequestType = Literal["text",]
 
 
-class ResponseFormat3TypedDict(TypedDict):
+class CreatePromptResponseFormat3TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsRequestType
+
+
+class CreatePromptResponseFormat3(BaseModel):
+    type: CreatePromptResponseFormatPromptsRequestType
+
+
+CreatePromptResponseFormatPromptsType = Literal["json_object",]
+
+
+class CreatePromptResponseFormat2TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsType
 
 
-class ResponseFormat3(BaseModel):
+class CreatePromptResponseFormat2(BaseModel):
     type: CreatePromptResponseFormatPromptsType
 
 
-CreatePromptResponseFormatType = Literal["json_object",]
+CreatePromptResponseFormatType = Literal["json_schema",]
 
 
-class ResponseFormat2TypedDict(TypedDict):
-    type: CreatePromptResponseFormatType
-
-
-class ResponseFormat2(BaseModel):
-    type: CreatePromptResponseFormatType
-
-
-ResponseFormatType = Literal["json_schema",]
-
-
-class JSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class JSONSchema(BaseModel):
+class CreatePromptResponseFormatJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -360,23 +390,23 @@ class JSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class ResponseFormat1TypedDict(TypedDict):
-    type: ResponseFormatType
-    json_schema: JSONSchemaTypedDict
+class CreatePromptResponseFormat1TypedDict(TypedDict):
+    type: CreatePromptResponseFormatType
+    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
 
 
-class ResponseFormat1(BaseModel):
-    type: ResponseFormatType
+class CreatePromptResponseFormat1(BaseModel):
+    type: CreatePromptResponseFormatType
 
-    json_schema: JSONSchema
+    json_schema: CreatePromptResponseFormatJSONSchema
 
 
-ResponseFormatTypedDict = TypeAliasType(
-    "ResponseFormatTypedDict",
+CreatePromptResponseFormatTypedDict = TypeAliasType(
+    "CreatePromptResponseFormatTypedDict",
     Union[
-        ResponseFormat2TypedDict,
-        ResponseFormat3TypedDict,
-        ResponseFormat1TypedDict,
+        CreatePromptResponseFormat2TypedDict,
+        CreatePromptResponseFormat3TypedDict,
+        CreatePromptResponseFormat1TypedDict,
         ResponseFormat4,
         Five,
         Six,
@@ -392,10 +422,15 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-ResponseFormat = TypeAliasType(
-    "ResponseFormat",
+CreatePromptResponseFormat = TypeAliasType(
+    "CreatePromptResponseFormat",
     Union[
-        ResponseFormat2, ResponseFormat3, ResponseFormat1, ResponseFormat4, Five, Six
+        CreatePromptResponseFormat2,
+        CreatePromptResponseFormat3,
+        CreatePromptResponseFormat1,
+        ResponseFormat4,
+        Five,
+        Six,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -467,7 +502,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[ResponseFormatTypedDict]]
+    response_format: NotRequired[Nullable[CreatePromptResponseFormatTypedDict]]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -534,7 +569,8 @@ class ModelParameters(BaseModel):
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[ResponseFormat], pydantic.Field(alias="responseFormat")
+        OptionalNullable[CreatePromptResponseFormat],
+        pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
 
@@ -1214,10 +1250,10 @@ CreatePromptPromptsMessages = TypeAliasType(
 )
 
 
-CreatePromptResponseFormatPromptsRequestRequestBodyPromptType = Literal["json_schema",]
+CreatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type = Literal["json_schema",]
 
 
-class ResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -1228,7 +1264,7 @@ class ResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ResponseFormatJSONSchema(BaseModel):
+class CreatePromptResponseFormatPromptsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -1242,56 +1278,56 @@ class ResponseFormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreatePromptResponseFormat3TypedDict(TypedDict):
+class CreatePromptResponseFormatPrompts3TypedDict(TypedDict):
+    type: CreatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type
+    json_schema: CreatePromptResponseFormatPromptsJSONSchemaTypedDict
+
+
+class CreatePromptResponseFormatPrompts3(BaseModel):
+    type: CreatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type
+
+    json_schema: CreatePromptResponseFormatPromptsJSONSchema
+
+
+CreatePromptResponseFormatPromptsRequestRequestBodyPromptType = Literal["json_object",]
+
+
+class CreatePromptResponseFormatPrompts2TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsRequestRequestBodyPromptType
-    json_schema: ResponseFormatJSONSchemaTypedDict
 
 
-class CreatePromptResponseFormat3(BaseModel):
+class CreatePromptResponseFormatPrompts2(BaseModel):
     type: CreatePromptResponseFormatPromptsRequestRequestBodyPromptType
 
-    json_schema: ResponseFormatJSONSchema
+
+CreatePromptResponseFormatPromptsRequestRequestBodyType = Literal["text",]
 
 
-CreatePromptResponseFormatPromptsRequestRequestBodyType = Literal["json_object",]
-
-
-class CreatePromptResponseFormat2TypedDict(TypedDict):
+class CreatePromptResponseFormatPrompts1TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsRequestRequestBodyType
 
 
-class CreatePromptResponseFormat2(BaseModel):
+class CreatePromptResponseFormatPrompts1(BaseModel):
     type: CreatePromptResponseFormatPromptsRequestRequestBodyType
 
 
-CreatePromptResponseFormatPromptsRequestType = Literal["text",]
-
-
-class CreatePromptResponseFormat1TypedDict(TypedDict):
-    type: CreatePromptResponseFormatPromptsRequestType
-
-
-class CreatePromptResponseFormat1(BaseModel):
-    type: CreatePromptResponseFormatPromptsRequestType
-
-
-CreatePromptResponseFormatTypedDict = TypeAliasType(
-    "CreatePromptResponseFormatTypedDict",
+CreatePromptPromptsResponseFormatTypedDict = TypeAliasType(
+    "CreatePromptPromptsResponseFormatTypedDict",
     Union[
-        CreatePromptResponseFormat1TypedDict,
-        CreatePromptResponseFormat2TypedDict,
-        CreatePromptResponseFormat3TypedDict,
+        CreatePromptResponseFormatPrompts1TypedDict,
+        CreatePromptResponseFormatPrompts2TypedDict,
+        CreatePromptResponseFormatPrompts3TypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-CreatePromptResponseFormat = TypeAliasType(
-    "CreatePromptResponseFormat",
+CreatePromptPromptsResponseFormat = TypeAliasType(
+    "CreatePromptPromptsResponseFormat",
     Union[
-        CreatePromptResponseFormat1,
-        CreatePromptResponseFormat2,
-        CreatePromptResponseFormat3,
+        CreatePromptResponseFormatPrompts1,
+        CreatePromptResponseFormatPrompts2,
+        CreatePromptResponseFormatPrompts3,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -1311,7 +1347,7 @@ class PromptInputTypedDict(TypedDict):
 
     This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
     """
-    response_format: NotRequired[CreatePromptResponseFormatTypedDict]
+    response_format: NotRequired[CreatePromptPromptsResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
 
 
@@ -1333,7 +1369,7 @@ class PromptInput(BaseModel):
     This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
     """
 
-    response_format: Optional[CreatePromptResponseFormat] = None
+    response_format: Optional[CreatePromptPromptsResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     @model_serializer(mode="wrap")
@@ -1499,36 +1535,36 @@ CreatePromptResponseFormat4 = Literal[
 CreatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text",]
 
 
-class CreatePromptResponseFormatPrompts3TypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsResponse3TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
-class CreatePromptResponseFormatPrompts3(BaseModel):
+class CreatePromptResponseFormatPromptsResponse3(BaseModel):
     type: CreatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
 CreatePromptResponseFormatPromptsResponse200Type = Literal["json_object",]
 
 
-class CreatePromptResponseFormatPrompts2TypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsResponse2TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsResponse200Type
 
 
-class CreatePromptResponseFormatPrompts2(BaseModel):
+class CreatePromptResponseFormatPromptsResponse2(BaseModel):
     type: CreatePromptResponseFormatPromptsResponse200Type
 
 
 CreatePromptResponseFormatPromptsResponseType = Literal["json_schema",]
 
 
-class CreatePromptResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsResponseJSONSchemaTypedDict(TypedDict):
     name: str
     schema_: Dict[str, Any]
     description: NotRequired[str]
     strict: NotRequired[bool]
 
 
-class CreatePromptResponseFormatJSONSchema(BaseModel):
+class CreatePromptResponseFormatPromptsResponseJSONSchema(BaseModel):
     name: str
 
     schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
@@ -1538,23 +1574,23 @@ class CreatePromptResponseFormatJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class CreatePromptResponseFormatPrompts1TypedDict(TypedDict):
+class CreatePromptResponseFormatPromptsResponse1TypedDict(TypedDict):
     type: CreatePromptResponseFormatPromptsResponseType
-    json_schema: CreatePromptResponseFormatJSONSchemaTypedDict
+    json_schema: CreatePromptResponseFormatPromptsResponseJSONSchemaTypedDict
 
 
-class CreatePromptResponseFormatPrompts1(BaseModel):
+class CreatePromptResponseFormatPromptsResponse1(BaseModel):
     type: CreatePromptResponseFormatPromptsResponseType
 
-    json_schema: CreatePromptResponseFormatJSONSchema
+    json_schema: CreatePromptResponseFormatPromptsResponseJSONSchema
 
 
-CreatePromptPromptsResponseFormatTypedDict = TypeAliasType(
-    "CreatePromptPromptsResponseFormatTypedDict",
+CreatePromptPromptsResponseResponseFormatTypedDict = TypeAliasType(
+    "CreatePromptPromptsResponseResponseFormatTypedDict",
     Union[
-        CreatePromptResponseFormatPrompts2TypedDict,
-        CreatePromptResponseFormatPrompts3TypedDict,
-        CreatePromptResponseFormatPrompts1TypedDict,
+        CreatePromptResponseFormatPromptsResponse2TypedDict,
+        CreatePromptResponseFormatPromptsResponse3TypedDict,
+        CreatePromptResponseFormatPromptsResponse1TypedDict,
         CreatePromptResponseFormat4,
         CreatePromptResponseFormat5,
         CreatePromptResponseFormat6,
@@ -1570,12 +1606,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-CreatePromptPromptsResponseFormat = TypeAliasType(
-    "CreatePromptPromptsResponseFormat",
+CreatePromptPromptsResponseResponseFormat = TypeAliasType(
+    "CreatePromptPromptsResponseResponseFormat",
     Union[
-        CreatePromptResponseFormatPrompts2,
-        CreatePromptResponseFormatPrompts3,
-        CreatePromptResponseFormatPrompts1,
+        CreatePromptResponseFormatPromptsResponse2,
+        CreatePromptResponseFormatPromptsResponse3,
+        CreatePromptResponseFormatPromptsResponse1,
         CreatePromptResponseFormat4,
         CreatePromptResponseFormat5,
         CreatePromptResponseFormat6,
@@ -1650,7 +1686,9 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""Only supported on `image` models."""
     style: NotRequired[str]
     r"""Only supported on `image` models."""
-    response_format: NotRequired[Nullable[CreatePromptPromptsResponseFormatTypedDict]]
+    response_format: NotRequired[
+        Nullable[CreatePromptPromptsResponseResponseFormatTypedDict]
+    ]
     r"""An object specifying the format that the model must output.
 
     Setting to `{ \"type\": \"json_schema\", \"json_schema\": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema
@@ -1717,7 +1755,7 @@ class CreatePromptModelParameters(BaseModel):
     r"""Only supported on `image` models."""
 
     response_format: Annotated[
-        OptionalNullable[CreatePromptPromptsResponseFormat],
+        OptionalNullable[CreatePromptPromptsResponseResponseFormat],
         pydantic.Field(alias="responseFormat"),
     ] = UNSET
     r"""An object specifying the format that the model must output.
@@ -1962,13 +2000,13 @@ CreatePromptPromptsContentTypedDict = TypeAliasType(
     "CreatePromptPromptsContentTypedDict",
     Union[str, List[CreatePromptContentPromptsResponse2TypedDict]],
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 CreatePromptPromptsContent = TypeAliasType(
     "CreatePromptPromptsContent", Union[str, List[CreatePromptContentPromptsResponse2]]
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 CreatePromptPromptsResponseType = Literal["function",]
@@ -2007,8 +2045,8 @@ class CreatePromptPromptsToolCalls(BaseModel):
 class CreatePromptPromptsResponseMessagesTypedDict(TypedDict):
     role: CreatePromptPromptsRole
     r"""The role of the prompt message"""
-    content: CreatePromptPromptsContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[CreatePromptPromptsContentTypedDict]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptPromptsToolCallsTypedDict]]
     tool_call_id: NotRequired[str]
 
@@ -2017,12 +2055,42 @@ class CreatePromptPromptsResponseMessages(BaseModel):
     role: CreatePromptPromptsRole
     r"""The role of the prompt message"""
 
-    content: CreatePromptPromptsContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[CreatePromptPromptsContent]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
     tool_calls: Optional[List[CreatePromptPromptsToolCalls]] = None
 
     tool_call_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["tool_calls", "tool_call_id"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreatePromptPromptConfigTypedDict(TypedDict):

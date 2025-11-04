@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_SCHEMA` | json_schema   |
+| Name   | Value  |
+| ------ | ------ |
+| `TEXT` | text   |
