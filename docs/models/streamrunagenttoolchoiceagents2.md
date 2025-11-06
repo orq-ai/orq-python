@@ -1,0 +1,9 @@
+# StreamRunAgentToolChoiceAgents2
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [Optional[models.StreamRunAgentToolChoiceAgentsType]](../models/streamrunagenttoolchoiceagentstype.md) | :heavy_minus_sign:                                                                                     | The type of the tool. Currently, only function is supported.                                           |
+| `function`                                                                                             | [models.StreamRunAgentToolChoiceAgentsFunction](../models/streamrunagenttoolchoiceagentsfunction.md)   | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

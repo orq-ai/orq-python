@@ -2095,14 +2095,14 @@ DeploymentGetConfigContentTypedDict = TypeAliasType(
     "DeploymentGetConfigContentTypedDict",
     Union[str, List[DeploymentGetConfigContentDeploymentsResponse2TypedDict]],
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 DeploymentGetConfigContent = TypeAliasType(
     "DeploymentGetConfigContent",
     Union[str, List[DeploymentGetConfigContentDeploymentsResponse2]],
 )
-r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 DeploymentGetConfigDeploymentsResponseType = Literal["function",]
@@ -2141,8 +2141,8 @@ class DeploymentGetConfigToolCalls(BaseModel):
 class DeploymentGetConfigDeploymentsMessagesTypedDict(TypedDict):
     role: DeploymentGetConfigRole
     r"""The role of the prompt message"""
-    content: DeploymentGetConfigContentTypedDict
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[DeploymentGetConfigContentTypedDict]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[DeploymentGetConfigToolCallsTypedDict]]
     tool_call_id: NotRequired[str]
 
@@ -2151,12 +2151,42 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
     role: DeploymentGetConfigRole
     r"""The role of the prompt message"""
 
-    content: DeploymentGetConfigContent
-    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts."""
+    content: Nullable[DeploymentGetConfigContent]
+    r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
     tool_calls: Optional[List[DeploymentGetConfigToolCalls]] = None
 
     tool_call_id: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["tool_calls", "tool_call_id"]
+        nullable_fields = ["content"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 DeploymentGetConfigFormat = Literal[
@@ -2320,7 +2350,7 @@ DeploymentGetConfigVerbosity = Literal[
 r"""Controls the verbosity of the model output."""
 
 
-class ParametersTypedDict(TypedDict):
+class DeploymentGetConfigParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: NotRequired[float]
@@ -2368,7 +2398,7 @@ class ParametersTypedDict(TypedDict):
     r"""Controls the verbosity of the model output."""
 
 
-class Parameters(BaseModel):
+class DeploymentGetConfigParameters(BaseModel):
     r"""Model Parameters: Not all parameters apply to every model"""
 
     temperature: Optional[float] = None
@@ -2554,7 +2584,7 @@ class DeploymentGetConfigResponseBodyTypedDict(TypedDict):
     version: str
     r"""The current version of the deployment"""
     messages: List[DeploymentGetConfigDeploymentsMessagesTypedDict]
-    parameters: ParametersTypedDict
+    parameters: DeploymentGetConfigParametersTypedDict
     r"""Model Parameters: Not all parameters apply to every model"""
     type: NotRequired[DeploymentGetConfigType]
     r"""The type of the model. Current `chat`,`completion` and `image` are supported"""
@@ -2579,7 +2609,7 @@ class DeploymentGetConfigResponseBody(BaseModel):
 
     messages: List[DeploymentGetConfigDeploymentsMessages]
 
-    parameters: Parameters
+    parameters: DeploymentGetConfigParameters
     r"""Model Parameters: Not all parameters apply to every model"""
 
     type: Optional[DeploymentGetConfigType] = None

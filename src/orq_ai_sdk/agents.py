@@ -972,8 +972,15 @@ class Agents(BaseSDK):
         description: Optional[str] = None,
         instructions: Optional[str] = None,
         system_prompt: Optional[str] = None,
-        model: Optional[str] = None,
-        fallback_models: Optional[List[str]] = None,
+        model: Optional[
+            Union[models.UpdateAgentModel, models.UpdateAgentModelTypedDict]
+        ] = None,
+        fallback_models: Optional[
+            Union[
+                List[models.UpdateAgentFallbackModels],
+                List[models.UpdateAgentFallbackModelsTypedDict],
+            ]
+        ] = None,
         settings: Optional[
             Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
@@ -1007,8 +1014,8 @@ class Agents(BaseSDK):
         :param description:
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
-        :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
-        :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param model: The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters.
+        :param fallback_models: Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
         :param settings:
         :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
@@ -1041,8 +1048,12 @@ class Agents(BaseSDK):
                 description=description,
                 instructions=instructions,
                 system_prompt=system_prompt,
-                model=model,
-                fallback_models=fallback_models,
+                model=utils.get_pydantic_model(
+                    model, Optional[models.UpdateAgentModel]
+                ),
+                fallback_models=utils.get_pydantic_model(
+                    fallback_models, Optional[List[models.UpdateAgentFallbackModels]]
+                ),
                 settings=utils.get_pydantic_model(
                     settings, Optional[models.UpdateAgentSettings]
                 ),
@@ -1132,8 +1143,15 @@ class Agents(BaseSDK):
         description: Optional[str] = None,
         instructions: Optional[str] = None,
         system_prompt: Optional[str] = None,
-        model: Optional[str] = None,
-        fallback_models: Optional[List[str]] = None,
+        model: Optional[
+            Union[models.UpdateAgentModel, models.UpdateAgentModelTypedDict]
+        ] = None,
+        fallback_models: Optional[
+            Union[
+                List[models.UpdateAgentFallbackModels],
+                List[models.UpdateAgentFallbackModelsTypedDict],
+            ]
+        ] = None,
         settings: Optional[
             Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
@@ -1167,8 +1185,8 @@ class Agents(BaseSDK):
         :param description:
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
-        :param model: The primary language model that powers the agent (e.g., \"anthropic/claude-3-sonnet-20240229\")
-        :param fallback_models: Optional array of fallback model IDs to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param model: The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters.
+        :param fallback_models: Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
         :param settings:
         :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
@@ -1201,8 +1219,12 @@ class Agents(BaseSDK):
                 description=description,
                 instructions=instructions,
                 system_prompt=system_prompt,
-                model=model,
-                fallback_models=fallback_models,
+                model=utils.get_pydantic_model(
+                    model, Optional[models.UpdateAgentModel]
+                ),
+                fallback_models=utils.get_pydantic_model(
+                    fallback_models, Optional[List[models.UpdateAgentFallbackModels]]
+                ),
                 settings=utils.get_pydantic_model(
                     settings, Optional[models.UpdateAgentSettings]
                 ),

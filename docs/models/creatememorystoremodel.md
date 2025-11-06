@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.CreateMemoryStoreModel1`
+### `models.Model1`
 
 ```python
-value: models.CreateMemoryStoreModel1 = /* values here */
+value: models.Model1 = /* values here */
 ```
 
 ### `models.CreateMemoryStoreModel2`
@@ -15,129 +15,129 @@ value: models.CreateMemoryStoreModel1 = /* values here */
 value: models.CreateMemoryStoreModel2 = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel3`
+### `models.Model3`
 
 ```python
-value: models.CreateMemoryStoreModel3 = /* values here */
+value: models.Model3 = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel4`
+### `models.Model4`
 
 ```python
-value: models.CreateMemoryStoreModel4 = /* values here */
+value: models.Model4 = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel5`
+### `models.Model5`
 
 ```python
-value: models.CreateMemoryStoreModel5 = /* values here */
+value: models.Model5 = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel6`
+### `models.Model6`
 
 ```python
-value: models.CreateMemoryStoreModel6 = /* values here */
+value: models.Model6 = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel7`
+### `models.Seven`
 
 ```python
-value: models.CreateMemoryStoreModel7 = /* values here */
+value: models.Seven = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel8`
+### `models.Eight`
 
 ```python
-value: models.CreateMemoryStoreModel8 = /* values here */
+value: models.Eight = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel9`
+### `models.Nine`
 
 ```python
-value: models.CreateMemoryStoreModel9 = /* values here */
+value: models.Nine = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel10`
+### `models.Ten`
 
 ```python
-value: models.CreateMemoryStoreModel10 = /* values here */
+value: models.Ten = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel11`
+### `models.Eleven`
 
 ```python
-value: models.CreateMemoryStoreModel11 = /* values here */
+value: models.Eleven = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel12`
+### `models.Twelve`
 
 ```python
-value: models.CreateMemoryStoreModel12 = /* values here */
+value: models.Twelve = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel13`
+### `models.Thirteen`
 
 ```python
-value: models.CreateMemoryStoreModel13 = /* values here */
+value: models.Thirteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel14`
+### `models.Fourteen`
 
 ```python
-value: models.CreateMemoryStoreModel14 = /* values here */
+value: models.Fourteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel15`
+### `models.Fifteen`
 
 ```python
-value: models.CreateMemoryStoreModel15 = /* values here */
+value: models.Fifteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel16`
+### `models.Sixteen`
 
 ```python
-value: models.CreateMemoryStoreModel16 = /* values here */
+value: models.Sixteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel17`
+### `models.Seventeen`
 
 ```python
-value: models.CreateMemoryStoreModel17 = /* values here */
+value: models.Seventeen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel18`
+### `models.Eighteen`
 
 ```python
-value: models.CreateMemoryStoreModel18 = /* values here */
+value: models.Eighteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel19`
+### `models.Nineteen`
 
 ```python
-value: models.CreateMemoryStoreModel19 = /* values here */
+value: models.Nineteen = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel20`
+### `models.Twenty`
 
 ```python
-value: models.CreateMemoryStoreModel20 = /* values here */
+value: models.Twenty = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel21`
+### `models.TwentyOne`
 
 ```python
-value: models.CreateMemoryStoreModel21 = /* values here */
+value: models.TwentyOne = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel22`
+### `models.TwentyTwo`
 
 ```python
-value: models.CreateMemoryStoreModel22 = /* values here */
+value: models.TwentyTwo = /* values here */
 ```
 
-### `models.CreateMemoryStoreModel23`
+### `models.TwentyThree`
 
 ```python
-value: models.CreateMemoryStoreModel23 = /* values here */
+value: models.TwentyThree = /* values here */
 ```
 

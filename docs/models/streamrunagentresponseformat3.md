@@ -1,0 +1,9 @@
+# StreamRunAgentResponseFormat3
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                             | [models.StreamRunAgentResponseFormatAgentsRequestType](../models/streamrunagentresponseformatagentsrequesttype.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `json_schema`                                                                                                      | [models.StreamRunAgentResponseFormatJSONSchema](../models/streamrunagentresponseformatjsonschema.md)               | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

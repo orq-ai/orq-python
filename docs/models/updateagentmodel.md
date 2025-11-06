@@ -1,12 +1,19 @@
 # UpdateAgentModel
 
+The primary language model that powers the agent. Can be a simple string (e.g., "anthropic/claude-3-sonnet-20240229") or an object with model ID and parameters.
 
-## Fields
 
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                     | *str*                                                                                                    | :heavy_check_mark:                                                                                       | The database ID of the primary model                                                                     |
-| `integration_id`                                                                                         | *OptionalNullable[str]*                                                                                  | :heavy_minus_sign:                                                                                       | Optional integration ID for custom model configurations                                                  |
-| `fallback_models`                                                                                        | List[*str*]                                                                                              | :heavy_minus_sign:                                                                                       | Optional array of fallback model IDs that will be used automatically in order if the primary model fails |
-| `max_tokens`                                                                                             | *Optional[int]*                                                                                          | :heavy_minus_sign:                                                                                       | Maximum number of tokens for model responses                                                             |
-| `temperature`                                                                                            | *Optional[float]*                                                                                        | :heavy_minus_sign:                                                                                       | Temperature setting for model responses                                                                  |
+## Supported Types
+
+### `str`
+
+```python
+value: str = /* values here */
+```
+
+### `models.UpdateAgentModel2`
+
+```python
+value: models.UpdateAgentModel2 = /* values here */
+```
+
