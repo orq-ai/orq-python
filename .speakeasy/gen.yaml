@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 3.14.25
+  version: 3.14.26
   additionalDependencies:
     dev:
       opentelemetry-api: ^1.20.0
