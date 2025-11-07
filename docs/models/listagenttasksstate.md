@@ -10,3 +10,4 @@
 | `error`                      | *Optional[str]*              | :heavy_minus_sign:           | N/A                          |
 | `iteration`                  | *Optional[int]*              | :heavy_minus_sign:           | N/A                          |
 | `accumulated_execution_time` | *Optional[float]*            | :heavy_minus_sign:           | N/A                          |
+| `variables`                  | Dict[str, *Any*]             | :heavy_minus_sign:           | N/A                          |

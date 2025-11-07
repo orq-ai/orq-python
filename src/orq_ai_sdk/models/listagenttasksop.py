@@ -1213,6 +1213,7 @@ class ListAgentTasksStateTypedDict(TypedDict):
     error: NotRequired[str]
     iteration: NotRequired[int]
     accumulated_execution_time: NotRequired[float]
+    variables: NotRequired[Dict[str, Any]]
 
 
 class ListAgentTasksState(BaseModel):
@@ -1225,6 +1226,8 @@ class ListAgentTasksState(BaseModel):
     iteration: Optional[int] = 1
 
     accumulated_execution_time: Optional[float] = 0
+
+    variables: Optional[Dict[str, Any]] = None
 
 
 class ListAgentTasksMetricsTypedDict(TypedDict):
