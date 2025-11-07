@@ -973,12 +973,15 @@ class Agents(BaseSDK):
         instructions: Optional[str] = None,
         system_prompt: Optional[str] = None,
         model: Optional[
-            Union[models.UpdateAgentModel, models.UpdateAgentModelTypedDict]
+            Union[
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
+            ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models.UpdateAgentFallbackModels],
-                List[models.UpdateAgentFallbackModelsTypedDict],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
@@ -1014,10 +1017,14 @@ class Agents(BaseSDK):
         :param description:
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
-        :param model: The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters.
-        :param fallback_models: Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -1049,10 +1056,11 @@ class Agents(BaseSDK):
                 instructions=instructions,
                 system_prompt=system_prompt,
                 model=utils.get_pydantic_model(
-                    model, Optional[models.UpdateAgentModel]
+                    model, Optional[models.UpdateAgentModelConfiguration]
                 ),
                 fallback_models=utils.get_pydantic_model(
-                    fallback_models, Optional[List[models.UpdateAgentFallbackModels]]
+                    fallback_models,
+                    Optional[List[models.UpdateAgentFallbackModelConfiguration]],
                 ),
                 settings=utils.get_pydantic_model(
                     settings, Optional[models.UpdateAgentSettings]
@@ -1144,12 +1152,15 @@ class Agents(BaseSDK):
         instructions: Optional[str] = None,
         system_prompt: Optional[str] = None,
         model: Optional[
-            Union[models.UpdateAgentModel, models.UpdateAgentModelTypedDict]
+            Union[
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
+            ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models.UpdateAgentFallbackModels],
-                List[models.UpdateAgentFallbackModelsTypedDict],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
@@ -1185,10 +1196,14 @@ class Agents(BaseSDK):
         :param description:
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
-        :param model: The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters.
-        :param fallback_models: Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities.
+        :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param settings:
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`  The first element identifies the project, followed by nested folders (auto-created as needed).  With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param memory_stores:
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
@@ -1220,10 +1235,11 @@ class Agents(BaseSDK):
                 instructions=instructions,
                 system_prompt=system_prompt,
                 model=utils.get_pydantic_model(
-                    model, Optional[models.UpdateAgentModel]
+                    model, Optional[models.UpdateAgentModelConfiguration]
                 ),
                 fallback_models=utils.get_pydantic_model(
-                    fallback_models, Optional[List[models.UpdateAgentFallbackModels]]
+                    fallback_models,
+                    Optional[List[models.UpdateAgentFallbackModelConfiguration]],
                 ),
                 settings=utils.get_pydantic_model(
                     settings, Optional[models.UpdateAgentSettings]

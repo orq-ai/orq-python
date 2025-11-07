@@ -143,12 +143,15 @@ class GetAllPromptsResponseFormatJSONSchema(BaseModel):
 class GetAllPromptsResponseFormat1TypedDict(TypedDict):
     type: GetAllPromptsResponseFormatType
     json_schema: GetAllPromptsResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class GetAllPromptsResponseFormat1(BaseModel):
     type: GetAllPromptsResponseFormatType
 
     json_schema: GetAllPromptsResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 GetAllPromptsResponseFormatTypedDict = TypeAliasType(

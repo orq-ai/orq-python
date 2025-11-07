@@ -5,21 +5,21 @@ An object specifying the format that the model must output
 
 ## Supported Types
 
-### `models.GetAgentResponseFormat1`
+### `models.GetAgentResponseFormatText`
 
 ```python
-value: models.GetAgentResponseFormat1 = /* values here */
+value: models.GetAgentResponseFormatText = /* values here */
 ```
 
-### `models.GetAgentResponseFormat2`
+### `models.GetAgentResponseFormatJSONObject`
 
 ```python
-value: models.GetAgentResponseFormat2 = /* values here */
+value: models.GetAgentResponseFormatJSONObject = /* values here */
 ```
 
-### `models.GetAgentResponseFormat3`
+### `models.GetAgentResponseFormatAgentsJSONSchema`
 
 ```python
-value: models.GetAgentResponseFormat3 = /* values here */
+value: models.GetAgentResponseFormatAgentsJSONSchema = /* values here */
 ```
 

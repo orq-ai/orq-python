@@ -70,17 +70,17 @@ Model4 = Literal["cohere/embed-english-v3.0",]
 Model3 = Literal["cohere/embed-english-light-v3.0",]
 
 
-CreateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
+Model2 = Literal["cohere/embed-multilingual-light-v3.0",]
 
 
 Model1 = Literal["cohere/embed-multilingual-v3.0",]
 
 
-CreateMemoryStoreModelTypedDict = TypeAliasType(
-    "CreateMemoryStoreModelTypedDict",
+ModelTypedDict = TypeAliasType(
+    "ModelTypedDict",
     Union[
         Model1,
-        CreateMemoryStoreModel2,
+        Model2,
         Model3,
         Model4,
         Model5,
@@ -106,11 +106,11 @@ CreateMemoryStoreModelTypedDict = TypeAliasType(
 )
 
 
-CreateMemoryStoreModel = TypeAliasType(
-    "CreateMemoryStoreModel",
+Model = TypeAliasType(
+    "Model",
     Union[
         Model1,
-        CreateMemoryStoreModel2,
+        Model2,
         Model3,
         Model4,
         Model5,
@@ -137,11 +137,11 @@ CreateMemoryStoreModel = TypeAliasType(
 
 
 class EmbeddingConfigTypedDict(TypedDict):
-    model: CreateMemoryStoreModelTypedDict
+    model: ModelTypedDict
 
 
 class EmbeddingConfig(BaseModel):
-    model: CreateMemoryStoreModel
+    model: Model
 
 
 class CreateMemoryStoreRequestBodyTypedDict(TypedDict):
@@ -245,17 +245,17 @@ CreateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
 CreateMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
 
 
-CreateMemoryStoreModelMemoryStores2 = Literal["cohere/embed-multilingual-light-v3.0",]
+CreateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
 
 
 CreateMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
 
 
-CreateMemoryStoreMemoryStoresModelTypedDict = TypeAliasType(
-    "CreateMemoryStoreMemoryStoresModelTypedDict",
+CreateMemoryStoreModelTypedDict = TypeAliasType(
+    "CreateMemoryStoreModelTypedDict",
     Union[
         CreateMemoryStoreModel1,
-        CreateMemoryStoreModelMemoryStores2,
+        CreateMemoryStoreModel2,
         CreateMemoryStoreModel3,
         CreateMemoryStoreModel4,
         CreateMemoryStoreModel5,
@@ -281,11 +281,11 @@ CreateMemoryStoreMemoryStoresModelTypedDict = TypeAliasType(
 )
 
 
-CreateMemoryStoreMemoryStoresModel = TypeAliasType(
-    "CreateMemoryStoreMemoryStoresModel",
+CreateMemoryStoreModel = TypeAliasType(
+    "CreateMemoryStoreModel",
     Union[
         CreateMemoryStoreModel1,
-        CreateMemoryStoreModelMemoryStores2,
+        CreateMemoryStoreModel2,
         CreateMemoryStoreModel3,
         CreateMemoryStoreModel4,
         CreateMemoryStoreModel5,
@@ -312,11 +312,11 @@ CreateMemoryStoreMemoryStoresModel = TypeAliasType(
 
 
 class CreateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model: CreateMemoryStoreMemoryStoresModelTypedDict
+    model: CreateMemoryStoreModelTypedDict
 
 
 class CreateMemoryStoreEmbeddingConfig(BaseModel):
-    model: CreateMemoryStoreMemoryStoresModel
+    model: CreateMemoryStoreModel
 
 
 class CreateMemoryStoreResponseBodyTypedDict(TypedDict):

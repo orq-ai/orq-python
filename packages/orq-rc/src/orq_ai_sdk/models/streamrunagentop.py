@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-StreamRunAgentModelVoice = Literal[
+StreamRunAgentModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -28,7 +28,7 @@ StreamRunAgentModelVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-StreamRunAgentModelFormat = Literal[
+StreamRunAgentModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -38,29 +38,31 @@ StreamRunAgentModelFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentModelAudioTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentModelVoice
+    voice: StreamRunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentModelFormat
+    format_: StreamRunAgentModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentModelAudio(BaseModel):
+class StreamRunAgentModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentModelVoice
+    voice: StreamRunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[StreamRunAgentModelFormat, pydantic.Field(alias="format")]
+    format_: Annotated[
+        StreamRunAgentModelConfigurationFormat, pydantic.Field(alias="format")
+    ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 StreamRunAgentResponseFormatAgentsRequestType = Literal["json_schema",]
 
 
-class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -71,7 +73,7 @@ class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatJSONSchema(BaseModel):
+class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -85,103 +87,133 @@ class StreamRunAgentResponseFormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormat3TypedDict(TypedDict):
+class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestType
-    json_schema: StreamRunAgentResponseFormatJSONSchemaTypedDict
+    json_schema: StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict
 
 
-class StreamRunAgentResponseFormat3(BaseModel):
+class StreamRunAgentResponseFormatJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestType
 
-    json_schema: StreamRunAgentResponseFormatJSONSchema
+    json_schema: StreamRunAgentResponseFormatAgentsJSONSchema
 
 
 StreamRunAgentResponseFormatAgentsType = Literal["json_object",]
 
 
-class StreamRunAgentResponseFormat2TypedDict(TypedDict):
+class StreamRunAgentResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsType
 
 
-class StreamRunAgentResponseFormat2(BaseModel):
+class StreamRunAgentResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsType
 
 
 StreamRunAgentResponseFormatType = Literal["text",]
 
 
-class StreamRunAgentResponseFormat1TypedDict(TypedDict):
+class StreamRunAgentResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatType
 
 
-class StreamRunAgentResponseFormat1(BaseModel):
+class StreamRunAgentResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatType
 
 
-StreamRunAgentModelResponseFormatTypedDict = TypeAliasType(
-    "StreamRunAgentModelResponseFormatTypedDict",
+StreamRunAgentModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationResponseFormatTypedDict",
     Union[
-        StreamRunAgentResponseFormat1TypedDict,
-        StreamRunAgentResponseFormat2TypedDict,
-        StreamRunAgentResponseFormat3TypedDict,
+        StreamRunAgentResponseFormatTextTypedDict,
+        StreamRunAgentResponseFormatJSONObjectTypedDict,
+        StreamRunAgentResponseFormatJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentModelResponseFormat = TypeAliasType(
-    "StreamRunAgentModelResponseFormat",
+StreamRunAgentModelConfigurationResponseFormat = TypeAliasType(
+    "StreamRunAgentModelConfigurationResponseFormat",
     Union[
-        StreamRunAgentResponseFormat1,
-        StreamRunAgentResponseFormat2,
-        StreamRunAgentResponseFormat3,
+        StreamRunAgentResponseFormatText,
+        StreamRunAgentResponseFormatJSONObject,
+        StreamRunAgentResponseFormatJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentModelStopTypedDict = TypeAliasType(
-    "StreamRunAgentModelStopTypedDict", Union[str, List[str]]
+StreamRunAgentModelConfigurationStopTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-StreamRunAgentModelStop = TypeAliasType(
-    "StreamRunAgentModelStop", Union[str, List[str]]
+StreamRunAgentModelConfigurationStop = TypeAliasType(
+    "StreamRunAgentModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentModelStreamOptionsTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class StreamRunAgentModelStreamOptions(BaseModel):
+class StreamRunAgentModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentModelType = Literal[
+StreamRunAgentModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-class StreamRunAgentModelThinkingTypedDict(TypedDict):
-    type: StreamRunAgentModelType
+class StreamRunAgentModelConfigurationThinkingTypedDict(TypedDict):
+    type: StreamRunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
-class StreamRunAgentModelThinking(BaseModel):
-    type: StreamRunAgentModelType
+class StreamRunAgentModelConfigurationThinking(BaseModel):
+    type: StreamRunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -222,44 +254,30 @@ StreamRunAgentToolChoice1 = Literal[
 ]
 
 
-StreamRunAgentModelToolChoiceTypedDict = TypeAliasType(
-    "StreamRunAgentModelToolChoiceTypedDict",
+StreamRunAgentModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationToolChoiceTypedDict",
     Union[StreamRunAgentToolChoice2TypedDict, StreamRunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentModelToolChoice = TypeAliasType(
-    "StreamRunAgentModelToolChoice",
+StreamRunAgentModelConfigurationToolChoice = TypeAliasType(
+    "StreamRunAgentModelConfigurationToolChoice",
     Union[StreamRunAgentToolChoice2, StreamRunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentModelModalities = Literal[
+StreamRunAgentModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class StreamRunAgentModelWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentModelWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentModelParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    audio: NotRequired[Nullable[StreamRunAgentModelAudioTypedDict]]
+    audio: NotRequired[Nullable[StreamRunAgentModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -278,7 +296,9 @@ class StreamRunAgentModelParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[StreamRunAgentModelResponseFormatTypedDict]
+    response_format: NotRequired[
+        StreamRunAgentModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -286,31 +306,31 @@ class StreamRunAgentModelParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[StreamRunAgentModelStopTypedDict]]
+    stop: NotRequired[Nullable[StreamRunAgentModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[StreamRunAgentModelStreamOptionsTypedDict]]
+    stream_options: NotRequired[
+        Nullable[StreamRunAgentModelConfigurationStreamOptionsTypedDict]
+    ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[StreamRunAgentModelThinkingTypedDict]
+    thinking: NotRequired[StreamRunAgentModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[StreamRunAgentModelToolChoiceTypedDict]
+    tool_choice: NotRequired[StreamRunAgentModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[StreamRunAgentModelModalities]]]
+    modalities: NotRequired[Nullable[List[StreamRunAgentModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[StreamRunAgentModelWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class StreamRunAgentModelParameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+class StreamRunAgentModelConfigurationParameters(BaseModel):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    audio: OptionalNullable[StreamRunAgentModelAudio] = UNSET
+    audio: OptionalNullable[StreamRunAgentModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -337,7 +357,7 @@ class StreamRunAgentModelParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[StreamRunAgentModelResponseFormat] = None
+    response_format: Optional[StreamRunAgentModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -349,13 +369,15 @@ class StreamRunAgentModelParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[StreamRunAgentModelStop] = UNSET
+    stop: OptionalNullable[StreamRunAgentModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[StreamRunAgentModelStreamOptions] = UNSET
+    stream_options: OptionalNullable[StreamRunAgentModelConfigurationStreamOptions] = (
+        UNSET
+    )
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[StreamRunAgentModelThinking] = None
+    thinking: Optional[StreamRunAgentModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -366,17 +388,16 @@ class StreamRunAgentModelParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[StreamRunAgentModelToolChoice] = None
+    tool_choice: Optional[StreamRunAgentModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[StreamRunAgentModelModalities]] = UNSET
+    modalities: OptionalNullable[List[StreamRunAgentModelConfigurationModalities]] = (
+        UNSET
+    )
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[StreamRunAgentModelWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -402,7 +423,6 @@ class StreamRunAgentModelParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -448,73 +468,45 @@ class StreamRunAgentModelParameters(BaseModel):
         return m
 
 
-class StreamRunAgentModel2TypedDict(TypedDict):
-    r"""Model configuration with parameters"""
+class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
+    r"""
+
+    Model configuration with parameters.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
-    integration_id: NotRequired[Nullable[str]]
-    r"""Optional integration ID for custom configurations"""
-    parameters: NotRequired[StreamRunAgentModelParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
+    parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
 
-class StreamRunAgentModel2(BaseModel):
-    r"""Model configuration with parameters"""
+class StreamRunAgentModelConfiguration2(BaseModel):
+    r"""
+
+    Model configuration with parameters.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
-    integration_id: OptionalNullable[str] = UNSET
-    r"""Optional integration ID for custom configurations"""
-
-    parameters: Optional[StreamRunAgentModelParameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[StreamRunAgentModelConfigurationParameters] = None
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
 
-StreamRunAgentModelTypedDict = TypeAliasType(
-    "StreamRunAgentModelTypedDict", Union[StreamRunAgentModel2TypedDict, str]
+StreamRunAgentModelConfigurationTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationTypedDict",
+    Union[StreamRunAgentModelConfiguration2TypedDict, str],
 )
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-StreamRunAgentModel = TypeAliasType(
-    "StreamRunAgentModel", Union[StreamRunAgentModel2, str]
+StreamRunAgentModelConfiguration = TypeAliasType(
+    "StreamRunAgentModelConfiguration", Union[StreamRunAgentModelConfiguration2, str]
 )
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-StreamRunAgentFallbackModelsVoice = Literal[
+StreamRunAgentFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -525,7 +517,7 @@ StreamRunAgentFallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-StreamRunAgentFallbackModelsFormat = Literal[
+StreamRunAgentFallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -535,33 +527,35 @@ StreamRunAgentFallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentFallbackModelsAudioTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentFallbackModelsVoice
+    voice: StreamRunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentFallbackModelsFormat
+    format_: StreamRunAgentFallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentFallbackModelsAudio(BaseModel):
+class StreamRunAgentFallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentFallbackModelsVoice
+    voice: StreamRunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[
-        StreamRunAgentFallbackModelsFormat, pydantic.Field(alias="format")
+        StreamRunAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
     ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type = Literal[
+StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType = Literal[
     "json_schema",
 ]
 
 
-class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict(
+    TypedDict
+):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -572,7 +566,7 @@ class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
+class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -586,15 +580,25 @@ class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatAgents3TypedDict(TypedDict):
-    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
-    json_schema: StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict
+class StreamRunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+    json_schema: StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict
 
 
-class StreamRunAgentResponseFormatAgents3(BaseModel):
-    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
+class StreamRunAgentResponseFormatAgentsRequestJSONSchema(BaseModel):
+    r"""
 
-    json_schema: StreamRunAgentResponseFormatAgentsJSONSchema
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+
+    json_schema: StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema
 
 
 StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
@@ -602,89 +606,109 @@ StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal
 ]
 
 
-class StreamRunAgentResponseFormatAgents2TypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
-class StreamRunAgentResponseFormatAgents2(BaseModel):
+class StreamRunAgentResponseFormatAgentsJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
 StreamRunAgentResponseFormatAgentsRequestRequestBodyType = Literal["text",]
 
 
-class StreamRunAgentResponseFormatAgents1TypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-class StreamRunAgentResponseFormatAgents1(BaseModel):
+class StreamRunAgentResponseFormatAgentsText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-StreamRunAgentFallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsResponseFormatTypedDict",
+StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        StreamRunAgentResponseFormatAgents1TypedDict,
-        StreamRunAgentResponseFormatAgents2TypedDict,
-        StreamRunAgentResponseFormatAgents3TypedDict,
+        StreamRunAgentResponseFormatAgentsTextTypedDict,
+        StreamRunAgentResponseFormatAgentsJSONObjectTypedDict,
+        StreamRunAgentResponseFormatAgentsRequestJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentFallbackModelsResponseFormat = TypeAliasType(
-    "StreamRunAgentFallbackModelsResponseFormat",
+StreamRunAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationResponseFormat",
     Union[
-        StreamRunAgentResponseFormatAgents1,
-        StreamRunAgentResponseFormatAgents2,
-        StreamRunAgentResponseFormatAgents3,
+        StreamRunAgentResponseFormatAgentsText,
+        StreamRunAgentResponseFormatAgentsJSONObject,
+        StreamRunAgentResponseFormatAgentsRequestJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentFallbackModelsStopTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsStopTypedDict", Union[str, List[str]]
+StreamRunAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-StreamRunAgentFallbackModelsStop = TypeAliasType(
-    "StreamRunAgentFallbackModelsStop", Union[str, List[str]]
+StreamRunAgentFallbackModelConfigurationStop = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentFallbackModelsStreamOptionsTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class StreamRunAgentFallbackModelsStreamOptions(BaseModel):
+class StreamRunAgentFallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentFallbackModelsType = Literal[
+StreamRunAgentFallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-class StreamRunAgentFallbackModelsThinkingTypedDict(TypedDict):
-    type: StreamRunAgentFallbackModelsType
+class StreamRunAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: StreamRunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
-class StreamRunAgentFallbackModelsThinking(BaseModel):
-    type: StreamRunAgentFallbackModelsType
+class StreamRunAgentFallbackModelConfigurationThinking(BaseModel):
+    type: StreamRunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -725,42 +749,30 @@ StreamRunAgentToolChoiceAgents1 = Literal[
 ]
 
 
-StreamRunAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsToolChoiceTypedDict",
+StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict",
     Union[StreamRunAgentToolChoiceAgents2TypedDict, StreamRunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentFallbackModelsToolChoice = TypeAliasType(
-    "StreamRunAgentFallbackModelsToolChoice",
+StreamRunAgentFallbackModelConfigurationToolChoice = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationToolChoice",
     Union[StreamRunAgentToolChoiceAgents2, StreamRunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentFallbackModelsModalities = Literal[
+StreamRunAgentFallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class StreamRunAgentFallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentFallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[StreamRunAgentFallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -779,7 +791,9 @@ class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[StreamRunAgentFallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[
+        StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -787,33 +801,35 @@ class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[StreamRunAgentFallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
     stream_options: NotRequired[
-        Nullable[StreamRunAgentFallbackModelsStreamOptionsTypedDict]
+        Nullable[StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict]
     ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[StreamRunAgentFallbackModelsThinkingTypedDict]
+    thinking: NotRequired[StreamRunAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[StreamRunAgentFallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[
+        StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict
+    ]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[StreamRunAgentFallbackModelsModalities]]]
-    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[
-        StreamRunAgentFallbackModelsWebSearchOptionsTypedDict
+    modalities: NotRequired[
+        Nullable[List[StreamRunAgentFallbackModelConfigurationModalities]]
     ]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
 
-class StreamRunAgentFallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[StreamRunAgentFallbackModelsAudio] = UNSET
+class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[StreamRunAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -840,7 +856,9 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[StreamRunAgentFallbackModelsResponseFormat] = None
+    response_format: Optional[
+        StreamRunAgentFallbackModelConfigurationResponseFormat
+    ] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -852,13 +870,15 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[StreamRunAgentFallbackModelsStop] = UNSET
+    stop: OptionalNullable[StreamRunAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[StreamRunAgentFallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[
+        StreamRunAgentFallbackModelConfigurationStreamOptions
+    ] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[StreamRunAgentFallbackModelsThinking] = None
+    thinking: Optional[StreamRunAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -869,17 +889,16 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[StreamRunAgentFallbackModelsToolChoice] = None
+    tool_choice: Optional[StreamRunAgentFallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[StreamRunAgentFallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[
+        List[StreamRunAgentFallbackModelConfigurationModalities]
+    ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[StreamRunAgentFallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -905,7 +924,6 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -951,61 +969,37 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
         return m
 
 
-class StreamRunAgentFallbackModels2TypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[StreamRunAgentFallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[StreamRunAgentFallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class StreamRunAgentFallbackModels2(BaseModel):
+class StreamRunAgentFallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[StreamRunAgentFallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[StreamRunAgentFallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-StreamRunAgentFallbackModelsTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsTypedDict",
-    Union[StreamRunAgentFallbackModels2TypedDict, str],
+StreamRunAgentFallbackModelConfigurationTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationTypedDict",
+    Union[StreamRunAgentFallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-StreamRunAgentFallbackModels = TypeAliasType(
-    "StreamRunAgentFallbackModels", Union[StreamRunAgentFallbackModels2, str]
+StreamRunAgentFallbackModelConfiguration = TypeAliasType(
+    "StreamRunAgentFallbackModelConfiguration",
+    Union[StreamRunAgentFallbackModelConfiguration2, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 StreamRunAgentRoleToolMessage = Literal["tool",]
@@ -1876,8 +1870,8 @@ class StreamRunAgentSettings(BaseModel):
 class StreamRunAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
-    model: StreamRunAgentModelTypedDict
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: StreamRunAgentModelConfigurationTypedDict
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
     role: str
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
@@ -1894,8 +1888,10 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     settings: StreamRunAgentSettingsTypedDict
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
-    fallback_models: NotRequired[List[StreamRunAgentFallbackModelsTypedDict]]
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: NotRequired[
+        List[StreamRunAgentFallbackModelConfigurationTypedDict]
+    ]
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
     contact: NotRequired[StreamRunAgentContactTypedDict]
@@ -1924,8 +1920,8 @@ class StreamRunAgentRequestBody(BaseModel):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
 
-    model: StreamRunAgentModel
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: StreamRunAgentModelConfiguration
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
     role: str
     r"""Specifies the agent's function and area of expertise."""
@@ -1949,8 +1945,8 @@ class StreamRunAgentRequestBody(BaseModel):
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
-    fallback_models: Optional[List[StreamRunAgentFallbackModels]] = None
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: Optional[List[StreamRunAgentFallbackModelConfiguration]] = None
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
 
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""

@@ -28,7 +28,7 @@ Voice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-ModelFormat = Literal[
+ModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -38,29 +38,29 @@ ModelFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class ModelAudioTypedDict(TypedDict):
+class ModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ModelFormat
+    format_: ModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class ModelAudio(BaseModel):
+class ModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[ModelFormat, pydantic.Field(alias="format")]
+    format_: Annotated[ModelConfigurationFormat, pydantic.Field(alias="format")]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 CreateAgentResponseFormatAgentsType = Literal["json_schema",]
 
 
-class JSONSchemaTypedDict(TypedDict):
+class ResponseFormatJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -71,7 +71,7 @@ class JSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class JSONSchema(BaseModel):
+class ResponseFormatJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -85,49 +85,77 @@ class JSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ResponseFormat3TypedDict(TypedDict):
+class JSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsType
-    json_schema: JSONSchemaTypedDict
+    json_schema: ResponseFormatJSONSchemaTypedDict
 
 
-class ResponseFormat3(BaseModel):
+class JSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsType
 
-    json_schema: JSONSchema
+    json_schema: ResponseFormatJSONSchema
 
 
 CreateAgentResponseFormatType = Literal["json_object",]
 
 
-class ResponseFormat2TypedDict(TypedDict):
+class JSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatType
 
 
-class ResponseFormat2(BaseModel):
+class JSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatType
 
 
 ResponseFormatType = Literal["text",]
 
 
-class ResponseFormat1TypedDict(TypedDict):
+class TextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ResponseFormatType
 
 
-class ResponseFormat1(BaseModel):
+class Text(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ResponseFormatType
 
 
 ResponseFormatTypedDict = TypeAliasType(
     "ResponseFormatTypedDict",
-    Union[ResponseFormat1TypedDict, ResponseFormat2TypedDict, ResponseFormat3TypedDict],
+    Union[TextTypedDict, JSONObjectTypedDict, JSONSchemaTypedDict],
 )
 r"""An object specifying the format that the model must output"""
 
 
-ResponseFormat = TypeAliasType(
-    "ResponseFormat", Union[ResponseFormat1, ResponseFormat2, ResponseFormat3]
-)
+ResponseFormat = TypeAliasType("ResponseFormat", Union[Text, JSONObject, JSONSchema])
 r"""An object specifying the format that the model must output"""
 
 
@@ -153,7 +181,7 @@ class StreamOptions(BaseModel):
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-CreateAgentModelType = Literal[
+ModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
@@ -161,14 +189,14 @@ r"""Enables or disables the thinking mode capability"""
 
 
 class ThinkingTypedDict(TypedDict):
-    type: CreateAgentModelType
+    type: ModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
 class Thinking(BaseModel):
-    type: CreateAgentModelType
+    type: ModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -225,24 +253,10 @@ Modalities = Literal[
 ]
 
 
-class WebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class WebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
 class ParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    audio: NotRequired[Nullable[ModelAudioTypedDict]]
+    audio: NotRequired[Nullable[ModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -286,14 +300,12 @@ class ParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[Modalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[WebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
 class Parameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    audio: OptionalNullable[ModelAudio] = UNSET
+    audio: OptionalNullable[ModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -358,9 +370,6 @@ class Parameters(BaseModel):
     modalities: OptionalNullable[List[Modalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
-    web_search_options: Optional[WebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -385,7 +394,6 @@ class Parameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -431,69 +439,44 @@ class Parameters(BaseModel):
         return m
 
 
-class Model2TypedDict(TypedDict):
-    r"""Model configuration with parameters"""
+class ModelConfiguration2TypedDict(TypedDict):
+    r"""
+
+    Model configuration with parameters.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
-    integration_id: NotRequired[Nullable[str]]
-    r"""Optional integration ID for custom configurations"""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
 
-class Model2(BaseModel):
-    r"""Model configuration with parameters"""
+class ModelConfiguration2(BaseModel):
+    r"""
+
+    Model configuration with parameters.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
-
-    integration_id: OptionalNullable[str] = UNSET
-    r"""Optional integration ID for custom configurations"""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
     parameters: Optional[Parameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
 
-ModelTypedDict = TypeAliasType("ModelTypedDict", Union[Model2TypedDict, str])
-r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+ModelConfigurationTypedDict = TypeAliasType(
+    "ModelConfigurationTypedDict", Union[ModelConfiguration2TypedDict, str]
+)
+r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
 
 
-Model = TypeAliasType("Model", Union[Model2, str])
-r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+ModelConfiguration = TypeAliasType(
+    "ModelConfiguration", Union[ModelConfiguration2, str]
+)
+r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
 
 
-FallbackModelsVoice = Literal[
+FallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -504,7 +487,7 @@ FallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-FallbackModelsFormat = Literal[
+FallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -514,22 +497,22 @@ FallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class FallbackModelsAudioTypedDict(TypedDict):
+class FallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: FallbackModelsVoice
+    voice: FallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: FallbackModelsFormat
+    format_: FallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class FallbackModelsAudio(BaseModel):
+class FallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: FallbackModelsVoice
+    voice: FallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[FallbackModelsFormat, pydantic.Field(alias="format")]
+    format_: Annotated[FallbackModelConfigurationFormat, pydantic.Field(alias="format")]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
@@ -538,7 +521,7 @@ CreateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
 ]
 
 
-class ResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -549,7 +532,7 @@ class ResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ResponseFormatJSONSchema(BaseModel):
+class CreateAgentResponseFormatAgentsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -563,101 +546,133 @@ class ResponseFormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateAgentResponseFormat3TypedDict(TypedDict):
+class CreateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
-    json_schema: ResponseFormatJSONSchemaTypedDict
+    json_schema: CreateAgentResponseFormatAgentsJSONSchemaTypedDict
 
 
-class CreateAgentResponseFormat3(BaseModel):
+class CreateAgentResponseFormatJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
-    json_schema: ResponseFormatJSONSchema
+    json_schema: CreateAgentResponseFormatAgentsJSONSchema
 
 
 CreateAgentResponseFormatAgentsRequestRequestBodyType = Literal["json_object",]
 
 
-class CreateAgentResponseFormat2TypedDict(TypedDict):
+class ResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsRequestRequestBodyType
 
 
-class CreateAgentResponseFormat2(BaseModel):
+class ResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsRequestRequestBodyType
 
 
 CreateAgentResponseFormatAgentsRequestType = Literal["text",]
 
 
-class CreateAgentResponseFormat1TypedDict(TypedDict):
+class ResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsRequestType
 
 
-class CreateAgentResponseFormat1(BaseModel):
+class ResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsRequestType
 
 
-FallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "FallbackModelsResponseFormatTypedDict",
+FallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "FallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        CreateAgentResponseFormat1TypedDict,
-        CreateAgentResponseFormat2TypedDict,
-        CreateAgentResponseFormat3TypedDict,
+        ResponseFormatTextTypedDict,
+        ResponseFormatJSONObjectTypedDict,
+        CreateAgentResponseFormatJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-FallbackModelsResponseFormat = TypeAliasType(
-    "FallbackModelsResponseFormat",
+FallbackModelConfigurationResponseFormat = TypeAliasType(
+    "FallbackModelConfigurationResponseFormat",
     Union[
-        CreateAgentResponseFormat1,
-        CreateAgentResponseFormat2,
-        CreateAgentResponseFormat3,
+        ResponseFormatText,
+        ResponseFormatJSONObject,
+        CreateAgentResponseFormatJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-FallbackModelsStopTypedDict = TypeAliasType(
-    "FallbackModelsStopTypedDict", Union[str, List[str]]
+FallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "FallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-FallbackModelsStop = TypeAliasType("FallbackModelsStop", Union[str, List[str]])
+FallbackModelConfigurationStop = TypeAliasType(
+    "FallbackModelConfigurationStop", Union[str, List[str]]
+)
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class FallbackModelsStreamOptionsTypedDict(TypedDict):
+class FallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class FallbackModelsStreamOptions(BaseModel):
+class FallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-FallbackModelsType = Literal[
+FallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-class FallbackModelsThinkingTypedDict(TypedDict):
-    type: FallbackModelsType
+class FallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: FallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
-class FallbackModelsThinking(BaseModel):
-    type: FallbackModelsType
+class FallbackModelConfigurationThinking(BaseModel):
+    type: FallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -698,41 +713,30 @@ CreateAgentToolChoice1 = Literal[
 ]
 
 
-FallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "FallbackModelsToolChoiceTypedDict",
+FallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "FallbackModelConfigurationToolChoiceTypedDict",
     Union[CreateAgentToolChoice2TypedDict, CreateAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-FallbackModelsToolChoice = TypeAliasType(
-    "FallbackModelsToolChoice", Union[CreateAgentToolChoice2, CreateAgentToolChoice1]
+FallbackModelConfigurationToolChoice = TypeAliasType(
+    "FallbackModelConfigurationToolChoice",
+    Union[CreateAgentToolChoice2, CreateAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-FallbackModelsModalities = Literal[
+FallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class FallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class FallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class FallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class FallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[FallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[FallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -751,7 +755,7 @@ class FallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[FallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[FallbackModelConfigurationResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -759,29 +763,31 @@ class FallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[FallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[FallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[FallbackModelsStreamOptionsTypedDict]]
+    stream_options: NotRequired[
+        Nullable[FallbackModelConfigurationStreamOptionsTypedDict]
+    ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[FallbackModelsThinkingTypedDict]
+    thinking: NotRequired[FallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[FallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[FallbackModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[FallbackModelsModalities]]]
+    modalities: NotRequired[Nullable[List[FallbackModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[FallbackModelsWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class FallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[FallbackModelsAudio] = UNSET
+class FallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[FallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -808,7 +814,7 @@ class FallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[FallbackModelsResponseFormat] = None
+    response_format: Optional[FallbackModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -820,13 +826,13 @@ class FallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[FallbackModelsStop] = UNSET
+    stop: OptionalNullable[FallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[FallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[FallbackModelConfigurationStreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[FallbackModelsThinking] = None
+    thinking: Optional[FallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -837,17 +843,14 @@ class FallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[FallbackModelsToolChoice] = None
+    tool_choice: Optional[FallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[FallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[List[FallbackModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[FallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -873,7 +876,6 @@ class FallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -919,58 +921,36 @@ class FallbackModelsParameters(BaseModel):
         return m
 
 
-class FallbackModels2TypedDict(TypedDict):
+class FallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[FallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[FallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class FallbackModels2(BaseModel):
+class FallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[FallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[FallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-FallbackModelsTypedDict = TypeAliasType(
-    "FallbackModelsTypedDict", Union[FallbackModels2TypedDict, str]
+FallbackModelConfigurationTypedDict = TypeAliasType(
+    "FallbackModelConfigurationTypedDict",
+    Union[FallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-FallbackModels = TypeAliasType("FallbackModels", Union[FallbackModels2, str])
+FallbackModelConfiguration = TypeAliasType(
+    "FallbackModelConfiguration", Union[FallbackModelConfiguration2, str]
+)
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 ToolApprovalRequired = Literal[
@@ -1420,7 +1400,10 @@ class TeamOfAgents(BaseModel):
 
 class CreateAgentRequestBodyTypedDict(TypedDict):
     path: str
-    r"""The path where the agent will be stored in the project structure"""
+    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     key: str
     r"""Unique identifier for the agent within the workspace"""
     role: str
@@ -1429,14 +1412,14 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
     r"""A brief description of what the agent does"""
     instructions: str
     r"""Detailed instructions that guide the agent's behavior"""
-    model: ModelTypedDict
-    r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+    model: ModelConfigurationTypedDict
+    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
     settings: SettingsTypedDict
     r"""Configuration settings for the agent's behavior"""
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
-    fallback_models: NotRequired[List[FallbackModelsTypedDict]]
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: NotRequired[List[FallbackModelConfigurationTypedDict]]
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     memory_stores: NotRequired[List[str]]
     r"""Optional array of memory store keys for the agent to access"""
     knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
@@ -1447,7 +1430,10 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
 
 class CreateAgentRequestBody(BaseModel):
     path: str
-    r"""The path where the agent will be stored in the project structure"""
+    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     key: str
     r"""Unique identifier for the agent within the workspace"""
@@ -1461,8 +1447,8 @@ class CreateAgentRequestBody(BaseModel):
     instructions: str
     r"""Detailed instructions that guide the agent's behavior"""
 
-    model: Model
-    r"""The primary language model that powers the agent. Can be a simple string (e.g., \"anthropic/claude-3-sonnet-20240229\") or an object with model ID and parameters."""
+    model: ModelConfiguration
+    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
 
     settings: Settings
     r"""Configuration settings for the agent's behavior"""
@@ -1470,8 +1456,8 @@ class CreateAgentRequestBody(BaseModel):
     system_prompt: Optional[str] = None
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
-    fallback_models: Optional[List[FallbackModels]] = None
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: Optional[List[FallbackModelConfiguration]] = None
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
 
     memory_stores: Optional[List[str]] = None
     r"""Optional array of memory store keys for the agent to access"""
@@ -1645,7 +1631,7 @@ class CreateAgentAudio(BaseModel):
 CreateAgentResponseFormatAgentsResponse201ApplicationJSONType = Literal["json_schema",]
 
 
-class CreateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsResponseJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -1656,7 +1642,7 @@ class CreateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateAgentResponseFormatJSONSchema(BaseModel):
+class CreateAgentResponseFormatAgentsResponseJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -1670,45 +1656,75 @@ class CreateAgentResponseFormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateAgentResponseFormatAgents3TypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsResponse201JSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONType
-    json_schema: CreateAgentResponseFormatJSONSchemaTypedDict
+    json_schema: CreateAgentResponseFormatAgentsResponseJSONSchemaTypedDict
 
 
-class CreateAgentResponseFormatAgents3(BaseModel):
+class CreateAgentResponseFormatAgentsResponse201JSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONType
 
-    json_schema: CreateAgentResponseFormatJSONSchema
+    json_schema: CreateAgentResponseFormatAgentsResponseJSONSchema
 
 
 CreateAgentResponseFormatAgentsResponse201Type = Literal["json_object",]
 
 
-class CreateAgentResponseFormatAgents2TypedDict(TypedDict):
+class CreateAgentResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201Type
 
 
-class CreateAgentResponseFormatAgents2(BaseModel):
+class CreateAgentResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201Type
 
 
 CreateAgentResponseFormatAgentsResponseType = Literal["text",]
 
 
-class CreateAgentResponseFormatAgents1TypedDict(TypedDict):
+class CreateAgentResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponseType
 
 
-class CreateAgentResponseFormatAgents1(BaseModel):
+class CreateAgentResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponseType
 
 
 CreateAgentResponseFormatTypedDict = TypeAliasType(
     "CreateAgentResponseFormatTypedDict",
     Union[
-        CreateAgentResponseFormatAgents1TypedDict,
-        CreateAgentResponseFormatAgents2TypedDict,
-        CreateAgentResponseFormatAgents3TypedDict,
+        CreateAgentResponseFormatTextTypedDict,
+        CreateAgentResponseFormatJSONObjectTypedDict,
+        CreateAgentResponseFormatAgentsResponse201JSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -1717,9 +1733,9 @@ r"""An object specifying the format that the model must output"""
 CreateAgentResponseFormat = TypeAliasType(
     "CreateAgentResponseFormat",
     Union[
-        CreateAgentResponseFormatAgents1,
-        CreateAgentResponseFormatAgents2,
-        CreateAgentResponseFormatAgents3,
+        CreateAgentResponseFormatText,
+        CreateAgentResponseFormatJSONObject,
+        CreateAgentResponseFormatAgentsResponse201JSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -1825,22 +1841,8 @@ CreateAgentModalities = Literal[
 ]
 
 
-class CreateAgentWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class CreateAgentWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
 class CreateAgentParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     audio: NotRequired[Nullable[CreateAgentAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1886,12 +1888,10 @@ class CreateAgentParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[CreateAgentModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[CreateAgentWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
 class CreateAgentParameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     audio: OptionalNullable[CreateAgentAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1958,9 +1958,6 @@ class CreateAgentParameters(BaseModel):
     modalities: OptionalNullable[List[CreateAgentModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
-    web_search_options: Optional[CreateAgentWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1985,7 +1982,6 @@ class CreateAgentParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -2031,7 +2027,7 @@ class CreateAgentParameters(BaseModel):
         return m
 
 
-CreateAgentFallbackModelsVoice = Literal[
+CreateAgentFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -2042,7 +2038,7 @@ CreateAgentFallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-CreateAgentFallbackModelsFormat = Literal[
+CreateAgentFallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -2052,22 +2048,24 @@ CreateAgentFallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class CreateAgentFallbackModelsAudioTypedDict(TypedDict):
+class CreateAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreateAgentFallbackModelsVoice
+    voice: CreateAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: CreateAgentFallbackModelsFormat
+    format_: CreateAgentFallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class CreateAgentFallbackModelsAudio(BaseModel):
+class CreateAgentFallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreateAgentFallbackModelsVoice
+    voice: CreateAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[CreateAgentFallbackModelsFormat, pydantic.Field(alias="format")]
+    format_: Annotated[
+        CreateAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
+    ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
@@ -2076,7 +2074,9 @@ CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallba
 ]
 
 
-class CreateAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchemaTypedDict(
+    TypedDict
+):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -2087,7 +2087,7 @@ class CreateAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateAgentResponseFormatAgentsJSONSchema(BaseModel):
+class CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -2101,15 +2101,31 @@ class CreateAgentResponseFormatAgentsJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateAgentResponseFormatAgentsResponse3TypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchemaTypedDict(
+    TypedDict
+):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallbackModelsType
-    json_schema: CreateAgentResponseFormatAgentsJSONSchemaTypedDict
+    json_schema: (
+        CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchemaTypedDict
+    )
 
 
-class CreateAgentResponseFormatAgentsResponse3(BaseModel):
+class CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchema(
+    BaseModel
+):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallbackModelsType
 
-    json_schema: CreateAgentResponseFormatAgentsJSONSchema
+    json_schema: CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchema
 
 
 CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType = (
@@ -2117,11 +2133,21 @@ CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType =
 )
 
 
-class CreateAgentResponseFormatAgentsResponse2TypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType
 
 
-class CreateAgentResponseFormatAgentsResponse2(BaseModel):
+class CreateAgentResponseFormatAgentsJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType
 
 
@@ -2130,78 +2156,88 @@ CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyType = Lite
 ]
 
 
-class CreateAgentResponseFormatAgentsResponse1TypedDict(TypedDict):
+class CreateAgentResponseFormatAgentsTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyType
 
 
-class CreateAgentResponseFormatAgentsResponse1(BaseModel):
+class CreateAgentResponseFormatAgentsText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyType
 
 
-CreateAgentFallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "CreateAgentFallbackModelsResponseFormatTypedDict",
+CreateAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        CreateAgentResponseFormatAgentsResponse1TypedDict,
-        CreateAgentResponseFormatAgentsResponse2TypedDict,
-        CreateAgentResponseFormatAgentsResponse3TypedDict,
+        CreateAgentResponseFormatAgentsTextTypedDict,
+        CreateAgentResponseFormatAgentsJSONObjectTypedDict,
+        CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-CreateAgentFallbackModelsResponseFormat = TypeAliasType(
-    "CreateAgentFallbackModelsResponseFormat",
+CreateAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationResponseFormat",
     Union[
-        CreateAgentResponseFormatAgentsResponse1,
-        CreateAgentResponseFormatAgentsResponse2,
-        CreateAgentResponseFormatAgentsResponse3,
+        CreateAgentResponseFormatAgentsText,
+        CreateAgentResponseFormatAgentsJSONObject,
+        CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-CreateAgentFallbackModelsStopTypedDict = TypeAliasType(
-    "CreateAgentFallbackModelsStopTypedDict", Union[str, List[str]]
+CreateAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-CreateAgentFallbackModelsStop = TypeAliasType(
-    "CreateAgentFallbackModelsStop", Union[str, List[str]]
+CreateAgentFallbackModelConfigurationStop = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class CreateAgentFallbackModelsStreamOptionsTypedDict(TypedDict):
+class CreateAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class CreateAgentFallbackModelsStreamOptions(BaseModel):
+class CreateAgentFallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-CreateAgentFallbackModelsType = Literal[
+CreateAgentFallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-class CreateAgentFallbackModelsThinkingTypedDict(TypedDict):
-    type: CreateAgentFallbackModelsType
+class CreateAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: CreateAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
-class CreateAgentFallbackModelsThinking(BaseModel):
-    type: CreateAgentFallbackModelsType
+class CreateAgentFallbackModelConfigurationThinking(BaseModel):
+    type: CreateAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -2242,8 +2278,8 @@ CreateAgentToolChoiceAgentsResponse1 = Literal[
 ]
 
 
-CreateAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "CreateAgentFallbackModelsToolChoiceTypedDict",
+CreateAgentFallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationToolChoiceTypedDict",
     Union[
         CreateAgentToolChoiceAgentsResponse2TypedDict,
         CreateAgentToolChoiceAgentsResponse1,
@@ -2252,35 +2288,23 @@ CreateAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
 r"""Controls which (if any) tool is called by the model."""
 
 
-CreateAgentFallbackModelsToolChoice = TypeAliasType(
-    "CreateAgentFallbackModelsToolChoice",
+CreateAgentFallbackModelConfigurationToolChoice = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationToolChoice",
     Union[CreateAgentToolChoiceAgentsResponse2, CreateAgentToolChoiceAgentsResponse1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-CreateAgentFallbackModelsModalities = Literal[
+CreateAgentFallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class CreateAgentFallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class CreateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class CreateAgentFallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class CreateAgentFallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[CreateAgentFallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[CreateAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -2299,7 +2323,9 @@ class CreateAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[CreateAgentFallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[
+        CreateAgentFallbackModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -2307,31 +2333,33 @@ class CreateAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[CreateAgentFallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[CreateAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
     stream_options: NotRequired[
-        Nullable[CreateAgentFallbackModelsStreamOptionsTypedDict]
+        Nullable[CreateAgentFallbackModelConfigurationStreamOptionsTypedDict]
     ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[CreateAgentFallbackModelsThinkingTypedDict]
+    thinking: NotRequired[CreateAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[CreateAgentFallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[CreateAgentFallbackModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[CreateAgentFallbackModelsModalities]]]
+    modalities: NotRequired[
+        Nullable[List[CreateAgentFallbackModelConfigurationModalities]]
+    ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[CreateAgentFallbackModelsWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class CreateAgentFallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[CreateAgentFallbackModelsAudio] = UNSET
+class CreateAgentFallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[CreateAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -2358,7 +2386,9 @@ class CreateAgentFallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[CreateAgentFallbackModelsResponseFormat] = None
+    response_format: Optional[CreateAgentFallbackModelConfigurationResponseFormat] = (
+        None
+    )
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -2370,13 +2400,15 @@ class CreateAgentFallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[CreateAgentFallbackModelsStop] = UNSET
+    stop: OptionalNullable[CreateAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[CreateAgentFallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[
+        CreateAgentFallbackModelConfigurationStreamOptions
+    ] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[CreateAgentFallbackModelsThinking] = None
+    thinking: Optional[CreateAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -2387,17 +2419,16 @@ class CreateAgentFallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[CreateAgentFallbackModelsToolChoice] = None
+    tool_choice: Optional[CreateAgentFallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[CreateAgentFallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[
+        List[CreateAgentFallbackModelConfigurationModalities]
+    ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[CreateAgentFallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2423,7 +2454,6 @@ class CreateAgentFallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -2469,61 +2499,37 @@ class CreateAgentFallbackModelsParameters(BaseModel):
         return m
 
 
-class CreateAgentFallbackModels2TypedDict(TypedDict):
+class CreateAgentFallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[CreateAgentFallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[CreateAgentFallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class CreateAgentFallbackModels2(BaseModel):
+class CreateAgentFallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[CreateAgentFallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[CreateAgentFallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-CreateAgentFallbackModelsTypedDict = TypeAliasType(
-    "CreateAgentFallbackModelsTypedDict",
-    Union[CreateAgentFallbackModels2TypedDict, str],
+CreateAgentFallbackModelConfigurationTypedDict = TypeAliasType(
+    "CreateAgentFallbackModelConfigurationTypedDict",
+    Union[CreateAgentFallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-CreateAgentFallbackModels = TypeAliasType(
-    "CreateAgentFallbackModels", Union[CreateAgentFallbackModels2, str]
+CreateAgentFallbackModelConfiguration = TypeAliasType(
+    "CreateAgentFallbackModelConfiguration",
+    Union[CreateAgentFallbackModelConfiguration2, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 class CreateAgentModelTypedDict(TypedDict):
@@ -2532,8 +2538,10 @@ class CreateAgentModelTypedDict(TypedDict):
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[CreateAgentParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
-    fallback_models: NotRequired[Nullable[List[CreateAgentFallbackModelsTypedDict]]]
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    fallback_models: NotRequired[
+        Nullable[List[CreateAgentFallbackModelConfigurationTypedDict]]
+    ]
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
@@ -2545,9 +2553,11 @@ class CreateAgentModel(BaseModel):
     r"""Optional integration ID for custom model configurations"""
 
     parameters: Optional[CreateAgentParameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
-    fallback_models: OptionalNullable[List[CreateAgentFallbackModels]] = UNSET
+    fallback_models: OptionalNullable[List[CreateAgentFallbackModelConfiguration]] = (
+        UNSET
+    )
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
     @model_serializer(mode="wrap")

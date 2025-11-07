@@ -123,12 +123,15 @@ class GetOnePromptResponseFormatJSONSchema(BaseModel):
 class GetOnePromptResponseFormat1TypedDict(TypedDict):
     type: GetOnePromptResponseFormatType
     json_schema: GetOnePromptResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class GetOnePromptResponseFormat1(BaseModel):
     type: GetOnePromptResponseFormatType
 
     json_schema: GetOnePromptResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 GetOnePromptResponseFormatTypedDict = TypeAliasType(

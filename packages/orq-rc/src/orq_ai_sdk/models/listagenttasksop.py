@@ -161,12 +161,22 @@ class ListAgentTasksResponseFormatJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ListAgentTasksResponseFormat3TypedDict(TypedDict):
+class ListAgentTasksResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponseType
     json_schema: ListAgentTasksResponseFormatJSONSchemaTypedDict
 
 
-class ListAgentTasksResponseFormat3(BaseModel):
+class ListAgentTasksResponseFormatAgentsJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponseType
 
     json_schema: ListAgentTasksResponseFormatJSONSchema
@@ -175,31 +185,51 @@ class ListAgentTasksResponseFormat3(BaseModel):
 ListAgentTasksResponseFormatAgentsType = Literal["json_object",]
 
 
-class ListAgentTasksResponseFormat2TypedDict(TypedDict):
+class ListAgentTasksResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: ListAgentTasksResponseFormatAgentsType
 
 
-class ListAgentTasksResponseFormat2(BaseModel):
+class ListAgentTasksResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: ListAgentTasksResponseFormatAgentsType
 
 
 ListAgentTasksResponseFormatType = Literal["text",]
 
 
-class ListAgentTasksResponseFormat1TypedDict(TypedDict):
+class ListAgentTasksResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ListAgentTasksResponseFormatType
 
 
-class ListAgentTasksResponseFormat1(BaseModel):
+class ListAgentTasksResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ListAgentTasksResponseFormatType
 
 
 ListAgentTasksResponseFormatTypedDict = TypeAliasType(
     "ListAgentTasksResponseFormatTypedDict",
     Union[
-        ListAgentTasksResponseFormat1TypedDict,
-        ListAgentTasksResponseFormat2TypedDict,
-        ListAgentTasksResponseFormat3TypedDict,
+        ListAgentTasksResponseFormatTextTypedDict,
+        ListAgentTasksResponseFormatJSONObjectTypedDict,
+        ListAgentTasksResponseFormatAgentsJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -208,9 +238,9 @@ r"""An object specifying the format that the model must output"""
 ListAgentTasksResponseFormat = TypeAliasType(
     "ListAgentTasksResponseFormat",
     Union[
-        ListAgentTasksResponseFormat1,
-        ListAgentTasksResponseFormat2,
-        ListAgentTasksResponseFormat3,
+        ListAgentTasksResponseFormatText,
+        ListAgentTasksResponseFormatJSONObject,
+        ListAgentTasksResponseFormatAgentsJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -316,22 +346,8 @@ ListAgentTasksModalities = Literal[
 ]
 
 
-class ListAgentTasksWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class ListAgentTasksWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
 class ListAgentTasksParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     audio: NotRequired[Nullable[ListAgentTasksAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -377,12 +393,10 @@ class ListAgentTasksParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[ListAgentTasksModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[ListAgentTasksWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
 class ListAgentTasksParameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     audio: OptionalNullable[ListAgentTasksAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -449,9 +463,6 @@ class ListAgentTasksParameters(BaseModel):
     modalities: OptionalNullable[List[ListAgentTasksModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
-    web_search_options: Optional[ListAgentTasksWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -476,7 +487,6 @@ class ListAgentTasksParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -522,7 +532,7 @@ class ListAgentTasksParameters(BaseModel):
         return m
 
 
-ListAgentTasksFallbackModelsVoice = Literal[
+ListAgentTasksFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -533,7 +543,7 @@ ListAgentTasksFallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-ListAgentTasksFallbackModelsFormat = Literal[
+ListAgentTasksFallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -543,23 +553,23 @@ ListAgentTasksFallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class ListAgentTasksFallbackModelsAudioTypedDict(TypedDict):
+class ListAgentTasksFallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: ListAgentTasksFallbackModelsVoice
+    voice: ListAgentTasksFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ListAgentTasksFallbackModelsFormat
+    format_: ListAgentTasksFallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class ListAgentTasksFallbackModelsAudio(BaseModel):
+class ListAgentTasksFallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: ListAgentTasksFallbackModelsVoice
+    voice: ListAgentTasksFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[
-        ListAgentTasksFallbackModelsFormat, pydantic.Field(alias="format")
+        ListAgentTasksFallbackModelConfigurationFormat, pydantic.Field(alias="format")
     ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
@@ -569,7 +579,7 @@ ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = L
 ]
 
 
-class ListAgentTasksResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+class ListAgentTasksResponseFormatAgentsResponseJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -580,7 +590,7 @@ class ListAgentTasksResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ListAgentTasksResponseFormatAgentsJSONSchema(BaseModel):
+class ListAgentTasksResponseFormatAgentsResponseJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -594,15 +604,25 @@ class ListAgentTasksResponseFormatAgentsJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class ListAgentTasksResponseFormatAgents3TypedDict(TypedDict):
+class ListAgentTasksResponseFormatAgentsResponse200JSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
-    json_schema: ListAgentTasksResponseFormatAgentsJSONSchemaTypedDict
+    json_schema: ListAgentTasksResponseFormatAgentsResponseJSONSchemaTypedDict
 
 
-class ListAgentTasksResponseFormatAgents3(BaseModel):
+class ListAgentTasksResponseFormatAgentsResponse200JSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
 
-    json_schema: ListAgentTasksResponseFormatAgentsJSONSchema
+    json_schema: ListAgentTasksResponseFormatAgentsResponseJSONSchema
 
 
 ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONType = Literal[
@@ -610,89 +630,109 @@ ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONType = Literal[
 ]
 
 
-class ListAgentTasksResponseFormatAgents2TypedDict(TypedDict):
+class ListAgentTasksResponseFormatAgentsJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONType
 
 
-class ListAgentTasksResponseFormatAgents2(BaseModel):
+class ListAgentTasksResponseFormatAgentsJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200ApplicationJSONType
 
 
 ListAgentTasksResponseFormatAgentsResponse200Type = Literal["text",]
 
 
-class ListAgentTasksResponseFormatAgents1TypedDict(TypedDict):
+class ListAgentTasksResponseFormatAgentsTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200Type
 
 
-class ListAgentTasksResponseFormatAgents1(BaseModel):
+class ListAgentTasksResponseFormatAgentsText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: ListAgentTasksResponseFormatAgentsResponse200Type
 
 
-ListAgentTasksFallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "ListAgentTasksFallbackModelsResponseFormatTypedDict",
+ListAgentTasksFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        ListAgentTasksResponseFormatAgents1TypedDict,
-        ListAgentTasksResponseFormatAgents2TypedDict,
-        ListAgentTasksResponseFormatAgents3TypedDict,
+        ListAgentTasksResponseFormatAgentsTextTypedDict,
+        ListAgentTasksResponseFormatAgentsJSONObjectTypedDict,
+        ListAgentTasksResponseFormatAgentsResponse200JSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-ListAgentTasksFallbackModelsResponseFormat = TypeAliasType(
-    "ListAgentTasksFallbackModelsResponseFormat",
+ListAgentTasksFallbackModelConfigurationResponseFormat = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationResponseFormat",
     Union[
-        ListAgentTasksResponseFormatAgents1,
-        ListAgentTasksResponseFormatAgents2,
-        ListAgentTasksResponseFormatAgents3,
+        ListAgentTasksResponseFormatAgentsText,
+        ListAgentTasksResponseFormatAgentsJSONObject,
+        ListAgentTasksResponseFormatAgentsResponse200JSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-ListAgentTasksFallbackModelsStopTypedDict = TypeAliasType(
-    "ListAgentTasksFallbackModelsStopTypedDict", Union[str, List[str]]
+ListAgentTasksFallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-ListAgentTasksFallbackModelsStop = TypeAliasType(
-    "ListAgentTasksFallbackModelsStop", Union[str, List[str]]
+ListAgentTasksFallbackModelConfigurationStop = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ListAgentTasksFallbackModelsStreamOptionsTypedDict(TypedDict):
+class ListAgentTasksFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class ListAgentTasksFallbackModelsStreamOptions(BaseModel):
+class ListAgentTasksFallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-ListAgentTasksFallbackModelsType = Literal[
+ListAgentTasksFallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-class ListAgentTasksFallbackModelsThinkingTypedDict(TypedDict):
-    type: ListAgentTasksFallbackModelsType
+class ListAgentTasksFallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: ListAgentTasksFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
 
-class ListAgentTasksFallbackModelsThinking(BaseModel):
-    type: ListAgentTasksFallbackModelsType
+class ListAgentTasksFallbackModelConfigurationThinking(BaseModel):
+    type: ListAgentTasksFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
@@ -733,42 +773,30 @@ ListAgentTasksToolChoiceAgents1 = Literal[
 ]
 
 
-ListAgentTasksFallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "ListAgentTasksFallbackModelsToolChoiceTypedDict",
+ListAgentTasksFallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationToolChoiceTypedDict",
     Union[ListAgentTasksToolChoiceAgents2TypedDict, ListAgentTasksToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-ListAgentTasksFallbackModelsToolChoice = TypeAliasType(
-    "ListAgentTasksFallbackModelsToolChoice",
+ListAgentTasksFallbackModelConfigurationToolChoice = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationToolChoice",
     Union[ListAgentTasksToolChoiceAgents2, ListAgentTasksToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-ListAgentTasksFallbackModelsModalities = Literal[
+ListAgentTasksFallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class ListAgentTasksFallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class ListAgentTasksFallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class ListAgentTasksFallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class ListAgentTasksFallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[ListAgentTasksFallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[ListAgentTasksFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -787,7 +815,9 @@ class ListAgentTasksFallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[ListAgentTasksFallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[
+        ListAgentTasksFallbackModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -795,33 +825,35 @@ class ListAgentTasksFallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[ListAgentTasksFallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[ListAgentTasksFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
     stream_options: NotRequired[
-        Nullable[ListAgentTasksFallbackModelsStreamOptionsTypedDict]
+        Nullable[ListAgentTasksFallbackModelConfigurationStreamOptionsTypedDict]
     ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[ListAgentTasksFallbackModelsThinkingTypedDict]
+    thinking: NotRequired[ListAgentTasksFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[ListAgentTasksFallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[
+        ListAgentTasksFallbackModelConfigurationToolChoiceTypedDict
+    ]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[ListAgentTasksFallbackModelsModalities]]]
-    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[
-        ListAgentTasksFallbackModelsWebSearchOptionsTypedDict
+    modalities: NotRequired[
+        Nullable[List[ListAgentTasksFallbackModelConfigurationModalities]]
     ]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
 
-class ListAgentTasksFallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[ListAgentTasksFallbackModelsAudio] = UNSET
+class ListAgentTasksFallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[ListAgentTasksFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -848,7 +880,9 @@ class ListAgentTasksFallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[ListAgentTasksFallbackModelsResponseFormat] = None
+    response_format: Optional[
+        ListAgentTasksFallbackModelConfigurationResponseFormat
+    ] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -860,13 +894,15 @@ class ListAgentTasksFallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[ListAgentTasksFallbackModelsStop] = UNSET
+    stop: OptionalNullable[ListAgentTasksFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[ListAgentTasksFallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[
+        ListAgentTasksFallbackModelConfigurationStreamOptions
+    ] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[ListAgentTasksFallbackModelsThinking] = None
+    thinking: Optional[ListAgentTasksFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -877,17 +913,16 @@ class ListAgentTasksFallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[ListAgentTasksFallbackModelsToolChoice] = None
+    tool_choice: Optional[ListAgentTasksFallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[ListAgentTasksFallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[
+        List[ListAgentTasksFallbackModelConfigurationModalities]
+    ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[ListAgentTasksFallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -913,7 +948,6 @@ class ListAgentTasksFallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -959,61 +993,37 @@ class ListAgentTasksFallbackModelsParameters(BaseModel):
         return m
 
 
-class ListAgentTasksFallbackModels2TypedDict(TypedDict):
+class ListAgentTasksFallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[ListAgentTasksFallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[ListAgentTasksFallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class ListAgentTasksFallbackModels2(BaseModel):
+class ListAgentTasksFallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[ListAgentTasksFallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[ListAgentTasksFallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-ListAgentTasksFallbackModelsTypedDict = TypeAliasType(
-    "ListAgentTasksFallbackModelsTypedDict",
-    Union[ListAgentTasksFallbackModels2TypedDict, str],
+ListAgentTasksFallbackModelConfigurationTypedDict = TypeAliasType(
+    "ListAgentTasksFallbackModelConfigurationTypedDict",
+    Union[ListAgentTasksFallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-ListAgentTasksFallbackModels = TypeAliasType(
-    "ListAgentTasksFallbackModels", Union[ListAgentTasksFallbackModels2, str]
+ListAgentTasksFallbackModelConfiguration = TypeAliasType(
+    "ListAgentTasksFallbackModelConfiguration",
+    Union[ListAgentTasksFallbackModelConfiguration2, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 class ListAgentTasksModelTypedDict(TypedDict):
@@ -1022,8 +1032,10 @@ class ListAgentTasksModelTypedDict(TypedDict):
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[ListAgentTasksParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
-    fallback_models: NotRequired[Nullable[List[ListAgentTasksFallbackModelsTypedDict]]]
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    fallback_models: NotRequired[
+        Nullable[List[ListAgentTasksFallbackModelConfigurationTypedDict]]
+    ]
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
@@ -1035,9 +1047,11 @@ class ListAgentTasksModel(BaseModel):
     r"""Optional integration ID for custom model configurations"""
 
     parameters: Optional[ListAgentTasksParameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p, frequency_penalty, presence_penalty, response_format (JSON mode), reasoning_effort, seed (determinism). Model-specific support varies."""
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
-    fallback_models: OptionalNullable[List[ListAgentTasksFallbackModels]] = UNSET
+    fallback_models: OptionalNullable[
+        List[ListAgentTasksFallbackModelConfiguration]
+    ] = UNSET
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
     @model_serializer(mode="wrap")

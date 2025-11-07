@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: ba2a10d5845546f242b7c29ab953b8d8
+  docChecksum: 7c218de443365ed2b522f39cfa5d62f4
   docVersion: "2.0"
-  speakeasyVersion: 1.649.0
-  generationVersion: 2.739.1
-  releaseVersion: 4.0.0-rc.12
-  configChecksum: 9b638ebeae3860216efda12eda4e14cf
+  speakeasyVersion: 1.650.0
+  generationVersion: 2.743.2
+  releaseVersion: 4.0.0-rc.14
+  configChecksum: 58c992eb718c58f61512cc507256e00e
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.23.4
+    core: 5.23.5
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -161,51 +161,48 @@ generatedFiles:
   - docs/models/createagentagenttoolinputcrudagentstype.md
   - docs/models/createagentagenttoolinputcrudtype.md
   - docs/models/createagentaudio.md
-  - docs/models/createagentfallbackmodels.md
-  - docs/models/createagentfallbackmodels2.md
-  - docs/models/createagentfallbackmodelsaudio.md
-  - docs/models/createagentfallbackmodelsformat.md
-  - docs/models/createagentfallbackmodelsmodalities.md
-  - docs/models/createagentfallbackmodelsparameters.md
-  - docs/models/createagentfallbackmodelsresponseformat.md
-  - docs/models/createagentfallbackmodelsstop.md
-  - docs/models/createagentfallbackmodelsstreamoptions.md
-  - docs/models/createagentfallbackmodelsthinking.md
-  - docs/models/createagentfallbackmodelstoolchoice.md
-  - docs/models/createagentfallbackmodelstype.md
-  - docs/models/createagentfallbackmodelsvoice.md
-  - docs/models/createagentfallbackmodelswebsearchoptions.md
+  - docs/models/createagentfallbackmodelconfiguration.md
+  - docs/models/createagentfallbackmodelconfiguration2.md
+  - docs/models/createagentfallbackmodelconfigurationaudio.md
+  - docs/models/createagentfallbackmodelconfigurationformat.md
+  - docs/models/createagentfallbackmodelconfigurationmodalities.md
+  - docs/models/createagentfallbackmodelconfigurationparameters.md
+  - docs/models/createagentfallbackmodelconfigurationresponseformat.md
+  - docs/models/createagentfallbackmodelconfigurationstop.md
+  - docs/models/createagentfallbackmodelconfigurationstreamoptions.md
+  - docs/models/createagentfallbackmodelconfigurationthinking.md
+  - docs/models/createagentfallbackmodelconfigurationtoolchoice.md
+  - docs/models/createagentfallbackmodelconfigurationtype.md
+  - docs/models/createagentfallbackmodelconfigurationvoice.md
   - docs/models/createagentformat.md
   - docs/models/createagentknowledgebases.md
   - docs/models/createagentmetrics.md
   - docs/models/createagentmodalities.md
   - docs/models/createagentmodel.md
-  - docs/models/createagentmodeltype.md
   - docs/models/createagentparameters.md
   - docs/models/createagentrequestbody.md
   - docs/models/createagentresponsebody.md
   - docs/models/createagentresponseformat.md
-  - docs/models/createagentresponseformat1.md
-  - docs/models/createagentresponseformat2.md
-  - docs/models/createagentresponseformat3.md
-  - docs/models/createagentresponseformatagents1.md
-  - docs/models/createagentresponseformatagents2.md
-  - docs/models/createagentresponseformatagents3.md
+  - docs/models/createagentresponseformatagentsjsonobject.md
   - docs/models/createagentresponseformatagentsjsonschema.md
   - docs/models/createagentresponseformatagentsrequestrequestbodyfallbackmodelstype.md
   - docs/models/createagentresponseformatagentsrequestrequestbodytype.md
   - docs/models/createagentresponseformatagentsrequesttype.md
-  - docs/models/createagentresponseformatagentsresponse1.md
-  - docs/models/createagentresponseformatagentsresponse2.md
+  - docs/models/createagentresponseformatagentsresponse201applicationjsonjsonschema.md
+  - docs/models/createagentresponseformatagentsresponse201applicationjsonresponsebodyjsonschema.md
   - docs/models/createagentresponseformatagentsresponse201applicationjsonresponsebodymodelfallbackmodelstype.md
   - docs/models/createagentresponseformatagentsresponse201applicationjsonresponsebodymodeltype.md
   - docs/models/createagentresponseformatagentsresponse201applicationjsonresponsebodytype.md
   - docs/models/createagentresponseformatagentsresponse201applicationjsontype.md
+  - docs/models/createagentresponseformatagentsresponse201jsonschema.md
   - docs/models/createagentresponseformatagentsresponse201type.md
-  - docs/models/createagentresponseformatagentsresponse3.md
+  - docs/models/createagentresponseformatagentsresponsejsonschema.md
   - docs/models/createagentresponseformatagentsresponsetype.md
+  - docs/models/createagentresponseformatagentstext.md
   - docs/models/createagentresponseformatagentstype.md
+  - docs/models/createagentresponseformatjsonobject.md
   - docs/models/createagentresponseformatjsonschema.md
+  - docs/models/createagentresponseformattext.md
   - docs/models/createagentresponseformattype.md
   - docs/models/createagentsettings.md
   - docs/models/createagentstatus.md
@@ -230,7 +227,6 @@ generatedFiles:
   - docs/models/createagenttools.md
   - docs/models/createagenttype.md
   - docs/models/createagentvoice.md
-  - docs/models/createagentwebsearchoptions.md
   - docs/models/createbudgetbudget.md
   - docs/models/createbudgetperiod.md
   - docs/models/createbudgetrequestbody.md
@@ -501,7 +497,6 @@ generatedFiles:
   - docs/models/creatememoryrequestbody.md
   - docs/models/creatememoryresponsebody.md
   - docs/models/creatememorystoreembeddingconfig.md
-  - docs/models/creatememorystorememorystoresmodel.md
   - docs/models/creatememorystoremodel.md
   - docs/models/creatememorystoremodel1.md
   - docs/models/creatememorystoremodel10.md
@@ -526,7 +521,6 @@ generatedFiles:
   - docs/models/creatememorystoremodel7.md
   - docs/models/creatememorystoremodel8.md
   - docs/models/creatememorystoremodel9.md
-  - docs/models/creatememorystoremodelmemorystores2.md
   - docs/models/creatememorystorerequestbody.md
   - docs/models/creatememorystoreresponsebody.md
   - docs/models/createprompt21.md
@@ -623,23 +617,20 @@ generatedFiles:
   - docs/models/createpromptresponseformat4.md
   - docs/models/createpromptresponseformat5.md
   - docs/models/createpromptresponseformat6.md
+  - docs/models/createpromptresponseformatjsonobject.md
   - docs/models/createpromptresponseformatjsonschema.md
-  - docs/models/createpromptresponseformatprompts1.md
-  - docs/models/createpromptresponseformatprompts2.md
-  - docs/models/createpromptresponseformatprompts3.md
   - docs/models/createpromptresponseformatpromptsjsonschema.md
+  - docs/models/createpromptresponseformatpromptsrequestjsonschema.md
   - docs/models/createpromptresponseformatpromptsrequestrequestbodyprompt3type.md
   - docs/models/createpromptresponseformatpromptsrequestrequestbodyprompttype.md
   - docs/models/createpromptresponseformatpromptsrequestrequestbodytype.md
   - docs/models/createpromptresponseformatpromptsrequesttype.md
-  - docs/models/createpromptresponseformatpromptsresponse1.md
-  - docs/models/createpromptresponseformatpromptsresponse2.md
   - docs/models/createpromptresponseformatpromptsresponse200applicationjsontype.md
   - docs/models/createpromptresponseformatpromptsresponse200type.md
-  - docs/models/createpromptresponseformatpromptsresponse3.md
   - docs/models/createpromptresponseformatpromptsresponsejsonschema.md
   - docs/models/createpromptresponseformatpromptsresponsetype.md
   - docs/models/createpromptresponseformatpromptstype.md
+  - docs/models/createpromptresponseformattext.md
   - docs/models/createpromptresponseformattype.md
   - docs/models/createpromptrole.md
   - docs/models/createprompttoolcalls.md
@@ -1279,20 +1270,19 @@ generatedFiles:
   - docs/models/evaluationtype.md
   - docs/models/exists.md
   - docs/models/externalconfig.md
-  - docs/models/fallbackmodels.md
-  - docs/models/fallbackmodels2.md
-  - docs/models/fallbackmodelsaudio.md
-  - docs/models/fallbackmodelsformat.md
-  - docs/models/fallbackmodelsmodalities.md
-  - docs/models/fallbackmodelsparameters.md
-  - docs/models/fallbackmodelsresponseformat.md
-  - docs/models/fallbackmodelsstop.md
-  - docs/models/fallbackmodelsstreamoptions.md
-  - docs/models/fallbackmodelsthinking.md
-  - docs/models/fallbackmodelstoolchoice.md
-  - docs/models/fallbackmodelstype.md
-  - docs/models/fallbackmodelsvoice.md
-  - docs/models/fallbackmodelswebsearchoptions.md
+  - docs/models/fallbackmodelconfiguration.md
+  - docs/models/fallbackmodelconfiguration2.md
+  - docs/models/fallbackmodelconfigurationaudio.md
+  - docs/models/fallbackmodelconfigurationformat.md
+  - docs/models/fallbackmodelconfigurationmodalities.md
+  - docs/models/fallbackmodelconfigurationparameters.md
+  - docs/models/fallbackmodelconfigurationresponseformat.md
+  - docs/models/fallbackmodelconfigurationstop.md
+  - docs/models/fallbackmodelconfigurationstreamoptions.md
+  - docs/models/fallbackmodelconfigurationthinking.md
+  - docs/models/fallbackmodelconfigurationtoolchoice.md
+  - docs/models/fallbackmodelconfigurationtype.md
+  - docs/models/fallbackmodelconfigurationvoice.md
   - docs/models/fifteen.md
   - docs/models/file.md
   - docs/models/filebinaryformat.md
@@ -1365,20 +1355,19 @@ generatedFiles:
   - docs/models/getagentagentsresponsebody.md
   - docs/models/getagentaudio.md
   - docs/models/getagentconditions.md
-  - docs/models/getagentfallbackmodels.md
-  - docs/models/getagentfallbackmodels2.md
-  - docs/models/getagentfallbackmodelsaudio.md
-  - docs/models/getagentfallbackmodelsformat.md
-  - docs/models/getagentfallbackmodelsmodalities.md
-  - docs/models/getagentfallbackmodelsparameters.md
-  - docs/models/getagentfallbackmodelsresponseformat.md
-  - docs/models/getagentfallbackmodelsstop.md
-  - docs/models/getagentfallbackmodelsstreamoptions.md
-  - docs/models/getagentfallbackmodelsthinking.md
-  - docs/models/getagentfallbackmodelstoolchoice.md
-  - docs/models/getagentfallbackmodelstype.md
-  - docs/models/getagentfallbackmodelsvoice.md
-  - docs/models/getagentfallbackmodelswebsearchoptions.md
+  - docs/models/getagentfallbackmodelconfiguration.md
+  - docs/models/getagentfallbackmodelconfiguration2.md
+  - docs/models/getagentfallbackmodelconfigurationaudio.md
+  - docs/models/getagentfallbackmodelconfigurationformat.md
+  - docs/models/getagentfallbackmodelconfigurationmodalities.md
+  - docs/models/getagentfallbackmodelconfigurationparameters.md
+  - docs/models/getagentfallbackmodelconfigurationresponseformat.md
+  - docs/models/getagentfallbackmodelconfigurationstop.md
+  - docs/models/getagentfallbackmodelconfigurationstreamoptions.md
+  - docs/models/getagentfallbackmodelconfigurationthinking.md
+  - docs/models/getagentfallbackmodelconfigurationtoolchoice.md
+  - docs/models/getagentfallbackmodelconfigurationtype.md
+  - docs/models/getagentfallbackmodelconfigurationvoice.md
   - docs/models/getagentformat.md
   - docs/models/getagenthiddenpanels.md
   - docs/models/getagentknowledgebases.md
@@ -1389,19 +1378,19 @@ generatedFiles:
   - docs/models/getagentrequest.md
   - docs/models/getagentresponsebody.md
   - docs/models/getagentresponseformat.md
-  - docs/models/getagentresponseformat1.md
-  - docs/models/getagentresponseformat2.md
-  - docs/models/getagentresponseformat3.md
-  - docs/models/getagentresponseformatagents1.md
-  - docs/models/getagentresponseformatagents2.md
-  - docs/models/getagentresponseformatagents3.md
+  - docs/models/getagentresponseformatagentsjsonobject.md
   - docs/models/getagentresponseformatagentsjsonschema.md
   - docs/models/getagentresponseformatagentsresponse200applicationjsonresponsebodytype.md
   - docs/models/getagentresponseformatagentsresponse200applicationjsontype.md
+  - docs/models/getagentresponseformatagentsresponse200jsonschema.md
   - docs/models/getagentresponseformatagentsresponse200type.md
+  - docs/models/getagentresponseformatagentsresponsejsonschema.md
   - docs/models/getagentresponseformatagentsresponsetype.md
+  - docs/models/getagentresponseformatagentstext.md
   - docs/models/getagentresponseformatagentstype.md
+  - docs/models/getagentresponseformatjsonobject.md
   - docs/models/getagentresponseformatjsonschema.md
+  - docs/models/getagentresponseformattext.md
   - docs/models/getagentresponseformattype.md
   - docs/models/getagentsettings.md
   - docs/models/getagentstatus.md
@@ -1427,7 +1416,6 @@ generatedFiles:
   - docs/models/getagenttools.md
   - docs/models/getagenttype.md
   - docs/models/getagentvoice.md
-  - docs/models/getagentwebsearchoptions.md
   - docs/models/getallmemoriesdata.md
   - docs/models/getallmemoriesobject.md
   - docs/models/getallmemoriesrequest.md
@@ -1788,6 +1776,7 @@ generatedFiles:
   - docs/models/invokeagentthread.md
   - docs/models/invokeoptions.md
   - docs/models/json.md
+  - docs/models/jsonobject.md
   - docs/models/jsonschema.md
   - docs/models/jsonschematool.md
   - docs/models/kind.md
@@ -1807,20 +1796,19 @@ generatedFiles:
   - docs/models/listagentsaudio.md
   - docs/models/listagentsconditions.md
   - docs/models/listagentsdata.md
-  - docs/models/listagentsfallbackmodels.md
-  - docs/models/listagentsfallbackmodels2.md
-  - docs/models/listagentsfallbackmodelsaudio.md
-  - docs/models/listagentsfallbackmodelsformat.md
-  - docs/models/listagentsfallbackmodelsmodalities.md
-  - docs/models/listagentsfallbackmodelsparameters.md
-  - docs/models/listagentsfallbackmodelsresponseformat.md
-  - docs/models/listagentsfallbackmodelsstop.md
-  - docs/models/listagentsfallbackmodelsstreamoptions.md
-  - docs/models/listagentsfallbackmodelsthinking.md
-  - docs/models/listagentsfallbackmodelstoolchoice.md
-  - docs/models/listagentsfallbackmodelstype.md
-  - docs/models/listagentsfallbackmodelsvoice.md
-  - docs/models/listagentsfallbackmodelswebsearchoptions.md
+  - docs/models/listagentsfallbackmodelconfiguration.md
+  - docs/models/listagentsfallbackmodelconfiguration2.md
+  - docs/models/listagentsfallbackmodelconfigurationaudio.md
+  - docs/models/listagentsfallbackmodelconfigurationformat.md
+  - docs/models/listagentsfallbackmodelconfigurationmodalities.md
+  - docs/models/listagentsfallbackmodelconfigurationparameters.md
+  - docs/models/listagentsfallbackmodelconfigurationresponseformat.md
+  - docs/models/listagentsfallbackmodelconfigurationstop.md
+  - docs/models/listagentsfallbackmodelconfigurationstreamoptions.md
+  - docs/models/listagentsfallbackmodelconfigurationthinking.md
+  - docs/models/listagentsfallbackmodelconfigurationtoolchoice.md
+  - docs/models/listagentsfallbackmodelconfigurationtype.md
+  - docs/models/listagentsfallbackmodelconfigurationvoice.md
   - docs/models/listagentsformat.md
   - docs/models/listagentshiddenpanels.md
   - docs/models/listagentsknowledgebases.md
@@ -1832,19 +1820,19 @@ generatedFiles:
   - docs/models/listagentsrequest.md
   - docs/models/listagentsresponsebody.md
   - docs/models/listagentsresponseformat.md
-  - docs/models/listagentsresponseformat1.md
-  - docs/models/listagentsresponseformat2.md
-  - docs/models/listagentsresponseformat3.md
-  - docs/models/listagentsresponseformatagents1.md
-  - docs/models/listagentsresponseformatagents2.md
-  - docs/models/listagentsresponseformatagents3.md
+  - docs/models/listagentsresponseformatagentsjsonobject.md
   - docs/models/listagentsresponseformatagentsjsonschema.md
   - docs/models/listagentsresponseformatagentsresponse200applicationjsonresponsebodytype.md
   - docs/models/listagentsresponseformatagentsresponse200applicationjsontype.md
+  - docs/models/listagentsresponseformatagentsresponse200jsonschema.md
   - docs/models/listagentsresponseformatagentsresponse200type.md
+  - docs/models/listagentsresponseformatagentsresponsejsonschema.md
   - docs/models/listagentsresponseformatagentsresponsetype.md
+  - docs/models/listagentsresponseformatagentstext.md
   - docs/models/listagentsresponseformatagentstype.md
+  - docs/models/listagentsresponseformatjsonobject.md
   - docs/models/listagentsresponseformatjsonschema.md
+  - docs/models/listagentsresponseformattext.md
   - docs/models/listagentsresponseformattype.md
   - docs/models/listagentssettings.md
   - docs/models/listagentsstatus.md
@@ -1865,24 +1853,22 @@ generatedFiles:
   - docs/models/listagentstools.md
   - docs/models/listagentstype.md
   - docs/models/listagentsvoice.md
-  - docs/models/listagentswebsearchoptions.md
   - docs/models/listagenttasksagentsresponsebody.md
   - docs/models/listagenttasksaudio.md
   - docs/models/listagenttasksconditions.md
-  - docs/models/listagenttasksfallbackmodels.md
-  - docs/models/listagenttasksfallbackmodels2.md
-  - docs/models/listagenttasksfallbackmodelsaudio.md
-  - docs/models/listagenttasksfallbackmodelsformat.md
-  - docs/models/listagenttasksfallbackmodelsmodalities.md
-  - docs/models/listagenttasksfallbackmodelsparameters.md
-  - docs/models/listagenttasksfallbackmodelsresponseformat.md
-  - docs/models/listagenttasksfallbackmodelsstop.md
-  - docs/models/listagenttasksfallbackmodelsstreamoptions.md
-  - docs/models/listagenttasksfallbackmodelsthinking.md
-  - docs/models/listagenttasksfallbackmodelstoolchoice.md
-  - docs/models/listagenttasksfallbackmodelstype.md
-  - docs/models/listagenttasksfallbackmodelsvoice.md
-  - docs/models/listagenttasksfallbackmodelswebsearchoptions.md
+  - docs/models/listagenttasksfallbackmodelconfiguration.md
+  - docs/models/listagenttasksfallbackmodelconfiguration2.md
+  - docs/models/listagenttasksfallbackmodelconfigurationaudio.md
+  - docs/models/listagenttasksfallbackmodelconfigurationformat.md
+  - docs/models/listagenttasksfallbackmodelconfigurationmodalities.md
+  - docs/models/listagenttasksfallbackmodelconfigurationparameters.md
+  - docs/models/listagenttasksfallbackmodelconfigurationresponseformat.md
+  - docs/models/listagenttasksfallbackmodelconfigurationstop.md
+  - docs/models/listagenttasksfallbackmodelconfigurationstreamoptions.md
+  - docs/models/listagenttasksfallbackmodelconfigurationthinking.md
+  - docs/models/listagenttasksfallbackmodelconfigurationtoolchoice.md
+  - docs/models/listagenttasksfallbackmodelconfigurationtype.md
+  - docs/models/listagenttasksfallbackmodelconfigurationvoice.md
   - docs/models/listagenttasksformat.md
   - docs/models/listagenttasksmemory.md
   - docs/models/listagenttasksmetrics.md
@@ -1892,19 +1878,19 @@ generatedFiles:
   - docs/models/listagenttasksrequest.md
   - docs/models/listagenttasksresponsebody.md
   - docs/models/listagenttasksresponseformat.md
-  - docs/models/listagenttasksresponseformat1.md
-  - docs/models/listagenttasksresponseformat2.md
-  - docs/models/listagenttasksresponseformat3.md
-  - docs/models/listagenttasksresponseformatagents1.md
-  - docs/models/listagenttasksresponseformatagents2.md
-  - docs/models/listagenttasksresponseformatagents3.md
+  - docs/models/listagenttasksresponseformatagentsjsonobject.md
   - docs/models/listagenttasksresponseformatagentsjsonschema.md
   - docs/models/listagenttasksresponseformatagentsresponse200applicationjsonresponsebodytype.md
   - docs/models/listagenttasksresponseformatagentsresponse200applicationjsontype.md
+  - docs/models/listagenttasksresponseformatagentsresponse200jsonschema.md
   - docs/models/listagenttasksresponseformatagentsresponse200type.md
+  - docs/models/listagenttasksresponseformatagentsresponsejsonschema.md
   - docs/models/listagenttasksresponseformatagentsresponsetype.md
+  - docs/models/listagenttasksresponseformatagentstext.md
   - docs/models/listagenttasksresponseformatagentstype.md
+  - docs/models/listagenttasksresponseformatjsonobject.md
   - docs/models/listagenttasksresponseformatjsonschema.md
+  - docs/models/listagenttasksresponseformattext.md
   - docs/models/listagenttasksresponseformattype.md
   - docs/models/listagenttaskssettings.md
   - docs/models/listagenttasksstate.md
@@ -1924,7 +1910,6 @@ generatedFiles:
   - docs/models/listagenttaskstools.md
   - docs/models/listagenttaskstype.md
   - docs/models/listagenttasksvoice.md
-  - docs/models/listagenttaskswebsearchoptions.md
   - docs/models/listbudgetsbudget.md
   - docs/models/listbudgetsconsumption.md
   - docs/models/listbudgetsdata.md
@@ -2133,18 +2118,21 @@ generatedFiles:
   - docs/models/model7.md
   - docs/models/model8.md
   - docs/models/model9.md
-  - docs/models/modelaudio.md
-  - docs/models/modelformat.md
-  - docs/models/modelmodalities.md
+  - docs/models/modelconfiguration.md
+  - docs/models/modelconfiguration2.md
+  - docs/models/modelconfigurationaudio.md
+  - docs/models/modelconfigurationformat.md
+  - docs/models/modelconfigurationmodalities.md
+  - docs/models/modelconfigurationparameters.md
+  - docs/models/modelconfigurationresponseformat.md
+  - docs/models/modelconfigurationstop.md
+  - docs/models/modelconfigurationstreamoptions.md
+  - docs/models/modelconfigurationthinking.md
+  - docs/models/modelconfigurationtoolchoice.md
+  - docs/models/modelconfigurationtype.md
+  - docs/models/modelconfigurationvoice.md
   - docs/models/modelparameters.md
-  - docs/models/modelresponseformat.md
-  - docs/models/modelstop.md
-  - docs/models/modelstreamoptions.md
-  - docs/models/modelthinking.md
-  - docs/models/modeltoolchoice.md
   - docs/models/modeltype.md
-  - docs/models/modelvoice.md
-  - docs/models/modelwebsearchoptions.md
   - docs/models/ne.md
   - docs/models/nin.md
   - docs/models/nine.md
@@ -2297,7 +2285,9 @@ generatedFiles:
   - docs/models/responseformat4.md
   - docs/models/responseformat5.md
   - docs/models/responseformat6.md
+  - docs/models/responseformatjsonobject.md
   - docs/models/responseformatjsonschema.md
+  - docs/models/responseformattext.md
   - docs/models/responseformattype.md
   - docs/models/retrievals.md
   - docs/models/retrievalsettings.md
@@ -2461,38 +2451,36 @@ generatedFiles:
   - docs/models/runagentagenttoolinputrunagentstype.md
   - docs/models/runagentagenttoolinputruntype.md
   - docs/models/runagentcontact.md
-  - docs/models/runagentfallbackmodels.md
-  - docs/models/runagentfallbackmodels2.md
-  - docs/models/runagentfallbackmodelsaudio.md
-  - docs/models/runagentfallbackmodelsformat.md
-  - docs/models/runagentfallbackmodelsmodalities.md
-  - docs/models/runagentfallbackmodelsparameters.md
-  - docs/models/runagentfallbackmodelsresponseformat.md
-  - docs/models/runagentfallbackmodelsstop.md
-  - docs/models/runagentfallbackmodelsstreamoptions.md
-  - docs/models/runagentfallbackmodelsthinking.md
-  - docs/models/runagentfallbackmodelstoolchoice.md
-  - docs/models/runagentfallbackmodelstype.md
-  - docs/models/runagentfallbackmodelsvoice.md
-  - docs/models/runagentfallbackmodelswebsearchoptions.md
+  - docs/models/runagentfallbackmodelconfiguration.md
+  - docs/models/runagentfallbackmodelconfiguration2.md
+  - docs/models/runagentfallbackmodelconfigurationaudio.md
+  - docs/models/runagentfallbackmodelconfigurationformat.md
+  - docs/models/runagentfallbackmodelconfigurationmodalities.md
+  - docs/models/runagentfallbackmodelconfigurationparameters.md
+  - docs/models/runagentfallbackmodelconfigurationresponseformat.md
+  - docs/models/runagentfallbackmodelconfigurationstop.md
+  - docs/models/runagentfallbackmodelconfigurationstreamoptions.md
+  - docs/models/runagentfallbackmodelconfigurationthinking.md
+  - docs/models/runagentfallbackmodelconfigurationtoolchoice.md
+  - docs/models/runagentfallbackmodelconfigurationtype.md
+  - docs/models/runagentfallbackmodelconfigurationvoice.md
   - docs/models/runagentkind.md
   - docs/models/runagentknowledgebases.md
   - docs/models/runagentmemory.md
   - docs/models/runagentmessage.md
-  - docs/models/runagentmodel.md
-  - docs/models/runagentmodel2.md
-  - docs/models/runagentmodelaudio.md
-  - docs/models/runagentmodelformat.md
-  - docs/models/runagentmodelmodalities.md
-  - docs/models/runagentmodelparameters.md
-  - docs/models/runagentmodelresponseformat.md
-  - docs/models/runagentmodelstop.md
-  - docs/models/runagentmodelstreamoptions.md
-  - docs/models/runagentmodelthinking.md
-  - docs/models/runagentmodeltoolchoice.md
-  - docs/models/runagentmodeltype.md
-  - docs/models/runagentmodelvoice.md
-  - docs/models/runagentmodelwebsearchoptions.md
+  - docs/models/runagentmodelconfiguration.md
+  - docs/models/runagentmodelconfiguration2.md
+  - docs/models/runagentmodelconfigurationaudio.md
+  - docs/models/runagentmodelconfigurationformat.md
+  - docs/models/runagentmodelconfigurationmodalities.md
+  - docs/models/runagentmodelconfigurationparameters.md
+  - docs/models/runagentmodelconfigurationresponseformat.md
+  - docs/models/runagentmodelconfigurationstop.md
+  - docs/models/runagentmodelconfigurationstreamoptions.md
+  - docs/models/runagentmodelconfigurationthinking.md
+  - docs/models/runagentmodelconfigurationtoolchoice.md
+  - docs/models/runagentmodelconfigurationtype.md
+  - docs/models/runagentmodelconfigurationvoice.md
   - docs/models/runagentpublicmessagepart.md
   - docs/models/runagentpublicmessagepartagentskind.md
   - docs/models/runagentpublicmessagepartagentsrequestkind.md
@@ -2500,19 +2488,19 @@ generatedFiles:
   - docs/models/runagentpublicmessagepartkind.md
   - docs/models/runagentrequestbody.md
   - docs/models/runagentresponsebody.md
-  - docs/models/runagentresponseformat1.md
-  - docs/models/runagentresponseformat2.md
-  - docs/models/runagentresponseformat3.md
-  - docs/models/runagentresponseformatagents1.md
-  - docs/models/runagentresponseformatagents2.md
-  - docs/models/runagentresponseformatagents3.md
+  - docs/models/runagentresponseformatagentsjsonobject.md
   - docs/models/runagentresponseformatagentsjsonschema.md
-  - docs/models/runagentresponseformatagentsrequestrequestbodyfallbackmodels2type.md
+  - docs/models/runagentresponseformatagentsrequestjsonschema.md
+  - docs/models/runagentresponseformatagentsrequestrequestbodyfallbackmodelsfallbackmodelconfigurationtype.md
   - docs/models/runagentresponseformatagentsrequestrequestbodyfallbackmodelstype.md
+  - docs/models/runagentresponseformatagentsrequestrequestbodyjsonschema.md
   - docs/models/runagentresponseformatagentsrequestrequestbodytype.md
   - docs/models/runagentresponseformatagentsrequesttype.md
+  - docs/models/runagentresponseformatagentstext.md
   - docs/models/runagentresponseformatagentstype.md
+  - docs/models/runagentresponseformatjsonobject.md
   - docs/models/runagentresponseformatjsonschema.md
+  - docs/models/runagentresponseformattext.md
   - docs/models/runagentresponseformattype.md
   - docs/models/runagentrole.md
   - docs/models/runagentroletoolmessage.md
@@ -2644,39 +2632,37 @@ generatedFiles:
   - docs/models/streamrunagentagenttoolinputrunwebscrapertool.md
   - docs/models/streamrunagentagenttoolinputrunwritememorystoretool.md
   - docs/models/streamrunagentcontact.md
-  - docs/models/streamrunagentfallbackmodels.md
-  - docs/models/streamrunagentfallbackmodels2.md
-  - docs/models/streamrunagentfallbackmodelsaudio.md
-  - docs/models/streamrunagentfallbackmodelsformat.md
-  - docs/models/streamrunagentfallbackmodelsmodalities.md
-  - docs/models/streamrunagentfallbackmodelsparameters.md
-  - docs/models/streamrunagentfallbackmodelsresponseformat.md
-  - docs/models/streamrunagentfallbackmodelsstop.md
-  - docs/models/streamrunagentfallbackmodelsstreamoptions.md
-  - docs/models/streamrunagentfallbackmodelsthinking.md
-  - docs/models/streamrunagentfallbackmodelstoolchoice.md
-  - docs/models/streamrunagentfallbackmodelstype.md
-  - docs/models/streamrunagentfallbackmodelsvoice.md
-  - docs/models/streamrunagentfallbackmodelswebsearchoptions.md
+  - docs/models/streamrunagentfallbackmodelconfiguration.md
+  - docs/models/streamrunagentfallbackmodelconfiguration2.md
+  - docs/models/streamrunagentfallbackmodelconfigurationaudio.md
+  - docs/models/streamrunagentfallbackmodelconfigurationformat.md
+  - docs/models/streamrunagentfallbackmodelconfigurationmodalities.md
+  - docs/models/streamrunagentfallbackmodelconfigurationparameters.md
+  - docs/models/streamrunagentfallbackmodelconfigurationresponseformat.md
+  - docs/models/streamrunagentfallbackmodelconfigurationstop.md
+  - docs/models/streamrunagentfallbackmodelconfigurationstreamoptions.md
+  - docs/models/streamrunagentfallbackmodelconfigurationthinking.md
+  - docs/models/streamrunagentfallbackmodelconfigurationtoolchoice.md
+  - docs/models/streamrunagentfallbackmodelconfigurationtype.md
+  - docs/models/streamrunagentfallbackmodelconfigurationvoice.md
   - docs/models/streamrunagentfilebinaryformat.md
   - docs/models/streamrunagentfilefileinuriformat.md
   - docs/models/streamrunagentknowledgebases.md
   - docs/models/streamrunagentmemory.md
   - docs/models/streamrunagentmessage.md
-  - docs/models/streamrunagentmodel.md
-  - docs/models/streamrunagentmodel2.md
-  - docs/models/streamrunagentmodelaudio.md
-  - docs/models/streamrunagentmodelformat.md
-  - docs/models/streamrunagentmodelmodalities.md
-  - docs/models/streamrunagentmodelparameters.md
-  - docs/models/streamrunagentmodelresponseformat.md
-  - docs/models/streamrunagentmodelstop.md
-  - docs/models/streamrunagentmodelstreamoptions.md
-  - docs/models/streamrunagentmodelthinking.md
-  - docs/models/streamrunagentmodeltoolchoice.md
-  - docs/models/streamrunagentmodeltype.md
-  - docs/models/streamrunagentmodelvoice.md
-  - docs/models/streamrunagentmodelwebsearchoptions.md
+  - docs/models/streamrunagentmodelconfiguration.md
+  - docs/models/streamrunagentmodelconfiguration2.md
+  - docs/models/streamrunagentmodelconfigurationaudio.md
+  - docs/models/streamrunagentmodelconfigurationformat.md
+  - docs/models/streamrunagentmodelconfigurationmodalities.md
+  - docs/models/streamrunagentmodelconfigurationparameters.md
+  - docs/models/streamrunagentmodelconfigurationresponseformat.md
+  - docs/models/streamrunagentmodelconfigurationstop.md
+  - docs/models/streamrunagentmodelconfigurationstreamoptions.md
+  - docs/models/streamrunagentmodelconfigurationthinking.md
+  - docs/models/streamrunagentmodelconfigurationtoolchoice.md
+  - docs/models/streamrunagentmodelconfigurationtype.md
+  - docs/models/streamrunagentmodelconfigurationvoice.md
   - docs/models/streamrunagentpublicmessagepart.md
   - docs/models/streamrunagentpublicmessagepartagentskind.md
   - docs/models/streamrunagentpublicmessagepartagentsrequestkind.md
@@ -2687,19 +2673,19 @@ generatedFiles:
   - docs/models/streamrunagentpublicmessageparttoolresultpart.md
   - docs/models/streamrunagentrequestbody.md
   - docs/models/streamrunagentresponsebody.md
-  - docs/models/streamrunagentresponseformat1.md
-  - docs/models/streamrunagentresponseformat2.md
-  - docs/models/streamrunagentresponseformat3.md
-  - docs/models/streamrunagentresponseformatagents1.md
-  - docs/models/streamrunagentresponseformatagents2.md
-  - docs/models/streamrunagentresponseformatagents3.md
+  - docs/models/streamrunagentresponseformatagentsjsonobject.md
   - docs/models/streamrunagentresponseformatagentsjsonschema.md
-  - docs/models/streamrunagentresponseformatagentsrequestrequestbodyfallbackmodels2type.md
+  - docs/models/streamrunagentresponseformatagentsrequestjsonschema.md
+  - docs/models/streamrunagentresponseformatagentsrequestrequestbodyfallbackmodelsfallbackmodelconfigurationtype.md
   - docs/models/streamrunagentresponseformatagentsrequestrequestbodyfallbackmodelstype.md
+  - docs/models/streamrunagentresponseformatagentsrequestrequestbodyjsonschema.md
   - docs/models/streamrunagentresponseformatagentsrequestrequestbodytype.md
   - docs/models/streamrunagentresponseformatagentsrequesttype.md
+  - docs/models/streamrunagentresponseformatagentstext.md
   - docs/models/streamrunagentresponseformatagentstype.md
+  - docs/models/streamrunagentresponseformatjsonobject.md
   - docs/models/streamrunagentresponseformatjsonschema.md
+  - docs/models/streamrunagentresponseformattext.md
   - docs/models/streamrunagentresponseformattype.md
   - docs/models/streamrunagentrole.md
   - docs/models/streamrunagentroletoolmessage.md
@@ -2720,6 +2706,7 @@ generatedFiles:
   - docs/models/tasks.md
   - docs/models/teamofagents.md
   - docs/models/ten.md
+  - docs/models/text.md
   - docs/models/textcontentpart.md
   - docs/models/textpart.md
   - docs/models/thinking.md
@@ -2773,9 +2760,8 @@ generatedFiles:
   - docs/models/twotype.md
   - docs/models/type.md
   - docs/models/typescript.md
-  - docs/models/updateagentagentsfallbackmodels.md
+  - docs/models/updateagentagentsfallbackmodelconfiguration.md
   - docs/models/updateagentagentsknowledgebases.md
-  - docs/models/updateagentagentsmodel.md
   - docs/models/updateagentagentsresponsebody.md
   - docs/models/updateagentagentssettings.md
   - docs/models/updateagentagentsteamofagents.md
@@ -2797,76 +2783,74 @@ generatedFiles:
   - docs/models/updateagentagenttoolinputcrudtype.md
   - docs/models/updateagentaudio.md
   - docs/models/updateagentconditions.md
-  - docs/models/updateagentfallbackmodels.md
-  - docs/models/updateagentfallbackmodels2.md
-  - docs/models/updateagentfallbackmodelsagents2.md
-  - docs/models/updateagentfallbackmodelsagentsaudio.md
-  - docs/models/updateagentfallbackmodelsagentsformat.md
-  - docs/models/updateagentfallbackmodelsagentsmodalities.md
-  - docs/models/updateagentfallbackmodelsagentsparameters.md
-  - docs/models/updateagentfallbackmodelsagentsresponseformat.md
-  - docs/models/updateagentfallbackmodelsagentsstop.md
-  - docs/models/updateagentfallbackmodelsagentsstreamoptions.md
-  - docs/models/updateagentfallbackmodelsagentsthinking.md
-  - docs/models/updateagentfallbackmodelsagentstoolchoice.md
-  - docs/models/updateagentfallbackmodelsagentstype.md
-  - docs/models/updateagentfallbackmodelsagentsvoice.md
-  - docs/models/updateagentfallbackmodelsagentswebsearchoptions.md
-  - docs/models/updateagentfallbackmodelsaudio.md
-  - docs/models/updateagentfallbackmodelsformat.md
-  - docs/models/updateagentfallbackmodelsmodalities.md
-  - docs/models/updateagentfallbackmodelsparameters.md
-  - docs/models/updateagentfallbackmodelsresponseformat.md
-  - docs/models/updateagentfallbackmodelsstop.md
-  - docs/models/updateagentfallbackmodelsstreamoptions.md
-  - docs/models/updateagentfallbackmodelsthinking.md
-  - docs/models/updateagentfallbackmodelstoolchoice.md
-  - docs/models/updateagentfallbackmodelstype.md
-  - docs/models/updateagentfallbackmodelsvoice.md
-  - docs/models/updateagentfallbackmodelswebsearchoptions.md
+  - docs/models/updateagentfallbackmodelconfiguration.md
+  - docs/models/updateagentfallbackmodelconfiguration2.md
+  - docs/models/updateagentfallbackmodelconfigurationagents2.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsaudio.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsformat.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsmodalities.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsparameters.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsresponseformat.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsstop.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsstreamoptions.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsthinking.md
+  - docs/models/updateagentfallbackmodelconfigurationagentstoolchoice.md
+  - docs/models/updateagentfallbackmodelconfigurationagentstype.md
+  - docs/models/updateagentfallbackmodelconfigurationagentsvoice.md
+  - docs/models/updateagentfallbackmodelconfigurationaudio.md
+  - docs/models/updateagentfallbackmodelconfigurationformat.md
+  - docs/models/updateagentfallbackmodelconfigurationmodalities.md
+  - docs/models/updateagentfallbackmodelconfigurationparameters.md
+  - docs/models/updateagentfallbackmodelconfigurationresponseformat.md
+  - docs/models/updateagentfallbackmodelconfigurationstop.md
+  - docs/models/updateagentfallbackmodelconfigurationstreamoptions.md
+  - docs/models/updateagentfallbackmodelconfigurationthinking.md
+  - docs/models/updateagentfallbackmodelconfigurationtoolchoice.md
+  - docs/models/updateagentfallbackmodelconfigurationtype.md
+  - docs/models/updateagentfallbackmodelconfigurationvoice.md
   - docs/models/updateagentformat.md
   - docs/models/updateagenthiddenpanels.md
   - docs/models/updateagentknowledgebases.md
   - docs/models/updateagentmetrics.md
   - docs/models/updateagentmodalities.md
   - docs/models/updateagentmodel.md
-  - docs/models/updateagentmodel2.md
-  - docs/models/updateagentmodelaudio.md
-  - docs/models/updateagentmodelformat.md
-  - docs/models/updateagentmodelparameters.md
-  - docs/models/updateagentmodeltype.md
+  - docs/models/updateagentmodelconfiguration.md
+  - docs/models/updateagentmodelconfiguration2.md
+  - docs/models/updateagentmodelconfigurationaudio.md
+  - docs/models/updateagentmodelconfigurationformat.md
+  - docs/models/updateagentmodelconfigurationtype.md
   - docs/models/updateagentparameters.md
   - docs/models/updateagentrequest.md
   - docs/models/updateagentrequestbody.md
   - docs/models/updateagentresponsebody.md
   - docs/models/updateagentresponseformat.md
-  - docs/models/updateagentresponseformat1.md
-  - docs/models/updateagentresponseformat2.md
-  - docs/models/updateagentresponseformat3.md
-  - docs/models/updateagentresponseformatagents1.md
-  - docs/models/updateagentresponseformatagents2.md
-  - docs/models/updateagentresponseformatagents3.md
+  - docs/models/updateagentresponseformatagentsjsonobject.md
   - docs/models/updateagentresponseformatagentsjsonschema.md
-  - docs/models/updateagentresponseformatagentsrequestrequestbodyfallbackmodels2type.md
+  - docs/models/updateagentresponseformatagentsrequestjsonschema.md
+  - docs/models/updateagentresponseformatagentsrequestrequestbodyfallbackmodelsfallbackmodelconfigurationtype.md
   - docs/models/updateagentresponseformatagentsrequestrequestbodyfallbackmodelstype.md
+  - docs/models/updateagentresponseformatagentsrequestrequestbodyjsonschema.md
   - docs/models/updateagentresponseformatagentsrequestrequestbodytype.md
   - docs/models/updateagentresponseformatagentsrequesttype.md
-  - docs/models/updateagentresponseformatagentsresponse1.md
-  - docs/models/updateagentresponseformatagentsresponse2.md
-  - docs/models/updateagentresponseformatagentsresponse2001.md
-  - docs/models/updateagentresponseformatagentsresponse2002.md
-  - docs/models/updateagentresponseformatagentsresponse2003.md
+  - docs/models/updateagentresponseformatagentsresponse200applicationjsonjsonschema.md
+  - docs/models/updateagentresponseformatagentsresponse200applicationjsonresponsebodyjsonschema.md
   - docs/models/updateagentresponseformatagentsresponse200applicationjsonresponsebodymodelfallbackmodelstype.md
   - docs/models/updateagentresponseformatagentsresponse200applicationjsonresponsebodymodeltype.md
   - docs/models/updateagentresponseformatagentsresponse200applicationjsonresponsebodytype.md
   - docs/models/updateagentresponseformatagentsresponse200applicationjsontype.md
+  - docs/models/updateagentresponseformatagentsresponse200jsonobject.md
   - docs/models/updateagentresponseformatagentsresponse200jsonschema.md
+  - docs/models/updateagentresponseformatagentsresponse200text.md
   - docs/models/updateagentresponseformatagentsresponse200type.md
-  - docs/models/updateagentresponseformatagentsresponse3.md
+  - docs/models/updateagentresponseformatagentsresponsejsonobject.md
   - docs/models/updateagentresponseformatagentsresponsejsonschema.md
+  - docs/models/updateagentresponseformatagentsresponsetext.md
   - docs/models/updateagentresponseformatagentsresponsetype.md
+  - docs/models/updateagentresponseformatagentstext.md
   - docs/models/updateagentresponseformatagentstype.md
+  - docs/models/updateagentresponseformatjsonobject.md
   - docs/models/updateagentresponseformatjsonschema.md
+  - docs/models/updateagentresponseformattext.md
   - docs/models/updateagentresponseformattype.md
   - docs/models/updateagentsettings.md
   - docs/models/updateagentstatus.md
@@ -2895,7 +2879,6 @@ generatedFiles:
   - docs/models/updateagenttools.md
   - docs/models/updateagenttype.md
   - docs/models/updateagentvoice.md
-  - docs/models/updateagentwebsearchoptions.md
   - docs/models/updatebudgetbudget.md
   - docs/models/updatebudgetconsumption.md
   - docs/models/updatebudgetperiod.md
@@ -3299,24 +3282,24 @@ generatedFiles:
   - docs/models/updatepromptresponseformat4.md
   - docs/models/updatepromptresponseformat5.md
   - docs/models/updatepromptresponseformat6.md
+  - docs/models/updatepromptresponseformatjsonobject.md
   - docs/models/updatepromptresponseformatjsonschema.md
   - docs/models/updatepromptresponseformatprompts1.md
   - docs/models/updatepromptresponseformatprompts2.md
   - docs/models/updatepromptresponseformatprompts3.md
   - docs/models/updatepromptresponseformatprompts4.md
   - docs/models/updatepromptresponseformatpromptsjsonschema.md
+  - docs/models/updatepromptresponseformatpromptsrequestjsonschema.md
   - docs/models/updatepromptresponseformatpromptsrequestrequestbodyprompt3type.md
   - docs/models/updatepromptresponseformatpromptsrequestrequestbodyprompttype.md
   - docs/models/updatepromptresponseformatpromptsrequestrequestbodytype.md
   - docs/models/updatepromptresponseformatpromptsrequesttype.md
-  - docs/models/updatepromptresponseformatpromptsresponse1.md
-  - docs/models/updatepromptresponseformatpromptsresponse2.md
   - docs/models/updatepromptresponseformatpromptsresponse200applicationjsontype.md
   - docs/models/updatepromptresponseformatpromptsresponse200type.md
-  - docs/models/updatepromptresponseformatpromptsresponse3.md
   - docs/models/updatepromptresponseformatpromptsresponsejsonschema.md
   - docs/models/updatepromptresponseformatpromptsresponsetype.md
   - docs/models/updatepromptresponseformatpromptstype.md
+  - docs/models/updatepromptresponseformattext.md
   - docs/models/updatepromptresponseformattype.md
   - docs/models/updatepromptrole.md
   - docs/models/updateprompttoolcalls.md
@@ -3386,7 +3369,6 @@ generatedFiles:
   - docs/models/verbosity.md
   - docs/models/voice.md
   - docs/models/webscrapertool.md
-  - docs/models/websearchoptions.md
   - docs/models/workspacebudget.md
   - docs/models/writememorystoretool.md
   - docs/sdks/agents/README.md
@@ -3573,7 +3555,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-07T06:52:38.992Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -3647,7 +3629,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-06T08:42:47.975Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-07T06:52:42.726Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3663,7 +3645,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-06T08:42:47.975Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-07T06:52:42.726Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3754,7 +3736,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-07T06:52:38.992Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -3762,7 +3744,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -3774,7 +3756,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -3818,7 +3800,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -3829,7 +3811,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -3912,7 +3894,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01K9C5AJ8DPYHEARFY76C96CFX", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01K9EHDPRBD2MHHC122GZANNK8", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -3921,7 +3903,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01K9C5AJ8B7FDAV3S6EVE7K3MP", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01K9EHDPRAXN8AWB0NH6KR6CC6", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -3938,7 +3920,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01K9C5AJ8GYFG6ZFZCVQE96XFN", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01K9EHDPREZFRTKKB9QY3HTEAP", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4347,7 +4329,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4368,7 +4350,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-06T08:42:44.236Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-07T06:52:38.992Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4616,7 +4598,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-06T08:42:44.600Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-07T06:52:39.381Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4624,7 +4606,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-06T08:42:44.600Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-07T06:52:39.381Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4634,7 +4616,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-06T08:42:44.600Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-07T06:52:39.381Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -4993,3 +4975,4 @@ examples:
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Python SDK Changes Detected:\n* `orq.agents.list_tasks()`:  `response.tasks.[].agent_manifest_snapshot.model` **Changed** **Breaking** :warning:\n* `orq.prompts.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.prompt_config.model_parameters.response_format.[1].display_name` **Added**\n* `orq.agents.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.model` **Changed** **Breaking** :warning:\n* `orq.agents.list()`:  `response.data.[].model` **Changed** **Breaking** :warning:\n* `orq.agents.retrieve()`:  `response.model` **Changed** **Breaking** :warning:\n* `orq.agents.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.model` **Changed** **Breaking** :warning:\n* `orq.prompts.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.prompt_config.model_parameters.response_format.[1].display_name` **Added**\n* `orq.agents.stream_run()`:  `request` **Changed** **Breaking** :warning:\n* `orq.agents.run()`:  `request` **Changed** **Breaking** :warning:\n* `orq.prompts.list()`:  `response.data.[].prompt_config.model_parameters.response_format.[1].display_name` **Added**\n* `orq.deployments.list()`:  `response.data.[].prompt_config` **Changed**\n* `orq.prompts.retrieve()`:  `response.prompt_config.model_parameters.response_format.[1].display_name` **Added**\n* `orq.deployments.get_config()`:  `response.parameters.response_format.[1].display_name` **Added**\n* `orq.prompts.list_versions()`:  `response.data.[].prompt_config.model_parameters.response_format.[1].display_name` **Added**\n* `orq.prompts.get_version()`:  `response.prompt_config.model_parameters.response_format.[1].display_name` **Added**\n"

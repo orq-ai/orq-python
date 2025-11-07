@@ -152,12 +152,15 @@ class GetPromptVersionResponseFormatJSONSchema(BaseModel):
 class GetPromptVersionResponseFormat1TypedDict(TypedDict):
     type: GetPromptVersionResponseFormatType
     json_schema: GetPromptVersionResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class GetPromptVersionResponseFormat1(BaseModel):
     type: GetPromptVersionResponseFormatType
 
     json_schema: GetPromptVersionResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 GetPromptVersionResponseFormatTypedDict = TypeAliasType(

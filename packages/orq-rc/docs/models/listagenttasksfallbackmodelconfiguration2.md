@@ -1,0 +1,11 @@
+# ListAgentTasksFallbackModelConfiguration2
+
+Fallback model configuration with optional parameters.
+
+
+## Fields
+
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                   | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | A fallback model ID string. Must support tool calling.                                                                                 |
+| `parameters`                                                                                                                           | [Optional[models.ListAgentTasksFallbackModelConfigurationParameters]](../models/listagenttasksfallbackmodelconfigurationparameters.md) | :heavy_minus_sign:                                                                                                                     | Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used.                |

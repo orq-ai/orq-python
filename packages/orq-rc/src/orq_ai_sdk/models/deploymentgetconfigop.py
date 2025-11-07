@@ -2268,12 +2268,15 @@ class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
 class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
     type: DeploymentGetConfigResponseFormatDeploymentsResponseType
     json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class DeploymentGetConfigResponseFormat1(BaseModel):
     type: DeploymentGetConfigResponseFormatDeploymentsResponseType
 
     json_schema: DeploymentGetConfigResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(

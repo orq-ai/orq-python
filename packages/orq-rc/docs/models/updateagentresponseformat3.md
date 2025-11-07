@@ -1,9 +1,0 @@
-# UpdateAgentResponseFormat3
-
-
-## Fields
-
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                       | [models.UpdateAgentResponseFormatAgentsRequestType](../models/updateagentresponseformatagentsrequesttype.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `json_schema`                                                                                                | [models.UpdateAgentResponseFormatJSONSchema](../models/updateagentresponseformatjsonschema.md)               | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
