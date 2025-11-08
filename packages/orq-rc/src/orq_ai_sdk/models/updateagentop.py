@@ -1120,7 +1120,7 @@ class AgentToolInputCRUDCurrentDateTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools11Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1142,7 +1142,7 @@ class AgentToolInputCRUDQueryKnowledgeBaseTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools10Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1164,7 +1164,7 @@ class AgentToolInputCRUDRetrieveKnowledgeBasesTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools9Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1186,7 +1186,7 @@ class AgentToolInputCRUDDeleteMemoryDocumentTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools8Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1208,7 +1208,7 @@ class AgentToolInputCRUDRetrieveMemoryStoresTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools7Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1230,7 +1230,7 @@ class AgentToolInputCRUDWriteMemoryStoreTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsToolsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1252,7 +1252,7 @@ class AgentToolInputCRUDQueryMemoryStoreTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1272,7 +1272,7 @@ class AgentToolInputCRUDRetrieveAgentsTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodyType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1292,7 +1292,7 @@ class AgentToolInputCRUDCallSubAgentTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsRequestType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1312,7 +1312,7 @@ class AgentToolInputCRUDWebScraperTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDAgentsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1332,7 +1332,7 @@ class AgentToolInputCRUDGoogleSearchTool(BaseModel):
 
     type: UpdateAgentAgentToolInputCRUDType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 

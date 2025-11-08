@@ -1572,7 +1572,7 @@ class StreamRunAgentAgentToolInputRunCurrentDateTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1594,7 +1594,7 @@ class StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1616,7 +1616,7 @@ class StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1638,7 +1638,7 @@ class StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1660,7 +1660,7 @@ class StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools7Type
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1682,7 +1682,7 @@ class StreamRunAgentAgentToolInputRunWriteMemoryStoreTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1704,7 +1704,7 @@ class StreamRunAgentAgentToolInputRunQueryMemoryStoreTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1726,7 +1726,7 @@ class StreamRunAgentAgentToolInputRunRetrieveAgentsTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodyType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1746,7 +1746,7 @@ class StreamRunAgentAgentToolInputRunCallSubAgentTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsRequestType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1766,7 +1766,7 @@ class StreamRunAgentAgentToolInputRunWebScraperTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunAgentsType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
@@ -1786,7 +1786,7 @@ class StreamRunAgentAgentToolInputRunGoogleSearchTool(BaseModel):
 
     type: StreamRunAgentAgentToolInputRunType
 
-    requires_approval: Optional[bool] = False
+    requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
 
