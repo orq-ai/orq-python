@@ -14,7 +14,7 @@ except ImportError:
 
 # Try to import OpenAI Agents, but make it optional
 try:
-    import agents
+    import agents  # type: ignore[import-not-found]
 except ImportError:
     raise ImportError(
         "OpenAI Agents not available. Install with: pip install openai-agents"
