@@ -2,7 +2,7 @@ from typing import Collection, Dict, Optional
 
 # Try to import required dependencies
 try:
-    from agents import set_trace_processors
+    from agents import set_trace_processors  # type: ignore[import-not-found]
 except ImportError:
     raise ImportError(
         "OpenAI Agents not available. Install with: pip install openai-agents"
@@ -10,7 +10,7 @@ except ImportError:
 
 try:
     from opentelemetry import trace as trace_api
-    from opentelemetry.instrumentation.instrumentor import BaseInstrumentor
+    from opentelemetry.instrumentation.instrumentor import BaseInstrumentor  # type: ignore[import-not-found]
     from opentelemetry.trace import Tracer, TracerProvider
 except ImportError:
     raise ImportError(
@@ -39,11 +39,14 @@ class OpenAIAgentsInstrumentor(BaseInstrumentor):
         """Return the dependencies required for this instrumentation."""
         return ["openai-agents"]
 
-    def _instrument(self, **kwargs: Dict[str, object]) -> None:
+    def _instrument(self, **kwargs: object) -> None:
         """Instrument the openai-agents library."""
         # Get tracer provider
-        tracer_provider: Optional[TracerProvider] = kwargs.get("tracer_provider")
-        if not tracer_provider:
+        tracer_provider_obj = kwargs.get("tracer_provider") if isinstance(kwargs, dict) else None
+        tracer_provider: TracerProvider
+        if isinstance(tracer_provider_obj, TracerProvider):
+            tracer_provider = tracer_provider_obj
+        else:
             tracer_provider = trace_api.get_tracer_provider()
 
         # Create tracer with version from orq_ai_sdk package

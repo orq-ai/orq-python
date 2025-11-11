@@ -14,8 +14,8 @@ ErrorData = Optional[Dict[str, object]]
 
 # Try to import required dependencies
 try:
-    from agents.tracing import Span, Trace, TracingProcessor
-    from agents.tracing.span_data import (
+    from agents.tracing import Span, Trace, TracingProcessor  # type: ignore[import-not-found]
+    from agents.tracing.span_data import (  # type: ignore[import-not-found]
         AgentSpanData,
         FunctionSpanData,
         GenerationSpanData,
@@ -29,7 +29,7 @@ except ImportError:
     )
 
 try:
-    from opentelemetry.context import attach, detach
+    from opentelemetry.context import Context, Token, attach, detach
     from opentelemetry.trace import Span as OtelSpan
     from opentelemetry.trace import (
         Status,
@@ -55,7 +55,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         self._tracer = tracer
         self._root_spans: dict[str, OtelSpan] = {}
         self._otel_spans: dict[str, OtelSpan] = {}
-        self._tokens: dict[str, object] = {}
+        self._tokens: dict[str, Token[Context]] = {}
         # Track agent spans and their child spans to aggregate input/output
         self._agent_spans: dict[str, str] = {}  # span_id -> agent_name
         self._span_hierarchy: dict[str, str] = {}  # child_span_id -> parent_agent_span_id
@@ -168,14 +168,16 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             except (TypeError, ValueError):
                 otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(self._agent_inputs[span_id]))
         
-        if span_id in self._agent_outputs and self._agent_outputs[span_id] is not None:
-            try:
-                # Transform the output to the required format
-                formatted_output = self._format_llm_output(self._agent_outputs[span_id])
-                json_output = json.dumps(formatted_output)
-                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
-            except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(self._agent_outputs[span_id]))
+        if span_id in self._agent_outputs:
+            output = self._agent_outputs[span_id]
+            if output is not None:
+                try:
+                    # Transform the output to the required format
+                    formatted_output = self._format_llm_output(output)
+                    json_output = json.dumps(formatted_output)
+                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
+                except (TypeError, ValueError):
+                    otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, str(output))
         
         # Clean up tracking data
         self._agent_spans.pop(span_id, None)
@@ -450,8 +452,8 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                         "finish_reason": "tool_calls"
                     })
                 elif isinstance(item, dict):
-                    content = item.get("content", item.get("text", ""))
-                    role = item.get("role", "assistant")
+                    content = str(item.get("content", item.get("text", "")))
+                    role = str(item.get("role", "assistant"))
                     formatted_output.append({
                         "index": index,
                         "message": {
