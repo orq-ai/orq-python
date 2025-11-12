@@ -4,11 +4,51 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
+
+if TYPE_CHECKING:
+    from openai.types.responses import (
+        ResponseComputerToolCall,
+        ResponseFileSearchToolCall,
+        ResponseFunctionToolCall,
+        ResponseFunctionWebSearch,
+        ResponseOutputMessage,
+    )
+    from openai.types.responses.response_code_interpreter_tool_call import (
+        ResponseCodeInterpreterToolCall,
+    )
+    from openai.types.responses.response_output_item import (
+        ImageGenerationCall,
+        LocalShellCall,
+        McpApprovalRequest,
+        McpCall,
+        McpListTools,
+    )
+    from openai.types.responses.response_reasoning_item import ResponseReasoningItem
 
 # Type aliases for better clarity
 SpanInputData = Union[str, List[Dict[str, object]], Dict[str, object]]
-SpanOutputData = Union[str, List[Dict[str, object]], Dict[str, object]]
+SpanOutputData = Union[
+    str,
+    List[Dict[str, object]],
+    Dict[str, object],
+    List[
+        Union[
+            "ResponseOutputMessage",
+            "ResponseFileSearchToolCall",
+            "ResponseFunctionToolCall",
+            "ResponseFunctionWebSearch",
+            "ResponseComputerToolCall",
+            "ResponseCodeInterpreterToolCall",
+            "ImageGenerationCall",
+            "LocalShellCall",
+            "McpApprovalRequest",
+            "McpCall",
+            "McpListTools",
+            "ResponseReasoningItem",
+        ]
+    ],
+]
 UsageData = object
 ErrorData = Optional[Dict[str, object]]
 
@@ -197,11 +237,11 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             # Extract and format output from response
             if hasattr(response, "output") and response.output:
                 try:
-                    formatted_output = self._format_llm_output(response.output)
+                    formatted_output = self._format_llm_output(cast(SpanOutputData, response.output))
                     json_output = json.dumps(formatted_output)
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
                 except (TypeError, ValueError):
-                    text_content = self._extract_text_from_output(response.output)
+                    text_content = self._extract_text_from_output(cast(SpanOutputData, response.output))
                     if text_content:
                         otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
             
@@ -212,11 +252,11 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         # Also check for output directly on data (not just in data.response)
         if hasattr(data, "output") and data.output:
             try:
-                formatted_output = self._format_llm_output(data.output)
+                formatted_output = self._format_llm_output(cast(SpanOutputData, data.output))
                 json_output = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
             except (TypeError, ValueError):
-                text_content = self._extract_text_from_output(data.output)
+                text_content = self._extract_text_from_output(cast(SpanOutputData, data.output))
                 if text_content:
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
         
@@ -253,7 +293,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             # Set structured output messages for LLM spans
             try:
                 # Also set formatted output for orq.output.value
-                formatted_output = self._format_llm_output(data.output)
+                formatted_output = self._format_llm_output(cast(SpanOutputData, data.output))
                 formatted_json = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, formatted_json)
             except (TypeError, ValueError):

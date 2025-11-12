@@ -10,7 +10,7 @@ except ImportError:
 
 try:
     from opentelemetry import trace as trace_api
-    from opentelemetry.instrumentation.instrumentor import BaseInstrumentor  # type: ignore[import-not-found]
+    from opentelemetry.instrumentation.instrumentor import BaseInstrumentor  # type: ignore[attr-defined]
     from opentelemetry.trace import Tracer, TracerProvider
 except ImportError:
     raise ImportError(
