@@ -1,21 +1,21 @@
-from typing import Collection, Dict, Optional
+from typing import Collection, Dict
 
 # Try to import required dependencies
 try:
     from agents import set_trace_processors  # type: ignore[import-not-found]
-except ImportError:
+except ImportError as exc:
     raise ImportError(
         "OpenAI Agents not available. Install with: pip install openai-agents"
-    )
+    ) from exc
 
 try:
     from opentelemetry import trace as trace_api
     from opentelemetry.instrumentation.instrumentor import BaseInstrumentor  # type: ignore[attr-defined]
     from opentelemetry.trace import Tracer, TracerProvider
-except ImportError:
+except ImportError as exc:
     raise ImportError(
         "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
-    )
+    ) from exc
 
 from .processor import EnhancedOpenAIAgentsProcessor
 
