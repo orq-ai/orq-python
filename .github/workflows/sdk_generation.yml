@@ -6,6 +6,11 @@ on:
       target:
         type: string
         default: false
+      force:
+        description: "Force the generation of the SDKs"
+        default: "false"
+        required: false
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,6 +32,7 @@ jobs:
     with:
       mode: direct
       target: ${{ inputs.target }}
+      force: ${{ inputs.force }}
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       pypi_token: ${{ secrets.PYPI_TOKEN }}

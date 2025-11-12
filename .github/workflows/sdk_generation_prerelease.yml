@@ -9,7 +9,12 @@ on:
     - 'packages/orq-rc/src/orq_ai_sdk/langchain/**/*'
     - 'packages/orq-rc/src/orq_ai_sdk/llamaindex/**/*'
   workflow_dispatch:
-    # Add manual trigger capability
+    inputs:
+      force:
+        description: "Force the generation of the SDKs"
+        default: "false"
+        required: false
+        type: string
 
 jobs:
   publish:
@@ -18,3 +23,4 @@ jobs:
     secrets: inherit
     with:
       target: orq-ai-sdk-prerelease-python
+      force: ${{ inputs.force }}
