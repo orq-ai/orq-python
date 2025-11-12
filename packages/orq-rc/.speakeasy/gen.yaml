@@ -28,10 +28,10 @@ python:
   version: 4.0.0-rc.24
   additionalDependencies:
     dev:
+      openai-agents: ==0.4.0
       opentelemetry-api: ^1.20.0
       opentelemetry-instrumentation: ==0.59b0
       opentelemetry-sdk: ^1.20.0
-      openai-agents: ==0.4.0
       types-requests: ^2.32.4.20250809
     main:
       requests: ==2.32.4

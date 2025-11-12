@@ -341,6 +341,183 @@ InvokeAgentAgentsRole = Literal[
 r"""Extended A2A message role"""
 
 
+InvokeAgentPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
+
+
+class InvokeAgentParts5TypedDict(TypedDict):
+    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class InvokeAgentParts5(BaseModel):
+    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+
+
+class InvokeAgentParts4TypedDict(TypedDict):
+    kind: InvokeAgentPartsAgentsResponse200Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class InvokeAgentParts4(BaseModel):
+    kind: InvokeAgentPartsAgentsResponse200Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsAgentsResponseKind = Literal["file",]
+
+
+class InvokeAgentFileFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+InvokeAgentPartsFileTypedDict = TypeAliasType(
+    "InvokeAgentPartsFileTypedDict",
+    Union[
+        InvokeAgentFileBinaryFormatTypedDict, InvokeAgentFileFileInURIFormatTypedDict
+    ],
+)
+
+
+InvokeAgentPartsFile = TypeAliasType(
+    "InvokeAgentPartsFile",
+    Union[InvokeAgentFileBinaryFormat, InvokeAgentFileFileInURIFormat],
+)
+
+
+class InvokeAgentParts3TypedDict(TypedDict):
+    kind: InvokeAgentPartsAgentsResponseKind
+    file: InvokeAgentPartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class InvokeAgentParts3(BaseModel):
+    kind: InvokeAgentPartsAgentsResponseKind
+
+    file: InvokeAgentPartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsAgentsKind = Literal["data",]
+
+
+class InvokeAgentParts2TypedDict(TypedDict):
+    kind: InvokeAgentPartsAgentsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class InvokeAgentParts2(BaseModel):
+    kind: InvokeAgentPartsAgentsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsKind = Literal["text",]
+
+
+class InvokeAgentParts1TypedDict(TypedDict):
+    kind: InvokeAgentPartsKind
+    text: str
+
+
+class InvokeAgentParts1(BaseModel):
+    kind: InvokeAgentPartsKind
+
+    text: str
+
+
+InvokeAgentPartsTypedDict = TypeAliasType(
+    "InvokeAgentPartsTypedDict",
+    Union[
+        InvokeAgentParts1TypedDict,
+        InvokeAgentParts2TypedDict,
+        InvokeAgentParts3TypedDict,
+        InvokeAgentParts5TypedDict,
+        InvokeAgentParts4TypedDict,
+    ],
+)
+
+
+InvokeAgentParts = TypeAliasType(
+    "InvokeAgentParts",
+    Union[
+        InvokeAgentParts1,
+        InvokeAgentParts2,
+        InvokeAgentParts3,
+        InvokeAgentParts5,
+        InvokeAgentParts4,
+    ],
+)
+
+
 class InvokeAgentMessageTypedDict(TypedDict):
     r"""Optional status message"""
 
@@ -348,7 +525,7 @@ class InvokeAgentMessageTypedDict(TypedDict):
     message_id: str
     role: InvokeAgentAgentsRole
     r"""Extended A2A message role"""
-    parts: List[Any]
+    parts: List[InvokeAgentPartsTypedDict]
 
 
 class InvokeAgentMessage(BaseModel):
@@ -361,7 +538,7 @@ class InvokeAgentMessage(BaseModel):
     role: InvokeAgentAgentsRole
     r"""Extended A2A message role"""
 
-    parts: List[Any]
+    parts: List[InvokeAgentParts]
 
 
 class InvokeAgentStatusTypedDict(TypedDict):

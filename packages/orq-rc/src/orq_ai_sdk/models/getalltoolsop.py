@@ -131,7 +131,7 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z9B54KWRX1S1SF39WQA"
+        "01K9V9486C9VZBCRR13JRCDXHB"
     )
 
     display_name: Optional[str] = None
@@ -293,7 +293,7 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z982C172CVX4GEYEQ5H"
+        "01K9V9486AXPQ73AR4JFMNBSFG"
     )
 
     display_name: Optional[str] = None
@@ -332,6 +332,17 @@ GetAllToolsDataMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class GetAllToolsDataHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class GetAllToolsDataHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class DataBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -339,7 +350,7 @@ class DataBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: GetAllToolsDataMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -354,7 +365,7 @@ class DataBlueprint(BaseModel):
     method: GetAllToolsDataMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -477,7 +488,7 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z95DP5X83XDHDAJ5YQK"
+        "01K9V94861MHZYG13WTKN7NDNH"
     )
 
     display_name: Optional[str] = None
@@ -590,7 +601,7 @@ class Data2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z92938PSKZTX86KJR48"
+        "01K9V948602EJX5VS8MV95FT6E"
     )
 
     display_name: Optional[str] = None
@@ -703,7 +714,7 @@ class Data1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z8KJJMB0W1XSNX892JN"
+        "01K9V9485Y9MZJW8H99TSV2YGK"
     )
 
     display_name: Optional[str] = None

@@ -101,12 +101,12 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 UpdateToolRequestBodyToolsRequest4Type = Literal["mcp",]
 
 
-class RequestBodyHeadersTypedDict(TypedDict):
+class UpdateToolRequestBodyHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class RequestBodyHeaders(BaseModel):
+class UpdateToolRequestBodyHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -151,7 +151,7 @@ class RequestBodyMcpTypedDict(TypedDict):
     r"""The original MCP tool input schema for LLM conversion"""
     connection_type: RequestBodyConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, RequestBodyHeadersTypedDict]]
+    headers: NotRequired[Dict[str, UpdateToolRequestBodyHeadersTypedDict]]
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
@@ -171,7 +171,7 @@ class RequestBodyMcp(BaseModel):
     connection_type: RequestBodyConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, RequestBodyHeaders]] = None
+    headers: Optional[Dict[str, UpdateToolRequestBodyHeaders]] = None
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
@@ -246,6 +246,17 @@ UpdateToolRequestBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class UpdateToolRequestBodyToolsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class UpdateToolRequestBodyToolsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class UpdateToolRequestBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -253,7 +264,7 @@ class UpdateToolRequestBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: UpdateToolRequestBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, UpdateToolRequestBodyToolsHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -268,7 +279,7 @@ class UpdateToolRequestBodyBlueprint(BaseModel):
     method: UpdateToolRequestBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, UpdateToolRequestBodyToolsHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -716,7 +727,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZAH3MWVK8DTC9GQF2NS"
+        "01K9V9487E6KRMC3FAXNQ3RRK4"
     )
 
     display_name: Optional[str] = None
@@ -880,7 +891,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZAFNSRKC98V7S6AVTQG"
+        "01K9V9487DERKPEEJBPQKE8DJZ"
     )
 
     display_name: Optional[str] = None
@@ -919,6 +930,17 @@ UpdateToolResponseBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class UpdateToolResponseBodyToolsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class UpdateToolResponseBodyToolsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class UpdateToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -926,7 +948,7 @@ class UpdateToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: UpdateToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, UpdateToolResponseBodyToolsHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -941,7 +963,7 @@ class UpdateToolResponseBodyBlueprint(BaseModel):
     method: UpdateToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, UpdateToolResponseBodyToolsHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -1066,7 +1088,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZAC7GK78DBEJZ18ZWAD"
+        "01K9V9487BP40S2W094SD1MAY0"
     )
 
     display_name: Optional[str] = None
@@ -1179,7 +1201,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZAA6WNM9YSJ3AN5FRM1"
+        "01K9V9487AYVC8ZZGQMB55FH49"
     )
 
     display_name: Optional[str] = None
@@ -1292,7 +1314,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZA9VPVAXN5NY82T2FVS"
+        "01K9V94879CCJ3CA4MANK9PK4N"
     )
 
     display_name: Optional[str] = None

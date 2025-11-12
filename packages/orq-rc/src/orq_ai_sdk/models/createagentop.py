@@ -1421,11 +1421,12 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
     fallback_models: NotRequired[List[FallbackModelConfigurationTypedDict]]
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     memory_stores: NotRequired[List[str]]
-    r"""Optional array of memory store keys for the agent to access"""
+    r"""Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys."""
     knowledge_bases: NotRequired[List[KnowledgeBasesTypedDict]]
     r"""Optional array of knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    variables: NotRequired[Dict[str, Any]]
 
 
 class CreateAgentRequestBody(BaseModel):
@@ -1460,13 +1461,15 @@ class CreateAgentRequestBody(BaseModel):
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
 
     memory_stores: Optional[List[str]] = None
-    r"""Optional array of memory store keys for the agent to access"""
+    r"""Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys."""
 
     knowledge_bases: Optional[List[KnowledgeBases]] = None
     r"""Optional array of knowledge base configurations for the agent to access"""
 
     team_of_agents: Optional[List[TeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    variables: Optional[Dict[str, Any]] = None
 
 
 class CreateAgentAgentsResponseBodyData(BaseModel):
@@ -2624,11 +2627,11 @@ class CreateAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-HiddenPanels = Literal[
+CreateAgentCollapsedConfigurationSections = Literal[
+    "information",
     "model",
     "tools",
-    "knowledge_bases",
-    "variables",
+    "context",
     "runtime_constraints",
 ]
 
@@ -2654,6 +2657,7 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: List[CreateAgentTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     created_by_id: NotRequired[Nullable[str]]
@@ -2668,8 +2672,10 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[CreateAgentKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    hidden_panels: NotRequired[List[HiddenPanels]]
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: NotRequired[
+        List[CreateAgentCollapsedConfigurationSections]
+    ]
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class CreateAgentResponseBody(BaseModel):
@@ -2703,6 +2709,7 @@ class CreateAgentResponseBody(BaseModel):
     """
 
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
     team_of_agents: List[CreateAgentTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -2729,8 +2736,10 @@ class CreateAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[CreateAgentKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    hidden_panels: Optional[List[HiddenPanels]] = None
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: Optional[
+        List[CreateAgentCollapsedConfigurationSections]
+    ] = None
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2745,7 +2754,7 @@ class CreateAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "hidden_panels",
+            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

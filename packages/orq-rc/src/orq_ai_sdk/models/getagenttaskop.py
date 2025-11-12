@@ -7,8 +7,8 @@ from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
-from typing import Any, Dict, List, Literal, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import Any, Dict, List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class GetAgentTaskRequestTypedDict(TypedDict):
@@ -65,6 +65,239 @@ class GetAgentTaskStatus(BaseModel):
     message: Optional[Any] = None
 
 
+GetAgentTaskAgentsResponseKind = Literal["message",]
+
+
+GetAgentTaskRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Extended A2A message role"""
+
+
+GetAgentTaskPartsAgentsResponse200Kind = Literal["tool_result",]
+
+
+class Parts5TypedDict(TypedDict):
+    kind: GetAgentTaskPartsAgentsResponse200Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class Parts5(BaseModel):
+    kind: GetAgentTaskPartsAgentsResponse200Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+GetAgentTaskPartsAgentsResponseKind = Literal["tool_call",]
+
+
+class Parts4TypedDict(TypedDict):
+    kind: GetAgentTaskPartsAgentsResponseKind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class Parts4(BaseModel):
+    kind: GetAgentTaskPartsAgentsResponseKind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+GetAgentTaskPartsAgentsKind = Literal["file",]
+
+
+class GetAgentTaskFileFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class GetAgentTaskFileFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class GetAgentTaskFileBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class GetAgentTaskFileBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+PartsFileTypedDict = TypeAliasType(
+    "PartsFileTypedDict",
+    Union[
+        GetAgentTaskFileBinaryFormatTypedDict, GetAgentTaskFileFileInURIFormatTypedDict
+    ],
+)
+
+
+PartsFile = TypeAliasType(
+    "PartsFile", Union[GetAgentTaskFileBinaryFormat, GetAgentTaskFileFileInURIFormat]
+)
+
+
+class Parts3TypedDict(TypedDict):
+    kind: GetAgentTaskPartsAgentsKind
+    file: PartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class Parts3(BaseModel):
+    kind: GetAgentTaskPartsAgentsKind
+
+    file: PartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+GetAgentTaskPartsKind = Literal["data",]
+
+
+class Parts2TypedDict(TypedDict):
+    kind: GetAgentTaskPartsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class Parts2(BaseModel):
+    kind: GetAgentTaskPartsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+PartsKind = Literal["text",]
+
+
+class Parts1TypedDict(TypedDict):
+    kind: PartsKind
+    text: str
+
+
+class Parts1(BaseModel):
+    kind: PartsKind
+
+    text: str
+
+
+PartsTypedDict = TypeAliasType(
+    "PartsTypedDict",
+    Union[
+        Parts1TypedDict,
+        Parts2TypedDict,
+        Parts3TypedDict,
+        Parts5TypedDict,
+        Parts4TypedDict,
+    ],
+)
+
+
+Parts = TypeAliasType("Parts", Union[Parts1, Parts2, Parts3, Parts5, Parts4])
+
+
+class HistoryTypedDict(TypedDict):
+    kind: GetAgentTaskAgentsResponseKind
+    message_id: str
+    role: GetAgentTaskRole
+    r"""Extended A2A message role"""
+    parts: List[PartsTypedDict]
+    task_id: NotRequired[str]
+    context_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class History(BaseModel):
+    kind: GetAgentTaskAgentsResponseKind
+
+    message_id: Annotated[str, pydantic.Field(alias="messageId")]
+
+    role: GetAgentTaskRole
+    r"""Extended A2A message role"""
+
+    parts: List[Parts]
+
+    task_id: Annotated[Optional[str], pydantic.Field(alias="taskId")] = None
+
+    context_id: Annotated[Optional[str], pydantic.Field(alias="contextId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+GetAgentTaskAgentsKind = Literal["artifact",]
+
+
+class ArtifactsTypedDict(TypedDict):
+    kind: GetAgentTaskAgentsKind
+    artifact_id: str
+    name: str
+    type: str
+    url: NotRequired[str]
+    data: NotRequired[Any]
+
+
+class Artifacts(BaseModel):
+    kind: GetAgentTaskAgentsKind
+
+    artifact_id: Annotated[str, pydantic.Field(alias="artifactId")]
+
+    name: str
+
+    type: str
+
+    url: Optional[str] = None
+
+    data: Optional[Any] = None
+
+
 class GetAgentTaskResponseBodyTypedDict(TypedDict):
     r"""Agent task retrieved"""
 
@@ -72,8 +305,8 @@ class GetAgentTaskResponseBodyTypedDict(TypedDict):
     context_id: str
     kind: GetAgentTaskKind
     status: GetAgentTaskStatusTypedDict
-    history: List[Any]
-    artifacts: NotRequired[List[Any]]
+    history: List[HistoryTypedDict]
+    artifacts: NotRequired[List[ArtifactsTypedDict]]
     metadata: NotRequired[Dict[str, Any]]
 
 
@@ -88,8 +321,8 @@ class GetAgentTaskResponseBody(BaseModel):
 
     status: GetAgentTaskStatus
 
-    history: List[Any]
+    history: List[History]
 
-    artifacts: Optional[List[Any]] = None
+    artifacts: Optional[List[Artifacts]] = None
 
     metadata: Optional[Dict[str, Any]] = None

@@ -1429,6 +1429,17 @@ AgentToolInputRunMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class AgentToolInputRunHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class AgentToolInputRunHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -1436,7 +1447,7 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -1451,7 +1462,7 @@ class AgentToolInputRunBlueprint(BaseModel):
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -1905,7 +1916,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
     knowledge_bases: NotRequired[List[StreamRunAgentKnowledgeBasesTypedDict]]
     r"""Knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[StreamRunAgentTeamOfAgentsTypedDict]]
@@ -1967,7 +1978,7 @@ class StreamRunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
 
     knowledge_bases: Optional[List[StreamRunAgentKnowledgeBases]] = None
     r"""Knowledge base configurations for the agent to access"""

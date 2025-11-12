@@ -136,7 +136,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB4YHHJ34WFJS907B5N"
+        "01K9V948827MKAEB217GJBG7DY"
     )
 
     display_name: Optional[str] = None
@@ -300,7 +300,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB3HCVFTQ8KQPVDJVDD"
+        "01K9V94881MW24FW42ADEBW7JS"
     )
 
     display_name: Optional[str] = None
@@ -339,6 +339,17 @@ DuplicateToolResponseBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class DuplicateToolResponseBodyToolsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class DuplicateToolResponseBodyToolsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class DuplicateToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -346,7 +357,7 @@ class DuplicateToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: DuplicateToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, DuplicateToolResponseBodyToolsHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -361,7 +372,7 @@ class DuplicateToolResponseBodyBlueprint(BaseModel):
     method: DuplicateToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, DuplicateToolResponseBodyToolsHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -486,7 +497,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB1HVYJERA0G1TVC32B"
+        "01K9V9487ZR9XDEFKGF6PN9K0F"
     )
 
     display_name: Optional[str] = None
@@ -599,7 +610,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB0QE1NHJX906SPE1PE"
+        "01K9V9487Y13SH5SVMZ6KM3DEF"
     )
 
     display_name: Optional[str] = None
@@ -712,7 +723,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZAZWTNZK5EMJ5BSQMKH"
+        "01K9V9487NGJ0Q6H0V4C1K27P9"
     )
 
     display_name: Optional[str] = None

@@ -109,7 +109,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZBCZH6C9YMYYD75EWG2"
+        "01K9V9488D96TKQPX6M0V97TEP"
     )
 
     display_name: Optional[str] = None
@@ -273,7 +273,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZBAZ8Y3T8S0GJAQTMG5"
+        "01K9V9488AYGBA56ESFX0GYVTF"
     )
 
     display_name: Optional[str] = None
@@ -312,6 +312,17 @@ RetrieveToolResponseBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class RetrieveToolResponseBodyToolsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class RetrieveToolResponseBodyToolsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -319,7 +330,7 @@ class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: RetrieveToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, RetrieveToolResponseBodyToolsHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -334,7 +345,7 @@ class RetrieveToolResponseBodyBlueprint(BaseModel):
     method: RetrieveToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, RetrieveToolResponseBodyToolsHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -459,7 +470,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB9Z99CCSRQJT8PE2W5"
+        "01K9V94888BX0N4SDYWESKXR14"
     )
 
     display_name: Optional[str] = None
@@ -572,7 +583,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB7N5YGF3558Q1CAFFA"
+        "01K9V94886S86BM279M4HAEWDE"
     )
 
     display_name: Optional[str] = None
@@ -685,7 +696,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZB6EJFS0G8JKNQSTACV"
+        "01K9V94884S0NH27S5JE4JMWYV"
     )
 
     display_name: Optional[str] = None

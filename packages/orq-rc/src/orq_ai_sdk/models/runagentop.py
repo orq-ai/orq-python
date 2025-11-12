@@ -1402,6 +1402,17 @@ Method = Literal[
 r"""The HTTP method to use."""
 
 
+class HeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class Headers(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class BlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -1409,7 +1420,7 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: Method
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, HeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -1424,7 +1435,7 @@ class Blueprint(BaseModel):
     method: Method
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, Headers]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -1866,7 +1877,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
     knowledge_bases: NotRequired[List[RunAgentKnowledgeBasesTypedDict]]
     r"""Knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[RunAgentTeamOfAgentsTypedDict]]
@@ -1926,7 +1937,7 @@ class RunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
 
     knowledge_bases: Optional[List[RunAgentKnowledgeBases]] = None
     r"""Knowledge base configurations for the agent to access"""
@@ -1968,6 +1979,176 @@ RunAgentAgentsRole = Literal[
 r"""Extended A2A message role"""
 
 
+RunAgentPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
+
+
+class RunAgentParts5TypedDict(TypedDict):
+    kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentParts5(BaseModel):
+    kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+
+
+class RunAgentParts4TypedDict(TypedDict):
+    kind: RunAgentPartsAgentsResponse200Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentParts4(BaseModel):
+    kind: RunAgentPartsAgentsResponse200Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsResponseKind = Literal["file",]
+
+
+class RunAgentFileFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class RunAgentFileFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class RunAgentFileBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class RunAgentFileBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+RunAgentPartsFileTypedDict = TypeAliasType(
+    "RunAgentPartsFileTypedDict",
+    Union[RunAgentFileBinaryFormatTypedDict, RunAgentFileFileInURIFormatTypedDict],
+)
+
+
+RunAgentPartsFile = TypeAliasType(
+    "RunAgentPartsFile", Union[RunAgentFileBinaryFormat, RunAgentFileFileInURIFormat]
+)
+
+
+class RunAgentParts3TypedDict(TypedDict):
+    kind: RunAgentPartsAgentsResponseKind
+    file: RunAgentPartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentParts3(BaseModel):
+    kind: RunAgentPartsAgentsResponseKind
+
+    file: RunAgentPartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsKind = Literal["data",]
+
+
+class RunAgentParts2TypedDict(TypedDict):
+    kind: RunAgentPartsAgentsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentParts2(BaseModel):
+    kind: RunAgentPartsAgentsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsKind = Literal["text",]
+
+
+class RunAgentParts1TypedDict(TypedDict):
+    kind: RunAgentPartsKind
+    text: str
+
+
+class RunAgentParts1(BaseModel):
+    kind: RunAgentPartsKind
+
+    text: str
+
+
+RunAgentPartsTypedDict = TypeAliasType(
+    "RunAgentPartsTypedDict",
+    Union[
+        RunAgentParts1TypedDict,
+        RunAgentParts2TypedDict,
+        RunAgentParts3TypedDict,
+        RunAgentParts5TypedDict,
+        RunAgentParts4TypedDict,
+    ],
+)
+
+
+RunAgentParts = TypeAliasType(
+    "RunAgentParts",
+    Union[
+        RunAgentParts1, RunAgentParts2, RunAgentParts3, RunAgentParts5, RunAgentParts4
+    ],
+)
+
+
 class RunAgentAgentsMessageTypedDict(TypedDict):
     r"""Optional status message"""
 
@@ -1975,7 +2156,7 @@ class RunAgentAgentsMessageTypedDict(TypedDict):
     message_id: str
     role: RunAgentAgentsRole
     r"""Extended A2A message role"""
-    parts: List[Any]
+    parts: List[RunAgentPartsTypedDict]
 
 
 class RunAgentAgentsMessage(BaseModel):
@@ -1988,7 +2169,7 @@ class RunAgentAgentsMessage(BaseModel):
     role: RunAgentAgentsRole
     r"""Extended A2A message role"""
 
-    parts: List[Any]
+    parts: List[RunAgentParts]
 
 
 class RunAgentStatusTypedDict(TypedDict):

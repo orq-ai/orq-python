@@ -17,7 +17,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 class ListAgentsRequestTypedDict(TypedDict):
     limit: NotRequired[float]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination."""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
@@ -28,8 +28,8 @@ class ListAgentsRequest(BaseModel):
     limit: Annotated[
         Optional[float],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 10
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
+    ] = None
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 200. When not provided, returns all agents without pagination."""
 
     starting_after: Annotated[
         Optional[str],
@@ -1162,11 +1162,11 @@ class ListAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-ListAgentsHiddenPanels = Literal[
+ListAgentsCollapsedConfigurationSections = Literal[
+    "information",
     "model",
     "tools",
-    "knowledge_bases",
-    "variables",
+    "context",
     "runtime_constraints",
 ]
 
@@ -1190,6 +1190,7 @@ class ListAgentsDataTypedDict(TypedDict):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: List[ListAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     created_by_id: NotRequired[Nullable[str]]
@@ -1204,8 +1205,10 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    hidden_panels: NotRequired[List[ListAgentsHiddenPanels]]
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: NotRequired[
+        List[ListAgentsCollapsedConfigurationSections]
+    ]
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class ListAgentsData(BaseModel):
@@ -1237,6 +1240,7 @@ class ListAgentsData(BaseModel):
     """
 
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
     team_of_agents: List[ListAgentsTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -1263,8 +1267,10 @@ class ListAgentsData(BaseModel):
     knowledge_bases: Optional[List[ListAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    hidden_panels: Optional[List[ListAgentsHiddenPanels]] = None
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: Optional[
+        List[ListAgentsCollapsedConfigurationSections]
+    ] = None
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1279,7 +1285,7 @@ class ListAgentsData(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "hidden_panels",
+            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

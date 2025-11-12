@@ -102,12 +102,12 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 CreateToolRequestBodyToolsRequest4Type = Literal["mcp",]
 
 
-class HeadersTypedDict(TypedDict):
+class RequestBodyHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class Headers(BaseModel):
+class RequestBodyHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -152,7 +152,7 @@ class McpTypedDict(TypedDict):
     r"""The original MCP tool input schema for LLM conversion"""
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, HeadersTypedDict]]
+    headers: NotRequired[Dict[str, RequestBodyHeadersTypedDict]]
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
@@ -172,7 +172,7 @@ class Mcp(BaseModel):
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, Headers]] = None
+    headers: Optional[Dict[str, RequestBodyHeaders]] = None
     r"""HTTP headers for MCP server requests (encrypted format)"""
 
 
@@ -247,6 +247,17 @@ CreateToolRequestBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class CreateToolRequestBodyHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class CreateToolRequestBodyHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class RequestBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -254,7 +265,7 @@ class RequestBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: CreateToolRequestBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, CreateToolRequestBodyHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -269,7 +280,7 @@ class RequestBodyBlueprint(BaseModel):
     method: CreateToolRequestBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, CreateToolRequestBodyHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -677,7 +688,7 @@ class ResponseBody5(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1ZA1GN2667S6V2B25ZEB"
+        "01K9V94873DAY2J3Q24SG1A6JC"
     )
 
     display_name: Optional[str] = None
@@ -839,7 +850,7 @@ class ResponseBody4(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z9ZPBECV3186VWPZJK1"
+        "01K9V94870JBCDFD2ZXFX2K2X1"
     )
 
     display_name: Optional[str] = None
@@ -878,6 +889,17 @@ CreateToolResponseBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class CreateToolResponseBodyHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class CreateToolResponseBodyHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
 class ResponseBodyBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -885,7 +907,7 @@ class ResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
+    headers: NotRequired[Dict[str, CreateToolResponseBodyHeadersTypedDict]]
     r"""The headers to send with the request."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -900,7 +922,7 @@ class ResponseBodyBlueprint(BaseModel):
     method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
+    headers: Optional[Dict[str, CreateToolResponseBodyHeaders]] = None
     r"""The headers to send with the request."""
 
     body: Optional[Dict[str, Any]] = None
@@ -1025,7 +1047,7 @@ class ResponseBody3(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z9XAJA7QDC41C8REWPT"
+        "01K9V9486XS644GJAH9QP3B5X1"
     )
 
     display_name: Optional[str] = None
@@ -1138,7 +1160,7 @@ class ResponseBody2(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z9W9E6HCJQ9S2JYG35Q"
+        "01K9V9486VCSE6S16YAQ4YR354"
     )
 
     display_name: Optional[str] = None
@@ -1251,7 +1273,7 @@ class ResponseBody1(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9HC1Z9V2XTE56296E27QAYX"
+        "01K9V9486SJGJDVQ8DJE1YA1J5"
     )
 
     display_name: Optional[str] = None

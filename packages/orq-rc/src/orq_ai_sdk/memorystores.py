@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    creatememorystoreop as models_creatememorystoreop,
+    updatememorystoreop as models_updatememorystoreop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -211,8 +215,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -315,8 +319,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -603,8 +607,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,
@@ -721,8 +725,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,

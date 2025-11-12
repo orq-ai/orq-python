@@ -1163,11 +1163,11 @@ class GetAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-GetAgentHiddenPanels = Literal[
+GetAgentCollapsedConfigurationSections = Literal[
+    "information",
     "model",
     "tools",
-    "knowledge_bases",
-    "variables",
+    "context",
     "runtime_constraints",
 ]
 
@@ -1193,6 +1193,7 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: List[GetAgentTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     created_by_id: NotRequired[Nullable[str]]
@@ -1207,8 +1208,10 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[GetAgentKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    hidden_panels: NotRequired[List[GetAgentHiddenPanels]]
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: NotRequired[
+        List[GetAgentCollapsedConfigurationSections]
+    ]
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class GetAgentResponseBody(BaseModel):
@@ -1242,6 +1245,7 @@ class GetAgentResponseBody(BaseModel):
     """
 
     memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
     team_of_agents: List[GetAgentTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
@@ -1268,8 +1272,10 @@ class GetAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[GetAgentKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    hidden_panels: Optional[List[GetAgentHiddenPanels]] = None
-    r"""List of hidden collapsed panels in configuration. Duplicates are not allowed."""
+    collapsed_configuration_sections: Optional[
+        List[GetAgentCollapsedConfigurationSections]
+    ] = None
+    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -1284,7 +1290,7 @@ class GetAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "hidden_panels",
+            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []
