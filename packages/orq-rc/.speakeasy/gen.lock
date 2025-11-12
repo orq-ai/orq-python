@@ -5,8 +5,8 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.654.0
   generationVersion: 2.750.0
-  releaseVersion: 4.0.0-rc.25
-  configChecksum: b2bc3f349ff0ed4301821d7506606b5c
+  releaseVersion: 4.0.0-rc.26
+  configChecksum: 54e3d9c0bce790e3b30163b3954c1dcc
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
