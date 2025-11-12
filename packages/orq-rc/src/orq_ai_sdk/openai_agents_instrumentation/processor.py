@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union, cast
+from typing import TYPE_CHECKING, Dict, List, Optional, Union, cast
+
+from .constants import SpanAttributes, SpanKind
 
 if TYPE_CHECKING:
     from openai.types.responses import (
@@ -63,10 +65,10 @@ try:
         ResponseSpanData,
         SpanData,
     )
-except ImportError:
+except ImportError as exc:
     raise ImportError(
         "OpenAI Agents not available. Install with: pip install openai-agents"
-    )
+    ) from exc
 
 try:
     from opentelemetry.context import Context, Token, attach, detach
@@ -77,15 +79,10 @@ try:
         Tracer,
         set_span_in_context,
     )
-except ImportError:
+except ImportError as exc:
     raise ImportError(
         "OpenTelemetry not available. Install with: pip install opentelemetry-sdk opentelemetry-exporter-otlp opentelemetry-instrumentation"
-    )
-
-from .constants import (
-    SpanAttributes,
-    SpanKind,
-)
+    ) from exc
 
 
 class EnhancedOpenAIAgentsProcessor(TracingProcessor):
@@ -322,7 +319,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     def _handle_handoff_span(self, otel_span: OtelSpan, data: HandoffSpanData) -> None:
         """Handle handoff span."""
         # Additional handoff-specific attributes can be added here if needed
-        pass
 
     def _format_llm_input(self, data: SpanData) -> Optional[SpanInputData]:
         """Format LLM input that includes system message from instructions if not already present."""
@@ -403,7 +399,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             if hasattr(data, 'to_agent') and data.to_agent:
                 if hasattr(data.to_agent, 'name'):
                     return f"handoff to {data.to_agent.name}"
-                elif isinstance(data.to_agent, str):
+                if isinstance(data.to_agent, str):
                     return f"handoff to {data.to_agent}"
             return "handoff"
         
@@ -416,16 +412,15 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Get span kind based on span data type."""
         if isinstance(data, AgentSpanData):
             return SpanKind.AGENT.value
-        elif isinstance(data, FunctionSpanData):
+        if isinstance(data, FunctionSpanData):
             return SpanKind.TOOL.value
-        elif isinstance(data, GenerationSpanData):
+        if isinstance(data, GenerationSpanData):
             return SpanKind.LLM.value
-        elif isinstance(data, ResponseSpanData):
+        if isinstance(data, ResponseSpanData):
             return SpanKind.LLM.value
-        elif isinstance(data, HandoffSpanData):
+        if isinstance(data, HandoffSpanData):
             return SpanKind.TOOL.value
-        else:
-            return SpanKind.GENERIC.value
+        return SpanKind.GENERIC.value
 
     def _get_span_status(self, span: Span[SpanData]) -> Status:
         """Get span status from span error information."""
@@ -528,7 +523,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         """Extract text content from output data."""
         if isinstance(output_data, str):
             return output_data
-        elif isinstance(output_data, list):
+        if isinstance(output_data, list):
             texts = []
             for item in output_data:
                 if hasattr(item, "content") and item.content:
@@ -558,8 +553,6 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def force_flush(self) -> None:
         """Forces an immediate flush of all queued spans/traces."""
-        pass
 
     def shutdown(self) -> None:
         """Called when the application stops."""
-        pass
