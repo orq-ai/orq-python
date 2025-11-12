@@ -5,8 +5,8 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.654.0
   generationVersion: 2.750.0
-  releaseVersion: 4.0.0-rc.24
-  configChecksum: 61d905dcfea2840d02be3dc58130a46f
+  releaseVersion: 4.0.0-rc.25
+  configChecksum: b2bc3f349ff0ed4301821d7506606b5c
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -5071,4 +5071,3 @@ examples:
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes Detected:\n* `orq.agents.invoke()`:  `response.status.message.parts.[]` **Changed** **Breaking** :warning:\n* `orq.tools.list()`:  `response.data.[].[3].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.agents.create()`: \n  *  `request.variables` **Added**\n  *  `response` **Changed** **Breaking** :warning:\n* `orq.agents.list()`: \n  *  `request.limit` **Changed**\n  *  `response.data.[]` **Changed** **Breaking** :warning:\n* `orq.agents.retrieve()`:  `response` **Changed** **Breaking** :warning:\n* `orq.agents.update()`: \n  *  `request` **Changed**\n  *  `response` **Changed** **Breaking** :warning:\n* `orq.agents.retrieve_task()`:  `response` **Changed** **Breaking** :warning:\n* `orq.agents.run()`: \n  *  `request.settings.tools.[].[http_tool_(run)].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n  *  `response.status.message.parts.[]` **Changed** **Breaking** :warning:\n* `orq.tools.duplicate()`:  `response.[3].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.agents.stream_run()`: \n  *  `request.settings.tools.[].[http_tool_(run)].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.agents.list_tasks()`: \n  *  `request.status` **Changed**\n  *  `response.tasks.[]` **Changed** **Breaking** :warning:\n* `orq.tools.create()`: \n  *  `request.[http_tool].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n  *  `response.[3].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.tools.update()`: \n  *  `request_body.[update_http_tool].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n  *  `response.[3].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.tools.retrieve()`:  `response.[3].http.blueprint.headers.{}` **Changed** **Breaking** :warning:\n* `orq.agents.duplicate()`: **Added**\n"
