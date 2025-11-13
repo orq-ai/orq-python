@@ -269,6 +269,7 @@ with Orq(
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The id of the tool to duplicate                                     |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Custom display name for the duplicated tool                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

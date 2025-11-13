@@ -673,7 +673,6 @@ class GetPromptVersionPromptConfigTypedDict(TypedDict):
     messages: List[GetPromptVersionMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    display_name: NotRequired[str]
     model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     model_type: NotRequired[Nullable[GetPromptVersionModelType]]
@@ -694,8 +693,6 @@ class GetPromptVersionPromptConfig(BaseModel):
     stream: Optional[bool] = None
 
     model: Optional[str] = None
-
-    display_name: Optional[str] = None
 
     model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -718,7 +715,6 @@ class GetPromptVersionPromptConfig(BaseModel):
         optional_fields = [
             "stream",
             "model",
-            "display_name",
             "model_db_id",
             "model_type",
             "model_parameters",

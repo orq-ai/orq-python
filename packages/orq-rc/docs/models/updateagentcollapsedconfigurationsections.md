@@ -10,3 +10,5 @@
 | `TOOLS`               | tools                 |
 | `CONTEXT`             | context               |
 | `RUNTIME_CONSTRAINTS` | runtime_constraints   |
+| `EVALUATORS`          | evaluators            |
+| `GUARDRAILS`          | guardrails            |

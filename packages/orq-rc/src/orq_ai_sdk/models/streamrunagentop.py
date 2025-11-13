@@ -1853,6 +1853,60 @@ StreamRunAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+StreamRunAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamRunAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamRunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamRunAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamRunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+StreamRunAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamRunAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamRunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamRunAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamRunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class StreamRunAgentSettingsTypedDict(TypedDict):
     tools: NotRequired[List[StreamRunAgentAgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
@@ -1862,6 +1916,10 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    evaluators: NotRequired[List[StreamRunAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[StreamRunAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class StreamRunAgentSettings(BaseModel):
@@ -1876,6 +1934,12 @@ class StreamRunAgentSettings(BaseModel):
 
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    evaluators: Optional[List[StreamRunAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[StreamRunAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class StreamRunAgentRequestBodyTypedDict(TypedDict):

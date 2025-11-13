@@ -81,11 +81,11 @@ with Orq(
 ) as orq:
 
     res = orq.agents.create(request={
-        "path": "Default",
         "key": "<key>",
         "role": "<value>",
         "description": "neatly unless refine aside platter alarmed shampoo shakily yippee",
         "instructions": "<value>",
+        "path": "Default",
         "model": "Camaro",
         "settings": {},
         "knowledge_bases": [

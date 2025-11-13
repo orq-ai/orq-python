@@ -5,15 +5,26 @@ from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+class DuplicateToolRequestBodyTypedDict(TypedDict):
+    display_name: NotRequired[str]
+    r"""Custom display name for the duplicated tool"""
+
+
+class DuplicateToolRequestBody(BaseModel):
+    display_name: Optional[str] = None
+    r"""Custom display name for the duplicated tool"""
+
+
 class DuplicateToolRequestTypedDict(TypedDict):
     tool_id: str
     r"""The id of the tool to duplicate"""
+    request_body: NotRequired[DuplicateToolRequestBodyTypedDict]
 
 
 class DuplicateToolRequest(BaseModel):
@@ -21,6 +32,11 @@ class DuplicateToolRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The id of the tool to duplicate"""
+
+    request_body: Annotated[
+        Optional[DuplicateToolRequestBody],
+        FieldMetadata(request=RequestMetadata(media_type="application/json")),
+    ] = None
 
 
 class DuplicateToolToolsResponseBodyData(BaseModel):
@@ -136,7 +152,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9W4THMV77WNY09JRFY7EJ98"
+        "01K9Y30Q7RP2BAC22EJYFQ6Z5Z"
     )
 
     display_name: Optional[str] = None
@@ -300,7 +316,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9W4THMSQK0S2K9HN2ZXVRJP"
+        "01K9Y30Q7FBH1RPNYS4CFXHV9W"
     )
 
     display_name: Optional[str] = None
@@ -497,7 +513,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9W4THMPBGGD2TFWG6GT3QV6"
+        "01K9Y30Q7C43EY98CPYWZWB1PR"
     )
 
     display_name: Optional[str] = None
@@ -610,7 +626,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9W4THMMNHJNVKAFXE2HFPD6"
+        "01K9Y30Q7BH5A6D7D1QCWFP1TP"
     )
 
     display_name: Optional[str] = None
@@ -723,7 +739,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9W4THMJPZ6J3WRM7FVB4R00"
+        "01K9Y30Q79726MTXAWGBKCR922"
     )
 
     display_name: Optional[str] = None

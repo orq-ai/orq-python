@@ -1816,6 +1816,60 @@ RunAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+RunAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class RunAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: RunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class RunAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: RunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+RunAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class RunAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: RunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class RunAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: RunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class RunAgentSettingsTypedDict(TypedDict):
     tools: NotRequired[List[AgentToolInputRunTypedDict]]
     r"""Tools available to the agent"""
@@ -1825,6 +1879,10 @@ class RunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    evaluators: NotRequired[List[RunAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[RunAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class RunAgentSettings(BaseModel):
@@ -1839,6 +1897,12 @@ class RunAgentSettings(BaseModel):
 
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    evaluators: Optional[List[RunAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[RunAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class RunAgentRequestBodyTypedDict(TypedDict):

@@ -1344,6 +1344,60 @@ AgentToolInputCRUD = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
+ExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class EvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: ExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class Evaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: ExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+CreateAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class GuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: CreateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class Guardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: CreateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class SettingsTypedDict(TypedDict):
     r"""Configuration settings for the agent's behavior"""
 
@@ -1355,6 +1409,10 @@ class SettingsTypedDict(TypedDict):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[AgentToolInputCRUDTypedDict]]
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
+    evaluators: NotRequired[List[EvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[GuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class Settings(BaseModel):
@@ -1371,6 +1429,12 @@ class Settings(BaseModel):
 
     tools: Optional[List[AgentToolInputCRUD]] = None
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
+
+    evaluators: Optional[List[Evaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[Guardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class KnowledgeBasesTypedDict(TypedDict):
@@ -1399,11 +1463,6 @@ class TeamOfAgents(BaseModel):
 
 
 class CreateAgentRequestBodyTypedDict(TypedDict):
-    path: str
-    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
     key: str
     r"""Unique identifier for the agent within the workspace"""
     role: str
@@ -1412,6 +1471,11 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
     r"""A brief description of what the agent does"""
     instructions: str
     r"""Detailed instructions that guide the agent's behavior"""
+    path: str
+    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
     model: ModelConfigurationTypedDict
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
     settings: SettingsTypedDict
@@ -1430,12 +1494,6 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
 
 
 class CreateAgentRequestBody(BaseModel):
-    path: str
-    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
-
     key: str
     r"""Unique identifier for the agent within the workspace"""
 
@@ -1447,6 +1505,12 @@ class CreateAgentRequestBody(BaseModel):
 
     instructions: str
     r"""Detailed instructions that guide the agent's behavior"""
+
+    path: str
+    r"""The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
 
     model: ModelConfiguration
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
@@ -1568,6 +1632,60 @@ class CreateAgentTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
+CreateAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class CreateAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: CreateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class CreateAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: CreateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+CreateAgentAgentsResponseExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class CreateAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: CreateAgentAgentsResponseExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class CreateAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: CreateAgentAgentsResponseExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class CreateAgentSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -1576,6 +1694,10 @@ class CreateAgentSettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[CreateAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[CreateAgentToolsTypedDict]]
+    evaluators: NotRequired[List[CreateAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[CreateAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class CreateAgentSettings(BaseModel):
@@ -1589,6 +1711,12 @@ class CreateAgentSettings(BaseModel):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[CreateAgentTools]] = None
+
+    evaluators: Optional[List[CreateAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[CreateAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 CreateAgentVoice = Literal[
@@ -2633,6 +2761,8 @@ CreateAgentCollapsedConfigurationSections = Literal[
     "tools",
     "context",
     "runtime_constraints",
+    "evaluators",
+    "guardrails",
 ]
 
 
@@ -2641,7 +2771,6 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
-    workspace_id: str
     project_id: str
     role: str
     description: str
@@ -2684,8 +2813,6 @@ class CreateAgentResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
-
-    workspace_id: str
 
     project_id: str
 

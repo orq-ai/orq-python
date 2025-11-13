@@ -960,6 +960,7 @@ class Tools(BaseSDK):
         self,
         *,
         tool_id: str,
+        display_name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -970,6 +971,7 @@ class Tools(BaseSDK):
         Creates a copy of an existing tool with a new id and ID.
 
         :param tool_id: The id of the tool to duplicate
+        :param display_name: Custom display name for the duplicated tool
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -990,6 +992,9 @@ class Tools(BaseSDK):
 
         request = models.DuplicateToolRequest(
             tool_id=tool_id,
+            request_body=models.DuplicateToolRequestBody(
+                display_name=display_name,
+            ),
         )
 
         req = self._build_request(
@@ -1005,6 +1010,13 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.DuplicateToolRequestBody],
+            ),
             timeout_ms=timeout_ms,
         )
 
@@ -1054,6 +1066,7 @@ class Tools(BaseSDK):
         self,
         *,
         tool_id: str,
+        display_name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1064,6 +1077,7 @@ class Tools(BaseSDK):
         Creates a copy of an existing tool with a new id and ID.
 
         :param tool_id: The id of the tool to duplicate
+        :param display_name: Custom display name for the duplicated tool
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1084,6 +1098,9 @@ class Tools(BaseSDK):
 
         request = models.DuplicateToolRequest(
             tool_id=tool_id,
+            request_body=models.DuplicateToolRequestBody(
+                display_name=display_name,
+            ),
         )
 
         req = self._build_request_async(
@@ -1099,6 +1116,13 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                True,
+                "json",
+                Optional[models.DuplicateToolRequestBody],
+            ),
             timeout_ms=timeout_ms,
         )
 

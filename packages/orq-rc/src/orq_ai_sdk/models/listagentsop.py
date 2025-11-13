@@ -121,6 +121,60 @@ class ListAgentsTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
+ListAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class ListAgentsEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: ListAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class ListAgentsEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: ListAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+ListAgentsAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class ListAgentsGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: ListAgentsAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class ListAgentsGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: ListAgentsAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class ListAgentsSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -129,6 +183,10 @@ class ListAgentsSettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[ListAgentsToolsTypedDict]]
+    evaluators: NotRequired[List[ListAgentsEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[ListAgentsGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class ListAgentsSettings(BaseModel):
@@ -142,6 +200,12 @@ class ListAgentsSettings(BaseModel):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[ListAgentsTools]] = None
+
+    evaluators: Optional[List[ListAgentsEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[ListAgentsGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 ListAgentsVoice = Literal[
@@ -1168,6 +1232,8 @@ ListAgentsCollapsedConfigurationSections = Literal[
     "tools",
     "context",
     "runtime_constraints",
+    "evaluators",
+    "guardrails",
 ]
 
 

@@ -628,7 +628,6 @@ class PromptConfigTypedDict(TypedDict):
     messages: List[UpdatePromptMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    display_name: NotRequired[str]
     model_parameters: NotRequired[UpdatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[Provider]
@@ -651,8 +650,6 @@ class PromptConfig(BaseModel):
 
     model: Optional[str] = None
 
-    display_name: Optional[str] = None
-
     model_parameters: Optional[UpdatePromptModelParameters] = None
     r"""Model Parameters: Not all parameters apply to every model"""
 
@@ -672,7 +669,6 @@ class PromptConfig(BaseModel):
         optional_fields = [
             "stream",
             "model",
-            "display_name",
             "model_parameters",
             "provider",
             "version",
@@ -2322,7 +2318,6 @@ class UpdatePromptPromptConfigTypedDict(TypedDict):
     messages: List[UpdatePromptPromptsResponseMessagesTypedDict]
     stream: NotRequired[bool]
     model: NotRequired[str]
-    display_name: NotRequired[str]
     model_db_id: NotRequired[Nullable[str]]
     r"""The id of the resource"""
     model_type: NotRequired[Nullable[UpdatePromptModelType]]
@@ -2343,8 +2338,6 @@ class UpdatePromptPromptConfig(BaseModel):
     stream: Optional[bool] = None
 
     model: Optional[str] = None
-
-    display_name: Optional[str] = None
 
     model_db_id: OptionalNullable[str] = UNSET
     r"""The id of the resource"""
@@ -2367,7 +2360,6 @@ class UpdatePromptPromptConfig(BaseModel):
         optional_fields = [
             "stream",
             "model",
-            "display_name",
             "model_db_id",
             "model_type",
             "model_parameters",

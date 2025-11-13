@@ -148,6 +148,60 @@ class DuplicateAgentTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
+DuplicateAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class DuplicateAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: DuplicateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class DuplicateAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: DuplicateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+DuplicateAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class DuplicateAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: DuplicateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class DuplicateAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: DuplicateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class DuplicateAgentSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -156,6 +210,10 @@ class DuplicateAgentSettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[DuplicateAgentToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[DuplicateAgentToolsTypedDict]]
+    evaluators: NotRequired[List[DuplicateAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[DuplicateAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class DuplicateAgentSettings(BaseModel):
@@ -171,6 +229,12 @@ class DuplicateAgentSettings(BaseModel):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[DuplicateAgentTools]] = None
+
+    evaluators: Optional[List[DuplicateAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[DuplicateAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 DuplicateAgentVoice = Literal[
@@ -1204,6 +1268,8 @@ DuplicateAgentCollapsedConfigurationSections = Literal[
     "tools",
     "context",
     "runtime_constraints",
+    "evaluators",
+    "guardrails",
 ]
 
 

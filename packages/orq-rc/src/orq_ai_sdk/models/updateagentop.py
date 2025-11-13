@@ -1380,6 +1380,60 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
 
 
+UpdateAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class UpdateAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: UpdateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class UpdateAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: UpdateAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+UpdateAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class UpdateAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: UpdateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class UpdateAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: UpdateAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class UpdateAgentSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -1389,6 +1443,10 @@ class UpdateAgentSettingsTypedDict(TypedDict):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[UpdateAgentAgentToolInputCRUDTypedDict]]
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
+    evaluators: NotRequired[List[UpdateAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[UpdateAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class UpdateAgentSettings(BaseModel):
@@ -1403,6 +1461,12 @@ class UpdateAgentSettings(BaseModel):
 
     tools: Optional[List[UpdateAgentAgentToolInputCRUD]] = None
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
+
+    evaluators: Optional[List[UpdateAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[UpdateAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class UpdateAgentKnowledgeBasesTypedDict(TypedDict):
@@ -1436,6 +1500,8 @@ CollapsedConfigurationSections = Literal[
     "tools",
     "context",
     "runtime_constraints",
+    "evaluators",
+    "guardrails",
 ]
 
 
@@ -1631,6 +1697,60 @@ class UpdateAgentTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
+UpdateAgentAgentsResponseExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class UpdateAgentAgentsEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: UpdateAgentAgentsResponseExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class UpdateAgentAgentsEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: UpdateAgentAgentsResponseExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+UpdateAgentAgentsResponse200ExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class UpdateAgentAgentsGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: UpdateAgentAgentsResponse200ExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class UpdateAgentAgentsGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: UpdateAgentAgentsResponse200ExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
 class UpdateAgentAgentsSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
@@ -1639,6 +1759,10 @@ class UpdateAgentAgentsSettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[UpdateAgentAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[UpdateAgentToolsTypedDict]]
+    evaluators: NotRequired[List[UpdateAgentAgentsEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[UpdateAgentAgentsGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class UpdateAgentAgentsSettings(BaseModel):
@@ -1654,6 +1778,12 @@ class UpdateAgentAgentsSettings(BaseModel):
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[UpdateAgentTools]] = None
+
+    evaluators: Optional[List[UpdateAgentAgentsEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[UpdateAgentAgentsGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 UpdateAgentVoice = Literal[
@@ -2712,6 +2842,8 @@ UpdateAgentCollapsedConfigurationSections = Literal[
     "tools",
     "context",
     "runtime_constraints",
+    "evaluators",
+    "guardrails",
 ]
 
 
