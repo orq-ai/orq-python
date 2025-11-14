@@ -1001,9 +1001,6 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        collapsed_configuration_sections: Optional[
-            List[models.CollapsedConfigurationSections]
-        ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1032,7 +1029,6 @@ class Agents(BaseSDK):
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param collapsed_configuration_sections: List of collapsed sections in configuration. Duplicates are not allowed.
         :param variables: Extracted variables from agent instructions
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1079,7 +1075,6 @@ class Agents(BaseSDK):
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                collapsed_configuration_sections=collapsed_configuration_sections,
                 variables=variables,
             ),
         )
@@ -1188,9 +1183,6 @@ class Agents(BaseSDK):
                 List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
-        collapsed_configuration_sections: Optional[
-            List[models.CollapsedConfigurationSections]
-        ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1219,7 +1211,6 @@ class Agents(BaseSDK):
         :param memory_stores: Array of memory store identifiers. Accepts both memory store IDs and keys.
         :param knowledge_bases:
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
-        :param collapsed_configuration_sections: List of collapsed sections in configuration. Duplicates are not allowed.
         :param variables: Extracted variables from agent instructions
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1266,7 +1257,6 @@ class Agents(BaseSDK):
                 team_of_agents=utils.get_pydantic_model(
                     team_of_agents, Optional[List[models.UpdateAgentTeamOfAgents]]
                 ),
-                collapsed_configuration_sections=collapsed_configuration_sections,
                 variables=variables,
             ),
         )

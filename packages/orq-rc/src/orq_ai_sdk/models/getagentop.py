@@ -1227,17 +1227,6 @@ class GetAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-GetAgentCollapsedConfigurationSections = Literal[
-    "information",
-    "model",
-    "tools",
-    "context",
-    "runtime_constraints",
-    "evaluators",
-    "guardrails",
-]
-
-
 class GetAgentResponseBodyTypedDict(TypedDict):
     r"""Agent retrieved successfully"""
 
@@ -1274,10 +1263,6 @@ class GetAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[GetAgentKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    collapsed_configuration_sections: NotRequired[
-        List[GetAgentCollapsedConfigurationSections]
-    ]
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class GetAgentResponseBody(BaseModel):
@@ -1338,11 +1323,6 @@ class GetAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[GetAgentKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    collapsed_configuration_sections: Optional[
-        List[GetAgentCollapsedConfigurationSections]
-    ] = None
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1356,7 +1336,6 @@ class GetAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

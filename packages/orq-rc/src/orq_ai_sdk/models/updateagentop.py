@@ -997,6 +997,41 @@ UpdateAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "mcp",
+]
+r"""MCP tool type"""
+
+
+class AgentToolInputCRUDMCPToolTypedDict(TypedDict):
+    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+
+    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    r"""MCP tool type"""
+    key: NotRequired[str]
+    r"""The key of the pre-created MCP tool"""
+    id: NotRequired[str]
+    r"""The ID of the pre-created MCP tool"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class AgentToolInputCRUDMCPTool(BaseModel):
+    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+
+    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    r"""MCP tool type"""
+
+    key: Optional[str] = None
+    r"""The key of the pre-created MCP tool"""
+
+    id: Optional[str] = None
+    r"""The ID of the pre-created MCP tool"""
+
+    requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
+
+
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
@@ -1353,9 +1388,10 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDHTTPToolTypedDict,
         AgentToolInputCRUDCodeExecutionToolTypedDict,
         AgentToolInputCRUDFunctionToolTypedDict,
+        AgentToolInputCRUDMCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
 UpdateAgentAgentToolInputCRUD = TypeAliasType(
@@ -1375,9 +1411,10 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDHTTPTool,
         AgentToolInputCRUDCodeExecutionTool,
         AgentToolInputCRUDFunctionTool,
+        AgentToolInputCRUDMCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
 UpdateAgentExecuteOn = Literal[
@@ -1494,17 +1531,6 @@ class UpdateAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-CollapsedConfigurationSections = Literal[
-    "information",
-    "model",
-    "tools",
-    "context",
-    "runtime_constraints",
-    "evaluators",
-    "guardrails",
-]
-
-
 class UpdateAgentRequestBodyTypedDict(TypedDict):
     key: NotRequired[str]
     project_id: NotRequired[str]
@@ -1530,8 +1556,6 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     knowledge_bases: NotRequired[List[UpdateAgentKnowledgeBasesTypedDict]]
     team_of_agents: NotRequired[List[UpdateAgentTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    collapsed_configuration_sections: NotRequired[List[CollapsedConfigurationSections]]
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
 
@@ -1573,11 +1597,6 @@ class UpdateAgentRequestBody(BaseModel):
 
     team_of_agents: Optional[List[UpdateAgentTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-
-    collapsed_configuration_sections: Optional[List[CollapsedConfigurationSections]] = (
-        None
-    )
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
@@ -2836,17 +2855,6 @@ class UpdateAgentAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-UpdateAgentCollapsedConfigurationSections = Literal[
-    "information",
-    "model",
-    "tools",
-    "context",
-    "runtime_constraints",
-    "evaluators",
-    "guardrails",
-]
-
-
 class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent updated successfully"""
 
@@ -2883,10 +2891,6 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    collapsed_configuration_sections: NotRequired[
-        List[UpdateAgentCollapsedConfigurationSections]
-    ]
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class UpdateAgentResponseBody(BaseModel):
@@ -2947,11 +2951,6 @@ class UpdateAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[UpdateAgentAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    collapsed_configuration_sections: Optional[
-        List[UpdateAgentCollapsedConfigurationSections]
-    ] = None
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2965,7 +2964,6 @@ class UpdateAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

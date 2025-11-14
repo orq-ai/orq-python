@@ -961,6 +961,41 @@ ToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "mcp",
+]
+r"""MCP tool type"""
+
+
+class MCPToolTypedDict(TypedDict):
+    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+
+    type: CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    r"""MCP tool type"""
+    key: NotRequired[str]
+    r"""The key of the pre-created MCP tool"""
+    id: NotRequired[str]
+    r"""The ID of the pre-created MCP tool"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class MCPTool(BaseModel):
+    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+
+    type: CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    r"""MCP tool type"""
+
+    key: Optional[str] = None
+    r"""The key of the pre-created MCP tool"""
+
+    id: Optional[str] = None
+    r"""The ID of the pre-created MCP tool"""
+
+    requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
+
+
 CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
@@ -1317,9 +1352,10 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
         HTTPToolTypedDict,
         CodeExecutionToolTypedDict,
         FunctionToolTypedDict,
+        MCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
 AgentToolInputCRUD = TypeAliasType(
@@ -1339,9 +1375,10 @@ AgentToolInputCRUD = TypeAliasType(
         HTTPTool,
         CodeExecutionTool,
         FunctionTool,
+        MCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
 ExecuteOn = Literal[
@@ -2755,17 +2792,6 @@ class CreateAgentKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-CreateAgentCollapsedConfigurationSections = Literal[
-    "information",
-    "model",
-    "tools",
-    "context",
-    "runtime_constraints",
-    "evaluators",
-    "guardrails",
-]
-
-
 class CreateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent created successfully"""
 
@@ -2801,10 +2827,6 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[CreateAgentKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    collapsed_configuration_sections: NotRequired[
-        List[CreateAgentCollapsedConfigurationSections]
-    ]
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class CreateAgentResponseBody(BaseModel):
@@ -2863,11 +2885,6 @@ class CreateAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[CreateAgentKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    collapsed_configuration_sections: Optional[
-        List[CreateAgentCollapsedConfigurationSections]
-    ] = None
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2881,7 +2898,6 @@ class CreateAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

@@ -11,6 +11,7 @@
 * [delete](#delete) - Delete tool
 * [retrieve](#retrieve) - Retrieve tool
 * [duplicate](#duplicate) - Duplicate tool
+* [sync](#sync) - Sync MCP tool
 
 ## list
 
@@ -65,6 +66,7 @@ Creates a new tool in the workspace.
 
 <!-- UsageSnippet language="python" operationID="CreateTool" method="post" path="/v2/tools" -->
 ```python
+import orq_ai_sdk
 from orq_ai_sdk import Orq
 import os
 
@@ -73,22 +75,24 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.create(request={
-        "path": "Default",
-        "key": "<key>",
-        "display_name": "Ellie78",
-        "description": "runway border pro mortally recount accredit promptly",
-        "status": "live",
-        "type": "json_schema",
-        "json_schema": {
-            "name": "<value>",
-            "schema_": {
-                "key": "<value>",
-                "key1": "<value>",
-            },
-            "strict": False,
-        },
-    })
+    res = orq.tools.create(request=orq_ai_sdk.JSONSchemaTool(
+        path="Default",
+        key="<key>",
+        description="runway border pro mortally recount accredit promptly",
+        status="live",
+        type="json_schema",
+        json_schema=orq_ai_sdk.RequestBodyJSONSchema(
+            name="<value>",
+            description="lovable past madly uh-huh by",
+            schema_=orq_ai_sdk.RequestBodySchema(
+                type="<value>",
+                properties={
+                    "key": "<value>",
+                },
+                required=[],
+            ),
+        ),
+    ))
 
     assert res is not None
 
@@ -110,9 +114,10 @@ with Orq(
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.HonoAPIError | 400, 404            | application/json    |
+| models.APIError     | 4XX, 5XX            | \*/\*               |
 
 ## update
 
@@ -122,6 +127,7 @@ Updates a tool in the workspace.
 
 <!-- UsageSnippet language="python" operationID="UpdateTool" method="patch" path="/v2/tools/{tool_id}" -->
 ```python
+import orq_ai_sdk
 from orq_ai_sdk import Orq
 import os
 
@@ -130,11 +136,11 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.update(tool_id="<id>", request_body={
-        "path": "Default",
-        "status": "live",
-        "type": "function",
-    })
+    res = orq.tools.update(tool_id="<id>", request_body=orq_ai_sdk.UpdateFunctionTool(
+        path="Default",
+        status="live",
+        type="function",
+    ))
 
     assert res is not None
 
@@ -282,3 +288,47 @@ with Orq(
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | models.DuplicateToolToolsResponseBody | 404                                   | application/json                      |
 | models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
+
+## sync
+
+Manually triggers tool discovery and synchronization from the MCP server. Fetches the latest tools and updates the tool configuration.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="SyncMcpTool" method="post" path="/v2/tools/{tool_id}/sync" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.tools.sync(tool_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the MCP tool to sync                                      |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.SyncMcpToolResponseBody](../../models/syncmcptoolresponsebody.md)**
+
+### Errors
+
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.HonoAPIError | 400, 404            | application/json    |
+| models.HonoAPIError | 500                 | application/json    |
+| models.APIError     | 4XX, 5XX            | \*/\*               |

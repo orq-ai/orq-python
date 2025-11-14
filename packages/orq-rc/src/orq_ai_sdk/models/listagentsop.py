@@ -1226,17 +1226,6 @@ class ListAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
-ListAgentsCollapsedConfigurationSections = Literal[
-    "information",
-    "model",
-    "tools",
-    "context",
-    "runtime_constraints",
-    "evaluators",
-    "guardrails",
-]
-
-
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
@@ -1271,10 +1260,6 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    collapsed_configuration_sections: NotRequired[
-        List[ListAgentsCollapsedConfigurationSections]
-    ]
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
 
 
 class ListAgentsData(BaseModel):
@@ -1333,11 +1318,6 @@ class ListAgentsData(BaseModel):
     knowledge_bases: Optional[List[ListAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    collapsed_configuration_sections: Optional[
-        List[ListAgentsCollapsedConfigurationSections]
-    ] = None
-    r"""List of collapsed sections in configuration. Duplicates are not allowed."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1351,7 +1331,6 @@ class ListAgentsData(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
-            "collapsed_configuration_sections",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

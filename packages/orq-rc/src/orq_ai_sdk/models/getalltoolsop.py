@@ -4,6 +4,7 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
+from pydantic import ConfigDict
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -52,6 +53,47 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 GetAllToolsDataToolsResponse200ApplicationJSONType = Literal["code",]
 
 
+GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type = Literal["object",]
+r"""The type must be \"object\" """
+
+
+class GetAllToolsDataParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class GetAllToolsDataParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 DataLanguage = Literal["python",]
 
 
@@ -59,7 +101,7 @@ class DataCodeToolTypedDict(TypedDict):
     language: DataLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[GetAllToolsDataParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -69,7 +111,7 @@ class DataCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[GetAllToolsDataParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -131,7 +173,7 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE3ZA6FHW41G4Y51H5T6T"
+        "tool_01KA0EAFMWKTZNVCA784DGZR9B"
     )
 
     display_name: Optional[str] = None
@@ -172,25 +214,35 @@ class DataHeaders(BaseModel):
     encrypted: Optional[bool] = False
 
 
-GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal["object",]
+GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type = Literal["object",]
 
 
-class DataInputSchemaTypedDict(TypedDict):
-    r"""The original MCP tool input schema for LLM conversion"""
-
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+class GetAllToolsDataSchemaTypedDict(TypedDict):
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
-class DataInputSchema(BaseModel):
-    r"""The original MCP tool input schema for LLM conversion"""
-
-    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+class GetAllToolsDataSchema(BaseModel):
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody4Type
 
     properties: Optional[Dict[str, Any]] = None
 
     required: Optional[List[str]] = None
+
+
+class DataToolsTypedDict(TypedDict):
+    name: str
+    schema_: GetAllToolsDataSchemaTypedDict
+    description: NotRequired[str]
+
+
+class DataTools(BaseModel):
+    name: str
+
+    schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
 
 
 DataConnectionType = Literal[
@@ -201,38 +253,28 @@ r"""The connection type used by the MCP server"""
 
 
 class DataMcpTypedDict(TypedDict):
-    server_id: str
-    r"""The ID of the MCP server this tool belongs to"""
-    tool_name: str
-    r"""The original tool name from the MCP server"""
     server_url: str
     r"""The MCP server URL (cached for execution)"""
-    input_schema: DataInputSchemaTypedDict
-    r"""The original MCP tool input schema for LLM conversion"""
+    tools: List[DataToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
     connection_type: DataConnectionType
     r"""The connection type used by the MCP server"""
     headers: NotRequired[Dict[str, DataHeadersTypedDict]]
-    r"""HTTP headers for MCP server requests (encrypted format)"""
+    r"""HTTP headers for MCP server requests with encryption support"""
 
 
 class DataMcp(BaseModel):
-    server_id: str
-    r"""The ID of the MCP server this tool belongs to"""
-
-    tool_name: str
-    r"""The original tool name from the MCP server"""
-
     server_url: str
     r"""The MCP server URL (cached for execution)"""
 
-    input_schema: DataInputSchema
-    r"""The original MCP tool input schema for LLM conversion"""
+    tools: List[DataTools]
+    r"""Array of tools available from the MCP server"""
 
     connection_type: DataConnectionType
     r"""The connection type used by the MCP server"""
 
     headers: Optional[Dict[str, DataHeaders]] = None
-    r"""HTTP headers for MCP server requests (encrypted format)"""
+    r"""HTTP headers for MCP server requests with encryption support"""
 
 
 class Data4TypedDict(TypedDict):
@@ -293,7 +335,7 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE3Z10A676WTP4XM1PND0"
+        "tool_01KA0EAFMSJ7BJEXCXT5APAS9F"
     )
 
     display_name: Optional[str] = None
@@ -332,15 +374,25 @@ GetAllToolsDataMethod = Literal[
 r"""The HTTP method to use."""
 
 
-class GetAllToolsDataHeadersTypedDict(TypedDict):
+class GetAllToolsHeaders2TypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class GetAllToolsDataHeaders(BaseModel):
+class GetAllToolsHeaders2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+
+GetAllToolsDataHeadersTypedDict = TypeAliasType(
+    "GetAllToolsDataHeadersTypedDict", Union[GetAllToolsHeaders2TypedDict, str]
+)
+
+
+GetAllToolsDataHeaders = TypeAliasType(
+    "GetAllToolsDataHeaders", Union[GetAllToolsHeaders2, str]
+)
 
 
 class DataBlueprintTypedDict(TypedDict):
@@ -351,7 +403,7 @@ class DataBlueprintTypedDict(TypedDict):
     method: GetAllToolsDataMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -366,7 +418,7 @@ class DataBlueprint(BaseModel):
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -488,7 +540,7 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE3YZ5KN6SE9BY8PQ7CWM"
+        "tool_01KA0EAFMNQQS30M3CP5VRN98J"
     )
 
     display_name: Optional[str] = None
@@ -518,13 +570,50 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 GetAllToolsDataToolsType = Literal["json_schema",]
 
 
+class DataSchemaTypedDict(TypedDict):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: str
+    r"""The JSON Schema type"""
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+    required: List[str]
+    r"""Array of required property names"""
+
+
+class DataSchema(BaseModel):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: str
+    r"""The JSON Schema type"""
+
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+
+    required: List[str]
+    r"""Array of required property names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 class DataJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
-    schema_: Dict[str, Any]
-    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
-    description: NotRequired[str]
+    description: str
     r"""A description of what the response format is for. This will be shown to the user."""
+    schema_: DataSchemaTypedDict
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
@@ -533,11 +622,11 @@ class DataJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
-
-    description: Optional[str] = None
+    description: str
     r"""A description of what the response format is for. This will be shown to the user."""
+
+    schema_: Annotated[DataSchema, pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
@@ -601,7 +690,7 @@ class Data2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE3YYTDGV390K92565CWK"
+        "tool_01KA0EAFMK1JQCG5BPM0S4TWCV"
     )
 
     display_name: Optional[str] = None
@@ -631,6 +720,47 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 GetAllToolsDataType = Literal["function",]
 
 
+GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal["object",]
+r"""The type must be \"object\" """
+
+
+class DataParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class DataParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 class GetAllToolsDataFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
@@ -638,7 +768,7 @@ class GetAllToolsDataFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[DataParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -652,7 +782,7 @@ class GetAllToolsDataFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[DataParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -714,7 +844,7 @@ class Data1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE3YWQ90C8JTM5EWNF0DS"
+        "tool_01KA0EAFMHP987V9QDMX82BHQH"
     )
 
     display_name: Optional[str] = None

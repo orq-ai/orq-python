@@ -4,6 +4,7 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
+from pydantic import ConfigDict
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -30,6 +31,47 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 RetrieveToolResponseBodyToolsResponse200ApplicationJSONType = Literal["code",]
 
 
+RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type = Literal["object",]
+r"""The type must be \"object\" """
+
+
+class RetrieveToolResponseBodyToolsParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class RetrieveToolResponseBodyToolsParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON5Type
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 RetrieveToolResponseBodyLanguage = Literal["python",]
 
 
@@ -37,7 +79,7 @@ class RetrieveToolResponseBodyCodeToolTypedDict(TypedDict):
     language: RetrieveToolResponseBodyLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[RetrieveToolResponseBodyToolsParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -47,7 +89,7 @@ class RetrieveToolResponseBodyCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[RetrieveToolResponseBodyToolsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -109,7 +151,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE41DZ9HP5AY0JVAAYYFC"
+        "tool_01KA0EAFQRJKMVM2E2P5R1CQF5"
     )
 
     display_name: Optional[str] = None
@@ -155,22 +197,34 @@ class RetrieveToolResponseBodyHeaders(BaseModel):
 RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type = Literal["object",]
 
 
-class RetrieveToolResponseBodyInputSchemaTypedDict(TypedDict):
-    r"""The original MCP tool input schema for LLM conversion"""
-
+class RetrieveToolResponseBodyToolsSchemaTypedDict(TypedDict):
     type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
-class RetrieveToolResponseBodyInputSchema(BaseModel):
-    r"""The original MCP tool input schema for LLM conversion"""
-
+class RetrieveToolResponseBodyToolsSchema(BaseModel):
     type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON4Type
 
     properties: Optional[Dict[str, Any]] = None
 
     required: Optional[List[str]] = None
+
+
+class RetrieveToolResponseBodyToolsTypedDict(TypedDict):
+    name: str
+    schema_: RetrieveToolResponseBodyToolsSchemaTypedDict
+    description: NotRequired[str]
+
+
+class RetrieveToolResponseBodyTools(BaseModel):
+    name: str
+
+    schema_: Annotated[
+        RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
+    ]
+
+    description: Optional[str] = None
 
 
 RetrieveToolResponseBodyConnectionType = Literal[
@@ -181,38 +235,28 @@ r"""The connection type used by the MCP server"""
 
 
 class RetrieveToolResponseBodyMcpTypedDict(TypedDict):
-    server_id: str
-    r"""The ID of the MCP server this tool belongs to"""
-    tool_name: str
-    r"""The original tool name from the MCP server"""
     server_url: str
     r"""The MCP server URL (cached for execution)"""
-    input_schema: RetrieveToolResponseBodyInputSchemaTypedDict
-    r"""The original MCP tool input schema for LLM conversion"""
+    tools: List[RetrieveToolResponseBodyToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
     connection_type: RetrieveToolResponseBodyConnectionType
     r"""The connection type used by the MCP server"""
     headers: NotRequired[Dict[str, RetrieveToolResponseBodyHeadersTypedDict]]
-    r"""HTTP headers for MCP server requests (encrypted format)"""
+    r"""HTTP headers for MCP server requests with encryption support"""
 
 
 class RetrieveToolResponseBodyMcp(BaseModel):
-    server_id: str
-    r"""The ID of the MCP server this tool belongs to"""
-
-    tool_name: str
-    r"""The original tool name from the MCP server"""
-
     server_url: str
     r"""The MCP server URL (cached for execution)"""
 
-    input_schema: RetrieveToolResponseBodyInputSchema
-    r"""The original MCP tool input schema for LLM conversion"""
+    tools: List[RetrieveToolResponseBodyTools]
+    r"""Array of tools available from the MCP server"""
 
     connection_type: RetrieveToolResponseBodyConnectionType
     r"""The connection type used by the MCP server"""
 
     headers: Optional[Dict[str, RetrieveToolResponseBodyHeaders]] = None
-    r"""HTTP headers for MCP server requests (encrypted format)"""
+    r"""HTTP headers for MCP server requests with encryption support"""
 
 
 class RetrieveToolResponseBody4TypedDict(TypedDict):
@@ -273,7 +317,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE41BM416K7XK0N55VK1C"
+        "tool_01KA0EAFQQRFBHF4776J75QPSK"
     )
 
     display_name: Optional[str] = None
@@ -312,15 +356,26 @@ RetrieveToolResponseBodyMethod = Literal[
 r"""The HTTP method to use."""
 
 
-class RetrieveToolResponseBodyToolsHeadersTypedDict(TypedDict):
+class RetrieveToolHeaders2TypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class RetrieveToolResponseBodyToolsHeaders(BaseModel):
+class RetrieveToolHeaders2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+
+RetrieveToolResponseBodyToolsHeadersTypedDict = TypeAliasType(
+    "RetrieveToolResponseBodyToolsHeadersTypedDict",
+    Union[RetrieveToolHeaders2TypedDict, str],
+)
+
+
+RetrieveToolResponseBodyToolsHeaders = TypeAliasType(
+    "RetrieveToolResponseBodyToolsHeaders", Union[RetrieveToolHeaders2, str]
+)
 
 
 class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
@@ -331,7 +386,7 @@ class RetrieveToolResponseBodyBlueprintTypedDict(TypedDict):
     method: RetrieveToolResponseBodyMethod
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, RetrieveToolResponseBodyToolsHeadersTypedDict]]
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -346,7 +401,7 @@ class RetrieveToolResponseBodyBlueprint(BaseModel):
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, RetrieveToolResponseBodyToolsHeaders]] = None
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -470,7 +525,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE418EP0NDH2FBK7VQCD6"
+        "tool_01KA0EAFQN1DHVSX00510BQE1Y"
     )
 
     display_name: Optional[str] = None
@@ -500,13 +555,50 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 RetrieveToolResponseBodyToolsType = Literal["json_schema",]
 
 
+class RetrieveToolResponseBodySchemaTypedDict(TypedDict):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: str
+    r"""The JSON Schema type"""
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+    required: List[str]
+    r"""Array of required property names"""
+
+
+class RetrieveToolResponseBodySchema(BaseModel):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: str
+    r"""The JSON Schema type"""
+
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+
+    required: List[str]
+    r"""Array of required property names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 class RetrieveToolResponseBodyJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
-    schema_: Dict[str, Any]
-    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
-    description: NotRequired[str]
+    description: str
     r"""A description of what the response format is for. This will be shown to the user."""
+    schema_: RetrieveToolResponseBodySchemaTypedDict
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
@@ -515,11 +607,11 @@ class RetrieveToolResponseBodyJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
-    schema_: Annotated[Dict[str, Any], pydantic.Field(alias="schema")]
-    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
-
-    description: Optional[str] = None
+    description: str
     r"""A description of what the response format is for. This will be shown to the user."""
+
+    schema_: Annotated[RetrieveToolResponseBodySchema, pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
@@ -583,7 +675,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE416J2NWMQHJQGPCCTJ5"
+        "tool_01KA0EAFQMXCW92V1E89J6M3W2"
     )
 
     display_name: Optional[str] = None
@@ -613,6 +705,47 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 RetrieveToolResponseBodyType = Literal["function",]
 
 
+RetrieveToolResponseBodyToolsResponse200ApplicationJSON1Type = Literal["object",]
+r"""The type must be \"object\" """
+
+
+class RetrieveToolResponseBodyParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON1Type
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class RetrieveToolResponseBodyParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RetrieveToolResponseBodyToolsResponse200ApplicationJSON1Type
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 class RetrieveToolResponseBodyFunctionTypedDict(TypedDict):
     name: str
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
@@ -620,7 +753,7 @@ class RetrieveToolResponseBodyFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[RetrieveToolResponseBodyParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -634,7 +767,7 @@ class RetrieveToolResponseBodyFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[RetrieveToolResponseBodyParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -696,7 +829,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01K9YEE415JRXX26ECYJ07X69M"
+        "tool_01KA0EAFQJZDXPD49SAKHW2Z8E"
     )
 
     display_name: Optional[str] = None

@@ -12,7 +12,7 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import ConfigDict, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -1293,9 +1293,169 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "mcp",
+]
+
+
+class StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+    "object",
+]
+
+
+class AgentToolInputRunSchemaTypedDict(TypedDict):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+    properties: NotRequired[Dict[str, Any]]
+    required: NotRequired[List[str]]
+
+
+class AgentToolInputRunSchema(BaseModel):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+
+    properties: Optional[Dict[str, Any]] = None
+
+    required: Optional[List[str]] = None
+
+
+class AgentToolInputRunToolsTypedDict(TypedDict):
+    name: str
+    schema_: AgentToolInputRunSchemaTypedDict
+    description: NotRequired[str]
+
+
+class AgentToolInputRunTools(BaseModel):
+    name: str
+
+    schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
+
+
+AgentToolInputRunConnectionType = Literal[
+    "http",
+    "sse",
+]
+r"""The connection type used by the MCP server"""
+
+
+class AgentToolInputRunMcpTypedDict(TypedDict):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+    tools: List[AgentToolInputRunToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
+    connection_type: AgentToolInputRunConnectionType
+    r"""The connection type used by the MCP server"""
+    headers: NotRequired[
+        Dict[str, StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict]
+    ]
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class AgentToolInputRunMcp(BaseModel):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+
+    tools: List[AgentToolInputRunTools]
+    r"""Array of tools available from the MCP server"""
+
+    connection_type: AgentToolInputRunConnectionType
+    r"""The connection type used by the MCP server"""
+
+    headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunAgentsHeaders]] = None
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    mcp: AgentToolInputRunMcpTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class AgentToolInputRunMCPToolRun(BaseModel):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    mcp: AgentToolInputRunMcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+
 StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = (
+    Literal["object",]
+)
+r"""The type must be \"object\" """
+
+
+class StreamRunAgentAgentToolInputRunAgentsParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class StreamRunAgentAgentToolInputRunAgentsParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
 class StreamRunAgentAgentToolInputRunFunctionTypedDict(TypedDict):
@@ -1305,7 +1465,7 @@ class StreamRunAgentAgentToolInputRunFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[StreamRunAgentAgentToolInputRunAgentsParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1319,7 +1479,7 @@ class StreamRunAgentAgentToolInputRunFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[StreamRunAgentAgentToolInputRunAgentsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1360,6 +1520,49 @@ StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Lit
 ]
 
 
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = (
+    Literal["object",]
+)
+r"""The type must be \"object\" """
+
+
+class StreamRunAgentAgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class StreamRunAgentAgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 AgentToolInputRunLanguage = Literal["python",]
 
 
@@ -1367,7 +1570,7 @@ class AgentToolInputRunCodeToolTypedDict(TypedDict):
     language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[StreamRunAgentAgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1377,7 +1580,7 @@ class AgentToolInputRunCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[StreamRunAgentAgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1429,15 +1632,26 @@ AgentToolInputRunMethod = Literal[
 r"""The HTTP method to use."""
 
 
-class AgentToolInputRunHeadersTypedDict(TypedDict):
+class StreamRunAgentHeaders2TypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class AgentToolInputRunHeaders(BaseModel):
+class StreamRunAgentHeaders2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+
+StreamRunAgentAgentToolInputRunHeadersTypedDict = TypeAliasType(
+    "StreamRunAgentAgentToolInputRunHeadersTypedDict",
+    Union[StreamRunAgentHeaders2TypedDict, str],
+)
+
+
+StreamRunAgentAgentToolInputRunHeaders = TypeAliasType(
+    "StreamRunAgentAgentToolInputRunHeaders", Union[StreamRunAgentHeaders2, str]
+)
 
 
 class AgentToolInputRunBlueprintTypedDict(TypedDict):
@@ -1447,8 +1661,8 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
-    r"""The headers to send with the request."""
+    headers: NotRequired[Dict[str, StreamRunAgentAgentToolInputRunHeadersTypedDict]]
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -1462,8 +1676,8 @@ class AgentToolInputRunBlueprint(BaseModel):
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
-    r"""The headers to send with the request."""
+    headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunHeaders]] = None
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -1818,9 +2032,10 @@ StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
         AgentToolInputRunHTTPToolRunTypedDict,
         AgentToolInputRunCodeToolRunTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
+        AgentToolInputRunMCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentAgentToolInputRun = TypeAliasType(
@@ -1840,9 +2055,10 @@ StreamRunAgentAgentToolInputRun = TypeAliasType(
         AgentToolInputRunHTTPToolRun,
         AgentToolInputRunCodeToolRun,
         AgentToolInputRunFunctionToolRun,
+        AgentToolInputRunMCPToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentToolApprovalRequired = Literal[

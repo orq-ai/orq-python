@@ -9,7 +9,7 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import ConfigDict, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -1270,9 +1270,165 @@ class RunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal["mcp",]
+
+
+class AgentToolInputRunHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class AgentToolInputRunHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+    "object",
+]
+
+
+class SchemaTypedDict(TypedDict):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+    properties: NotRequired[Dict[str, Any]]
+    required: NotRequired[List[str]]
+
+
+class Schema(BaseModel):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+
+    properties: Optional[Dict[str, Any]] = None
+
+    required: Optional[List[str]] = None
+
+
+class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
+    name: str
+    schema_: SchemaTypedDict
+    description: NotRequired[str]
+
+
+class RunAgentAgentToolInputRunTools(BaseModel):
+    name: str
+
+    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+
+    description: Optional[str] = None
+
+
+ConnectionType = Literal[
+    "http",
+    "sse",
+]
+r"""The connection type used by the MCP server"""
+
+
+class McpTypedDict(TypedDict):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+    tools: List[RunAgentAgentToolInputRunToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
+    connection_type: ConnectionType
+    r"""The connection type used by the MCP server"""
+    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class Mcp(BaseModel):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+
+    tools: List[RunAgentAgentToolInputRunTools]
+    r"""Array of tools available from the MCP server"""
+
+    connection_type: ConnectionType
+    r"""The connection type used by the MCP server"""
+
+    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class MCPToolRunTypedDict(TypedDict):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    mcp: McpTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class MCPToolRun(BaseModel):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    mcp: Mcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = Literal[
+    "object",
+]
+r"""The type must be \"object\" """
+
+
+class RunAgentAgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class RunAgentAgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
 class AgentToolInputRunFunctionTypedDict(TypedDict):
@@ -1282,7 +1438,7 @@ class AgentToolInputRunFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[RunAgentAgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1296,7 +1452,7 @@ class AgentToolInputRunFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[RunAgentAgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1335,6 +1491,49 @@ class FunctionToolRun(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["code",]
 
 
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = Literal[
+    "object",
+]
+r"""The type must be \"object\" """
+
+
+class AgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class AgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 Language = Literal["python",]
 
 
@@ -1342,7 +1541,7 @@ class CodeToolTypedDict(TypedDict):
     language: Language
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[AgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1352,7 +1551,7 @@ class CodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[AgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1402,15 +1601,21 @@ Method = Literal[
 r"""The HTTP method to use."""
 
 
-class HeadersTypedDict(TypedDict):
+class Headers2TypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class Headers(BaseModel):
+class Headers2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+
+HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
+
+
+Headers = TypeAliasType("Headers", Union[Headers2, str])
 
 
 class BlueprintTypedDict(TypedDict):
@@ -1421,7 +1626,7 @@ class BlueprintTypedDict(TypedDict):
     method: Method
     r"""The HTTP method to use."""
     headers: NotRequired[Dict[str, HeadersTypedDict]]
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -1436,7 +1641,7 @@ class Blueprint(BaseModel):
     r"""The HTTP method to use."""
 
     headers: Optional[Dict[str, Headers]] = None
-    r"""The headers to send with the request."""
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -1781,9 +1986,10 @@ AgentToolInputRunTypedDict = TypeAliasType(
         HTTPToolRunTypedDict,
         CodeToolRunTypedDict,
         FunctionToolRunTypedDict,
+        MCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 AgentToolInputRun = TypeAliasType(
@@ -1803,9 +2009,10 @@ AgentToolInputRun = TypeAliasType(
         HTTPToolRun,
         CodeToolRun,
         FunctionToolRun,
+        MCPToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 RunAgentToolApprovalRequired = Literal[
