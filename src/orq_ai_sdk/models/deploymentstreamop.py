@@ -1398,11 +1398,15 @@ class DeploymentStreamOrGte(BaseModel):
     gte: float
 
 
-class DeploymentStreamOr3TypedDict(TypedDict):
+class DeploymentStreamOrGtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class DeploymentStreamOr3(BaseModel):
+class DeploymentStreamOrGt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -1455,7 +1459,7 @@ DeploymentStreamKnowledgeFilterDeploymentsOrTypedDict = TypeAliasType(
     Union[
         DeploymentStreamOrEqTypedDict,
         DeploymentStreamOrNeTypedDict,
-        DeploymentStreamOr3TypedDict,
+        DeploymentStreamOrGtTypedDict,
         DeploymentStreamOrGteTypedDict,
         DeploymentStreamOrLtTypedDict,
         DeploymentStreamOrLteTypedDict,
@@ -1471,7 +1475,7 @@ DeploymentStreamKnowledgeFilterDeploymentsOr = TypeAliasType(
     Union[
         DeploymentStreamOrEq,
         DeploymentStreamOrNe,
-        DeploymentStreamOr3,
+        DeploymentStreamOrGt,
         DeploymentStreamOrGte,
         DeploymentStreamOrLt,
         DeploymentStreamOrLte,
@@ -1589,11 +1593,15 @@ class DeploymentStreamAndGte(BaseModel):
     gte: float
 
 
-class DeploymentStreamAnd3TypedDict(TypedDict):
+class DeploymentStreamAndGtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class DeploymentStreamAnd3(BaseModel):
+class DeploymentStreamAndGt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -1646,7 +1654,7 @@ DeploymentStreamKnowledgeFilterDeploymentsAndTypedDict = TypeAliasType(
     Union[
         DeploymentStreamAndEqTypedDict,
         DeploymentStreamAndNeTypedDict,
-        DeploymentStreamAnd3TypedDict,
+        DeploymentStreamAndGtTypedDict,
         DeploymentStreamAndGteTypedDict,
         DeploymentStreamAndLtTypedDict,
         DeploymentStreamAndLteTypedDict,
@@ -1662,7 +1670,7 @@ DeploymentStreamKnowledgeFilterDeploymentsAnd = TypeAliasType(
     Union[
         DeploymentStreamAndEq,
         DeploymentStreamAndNe,
-        DeploymentStreamAnd3,
+        DeploymentStreamAndGt,
         DeploymentStreamAndGte,
         DeploymentStreamAndLt,
         DeploymentStreamAndLte,
@@ -1780,11 +1788,15 @@ class DeploymentStream1Gte(BaseModel):
     gte: float
 
 
-class DeploymentStream13TypedDict(TypedDict):
+class DeploymentStream1GtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class DeploymentStream13(BaseModel):
+class DeploymentStream1Gt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -1837,7 +1849,7 @@ DeploymentStreamKnowledgeFilter1TypedDict = TypeAliasType(
     Union[
         DeploymentStream1EqTypedDict,
         DeploymentStream1NeTypedDict,
-        DeploymentStream13TypedDict,
+        DeploymentStream1GtTypedDict,
         DeploymentStream1GteTypedDict,
         DeploymentStream1LtTypedDict,
         DeploymentStream1LteTypedDict,
@@ -1853,7 +1865,7 @@ DeploymentStreamKnowledgeFilter1 = TypeAliasType(
     Union[
         DeploymentStream1Eq,
         DeploymentStream1Ne,
-        DeploymentStream13,
+        DeploymentStream1Gt,
         DeploymentStream1Gte,
         DeploymentStream1Lt,
         DeploymentStream1Lte,

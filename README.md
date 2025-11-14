@@ -301,12 +301,12 @@ with Orq(
 * [delete_datapoint](docs/sdks/datasets/README.md#delete_datapoint) - Delete a datapoint
 * [clear](docs/sdks/datasets/README.md#clear) - Delete all datapoints
 
-### [deployments](docs/sdks/deploymentssdk/README.md)
+### [deployments](docs/sdks/deployments/README.md)
 
-* [list](docs/sdks/deploymentssdk/README.md#list) - List all deployments
-* [get_config](docs/sdks/deploymentssdk/README.md#get_config) - Get config
-* [invoke](docs/sdks/deploymentssdk/README.md#invoke) - Invoke
-* [stream](docs/sdks/deploymentssdk/README.md#stream) - Stream
+* [invoke](docs/sdks/deployments/README.md#invoke) - Invoke
+* [list](docs/sdks/deployments/README.md#list) - List all deployments
+* [get_config](docs/sdks/deployments/README.md#get_config) - Get config
+* [stream](docs/sdks/deployments/README.md#stream) - Stream
 
 #### [deployments.metrics](docs/sdks/metrics/README.md)
 

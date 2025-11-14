@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig2TextContentPart`
+### `models.DeploymentGetConfig2DeploymentsTextContentPart`
 
 ```python
-value: models.DeploymentGetConfig2TextContentPart = /* values here */
+value: models.DeploymentGetConfig2DeploymentsTextContentPart = /* values here */
 ```
 
-### `models.DeploymentGetConfig2RefusalContentPart`
+### `models.DeploymentGetConfig2DeploymentsRefusalContentPart`
 
 ```python
-value: models.DeploymentGetConfig2RefusalContentPart = /* values here */
+value: models.DeploymentGetConfig2DeploymentsRefusalContentPart = /* values here */
 ```
 

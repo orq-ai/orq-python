@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.DeploymentsOrEq`
+### `models.InvokeDeploymentRequestOrEq`
 
 ```python
-value: models.DeploymentsOrEq = /* values here */
+value: models.InvokeDeploymentRequestOrEq = /* values here */
 ```
 
-### `models.DeploymentsOrNe`
+### `models.InvokeDeploymentRequestOrNe`
 
 ```python
-value: models.DeploymentsOrNe = /* values here */
+value: models.InvokeDeploymentRequestOrNe = /* values here */
 ```
 
-### `models.Or3`
+### `models.OrGt`
 
 ```python
-value: models.Or3 = /* values here */
+value: models.OrGt = /* values here */
 ```
 
 ### `models.OrGte`
@@ -39,16 +39,16 @@ value: models.OrLt = /* values here */
 value: models.OrLte = /* values here */
 ```
 
-### `models.DeploymentsOrIn`
+### `models.InvokeDeploymentRequestOrIn`
 
 ```python
-value: models.DeploymentsOrIn = /* values here */
+value: models.InvokeDeploymentRequestOrIn = /* values here */
 ```
 
-### `models.DeploymentsOrNin`
+### `models.InvokeDeploymentRequestOrNin`
 
 ```python
-value: models.DeploymentsOrNin = /* values here */
+value: models.InvokeDeploymentRequestOrNin = /* values here */
 ```
 
 ### `models.OrExists`

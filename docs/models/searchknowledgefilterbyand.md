@@ -15,10 +15,10 @@ value: models.SearchKnowledgeAndEq = /* values here */
 value: models.SearchKnowledgeAndNe = /* values here */
 ```
 
-### `models.SearchKnowledgeAnd3`
+### `models.SearchKnowledgeAndGt`
 
 ```python
-value: models.SearchKnowledgeAnd3 = /* values here */
+value: models.SearchKnowledgeAndGt = /* values here */
 ```
 
 ### `models.SearchKnowledgeAndGte`

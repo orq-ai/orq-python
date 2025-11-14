@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig21`
+### `models.DeploymentGetConfig2Deployments1`
 
 ```python
-value: models.DeploymentGetConfig21 = /* values here */
+value: models.DeploymentGetConfig2Deployments1 = /* values here */
 ```
 
 ### `models.DeploymentGetConfig2Deployments2`
@@ -15,15 +15,15 @@ value: models.DeploymentGetConfig21 = /* values here */
 value: models.DeploymentGetConfig2Deployments2 = /* values here */
 ```
 
-### `models.DeploymentGetConfig23`
+### `models.DeploymentGetConfig2Deployments3`
 
 ```python
-value: models.DeploymentGetConfig23 = /* values here */
+value: models.DeploymentGetConfig2Deployments3 = /* values here */
 ```
 
-### `models.DeploymentGetConfig24`
+### `models.DeploymentGetConfig2Deployments4`
 
 ```python
-value: models.DeploymentGetConfig24 = /* values here */
+value: models.DeploymentGetConfig2Deployments4 = /* values here */
 ```
 

@@ -168,6 +168,7 @@ r"""The format to return the embeddings"""
 
 
 UpdatePromptReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",
@@ -1823,6 +1824,7 @@ r"""The format to return the embeddings"""
 
 
 UpdatePromptPromptsReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",

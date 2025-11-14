@@ -1,8 +1,10 @@
 # Deployments2DeploymentsResponseType
 
+The type of the content part. Always `file`.
+
 
 ## Values
 
 | Name   | Value  |
 | ------ | ------ |
-| `TEXT` | text   |
+| `FILE` | file   |

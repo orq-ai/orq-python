@@ -1,10 +1,10 @@
 # DeploymentGetConfigPrefixMessagesRole
 
-The role of the messages author, in this case `user`.
+The role of the messages author, in this case  `developer`.
 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `DEVELOPER` | developer   |

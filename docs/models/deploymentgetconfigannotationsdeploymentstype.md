@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FILE_CITATION` | file_citation   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `FILE_PATH` | file_path   |

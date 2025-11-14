@@ -15,10 +15,10 @@ value: models.DeploymentStream1Eq = /* values here */
 value: models.DeploymentStream1Ne = /* values here */
 ```
 
-### `models.DeploymentStream13`
+### `models.DeploymentStream1Gt`
 
 ```python
-value: models.DeploymentStream13 = /* values here */
+value: models.DeploymentStream1Gt = /* values here */
 ```
 
 ### `models.DeploymentStream1Gte`

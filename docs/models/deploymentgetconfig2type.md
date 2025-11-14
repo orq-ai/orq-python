@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_AUDIO` | input_audio   |
+| Name   | Value  |
+| ------ | ------ |
+| `TEXT` | text   |

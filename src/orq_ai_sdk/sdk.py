@@ -21,7 +21,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
-    from orq_ai_sdk.deployments_sdk import DeploymentsSDK
+    from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
@@ -41,7 +41,7 @@ class Orq(BaseSDK):
     contacts: "Contacts"
     feedback: "Feedback"
     evals: "Evals"
-    deployments: "DeploymentsSDK"
+    deployments: "Deployments"
     agents: "Agents"
     files: "Files"
     prompts: "Prompts"
@@ -57,7 +57,7 @@ class Orq(BaseSDK):
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
-        "deployments": ("orq_ai_sdk.deployments_sdk", "DeploymentsSDK"),
+        "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),

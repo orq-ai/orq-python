@@ -1,23 +1,10 @@
 # DeploymentGetConfigAndNin
 
+Not in
 
-## Supported Types
 
-### `str`
+## Fields
 
-```python
-value: str = /* values here */
-```
-
-### `float`
-
-```python
-value: float = /* values here */
-```
-
-### `bool`
-
-```python
-value: bool = /* values here */
-```
-
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `nin`                                                                                                  | List[[models.DeploymentGetConfigAndDeploymentsNin](../models/deploymentgetconfiganddeploymentsnin.md)] | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
