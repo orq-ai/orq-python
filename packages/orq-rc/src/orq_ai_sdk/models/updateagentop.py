@@ -459,22 +459,43 @@ class ModelConfigurationParameters(BaseModel):
         return m
 
 
+class ModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class ModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     r"""
 
-    Model configuration with parameters.
+    Model configuration with parameters and retry settings.
     """
 
     id: str
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    retry: NotRequired[ModelConfigurationRetryTypedDict]
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
 class UpdateAgentModelConfiguration2(BaseModel):
     r"""
 
-    Model configuration with parameters.
+    Model configuration with parameters and retry settings.
     """
 
     id: str
@@ -483,18 +504,21 @@ class UpdateAgentModelConfiguration2(BaseModel):
     parameters: Optional[ModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
+    retry: Optional[ModelConfigurationRetry] = None
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
 
 UpdateAgentModelConfigurationTypedDict = TypeAliasType(
     "UpdateAgentModelConfigurationTypedDict",
     Union[UpdateAgentModelConfiguration2TypedDict, str],
 )
-r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
+r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
 
 
 UpdateAgentModelConfiguration = TypeAliasType(
     "UpdateAgentModelConfiguration", Union[UpdateAgentModelConfiguration2, str]
 )
-r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
+r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
 
 
 UpdateAgentFallbackModelConfigurationVoice = Literal[
@@ -1540,7 +1564,7 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     model: NotRequired[UpdateAgentModelConfigurationTypedDict]
-    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
+    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
     fallback_models: NotRequired[List[UpdateAgentFallbackModelConfigurationTypedDict]]
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     settings: NotRequired[UpdateAgentSettingsTypedDict]
@@ -1575,7 +1599,7 @@ class UpdateAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     model: Optional[UpdateAgentModelConfiguration] = None
-    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters."""
+    r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
 
     fallback_models: Optional[List[UpdateAgentFallbackModelConfiguration]] = None
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
@@ -2247,6 +2271,25 @@ class UpdateAgentParameters(BaseModel):
         return m
 
 
+class UpdateAgentRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentRetry(BaseModel):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 UpdateAgentFallbackModelConfigurationAgentsVoice = Literal[
     "alloy",
     "echo",
@@ -2770,6 +2813,8 @@ class UpdateAgentModelTypedDict(TypedDict):
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[UpdateAgentParametersTypedDict]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    retry: NotRequired[UpdateAgentRetryTypedDict]
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
         Nullable[List[UpdateAgentAgentsFallbackModelConfigurationTypedDict]]
     ]
@@ -2786,6 +2831,9 @@ class UpdateAgentModel(BaseModel):
     parameters: Optional[UpdateAgentParameters] = None
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
+    retry: Optional[UpdateAgentRetry] = None
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
     fallback_models: OptionalNullable[
         List[UpdateAgentAgentsFallbackModelConfiguration]
     ] = UNSET
@@ -2793,7 +2841,7 @@ class UpdateAgentModel(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters", "fallback_models"]
+        optional_fields = ["integration_id", "parameters", "retry", "fallback_models"]
         nullable_fields = ["integration_id", "fallback_models"]
         null_default_fields = []
 

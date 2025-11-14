@@ -1,6 +1,6 @@
 # ModelConfiguration
 
-Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters.
+Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
 
 
 ## Supported Types

@@ -676,6 +676,25 @@ class DuplicateAgentParameters(BaseModel):
         return m
 
 
+class DuplicateAgentRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class DuplicateAgentRetry(BaseModel):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 DuplicateAgentFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
@@ -1177,6 +1196,8 @@ class DuplicateAgentModelTypedDict(TypedDict):
     r"""Optional integration ID for custom model configurations"""
     parameters: NotRequired[DuplicateAgentParametersTypedDict]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    retry: NotRequired[DuplicateAgentRetryTypedDict]
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
         Nullable[List[DuplicateAgentFallbackModelConfigurationTypedDict]]
     ]
@@ -1193,6 +1214,9 @@ class DuplicateAgentModel(BaseModel):
     parameters: Optional[DuplicateAgentParameters] = None
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
+    retry: Optional[DuplicateAgentRetry] = None
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
     fallback_models: OptionalNullable[
         List[DuplicateAgentFallbackModelConfiguration]
     ] = UNSET
@@ -1200,7 +1224,7 @@ class DuplicateAgentModel(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters", "fallback_models"]
+        optional_fields = ["integration_id", "parameters", "retry", "fallback_models"]
         nullable_fields = ["integration_id", "fallback_models"]
         null_default_fields = []
 
