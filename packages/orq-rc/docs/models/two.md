@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.Deployments21`
+### `models.InvokeDeploymentRequest21`
 
 ```python
-value: models.Deployments21 = /* values here */
+value: models.InvokeDeploymentRequest21 = /* values here */
 ```
 
 ### `models.Two2`
@@ -15,10 +15,10 @@ value: models.Deployments21 = /* values here */
 value: models.Two2 = /* values here */
 ```
 
-### `models.Deployments23`
+### `models.Three`
 
 ```python
-value: models.Deployments23 = /* values here */
+value: models.Three = /* values here */
 ```
 
 ### `models.Four`

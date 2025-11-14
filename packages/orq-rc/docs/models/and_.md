@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.DeploymentsAndEq`
+### `models.InvokeDeploymentRequestAndEq`
 
 ```python
-value: models.DeploymentsAndEq = /* values here */
+value: models.InvokeDeploymentRequestAndEq = /* values here */
 ```
 
-### `models.DeploymentsAndNe`
+### `models.InvokeDeploymentRequestAndNe`
 
 ```python
-value: models.DeploymentsAndNe = /* values here */
+value: models.InvokeDeploymentRequestAndNe = /* values here */
 ```
 
-### `models.And3`
+### `models.AndGt`
 
 ```python
-value: models.And3 = /* values here */
+value: models.AndGt = /* values here */
 ```
 
 ### `models.AndGte`
@@ -39,16 +39,16 @@ value: models.AndLt = /* values here */
 value: models.AndLte = /* values here */
 ```
 
-### `models.DeploymentsAndIn`
+### `models.InvokeDeploymentRequestAndIn`
 
 ```python
-value: models.DeploymentsAndIn = /* values here */
+value: models.InvokeDeploymentRequestAndIn = /* values here */
 ```
 
-### `models.DeploymentsAndNin`
+### `models.InvokeDeploymentRequestAndNin`
 
 ```python
-value: models.DeploymentsAndNin = /* values here */
+value: models.InvokeDeploymentRequestAndNin = /* values here */
 ```
 
 ### `models.AndExists`

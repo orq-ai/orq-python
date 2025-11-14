@@ -176,7 +176,7 @@ class SyncMcpToolResponseBody5(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA0EAFR6A1RAJP0M3XRYH3EG"
+        "tool_01KA114QVVB69RG52TT3RQ724P"
     )
 
     display_name: Optional[str] = None
@@ -364,7 +364,7 @@ class SyncMcpToolResponseBody4(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA0EAFR1MD3RR2MQX8P2Q0T7"
+        "tool_01KA114QVSK53MQBXZTHNHHGZ7"
     )
 
     display_name: Optional[str] = None
@@ -594,7 +594,7 @@ class SyncMcpToolResponseBody3(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA0EAFQYY525J2GY8K7RT03J"
+        "tool_01KA114QVP260BXZK3PGP9B2CA"
     )
 
     display_name: Optional[str] = None
@@ -764,7 +764,7 @@ class SyncMcpToolResponseBody2(BaseModel):
     sync_result: Annotated[ResponseBodySyncResult, pydantic.Field(alias="syncResult")]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA0EAFQW1CPNNFCAT0ACW782"
+        "tool_01KA114QVK508N4J3C540HPBG9"
     )
 
     display_name: Optional[str] = None
@@ -938,7 +938,7 @@ class SyncMcpToolResponseBody1(BaseModel):
     sync_result: Annotated[SyncResult, pydantic.Field(alias="syncResult")]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA0EAFQTD837M8S237134SG5"
+        "tool_01KA114QVHBHXSG1HVG7PF59GQ"
     )
 
     display_name: Optional[str] = None

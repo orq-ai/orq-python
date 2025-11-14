@@ -15,10 +15,10 @@ value: models.DeploymentGetConfig1Eq = /* values here */
 value: models.DeploymentGetConfig1Ne = /* values here */
 ```
 
-### `models.One3`
+### `models.OneGt`
 
 ```python
-value: models.One3 = /* values here */
+value: models.OneGt = /* values here */
 ```
 
 ### `models.OneGte`

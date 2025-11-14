@@ -191,6 +191,7 @@ r"""The format to return the embeddings"""
 
 
 GetOnePromptReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",

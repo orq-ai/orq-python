@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfigOrDeploymentsEq`
+### `models.DeploymentGetConfigOrEq`
 
 ```python
-value: models.DeploymentGetConfigOrDeploymentsEq = /* values here */
+value: models.DeploymentGetConfigOrEq = /* values here */
 ```
 
-### `models.DeploymentGetConfigOrDeploymentsNe`
+### `models.DeploymentGetConfigOrNe`
 
 ```python
-value: models.DeploymentGetConfigOrDeploymentsNe = /* values here */
+value: models.DeploymentGetConfigOrNe = /* values here */
 ```
 
-### `models.DeploymentGetConfigOr3`
+### `models.DeploymentGetConfigOrGt`
 
 ```python
-value: models.DeploymentGetConfigOr3 = /* values here */
+value: models.DeploymentGetConfigOrGt = /* values here */
 ```
 
 ### `models.DeploymentGetConfigOrGte`
@@ -39,16 +39,16 @@ value: models.DeploymentGetConfigOrLt = /* values here */
 value: models.DeploymentGetConfigOrLte = /* values here */
 ```
 
-### `models.DeploymentGetConfigOrDeploymentsIn`
+### `models.DeploymentGetConfigOrIn`
 
 ```python
-value: models.DeploymentGetConfigOrDeploymentsIn = /* values here */
+value: models.DeploymentGetConfigOrIn = /* values here */
 ```
 
-### `models.DeploymentGetConfigOrDeploymentsNin`
+### `models.DeploymentGetConfigOrNin`
 
 ```python
-value: models.DeploymentGetConfigOrDeploymentsNin = /* values here */
+value: models.DeploymentGetConfigOrNin = /* values here */
 ```
 
 ### `models.DeploymentGetConfigOrExists`

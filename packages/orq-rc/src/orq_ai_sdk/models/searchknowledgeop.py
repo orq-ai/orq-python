@@ -108,11 +108,15 @@ class SearchKnowledgeOrGte(BaseModel):
     gte: float
 
 
-class SearchKnowledgeOr3TypedDict(TypedDict):
+class SearchKnowledgeOrGtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class SearchKnowledgeOr3(BaseModel):
+class SearchKnowledgeOrGt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -165,7 +169,7 @@ SearchKnowledgeFilterByOrTypedDict = TypeAliasType(
     Union[
         SearchKnowledgeOrEqTypedDict,
         SearchKnowledgeOrNeTypedDict,
-        SearchKnowledgeOr3TypedDict,
+        SearchKnowledgeOrGtTypedDict,
         SearchKnowledgeOrGteTypedDict,
         SearchKnowledgeOrLtTypedDict,
         SearchKnowledgeOrLteTypedDict,
@@ -181,7 +185,7 @@ SearchKnowledgeFilterByOr = TypeAliasType(
     Union[
         SearchKnowledgeOrEq,
         SearchKnowledgeOrNe,
-        SearchKnowledgeOr3,
+        SearchKnowledgeOrGt,
         SearchKnowledgeOrGte,
         SearchKnowledgeOrLt,
         SearchKnowledgeOrLte,
@@ -298,11 +302,15 @@ class SearchKnowledgeAndGte(BaseModel):
     gte: float
 
 
-class SearchKnowledgeAnd3TypedDict(TypedDict):
+class SearchKnowledgeAndGtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class SearchKnowledgeAnd3(BaseModel):
+class SearchKnowledgeAndGt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -355,7 +363,7 @@ SearchKnowledgeFilterByAndTypedDict = TypeAliasType(
     Union[
         SearchKnowledgeAndEqTypedDict,
         SearchKnowledgeAndNeTypedDict,
-        SearchKnowledgeAnd3TypedDict,
+        SearchKnowledgeAndGtTypedDict,
         SearchKnowledgeAndGteTypedDict,
         SearchKnowledgeAndLtTypedDict,
         SearchKnowledgeAndLteTypedDict,
@@ -371,7 +379,7 @@ SearchKnowledgeFilterByAnd = TypeAliasType(
     Union[
         SearchKnowledgeAndEq,
         SearchKnowledgeAndNe,
-        SearchKnowledgeAnd3,
+        SearchKnowledgeAndGt,
         SearchKnowledgeAndGte,
         SearchKnowledgeAndLt,
         SearchKnowledgeAndLte,
@@ -488,11 +496,15 @@ class SearchKnowledge1Gte(BaseModel):
     gte: float
 
 
-class SearchKnowledge13TypedDict(TypedDict):
+class SearchKnowledge1GtTypedDict(TypedDict):
+    r"""Greater than"""
+
     gt: float
 
 
-class SearchKnowledge13(BaseModel):
+class SearchKnowledge1Gt(BaseModel):
+    r"""Greater than"""
+
     gt: float
 
 
@@ -545,7 +557,7 @@ FilterBy1TypedDict = TypeAliasType(
     Union[
         SearchKnowledge1EqTypedDict,
         SearchKnowledge1NeTypedDict,
-        SearchKnowledge13TypedDict,
+        SearchKnowledge1GtTypedDict,
         SearchKnowledge1GteTypedDict,
         SearchKnowledge1LtTypedDict,
         SearchKnowledge1LteTypedDict,
@@ -561,7 +573,7 @@ FilterBy1 = TypeAliasType(
     Union[
         SearchKnowledge1Eq,
         SearchKnowledge1Ne,
-        SearchKnowledge13,
+        SearchKnowledge1Gt,
         SearchKnowledge1Gte,
         SearchKnowledge1Lt,
         SearchKnowledge1Lte,

@@ -292,6 +292,7 @@ r"""The format to return the embeddings"""
 
 
 DeploymentsReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",
@@ -526,7 +527,7 @@ DeploymentsRole = Literal[
 r"""The role of the prompt message"""
 
 
-Deployments2DeploymentsType = Literal["file",]
+Deployments2DeploymentsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
@@ -555,20 +556,20 @@ class Deployments2File(BaseModel):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class Deployments2Deployments3TypedDict(TypedDict):
-    type: Deployments2DeploymentsType
+class Deployments23TypedDict(TypedDict):
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
     file: Deployments2FileTypedDict
 
 
-class Deployments2Deployments3(BaseModel):
-    type: Deployments2DeploymentsType
+class Deployments23(BaseModel):
+    type: Deployments2DeploymentsResponseType
     r"""The type of the content part. Always `file`."""
 
     file: Deployments2File
 
 
-Deployments2DeploymentsResponse200Type = Literal["image_url",]
+Deployments2DeploymentsType = Literal["image_url",]
 
 
 class Deployments2ImageURLTypedDict(TypedDict):
@@ -591,64 +592,58 @@ class Deployments2ImageURL(BaseModel):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class Deployments2Deployments2TypedDict(TypedDict):
+class Deployments22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponse200Type
+    type: Deployments2DeploymentsType
     image_url: Deployments2ImageURLTypedDict
 
 
-class Deployments2Deployments2(BaseModel):
+class Deployments22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
-    type: Deployments2DeploymentsResponse200Type
+    type: Deployments2DeploymentsType
 
     image_url: Deployments2ImageURL
 
 
-Deployments2DeploymentsResponseType = Literal["text",]
+Deployments2Type = Literal["text",]
 
 
-class Deployments2Deployments1TypedDict(TypedDict):
+class Deployments21TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2Type
     text: str
 
 
-class Deployments2Deployments1(BaseModel):
+class Deployments21(BaseModel):
     r"""Text content part of a prompt message"""
 
-    type: Deployments2DeploymentsResponseType
+    type: Deployments2Type
 
     text: str
 
 
-DeploymentsContentDeployments2TypedDict = TypeAliasType(
-    "DeploymentsContentDeployments2TypedDict",
-    Union[
-        Deployments2Deployments1TypedDict,
-        Deployments2Deployments2TypedDict,
-        Deployments2Deployments3TypedDict,
-    ],
+DeploymentsContent2TypedDict = TypeAliasType(
+    "DeploymentsContent2TypedDict",
+    Union[Deployments21TypedDict, Deployments22TypedDict, Deployments23TypedDict],
 )
 
 
-DeploymentsContentDeployments2 = TypeAliasType(
-    "DeploymentsContentDeployments2",
-    Union[Deployments2Deployments1, Deployments2Deployments2, Deployments2Deployments3],
+DeploymentsContent2 = TypeAliasType(
+    "DeploymentsContent2", Union[Deployments21, Deployments22, Deployments23]
 )
 
 
 DeploymentsContentTypedDict = TypeAliasType(
-    "DeploymentsContentTypedDict",
-    Union[str, List[DeploymentsContentDeployments2TypedDict]],
+    "DeploymentsContentTypedDict", Union[str, List[DeploymentsContent2TypedDict]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
 DeploymentsContent = TypeAliasType(
-    "DeploymentsContent", Union[str, List[DeploymentsContentDeployments2]]
+    "DeploymentsContent", Union[str, List[DeploymentsContent2]]
 )
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 

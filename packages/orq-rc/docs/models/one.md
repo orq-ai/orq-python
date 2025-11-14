@@ -15,10 +15,10 @@ value: models.OneEq = /* values here */
 value: models.OneNe = /* values here */
 ```
 
-### `models.Three`
+### `models.Gt`
 
 ```python
-value: models.Three = /* values here */
+value: models.Gt = /* values here */
 ```
 
 ### `models.Gte`

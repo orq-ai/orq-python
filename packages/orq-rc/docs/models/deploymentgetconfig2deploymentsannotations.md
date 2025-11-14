@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfigAnnotations1`
+### `models.DeploymentGetConfigAnnotationsDeployments1`
 
 ```python
-value: models.DeploymentGetConfigAnnotations1 = /* values here */
+value: models.DeploymentGetConfigAnnotationsDeployments1 = /* values here */
 ```
 
-### `models.DeploymentGetConfigAnnotations2`
+### `models.DeploymentGetConfigAnnotationsDeployments2`
 
 ```python
-value: models.DeploymentGetConfigAnnotations2 = /* values here */
+value: models.DeploymentGetConfigAnnotationsDeployments2 = /* values here */
 ```
 

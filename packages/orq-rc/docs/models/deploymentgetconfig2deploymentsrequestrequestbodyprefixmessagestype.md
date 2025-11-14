@@ -1,5 +1,7 @@
 # DeploymentGetConfig2DeploymentsRequestRequestBodyPrefixMessagesType
 
+The type of the content part.
+
 
 ## Values
 

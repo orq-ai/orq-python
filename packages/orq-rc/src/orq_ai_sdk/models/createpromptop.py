@@ -456,6 +456,7 @@ r"""The format to return the embeddings"""
 
 
 ReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",
@@ -1673,6 +1674,7 @@ r"""The format to return the embeddings"""
 
 
 CreatePromptReasoningEffort = Literal[
+    "none",
     "disable",
     "minimal",
     "low",

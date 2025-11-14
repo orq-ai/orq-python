@@ -7,6 +7,7 @@ Constrains effort on reasoning for reasoning models. Reducing reasoning effort c
 
 | Name      | Value     |
 | --------- | --------- |
+| `NONE`    | none      |
 | `DISABLE` | disable   |
 | `MINIMAL` | minimal   |
 | `LOW`     | low       |

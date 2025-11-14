@@ -15,10 +15,10 @@ value: models.DeploymentStreamOrEq = /* values here */
 value: models.DeploymentStreamOrNe = /* values here */
 ```
 
-### `models.DeploymentStreamOr3`
+### `models.DeploymentStreamOrGt`
 
 ```python
-value: models.DeploymentStreamOr3 = /* values here */
+value: models.DeploymentStreamOrGt = /* values here */
 ```
 
 ### `models.DeploymentStreamOrGte`
