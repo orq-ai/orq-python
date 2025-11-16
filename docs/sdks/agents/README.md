@@ -7,12 +7,12 @@
 
 * [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [create](#create) - Create a new agent
-* [list](#list) - List all agents
 * [delete](#delete) - Delete an agent
 * [retrieve](#retrieve) - Get an agent
 * [update](#update) - Update an agent
 * [invoke](#invoke) - Invoke an agent
 * [list_tasks](#list_tasks) - List all tasks for an agent
+* [list](#list) - List all agents
 * [run](#run) - Run an agent
 * [stream_run](#stream_run) - Run and stream agent execution
 * [stream](#stream) - Stream agent execution events
@@ -69,7 +69,7 @@ Creates a new AI agent with specified configuration. Agents can be configured wi
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="CreateAgent" method="post" path="/v2/agents/" -->
+<!-- UsageSnippet language="python" operationID="CreateAgent" method="post" path="/v2/agents" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -118,50 +118,6 @@ with Orq(
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | models.CreateAgentAgentsResponseBody | 409                                  | application/json                     |
 | models.APIError                      | 4XX, 5XX                             | \*/\*                                |
-
-## list
-
-Retrieves a paginated list of all agents in your workspace. Each agent includes its configuration, primary model, and optional fallback model settings.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="ListAgents" method="get" path="/v2/agents/" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.list(limit=10)
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
-| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
-| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
-
-### Response
-
-**[models.ListAgentsResponseBody](../../models/listagentsresponsebody.md)**
-
-### Errors
-
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## delete
 
@@ -421,6 +377,50 @@ with Orq(
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | models.ListAgentTasksAgentsResponseBody | 404                                     | application/json                        |
 | models.APIError                         | 4XX, 5XX                                | \*/\*                                   |
+
+## list
+
+Retrieves a paginated list of all agents in your workspace. Each agent includes its configuration, primary model, and optional fallback model settings.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="ListAgents" method="get" path="/v2/agents/" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.list(limit=10)
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
+| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
+| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+
+### Response
+
+**[models.ListAgentsResponseBody](../../models/listagentsresponsebody.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| models.APIError | 4XX, 5XX        | \*/\*           |
 
 ## run
 
