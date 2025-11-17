@@ -1714,8 +1714,6 @@ class UpdateAgentToolsTypedDict(TypedDict):
     r"""Optional tool description"""
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[UpdateAgentConditionsTypedDict]]
-    mcp_server: NotRequired[str]
-    r"""Optional MCP server reference for tools from MCP servers"""
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -1737,9 +1735,6 @@ class UpdateAgentTools(BaseModel):
     requires_approval: Optional[bool] = False
 
     conditions: Optional[List[UpdateAgentConditions]] = None
-
-    mcp_server: Annotated[Optional[str], pydantic.Field(alias="mcpServer")] = None
-    r"""Optional MCP server reference for tools from MCP servers"""
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""

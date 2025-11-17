@@ -968,6 +968,8 @@ class Tools(BaseSDK):
         self,
         *,
         tool_id: str,
+        key: str,
+        description: str,
         display_name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -979,7 +981,9 @@ class Tools(BaseSDK):
         Creates a copy of an existing tool with a new id and ID.
 
         :param tool_id: The id of the tool to duplicate
-        :param display_name: Custom display name for the duplicated tool
+        :param key: Unique key of the tool as it will be displayed in the UI
+        :param description: A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision.
+        :param display_name: The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1001,7 +1005,9 @@ class Tools(BaseSDK):
         request = models.DuplicateToolRequest(
             tool_id=tool_id,
             request_body=models.DuplicateToolRequestBody(
+                key=key,
                 display_name=display_name,
+                description=description,
             ),
         )
 
@@ -1074,6 +1080,8 @@ class Tools(BaseSDK):
         self,
         *,
         tool_id: str,
+        key: str,
+        description: str,
         display_name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1085,7 +1093,9 @@ class Tools(BaseSDK):
         Creates a copy of an existing tool with a new id and ID.
 
         :param tool_id: The id of the tool to duplicate
-        :param display_name: Custom display name for the duplicated tool
+        :param key: Unique key of the tool as it will be displayed in the UI
+        :param description: A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision.
+        :param display_name: The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1107,7 +1117,9 @@ class Tools(BaseSDK):
         request = models.DuplicateToolRequest(
             tool_id=tool_id,
             request_body=models.DuplicateToolRequestBody(
+                key=key,
                 display_name=display_name,
+                description=description,
             ),
         )
 

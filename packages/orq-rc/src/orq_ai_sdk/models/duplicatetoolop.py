@@ -13,13 +13,23 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class DuplicateToolRequestBodyTypedDict(TypedDict):
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
     display_name: NotRequired[str]
-    r"""Custom display name for the duplicated tool"""
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
 
 class DuplicateToolRequestBody(BaseModel):
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
     display_name: Optional[str] = None
-    r"""Custom display name for the duplicated tool"""
+    r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
 
 class DuplicateToolRequestTypedDict(TypedDict):
@@ -194,7 +204,7 @@ class DuplicateToolResponseBody5(BaseModel):
     code_tool: DuplicateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWR0CJYVVVFVJB27C4M0"
+        "tool_01KA8HBD909ANYQSGXTQ21GJRS"
     )
 
     display_name: Optional[str] = None
@@ -268,7 +278,7 @@ class DuplicateToolResponseBodyTools(BaseModel):
         DuplicateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KA80WWQS5DCH63XAE44DS2HX"
+    id: Optional[str] = "01KA8HBD9019SC3WP9MNE8YSWX"
 
     description: Optional[str] = None
 
@@ -363,7 +373,7 @@ class DuplicateToolResponseBody4(BaseModel):
     mcp: DuplicateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQRSHNCS0MASEG5ZAJV"
+        "tool_01KA8HBD8ZJBR402A36GXF2Y1K"
     )
 
     display_name: Optional[str] = None
@@ -571,7 +581,7 @@ class DuplicateToolResponseBody3(BaseModel):
     http: DuplicateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQPQF6AGBKFQ021TBW8"
+        "tool_01KA8HBD8XSVXAM5PDKSKFDTT9"
     )
 
     display_name: Optional[str] = None
@@ -721,7 +731,7 @@ class DuplicateToolResponseBody2(BaseModel):
     json_schema: DuplicateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQMAR93VRDZ8CCN4RAR"
+        "tool_01KA8HBD8WRP0MJQ84Z62ANS92"
     )
 
     display_name: Optional[str] = None
@@ -875,7 +885,7 @@ class DuplicateToolResponseBody1(BaseModel):
     function: DuplicateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQKRMJ7ZDEB4WCYBZHE"
+        "tool_01KA8HBD8TRS52AYEBB5D6NN6W"
     )
 
     display_name: Optional[str] = None

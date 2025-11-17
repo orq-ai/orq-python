@@ -97,6 +97,8 @@ class UpdateCodeExecutionToolTypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+    key: NotRequired[str]
+    r"""Unique key of the tool as it will be displayed in the UI"""
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
     description: NotRequired[str]
@@ -118,6 +120,9 @@ class UpdateCodeExecutionTool(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
+
+    key: Optional[str] = None
+    r"""Unique key of the tool as it will be displayed in the UI"""
 
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
@@ -183,7 +188,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KA80WWQGW3T7PKRACXGFENW0"
+    id: Optional[str] = "01KA8HBD8QVW72PZ6PBHKKRGXG"
 
     description: Optional[str] = None
 
@@ -707,11 +712,11 @@ class UpdateFunctionTool(BaseModel):
 UpdateToolRequestBodyTypedDict = TypeAliasType(
     "UpdateToolRequestBodyTypedDict",
     Union[
-        UpdateCodeExecutionToolTypedDict,
         UpdateFunctionToolTypedDict,
         UpdateJSONSchemaToolTypedDict,
         UpdateHTTPToolTypedDict,
         UpdateMCPToolTypedDict,
+        UpdateCodeExecutionToolTypedDict,
     ],
 )
 r"""The tool to update"""
@@ -720,11 +725,11 @@ r"""The tool to update"""
 UpdateToolRequestBody = TypeAliasType(
     "UpdateToolRequestBody",
     Union[
-        UpdateCodeExecutionTool,
         UpdateFunctionTool,
         UpdateJSONSchemaTool,
         UpdateHTTPTool,
         UpdateMCPTool,
+        UpdateCodeExecutionTool,
     ],
 )
 r"""The tool to update"""
@@ -902,7 +907,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQ7SXW91QMDWYFCS0D7"
+        "tool_01KA8HBD8FFHG6JX77STCFGDE3"
     )
 
     display_name: Optional[str] = None
@@ -976,7 +981,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KA80WWQ6D8AD2Y0870SX594A"
+    id: Optional[str] = "01KA8HBD8E8MGYNGEDXN35822P"
 
     description: Optional[str] = None
 
@@ -1071,7 +1076,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQ5ZP3M3X16XCNTM4RV"
+        "tool_01KA8HBD8D8G4AQS2E4QTBNFCA"
     )
 
     display_name: Optional[str] = None
@@ -1279,7 +1284,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQ38NVPV136HDWDTZ1H"
+        "tool_01KA8HBD8BX6GCF1Y10TQMK0RM"
     )
 
     display_name: Optional[str] = None
@@ -1429,7 +1434,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWQ17M53VQAF6ZVHG5MC"
+        "tool_01KA8HBD8AMAJAVNY6XC1TG87Q"
     )
 
     display_name: Optional[str] = None
@@ -1583,7 +1588,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA80WWPZZVCCSSN62G8RBNAG"
+        "tool_01KA8HBD89XEJ8VHW61BHYS40M"
     )
 
     display_name: Optional[str] = None
