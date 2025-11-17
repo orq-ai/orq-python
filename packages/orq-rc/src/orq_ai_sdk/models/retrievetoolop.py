@@ -151,7 +151,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJ6WA4CQVPBD0PQNFWJ"
+        "tool_01KA80WWRAMF4BYD80SCAX05K1"
     )
 
     display_name: Optional[str] = None
@@ -214,6 +214,7 @@ class RetrieveToolResponseBodyToolsSchema(BaseModel):
 class RetrieveToolResponseBodyToolsTypedDict(TypedDict):
     name: str
     schema_: RetrieveToolResponseBodyToolsSchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -223,6 +224,8 @@ class RetrieveToolResponseBodyTools(BaseModel):
     schema_: Annotated[
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
+
+    id: Optional[str] = "01KA80WWR9062F32GSYKDYWEF8"
 
     description: Optional[str] = None
 
@@ -317,7 +320,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJ35S5YRF3EK1PHR3TW"
+        "tool_01KA80WWR7HQ29C3W8GCEMQQ2Z"
     )
 
     display_name: Optional[str] = None
@@ -525,7 +528,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJ0ME9HG3B1VE389BB6"
+        "tool_01KA80WWR41K1FP8E39DKE8HZK"
     )
 
     display_name: Optional[str] = None
@@ -675,7 +678,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJHYE3HXV2DJN2E10R7V"
+        "tool_01KA80WWR39R5CYPM5CV6QF3AY"
     )
 
     display_name: Optional[str] = None
@@ -829,7 +832,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJHWG44A9S7R7MFG9PNT"
+        "tool_01KA80WWR22T84N3A0N95YVZNZ"
     )
 
     display_name: Optional[str] = None

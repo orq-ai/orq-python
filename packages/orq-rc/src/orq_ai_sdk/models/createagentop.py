@@ -1663,6 +1663,8 @@ class CreateAgentToolsTypedDict(TypedDict):
     key: NotRequired[str]
     r"""Optional tool key for custom tools"""
     display_name: NotRequired[str]
+    description: NotRequired[str]
+    r"""Optional tool description"""
     requires_approval: NotRequired[bool]
     conditions: NotRequired[List[ConditionsTypedDict]]
     mcp_server: NotRequired[str]
@@ -1681,6 +1683,9 @@ class CreateAgentTools(BaseModel):
     r"""Optional tool key for custom tools"""
 
     display_name: Optional[str] = None
+
+    description: Optional[str] = None
+    r"""Optional tool description"""
 
     requires_approval: Optional[bool] = False
 

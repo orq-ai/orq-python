@@ -174,6 +174,7 @@ class UpdateToolRequestBodyToolsSchema(BaseModel):
 class RequestBodyToolsTypedDict(TypedDict):
     name: str
     schema_: UpdateToolRequestBodyToolsSchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -181,6 +182,8 @@ class RequestBodyTools(BaseModel):
     name: str
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
+
+    id: Optional[str] = "01KA80WWQGW3T7PKRACXGFENW0"
 
     description: Optional[str] = None
 
@@ -899,7 +902,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJH0CE1D7G19GGKNDJ12"
+        "tool_01KA80WWQ7SXW91QMDWYFCS0D7"
     )
 
     display_name: Optional[str] = None
@@ -962,6 +965,7 @@ class UpdateToolResponseBodyToolsSchema(BaseModel):
 class UpdateToolResponseBodyToolsTypedDict(TypedDict):
     name: str
     schema_: UpdateToolResponseBodyToolsSchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -971,6 +975,8 @@ class UpdateToolResponseBodyTools(BaseModel):
     schema_: Annotated[
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
+
+    id: Optional[str] = "01KA80WWQ6D8AD2Y0870SX594A"
 
     description: Optional[str] = None
 
@@ -1065,7 +1071,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJGYS8BP7HW1G81782H7"
+        "tool_01KA80WWQ5ZP3M3X16XCNTM4RV"
     )
 
     display_name: Optional[str] = None
@@ -1273,7 +1279,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJGV5JB5ZQV8X6VFGK85"
+        "tool_01KA80WWQ38NVPV136HDWDTZ1H"
     )
 
     display_name: Optional[str] = None
@@ -1423,7 +1429,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJGTTYHPWD4GTZ124NZB"
+        "tool_01KA80WWQ17M53VQAF6ZVHG5MC"
     )
 
     display_name: Optional[str] = None
@@ -1577,7 +1583,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJGRR8N1JGWHNKYFSJNY"
+        "tool_01KA80WWPZZVCCSSN62G8RBNAG"
     )
 
     display_name: Optional[str] = None

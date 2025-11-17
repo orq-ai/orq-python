@@ -173,7 +173,7 @@ class Data5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJFD17ARZSS2A6EDG6TM"
+        "tool_01KA80WWNRBAXQ80TSBQYGN0Q2"
     )
 
     display_name: Optional[str] = None
@@ -234,6 +234,7 @@ class GetAllToolsDataSchema(BaseModel):
 class DataToolsTypedDict(TypedDict):
     name: str
     schema_: GetAllToolsDataSchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -241,6 +242,8 @@ class DataTools(BaseModel):
     name: str
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
+
+    id: Optional[str] = "01KA80WWNQXM0T94301HRWZASZ"
 
     description: Optional[str] = None
 
@@ -335,7 +338,7 @@ class Data4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJFADXFDTT68VJ3G7G7C"
+        "tool_01KA80WWNNSHXNAT6QRNAJ01FZ"
     )
 
     display_name: Optional[str] = None
@@ -540,7 +543,7 @@ class Data3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJF64XKM629WPYFYDCHT"
+        "tool_01KA80WWNHRQDF9GKQ5HN30CMX"
     )
 
     display_name: Optional[str] = None
@@ -690,7 +693,7 @@ class Data2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJF5ZTV5BAZYEBZMW98W"
+        "tool_01KA80WWNF99C87CMJJN33MR2P"
     )
 
     display_name: Optional[str] = None
@@ -844,7 +847,7 @@ class Data1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJF3YXCEKXPJGDNJ5FHG"
+        "tool_01KA80WWNENJ8N9QGRHVY067Q8"
     )
 
     display_name: Optional[str] = None

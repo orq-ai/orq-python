@@ -176,7 +176,7 @@ class SyncMcpToolResponseBody5(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJEW253GFC72GSPBA98"
+        "tool_01KA80WWRPBYAK6SAW4G4RSR74"
     )
 
     display_name: Optional[str] = None
@@ -239,6 +239,7 @@ class SyncMcpToolResponseBodyToolsSchema(BaseModel):
 class SyncMcpToolResponseBodyToolsTypedDict(TypedDict):
     name: str
     schema_: SyncMcpToolResponseBodyToolsSchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -248,6 +249,8 @@ class SyncMcpToolResponseBodyTools(BaseModel):
     schema_: Annotated[
         SyncMcpToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
+
+    id: Optional[str] = "01KA80WWRPC8CHWDHCPRWGGBJ6"
 
     description: Optional[str] = None
 
@@ -364,7 +367,7 @@ class SyncMcpToolResponseBody4(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJCVS4H9FASFJ8AJDK9"
+        "tool_01KA80WWRMW924S55DED4YGSRD"
     )
 
     display_name: Optional[str] = None
@@ -594,7 +597,7 @@ class SyncMcpToolResponseBody3(BaseModel):
     ]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJA52Z3DVTAFT5NE2T4"
+        "tool_01KA80WWRHNB9QPGJCJ110D36P"
     )
 
     display_name: Optional[str] = None
@@ -764,7 +767,7 @@ class SyncMcpToolResponseBody2(BaseModel):
     sync_result: Annotated[ResponseBodySyncResult, pydantic.Field(alias="syncResult")]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJ9P0TEAJK4Y1P7M47G"
+        "tool_01KA80WWREDNST0QVV153FXT8A"
     )
 
     display_name: Optional[str] = None
@@ -938,7 +941,7 @@ class SyncMcpToolResponseBody1(BaseModel):
     sync_result: Annotated[SyncResult, pydantic.Field(alias="syncResult")]
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KA1CXJJ7B6SR2C9A2607H85C"
+        "tool_01KA80WWRD0ZG5AW72N0WR5NDT"
     )
 
     display_name: Optional[str] = None

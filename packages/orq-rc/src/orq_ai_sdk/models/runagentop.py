@@ -1330,6 +1330,7 @@ class Schema(BaseModel):
 class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
     name: str
     schema_: SchemaTypedDict
+    id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -1337,6 +1338,8 @@ class RunAgentAgentToolInputRunTools(BaseModel):
     name: str
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+
+    id: Optional[str] = "01KA80WWCR608VCWJ1GV0NJ439"
 
     description: Optional[str] = None
 
