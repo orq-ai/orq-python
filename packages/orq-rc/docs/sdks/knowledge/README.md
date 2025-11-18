@@ -89,7 +89,6 @@ with Orq(
         "type": "internal",
         "key": "<key>",
         "embedding_model": "<value>",
-        "is_private_model": False,
         "path": "Default",
     })
 

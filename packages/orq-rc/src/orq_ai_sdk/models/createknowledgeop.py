@@ -182,7 +182,7 @@ class RetrievalSettings(BaseModel):
 class RequestBody1TypedDict(TypedDict):
     key: str
     embedding_model: str
-    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -192,7 +192,6 @@ class RequestBody1TypedDict(TypedDict):
     """
     type: NotRequired[CreateKnowledgeRequestBodyType]
     description: NotRequired[str]
-    is_private_model: NotRequired[bool]
     retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
@@ -201,7 +200,7 @@ class RequestBody1(BaseModel):
     key: str
 
     embedding_model: str
-    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -214,8 +213,6 @@ class RequestBody1(BaseModel):
     type: Optional[CreateKnowledgeRequestBodyType] = "internal"
 
     description: Optional[str] = None
-
-    is_private_model: Optional[bool] = False
 
     retrieval_settings: Optional[RetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""

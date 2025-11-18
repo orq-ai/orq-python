@@ -67,7 +67,7 @@ class ResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[bool]
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -81,8 +81,38 @@ class ResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: OptionalNullable[bool] = UNSET
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "schema", "strict"]
+        nullable_fields = ["strict"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class JSONSchemaTypedDict(TypedDict):
@@ -552,7 +582,7 @@ class CreateAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[bool]
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -566,8 +596,38 @@ class CreateAgentResponseFormatAgentsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: OptionalNullable[bool] = UNSET
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "schema", "strict"]
+        nullable_fields = ["strict"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -1526,6 +1586,8 @@ class TeamOfAgents(BaseModel):
 class CreateAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""Unique identifier for the agent within the workspace"""
+    display_name: str
+    r"""agent display name within the workspace"""
     role: str
     r"""The role or function of the agent"""
     description: str
@@ -1557,6 +1619,9 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
 class CreateAgentRequestBody(BaseModel):
     key: str
     r"""Unique identifier for the agent within the workspace"""
+
+    display_name: str
+    r"""agent display name within the workspace"""
 
     role: str
     r"""The role or function of the agent"""
@@ -1830,7 +1895,7 @@ class CreateAgentResponseFormatAgentsResponseJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[bool]
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -1844,8 +1909,38 @@ class CreateAgentResponseFormatAgentsResponseJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: OptionalNullable[bool] = UNSET
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "schema", "strict"]
+        nullable_fields = ["strict"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreateAgentResponseFormatAgentsResponse201JSONSchemaTypedDict(TypedDict):
@@ -2294,7 +2389,7 @@ class CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchemaTypedDi
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[bool]
+    strict: NotRequired[Nullable[bool]]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -2308,8 +2403,38 @@ class CreateAgentResponseFormatAgentsResponse201ApplicationJSONJSONSchema(BaseMo
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: OptionalNullable[bool] = UNSET
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["description", "schema", "strict"]
+        nullable_fields = ["strict"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 class CreateAgentResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchemaTypedDict(
@@ -2845,6 +2970,7 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    display_name: str
     project_id: str
     role: str
     description: str
@@ -2883,6 +3009,8 @@ class CreateAgentResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+
+    display_name: str
 
     project_id: str
 

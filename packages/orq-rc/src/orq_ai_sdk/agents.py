@@ -967,6 +967,7 @@ class Agents(BaseSDK):
         *,
         agent_key: str,
         key: Optional[str] = None,
+        display_name: Optional[str] = None,
         project_id: Optional[str] = None,
         role: Optional[str] = None,
         description: Optional[str] = None,
@@ -1013,6 +1014,7 @@ class Agents(BaseSDK):
 
         :param agent_key: The unique key of the agent to update
         :param key:
+        :param display_name:
         :param project_id:
         :param role:
         :param description:
@@ -1052,6 +1054,7 @@ class Agents(BaseSDK):
             agent_key=agent_key,
             request_body=models.UpdateAgentRequestBody(
                 key=key,
+                display_name=display_name,
                 project_id=project_id,
                 role=role,
                 description=description,
@@ -1149,6 +1152,7 @@ class Agents(BaseSDK):
         *,
         agent_key: str,
         key: Optional[str] = None,
+        display_name: Optional[str] = None,
         project_id: Optional[str] = None,
         role: Optional[str] = None,
         description: Optional[str] = None,
@@ -1195,6 +1199,7 @@ class Agents(BaseSDK):
 
         :param agent_key: The unique key of the agent to update
         :param key:
+        :param display_name:
         :param project_id:
         :param role:
         :param description:
@@ -1234,6 +1239,7 @@ class Agents(BaseSDK):
             agent_key=agent_key,
             request_body=models.UpdateAgentRequestBody(
                 key=key,
+                display_name=display_name,
                 project_id=project_id,
                 role=role,
                 description=description,
