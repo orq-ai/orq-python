@@ -4,8 +4,8 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
-from typing import Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class RetrieveMemoryStoreRequestTypedDict(TypedDict):
@@ -20,141 +20,14 @@ class RetrieveMemoryStoreRequest(BaseModel):
     r"""The unique key identifier of the memory store"""
 
 
-RetrieveMemoryStoreModel23 = Literal["jina/jina-embeddings-v3",]
-
-
-RetrieveMemoryStoreModel22 = Literal["jina/jina-clip-v2",]
-
-
-RetrieveMemoryStoreModel21 = Literal["jina/jina-embeddings-v2-base-de",]
-
-
-RetrieveMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-code",]
-
-
-RetrieveMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-zh",]
-
-
-RetrieveMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-en",]
-
-
-RetrieveMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
-
-
-RetrieveMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
-
-
-RetrieveMemoryStoreModel15 = Literal["mistral/mistral-embed",]
-
-
-RetrieveMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
-
-
-RetrieveMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
-
-
-RetrieveMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
-
-
-RetrieveMemoryStoreModel11 = Literal["google/gemini-embedding-001",]
-
-
-RetrieveMemoryStoreModel10 = Literal["openai/text-embedding-ada-002",]
-
-
-RetrieveMemoryStoreModel9 = Literal["openai/text-embedding-3-small",]
-
-
-RetrieveMemoryStoreModel8 = Literal["openai/text-embedding-3-large",]
-
-
-RetrieveMemoryStoreModel7 = Literal["azure/text-embedding-3-small",]
-
-
-RetrieveMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
-
-
-RetrieveMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
-
-
-RetrieveMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
-
-
-RetrieveMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
-
-
-RetrieveMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
-
-
-RetrieveMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
-
-
-RetrieveMemoryStoreModelTypedDict = TypeAliasType(
-    "RetrieveMemoryStoreModelTypedDict",
-    Union[
-        RetrieveMemoryStoreModel1,
-        RetrieveMemoryStoreModel2,
-        RetrieveMemoryStoreModel3,
-        RetrieveMemoryStoreModel4,
-        RetrieveMemoryStoreModel5,
-        RetrieveMemoryStoreModel6,
-        RetrieveMemoryStoreModel7,
-        RetrieveMemoryStoreModel8,
-        RetrieveMemoryStoreModel9,
-        RetrieveMemoryStoreModel10,
-        RetrieveMemoryStoreModel11,
-        RetrieveMemoryStoreModel12,
-        RetrieveMemoryStoreModel13,
-        RetrieveMemoryStoreModel14,
-        RetrieveMemoryStoreModel15,
-        RetrieveMemoryStoreModel16,
-        RetrieveMemoryStoreModel17,
-        RetrieveMemoryStoreModel18,
-        RetrieveMemoryStoreModel19,
-        RetrieveMemoryStoreModel20,
-        RetrieveMemoryStoreModel21,
-        RetrieveMemoryStoreModel22,
-        RetrieveMemoryStoreModel23,
-    ],
-)
-
-
-RetrieveMemoryStoreModel = TypeAliasType(
-    "RetrieveMemoryStoreModel",
-    Union[
-        RetrieveMemoryStoreModel1,
-        RetrieveMemoryStoreModel2,
-        RetrieveMemoryStoreModel3,
-        RetrieveMemoryStoreModel4,
-        RetrieveMemoryStoreModel5,
-        RetrieveMemoryStoreModel6,
-        RetrieveMemoryStoreModel7,
-        RetrieveMemoryStoreModel8,
-        RetrieveMemoryStoreModel9,
-        RetrieveMemoryStoreModel10,
-        RetrieveMemoryStoreModel11,
-        RetrieveMemoryStoreModel12,
-        RetrieveMemoryStoreModel13,
-        RetrieveMemoryStoreModel14,
-        RetrieveMemoryStoreModel15,
-        RetrieveMemoryStoreModel16,
-        RetrieveMemoryStoreModel17,
-        RetrieveMemoryStoreModel18,
-        RetrieveMemoryStoreModel19,
-        RetrieveMemoryStoreModel20,
-        RetrieveMemoryStoreModel21,
-        RetrieveMemoryStoreModel22,
-        RetrieveMemoryStoreModel23,
-    ],
-)
-
-
 class RetrieveMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model: RetrieveMemoryStoreModelTypedDict
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class RetrieveMemoryStoreEmbeddingConfig(BaseModel):
-    model: RetrieveMemoryStoreModel
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class RetrieveMemoryStoreResponseBodyTypedDict(TypedDict):

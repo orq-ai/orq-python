@@ -3,145 +3,18 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 import pydantic
-from typing import Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-TwentyThree = Literal["jina/jina-embeddings-v3",]
-
-
-TwentyTwo = Literal["jina/jina-clip-v2",]
-
-
-TwentyOne = Literal["jina/jina-embeddings-v2-base-de",]
-
-
-Twenty = Literal["jina/jina-embeddings-v2-base-code",]
-
-
-Nineteen = Literal["jina/jina-embeddings-v2-base-zh",]
-
-
-Eighteen = Literal["jina/jina-embeddings-v2-base-en",]
-
-
-Seventeen = Literal["jina/jina-embeddings-v2-base-es",]
-
-
-Sixteen = Literal["jina/jina-clip-v1",]
-
-
-Fifteen = Literal["mistral/mistral-embed",]
-
-
-Fourteen = Literal["google-ai/text-embedding-004",]
-
-
-Thirteen = Literal["google/multimodalembedding@001",]
-
-
-Twelve = Literal["google/text-multilingual-embedding-002",]
-
-
-Eleven = Literal["google/gemini-embedding-001",]
-
-
-Ten = Literal["openai/text-embedding-ada-002",]
-
-
-Nine = Literal["openai/text-embedding-3-small",]
-
-
-Eight = Literal["openai/text-embedding-3-large",]
-
-
-Seven = Literal["azure/text-embedding-3-small",]
-
-
-Model6 = Literal["azure/text-embedding-ada-002",]
-
-
-Model5 = Literal["cohere/embed-v4.0",]
-
-
-Model4 = Literal["cohere/embed-english-v3.0",]
-
-
-Model3 = Literal["cohere/embed-english-light-v3.0",]
-
-
-CreateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
-
-
-Model1 = Literal["cohere/embed-multilingual-v3.0",]
-
-
-CreateMemoryStoreModelTypedDict = TypeAliasType(
-    "CreateMemoryStoreModelTypedDict",
-    Union[
-        Model1,
-        CreateMemoryStoreModel2,
-        Model3,
-        Model4,
-        Model5,
-        Model6,
-        Seven,
-        Eight,
-        Nine,
-        Ten,
-        Eleven,
-        Twelve,
-        Thirteen,
-        Fourteen,
-        Fifteen,
-        Sixteen,
-        Seventeen,
-        Eighteen,
-        Nineteen,
-        Twenty,
-        TwentyOne,
-        TwentyTwo,
-        TwentyThree,
-    ],
-)
-
-
-CreateMemoryStoreModel = TypeAliasType(
-    "CreateMemoryStoreModel",
-    Union[
-        Model1,
-        CreateMemoryStoreModel2,
-        Model3,
-        Model4,
-        Model5,
-        Model6,
-        Seven,
-        Eight,
-        Nine,
-        Ten,
-        Eleven,
-        Twelve,
-        Thirteen,
-        Fourteen,
-        Fifteen,
-        Sixteen,
-        Seventeen,
-        Eighteen,
-        Nineteen,
-        Twenty,
-        TwentyOne,
-        TwentyTwo,
-        TwentyThree,
-    ],
-)
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class EmbeddingConfigTypedDict(TypedDict):
-    model: CreateMemoryStoreModelTypedDict
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class EmbeddingConfig(BaseModel):
-    model: CreateMemoryStoreModel
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class CreateMemoryStoreRequestBodyTypedDict(TypedDict):
@@ -182,141 +55,14 @@ class CreateMemoryStoreRequestBody(BaseModel):
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
 
 
-CreateMemoryStoreModel23 = Literal["jina/jina-embeddings-v3",]
-
-
-CreateMemoryStoreModel22 = Literal["jina/jina-clip-v2",]
-
-
-CreateMemoryStoreModel21 = Literal["jina/jina-embeddings-v2-base-de",]
-
-
-CreateMemoryStoreModel20 = Literal["jina/jina-embeddings-v2-base-code",]
-
-
-CreateMemoryStoreModel19 = Literal["jina/jina-embeddings-v2-base-zh",]
-
-
-CreateMemoryStoreModel18 = Literal["jina/jina-embeddings-v2-base-en",]
-
-
-CreateMemoryStoreModel17 = Literal["jina/jina-embeddings-v2-base-es",]
-
-
-CreateMemoryStoreModel16 = Literal["jina/jina-clip-v1",]
-
-
-CreateMemoryStoreModel15 = Literal["mistral/mistral-embed",]
-
-
-CreateMemoryStoreModel14 = Literal["google-ai/text-embedding-004",]
-
-
-CreateMemoryStoreModel13 = Literal["google/multimodalembedding@001",]
-
-
-CreateMemoryStoreModel12 = Literal["google/text-multilingual-embedding-002",]
-
-
-CreateMemoryStoreModel11 = Literal["google/gemini-embedding-001",]
-
-
-CreateMemoryStoreModel10 = Literal["openai/text-embedding-ada-002",]
-
-
-CreateMemoryStoreModel9 = Literal["openai/text-embedding-3-small",]
-
-
-CreateMemoryStoreModel8 = Literal["openai/text-embedding-3-large",]
-
-
-CreateMemoryStoreModel7 = Literal["azure/text-embedding-3-small",]
-
-
-CreateMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
-
-
-CreateMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
-
-
-CreateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
-
-
-CreateMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
-
-
-CreateMemoryStoreModelMemoryStores2 = Literal["cohere/embed-multilingual-light-v3.0",]
-
-
-CreateMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
-
-
-CreateMemoryStoreMemoryStoresModelTypedDict = TypeAliasType(
-    "CreateMemoryStoreMemoryStoresModelTypedDict",
-    Union[
-        CreateMemoryStoreModel1,
-        CreateMemoryStoreModelMemoryStores2,
-        CreateMemoryStoreModel3,
-        CreateMemoryStoreModel4,
-        CreateMemoryStoreModel5,
-        CreateMemoryStoreModel6,
-        CreateMemoryStoreModel7,
-        CreateMemoryStoreModel8,
-        CreateMemoryStoreModel9,
-        CreateMemoryStoreModel10,
-        CreateMemoryStoreModel11,
-        CreateMemoryStoreModel12,
-        CreateMemoryStoreModel13,
-        CreateMemoryStoreModel14,
-        CreateMemoryStoreModel15,
-        CreateMemoryStoreModel16,
-        CreateMemoryStoreModel17,
-        CreateMemoryStoreModel18,
-        CreateMemoryStoreModel19,
-        CreateMemoryStoreModel20,
-        CreateMemoryStoreModel21,
-        CreateMemoryStoreModel22,
-        CreateMemoryStoreModel23,
-    ],
-)
-
-
-CreateMemoryStoreMemoryStoresModel = TypeAliasType(
-    "CreateMemoryStoreMemoryStoresModel",
-    Union[
-        CreateMemoryStoreModel1,
-        CreateMemoryStoreModelMemoryStores2,
-        CreateMemoryStoreModel3,
-        CreateMemoryStoreModel4,
-        CreateMemoryStoreModel5,
-        CreateMemoryStoreModel6,
-        CreateMemoryStoreModel7,
-        CreateMemoryStoreModel8,
-        CreateMemoryStoreModel9,
-        CreateMemoryStoreModel10,
-        CreateMemoryStoreModel11,
-        CreateMemoryStoreModel12,
-        CreateMemoryStoreModel13,
-        CreateMemoryStoreModel14,
-        CreateMemoryStoreModel15,
-        CreateMemoryStoreModel16,
-        CreateMemoryStoreModel17,
-        CreateMemoryStoreModel18,
-        CreateMemoryStoreModel19,
-        CreateMemoryStoreModel20,
-        CreateMemoryStoreModel21,
-        CreateMemoryStoreModel22,
-        CreateMemoryStoreModel23,
-    ],
-)
-
-
 class CreateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model: CreateMemoryStoreMemoryStoresModelTypedDict
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class CreateMemoryStoreEmbeddingConfig(BaseModel):
-    model: CreateMemoryStoreMemoryStoresModel
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class CreateMemoryStoreResponseBodyTypedDict(TypedDict):

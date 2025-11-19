@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: b7f244ca427ca57060c67a2a5b426e72
+  docChecksum: 142434549a49015e3250b9be3cc0fff8
   docVersion: "2.0"
   speakeasyVersion: 1.656.1
   generationVersion: 2.753.1
-  releaseVersion: 3.14.41
-  configChecksum: 5370985704612b338e84d7c868574bda
+  releaseVersion: 3.14.43
+  configChecksum: 06184147c3858dfe1e49be9fec5d341c
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
@@ -169,6 +169,7 @@ generatedFiles:
   - docs/models/createagentfallbackmodelsstop.md
   - docs/models/createagentfallbackmodelsstreamoptions.md
   - docs/models/createagentfallbackmodelsthinking.md
+  - docs/models/createagentfallbackmodelsthinkinglevel.md
   - docs/models/createagentfallbackmodelstoolchoice.md
   - docs/models/createagentfallbackmodelstype.md
   - docs/models/createagentfallbackmodelsvoice.md
@@ -211,6 +212,7 @@ generatedFiles:
   - docs/models/createagentstreamoptions.md
   - docs/models/createagentteamofagents.md
   - docs/models/createagentthinking.md
+  - docs/models/createagentthinkinglevel.md
   - docs/models/createagenttoolapprovalrequired.md
   - docs/models/createagenttoolchoice.md
   - docs/models/createagenttoolchoice1.md
@@ -348,28 +350,11 @@ generatedFiles:
   - docs/models/createdatasourcestatus.md
   - docs/models/createevalevalsresponsebody.md
   - docs/models/createevalfunctionparams1.md
-  - docs/models/createevalfunctionparams10.md
-  - docs/models/createevalfunctionparams11.md
-  - docs/models/createevalfunctionparams12.md
-  - docs/models/createevalfunctionparams13.md
-  - docs/models/createevalfunctionparams14.md
-  - docs/models/createevalfunctionparams15.md
-  - docs/models/createevalfunctionparams16.md
-  - docs/models/createevalfunctionparams17.md
-  - docs/models/createevalfunctionparams18.md
-  - docs/models/createevalfunctionparams19.md
   - docs/models/createevalfunctionparams2.md
-  - docs/models/createevalfunctionparams20.md
-  - docs/models/createevalfunctionparams21.md
-  - docs/models/createevalfunctionparams22.md
-  - docs/models/createevalfunctionparams23.md
   - docs/models/createevalfunctionparams3.md
   - docs/models/createevalfunctionparams4.md
   - docs/models/createevalfunctionparams5.md
   - docs/models/createevalfunctionparams6.md
-  - docs/models/createevalfunctionparams7.md
-  - docs/models/createevalfunctionparams8.md
-  - docs/models/createevalfunctionparams9.md
   - docs/models/createevalfunctionparamsevalsresponse200applicationjsonresponsebody510type.md
   - docs/models/createevalfunctionparamsevalsresponse200applicationjsonresponsebody511type.md
   - docs/models/createevalfunctionparamsevalsresponse200applicationjsonresponsebody512type.md
@@ -499,32 +484,6 @@ generatedFiles:
   - docs/models/creatememoryrequestbody.md
   - docs/models/creatememoryresponsebody.md
   - docs/models/creatememorystoreembeddingconfig.md
-  - docs/models/creatememorystorememorystoresmodel.md
-  - docs/models/creatememorystoremodel.md
-  - docs/models/creatememorystoremodel1.md
-  - docs/models/creatememorystoremodel10.md
-  - docs/models/creatememorystoremodel11.md
-  - docs/models/creatememorystoremodel12.md
-  - docs/models/creatememorystoremodel13.md
-  - docs/models/creatememorystoremodel14.md
-  - docs/models/creatememorystoremodel15.md
-  - docs/models/creatememorystoremodel16.md
-  - docs/models/creatememorystoremodel17.md
-  - docs/models/creatememorystoremodel18.md
-  - docs/models/creatememorystoremodel19.md
-  - docs/models/creatememorystoremodel2.md
-  - docs/models/creatememorystoremodel20.md
-  - docs/models/creatememorystoremodel21.md
-  - docs/models/creatememorystoremodel22.md
-  - docs/models/creatememorystoremodel23.md
-  - docs/models/creatememorystoremodel3.md
-  - docs/models/creatememorystoremodel4.md
-  - docs/models/creatememorystoremodel5.md
-  - docs/models/creatememorystoremodel6.md
-  - docs/models/creatememorystoremodel7.md
-  - docs/models/creatememorystoremodel8.md
-  - docs/models/creatememorystoremodel9.md
-  - docs/models/creatememorystoremodelmemorystores2.md
   - docs/models/creatememorystorerequestbody.md
   - docs/models/creatememorystoreresponsebody.md
   - docs/models/createprompt21.md
@@ -609,6 +568,7 @@ generatedFiles:
   - docs/models/createpromptpromptsresponseresponseformat.md
   - docs/models/createpromptpromptsresponsetype.md
   - docs/models/createpromptpromptsrole.md
+  - docs/models/createpromptpromptsthinkinglevel.md
   - docs/models/createpromptpromptstoolcalls.md
   - docs/models/createpromptpromptstype.md
   - docs/models/createpromptprovider.md
@@ -640,6 +600,7 @@ generatedFiles:
   - docs/models/createpromptresponseformatpromptstype.md
   - docs/models/createpromptresponseformattype.md
   - docs/models/createpromptrole.md
+  - docs/models/createpromptthinkinglevel.md
   - docs/models/createprompttoolcalls.md
   - docs/models/createprompttype.md
   - docs/models/createpromptusecases.md
@@ -965,6 +926,7 @@ generatedFiles:
   - docs/models/deploymentgetconfigresponseformatjsonschema.md
   - docs/models/deploymentgetconfigresponseformattype.md
   - docs/models/deploymentgetconfigrole.md
+  - docs/models/deploymentgetconfigthinkinglevel.md
   - docs/models/deploymentgetconfigthread.md
   - docs/models/deploymentgetconfigtoolcalls.md
   - docs/models/deploymentgetconfigtools.md
@@ -1022,6 +984,7 @@ generatedFiles:
   - docs/models/deploymentsresponseformatjsonschema.md
   - docs/models/deploymentsresponseformattype.md
   - docs/models/deploymentsrole.md
+  - docs/models/deploymentsthinkinglevel.md
   - docs/models/deploymentstoolcalls.md
   - docs/models/deploymentstools.md
   - docs/models/deploymentstream1deploymentseq.md
@@ -1247,6 +1210,7 @@ generatedFiles:
   - docs/models/fallbackmodelsstop.md
   - docs/models/fallbackmodelsstreamoptions.md
   - docs/models/fallbackmodelsthinking.md
+  - docs/models/fallbackmodelsthinkinglevel.md
   - docs/models/fallbackmodelstoolchoice.md
   - docs/models/fallbackmodelstype.md
   - docs/models/fallbackmodelsvoice.md
@@ -1333,6 +1297,7 @@ generatedFiles:
   - docs/models/getagentfallbackmodelsstop.md
   - docs/models/getagentfallbackmodelsstreamoptions.md
   - docs/models/getagentfallbackmodelsthinking.md
+  - docs/models/getagentfallbackmodelsthinkinglevel.md
   - docs/models/getagentfallbackmodelstoolchoice.md
   - docs/models/getagentfallbackmodelstype.md
   - docs/models/getagentfallbackmodelsvoice.md
@@ -1372,6 +1337,7 @@ generatedFiles:
   - docs/models/getagenttaskstatus.md
   - docs/models/getagentteamofagents.md
   - docs/models/getagentthinking.md
+  - docs/models/getagentthinkinglevel.md
   - docs/models/getagenttoolapprovalrequired.md
   - docs/models/getagenttoolchoice.md
   - docs/models/getagenttoolchoice1.md
@@ -1396,30 +1362,6 @@ generatedFiles:
   - docs/models/getallmemorydocumentsresponsebody.md
   - docs/models/getallmemorystoresdata.md
   - docs/models/getallmemorystoresembeddingconfig.md
-  - docs/models/getallmemorystoresmodel.md
-  - docs/models/getallmemorystoresmodel1.md
-  - docs/models/getallmemorystoresmodel10.md
-  - docs/models/getallmemorystoresmodel11.md
-  - docs/models/getallmemorystoresmodel12.md
-  - docs/models/getallmemorystoresmodel13.md
-  - docs/models/getallmemorystoresmodel14.md
-  - docs/models/getallmemorystoresmodel15.md
-  - docs/models/getallmemorystoresmodel16.md
-  - docs/models/getallmemorystoresmodel17.md
-  - docs/models/getallmemorystoresmodel18.md
-  - docs/models/getallmemorystoresmodel19.md
-  - docs/models/getallmemorystoresmodel2.md
-  - docs/models/getallmemorystoresmodel20.md
-  - docs/models/getallmemorystoresmodel21.md
-  - docs/models/getallmemorystoresmodel22.md
-  - docs/models/getallmemorystoresmodel23.md
-  - docs/models/getallmemorystoresmodel3.md
-  - docs/models/getallmemorystoresmodel4.md
-  - docs/models/getallmemorystoresmodel5.md
-  - docs/models/getallmemorystoresmodel6.md
-  - docs/models/getallmemorystoresmodel7.md
-  - docs/models/getallmemorystoresmodel8.md
-  - docs/models/getallmemorystoresmodel9.md
   - docs/models/getallmemorystoresobject.md
   - docs/models/getallmemorystoresrequest.md
   - docs/models/getallmemorystoresresponsebody.md
@@ -1461,6 +1403,7 @@ generatedFiles:
   - docs/models/getallpromptsresponseformatpromptstype.md
   - docs/models/getallpromptsresponseformattype.md
   - docs/models/getallpromptsrole.md
+  - docs/models/getallpromptsthinkinglevel.md
   - docs/models/getallpromptstoolcalls.md
   - docs/models/getallpromptstype.md
   - docs/models/getallpromptsusecases.md
@@ -1669,6 +1612,7 @@ generatedFiles:
   - docs/models/getonepromptresponseformatpromptstype.md
   - docs/models/getonepromptresponseformattype.md
   - docs/models/getonepromptrole.md
+  - docs/models/getonepromptthinkinglevel.md
   - docs/models/getoneprompttoolcalls.md
   - docs/models/getoneprompttype.md
   - docs/models/getonepromptusecases.md
@@ -1710,6 +1654,7 @@ generatedFiles:
   - docs/models/getpromptversionresponseformatpromptstype.md
   - docs/models/getpromptversionresponseformattype.md
   - docs/models/getpromptversionrole.md
+  - docs/models/getpromptversionthinkinglevel.md
   - docs/models/getpromptversiontoolcalls.md
   - docs/models/getpromptversiontype.md
   - docs/models/getpromptversionusecases.md
@@ -1815,6 +1760,7 @@ generatedFiles:
   - docs/models/listagentsfallbackmodelsstop.md
   - docs/models/listagentsfallbackmodelsstreamoptions.md
   - docs/models/listagentsfallbackmodelsthinking.md
+  - docs/models/listagentsfallbackmodelsthinkinglevel.md
   - docs/models/listagentsfallbackmodelstoolchoice.md
   - docs/models/listagentsfallbackmodelstype.md
   - docs/models/listagentsfallbackmodelsvoice.md
@@ -1850,6 +1796,7 @@ generatedFiles:
   - docs/models/listagentsstreamoptions.md
   - docs/models/listagentsteamofagents.md
   - docs/models/listagentsthinking.md
+  - docs/models/listagentsthinkinglevel.md
   - docs/models/listagentstoolapprovalrequired.md
   - docs/models/listagentstoolchoice.md
   - docs/models/listagentstoolchoice1.md
@@ -1877,6 +1824,7 @@ generatedFiles:
   - docs/models/listagenttasksfallbackmodelsstop.md
   - docs/models/listagenttasksfallbackmodelsstreamoptions.md
   - docs/models/listagenttasksfallbackmodelsthinking.md
+  - docs/models/listagenttasksfallbackmodelsthinkinglevel.md
   - docs/models/listagenttasksfallbackmodelstoolchoice.md
   - docs/models/listagenttasksfallbackmodelstype.md
   - docs/models/listagenttasksfallbackmodelsvoice.md
@@ -1909,6 +1857,7 @@ generatedFiles:
   - docs/models/listagenttasksstop.md
   - docs/models/listagenttasksstreamoptions.md
   - docs/models/listagenttasksthinking.md
+  - docs/models/listagenttasksthinkinglevel.md
   - docs/models/listagenttaskstoolapprovalrequired.md
   - docs/models/listagenttaskstoolchoice.md
   - docs/models/listagenttaskstoolchoice1.md
@@ -2072,6 +2021,7 @@ generatedFiles:
   - docs/models/listpromptversionsresponseformatpromptstype.md
   - docs/models/listpromptversionsresponseformattype.md
   - docs/models/listpromptversionsrole.md
+  - docs/models/listpromptversionsthinkinglevel.md
   - docs/models/listpromptversionstoolcalls.md
   - docs/models/listpromptversionstype.md
   - docs/models/listpromptversionsusecases.md
@@ -2108,29 +2058,7 @@ generatedFiles:
   - docs/models/modalities.md
   - docs/models/mode.md
   - docs/models/model.md
-  - docs/models/model1.md
-  - docs/models/model10.md
-  - docs/models/model11.md
-  - docs/models/model12.md
-  - docs/models/model13.md
-  - docs/models/model14.md
-  - docs/models/model15.md
-  - docs/models/model16.md
-  - docs/models/model17.md
-  - docs/models/model18.md
-  - docs/models/model19.md
   - docs/models/model2.md
-  - docs/models/model20.md
-  - docs/models/model21.md
-  - docs/models/model22.md
-  - docs/models/model23.md
-  - docs/models/model3.md
-  - docs/models/model4.md
-  - docs/models/model5.md
-  - docs/models/model6.md
-  - docs/models/model7.md
-  - docs/models/model8.md
-  - docs/models/model9.md
   - docs/models/modelaudio.md
   - docs/models/modelformat.md
   - docs/models/modelmodalities.md
@@ -2139,6 +2067,7 @@ generatedFiles:
   - docs/models/modelstop.md
   - docs/models/modelstreamoptions.md
   - docs/models/modelthinking.md
+  - docs/models/modelthinkinglevel.md
   - docs/models/modeltoolchoice.md
   - docs/models/modeltype.md
   - docs/models/modelvoice.md
@@ -2377,30 +2306,6 @@ generatedFiles:
   - docs/models/retrievememoryrequest.md
   - docs/models/retrievememoryresponsebody.md
   - docs/models/retrievememorystoreembeddingconfig.md
-  - docs/models/retrievememorystoremodel.md
-  - docs/models/retrievememorystoremodel1.md
-  - docs/models/retrievememorystoremodel10.md
-  - docs/models/retrievememorystoremodel11.md
-  - docs/models/retrievememorystoremodel12.md
-  - docs/models/retrievememorystoremodel13.md
-  - docs/models/retrievememorystoremodel14.md
-  - docs/models/retrievememorystoremodel15.md
-  - docs/models/retrievememorystoremodel16.md
-  - docs/models/retrievememorystoremodel17.md
-  - docs/models/retrievememorystoremodel18.md
-  - docs/models/retrievememorystoremodel19.md
-  - docs/models/retrievememorystoremodel2.md
-  - docs/models/retrievememorystoremodel20.md
-  - docs/models/retrievememorystoremodel21.md
-  - docs/models/retrievememorystoremodel22.md
-  - docs/models/retrievememorystoremodel23.md
-  - docs/models/retrievememorystoremodel3.md
-  - docs/models/retrievememorystoremodel4.md
-  - docs/models/retrievememorystoremodel5.md
-  - docs/models/retrievememorystoremodel6.md
-  - docs/models/retrievememorystoremodel7.md
-  - docs/models/retrievememorystoremodel8.md
-  - docs/models/retrievememorystoremodel9.md
   - docs/models/retrievememorystorerequest.md
   - docs/models/retrievememorystoreresponsebody.md
   - docs/models/retrievememorystorestool.md
@@ -2469,6 +2374,7 @@ generatedFiles:
   - docs/models/runagentfallbackmodelsstop.md
   - docs/models/runagentfallbackmodelsstreamoptions.md
   - docs/models/runagentfallbackmodelsthinking.md
+  - docs/models/runagentfallbackmodelsthinkinglevel.md
   - docs/models/runagentfallbackmodelstoolchoice.md
   - docs/models/runagentfallbackmodelstype.md
   - docs/models/runagentfallbackmodelsvoice.md
@@ -2487,6 +2393,7 @@ generatedFiles:
   - docs/models/runagentmodelstop.md
   - docs/models/runagentmodelstreamoptions.md
   - docs/models/runagentmodelthinking.md
+  - docs/models/runagentmodelthinkinglevel.md
   - docs/models/runagentmodeltoolchoice.md
   - docs/models/runagentmodeltype.md
   - docs/models/runagentmodelvoice.md
@@ -2652,6 +2559,7 @@ generatedFiles:
   - docs/models/streamrunagentfallbackmodelsstop.md
   - docs/models/streamrunagentfallbackmodelsstreamoptions.md
   - docs/models/streamrunagentfallbackmodelsthinking.md
+  - docs/models/streamrunagentfallbackmodelsthinkinglevel.md
   - docs/models/streamrunagentfallbackmodelstoolchoice.md
   - docs/models/streamrunagentfallbackmodelstype.md
   - docs/models/streamrunagentfallbackmodelsvoice.md
@@ -2671,6 +2579,7 @@ generatedFiles:
   - docs/models/streamrunagentmodelstop.md
   - docs/models/streamrunagentmodelstreamoptions.md
   - docs/models/streamrunagentmodelthinking.md
+  - docs/models/streamrunagentmodelthinkinglevel.md
   - docs/models/streamrunagentmodeltoolchoice.md
   - docs/models/streamrunagentmodeltype.md
   - docs/models/streamrunagentmodelvoice.md
@@ -2721,6 +2630,7 @@ generatedFiles:
   - docs/models/textcontentpart.md
   - docs/models/textpart.md
   - docs/models/thinking.md
+  - docs/models/thinkinglevel.md
   - docs/models/thirteen.md
   - docs/models/thirty.md
   - docs/models/thirtyfive.md
@@ -2806,6 +2716,7 @@ generatedFiles:
   - docs/models/updateagentfallbackmodelsagentsstop.md
   - docs/models/updateagentfallbackmodelsagentsstreamoptions.md
   - docs/models/updateagentfallbackmodelsagentsthinking.md
+  - docs/models/updateagentfallbackmodelsagentsthinkinglevel.md
   - docs/models/updateagentfallbackmodelsagentstoolchoice.md
   - docs/models/updateagentfallbackmodelsagentstype.md
   - docs/models/updateagentfallbackmodelsagentsvoice.md
@@ -2818,6 +2729,7 @@ generatedFiles:
   - docs/models/updateagentfallbackmodelsstop.md
   - docs/models/updateagentfallbackmodelsstreamoptions.md
   - docs/models/updateagentfallbackmodelsthinking.md
+  - docs/models/updateagentfallbackmodelsthinkinglevel.md
   - docs/models/updateagentfallbackmodelstoolchoice.md
   - docs/models/updateagentfallbackmodelstype.md
   - docs/models/updateagentfallbackmodelsvoice.md
@@ -2872,6 +2784,7 @@ generatedFiles:
   - docs/models/updateagentstreamoptions.md
   - docs/models/updateagentteamofagents.md
   - docs/models/updateagentthinking.md
+  - docs/models/updateagentthinkinglevel.md
   - docs/models/updateagenttoolapprovalrequired.md
   - docs/models/updateagenttoolchoice.md
   - docs/models/updateagenttoolchoice1.md
@@ -3183,13 +3096,6 @@ generatedFiles:
   - docs/models/updatememoryresponsebody.md
   - docs/models/updatememorystoreembeddingconfig.md
   - docs/models/updatememorystorememorystoresembeddingconfig.md
-  - docs/models/updatememorystoremodel.md
-  - docs/models/updatememorystoremodel1.md
-  - docs/models/updatememorystoremodel2.md
-  - docs/models/updatememorystoremodel3.md
-  - docs/models/updatememorystoremodel4.md
-  - docs/models/updatememorystoremodel5.md
-  - docs/models/updatememorystoremodel6.md
   - docs/models/updatememorystoreprovider.md
   - docs/models/updatememorystorerequest.md
   - docs/models/updatememorystorerequestbody.md
@@ -3281,6 +3187,7 @@ generatedFiles:
   - docs/models/updatepromptpromptsresponseresponseformat.md
   - docs/models/updatepromptpromptsresponsetype.md
   - docs/models/updatepromptpromptsrole.md
+  - docs/models/updatepromptpromptsthinkinglevel.md
   - docs/models/updatepromptpromptstoolcalls.md
   - docs/models/updatepromptpromptstype.md
   - docs/models/updatepromptpromptsusecases.md
@@ -3317,6 +3224,7 @@ generatedFiles:
   - docs/models/updatepromptresponseformatpromptstype.md
   - docs/models/updatepromptresponseformattype.md
   - docs/models/updatepromptrole.md
+  - docs/models/updatepromptthinkinglevel.md
   - docs/models/updateprompttoolcalls.md
   - docs/models/updateprompttype.md
   - docs/models/updatepromptusecases.md
@@ -3571,7 +3479,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-17T14:04:15.852Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T08:04:49.318Z"}
   CreateFeedback:
     "":
       requestBody:
@@ -3629,7 +3537,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-16T16:11:25.870Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-19T08:04:53.100Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3645,7 +3553,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-16T16:11:25.870Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-19T08:04:53.100Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3736,7 +3644,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-19T08:04:49.318Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -3744,7 +3652,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -3756,7 +3664,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -3790,7 +3698,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -3801,7 +3709,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -3870,7 +3778,7 @@ examples:
         path:
           knowledge_id: "<id>"
         query:
-          limit: 10
+          limit: 50
           status: ["completed", "failed"]
       responses:
         "200":
@@ -3884,7 +3792,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01KA6PZ7SHK03QDJM224DSHCN5", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01KADJAG4GQ42CZYFYQYM78KGH", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -3893,7 +3801,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01KA6PZ7SGXSAZNZNPX53ZPM67", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01KADJAG4FNQ6PPJG48MYT8D7H", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -3910,7 +3818,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01KA6PZ7SWPS81HAAHANSDC04F", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01KADJAG4MEC72N6TXHNV6EJGY", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4006,7 +3914,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4018,7 +3926,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-16T16:11:21.924Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T08:04:49.318Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4563,7 +4471,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-16T16:11:22.331Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T08:04:49.651Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4571,7 +4479,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-16T16:11:22.331Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T08:04:49.651Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4581,7 +4489,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-16T16:11:22.331Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T08:04:49.651Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -4930,3 +4838,4 @@ examples:
           application/json: {"count": 2308.12}
 examplesVersion: 1.0.2
 generatedTests: {}
+releaseNotes: "## Python SDK Changes Detected:\n* `orq.memory_stores.list()`:  `response.data.[].embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.update()`: \n  *  `request.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.retrieve()`:  `response.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.create()`: \n  *  `request.embedding_config.model` **Changed** **Breaking** :warning:\n  *  `response.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.agents.stream_run()`:  `request` **Changed**\n* `orq.prompts.retrieve()`:  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.list()`:  `response.data.[].model` **Changed**\n* `orq.agents.run()`:  `request` **Changed**\n* `orq.deployments.list()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.list()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.create()`: \n  *  `request.prompt_config.model_parameters.thinking_level` **Added**\n  *  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.list_tasks()`:  `response.tasks.[].agent_manifest_snapshot.model` **Changed**\n* `orq.prompts.update()`: \n  *  `request.prompt_config.model_parameters.thinking_level` **Added**\n  *  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.list_versions()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.get_version()`:  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.update()`: \n  *  `request` **Changed**\n  *  `response.model` **Changed**\n* `orq.agents.retrieve()`:  `response.model` **Changed**\n* `orq.agents.create()`: \n  *  `request` **Changed**\n  *  `response.model` **Changed**\n* `orq.deployments.get_config()`:  `response.parameters.thinking_level` **Added**\n"

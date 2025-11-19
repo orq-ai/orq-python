@@ -3,16 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createchunkop as models_createchunkop,
-    createdatasourceop as models_createdatasourceop,
-    createknowledgeop as models_createknowledgeop,
-    listchunksop as models_listchunksop,
-    listdatasourcesop as models_listdatasourcesop,
-    searchknowledgeop as models_searchknowledgeop,
-    updatechunkop as models_updatechunkop,
-    updateknowledgeop as models_updateknowledgeop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -212,8 +202,8 @@ class Knowledge(BaseSDK):
         self,
         *,
         request: Union[
-            models_createknowledgeop.CreateKnowledgeRequestBody,
-            models_createknowledgeop.CreateKnowledgeRequestBodyTypedDict,
+            models.CreateKnowledgeRequestBody,
+            models.CreateKnowledgeRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -304,8 +294,8 @@ class Knowledge(BaseSDK):
         self,
         *,
         request: Union[
-            models_createknowledgeop.CreateKnowledgeRequestBody,
-            models_createknowledgeop.CreateKnowledgeRequestBodyTypedDict,
+            models.CreateKnowledgeRequestBody,
+            models.CreateKnowledgeRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -573,8 +563,8 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         request_body: Union[
-            models_updateknowledgeop.UpdateKnowledgeRequestBody,
-            models_updateknowledgeop.UpdateKnowledgeRequestBodyTypedDict,
+            models.UpdateKnowledgeRequestBody,
+            models.UpdateKnowledgeRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -674,8 +664,8 @@ class Knowledge(BaseSDK):
         *,
         knowledge_id: str,
         request_body: Union[
-            models_updateknowledgeop.UpdateKnowledgeRequestBody,
-            models_updateknowledgeop.UpdateKnowledgeRequestBodyTypedDict,
+            models.UpdateKnowledgeRequestBody,
+            models.UpdateKnowledgeRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -949,30 +939,16 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
-        filter_by: Optional[
-            Union[
-                models_searchknowledgeop.FilterBy,
-                models_searchknowledgeop.FilterByTypedDict,
-            ]
-        ] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
-            Union[
-                models_searchknowledgeop.SearchOptions,
-                models_searchknowledgeop.SearchOptionsTypedDict,
-            ]
+            Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
-            Union[
-                models_searchknowledgeop.RerankConfig,
-                models_searchknowledgeop.RerankConfigTypedDict,
-            ]
+            Union[models.RerankConfig, models.RerankConfigTypedDict]
         ] = None,
         agentic_rag_config: Optional[
-            Union[
-                models_searchknowledgeop.AgenticRagConfig,
-                models_searchknowledgeop.AgenticRagConfigTypedDict,
-            ]
+            Union[models.AgenticRagConfig, models.AgenticRagConfigTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1098,30 +1074,16 @@ class Knowledge(BaseSDK):
         query: str,
         top_k: Optional[int] = None,
         threshold: Optional[float] = None,
-        search_type: Optional[models_searchknowledgeop.SearchType] = "hybrid_search",
-        filter_by: Optional[
-            Union[
-                models_searchknowledgeop.FilterBy,
-                models_searchknowledgeop.FilterByTypedDict,
-            ]
-        ] = None,
+        search_type: Optional[models.SearchType] = "hybrid_search",
+        filter_by: Optional[Union[models.FilterBy, models.FilterByTypedDict]] = None,
         search_options: Optional[
-            Union[
-                models_searchknowledgeop.SearchOptions,
-                models_searchknowledgeop.SearchOptionsTypedDict,
-            ]
+            Union[models.SearchOptions, models.SearchOptionsTypedDict]
         ] = None,
         rerank_config: Optional[
-            Union[
-                models_searchknowledgeop.RerankConfig,
-                models_searchknowledgeop.RerankConfigTypedDict,
-            ]
+            Union[models.RerankConfig, models.RerankConfigTypedDict]
         ] = None,
         agentic_rag_config: Optional[
-            Union[
-                models_searchknowledgeop.AgenticRagConfig,
-                models_searchknowledgeop.AgenticRagConfigTypedDict,
-            ]
+            Union[models.AgenticRagConfig, models.AgenticRagConfigTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1244,15 +1206,12 @@ class Knowledge(BaseSDK):
         self,
         *,
         knowledge_id: str,
-        limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
+        limit: Optional[float] = 50,
         status: Optional[
-            Union[
-                models_listdatasourcesop.QueryParamStatus,
-                models_listdatasourcesop.QueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1262,10 +1221,10 @@ class Knowledge(BaseSDK):
         r"""List all datasources
 
         :param knowledge_id: Unique identifier of the knowledge base
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1287,10 +1246,10 @@ class Knowledge(BaseSDK):
 
         request = models.ListDatasourcesRequest(
             knowledge_id=knowledge_id,
-            limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
             q=q,
+            limit=limit,
             status=status,
         )
 
@@ -1350,15 +1309,12 @@ class Knowledge(BaseSDK):
         self,
         *,
         knowledge_id: str,
-        limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
+        limit: Optional[float] = 50,
         status: Optional[
-            Union[
-                models_listdatasourcesop.QueryParamStatus,
-                models_listdatasourcesop.QueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1368,10 +1324,10 @@ class Knowledge(BaseSDK):
         r"""List all datasources
 
         :param knowledge_id: Unique identifier of the knowledge base
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
         :param q: Search query to find datasources by name.
+        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param status: Filter datasources by status.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1393,10 +1349,10 @@ class Knowledge(BaseSDK):
 
         request = models.ListDatasourcesRequest(
             knowledge_id=knowledge_id,
-            limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
             q=q,
+            limit=limit,
             status=status,
         )
 
@@ -1459,10 +1415,7 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[
-                models_createdatasourceop.ChunkingOptions,
-                models_createdatasourceop.ChunkingOptionsTypedDict,
-            ]
+            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1570,10 +1523,7 @@ class Knowledge(BaseSDK):
         display_name: Optional[str] = None,
         file_id: Optional[str] = None,
         chunking_options: Optional[
-            Union[
-                models_createdatasourceop.ChunkingOptions,
-                models_createdatasourceop.ChunkingOptionsTypedDict,
-            ]
+            Union[models.ChunkingOptions, models.ChunkingOptionsTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2238,10 +2188,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[
-                List[models_createchunkop.RequestBody],
-                List[models_createchunkop.RequestBodyTypedDict],
-            ]
+            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2344,10 +2291,7 @@ class Knowledge(BaseSDK):
         knowledge_id: str,
         datasource_id: str,
         request_body: Optional[
-            Union[
-                List[models_createchunkop.RequestBody],
-                List[models_createchunkop.RequestBodyTypedDict],
-            ]
+            Union[List[models.RequestBody], List[models.RequestBodyTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2455,8 +2399,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.ListChunksQueryParamStatus,
-                models_listchunksop.ListChunksQueryParamStatusTypedDict,
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2564,8 +2508,8 @@ class Knowledge(BaseSDK):
         q: Optional[str] = None,
         status: Optional[
             Union[
-                models_listchunksop.ListChunksQueryParamStatus,
-                models_listchunksop.ListChunksQueryParamStatusTypedDict,
+                models.ListChunksQueryParamStatus,
+                models.ListChunksQueryParamStatusTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3314,8 +3258,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models_updatechunkop.UpdateChunkMetadata],
-                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
+                Dict[str, models.UpdateChunkMetadata],
+                Dict[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -3429,8 +3373,8 @@ class Knowledge(BaseSDK):
         embedding: Optional[List[float]] = None,
         metadata: Optional[
             Union[
-                Dict[str, models_updatechunkop.UpdateChunkMetadata],
-                Dict[str, models_updatechunkop.UpdateChunkMetadataTypedDict],
+                Dict[str, models.UpdateChunkMetadata],
+                Dict[str, models.UpdateChunkMetadataTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

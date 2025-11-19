@@ -235,6 +235,13 @@ GetPromptVersionVerbosity = Literal[
 r"""Controls the verbosity of the model output."""
 
 
+GetPromptVersionThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of thinking to use for the model. Only supported by `Google AI`"""
+
+
 class GetPromptVersionModelParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
@@ -281,6 +288,8 @@ class GetPromptVersionModelParametersTypedDict(TypedDict):
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
     verbosity: NotRequired[GetPromptVersionVerbosity]
     r"""Controls the verbosity of the model output."""
+    thinking_level: NotRequired[GetPromptVersionThinkingLevel]
+    r"""The level of thinking to use for the model. Only supported by `Google AI`"""
 
 
 class GetPromptVersionModelParameters(BaseModel):
@@ -364,6 +373,11 @@ class GetPromptVersionModelParameters(BaseModel):
     verbosity: Optional[GetPromptVersionVerbosity] = None
     r"""Controls the verbosity of the model output."""
 
+    thinking_level: Annotated[
+        Optional[GetPromptVersionThinkingLevel], pydantic.Field(alias="thinkingLevel")
+    ] = None
+    r"""The level of thinking to use for the model. Only supported by `Google AI`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -385,6 +399,7 @@ class GetPromptVersionModelParameters(BaseModel):
             "reasoningEffort",
             "budgetTokens",
             "verbosity",
+            "thinkingLevel",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []
