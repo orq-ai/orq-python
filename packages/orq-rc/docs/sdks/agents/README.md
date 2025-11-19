@@ -11,7 +11,6 @@
 * [delete](#delete) - Delete an agent
 * [retrieve](#retrieve) - Get an agent
 * [update](#update) - Update an agent
-* [duplicate](#duplicate) - Duplicate an existing agent
 * [invoke](#invoke) - Invoke an agent
 * [list_tasks](#list_tasks) - List all tasks for an agent
 * [run](#run) - Run an agent
@@ -304,52 +303,6 @@ with Orq(
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | models.UpdateAgentAgentsResponseBody | 404                                  | application/json                     |
 | models.APIError                      | 4XX, 5XX                             | \*/\*                                |
-
-## duplicate
-
-Creates a copy of an existing agent with a new unique key and display name. The duplicated agent will have all the same configuration as the original, including model settings, instructions, tools, and knowledge bases.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="DuplicateAgent" method="post" path="/v2/agents/{agent_key}/duplicate" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.duplicate(agent_key="<value>", key="<key>")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The key of the agent to duplicate                                   |
-| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | The unique key for the duplicated agent                             |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The display name for the duplicated agent                           |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.DuplicateAgentResponseBody](../../models/duplicateagentresponsebody.md)**
-
-### Errors
-
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| models.DuplicateAgentAgentsResponseBody         | 404                                             | application/json                                |
-| models.DuplicateAgentAgentsResponseResponseBody | 409                                             | application/json                                |
-| models.APIError                                 | 4XX, 5XX                                        | \*/\*                                           |
 
 ## invoke
 

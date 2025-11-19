@@ -10,8 +10,6 @@
 * [update](#update) - Update tool
 * [delete](#delete) - Delete tool
 * [retrieve](#retrieve) - Retrieve tool
-* [duplicate](#duplicate) - Duplicate tool
-* [sync](#sync) - Sync MCP tool
 
 ## list
 
@@ -244,93 +242,3 @@ with Orq(
 | Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
-
-## duplicate
-
-Creates a copy of an existing tool with a new id and ID.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="DuplicateTool" method="post" path="/v2/tools/{tool_id}/duplicate" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.tools.duplicate(tool_id="<id>", key="<key>", description="mmm quaver zany not")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                   | Type                                                                                                                                                                                                                        | Required                                                                                                                                                                                                                    | Description                                                                                                                                                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tool_id`                                                                                                                                                                                                                   | *str*                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                          | The id of the tool to duplicate                                                                                                                                                                                             |
-| `key`                                                                                                                                                                                                                       | *str*                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                          | Unique key of the tool as it will be displayed in the UI                                                                                                                                                                    |
-| `description`                                                                                                                                                                                                               | *str*                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                          | A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision. |
-| `display_name`                                                                                                                                                                                                              | *Optional[str]*                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                          | The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used.                                                                                                       |
-| `retries`                                                                                                                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                          | Configuration to override the default retry behavior of the client.                                                                                                                                                         |
-
-### Response
-
-**[models.DuplicateToolResponseBody](../../models/duplicatetoolresponsebody.md)**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| models.DuplicateToolToolsResponseBody | 404                                   | application/json                      |
-| models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
-
-## sync
-
-Manually triggers tool discovery and synchronization from the MCP server. Fetches the latest tools and updates the tool configuration.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="SyncMcpTool" method="post" path="/v2/tools/{tool_id}/sync" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.tools.sync(tool_id="<id>")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the MCP tool to sync                                      |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.SyncMcpToolResponseBody](../../models/syncmcptoolresponsebody.md)**
-
-### Errors
-
-| Error Type          | Status Code         | Content Type        |
-| ------------------- | ------------------- | ------------------- |
-| models.HonoAPIError | 400, 404            | application/json    |
-| models.HonoAPIError | 500                 | application/json    |
-| models.APIError     | 4XX, 5XX            | \*/\*               |

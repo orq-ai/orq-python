@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: da903f24d5f117f6281b1c3703429696
+  docChecksum: 28154a9b2492176d17913ad58e23c2a6
   docVersion: "2.0"
   speakeasyVersion: 1.656.1
   generationVersion: 2.753.1
-  releaseVersion: 4.0.0-rc.49
-  configChecksum: 3fa2cea94514c5c45837b161592fd9b4
+  releaseVersion: 4.0.0-rc.51
+  configChecksum: 10575a162046da8f752dd89d69a9c6e5
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -1172,115 +1172,6 @@ generatedFiles:
   - docs/models/detail.md
   - docs/models/developermessage.md
   - docs/models/documents.md
-  - docs/models/duplicateagentagentsexecuteon.md
-  - docs/models/duplicateagentagentsresponsebody.md
-  - docs/models/duplicateagentagentsresponseresponsebody.md
-  - docs/models/duplicateagentaudio.md
-  - docs/models/duplicateagentconditions.md
-  - docs/models/duplicateagentevaluators.md
-  - docs/models/duplicateagentexecuteon.md
-  - docs/models/duplicateagentfallbackmodelconfiguration.md
-  - docs/models/duplicateagentfallbackmodelconfiguration2.md
-  - docs/models/duplicateagentfallbackmodelconfigurationaudio.md
-  - docs/models/duplicateagentfallbackmodelconfigurationformat.md
-  - docs/models/duplicateagentfallbackmodelconfigurationmodalities.md
-  - docs/models/duplicateagentfallbackmodelconfigurationparameters.md
-  - docs/models/duplicateagentfallbackmodelconfigurationresponseformat.md
-  - docs/models/duplicateagentfallbackmodelconfigurationstop.md
-  - docs/models/duplicateagentfallbackmodelconfigurationstreamoptions.md
-  - docs/models/duplicateagentfallbackmodelconfigurationthinking.md
-  - docs/models/duplicateagentfallbackmodelconfigurationthinkinglevel.md
-  - docs/models/duplicateagentfallbackmodelconfigurationtoolchoice.md
-  - docs/models/duplicateagentfallbackmodelconfigurationtype.md
-  - docs/models/duplicateagentfallbackmodelconfigurationvoice.md
-  - docs/models/duplicateagentformat.md
-  - docs/models/duplicateagentguardrails.md
-  - docs/models/duplicateagentknowledgebases.md
-  - docs/models/duplicateagentmetrics.md
-  - docs/models/duplicateagentmodalities.md
-  - docs/models/duplicateagentmodel.md
-  - docs/models/duplicateagentparameters.md
-  - docs/models/duplicateagentrequest.md
-  - docs/models/duplicateagentrequestbody.md
-  - docs/models/duplicateagentresponsebody.md
-  - docs/models/duplicateagentresponseformat.md
-  - docs/models/duplicateagentresponseformatagentsjsonobject.md
-  - docs/models/duplicateagentresponseformatagentsjsonschema.md
-  - docs/models/duplicateagentresponseformatagentsresponse201applicationjsonresponsebodytype.md
-  - docs/models/duplicateagentresponseformatagentsresponse201applicationjsontype.md
-  - docs/models/duplicateagentresponseformatagentsresponse201jsonschema.md
-  - docs/models/duplicateagentresponseformatagentsresponse201type.md
-  - docs/models/duplicateagentresponseformatagentsresponsejsonschema.md
-  - docs/models/duplicateagentresponseformatagentsresponsetype.md
-  - docs/models/duplicateagentresponseformatagentstext.md
-  - docs/models/duplicateagentresponseformatagentstype.md
-  - docs/models/duplicateagentresponseformatjsonobject.md
-  - docs/models/duplicateagentresponseformatjsonschema.md
-  - docs/models/duplicateagentresponseformattext.md
-  - docs/models/duplicateagentresponseformattype.md
-  - docs/models/duplicateagentretry.md
-  - docs/models/duplicateagentsettings.md
-  - docs/models/duplicateagentstatus.md
-  - docs/models/duplicateagentstop.md
-  - docs/models/duplicateagentstreamoptions.md
-  - docs/models/duplicateagentteamofagents.md
-  - docs/models/duplicateagentthinking.md
-  - docs/models/duplicateagentthinkinglevel.md
-  - docs/models/duplicateagenttoolapprovalrequired.md
-  - docs/models/duplicateagenttoolchoice.md
-  - docs/models/duplicateagenttoolchoice1.md
-  - docs/models/duplicateagenttoolchoice2.md
-  - docs/models/duplicateagenttoolchoiceagents1.md
-  - docs/models/duplicateagenttoolchoiceagents2.md
-  - docs/models/duplicateagenttoolchoiceagentsfunction.md
-  - docs/models/duplicateagenttoolchoiceagentstype.md
-  - docs/models/duplicateagenttoolchoicefunction.md
-  - docs/models/duplicateagenttoolchoicetype.md
-  - docs/models/duplicateagenttools.md
-  - docs/models/duplicateagenttype.md
-  - docs/models/duplicateagentvoice.md
-  - docs/models/duplicatetoolheaders2.md
-  - docs/models/duplicatetoolrequest.md
-  - docs/models/duplicatetoolrequestbody.md
-  - docs/models/duplicatetoolresponsebody.md
-  - docs/models/duplicatetoolresponsebody1.md
-  - docs/models/duplicatetoolresponsebody2.md
-  - docs/models/duplicatetoolresponsebody3.md
-  - docs/models/duplicatetoolresponsebody4.md
-  - docs/models/duplicatetoolresponsebody5.md
-  - docs/models/duplicatetoolresponsebodyarguments.md
-  - docs/models/duplicatetoolresponsebodyblueprint.md
-  - docs/models/duplicatetoolresponsebodycodetool.md
-  - docs/models/duplicatetoolresponsebodyconnectiontype.md
-  - docs/models/duplicatetoolresponsebodydefaultvalue.md
-  - docs/models/duplicatetoolresponsebodyfunction.md
-  - docs/models/duplicatetoolresponsebodyheaders.md
-  - docs/models/duplicatetoolresponsebodyhttp.md
-  - docs/models/duplicatetoolresponsebodyjsonschema.md
-  - docs/models/duplicatetoolresponsebodylanguage.md
-  - docs/models/duplicatetoolresponsebodymcp.md
-  - docs/models/duplicatetoolresponsebodymethod.md
-  - docs/models/duplicatetoolresponsebodyparameters.md
-  - docs/models/duplicatetoolresponsebodyschema.md
-  - docs/models/duplicatetoolresponsebodystatus.md
-  - docs/models/duplicatetoolresponsebodytools.md
-  - docs/models/duplicatetoolresponsebodytoolsheaders.md
-  - docs/models/duplicatetoolresponsebodytoolsparameters.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjson1type.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjson3type.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjson4type.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjson5type.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjsonstatus.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200applicationjsontype.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200status.md
-  - docs/models/duplicatetoolresponsebodytoolsresponse200type.md
-  - docs/models/duplicatetoolresponsebodytoolsresponsestatus.md
-  - docs/models/duplicatetoolresponsebodytoolsresponsetype.md
-  - docs/models/duplicatetoolresponsebodytoolsschema.md
-  - docs/models/duplicatetoolresponsebodytoolsstatus.md
-  - docs/models/duplicatetoolresponsebodytoolstype.md
-  - docs/models/duplicatetoolresponsebodytype.md
-  - docs/models/duplicatetooltoolsresponsebody.md
   - docs/models/eight.md
   - docs/models/eighteen.md
   - docs/models/eleven.md
@@ -2327,7 +2218,6 @@ generatedFiles:
   - docs/models/responsebodyretrievaltype.md
   - docs/models/responsebodyschema.md
   - docs/models/responsebodystatus.md
-  - docs/models/responsebodysyncresult.md
   - docs/models/responsebodytools.md
   - docs/models/responsebodytype.md
   - docs/models/responsebodytypescript.md
@@ -2784,50 +2674,6 @@ generatedFiles:
   - docs/models/streamrunagenttoolchoiceagentstype.md
   - docs/models/streamrunagenttoolchoicefunction.md
   - docs/models/streamrunagenttoolchoicetype.md
-  - docs/models/syncmcptoolheaders2.md
-  - docs/models/syncmcptoolrequest.md
-  - docs/models/syncmcptoolresponsebody.md
-  - docs/models/syncmcptoolresponsebody1.md
-  - docs/models/syncmcptoolresponsebody2.md
-  - docs/models/syncmcptoolresponsebody3.md
-  - docs/models/syncmcptoolresponsebody4.md
-  - docs/models/syncmcptoolresponsebody5.md
-  - docs/models/syncmcptoolresponsebodyarguments.md
-  - docs/models/syncmcptoolresponsebodyblueprint.md
-  - docs/models/syncmcptoolresponsebodycodetool.md
-  - docs/models/syncmcptoolresponsebodyconnectiontype.md
-  - docs/models/syncmcptoolresponsebodydefaultvalue.md
-  - docs/models/syncmcptoolresponsebodyfunction.md
-  - docs/models/syncmcptoolresponsebodyheaders.md
-  - docs/models/syncmcptoolresponsebodyhttp.md
-  - docs/models/syncmcptoolresponsebodyjsonschema.md
-  - docs/models/syncmcptoolresponsebodylanguage.md
-  - docs/models/syncmcptoolresponsebodymcp.md
-  - docs/models/syncmcptoolresponsebodymethod.md
-  - docs/models/syncmcptoolresponsebodyparameters.md
-  - docs/models/syncmcptoolresponsebodyschema.md
-  - docs/models/syncmcptoolresponsebodystatus.md
-  - docs/models/syncmcptoolresponsebodysyncresult.md
-  - docs/models/syncmcptoolresponsebodytools.md
-  - docs/models/syncmcptoolresponsebodytoolsheaders.md
-  - docs/models/syncmcptoolresponsebodytoolsparameters.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjson1type.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjson3type.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjson4type.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjson5type.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjsonstatus.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200applicationjsontype.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200status.md
-  - docs/models/syncmcptoolresponsebodytoolsresponse200type.md
-  - docs/models/syncmcptoolresponsebodytoolsresponsestatus.md
-  - docs/models/syncmcptoolresponsebodytoolsresponsesyncresult.md
-  - docs/models/syncmcptoolresponsebodytoolsresponsetype.md
-  - docs/models/syncmcptoolresponsebodytoolsschema.md
-  - docs/models/syncmcptoolresponsebodytoolsstatus.md
-  - docs/models/syncmcptoolresponsebodytoolssyncresult.md
-  - docs/models/syncmcptoolresponsebodytoolstype.md
-  - docs/models/syncmcptoolresponsebodytype.md
-  - docs/models/syncresult.md
   - docs/models/systemmessage.md
   - docs/models/tasks.md
   - docs/models/teamofagents.md
@@ -3603,8 +3449,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/deploymentinvokeop.py
   - src/orq_ai_sdk/models/deploymentsop.py
   - src/orq_ai_sdk/models/deploymentstreamop.py
-  - src/orq_ai_sdk/models/duplicateagentop.py
-  - src/orq_ai_sdk/models/duplicatetoolop.py
   - src/orq_ai_sdk/models/filedeleteop.py
   - src/orq_ai_sdk/models/filegetop.py
   - src/orq_ai_sdk/models/filelistop.py
@@ -3660,7 +3504,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/security.py
   - src/orq_ai_sdk/models/streamagentop.py
   - src/orq_ai_sdk/models/streamrunagentop.py
-  - src/orq_ai_sdk/models/syncmcptoolop.py
   - src/orq_ai_sdk/models/updateagentop.py
   - src/orq_ai_sdk/models/updatebudgetop.py
   - src/orq_ai_sdk/models/updatechunkop.py
@@ -3710,7 +3553,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T11:29:35.434Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -3784,7 +3627,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-19T09:04:51.896Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-19T11:29:38.393Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3800,7 +3643,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-19T09:04:51.896Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-19T11:29:38.393Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3891,7 +3734,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-19T11:29:35.434Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -3899,7 +3742,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -3911,7 +3754,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -3955,7 +3798,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -3966,7 +3809,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -4049,7 +3892,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01KADNRAQ8933J9XAN2CN7YFST", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01KADY1D7Z4AP684MC2QP42J6M", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -4058,7 +3901,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01KADNRAQ6B7R6QQS2BE6DVY7D", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01KADY1D7YF5Z7TMQJ9GB50WWS", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -4075,7 +3918,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01KADNRAQB2N2R5Q97KGFT15Q3", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01KADY1D81QFKFASTWWYH5Q4Z5", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4484,7 +4327,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4505,7 +4348,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T09:04:48.852Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-19T11:29:35.434Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4753,7 +4596,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T09:04:49.186Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T11:29:35.769Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4761,7 +4604,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T09:04:49.186Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T11:29:35.769Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4771,7 +4614,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T09:04:49.186Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-19T11:29:35.769Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -5157,4 +5000,8 @@ examples:
           application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes Detected:\n* `orq.agents.duplicate()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.model` **Changed**\n* `orq.memory_stores.update()`: \n  *  `request.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.retrieve()`:  `response.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.create()`: \n  *  `request.embedding_config.model` **Changed** **Breaking** :warning:\n  *  `response.embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.memory_stores.list()`:  `response.data.[].embedding_config.model` **Changed** **Breaking** :warning:\n* `orq.agents.stream_run()`:  `request` **Changed**\n* `orq.prompts.update()`: \n  *  `request.prompt_config.model_parameters.thinking_level` **Added**\n  *  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.run()`:  `request` **Changed**\n* `orq.deployments.list()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.list()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.create()`: \n  *  `request.prompt_config.model_parameters.thinking_level` **Added**\n  *  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.retrieve()`:  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.update()`: \n  *  `request` **Changed**\n  *  `response.model` **Changed**\n* `orq.prompts.list_versions()`:  `response.data.[].prompt_config.model_parameters.thinking_level` **Added**\n* `orq.prompts.get_version()`:  `response.prompt_config.model_parameters.thinking_level` **Added**\n* `orq.agents.retrieve()`:  `response.model` **Changed**\n* `orq.agents.list()`:  `response.data.[].model` **Changed**\n* `orq.agents.create()`: \n  *  `request` **Changed**\n  *  `response.model` **Changed**\n* `orq.deployments.get_config()`:  `response.parameters.thinking_level` **Added**\n"
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `orq.agents.duplicate()`: **Deleted** **Breaking** :warning:
+  * `orq.tools.duplicate()`: **Deleted** **Breaking** :warning:
+  * `orq.tools.sync()`: **Deleted** **Breaking** :warning:
