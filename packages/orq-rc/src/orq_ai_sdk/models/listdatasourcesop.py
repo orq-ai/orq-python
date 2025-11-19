@@ -28,14 +28,14 @@ r"""Filter datasources by status."""
 class ListDatasourcesRequestTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base"""
-    limit: NotRequired[float]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     q: NotRequired[str]
     r"""Search query to find datasources by name."""
+    limit: NotRequired[float]
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     status: NotRequired[QueryParamStatusTypedDict]
     r"""Filter datasources by status."""
 
@@ -45,12 +45,6 @@ class ListDatasourcesRequest(BaseModel):
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""Unique identifier of the knowledge base"""
-
-    limit: Annotated[
-        Optional[float],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = 10
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
     starting_after: Annotated[
         Optional[str],
@@ -69,6 +63,12 @@ class ListDatasourcesRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Search query to find datasources by name."""
+
+    limit: Annotated[
+        Optional[float],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 50
+    r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
     status: Annotated[
         Optional[QueryParamStatus],
@@ -132,7 +132,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KABAYG28YN4GRZDGFFM78APA"
+        "01KADNRAQ3KW0CYMKTQAVMPKB9"
     )
     r"""The unique identifier of the data source"""
 

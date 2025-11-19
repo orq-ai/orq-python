@@ -234,11 +234,20 @@ UpdateAgentModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+ModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class ModelConfigurationThinkingTypedDict(TypedDict):
     type: UpdateAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[ModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class ModelConfigurationThinking(BaseModel):
@@ -247,6 +256,9 @@ class ModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[ModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 UpdateAgentToolChoiceType = Literal["function",]
@@ -773,11 +785,20 @@ UpdateAgentFallbackModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+UpdateAgentFallbackModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class UpdateAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
     type: UpdateAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[UpdateAgentFallbackModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class UpdateAgentFallbackModelConfigurationThinking(BaseModel):
@@ -786,6 +807,9 @@ class UpdateAgentFallbackModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[UpdateAgentFallbackModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 UpdateAgentToolChoiceAgentsType = Literal["function",]
@@ -2106,11 +2130,20 @@ UpdateAgentType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+UpdateAgentThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class UpdateAgentThinkingTypedDict(TypedDict):
     type: UpdateAgentType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[UpdateAgentThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class UpdateAgentThinking(BaseModel):
@@ -2119,6 +2152,9 @@ class UpdateAgentThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[UpdateAgentThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 UpdateAgentToolChoiceAgentsResponseType = Literal["function",]
@@ -2616,11 +2652,22 @@ UpdateAgentFallbackModelConfigurationAgentsType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+UpdateAgentFallbackModelConfigurationAgentsThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict(TypedDict):
     type: UpdateAgentFallbackModelConfigurationAgentsType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsThinkingLevel
+    ]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class UpdateAgentFallbackModelConfigurationAgentsThinking(BaseModel):
@@ -2629,6 +2676,11 @@ class UpdateAgentFallbackModelConfigurationAgentsThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[
+        UpdateAgentFallbackModelConfigurationAgentsThinkingLevel
+    ] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 UpdateAgentToolChoiceAgentsResponse200Type = Literal["function",]

@@ -230,11 +230,20 @@ RunAgentModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+RunAgentModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class RunAgentModelConfigurationThinkingTypedDict(TypedDict):
     type: RunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[RunAgentModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class RunAgentModelConfigurationThinking(BaseModel):
@@ -243,6 +252,9 @@ class RunAgentModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[RunAgentModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 RunAgentToolChoiceType = Literal["function",]
@@ -771,11 +783,20 @@ RunAgentFallbackModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+RunAgentFallbackModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class RunAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
     type: RunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[RunAgentFallbackModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class RunAgentFallbackModelConfigurationThinking(BaseModel):
@@ -784,6 +805,9 @@ class RunAgentFallbackModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[RunAgentFallbackModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 RunAgentToolChoiceAgentsType = Literal["function",]
@@ -1399,7 +1423,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KABAYFM1CXD811PBNJ24Z0RM"
+    id: Optional[str] = "01KADNRA9C2539X2DC7KGS843K"
 
     description: Optional[str] = None
 

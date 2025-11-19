@@ -218,11 +218,20 @@ ModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+ThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class ThinkingTypedDict(TypedDict):
     type: ModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[ThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class Thinking(BaseModel):
@@ -231,6 +240,9 @@ class Thinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[ThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 ToolChoiceType = Literal["function",]
@@ -748,11 +760,20 @@ FallbackModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+FallbackModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class FallbackModelConfigurationThinkingTypedDict(TypedDict):
     type: FallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[FallbackModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class FallbackModelConfigurationThinking(BaseModel):
@@ -761,6 +782,9 @@ class FallbackModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[FallbackModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 CreateAgentToolChoiceType = Literal["function",]
@@ -1586,8 +1610,6 @@ class TeamOfAgents(BaseModel):
 class CreateAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    display_name: str
-    r"""agent display name within the workspace"""
     role: str
     r"""The role or function of the agent"""
     description: str
@@ -1603,6 +1625,8 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
     settings: SettingsTypedDict
     r"""Configuration settings for the agent's behavior"""
+    display_name: NotRequired[str]
+    r"""agent display name within the workspace"""
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     fallback_models: NotRequired[List[FallbackModelConfigurationTypedDict]]
@@ -1619,9 +1643,6 @@ class CreateAgentRequestBodyTypedDict(TypedDict):
 class CreateAgentRequestBody(BaseModel):
     key: str
     r"""Unique identifier for the agent within the workspace"""
-
-    display_name: str
-    r"""agent display name within the workspace"""
 
     role: str
     r"""The role or function of the agent"""
@@ -1643,6 +1664,9 @@ class CreateAgentRequestBody(BaseModel):
 
     settings: Settings
     r"""Configuration settings for the agent's behavior"""
+
+    display_name: Optional[str] = None
+    r"""agent display name within the workspace"""
 
     system_prompt: Optional[str] = None
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
@@ -2059,11 +2083,20 @@ CreateAgentType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+CreateAgentThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class CreateAgentThinkingTypedDict(TypedDict):
     type: CreateAgentType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[CreateAgentThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class CreateAgentThinking(BaseModel):
@@ -2072,6 +2105,9 @@ class CreateAgentThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[CreateAgentThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 CreateAgentToolChoiceAgentsType = Literal["function",]
@@ -2565,11 +2601,20 @@ CreateAgentFallbackModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+CreateAgentFallbackModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class CreateAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
     type: CreateAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[CreateAgentFallbackModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class CreateAgentFallbackModelConfigurationThinking(BaseModel):
@@ -2578,6 +2623,9 @@ class CreateAgentFallbackModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[CreateAgentFallbackModelConfigurationThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 CreateAgentToolChoiceAgentsResponseType = Literal["function",]
@@ -2868,7 +2916,7 @@ CreateAgentFallbackModelConfiguration = TypeAliasType(
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-class CreateAgentModelTypedDict(TypedDict):
+class ModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
@@ -2883,7 +2931,7 @@ class CreateAgentModelTypedDict(TypedDict):
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
-class CreateAgentModel(BaseModel):
+class Model(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
@@ -2977,7 +3025,7 @@ class CreateAgentResponseBodyTypedDict(TypedDict):
     instructions: str
     status: CreateAgentStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    model: CreateAgentModelTypedDict
+    model: ModelTypedDict
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -3023,7 +3071,7 @@ class CreateAgentResponseBody(BaseModel):
     status: CreateAgentStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
-    model: CreateAgentModel
+    model: Model
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`

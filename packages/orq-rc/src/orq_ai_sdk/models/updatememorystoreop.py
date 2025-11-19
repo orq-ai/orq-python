@@ -4,145 +4,18 @@ from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
-from typing import Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
-
-
-Model23 = Literal["jina/jina-embeddings-v3",]
-
-
-Model22 = Literal["jina/jina-clip-v2",]
-
-
-Model21 = Literal["jina/jina-embeddings-v2-base-de",]
-
-
-Model20 = Literal["jina/jina-embeddings-v2-base-code",]
-
-
-Model19 = Literal["jina/jina-embeddings-v2-base-zh",]
-
-
-Model18 = Literal["jina/jina-embeddings-v2-base-en",]
-
-
-Model17 = Literal["jina/jina-embeddings-v2-base-es",]
-
-
-Model16 = Literal["jina/jina-clip-v1",]
-
-
-Model15 = Literal["mistral/mistral-embed",]
-
-
-Model14 = Literal["google-ai/text-embedding-004",]
-
-
-Model13 = Literal["google/multimodalembedding@001",]
-
-
-Model12 = Literal["google/text-multilingual-embedding-002",]
-
-
-Model11 = Literal["google/gemini-embedding-001",]
-
-
-Model10 = Literal["openai/text-embedding-ada-002",]
-
-
-Model9 = Literal["openai/text-embedding-3-small",]
-
-
-Model8 = Literal["openai/text-embedding-3-large",]
-
-
-Model7 = Literal["azure/text-embedding-3-small",]
-
-
-UpdateMemoryStoreModel6 = Literal["azure/text-embedding-ada-002",]
-
-
-UpdateMemoryStoreModel5 = Literal["cohere/embed-v4.0",]
-
-
-UpdateMemoryStoreModel4 = Literal["cohere/embed-english-v3.0",]
-
-
-UpdateMemoryStoreModel3 = Literal["cohere/embed-english-light-v3.0",]
-
-
-UpdateMemoryStoreModel2 = Literal["cohere/embed-multilingual-light-v3.0",]
-
-
-UpdateMemoryStoreModel1 = Literal["cohere/embed-multilingual-v3.0",]
-
-
-UpdateMemoryStoreModelTypedDict = TypeAliasType(
-    "UpdateMemoryStoreModelTypedDict",
-    Union[
-        UpdateMemoryStoreModel1,
-        UpdateMemoryStoreModel2,
-        UpdateMemoryStoreModel3,
-        UpdateMemoryStoreModel4,
-        UpdateMemoryStoreModel5,
-        UpdateMemoryStoreModel6,
-        Model7,
-        Model8,
-        Model9,
-        Model10,
-        Model11,
-        Model12,
-        Model13,
-        Model14,
-        Model15,
-        Model16,
-        Model17,
-        Model18,
-        Model19,
-        Model20,
-        Model21,
-        Model22,
-        Model23,
-    ],
-)
-
-
-UpdateMemoryStoreModel = TypeAliasType(
-    "UpdateMemoryStoreModel",
-    Union[
-        UpdateMemoryStoreModel1,
-        UpdateMemoryStoreModel2,
-        UpdateMemoryStoreModel3,
-        UpdateMemoryStoreModel4,
-        UpdateMemoryStoreModel5,
-        UpdateMemoryStoreModel6,
-        Model7,
-        Model8,
-        Model9,
-        Model10,
-        Model11,
-        Model12,
-        Model13,
-        Model14,
-        Model15,
-        Model16,
-        Model17,
-        Model18,
-        Model19,
-        Model20,
-        Model21,
-        Model22,
-        Model23,
-    ],
-)
+from typing import Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class UpdateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model: UpdateMemoryStoreModelTypedDict
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class UpdateMemoryStoreEmbeddingConfig(BaseModel):
-    model: UpdateMemoryStoreModel
+    model: str
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
 
 
 class UpdateMemoryStoreRequestBodyTypedDict(TypedDict):

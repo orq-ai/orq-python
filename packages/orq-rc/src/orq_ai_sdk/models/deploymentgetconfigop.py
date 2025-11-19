@@ -2370,6 +2370,13 @@ DeploymentGetConfigVerbosity = Literal[
 r"""Controls the verbosity of the model output."""
 
 
+DeploymentGetConfigThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of thinking to use for the model. Only supported by `Google AI`"""
+
+
 class DeploymentGetConfigParametersTypedDict(TypedDict):
     r"""Model Parameters: Not all parameters apply to every model"""
 
@@ -2416,6 +2423,8 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
     verbosity: NotRequired[DeploymentGetConfigVerbosity]
     r"""Controls the verbosity of the model output."""
+    thinking_level: NotRequired[DeploymentGetConfigThinkingLevel]
+    r"""The level of thinking to use for the model. Only supported by `Google AI`"""
 
 
 class DeploymentGetConfigParameters(BaseModel):
@@ -2499,6 +2508,12 @@ class DeploymentGetConfigParameters(BaseModel):
     verbosity: Optional[DeploymentGetConfigVerbosity] = None
     r"""Controls the verbosity of the model output."""
 
+    thinking_level: Annotated[
+        Optional[DeploymentGetConfigThinkingLevel],
+        pydantic.Field(alias="thinkingLevel"),
+    ] = None
+    r"""The level of thinking to use for the model. Only supported by `Google AI`"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2520,6 +2535,7 @@ class DeploymentGetConfigParameters(BaseModel):
             "reasoningEffort",
             "budgetTokens",
             "verbosity",
+            "thinkingLevel",
         ]
         nullable_fields = ["responseFormat"]
         null_default_fields = []

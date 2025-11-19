@@ -11,23 +11,44 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+class DuplicateAgentRequestBodyTypedDict(TypedDict):
+    key: str
+    r"""The unique key for the duplicated agent"""
+    display_name: NotRequired[str]
+    r"""The display name for the duplicated agent"""
+
+
+class DuplicateAgentRequestBody(BaseModel):
+    key: str
+    r"""The unique key for the duplicated agent"""
+
+    display_name: Optional[str] = None
+    r"""The display name for the duplicated agent"""
+
+
 class DuplicateAgentRequestTypedDict(TypedDict):
-    id: str
-    r"""The ID of the agent to duplicate"""
+    agent_key: str
+    r"""The key of the agent to duplicate"""
+    request_body: NotRequired[DuplicateAgentRequestBodyTypedDict]
 
 
 class DuplicateAgentRequest(BaseModel):
-    id: Annotated[
+    agent_key: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The ID of the agent to duplicate"""
+    r"""The key of the agent to duplicate"""
+
+    request_body: Annotated[
+        Optional[DuplicateAgentRequestBody],
+        FieldMetadata(request=RequestMetadata(media_type="application/json")),
+    ] = None
 
 
 class DuplicateAgentAgentsResponseResponseBodyData(BaseModel):
@@ -451,11 +472,20 @@ DuplicateAgentType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+DuplicateAgentThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class DuplicateAgentThinkingTypedDict(TypedDict):
     type: DuplicateAgentType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[DuplicateAgentThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class DuplicateAgentThinking(BaseModel):
@@ -464,6 +494,9 @@ class DuplicateAgentThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[DuplicateAgentThinkingLevel] = None
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 DuplicateAgentToolChoiceType = Literal["function",]
@@ -947,11 +980,20 @@ DuplicateAgentFallbackModelConfigurationType = Literal[
 r"""Enables or disables the thinking mode capability"""
 
 
+DuplicateAgentFallbackModelConfigurationThinkingLevel = Literal[
+    "low",
+    "high",
+]
+r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
+
+
 class DuplicateAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
     type: DuplicateAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+    thinking_level: NotRequired[DuplicateAgentFallbackModelConfigurationThinkingLevel]
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 class DuplicateAgentFallbackModelConfigurationThinking(BaseModel):
@@ -960,6 +1002,11 @@ class DuplicateAgentFallbackModelConfigurationThinking(BaseModel):
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
+
+    thinking_level: Optional[DuplicateAgentFallbackModelConfigurationThinkingLevel] = (
+        None
+    )
+    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 DuplicateAgentToolChoiceAgentsType = Literal["function",]

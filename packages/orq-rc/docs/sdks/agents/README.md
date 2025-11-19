@@ -82,7 +82,6 @@ with Orq(
 
     res = orq.agents.create(request={
         "key": "<key>",
-        "display_name": "Orion98",
         "role": "<value>",
         "description": "neatly unless refine aside platter alarmed shampoo shakily yippee",
         "instructions": "<value>",
@@ -308,11 +307,11 @@ with Orq(
 
 ## duplicate
 
-Creates a copy of an existing agent with a new unique key. The duplicated agent will have all the same configuration as the original, including model settings, instructions, tools, and knowledge bases.
+Creates a copy of an existing agent with a new unique key and display name. The duplicated agent will have all the same configuration as the original, including model settings, instructions, tools, and knowledge bases.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="DuplicateAgent" method="post" path="/v2/agents/{id}/duplicate" -->
+<!-- UsageSnippet language="python" operationID="DuplicateAgent" method="post" path="/v2/agents/{agent_key}/duplicate" -->
 ```python
 from orq_ai_sdk import Orq
 import os
@@ -322,7 +321,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.duplicate(id="<id>")
+    res = orq.agents.duplicate(agent_key="<value>", key="<key>")
 
     assert res is not None
 
@@ -335,7 +334,9 @@ with Orq(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to duplicate                                    |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | The key of the agent to duplicate                                   |
+| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | The unique key for the duplicated agent                             |
+| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The display name for the duplicated agent                           |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
