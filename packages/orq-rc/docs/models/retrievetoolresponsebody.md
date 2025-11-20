@@ -5,33 +5,33 @@ Successfully retrieved the tool.
 
 ## Supported Types
 
-### `models.RetrieveToolResponseBody1`
+### `models.RetrieveToolResponseBodyFunctionTool`
 
 ```python
-value: models.RetrieveToolResponseBody1 = /* values here */
+value: models.RetrieveToolResponseBodyFunctionTool = /* values here */
 ```
 
-### `models.RetrieveToolResponseBody2`
+### `models.RetrieveToolResponseBodyJSONSchemaTool`
 
 ```python
-value: models.RetrieveToolResponseBody2 = /* values here */
+value: models.RetrieveToolResponseBodyJSONSchemaTool = /* values here */
 ```
 
-### `models.RetrieveToolResponseBody3`
+### `models.RetrieveToolResponseBodyHTTPTool`
 
 ```python
-value: models.RetrieveToolResponseBody3 = /* values here */
+value: models.RetrieveToolResponseBodyHTTPTool = /* values here */
 ```
 
-### `models.RetrieveToolResponseBody4`
+### `models.RetrieveToolResponseBodyMCPTool`
 
 ```python
-value: models.RetrieveToolResponseBody4 = /* values here */
+value: models.RetrieveToolResponseBodyMCPTool = /* values here */
 ```
 
-### `models.RetrieveToolResponseBody5`
+### `models.RetrieveToolResponseBodyCodeExecutionTool`
 
 ```python
-value: models.RetrieveToolResponseBody5 = /* values here */
+value: models.RetrieveToolResponseBodyCodeExecutionTool = /* values here */
 ```
 

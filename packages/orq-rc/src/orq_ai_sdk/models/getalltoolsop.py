@@ -115,7 +115,9 @@ class DataCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class GetAllToolsData5TypedDict(TypedDict):
+class DataCodeExecutionToolTypedDict(TypedDict):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -145,7 +147,9 @@ class GetAllToolsData5TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class GetAllToolsData5(BaseModel):
+class DataCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -173,7 +177,7 @@ class GetAllToolsData5(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQEP3Z77W9SQER0GRWN"
+        "tool_01KAGR8RVA5KSY3KCAMB0VJQ9Y"
     )
 
     display_name: Optional[str] = None
@@ -243,7 +247,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAGFMWQDNC7T4DWAVH662VWW"
+    id: Optional[str] = "01KAGR8RV9PD6C1ZVZZZXAHH09"
 
     description: Optional[str] = None
 
@@ -280,7 +284,9 @@ class DataMcp(BaseModel):
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
-class GetAllToolsData4TypedDict(TypedDict):
+class DataMCPToolTypedDict(TypedDict):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -310,7 +316,9 @@ class GetAllToolsData4TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class GetAllToolsData4(BaseModel):
+class DataMCPTool(BaseModel):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -338,7 +346,7 @@ class GetAllToolsData4(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQBZ0M6ZQFMXV32HY9C"
+        "tool_01KAGR8RV8XPAWTZNW94X41E0V"
     )
 
     display_name: Optional[str] = None
@@ -485,7 +493,9 @@ class GetAllToolsDataHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class GetAllToolsData3TypedDict(TypedDict):
+class DataHTTPToolTypedDict(TypedDict):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -515,7 +525,9 @@ class GetAllToolsData3TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class GetAllToolsData3(BaseModel):
+class DataHTTPTool(BaseModel):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -543,7 +555,7 @@ class GetAllToolsData3(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQ8H1XAED42CJPP3WX4"
+        "tool_01KAGR8RV661DKRRRH1Y5X9VT3"
     )
 
     display_name: Optional[str] = None
@@ -635,7 +647,9 @@ class DataJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
-class GetAllToolsData2TypedDict(TypedDict):
+class DataJSONSchemaToolTypedDict(TypedDict):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -665,7 +679,9 @@ class GetAllToolsData2TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class GetAllToolsData2(BaseModel):
+class DataJSONSchemaTool(BaseModel):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -693,7 +709,7 @@ class GetAllToolsData2(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQ6HS2J4HKVNBEPQJ9Z"
+        "tool_01KAGR8RV40TPF3H9BSZTQSR5Q"
     )
 
     display_name: Optional[str] = None
@@ -789,7 +805,9 @@ class GetAllToolsDataFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class GetAllToolsData1TypedDict(TypedDict):
+class DataFunctionToolTypedDict(TypedDict):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -819,7 +837,9 @@ class GetAllToolsData1TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class GetAllToolsData1(BaseModel):
+class DataFunctionTool(BaseModel):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -847,7 +867,7 @@ class GetAllToolsData1(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQ39E4AEPJP28P5GPRF"
+        "tool_01KAGR8RV3BSE7AB0BV9PPRJ3D"
     )
 
     display_name: Optional[str] = None
@@ -868,11 +888,11 @@ class GetAllToolsData1(BaseModel):
 GetAllToolsDataTypedDict = TypeAliasType(
     "GetAllToolsDataTypedDict",
     Union[
-        GetAllToolsData1TypedDict,
-        GetAllToolsData2TypedDict,
-        GetAllToolsData3TypedDict,
-        GetAllToolsData4TypedDict,
-        GetAllToolsData5TypedDict,
+        DataFunctionToolTypedDict,
+        DataJSONSchemaToolTypedDict,
+        DataHTTPToolTypedDict,
+        DataMCPToolTypedDict,
+        DataCodeExecutionToolTypedDict,
     ],
 )
 
@@ -880,11 +900,11 @@ GetAllToolsDataTypedDict = TypeAliasType(
 GetAllToolsData = TypeAliasType(
     "GetAllToolsData",
     Union[
-        GetAllToolsData1,
-        GetAllToolsData2,
-        GetAllToolsData3,
-        GetAllToolsData4,
-        GetAllToolsData5,
+        DataFunctionTool,
+        DataJSONSchemaTool,
+        DataHTTPTool,
+        DataMCPTool,
+        DataCodeExecutionTool,
     ],
 )
 

@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.GetAllToolsData1`
+### `models.DataFunctionTool`
 
 ```python
-value: models.GetAllToolsData1 = /* values here */
+value: models.DataFunctionTool = /* values here */
 ```
 
-### `models.GetAllToolsData2`
+### `models.DataJSONSchemaTool`
 
 ```python
-value: models.GetAllToolsData2 = /* values here */
+value: models.DataJSONSchemaTool = /* values here */
 ```
 
-### `models.GetAllToolsData3`
+### `models.DataHTTPTool`
 
 ```python
-value: models.GetAllToolsData3 = /* values here */
+value: models.DataHTTPTool = /* values here */
 ```
 
-### `models.GetAllToolsData4`
+### `models.DataMCPTool`
 
 ```python
-value: models.GetAllToolsData4 = /* values here */
+value: models.DataMCPTool = /* values here */
 ```
 
-### `models.GetAllToolsData5`
+### `models.DataCodeExecutionTool`
 
 ```python
-value: models.GetAllToolsData5 = /* values here */
+value: models.DataCodeExecutionTool = /* values here */
 ```
 

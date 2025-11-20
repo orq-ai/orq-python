@@ -93,7 +93,9 @@ class RetrieveToolResponseBodyCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RetrieveToolResponseBody5TypedDict(TypedDict):
+class RetrieveToolResponseBodyCodeExecutionToolTypedDict(TypedDict):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -123,7 +125,9 @@ class RetrieveToolResponseBody5TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class RetrieveToolResponseBody5(BaseModel):
+class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -151,7 +155,7 @@ class RetrieveToolResponseBody5(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWT1BE6PN33YJT8T65AC"
+        "tool_01KAGR8RXMKADZ8211WCAC2Y20"
     )
 
     display_name: Optional[str] = None
@@ -225,7 +229,7 @@ class RetrieveToolResponseBodyTools(BaseModel):
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KAGFMWSZJ0J0VZ17WFK51B9Z"
+    id: Optional[str] = "01KAGR8RXKKQ0791ZWNSNCHS4T"
 
     description: Optional[str] = None
 
@@ -262,7 +266,9 @@ class RetrieveToolResponseBodyMcp(BaseModel):
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
-class RetrieveToolResponseBody4TypedDict(TypedDict):
+class RetrieveToolResponseBodyMCPToolTypedDict(TypedDict):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -292,7 +298,9 @@ class RetrieveToolResponseBody4TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class RetrieveToolResponseBody4(BaseModel):
+class RetrieveToolResponseBodyMCPTool(BaseModel):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -320,7 +328,7 @@ class RetrieveToolResponseBody4(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWSXZ0RMHRKWPAK0GMFJ"
+        "tool_01KAGR8RXJRT5RMDH14A1VW00J"
     )
 
     display_name: Optional[str] = None
@@ -470,7 +478,9 @@ class RetrieveToolResponseBodyHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class RetrieveToolResponseBody3TypedDict(TypedDict):
+class RetrieveToolResponseBodyHTTPToolTypedDict(TypedDict):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -500,7 +510,9 @@ class RetrieveToolResponseBody3TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class RetrieveToolResponseBody3(BaseModel):
+class RetrieveToolResponseBodyHTTPTool(BaseModel):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -528,7 +540,7 @@ class RetrieveToolResponseBody3(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWSTYQ4BZ00DQ0TBSRGS"
+        "tool_01KAGR8RXETMKGSTXNC8XV02ND"
     )
 
     display_name: Optional[str] = None
@@ -620,7 +632,9 @@ class RetrieveToolResponseBodyJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
-class RetrieveToolResponseBody2TypedDict(TypedDict):
+class RetrieveToolResponseBodyJSONSchemaToolTypedDict(TypedDict):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -650,7 +664,9 @@ class RetrieveToolResponseBody2TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class RetrieveToolResponseBody2(BaseModel):
+class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -678,7 +694,7 @@ class RetrieveToolResponseBody2(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWSHSWVRJGGYX0BH007D"
+        "tool_01KAGR8RXD3EZSVKPQAKG594AY"
     )
 
     display_name: Optional[str] = None
@@ -774,7 +790,9 @@ class RetrieveToolResponseBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class RetrieveToolResponseBody1TypedDict(TypedDict):
+class RetrieveToolResponseBodyFunctionToolTypedDict(TypedDict):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -804,7 +822,9 @@ class RetrieveToolResponseBody1TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class RetrieveToolResponseBody1(BaseModel):
+class RetrieveToolResponseBodyFunctionTool(BaseModel):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -832,7 +852,7 @@ class RetrieveToolResponseBody1(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWSGFWS186ASC8YQ89MG"
+        "tool_01KAGR8RXBH1MCQY04M4ENVG9V"
     )
 
     display_name: Optional[str] = None
@@ -853,11 +873,11 @@ class RetrieveToolResponseBody1(BaseModel):
 RetrieveToolResponseBodyTypedDict = TypeAliasType(
     "RetrieveToolResponseBodyTypedDict",
     Union[
-        RetrieveToolResponseBody1TypedDict,
-        RetrieveToolResponseBody2TypedDict,
-        RetrieveToolResponseBody3TypedDict,
-        RetrieveToolResponseBody4TypedDict,
-        RetrieveToolResponseBody5TypedDict,
+        RetrieveToolResponseBodyFunctionToolTypedDict,
+        RetrieveToolResponseBodyJSONSchemaToolTypedDict,
+        RetrieveToolResponseBodyHTTPToolTypedDict,
+        RetrieveToolResponseBodyMCPToolTypedDict,
+        RetrieveToolResponseBodyCodeExecutionToolTypedDict,
     ],
 )
 r"""Successfully retrieved the tool."""
@@ -866,11 +886,11 @@ r"""Successfully retrieved the tool."""
 RetrieveToolResponseBody = TypeAliasType(
     "RetrieveToolResponseBody",
     Union[
-        RetrieveToolResponseBody1,
-        RetrieveToolResponseBody2,
-        RetrieveToolResponseBody3,
-        RetrieveToolResponseBody4,
-        RetrieveToolResponseBody5,
+        RetrieveToolResponseBodyFunctionTool,
+        RetrieveToolResponseBodyJSONSchemaTool,
+        RetrieveToolResponseBodyHTTPTool,
+        RetrieveToolResponseBodyMCPTool,
+        RetrieveToolResponseBodyCodeExecutionTool,
     ],
 )
 r"""Successfully retrieved the tool."""

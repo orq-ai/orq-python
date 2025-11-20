@@ -5,15 +5,15 @@ Knowledge successfully created
 
 ## Supported Types
 
-### `models.CreateKnowledgeResponseBody1`
+### `models.ResponseBody1`
 
 ```python
-value: models.CreateKnowledgeResponseBody1 = /* values here */
+value: models.ResponseBody1 = /* values here */
 ```
 
-### `models.CreateKnowledgeResponseBody2`
+### `models.ResponseBody2`
 
 ```python
-value: models.CreateKnowledgeResponseBody2 = /* values here */
+value: models.ResponseBody2 = /* values here */
 ```
 

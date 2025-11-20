@@ -765,7 +765,9 @@ class ResponseBodyCodeTool(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class ResponseBody5TypedDict(TypedDict):
+class ResponseBodyCodeExecutionToolTypedDict(TypedDict):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -795,7 +797,9 @@ class ResponseBody5TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class ResponseBody5(BaseModel):
+class ResponseBodyCodeExecutionTool(BaseModel):
+    r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -823,7 +827,7 @@ class ResponseBody5(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWRCMAX6KXJ37K66M79T"
+        "tool_01KAGR8RW42JAX3E8GHSEWWP7K"
     )
 
     display_name: Optional[str] = None
@@ -893,7 +897,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAGFMWRB7C6TMWNHPA9F9FK1"
+    id: Optional[str] = "01KAGR8RW26C0TM9DBGQKDBBWQ"
 
     description: Optional[str] = None
 
@@ -930,7 +934,9 @@ class ResponseBodyMcp(BaseModel):
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
-class ResponseBody4TypedDict(TypedDict):
+class ResponseBodyMCPToolTypedDict(TypedDict):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -960,7 +966,9 @@ class ResponseBody4TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class ResponseBody4(BaseModel):
+class ResponseBodyMCPTool(BaseModel):
+    r"""A tool from a Model Context Protocol (MCP) server that provides standardized access to external capabilities."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -988,7 +996,7 @@ class ResponseBody4(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWR9RCRSKGQAJG23HTJ6"
+        "tool_01KAGR8RVY2NENQGQMJRCWJ191"
     )
 
     display_name: Optional[str] = None
@@ -1138,7 +1146,9 @@ class CreateToolResponseBodyHTTP(BaseModel):
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
 
 
-class ResponseBody3TypedDict(TypedDict):
+class ResponseBodyHTTPToolTypedDict(TypedDict):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1168,7 +1178,9 @@ class ResponseBody3TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class ResponseBody3(BaseModel):
+class ResponseBodyHTTPTool(BaseModel):
+    r"""Executes HTTP requests to interact with external APIs and web services using customizable blueprints."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1196,7 +1208,7 @@ class ResponseBody3(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWR6510E24GDCSXK9M4W"
+        "tool_01KAGR8RVTPVMJ516BDY32CQCF"
     )
 
     display_name: Optional[str] = None
@@ -1288,7 +1300,9 @@ class ResponseBodyJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
-class ResponseBody2TypedDict(TypedDict):
+class ResponseBodyJSONSchemaToolTypedDict(TypedDict):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1318,7 +1332,9 @@ class ResponseBody2TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class ResponseBody2(BaseModel):
+class ResponseBodyJSONSchemaTool(BaseModel):
+    r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1346,7 +1362,7 @@ class ResponseBody2(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQW61Y3TD1QTRD4GFKQ"
+        "tool_01KAGR8RVRM81CZXBEH3FZP3XM"
     )
 
     display_name: Optional[str] = None
@@ -1442,7 +1458,9 @@ class CreateToolResponseBodyFunction(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
-class ResponseBody1TypedDict(TypedDict):
+class ResponseBodyFunctionToolTypedDict(TypedDict):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1472,7 +1490,9 @@ class ResponseBody1TypedDict(TypedDict):
     version_hash: NotRequired[str]
 
 
-class ResponseBody1(BaseModel):
+class ResponseBodyFunctionTool(BaseModel):
+    r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
+
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1500,7 +1520,7 @@ class ResponseBody1(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KAGFMWQTH7MQXG1GF3QKR024"
+        "tool_01KAGR8RVP2M0YWAHYG94HG4ET"
     )
 
     display_name: Optional[str] = None
@@ -1521,11 +1541,11 @@ class ResponseBody1(BaseModel):
 CreateToolResponseBodyTypedDict = TypeAliasType(
     "CreateToolResponseBodyTypedDict",
     Union[
-        ResponseBody1TypedDict,
-        ResponseBody2TypedDict,
-        ResponseBody3TypedDict,
-        ResponseBody4TypedDict,
-        ResponseBody5TypedDict,
+        ResponseBodyFunctionToolTypedDict,
+        ResponseBodyJSONSchemaToolTypedDict,
+        ResponseBodyHTTPToolTypedDict,
+        ResponseBodyMCPToolTypedDict,
+        ResponseBodyCodeExecutionToolTypedDict,
     ],
 )
 r"""Successfully created the tool."""
@@ -1533,6 +1553,12 @@ r"""Successfully created the tool."""
 
 CreateToolResponseBody = TypeAliasType(
     "CreateToolResponseBody",
-    Union[ResponseBody1, ResponseBody2, ResponseBody3, ResponseBody4, ResponseBody5],
+    Union[
+        ResponseBodyFunctionTool,
+        ResponseBodyJSONSchemaTool,
+        ResponseBodyHTTPTool,
+        ResponseBodyMCPTool,
+        ResponseBodyCodeExecutionTool,
+    ],
 )
 r"""Successfully created the tool."""

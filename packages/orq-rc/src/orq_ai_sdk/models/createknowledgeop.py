@@ -350,7 +350,7 @@ class ResponseBodyExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class CreateKnowledgeResponseBody2TypedDict(TypedDict):
+class ResponseBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -380,7 +380,7 @@ class CreateKnowledgeResponseBody2TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
 
-class CreateKnowledgeResponseBody2(BaseModel):
+class ResponseBody2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -575,7 +575,7 @@ class ResponseBodyRetrievalSettings(BaseModel):
         return m
 
 
-class CreateKnowledgeResponseBody1TypedDict(TypedDict):
+class ResponseBody1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -604,7 +604,7 @@ class CreateKnowledgeResponseBody1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class CreateKnowledgeResponseBody1(BaseModel):
+class ResponseBody1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -683,13 +683,12 @@ class CreateKnowledgeResponseBody1(BaseModel):
 
 CreateKnowledgeResponseBodyTypedDict = TypeAliasType(
     "CreateKnowledgeResponseBodyTypedDict",
-    Union[CreateKnowledgeResponseBody1TypedDict, CreateKnowledgeResponseBody2TypedDict],
+    Union[ResponseBody1TypedDict, ResponseBody2TypedDict],
 )
 r"""Knowledge successfully created"""
 
 
 CreateKnowledgeResponseBody = TypeAliasType(
-    "CreateKnowledgeResponseBody",
-    Union[CreateKnowledgeResponseBody1, CreateKnowledgeResponseBody2],
+    "CreateKnowledgeResponseBody", Union[ResponseBody1, ResponseBody2]
 )
 r"""Knowledge successfully created"""

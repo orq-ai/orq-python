@@ -1,4 +1,6 @@
-# ResponseBody3
+# ResponseBodyHTTPTool
+
+Executes HTTP requests to interact with external APIs and web services using customizable blueprints.
 
 
 ## Fields
