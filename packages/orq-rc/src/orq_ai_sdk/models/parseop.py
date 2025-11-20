@@ -108,6 +108,10 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""Maximum tokens per chunk"""
     threshold: NotRequired[ThresholdTypedDict]
     r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
+    dimensions: NotRequired[int]
+    r"""Number of dimensions for the embedding output. Required for text-embedding-3 models. Supported range: 256-3072 for text-embedding-3-large, 256-1536 for text-embedding-3-small."""
+    max_tokens: NotRequired[int]
+    r"""Maximum number of tokens per embedding request. Default is 8191 for text-embedding-3 models."""
     mode: NotRequired[Mode]
     r"""Chunking mode: window-based or sentence-based similarity"""
     similarity_window: NotRequired[int]
@@ -136,6 +140,12 @@ class SemanticChunkerStrategy(BaseModel):
 
     threshold: Optional[Threshold] = None
     r"""Similarity threshold for grouping (0-1) or \"auto\" for automatic detection"""
+
+    dimensions: Optional[int] = None
+    r"""Number of dimensions for the embedding output. Required for text-embedding-3 models. Supported range: 256-3072 for text-embedding-3-large, 256-1536 for text-embedding-3-small."""
+
+    max_tokens: Optional[int] = None
+    r"""Maximum number of tokens per embedding request. Default is 8191 for text-embedding-3 models."""
 
     mode: Optional[Mode] = "window"
     r"""Chunking mode: window-based or sentence-based similarity"""
