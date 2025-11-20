@@ -1,11 +1,10 @@
 # ListAgentTasksResponseBody
 
-Agent tasks retrieved
+No agent tasks found
 
 
 ## Fields
 
-| Field                                    | Type                                     | Required                                 | Description                              |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `tasks`                                  | List[[models.Tasks](../models/tasks.md)] | :heavy_check_mark:                       | N/A                                      |
-| `overall_total`                          | *float*                                  | :heavy_check_mark:                       | N/A                                      |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `message`          | *str*              | :heavy_check_mark: | N/A                |

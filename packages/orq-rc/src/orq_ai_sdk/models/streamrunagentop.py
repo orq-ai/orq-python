@@ -1113,11 +1113,11 @@ r"""Fallback model for automatic failover when primary model request fails. Supp
 
 
 StreamRunAgentRoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 StreamRunAgentRoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 StreamRunAgentRoleTypedDict = TypeAliasType(
@@ -1282,7 +1282,7 @@ StreamRunAgentPublicMessagePart = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class StreamRunAgentMessageTypedDict(TypedDict):
+class StreamRunAgentA2AMessageTypedDict(TypedDict):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: StreamRunAgentRoleTypedDict
@@ -1293,7 +1293,7 @@ class StreamRunAgentMessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class StreamRunAgentMessage(BaseModel):
+class StreamRunAgentA2AMessage(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: StreamRunAgentRole
@@ -1450,7 +1450,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KADY1CTE6KJ8WM96HN1Z09Z6"
+    id: Optional[str] = "01KAG3PPQHZ7FSFZG3EQS9WGTW"
 
     description: Optional[str] = None
 
@@ -2280,7 +2280,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
-    message: StreamRunAgentMessageTypedDict
+    message: StreamRunAgentA2AMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -2333,7 +2333,7 @@ class StreamRunAgentRequestBody(BaseModel):
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
 
-    message: StreamRunAgentMessage
+    message: StreamRunAgentA2AMessage
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str

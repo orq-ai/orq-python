@@ -376,27 +376,24 @@ class Message1(BaseModel):
         return m
 
 
-DeploymentInvokeMessageTypedDict = TypeAliasType(
-    "DeploymentInvokeMessageTypedDict",
-    Union[Message3TypedDict, Message2TypedDict, Message1TypedDict],
+MessageTypedDict = TypeAliasType(
+    "MessageTypedDict", Union[Message3TypedDict, Message2TypedDict, Message1TypedDict]
 )
 
 
-DeploymentInvokeMessage = TypeAliasType(
-    "DeploymentInvokeMessage", Union[Message3, Message2, Message1]
-)
+Message = TypeAliasType("Message", Union[Message3, Message2, Message1])
 
 
 class DeploymentInvokeChoicesTypedDict(TypedDict):
     index: float
-    message: DeploymentInvokeMessageTypedDict
+    message: MessageTypedDict
     finish_reason: NotRequired[Nullable[str]]
 
 
 class DeploymentInvokeChoices(BaseModel):
     index: float
 
-    message: DeploymentInvokeMessage
+    message: Message
 
     finish_reason: OptionalNullable[str] = UNSET
 

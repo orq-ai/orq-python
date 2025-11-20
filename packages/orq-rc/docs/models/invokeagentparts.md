@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.InvokeAgentParts1`
+### `models.InvokeAgentPartsTextPart`
 
 ```python
-value: models.InvokeAgentParts1 = /* values here */
+value: models.InvokeAgentPartsTextPart = /* values here */
 ```
 
-### `models.InvokeAgentParts2`
+### `models.InvokeAgentPartsDataPart`
 
 ```python
-value: models.InvokeAgentParts2 = /* values here */
+value: models.InvokeAgentPartsDataPart = /* values here */
 ```
 
-### `models.InvokeAgentParts3`
+### `models.InvokeAgentPartsFilePart`
 
 ```python
-value: models.InvokeAgentParts3 = /* values here */
+value: models.InvokeAgentPartsFilePart = /* values here */
 ```
 
-### `models.InvokeAgentParts4`
+### `models.InvokeAgentPartsToolCallPart`
 
 ```python
-value: models.InvokeAgentParts4 = /* values here */
+value: models.InvokeAgentPartsToolCallPart = /* values here */
 ```
 
-### `models.InvokeAgentParts5`
+### `models.InvokeAgentPartsToolResultPart`
 
 ```python
-value: models.InvokeAgentParts5 = /* values here */
+value: models.InvokeAgentPartsToolResultPart = /* values here */
 ```
 

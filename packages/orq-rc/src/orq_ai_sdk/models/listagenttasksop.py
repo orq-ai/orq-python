@@ -11,19 +11,6 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-Status = Literal[
-    "submitted",
-    "working",
-    "input-required",
-    "auth-required",
-    "completed",
-    "failed",
-    "canceled",
-    "rejected",
-]
-r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
-
-
 class ListAgentTasksRequestTypedDict(TypedDict):
     agent_key: str
     r"""The unique key of the agent"""
@@ -33,8 +20,8 @@ class ListAgentTasksRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
-    status: NotRequired[Status]
-    r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
+    status: NotRequired[str]
+    r"""Comma-separated list of task statuses to filter by. Available values: submitted, working, input-required, auth-required, completed, failed, canceled, rejected"""
 
 
 class ListAgentTasksRequest(BaseModel):
@@ -62,25 +49,25 @@ class ListAgentTasksRequest(BaseModel):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
     status: Annotated[
-        Optional[Status],
+        Optional[str],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored"""
+    r"""Comma-separated list of task statuses to filter by. Available values: submitted, working, input-required, auth-required, completed, failed, canceled, rejected"""
 
 
-class ListAgentTasksAgentsResponseBodyData(BaseModel):
+class ListAgentTasksResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
-class ListAgentTasksAgentsResponseBody(OrqError):
+class ListAgentTasksResponseBody(OrqError):
     r"""No agent tasks found"""
 
-    data: ListAgentTasksAgentsResponseBodyData = field(hash=False)
+    data: ListAgentTasksResponseBodyData = field(hash=False)
 
     def __init__(
         self,
-        data: ListAgentTasksAgentsResponseBodyData,
+        data: ListAgentTasksResponseBodyData,
         raw_response: httpx.Response,
         body: Optional[str] = None,
     ):
@@ -91,45 +78,319 @@ class ListAgentTasksAgentsResponseBody(OrqError):
 
 
 ListAgentTasksKind = Literal["task",]
+r"""A2A entity type"""
 
 
-class ListAgentTasksStatusTypedDict(TypedDict):
-    state: str
-    timestamp: NotRequired[str]
-    message: NotRequired[Any]
+ListAgentTasksTaskState = Literal[
+    "submitted",
+    "working",
+    "input-required",
+    "auth-required",
+    "completed",
+    "failed",
+    "canceled",
+    "rejected",
+]
+r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
 
-class ListAgentTasksStatus(BaseModel):
-    state: str
-
-    timestamp: Optional[str] = None
-
-    message: Optional[Any] = None
+ListAgentTasksAgentsResponseKind = Literal["message",]
 
 
-ListAgentTasksAgentsKind = Literal["message",]
-
-
-ListAgentTasksRole = Literal[
+ListAgentTasksAgentsExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
     "system",
 ]
-r"""Extended A2A message role"""
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage5Kind = Literal[
+    "tool_result",
+]
+
+
+class ListAgentTasksPartsAgentsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage5Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ListAgentTasksPartsAgentsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage5Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessageKind = Literal[
+    "tool_call",
+]
+
+
+class ListAgentTasksPartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessageKind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ListAgentTasksPartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessageKind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusKind = (
+    Literal["file",]
+)
+
+
+class ListAgentTasksFileAgentsResponseFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsResponseFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsResponseBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsResponseBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+ListAgentTasksPartsAgentsResponseFileTypedDict = TypeAliasType(
+    "ListAgentTasksPartsAgentsResponseFileTypedDict",
+    Union[
+        ListAgentTasksFileAgentsResponseBinaryFormatTypedDict,
+        ListAgentTasksFileAgentsResponseFileInURIFormatTypedDict,
+    ],
+)
+
+
+ListAgentTasksPartsAgentsResponseFile = TypeAliasType(
+    "ListAgentTasksPartsAgentsResponseFile",
+    Union[
+        ListAgentTasksFileAgentsResponseBinaryFormat,
+        ListAgentTasksFileAgentsResponseFileInURIFormat,
+    ],
+)
+
+
+class ListAgentTasksPartsAgentsResponseFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusKind
+    file: ListAgentTasksPartsAgentsResponseFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ListAgentTasksPartsAgentsResponseFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusKind
+
+    file: ListAgentTasksPartsAgentsResponseFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage2Kind = Literal[
+    "data",
+]
+
+
+class ListAgentTasksPartsAgentsResponseDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage2Kind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ListAgentTasksPartsAgentsResponseDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage2Kind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage1Kind = Literal[
+    "text",
+]
+
+
+class ListAgentTasksPartsAgentsResponseTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage1Kind
+    text: str
+
+
+class ListAgentTasksPartsAgentsResponseTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksStatusMessage1Kind
+
+    text: str
+
+
+ListAgentTasksAgentsResponsePartsTypedDict = TypeAliasType(
+    "ListAgentTasksAgentsResponsePartsTypedDict",
+    Union[
+        ListAgentTasksPartsAgentsResponseTextPartTypedDict,
+        ListAgentTasksPartsAgentsResponseDataPartTypedDict,
+        ListAgentTasksPartsAgentsResponseFilePartTypedDict,
+        ListAgentTasksPartsAgentsToolResultPartTypedDict,
+        ListAgentTasksPartsToolCallPartTypedDict,
+    ],
+)
+
+
+ListAgentTasksAgentsResponseParts = TypeAliasType(
+    "ListAgentTasksAgentsResponseParts",
+    Union[
+        ListAgentTasksPartsAgentsResponseTextPart,
+        ListAgentTasksPartsAgentsResponseDataPart,
+        ListAgentTasksPartsAgentsResponseFilePart,
+        ListAgentTasksPartsAgentsToolResultPart,
+        ListAgentTasksPartsToolCallPart,
+    ],
+)
+
+
+class ListAgentTasksTaskStatusMessageTypedDict(TypedDict):
+    r"""Optional A2A message providing additional context about the current status"""
+
+    kind: ListAgentTasksAgentsResponseKind
+    message_id: str
+    role: ListAgentTasksAgentsExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
+    parts: List[ListAgentTasksAgentsResponsePartsTypedDict]
+
+
+class ListAgentTasksTaskStatusMessage(BaseModel):
+    r"""Optional A2A message providing additional context about the current status"""
+
+    kind: ListAgentTasksAgentsResponseKind
+
+    message_id: Annotated[str, pydantic.Field(alias="messageId")]
+
+    role: ListAgentTasksAgentsExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
+
+    parts: List[ListAgentTasksAgentsResponseParts]
+
+
+class ListAgentTasksTaskStatusTypedDict(TypedDict):
+    r"""Current task execution status"""
+
+    state: ListAgentTasksTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
+    timestamp: NotRequired[str]
+    r"""ISO 8601 timestamp of when the status was updated"""
+    message: NotRequired[ListAgentTasksTaskStatusMessageTypedDict]
+    r"""Optional A2A message providing additional context about the current status"""
+
+
+class ListAgentTasksTaskStatus(BaseModel):
+    r"""Current task execution status"""
+
+    state: ListAgentTasksTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
+
+    timestamp: Optional[str] = None
+    r"""ISO 8601 timestamp of when the status was updated"""
+
+    message: Optional[ListAgentTasksTaskStatusMessage] = None
+    r"""Optional A2A message providing additional context about the current status"""
+
+
+ListAgentTasksAgentsKind = Literal["message",]
+
+
+ListAgentTasksExtendedMessageRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
 
 ListAgentTasksPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
 
 
-class ListAgentTasksParts5TypedDict(TypedDict):
+class ListAgentTasksPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
     kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONKind
     tool_call_id: str
     result: NotRequired[Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ListAgentTasksParts5(BaseModel):
+class ListAgentTasksPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
     kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONKind
 
     tool_call_id: str
@@ -142,7 +403,9 @@ class ListAgentTasksParts5(BaseModel):
 ListAgentTasksPartsAgentsResponse200Kind = Literal["tool_call",]
 
 
-class ListAgentTasksParts4TypedDict(TypedDict):
+class PartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
     kind: ListAgentTasksPartsAgentsResponse200Kind
     tool_name: str
     tool_call_id: str
@@ -150,7 +413,9 @@ class ListAgentTasksParts4TypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ListAgentTasksParts4(BaseModel):
+class PartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
     kind: ListAgentTasksPartsAgentsResponse200Kind
 
     tool_name: str
@@ -228,13 +493,17 @@ ListAgentTasksPartsFile = TypeAliasType(
 )
 
 
-class ListAgentTasksParts3TypedDict(TypedDict):
+class ListAgentTasksPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
     kind: ListAgentTasksPartsAgentsResponseKind
     file: ListAgentTasksPartsFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ListAgentTasksParts3(BaseModel):
+class ListAgentTasksPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
     kind: ListAgentTasksPartsAgentsResponseKind
 
     file: ListAgentTasksPartsFile
@@ -245,13 +514,17 @@ class ListAgentTasksParts3(BaseModel):
 ListAgentTasksPartsAgentsKind = Literal["data",]
 
 
-class ListAgentTasksParts2TypedDict(TypedDict):
+class ListAgentTasksPartsAgentsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
     kind: ListAgentTasksPartsAgentsKind
     data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ListAgentTasksParts2(BaseModel):
+class ListAgentTasksPartsAgentsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
     kind: ListAgentTasksPartsAgentsKind
 
     data: Dict[str, Any]
@@ -262,12 +535,16 @@ class ListAgentTasksParts2(BaseModel):
 ListAgentTasksPartsKind = Literal["text",]
 
 
-class ListAgentTasksParts1TypedDict(TypedDict):
+class ListAgentTasksPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
     kind: ListAgentTasksPartsKind
     text: str
 
 
-class ListAgentTasksParts1(BaseModel):
+class ListAgentTasksPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
     kind: ListAgentTasksPartsKind
 
     text: str
@@ -276,11 +553,11 @@ class ListAgentTasksParts1(BaseModel):
 ListAgentTasksPartsTypedDict = TypeAliasType(
     "ListAgentTasksPartsTypedDict",
     Union[
-        ListAgentTasksParts1TypedDict,
-        ListAgentTasksParts2TypedDict,
-        ListAgentTasksParts3TypedDict,
-        ListAgentTasksParts5TypedDict,
-        ListAgentTasksParts4TypedDict,
+        ListAgentTasksPartsTextPartTypedDict,
+        ListAgentTasksPartsAgentsDataPartTypedDict,
+        ListAgentTasksPartsFilePartTypedDict,
+        ListAgentTasksPartsToolResultPartTypedDict,
+        PartsToolCallPartTypedDict,
     ],
 )
 
@@ -288,105 +565,303 @@ ListAgentTasksPartsTypedDict = TypeAliasType(
 ListAgentTasksParts = TypeAliasType(
     "ListAgentTasksParts",
     Union[
-        ListAgentTasksParts1,
-        ListAgentTasksParts2,
-        ListAgentTasksParts3,
-        ListAgentTasksParts5,
-        ListAgentTasksParts4,
+        ListAgentTasksPartsTextPart,
+        ListAgentTasksPartsAgentsDataPart,
+        ListAgentTasksPartsFilePart,
+        ListAgentTasksPartsToolResultPart,
+        PartsToolCallPart,
     ],
 )
 
 
-class ListAgentTasksHistoryTypedDict(TypedDict):
+class ListAgentTasksExtendedA2AMessageTypedDict(TypedDict):
+    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with Orquesta-specific features."""
+
     kind: ListAgentTasksAgentsKind
     message_id: str
-    role: ListAgentTasksRole
-    r"""Extended A2A message role"""
+    r"""Unique identifier for the message"""
+    role: ListAgentTasksExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
     parts: List[ListAgentTasksPartsTypedDict]
+    r"""Array of message parts (text, file, tool_call, tool_result)"""
     task_id: NotRequired[str]
+    r"""Associated task ID if applicable"""
     context_id: NotRequired[str]
+    r"""Correlation ID for execution tracking"""
     metadata: NotRequired[Dict[str, Any]]
+    r"""Additional message metadata"""
 
 
-class ListAgentTasksHistory(BaseModel):
+class ListAgentTasksExtendedA2AMessage(BaseModel):
+    r"""Extended Agent-to-Agent protocol message with support for tool calls and tool results. Extends the base A2A message format with Orquesta-specific features."""
+
     kind: ListAgentTasksAgentsKind
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
+    r"""Unique identifier for the message"""
 
-    role: ListAgentTasksRole
-    r"""Extended A2A message role"""
+    role: ListAgentTasksExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
     parts: List[ListAgentTasksParts]
+    r"""Array of message parts (text, file, tool_call, tool_result)"""
 
     task_id: Annotated[Optional[str], pydantic.Field(alias="taskId")] = None
+    r"""Associated task ID if applicable"""
 
     context_id: Annotated[Optional[str], pydantic.Field(alias="contextId")] = None
+    r"""Correlation ID for execution tracking"""
 
     metadata: Optional[Dict[str, Any]] = None
+    r"""Additional message metadata"""
 
 
-ListAgentTasksAgentsResponseKind = Literal["artifact",]
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksArtifactsKind = (
+    Literal["data",]
+)
 
 
-class ListAgentTasksArtifactsTypedDict(TypedDict):
-    kind: ListAgentTasksAgentsResponseKind
-    artifact_id: str
-    name: str
-    type: str
-    url: NotRequired[str]
-    data: NotRequired[Any]
+class ListAgentTasksPartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
-
-class ListAgentTasksArtifacts(BaseModel):
-    kind: ListAgentTasksAgentsResponseKind
-
-    artifact_id: Annotated[str, pydantic.Field(alias="artifactId")]
-
-    name: str
-
-    type: str
-
-    url: Optional[str] = None
-
-    data: Optional[Any] = None
-
-
-class TasksTypedDict(TypedDict):
-    id: str
-    context_id: str
-    kind: ListAgentTasksKind
-    status: ListAgentTasksStatusTypedDict
-    history: List[ListAgentTasksHistoryTypedDict]
-    artifacts: NotRequired[List[ListAgentTasksArtifactsTypedDict]]
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksArtifactsKind
+    data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class Tasks(BaseModel):
-    id: str
+class ListAgentTasksPartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
-    context_id: Annotated[str, pydantic.Field(alias="contextId")]
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksArtifactsKind
 
-    kind: ListAgentTasksKind
-
-    status: ListAgentTasksStatus
-
-    history: List[ListAgentTasksHistory]
-
-    artifacts: Optional[List[ListAgentTasksArtifacts]] = None
+    data: Dict[str, Any]
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-class ListAgentTasksResponseBodyTypedDict(TypedDict):
-    r"""Agent tasks retrieved"""
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksKind = Literal[
+    "file",
+]
 
-    tasks: List[TasksTypedDict]
+
+class ListAgentTasksFileAgentsFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class ListAgentTasksFileAgentsBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+ListAgentTasksPartsAgentsFileTypedDict = TypeAliasType(
+    "ListAgentTasksPartsAgentsFileTypedDict",
+    Union[
+        ListAgentTasksFileAgentsBinaryFormatTypedDict,
+        ListAgentTasksFileAgentsFileInURIFormatTypedDict,
+    ],
+)
+
+
+ListAgentTasksPartsAgentsFile = TypeAliasType(
+    "ListAgentTasksPartsAgentsFile",
+    Union[
+        ListAgentTasksFileAgentsBinaryFormat, ListAgentTasksFileAgentsFileInURIFormat
+    ],
+)
+
+
+class ListAgentTasksPartsAgentsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksKind
+    file: ListAgentTasksPartsAgentsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ListAgentTasksPartsAgentsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyTasksKind
+
+    file: ListAgentTasksPartsAgentsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyKind = Literal["text",]
+
+
+class ListAgentTasksPartsAgentsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyKind
+    text: str
+
+
+class ListAgentTasksPartsAgentsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: ListAgentTasksPartsAgentsResponse200ApplicationJSONResponseBodyKind
+
+    text: str
+
+
+ListAgentTasksAgentsPartsTypedDict = TypeAliasType(
+    "ListAgentTasksAgentsPartsTypedDict",
+    Union[
+        ListAgentTasksPartsAgentsTextPartTypedDict,
+        ListAgentTasksPartsAgentsFilePartTypedDict,
+        ListAgentTasksPartsDataPartTypedDict,
+    ],
+)
+
+
+ListAgentTasksAgentsParts = TypeAliasType(
+    "ListAgentTasksAgentsParts",
+    Union[
+        ListAgentTasksPartsAgentsTextPart,
+        ListAgentTasksPartsAgentsFilePart,
+        ListAgentTasksPartsDataPart,
+    ],
+)
+
+
+class ListAgentTasksTaskArtifactTypedDict(TypedDict):
+    r"""A file or data artifact produced by the agent during task execution. Follows the A2A SDK Artifact structure with required name field."""
+
+    artifact_id: str
+    r"""Unique identifier for the artifact (ULID format)"""
+    name: str
+    r"""Required name for the artifact (e.g., filename or descriptive title)"""
+    parts: List[ListAgentTasksAgentsPartsTypedDict]
+    r"""Array of artifact content parts (text, file, or data). Does not include tool_call or tool_result parts."""
+    description: NotRequired[str]
+    r"""Optional human-readable description of the artifact"""
+    extensions: NotRequired[List[str]]
+    r"""File extensions associated with this artifact (e.g., [\".pdf\"])"""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Additional artifact metadata as key-value pairs"""
+
+
+class ListAgentTasksTaskArtifact(BaseModel):
+    r"""A file or data artifact produced by the agent during task execution. Follows the A2A SDK Artifact structure with required name field."""
+
+    artifact_id: Annotated[str, pydantic.Field(alias="artifactId")]
+    r"""Unique identifier for the artifact (ULID format)"""
+
+    name: str
+    r"""Required name for the artifact (e.g., filename or descriptive title)"""
+
+    parts: List[ListAgentTasksAgentsParts]
+    r"""Array of artifact content parts (text, file, or data). Does not include tool_call or tool_result parts."""
+
+    description: Optional[str] = None
+    r"""Optional human-readable description of the artifact"""
+
+    extensions: Optional[List[str]] = None
+    r"""File extensions associated with this artifact (e.g., [\".pdf\"])"""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Additional artifact metadata as key-value pairs"""
+
+
+class ExtendedTaskResponseTypedDict(TypedDict):
+    r"""Agent task execution response format with full conversation history and artifacts. Used for API responses when retrieving task details."""
+
+    id: str
+    r"""Unique task execution identifier"""
+    context_id: str
+    r"""Correlation ID for tracking"""
+    kind: ListAgentTasksKind
+    r"""A2A entity type"""
+    status: ListAgentTasksTaskStatusTypedDict
+    r"""Current task execution status"""
+    history: List[ListAgentTasksExtendedA2AMessageTypedDict]
+    r"""Conversation history with all messages exchanged"""
+    artifacts: NotRequired[List[ListAgentTasksTaskArtifactTypedDict]]
+    r"""Optional files or data produced during execution"""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""Additional task metadata"""
+
+
+class ExtendedTaskResponse(BaseModel):
+    r"""Agent task execution response format with full conversation history and artifacts. Used for API responses when retrieving task details."""
+
+    id: str
+    r"""Unique task execution identifier"""
+
+    context_id: Annotated[str, pydantic.Field(alias="contextId")]
+    r"""Correlation ID for tracking"""
+
+    kind: ListAgentTasksKind
+    r"""A2A entity type"""
+
+    status: ListAgentTasksTaskStatus
+    r"""Current task execution status"""
+
+    history: List[ListAgentTasksExtendedA2AMessage]
+    r"""Conversation history with all messages exchanged"""
+
+    artifacts: Optional[List[ListAgentTasksTaskArtifact]] = None
+    r"""Optional files or data produced during execution"""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""Additional task metadata"""
+
+
+class ListAgentTasksAgentTasksListResponseTypedDict(TypedDict):
+    r"""Response format for listing all tasks associated with an agent. Includes paginated task array and total count."""
+
+    tasks: List[ExtendedTaskResponseTypedDict]
+    r"""Array of agent tasks with full execution details"""
     overall_total: float
+    r"""Total count of tasks for this agent (across all pages, unfiltered)"""
 
 
-class ListAgentTasksResponseBody(BaseModel):
-    r"""Agent tasks retrieved"""
+class ListAgentTasksAgentTasksListResponse(BaseModel):
+    r"""Response format for listing all tasks associated with an agent. Includes paginated task array and total count."""
 
-    tasks: List[Tasks]
+    tasks: List[ExtendedTaskResponse]
+    r"""Array of agent tasks with full execution details"""
 
     overall_total: float
+    r"""Total count of tasks for this agent (across all pages, unfiltered)"""

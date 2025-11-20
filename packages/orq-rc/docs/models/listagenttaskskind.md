@@ -1,5 +1,7 @@
 # ListAgentTasksKind
 
+A2A entity type
+
 
 ## Values
 

@@ -12,11 +12,11 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 StreamAgentRoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 StreamAgentRoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 StreamAgentRoleTypedDict = TypeAliasType(
@@ -179,7 +179,9 @@ StreamAgentPublicMessagePart = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class StreamAgentMessageTypedDict(TypedDict):
+class StreamAgentA2AMessageTypedDict(TypedDict):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: StreamAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[StreamAgentPublicMessagePartTypedDict]
@@ -188,7 +190,9 @@ class StreamAgentMessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class StreamAgentMessage(BaseModel):
+class StreamAgentA2AMessage(BaseModel):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: StreamAgentRole
     r"""Message role (user or tool for continuing executions)"""
 
@@ -272,7 +276,8 @@ class StreamAgentMemory(BaseModel):
 
 
 class StreamAgentRequestBodyTypedDict(TypedDict):
-    message: StreamAgentMessageTypedDict
+    message: StreamAgentA2AMessageTypedDict
+    r"""The A2A message to send to the agent (user input or tool results)"""
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
@@ -290,7 +295,8 @@ class StreamAgentRequestBodyTypedDict(TypedDict):
 
 
 class StreamAgentRequestBody(BaseModel):
-    message: StreamAgentMessage
+    message: StreamAgentA2AMessage
+    r"""The A2A message to send to the agent (user input or tool results)"""
 
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""

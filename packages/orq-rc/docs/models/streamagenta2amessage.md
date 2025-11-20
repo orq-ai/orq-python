@@ -1,0 +1,12 @@
+# StreamAgentA2AMessage
+
+The A2A message to send to the agent (user input or tool results)
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `message_id`                                                                           | *Optional[str]*                                                                        | :heavy_minus_sign:                                                                     | Optional A2A message ID in ULID format                                                 |
+| `role`                                                                                 | [models.StreamAgentRole](../models/streamagentrole.md)                                 | :heavy_check_mark:                                                                     | Message role (user or tool for continuing executions)                                  |
+| `parts`                                                                                | List[[models.StreamAgentPublicMessagePart](../models/streamagentpublicmessagepart.md)] | :heavy_check_mark:                                                                     | A2A message parts (text, file, or tool_result only)                                    |

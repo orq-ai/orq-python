@@ -253,7 +253,6 @@ with Orq(
 
 ### [agents](docs/sdks/agents/README.md)
 
-* [retrieve_task](docs/sdks/agents/README.md#retrieve_task) - Retrieve a specific agent task
 * [create](docs/sdks/agents/README.md#create) - Create a new agent
 * [list](docs/sdks/agents/README.md#list) - List all agents
 * [delete](docs/sdks/agents/README.md#delete) - Delete an agent
@@ -261,6 +260,7 @@ with Orq(
 * [update](docs/sdks/agents/README.md#update) - Update an agent
 * [invoke](docs/sdks/agents/README.md#invoke) - Invoke an agent
 * [list_tasks](docs/sdks/agents/README.md#list_tasks) - List all tasks for an agent
+* [retrieve_task](docs/sdks/agents/README.md#retrieve_task) - Retrieve a specific agent task
 * [run](docs/sdks/agents/README.md#run) - Run an agent
 * [stream_run](docs/sdks/agents/README.md#stream_run) - Run and stream agent execution
 * [stream](docs/sdks/agents/README.md#stream) - Stream agent execution events
@@ -601,7 +601,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (24)</summary>
+<details><summary>Less common errors (23)</summary>
 
 <br />
 
@@ -612,7 +612,7 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 11 of 97 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 97 methods.*
 * [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*
@@ -620,11 +620,10 @@ with Orq(
 * [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 97 methods.*
 * [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 97 methods.*
 * [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 97 methods.*
-* [`GetAgentTaskAgentsResponseBody`](./src/orq_ai_sdk/models/getagenttaskagentsresponsebody.py): Agent task not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`GetAgentAgentsResponseBody`](./src/orq_ai_sdk/models/getagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 97 methods.*
-* [`ListAgentTasksAgentsResponseBody`](./src/orq_ai_sdk/models/listagenttasksagentsresponsebody.py): No agent tasks found. Status code `404`. Applicable to 1 of 97 methods.*
+* [`ListAgentTasksResponseBody`](./src/orq_ai_sdk/models/listagenttasksresponsebody.py): No agent tasks found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 97 methods.*

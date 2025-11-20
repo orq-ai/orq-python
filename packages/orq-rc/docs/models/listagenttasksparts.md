@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.ListAgentTasksParts1`
+### `models.ListAgentTasksPartsTextPart`
 
 ```python
-value: models.ListAgentTasksParts1 = /* values here */
+value: models.ListAgentTasksPartsTextPart = /* values here */
 ```
 
-### `models.ListAgentTasksParts2`
+### `models.ListAgentTasksPartsAgentsDataPart`
 
 ```python
-value: models.ListAgentTasksParts2 = /* values here */
+value: models.ListAgentTasksPartsAgentsDataPart = /* values here */
 ```
 
-### `models.ListAgentTasksParts3`
+### `models.ListAgentTasksPartsFilePart`
 
 ```python
-value: models.ListAgentTasksParts3 = /* values here */
+value: models.ListAgentTasksPartsFilePart = /* values here */
 ```
 
-### `models.ListAgentTasksParts4`
+### `models.PartsToolCallPart`
 
 ```python
-value: models.ListAgentTasksParts4 = /* values here */
+value: models.PartsToolCallPart = /* values here */
 ```
 
-### `models.ListAgentTasksParts5`
+### `models.ListAgentTasksPartsToolResultPart`
 
 ```python
-value: models.ListAgentTasksParts5 = /* values here */
+value: models.ListAgentTasksPartsToolResultPart = /* values here */
 ```
 

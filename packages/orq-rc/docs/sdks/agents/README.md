@@ -5,7 +5,6 @@
 
 ### Available Operations
 
-* [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [create](#create) - Create a new agent
 * [list](#list) - List all agents
 * [delete](#delete) - Delete an agent
@@ -13,55 +12,12 @@
 * [update](#update) - Update an agent
 * [invoke](#invoke) - Invoke an agent
 * [list_tasks](#list_tasks) - List all tasks for an agent
+* [retrieve_task](#retrieve_task) - Retrieve a specific agent task
 * [run](#run) - Run an agent
 * [stream_run](#stream_run) - Run and stream agent execution
 * [stream](#stream) - Stream agent execution events
 * [list_actions](#list_actions) - List all actions
 * [retrieve_action](#retrieve_action) - Retrieve an action executed by an agent task.
-
-## retrieve_task
-
-Retrieves detailed information about a specific task for a given agent, including execution status and results.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{agent_key}/tasks/{task_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.agents.retrieve_task(agent_key="<value>", task_id="<id>")
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.GetAgentTaskResponseBody](../../models/getagenttaskresponsebody.md)**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| models.GetAgentTaskAgentsResponseBody | 404                                   | application/json                      |
-| models.APIError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## create
 
@@ -358,7 +314,7 @@ with Orq(
 | Parameter                                                                                                                                                                                          | Type                                                                                                                                                                                               | Required                                                                                                                                                                                           | Description                                                                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `key`                                                                                                                                                                                              | *str*                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                 | The key or ID of the agent to invoke                                                                                                                                                               |
-| `message`                                                                                                                                                                                          | [models.Message](../../models/message.md)                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                 | N/A                                                                                                                                                                                                |
+| `message`                                                                                                                                                                                          | [models.A2AMessage](../../models/a2amessage.md)                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                 | The A2A message to send to the agent (user input or tool results)                                                                                                                                  |
 | `task_id`                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                 | Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue. |
 | `variables`                                                                                                                                                                                        | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional variables for template replacement in system prompt, instructions, and messages                                                                                                           |
 | `contact`                                                                                                                                                                                          | [Optional[models.Contact]](../../models/contact.md)                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                 | Information about the contact making the request. If the contact does not exist, it will be created automatically.                                                                                 |
@@ -369,7 +325,7 @@ with Orq(
 
 ### Response
 
-**[models.InvokeAgentResponseBody](../../models/invokeagentresponsebody.md)**
+**[models.InvokeAgentA2ATaskResponse](../../models/invokeagenta2ataskresponse.md)**
 
 ### Errors
 
@@ -410,19 +366,63 @@ with Orq(
 | `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
-| `status`                                                                                                                                                                                                                                                                                                                                | [Optional[models.Status]](../../models/status.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Comma-separated list of task statuses to filter by. Available values: inactive, approval_required, in_progress, errored                                                                                                                                                                                                                 |
+| `status`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Comma-separated list of task statuses to filter by. Available values: submitted, working, input-required, auth-required, completed, failed, canceled, rejected                                                                                                                                                                          |
 | `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
 
 ### Response
 
-**[models.ListAgentTasksResponseBody](../../models/listagenttasksresponsebody.md)**
+**[models.ListAgentTasksAgentTasksListResponse](../../models/listagenttasksagenttaskslistresponse.md)**
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| models.ListAgentTasksAgentsResponseBody | 404                                     | application/json                        |
-| models.APIError                         | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models.ListAgentTasksResponseBody | 404                               | application/json                  |
+| models.APIError                   | 4XX, 5XX                          | \*/\*                             |
+
+## retrieve_task
+
+Retrieves detailed information about a specific task for a given agent, including execution status and results.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GetAgentTask" method="get" path="/v2/agents/{agent_key}/tasks/{task_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.agents.retrieve_task(agent_key="<value>", task_id="<id>")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `agent_key`                                                         | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `task_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetAgentTaskExtendedTaskResponse](../../models/getagenttaskextendedtaskresponse.md)**
+
+### Errors
+
+| Error Type          | Status Code         | Content Type        |
+| ------------------- | ------------------- | ------------------- |
+| models.HonoAPIError | 404                 | application/json    |
+| models.APIError     | 4XX, 5XX            | \*/\*               |
 
 ## run
 
@@ -504,7 +504,7 @@ with Orq(
 
 ### Response
 
-**[models.RunAgentResponseBody](../../models/runagentresponsebody.md)**
+**[models.RunAgentA2ATaskResponse](../../models/runagenta2ataskresponse.md)**
 
 ### Errors
 
@@ -659,7 +659,7 @@ with Orq(
 | Parameter                                                                                                                                                                                          | Type                                                                                                                                                                                               | Required                                                                                                                                                                                           | Description                                                                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `key`                                                                                                                                                                                              | *str*                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                 | The key or ID of the agent to invoke                                                                                                                                                               |
-| `message`                                                                                                                                                                                          | [models.StreamAgentMessage](../../models/streamagentmessage.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                 | N/A                                                                                                                                                                                                |
+| `message`                                                                                                                                                                                          | [models.StreamAgentA2AMessage](../../models/streamagenta2amessage.md)                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                 | The A2A message to send to the agent (user input or tool results)                                                                                                                                  |
 | `task_id`                                                                                                                                                                                          | *Optional[str]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                 | Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue. |
 | `variables`                                                                                                                                                                                        | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional variables for template replacement in system prompt, instructions, and messages                                                                                                           |
 | `contact`                                                                                                                                                                                          | [Optional[models.StreamAgentContact]](../../models/streamagentcontact.md)                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                 | Information about the contact making the request. If the contact does not exist, it will be created automatically.                                                                                 |

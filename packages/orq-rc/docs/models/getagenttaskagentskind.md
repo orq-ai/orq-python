@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ARTIFACT` | artifact   |
+| Name      | Value     |
+| --------- | --------- |
+| `MESSAGE` | message   |

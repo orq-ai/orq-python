@@ -9,11 +9,11 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 RoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 RoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 InvokeAgentRoleTypedDict = TypeAliasType(
@@ -163,7 +163,9 @@ PublicMessagePart = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class MessageTypedDict(TypedDict):
+class A2AMessageTypedDict(TypedDict):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: InvokeAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[PublicMessagePartTypedDict]
@@ -172,7 +174,9 @@ class MessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class Message(BaseModel):
+class A2AMessage(BaseModel):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: InvokeAgentRole
     r"""Message role (user or tool for continuing executions)"""
 
@@ -256,7 +260,8 @@ class Memory(BaseModel):
 
 
 class InvokeAgentRequestBodyTypedDict(TypedDict):
-    message: MessageTypedDict
+    message: A2AMessageTypedDict
+    r"""The A2A message to send to the agent (user input or tool results)"""
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
@@ -272,7 +277,8 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
 
 
 class InvokeAgentRequestBody(BaseModel):
-    message: Message
+    message: A2AMessage
+    r"""The A2A message to send to the agent (user input or tool results)"""
 
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
@@ -312,47 +318,50 @@ class InvokeAgentRequest(BaseModel):
 
 
 InvokeAgentKind = Literal["task",]
-r"""A2A entity type"""
+r"""A2A entity type identifier"""
 
 
-InvokeAgentState = Literal[
+TaskState = Literal[
     "submitted",
     "working",
     "input-required",
+    "auth-required",
     "completed",
     "failed",
     "canceled",
     "rejected",
-    "auth-required",
-    "unknown",
 ]
-r"""Current task state"""
+r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
 
 InvokeAgentAgentsKind = Literal["message",]
 
 
-InvokeAgentAgentsRole = Literal[
+InvokeAgentExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
     "system",
 ]
-r"""Extended A2A message role"""
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
 
-InvokeAgentPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
+InvokeAgentPartsAgentsResponse200Kind = Literal["tool_result",]
 
 
-class InvokeAgentParts5TypedDict(TypedDict):
-    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+class InvokeAgentPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: InvokeAgentPartsAgentsResponse200Kind
     tool_call_id: str
     result: NotRequired[Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentParts5(BaseModel):
-    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+class InvokeAgentPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: InvokeAgentPartsAgentsResponse200Kind
 
     tool_call_id: str
 
@@ -361,19 +370,23 @@ class InvokeAgentParts5(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-InvokeAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+InvokeAgentPartsAgentsResponseKind = Literal["tool_call",]
 
 
-class InvokeAgentParts4TypedDict(TypedDict):
-    kind: InvokeAgentPartsAgentsResponse200Kind
+class InvokeAgentPartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: InvokeAgentPartsAgentsResponseKind
     tool_name: str
     tool_call_id: str
     arguments: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentParts4(BaseModel):
-    kind: InvokeAgentPartsAgentsResponse200Kind
+class InvokeAgentPartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: InvokeAgentPartsAgentsResponseKind
 
     tool_name: str
 
@@ -384,7 +397,7 @@ class InvokeAgentParts4(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-InvokeAgentPartsAgentsResponseKind = Literal["file",]
+InvokeAgentPartsAgentsKind = Literal["file",]
 
 
 class InvokeAgentFileFileInURIFormatTypedDict(TypedDict):
@@ -449,47 +462,59 @@ InvokeAgentPartsFile = TypeAliasType(
 )
 
 
-class InvokeAgentParts3TypedDict(TypedDict):
-    kind: InvokeAgentPartsAgentsResponseKind
+class InvokeAgentPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: InvokeAgentPartsAgentsKind
     file: InvokeAgentPartsFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentParts3(BaseModel):
-    kind: InvokeAgentPartsAgentsResponseKind
+class InvokeAgentPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: InvokeAgentPartsAgentsKind
 
     file: InvokeAgentPartsFile
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-InvokeAgentPartsAgentsKind = Literal["data",]
+InvokeAgentPartsKind = Literal["data",]
 
 
-class InvokeAgentParts2TypedDict(TypedDict):
-    kind: InvokeAgentPartsAgentsKind
+class InvokeAgentPartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: InvokeAgentPartsKind
     data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentParts2(BaseModel):
-    kind: InvokeAgentPartsAgentsKind
+class InvokeAgentPartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: InvokeAgentPartsKind
 
     data: Dict[str, Any]
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-InvokeAgentPartsKind = Literal["text",]
+InvokeAgentPartsAgentsResponse200ApplicationJSONKind = Literal["text",]
 
 
-class InvokeAgentParts1TypedDict(TypedDict):
-    kind: InvokeAgentPartsKind
+class InvokeAgentPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
     text: str
 
 
-class InvokeAgentParts1(BaseModel):
-    kind: InvokeAgentPartsKind
+class InvokeAgentPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
 
     text: str
 
@@ -497,11 +522,11 @@ class InvokeAgentParts1(BaseModel):
 InvokeAgentPartsTypedDict = TypeAliasType(
     "InvokeAgentPartsTypedDict",
     Union[
-        InvokeAgentParts1TypedDict,
-        InvokeAgentParts2TypedDict,
-        InvokeAgentParts3TypedDict,
-        InvokeAgentParts5TypedDict,
-        InvokeAgentParts4TypedDict,
+        InvokeAgentPartsTextPartTypedDict,
+        InvokeAgentPartsDataPartTypedDict,
+        InvokeAgentPartsFilePartTypedDict,
+        InvokeAgentPartsToolResultPartTypedDict,
+        InvokeAgentPartsToolCallPartTypedDict,
     ],
 )
 
@@ -509,91 +534,91 @@ InvokeAgentPartsTypedDict = TypeAliasType(
 InvokeAgentParts = TypeAliasType(
     "InvokeAgentParts",
     Union[
-        InvokeAgentParts1,
-        InvokeAgentParts2,
-        InvokeAgentParts3,
-        InvokeAgentParts5,
-        InvokeAgentParts4,
+        InvokeAgentPartsTextPart,
+        InvokeAgentPartsDataPart,
+        InvokeAgentPartsFilePart,
+        InvokeAgentPartsToolResultPart,
+        InvokeAgentPartsToolCallPart,
     ],
 )
 
 
-class InvokeAgentMessageTypedDict(TypedDict):
-    r"""Optional status message"""
+class TaskStatusMessageTypedDict(TypedDict):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: InvokeAgentAgentsKind
     message_id: str
-    role: InvokeAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: InvokeAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
     parts: List[InvokeAgentPartsTypedDict]
 
 
-class InvokeAgentMessage(BaseModel):
-    r"""Optional status message"""
+class TaskStatusMessage(BaseModel):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: InvokeAgentAgentsKind
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: InvokeAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: InvokeAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
     parts: List[InvokeAgentParts]
 
 
-class InvokeAgentStatusTypedDict(TypedDict):
-    r"""Task status information"""
+class TaskStatusTypedDict(TypedDict):
+    r"""Current task status information"""
 
-    state: InvokeAgentState
-    r"""Current task state"""
+    state: TaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
     timestamp: NotRequired[str]
-    r"""ISO timestamp of status update"""
-    message: NotRequired[InvokeAgentMessageTypedDict]
-    r"""Optional status message"""
+    r"""ISO 8601 timestamp of when the status was updated"""
+    message: NotRequired[TaskStatusMessageTypedDict]
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class InvokeAgentStatus(BaseModel):
-    r"""Task status information"""
+class TaskStatus(BaseModel):
+    r"""Current task status information"""
 
-    state: InvokeAgentState
-    r"""Current task state"""
+    state: TaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
     timestamp: Optional[str] = None
-    r"""ISO timestamp of status update"""
+    r"""ISO 8601 timestamp of when the status was updated"""
 
-    message: Optional[InvokeAgentMessage] = None
-    r"""Optional status message"""
+    message: Optional[TaskStatusMessage] = None
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class InvokeAgentResponseBodyTypedDict(TypedDict):
-    r"""A2A Task response format"""
+class InvokeAgentA2ATaskResponseTypedDict(TypedDict):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
     context_id: str
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
     kind: InvokeAgentKind
-    r"""A2A entity type"""
-    status: InvokeAgentStatusTypedDict
-    r"""Task status information"""
+    r"""A2A entity type identifier"""
+    status: TaskStatusTypedDict
+    r"""Current task status information"""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
 
-class InvokeAgentResponseBody(BaseModel):
-    r"""A2A Task response format"""
+class InvokeAgentA2ATaskResponse(BaseModel):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
 
     context_id: Annotated[str, pydantic.Field(alias="contextId")]
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
 
     kind: InvokeAgentKind
-    r"""A2A entity type"""
+    r"""A2A entity type identifier"""
 
-    status: InvokeAgentStatus
-    r"""Task status information"""
+    status: TaskStatus
+    r"""Current task status information"""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""

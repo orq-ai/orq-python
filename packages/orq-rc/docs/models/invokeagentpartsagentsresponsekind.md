@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `TOOL_CALL` | tool_call   |

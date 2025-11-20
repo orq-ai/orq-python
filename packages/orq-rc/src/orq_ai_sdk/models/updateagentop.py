@@ -1639,7 +1639,9 @@ class UpdateAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-class UpdateAgentRequestBodyTypedDict(TypedDict):
+class UpdateAgentUpdateAgentRequestTypedDict(TypedDict):
+    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
+
     key: NotRequired[str]
     display_name: NotRequired[str]
     project_id: NotRequired[str]
@@ -1669,7 +1671,9 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
 
 
-class UpdateAgentRequestBody(BaseModel):
+class UpdateAgentUpdateAgentRequest(BaseModel):
+    r"""Request body for updating an existing agent via the API. Uses simplified tool input format."""
+
     key: Optional[str] = None
 
     display_name: Optional[str] = None
@@ -1716,7 +1720,7 @@ class UpdateAgentRequestBody(BaseModel):
 class UpdateAgentRequestTypedDict(TypedDict):
     agent_key: str
     r"""The unique key of the agent to update"""
-    request_body: NotRequired[UpdateAgentRequestBodyTypedDict]
+    request_body: NotRequired[UpdateAgentUpdateAgentRequestTypedDict]
 
 
 class UpdateAgentRequest(BaseModel):
@@ -1726,7 +1730,7 @@ class UpdateAgentRequest(BaseModel):
     r"""The unique key of the agent to update"""
 
     request_body: Annotated[
-        Optional[UpdateAgentRequestBody],
+        Optional[UpdateAgentUpdateAgentRequest],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
 

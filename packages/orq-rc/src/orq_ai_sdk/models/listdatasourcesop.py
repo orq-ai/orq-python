@@ -15,13 +15,11 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-QueryParamStatusTypedDict = TypeAliasType(
-    "QueryParamStatusTypedDict", Union[List[str], str]
-)
+StatusTypedDict = TypeAliasType("StatusTypedDict", Union[List[str], str])
 r"""Filter datasources by status."""
 
 
-QueryParamStatus = TypeAliasType("QueryParamStatus", Union[List[str], str])
+Status = TypeAliasType("Status", Union[List[str], str])
 r"""Filter datasources by status."""
 
 
@@ -36,7 +34,7 @@ class ListDatasourcesRequestTypedDict(TypedDict):
     r"""Search query to find datasources by name."""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
-    status: NotRequired[QueryParamStatusTypedDict]
+    status: NotRequired[StatusTypedDict]
     r"""Filter datasources by status."""
 
 
@@ -71,7 +69,7 @@ class ListDatasourcesRequest(BaseModel):
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
 
     status: Annotated[
-        Optional[QueryParamStatus],
+        Optional[Status],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter datasources by status."""
@@ -132,7 +130,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KADY1D7WR5XXW65P11W3J21M"
+        "01KAG3PQC6FC4KPN6J7X3ZYQSZ"
     )
     r"""The unique identifier of the data source"""
 

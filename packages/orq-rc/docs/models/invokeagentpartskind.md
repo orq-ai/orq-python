@@ -5,4 +5,4 @@
 
 | Name   | Value  |
 | ------ | ------ |
-| `TEXT` | text   |
+| `DATA` | data   |

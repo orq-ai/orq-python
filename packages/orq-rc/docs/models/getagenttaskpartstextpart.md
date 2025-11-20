@@ -1,0 +1,11 @@
+# GetAgentTaskPartsTextPart
+
+A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses.
+
+
+## Fields
+
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `kind`                                                                                                                             | [models.GetAgentTaskPartsAgentsResponse200ApplicationJSONKind](../models/getagenttaskpartsagentsresponse200applicationjsonkind.md) | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `text`                                                                                                                             | *str*                                                                                                                              | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |

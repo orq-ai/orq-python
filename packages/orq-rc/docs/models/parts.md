@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.Parts1`
+### `models.PartsTextPart`
 
 ```python
-value: models.Parts1 = /* values here */
+value: models.PartsTextPart = /* values here */
 ```
 
-### `models.Parts2`
+### `models.DataPart`
 
 ```python
-value: models.Parts2 = /* values here */
+value: models.DataPart = /* values here */
 ```
 
-### `models.Parts3`
+### `models.PartsFilePart`
 
 ```python
-value: models.Parts3 = /* values here */
+value: models.PartsFilePart = /* values here */
 ```
 
-### `models.Parts4`
+### `models.ToolCallPart`
 
 ```python
-value: models.Parts4 = /* values here */
+value: models.ToolCallPart = /* values here */
 ```
 
-### `models.Parts5`
+### `models.PartsToolResultPart`
 
 ```python
-value: models.Parts5 = /* values here */
+value: models.PartsToolResultPart = /* values here */
 ```
 

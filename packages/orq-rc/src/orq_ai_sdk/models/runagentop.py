@@ -1094,11 +1094,11 @@ r"""Fallback model for automatic failover when primary model request fails. Supp
 
 
 RunAgentRoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 RunAgentRoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 RunAgentRoleTypedDict = TypeAliasType(
@@ -1257,7 +1257,7 @@ RunAgentPublicMessagePart = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class RunAgentMessageTypedDict(TypedDict):
+class RunAgentA2AMessageTypedDict(TypedDict):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRoleTypedDict
@@ -1268,7 +1268,7 @@ class RunAgentMessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class RunAgentMessage(BaseModel):
+class RunAgentA2AMessage(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRole
@@ -1423,7 +1423,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KADY1CSWR29SEYEKJQC36KGY"
+    id: Optional[str] = "01KAG3PPPWACXYWEHBQ4VHBT6R"
 
     description: Optional[str] = None
 
@@ -2232,7 +2232,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
-    message: RunAgentMessageTypedDict
+    message: RunAgentA2AMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -2281,7 +2281,7 @@ class RunAgentRequestBody(BaseModel):
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
 
-    message: RunAgentMessage
+    message: RunAgentA2AMessage
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
@@ -2332,46 +2332,49 @@ class RunAgentRequestBody(BaseModel):
 
 
 RunAgentKind = Literal["task",]
-r"""A2A entity type"""
+r"""A2A entity type identifier"""
 
 
-RunAgentState = Literal[
+RunAgentTaskState = Literal[
     "submitted",
     "working",
     "input-required",
+    "auth-required",
     "completed",
     "failed",
     "canceled",
     "rejected",
-    "auth-required",
-    "unknown",
 ]
-r"""Current task state"""
+r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
 
 RunAgentAgentsKind = Literal["message",]
 
 
-RunAgentAgentsRole = Literal[
+RunAgentExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
     "system",
 ]
-r"""Extended A2A message role"""
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
 
 RunAgentPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
 
 
-class RunAgentParts5TypedDict(TypedDict):
+class RunAgentPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
     kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
     tool_call_id: str
     result: NotRequired[Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentParts5(BaseModel):
+class RunAgentPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
     kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
 
     tool_call_id: str
@@ -2384,7 +2387,9 @@ class RunAgentParts5(BaseModel):
 RunAgentPartsAgentsResponse200Kind = Literal["tool_call",]
 
 
-class RunAgentParts4TypedDict(TypedDict):
+class RunAgentPartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
     kind: RunAgentPartsAgentsResponse200Kind
     tool_name: str
     tool_call_id: str
@@ -2392,7 +2397,9 @@ class RunAgentParts4TypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentParts4(BaseModel):
+class RunAgentPartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
     kind: RunAgentPartsAgentsResponse200Kind
 
     tool_name: str
@@ -2466,13 +2473,17 @@ RunAgentPartsFile = TypeAliasType(
 )
 
 
-class RunAgentParts3TypedDict(TypedDict):
+class RunAgentPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
     kind: RunAgentPartsAgentsResponseKind
     file: RunAgentPartsFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentParts3(BaseModel):
+class RunAgentPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
     kind: RunAgentPartsAgentsResponseKind
 
     file: RunAgentPartsFile
@@ -2483,13 +2494,17 @@ class RunAgentParts3(BaseModel):
 RunAgentPartsAgentsKind = Literal["data",]
 
 
-class RunAgentParts2TypedDict(TypedDict):
+class RunAgentPartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
     kind: RunAgentPartsAgentsKind
     data: Dict[str, Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentParts2(BaseModel):
+class RunAgentPartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
     kind: RunAgentPartsAgentsKind
 
     data: Dict[str, Any]
@@ -2500,12 +2515,16 @@ class RunAgentParts2(BaseModel):
 RunAgentPartsKind = Literal["text",]
 
 
-class RunAgentParts1TypedDict(TypedDict):
+class RunAgentPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
     kind: RunAgentPartsKind
     text: str
 
 
-class RunAgentParts1(BaseModel):
+class RunAgentPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
     kind: RunAgentPartsKind
 
     text: str
@@ -2514,11 +2533,11 @@ class RunAgentParts1(BaseModel):
 RunAgentPartsTypedDict = TypeAliasType(
     "RunAgentPartsTypedDict",
     Union[
-        RunAgentParts1TypedDict,
-        RunAgentParts2TypedDict,
-        RunAgentParts3TypedDict,
-        RunAgentParts5TypedDict,
-        RunAgentParts4TypedDict,
+        RunAgentPartsTextPartTypedDict,
+        RunAgentPartsDataPartTypedDict,
+        RunAgentPartsFilePartTypedDict,
+        RunAgentPartsToolResultPartTypedDict,
+        RunAgentPartsToolCallPartTypedDict,
     ],
 )
 
@@ -2526,87 +2545,91 @@ RunAgentPartsTypedDict = TypeAliasType(
 RunAgentParts = TypeAliasType(
     "RunAgentParts",
     Union[
-        RunAgentParts1, RunAgentParts2, RunAgentParts3, RunAgentParts5, RunAgentParts4
+        RunAgentPartsTextPart,
+        RunAgentPartsDataPart,
+        RunAgentPartsFilePart,
+        RunAgentPartsToolResultPart,
+        RunAgentPartsToolCallPart,
     ],
 )
 
 
-class RunAgentAgentsMessageTypedDict(TypedDict):
-    r"""Optional status message"""
+class RunAgentTaskStatusMessageTypedDict(TypedDict):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: RunAgentAgentsKind
     message_id: str
-    role: RunAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: RunAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
     parts: List[RunAgentPartsTypedDict]
 
 
-class RunAgentAgentsMessage(BaseModel):
-    r"""Optional status message"""
+class RunAgentTaskStatusMessage(BaseModel):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: RunAgentAgentsKind
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: RunAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: RunAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
     parts: List[RunAgentParts]
 
 
-class RunAgentStatusTypedDict(TypedDict):
-    r"""Task status information"""
+class RunAgentTaskStatusTypedDict(TypedDict):
+    r"""Current task status information"""
 
-    state: RunAgentState
-    r"""Current task state"""
+    state: RunAgentTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
     timestamp: NotRequired[str]
-    r"""ISO timestamp of status update"""
-    message: NotRequired[RunAgentAgentsMessageTypedDict]
-    r"""Optional status message"""
+    r"""ISO 8601 timestamp of when the status was updated"""
+    message: NotRequired[RunAgentTaskStatusMessageTypedDict]
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class RunAgentStatus(BaseModel):
-    r"""Task status information"""
+class RunAgentTaskStatus(BaseModel):
+    r"""Current task status information"""
 
-    state: RunAgentState
-    r"""Current task state"""
+    state: RunAgentTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
     timestamp: Optional[str] = None
-    r"""ISO timestamp of status update"""
+    r"""ISO 8601 timestamp of when the status was updated"""
 
-    message: Optional[RunAgentAgentsMessage] = None
-    r"""Optional status message"""
+    message: Optional[RunAgentTaskStatusMessage] = None
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class RunAgentResponseBodyTypedDict(TypedDict):
-    r"""A2A Task response format"""
+class RunAgentA2ATaskResponseTypedDict(TypedDict):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
     context_id: str
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
     kind: RunAgentKind
-    r"""A2A entity type"""
-    status: RunAgentStatusTypedDict
-    r"""Task status information"""
+    r"""A2A entity type identifier"""
+    status: RunAgentTaskStatusTypedDict
+    r"""Current task status information"""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
 
-class RunAgentResponseBody(BaseModel):
-    r"""A2A Task response format"""
+class RunAgentA2ATaskResponse(BaseModel):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
 
     context_id: Annotated[str, pydantic.Field(alias="contextId")]
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
 
     kind: RunAgentKind
-    r"""A2A entity type"""
+    r"""A2A entity type identifier"""
 
-    status: RunAgentStatus
-    r"""Task status information"""
+    status: RunAgentTaskStatus
+    r"""Current task status information"""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""

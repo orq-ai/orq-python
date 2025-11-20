@@ -188,7 +188,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KADY1D3MK0R9WEVWWQ9K58TJ"
+    id: Optional[str] = "01KAG3PQ0STQ8BRWHT7WRSVPMW"
 
     description: Optional[str] = None
 
@@ -907,7 +907,7 @@ class UpdateToolResponseBody5(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KADY1D3C4Y8Z42GDP5C337GN"
+        "tool_01KAG3PQ0CP17SKWENRWGYJ6AY"
     )
 
     display_name: Optional[str] = None
@@ -981,7 +981,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KADY1D3AHPSRRBKTMHSTXNTB"
+    id: Optional[str] = "01KAG3PQ0BSJ51RKX5VR7K3N7N"
 
     description: Optional[str] = None
 
@@ -1076,7 +1076,7 @@ class UpdateToolResponseBody4(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KADY1D38B8WEZ2J2V12F0X3S"
+        "tool_01KAG3PQ09ZW6DZ6JG4P6HJKNY"
     )
 
     display_name: Optional[str] = None
@@ -1284,7 +1284,7 @@ class UpdateToolResponseBody3(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KADY1D36GFD10YPWD7TV064J"
+        "tool_01KAG3PQ0645R48T8DP2RM2EDW"
     )
 
     display_name: Optional[str] = None
@@ -1434,7 +1434,7 @@ class UpdateToolResponseBody2(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KADY1D34D4H2R9AT1XQ7GDWA"
+        "tool_01KAG3PQ0407SQMK2W3E1HNH6X"
     )
 
     display_name: Optional[str] = None
@@ -1588,7 +1588,7 @@ class UpdateToolResponseBody1(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KADY1D33GBD209YBAPFR54QX"
+        "tool_01KAG3PQ02HFYDKCSWKC1M6PYK"
     )
 
     display_name: Optional[str] = None
