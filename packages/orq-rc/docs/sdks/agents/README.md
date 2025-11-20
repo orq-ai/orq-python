@@ -42,7 +42,16 @@ with Orq(
         "instructions": "<value>",
         "path": "Default",
         "model": "Camaro",
-        "settings": {},
+        "settings": {
+            "tools": [
+                {
+                    "type": "mcp",
+                    "id": "01KA84ND5J0SWQMA2Q8HY5WZZZ",
+                    "tool_id": "01KXYZ123456789",
+                    "requires_approval": False,
+                },
+            ],
+        },
         "knowledge_bases": [
             {
                 "knowledge_id": "customer-knowledge-base",
@@ -214,7 +223,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.update(agent_key="<value>", model="El Camino", path="Default", knowledge_bases=[
+    res = orq.agents.update(agent_key="<value>", model="El Camino", settings={
+        "tools": [
+            {
+                "type": "mcp",
+                "id": "01KA84ND5J0SWQMA2Q8HY5WZZZ",
+                "tool_id": "01KXYZ123456789",
+                "requires_approval": False,
+            },
+        ],
+    }, path="Default", knowledge_bases=[
         {
             "knowledge_id": "customer-knowledge-base",
         },

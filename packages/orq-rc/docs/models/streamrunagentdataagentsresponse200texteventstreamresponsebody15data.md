@@ -1,0 +1,10 @@
+# StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Data
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `error`                                                                                              | [models.Error](../models/error.md)                                                                   | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `action_type`                                                                                        | *str*                                                                                                | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `tool_execution_context`                                                                             | [models.StreamRunAgentDataToolExecutionContext](../models/streamrunagentdatatoolexecutioncontext.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

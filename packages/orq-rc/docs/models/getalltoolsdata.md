@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.Data1`
+### `models.GetAllToolsData1`
 
 ```python
-value: models.Data1 = /* values here */
+value: models.GetAllToolsData1 = /* values here */
 ```
 
-### `models.Data2`
+### `models.GetAllToolsData2`
 
 ```python
-value: models.Data2 = /* values here */
+value: models.GetAllToolsData2 = /* values here */
 ```
 
-### `models.Data3`
+### `models.GetAllToolsData3`
 
 ```python
-value: models.Data3 = /* values here */
+value: models.GetAllToolsData3 = /* values here */
 ```
 
-### `models.Data4`
+### `models.GetAllToolsData4`
 
 ```python
-value: models.Data4 = /* values here */
+value: models.GetAllToolsData4 = /* values here */
 ```
 
-### `models.Data5`
+### `models.GetAllToolsData5`
 
 ```python
-value: models.Data5 = /* values here */
+value: models.GetAllToolsData5 = /* values here */
 ```
 

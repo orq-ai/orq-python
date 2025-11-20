@@ -612,7 +612,7 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 12 of 97 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 11 of 97 methods.*
 * [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*
 * [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 97 methods.*

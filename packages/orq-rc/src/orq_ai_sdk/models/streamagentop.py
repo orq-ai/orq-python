@@ -4,9 +4,16 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -360,15 +367,2344 @@ class StreamAgentAgentsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody17Type = Literal[
+    "agents.error",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody17DataTypedDict(
+    TypedDict
+):
+    error: str
+    code: str
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody17Data(BaseModel):
+    error: str
+
+    code: str
+
+
+class Data17TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody17Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody17DataTypedDict
+
+
+class Data17(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody17Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody17Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody16Type = Literal[
+    "agents.timeout",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody16DataTypedDict(
+    TypedDict
+):
+    message: str
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody16Data(BaseModel):
+    message: str
+
+
+class Data16TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody16Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody16DataTypedDict
+
+
+class Data16(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody16Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody16Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Type = Literal[
+    "event.workflow_events.tool_execution_failed",
+]
+
+
+class DataErrorTypedDict(TypedDict):
+    message: str
+    stack: NotRequired[str]
+
+
+class DataError(BaseModel):
+    message: str
+
+    stack: Optional[str] = None
+
+
+StreamAgentDataAgentsResponseProduct = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class StreamAgentDataAgentsResponseMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class StreamAgentDataAgentsResponseMemory(BaseModel):
+    entity_id: str
+
+
+class StreamAgentDataAgentsResponseToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: StreamAgentDataAgentsResponseProduct
+    r"""Orquesta product"""
+    memory: NotRequired[StreamAgentDataAgentsResponseMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class StreamAgentDataAgentsResponseToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: StreamAgentDataAgentsResponseProduct
+    r"""Orquesta product"""
+
+    memory: Optional[StreamAgentDataAgentsResponseMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody15DataTypedDict(
+    TypedDict
+):
+    error: DataErrorTypedDict
+    action_type: str
+    tool_execution_context: StreamAgentDataAgentsResponseToolExecutionContextTypedDict
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Data(BaseModel):
+    error: DataError
+
+    action_type: str
+
+    tool_execution_context: StreamAgentDataAgentsResponseToolExecutionContext
+
+
+class Data15TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody15DataTypedDict
+
+
+class Data15(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Type = Literal[
+    "event.workflow_events.tool_execution_finished",
+]
+
+
+StreamAgentDataAgentsProduct = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class StreamAgentDataAgentsMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class StreamAgentDataAgentsMemory(BaseModel):
+    entity_id: str
+
+
+class StreamAgentDataAgentsToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: StreamAgentDataAgentsProduct
+    r"""Orquesta product"""
+    memory: NotRequired[StreamAgentDataAgentsMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class StreamAgentDataAgentsToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: StreamAgentDataAgentsProduct
+    r"""Orquesta product"""
+
+    memory: Optional[StreamAgentDataAgentsMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody14DataTypedDict(
+    TypedDict
+):
+    action_type: str
+    tool_execution_context: StreamAgentDataAgentsToolExecutionContextTypedDict
+    result: NotRequired[Any]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Data(BaseModel):
+    action_type: str
+
+    tool_execution_context: StreamAgentDataAgentsToolExecutionContext
+
+    result: Optional[Any] = None
+
+
+class Data14TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody14DataTypedDict
+
+
+class Data14(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Type = Literal[
+    "event.workflow_events.tool_execution_started",
+]
+
+
+StreamAgentDataProduct = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class StreamAgentDataMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class StreamAgentDataMemory(BaseModel):
+    entity_id: str
+
+
+class StreamAgentDataToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: StreamAgentDataProduct
+    r"""Orquesta product"""
+    memory: NotRequired[StreamAgentDataMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class StreamAgentDataToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: StreamAgentDataProduct
+    r"""Orquesta product"""
+
+    memory: Optional[StreamAgentDataMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody13DataTypedDict(
+    TypedDict
+):
+    tool_id: str
+    action_type: str
+    tool_arguments: Dict[str, Any]
+    tool_execution_context: StreamAgentDataToolExecutionContextTypedDict
+    tool_key: NotRequired[str]
+    tool_display_name: NotRequired[str]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Data(BaseModel):
+    tool_id: str
+
+    action_type: str
+
+    tool_arguments: Dict[str, Any]
+
+    tool_execution_context: StreamAgentDataToolExecutionContext
+
+    tool_key: Optional[str] = None
+
+    tool_display_name: Optional[str] = None
+
+
+class Data13TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody13DataTypedDict
+
+
+class Data13(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Type = Literal[
+    "event.agents.message-created",
+]
+
+
+StreamAgentDataAgentsResponseRole = Literal[
+    "user",
+    "tool",
+]
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind = (
+    Literal["tool_result",]
+)
+
+
+class StreamAgentPartsAgentsResponseToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind = (
+    Literal["tool_call",]
+)
+
+
+class StreamAgentPartsAgentsResponseToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind = (
+    Literal["file",]
+)
+
+
+class StreamAgentFileAgentsResponse200FileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200FileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200BinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200BinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamAgentPartsAgentsResponseFileTypedDict = TypeAliasType(
+    "StreamAgentPartsAgentsResponseFileTypedDict",
+    Union[
+        StreamAgentFileAgentsResponse200BinaryFormatTypedDict,
+        StreamAgentFileAgentsResponse200FileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamAgentPartsAgentsResponseFile = TypeAliasType(
+    "StreamAgentPartsAgentsResponseFile",
+    Union[
+        StreamAgentFileAgentsResponse200BinaryFormat,
+        StreamAgentFileAgentsResponse200FileInURIFormat,
+    ],
+)
+
+
+class StreamAgentPartsAgentsResponseFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
+    file: StreamAgentPartsAgentsResponseFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
+
+    file: StreamAgentPartsAgentsResponseFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind = Literal[
+    "data",
+]
+
+
+class StreamAgentPartsAgentsResponseDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind = Literal[
+    "text",
+]
+
+
+class StreamAgentPartsAgentsResponseTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
+    text: str
+
+
+class StreamAgentPartsAgentsResponseTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
+
+    text: str
+
+
+StreamAgentDataAgentsResponsePartsTypedDict = TypeAliasType(
+    "StreamAgentDataAgentsResponsePartsTypedDict",
+    Union[
+        StreamAgentPartsAgentsResponseTextPartTypedDict,
+        StreamAgentPartsAgentsResponseDataPartTypedDict,
+        StreamAgentPartsAgentsResponseFilePartTypedDict,
+        StreamAgentPartsAgentsResponseToolResultPartTypedDict,
+        StreamAgentPartsAgentsResponseToolCallPartTypedDict,
+    ],
+)
+
+
+StreamAgentDataAgentsResponseParts = TypeAliasType(
+    "StreamAgentDataAgentsResponseParts",
+    Union[
+        StreamAgentPartsAgentsResponseTextPart,
+        StreamAgentPartsAgentsResponseDataPart,
+        StreamAgentPartsAgentsResponseFilePart,
+        StreamAgentPartsAgentsResponseToolResultPart,
+        StreamAgentPartsAgentsResponseToolCallPart,
+    ],
+)
+
+
+class StreamAgentDataMessageTypedDict(TypedDict):
+    role: StreamAgentDataAgentsResponseRole
+    parts: List[StreamAgentDataAgentsResponsePartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentDataMessage(BaseModel):
+    role: StreamAgentDataAgentsResponseRole
+
+    parts: List[StreamAgentDataAgentsResponseParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody12DataTypedDict(
+    TypedDict
+):
+    workflow_run_id: str
+    span_id: str
+    parent_id: str
+    message: List[StreamAgentDataMessageTypedDict]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Data(BaseModel):
+    workflow_run_id: Annotated[str, pydantic.Field(alias="workflowRunId")]
+
+    span_id: Annotated[str, pydantic.Field(alias="spanId")]
+
+    parent_id: Annotated[str, pydantic.Field(alias="parentId")]
+
+    message: List[StreamAgentDataMessage]
+
+
+class Data12TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody12DataTypedDict
+
+
+class Data12(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody11Type = Literal[
+    "event.agents.handed_off",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody11DataTypedDict(
+    TypedDict
+):
+    agent_id: str
+    input: str
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody11Data(BaseModel):
+    agent_id: str
+
+    input: str
+
+
+class Data11TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody11Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody11DataTypedDict
+
+
+class Data11(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody11Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody11Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody10Type = Literal[
+    "event.agents.execution_named",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody10DataTypedDict(
+    TypedDict
+):
+    name: str
+    agent_manifest_id: str
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody10Data(BaseModel):
+    name: str
+
+    agent_manifest_id: str
+
+
+class Data10TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody10Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody10DataTypedDict
+
+
+class Data10(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody10Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody10Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody9Type = Literal[
+    "event.agents.execution_reviewed",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody9DataTypedDict(
+    TypedDict
+):
+    pass
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody9Data(BaseModel):
+    pass
+
+
+class Data9TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody9Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody9DataTypedDict
+
+
+class Data9(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody9Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody9Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody8Type = Literal[
+    "event.agents.execution_review_required",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody8DataTypedDict(
+    TypedDict
+):
+    pass
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody8Data(BaseModel):
+    pass
+
+
+class Data8TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody8Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody8DataTypedDict
+
+
+class Data8(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody8Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody8Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody7Type = Literal[
+    "event.agents.action_reviewed",
+]
+
+
+DataReview = Literal[
+    "approved",
+    "rejected",
+]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody7DataTypedDict(
+    TypedDict
+):
+    agent_id: str
+    action_id: str
+    agent_tool_call_id: str
+    review: DataReview
+    mock_output: NotRequired[Dict[str, Any]]
+    review_source: NotRequired[str]
+    reviewed_by_id: NotRequired[str]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBody7Data(BaseModel):
+    agent_id: str
+
+    action_id: str
+
+    agent_tool_call_id: str
+
+    review: DataReview
+
+    mock_output: Optional[Dict[str, Any]] = None
+
+    review_source: Optional[str] = None
+
+    reviewed_by_id: Optional[str] = None
+
+
+class Data7TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody7Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody7DataTypedDict
+
+
+class Data7(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody7Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBody7Data
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBodyType = Literal[
+    "event.agents.action_review_requested",
+]
+
+
+class StreamAgentDataConditionsTypedDict(TypedDict):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+    operator: str
+    r"""The operator to use"""
+    value: str
+    r"""The value to compare against"""
+
+
+class StreamAgentDataConditions(BaseModel):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+
+    operator: str
+    r"""The operator to use"""
+
+    value: str
+    r"""The value to compare against"""
+
+
+class DataToolTypedDict(TypedDict):
+    id: str
+    r"""The id of the resource"""
+    action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
+    display_name: NotRequired[str]
+    description: NotRequired[str]
+    r"""Optional tool description"""
+    requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+    conditions: NotRequired[List[StreamAgentDataConditionsTypedDict]]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class DataTool(BaseModel):
+    id: str
+    r"""The id of the resource"""
+
+    action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
+
+    display_name: Optional[str] = None
+
+    description: Optional[str] = None
+    r"""Optional tool description"""
+
+    requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+
+    conditions: Optional[List[StreamAgentDataConditions]] = None
+
+    timeout: Optional[float] = 120
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDict(
+    TypedDict
+):
+    agent_id: str
+    action_id: str
+    requires_approval: bool
+    tool: DataToolTypedDict
+    input: Dict[str, Any]
+    agent_tool_call_id: str
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamResponseBodyData(BaseModel):
+    agent_id: str
+
+    action_id: str
+
+    requires_approval: bool
+
+    tool: DataTool
+
+    input: Dict[str, Any]
+
+    agent_tool_call_id: str
+
+
+class Data6TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBodyType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDict
+
+
+class Data6(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBodyType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamResponseBodyData
+
+
+StreamAgentDataAgentsResponse200TextEventStreamType = Literal["event.agents.errored",]
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamDataTypedDict(TypedDict):
+    error: str
+    code: float
+
+
+class StreamAgentDataAgentsResponse200TextEventStreamData(BaseModel):
+    error: str
+
+    code: float
+
+
+class Data5TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200TextEventStreamType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200TextEventStreamDataTypedDict
+
+
+class Data5(BaseModel):
+    type: StreamAgentDataAgentsResponse200TextEventStreamType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200TextEventStreamData
+
+
+StreamAgentDataAgentsResponse200Type = Literal["event.agents.inactive",]
+
+
+DataFinishReason = Literal[
+    "stop",
+    "length",
+    "tool_calls",
+    "content_filter",
+    "function_call",
+    "max_iterations",
+    "max_time",
+]
+r"""The reason why the agent execution became inactive"""
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody4Type = Literal["function",]
+
+
+class StreamAgentDataFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    arguments: NotRequired[str]
+
+
+class StreamAgentDataFunction(BaseModel):
+    name: Optional[str] = None
+
+    arguments: Optional[str] = None
+
+
+class DataPendingToolCallsTypedDict(TypedDict):
+    id: str
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody4Type
+    function: StreamAgentDataFunctionTypedDict
+
+
+class DataPendingToolCalls(BaseModel):
+    id: str
+
+    type: StreamAgentDataAgentsResponse200TextEventStreamResponseBody4Type
+
+    function: StreamAgentDataFunction
+
+
+class StreamAgentDataAgentsResponse200DataTypedDict(TypedDict):
+    last_message: str
+    finish_reason: DataFinishReason
+    r"""The reason why the agent execution became inactive"""
+    pending_tool_calls: NotRequired[List[DataPendingToolCallsTypedDict]]
+    r"""Tool calls that are pending user response (for function_call finish reason)"""
+
+
+class StreamAgentDataAgentsResponse200Data(BaseModel):
+    last_message: str
+
+    finish_reason: DataFinishReason
+    r"""The reason why the agent execution became inactive"""
+
+    pending_tool_calls: Optional[List[DataPendingToolCalls]] = None
+    r"""Tool calls that are pending user response (for function_call finish reason)"""
+
+
+class StreamAgentData4TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponse200Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponse200DataTypedDict
+
+
+class StreamAgentData4(BaseModel):
+    type: StreamAgentDataAgentsResponse200Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponse200Data
+
+
+StreamAgentDataAgentsResponseType = Literal["event.agents.thought",]
+
+
+StreamAgentDataAgentsRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind = Literal[
+    "tool_result",
+]
+
+
+class StreamAgentPartsAgentsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind = Literal[
+    "tool_call",
+]
+
+
+class StreamAgentPartsAgentsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind = Literal["file",]
+
+
+class StreamAgentFileAgentsResponseFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponseFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponseBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponseBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamAgentPartsAgentsFileTypedDict = TypeAliasType(
+    "StreamAgentPartsAgentsFileTypedDict",
+    Union[
+        StreamAgentFileAgentsResponseBinaryFormatTypedDict,
+        StreamAgentFileAgentsResponseFileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamAgentPartsAgentsFile = TypeAliasType(
+    "StreamAgentPartsAgentsFile",
+    Union[
+        StreamAgentFileAgentsResponseBinaryFormat,
+        StreamAgentFileAgentsResponseFileInURIFormat,
+    ],
+)
+
+
+class StreamAgentPartsAgentsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind
+    file: StreamAgentPartsAgentsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind
+
+    file: StreamAgentPartsAgentsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind = Literal["data",]
+
+
+class StreamAgentPartsAgentsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyKind = Literal["text",]
+
+
+class StreamAgentPartsAgentsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyKind
+    text: str
+
+
+class StreamAgentPartsAgentsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyKind
+
+    text: str
+
+
+StreamAgentDataAgentsPartsTypedDict = TypeAliasType(
+    "StreamAgentDataAgentsPartsTypedDict",
+    Union[
+        StreamAgentPartsAgentsTextPartTypedDict,
+        StreamAgentPartsAgentsDataPartTypedDict,
+        StreamAgentPartsAgentsFilePartTypedDict,
+        StreamAgentPartsAgentsToolResultPartTypedDict,
+        StreamAgentPartsAgentsToolCallPartTypedDict,
+    ],
+)
+
+
+StreamAgentDataAgentsParts = TypeAliasType(
+    "StreamAgentDataAgentsParts",
+    Union[
+        StreamAgentPartsAgentsTextPart,
+        StreamAgentPartsAgentsDataPart,
+        StreamAgentPartsAgentsFilePart,
+        StreamAgentPartsAgentsToolResultPart,
+        StreamAgentPartsAgentsToolCallPart,
+    ],
+)
+
+
+class DataMessageDifferenceTypedDict(TypedDict):
+    message_id: str
+    role: StreamAgentDataAgentsRole
+    parts: List[StreamAgentDataAgentsPartsTypedDict]
+    agent_id: str
+    agent_execution_id: str
+    workspace_id: str
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class DataMessageDifference(BaseModel):
+    message_id: Annotated[str, pydantic.Field(alias="messageId")]
+
+    role: StreamAgentDataAgentsRole
+
+    parts: List[StreamAgentDataAgentsParts]
+
+    agent_id: str
+
+    agent_execution_id: str
+
+    workspace_id: str
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentDataFinishReason = Literal[
+    "stop",
+    "length",
+    "tool_calls",
+    "content_filter",
+    "function_call",
+]
+r"""The reason the model stopped generating tokens."""
+
+
+StreamAgentDataAgentsResponse200TextEventStreamResponseBody3Type = Literal["function",]
+
+
+class StreamAgentDataAgentsFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    arguments: NotRequired[str]
+    r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
+
+
+class StreamAgentDataAgentsFunction(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    arguments: Optional[str] = None
+    r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
+
+
+class StreamAgentDataToolCallsTypedDict(TypedDict):
+    id: NotRequired[str]
+    type: NotRequired[StreamAgentDataAgentsResponse200TextEventStreamResponseBody3Type]
+    function: NotRequired[StreamAgentDataAgentsFunctionTypedDict]
+
+
+class StreamAgentDataToolCalls(BaseModel):
+    id: Optional[str] = None
+
+    type: Optional[StreamAgentDataAgentsResponse200TextEventStreamResponseBody3Type] = (
+        None
+    )
+
+    function: Optional[StreamAgentDataAgentsFunction] = None
+
+
+StreamAgentDataAgentsResponse200Role = Literal["assistant",]
+
+
+class StreamAgentDataAudioTypedDict(TypedDict):
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    id: str
+    expires_at: int
+    data: str
+    transcript: str
+
+
+class StreamAgentDataAudio(BaseModel):
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    id: str
+
+    expires_at: int
+
+    data: str
+
+    transcript: str
+
+
+class StreamAgentDataAgentsMessageTypedDict(TypedDict):
+    r"""A chat completion message generated by the model."""
+
+    content: NotRequired[Nullable[str]]
+    refusal: NotRequired[Nullable[str]]
+    tool_calls: NotRequired[List[StreamAgentDataToolCallsTypedDict]]
+    role: NotRequired[StreamAgentDataAgentsResponse200Role]
+    reasoning: NotRequired[Nullable[str]]
+    r"""Internal thought process of the model"""
+    reasoning_signature: NotRequired[Nullable[str]]
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+    redacted_reasoning: NotRequired[str]
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+    audio: NotRequired[Nullable[StreamAgentDataAudioTypedDict]]
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+
+class StreamAgentDataAgentsMessage(BaseModel):
+    r"""A chat completion message generated by the model."""
+
+    content: OptionalNullable[str] = UNSET
+
+    refusal: OptionalNullable[str] = UNSET
+
+    tool_calls: Optional[List[StreamAgentDataToolCalls]] = None
+
+    role: Optional[StreamAgentDataAgentsResponse200Role] = None
+
+    reasoning: OptionalNullable[str] = UNSET
+    r"""Internal thought process of the model"""
+
+    reasoning_signature: OptionalNullable[str] = UNSET
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+
+    redacted_reasoning: Optional[str] = None
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+    audio: OptionalNullable[StreamAgentDataAudio] = UNSET
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "content",
+            "refusal",
+            "tool_calls",
+            "role",
+            "reasoning",
+            "reasoning_signature",
+            "redacted_reasoning",
+            "audio",
+        ]
+        nullable_fields = [
+            "content",
+            "refusal",
+            "reasoning",
+            "reasoning_signature",
+            "audio",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataTopLogprobsTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+
+class StreamAgentDataTopLogprobs(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataContentTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+    top_logprobs: List[StreamAgentDataTopLogprobsTypedDict]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+
+class StreamAgentDataContent(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    top_logprobs: List[StreamAgentDataTopLogprobs]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataAgentsTopLogprobsTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+
+class StreamAgentDataAgentsTopLogprobs(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataRefusalTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+    top_logprobs: List[StreamAgentDataAgentsTopLogprobsTypedDict]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+
+class DataRefusal(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    top_logprobs: List[StreamAgentDataAgentsTopLogprobs]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataLogprobsTypedDict(TypedDict):
+    r"""Log probability information for the choice."""
+
+    content: Nullable[List[StreamAgentDataContentTypedDict]]
+    r"""A list of message content tokens with log probability information."""
+    refusal: Nullable[List[DataRefusalTypedDict]]
+    r"""A list of message refusal tokens with log probability information."""
+
+
+class DataLogprobs(BaseModel):
+    r"""Log probability information for the choice."""
+
+    content: Nullable[List[StreamAgentDataContent]]
+    r"""A list of message content tokens with log probability information."""
+
+    refusal: Nullable[List[DataRefusal]]
+    r"""A list of message refusal tokens with log probability information."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["content", "refusal"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataChoiceTypedDict(TypedDict):
+    finish_reason: Nullable[StreamAgentDataFinishReason]
+    r"""The reason the model stopped generating tokens."""
+    message: StreamAgentDataAgentsMessageTypedDict
+    r"""A chat completion message generated by the model."""
+    index: NotRequired[float]
+    r"""The index of the choice in the list of choices."""
+    logprobs: NotRequired[Nullable[DataLogprobsTypedDict]]
+    r"""Log probability information for the choice."""
+
+
+class DataChoice(BaseModel):
+    finish_reason: Nullable[StreamAgentDataFinishReason]
+    r"""The reason the model stopped generating tokens."""
+
+    message: StreamAgentDataAgentsMessage
+    r"""A chat completion message generated by the model."""
+
+    index: Optional[float] = 0
+    r"""The index of the choice in the list of choices."""
+
+    logprobs: OptionalNullable[DataLogprobs] = UNSET
+    r"""Log probability information for the choice."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["index", "logprobs"]
+        nullable_fields = ["finish_reason", "logprobs"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataAgentsResponseDataTypedDict(TypedDict):
+    agent_id: str
+    message_difference: Dict[str, DataMessageDifferenceTypedDict]
+    iteration: float
+    accumulated_execution_time: float
+    choice: NotRequired[DataChoiceTypedDict]
+    choice_index: NotRequired[float]
+
+
+class StreamAgentDataAgentsResponseData(BaseModel):
+    agent_id: str
+
+    message_difference: Dict[str, DataMessageDifference]
+
+    iteration: float
+
+    accumulated_execution_time: float
+
+    choice: Optional[DataChoice] = None
+
+    choice_index: Annotated[Optional[float], pydantic.Field(alias="choiceIndex")] = None
+
+
+class StreamAgentData3TypedDict(TypedDict):
+    type: StreamAgentDataAgentsResponseType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsResponseDataTypedDict
+
+
+class StreamAgentData3(BaseModel):
+    type: StreamAgentDataAgentsResponseType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsResponseData
+
+
+StreamAgentDataAgentsType = Literal["event.agents.started",]
+
+
+StreamAgentDataRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Extended A2A message role"""
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamKind = Literal["tool_result",]
+
+
+class StreamAgentPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+
+
+class StreamAgentPartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponseKind = Literal["file",]
+
+
+class StreamAgentFileAgentsFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamAgentPartsFileTypedDict = TypeAliasType(
+    "StreamAgentPartsFileTypedDict",
+    Union[
+        StreamAgentFileAgentsBinaryFormatTypedDict,
+        StreamAgentFileAgentsFileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamAgentPartsFile = TypeAliasType(
+    "StreamAgentPartsFile",
+    Union[StreamAgentFileAgentsBinaryFormat, StreamAgentFileAgentsFileInURIFormat],
+)
+
+
+class StreamAgentPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponseKind
+    file: StreamAgentPartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponseKind
+
+    file: StreamAgentPartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsKind = Literal["data",]
+
+
+class StreamAgentPartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsKind = Literal["text",]
+
+
+class StreamAgentPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsKind
+    text: str
+
+
+class StreamAgentPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsKind
+
+    text: str
+
+
+StreamAgentDataPartsTypedDict = TypeAliasType(
+    "StreamAgentDataPartsTypedDict",
+    Union[
+        StreamAgentPartsTextPartTypedDict,
+        StreamAgentPartsDataPartTypedDict,
+        StreamAgentPartsFilePartTypedDict,
+        StreamAgentPartsToolResultPartTypedDict,
+        StreamAgentPartsToolCallPartTypedDict,
+    ],
+)
+
+
+StreamAgentDataParts = TypeAliasType(
+    "StreamAgentDataParts",
+    Union[
+        StreamAgentPartsTextPart,
+        StreamAgentPartsDataPart,
+        StreamAgentPartsFilePart,
+        StreamAgentPartsToolResultPart,
+        StreamAgentPartsToolCallPart,
+    ],
+)
+
+
+class DataInputMessageTypedDict(TypedDict):
+    role: StreamAgentDataRole
+    r"""Extended A2A message role"""
+    parts: List[StreamAgentDataPartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class DataInputMessage(BaseModel):
+    role: StreamAgentDataRole
+    r"""Extended A2A message role"""
+
+    parts: List[StreamAgentDataParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentDataToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
+r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+
+class StreamAgentDataAgentsConditionsTypedDict(TypedDict):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+    operator: str
+    r"""The operator to use"""
+    value: str
+    r"""The value to compare against"""
+
+
+class StreamAgentDataAgentsConditions(BaseModel):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+
+    operator: str
+    r"""The operator to use"""
+
+    value: str
+    r"""The value to compare against"""
+
+
+class StreamAgentDataToolsTypedDict(TypedDict):
+    id: str
+    r"""The id of the resource"""
+    action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
+    display_name: NotRequired[str]
+    description: NotRequired[str]
+    r"""Optional tool description"""
+    requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+    conditions: NotRequired[List[StreamAgentDataAgentsConditionsTypedDict]]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class StreamAgentDataTools(BaseModel):
+    id: str
+    r"""The id of the resource"""
+
+    action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
+
+    display_name: Optional[str] = None
+
+    description: Optional[str] = None
+    r"""Optional tool description"""
+
+    requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+
+    conditions: Optional[List[StreamAgentDataAgentsConditions]] = None
+
+    timeout: Optional[float] = 120
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+StreamAgentDataExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamAgentDataEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamAgentDataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamAgentDataEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamAgentDataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+StreamAgentDataAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamAgentDataGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamAgentDataAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamAgentDataGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamAgentDataAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamAgentDataSettingsTypedDict(TypedDict):
+    max_iterations: NotRequired[int]
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_execution_time: NotRequired[int]
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    tool_approval_required: NotRequired[StreamAgentDataToolApprovalRequired]
+    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[StreamAgentDataToolsTypedDict]]
+    evaluators: NotRequired[List[StreamAgentDataEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[StreamAgentDataGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
+
+
+class StreamAgentDataSettings(BaseModel):
+    max_iterations: Optional[int] = 15
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+
+    max_execution_time: Optional[int] = 300
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    tool_approval_required: Optional[StreamAgentDataToolApprovalRequired] = (
+        "respect_tool"
+    )
+    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[StreamAgentDataTools]] = None
+
+    evaluators: Optional[List[StreamAgentDataEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[StreamAgentDataGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
+
+
+class StreamAgentDataAgentsDataTypedDict(TypedDict):
+    input_message: DataInputMessageTypedDict
+    model_id: str
+    instructions: str
+    system_prompt: str
+    agent_manifest_id: str
+    agent_key: str
+    integration_id: NotRequired[str]
+    settings: NotRequired[StreamAgentDataSettingsTypedDict]
+    variables: NotRequired[Dict[str, Any]]
+    tool_execution_id: NotRequired[str]
+    is_continuation: NotRequired[bool]
+    stream: NotRequired[bool]
+
+
+class StreamAgentDataAgentsData(BaseModel):
+    input_message: Annotated[DataInputMessage, pydantic.Field(alias="inputMessage")]
+
+    model_id: Annotated[str, pydantic.Field(alias="modelId")]
+
+    instructions: str
+
+    system_prompt: str
+
+    agent_manifest_id: str
+
+    agent_key: str
+
+    integration_id: Optional[str] = None
+
+    settings: Optional[StreamAgentDataSettings] = None
+
+    variables: Optional[Dict[str, Any]] = None
+
+    tool_execution_id: Optional[str] = None
+
+    is_continuation: Optional[bool] = None
+
+    stream: Optional[bool] = None
+
+
+class StreamAgentData2TypedDict(TypedDict):
+    type: StreamAgentDataAgentsType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataAgentsDataTypedDict
+
+
+class StreamAgentData2(BaseModel):
+    type: StreamAgentDataAgentsType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataAgentsData
+
+
+StreamAgentDataType = Literal["agents.execution_started",]
+
+
+class StreamAgentDataDataTypedDict(TypedDict):
+    agent_task_id: str
+    r"""Agent execution task ID (ULID)"""
+    workspace_id: str
+    r"""Workspace ID"""
+    trace_id: str
+    r"""Trace ID for the workflow run"""
+
+
+class StreamAgentDataData(BaseModel):
+    agent_task_id: str
+    r"""Agent execution task ID (ULID)"""
+
+    workspace_id: str
+    r"""Workspace ID"""
+
+    trace_id: str
+    r"""Trace ID for the workflow run"""
+
+
+class StreamAgentData1TypedDict(TypedDict):
+    type: StreamAgentDataType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamAgentDataDataTypedDict
+
+
+class StreamAgentData1(BaseModel):
+    type: StreamAgentDataType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamAgentDataData
+
+
+StreamAgentDataTypedDict = TypeAliasType(
+    "StreamAgentDataTypedDict",
+    Union[
+        StreamAgentData1TypedDict,
+        StreamAgentData2TypedDict,
+        StreamAgentData3TypedDict,
+        StreamAgentData4TypedDict,
+        Data5TypedDict,
+        Data6TypedDict,
+        Data7TypedDict,
+        Data8TypedDict,
+        Data9TypedDict,
+        Data10TypedDict,
+        Data11TypedDict,
+        Data12TypedDict,
+        Data13TypedDict,
+        Data14TypedDict,
+        Data15TypedDict,
+        Data16TypedDict,
+        Data17TypedDict,
+    ],
+)
+
+
+StreamAgentData = TypeAliasType(
+    "StreamAgentData",
+    Union[
+        StreamAgentData1,
+        StreamAgentData2,
+        StreamAgentData3,
+        StreamAgentData4,
+        Data5,
+        Data6,
+        Data7,
+        Data8,
+        Data9,
+        Data10,
+        Data11,
+        Data12,
+        Data13,
+        Data14,
+        Data15,
+        Data16,
+        Data17,
+    ],
+)
+
+
 class StreamAgentResponseBodyTypedDict(TypedDict):
     r"""SSE stream of agent events"""
 
-    data: str
-    r"""JSON-encoded event data"""
+    data: StreamAgentDataTypedDict
 
 
 class StreamAgentResponseBody(BaseModel):
     r"""SSE stream of agent events"""
 
-    data: str
-    r"""JSON-encoded event data"""
+    data: StreamAgentData

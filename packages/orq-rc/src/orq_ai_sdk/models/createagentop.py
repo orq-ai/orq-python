@@ -1076,29 +1076,34 @@ r"""MCP tool type"""
 
 
 class MCPToolTypedDict(TypedDict):
-    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+    r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
     type: CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     r"""MCP tool type"""
+    tool_id: str
+    r"""The ID of the specific nested tool within the MCP server"""
     key: NotRequired[str]
-    r"""The key of the pre-created MCP tool"""
+    r"""The key of the parent MCP tool"""
     id: NotRequired[str]
-    r"""The ID of the pre-created MCP tool"""
+    r"""The ID of the parent MCP tool"""
     requires_approval: NotRequired[bool]
     r"""Whether this tool requires approval before execution"""
 
 
 class MCPTool(BaseModel):
-    r"""Executes tools from Model Context Protocol (MCP) servers. Must reference a pre-created MCP tool by key or id."""
+    r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
     type: CreateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
     r"""MCP tool type"""
 
+    tool_id: str
+    r"""The ID of the specific nested tool within the MCP server"""
+
     key: Optional[str] = None
-    r"""The key of the pre-created MCP tool"""
+    r"""The key of the parent MCP tool"""
 
     id: Optional[str] = None
-    r"""The ID of the pre-created MCP tool"""
+    r"""The ID of the parent MCP tool"""
 
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
@@ -1755,6 +1760,8 @@ class CreateAgentToolsTypedDict(TypedDict):
     description: NotRequired[str]
     r"""Optional tool description"""
     requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[ConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
@@ -1775,6 +1782,9 @@ class CreateAgentTools(BaseModel):
     r"""Optional tool description"""
 
     requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
     conditions: Optional[List[Conditions]] = None
 

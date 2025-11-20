@@ -5,6 +5,6 @@ SSE stream of agent events
 
 ## Fields
 
-| Field                   | Type                    | Required                | Description             |
-| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| `data`                  | *str*                   | :heavy_check_mark:      | JSON-encoded event data |
+| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `data`                                                       | [models.StreamRunAgentData](../models/streamrunagentdata.md) | :heavy_check_mark:                                           | N/A                                                          |

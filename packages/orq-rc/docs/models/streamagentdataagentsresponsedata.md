@@ -1,0 +1,13 @@
+# StreamAgentDataAgentsResponseData
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `agent_id`                                                                    | *str*                                                                         | :heavy_check_mark:                                                            | N/A                                                                           |
+| `message_difference`                                                          | Dict[str, [models.DataMessageDifference](../models/datamessagedifference.md)] | :heavy_check_mark:                                                            | N/A                                                                           |
+| `choice`                                                                      | [Optional[models.DataChoice]](../models/datachoice.md)                        | :heavy_minus_sign:                                                            | N/A                                                                           |
+| `choice_index`                                                                | *Optional[float]*                                                             | :heavy_minus_sign:                                                            | N/A                                                                           |
+| `iteration`                                                                   | *float*                                                                       | :heavy_check_mark:                                                            | N/A                                                                           |
+| `accumulated_execution_time`                                                  | *float*                                                                       | :heavy_check_mark:                                                            | N/A                                                                           |

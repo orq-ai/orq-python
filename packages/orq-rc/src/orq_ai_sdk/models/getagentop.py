@@ -99,6 +99,8 @@ class GetAgentToolsTypedDict(TypedDict):
     description: NotRequired[str]
     r"""Optional tool description"""
     requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
     conditions: NotRequired[List[GetAgentConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
@@ -119,6 +121,9 @@ class GetAgentTools(BaseModel):
     r"""Optional tool description"""
 
     requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
     conditions: Optional[List[GetAgentConditions]] = None
 
