@@ -254,13 +254,13 @@ with Orq(
 ### [agents](docs/sdks/agents/README.md)
 
 * [create](docs/sdks/agents/README.md#create) - Create a new agent
-* [list](docs/sdks/agents/README.md#list) - List all agents
 * [delete](docs/sdks/agents/README.md#delete) - Delete an agent
 * [retrieve](docs/sdks/agents/README.md#retrieve) - Get an agent
 * [update](docs/sdks/agents/README.md#update) - Update an agent
 * [invoke](docs/sdks/agents/README.md#invoke) - Invoke an agent
 * [list_tasks](docs/sdks/agents/README.md#list_tasks) - List all tasks for an agent
 * [retrieve_task](docs/sdks/agents/README.md#retrieve_task) - Retrieve a specific agent task
+* [list](docs/sdks/agents/README.md#list) - List all agents
 * [run](docs/sdks/agents/README.md#run) - Run an agent
 * [stream_run](docs/sdks/agents/README.md#stream_run) - Run and stream agent execution
 * [stream](docs/sdks/agents/README.md#stream) - Stream agent execution events
