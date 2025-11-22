@@ -5,8 +5,9 @@ The type of output expected from the evaluator
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
-| `NUMBER`  | number    |
-| `STRING`  | string    |
+| Name          | Value         |
+| ------------- | ------------- |
+| `BOOLEAN`     | boolean       |
+| `CATEGORICAL` | categorical   |
+| `NUMBER`      | number        |
+| `STRING`      | string        |

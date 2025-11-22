@@ -5,33 +5,33 @@ Successfully created the tool.
 
 ## Supported Types
 
-### `models.ResponseBody1`
+### `models.ResponseBodyFunctionTool`
 
 ```python
-value: models.ResponseBody1 = /* values here */
+value: models.ResponseBodyFunctionTool = /* values here */
 ```
 
-### `models.ResponseBody2`
+### `models.ResponseBodyJSONSchemaTool`
 
 ```python
-value: models.ResponseBody2 = /* values here */
+value: models.ResponseBodyJSONSchemaTool = /* values here */
 ```
 
-### `models.ResponseBody3`
+### `models.ResponseBodyHTTPTool`
 
 ```python
-value: models.ResponseBody3 = /* values here */
+value: models.ResponseBodyHTTPTool = /* values here */
 ```
 
-### `models.ResponseBody4`
+### `models.ResponseBodyMCPTool`
 
 ```python
-value: models.ResponseBody4 = /* values here */
+value: models.ResponseBodyMCPTool = /* values here */
 ```
 
-### `models.ResponseBody5`
+### `models.ResponseBodyCodeExecutionTool`
 
 ```python
-value: models.ResponseBody5 = /* values here */
+value: models.ResponseBodyCodeExecutionTool = /* values here */
 ```
 

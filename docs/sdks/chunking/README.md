@@ -30,6 +30,7 @@ with Orq(
         "chunk_size": 256,
         "threshold": 0.8,
         "embedding_model": "openai/text-embedding-3-small",
+        "dimensions": 512,
         "mode": "window",
         "similarity_window": 1,
     })

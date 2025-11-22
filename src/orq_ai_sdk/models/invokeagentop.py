@@ -8,42 +8,43 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-RoleToolMessage = Literal["tool",]
-r"""Tool message"""
+InvokeAgentRoleToolMessage = Literal["tool",]
+r"""Message containing tool execution results"""
 
 
-RoleUserMessage = Literal["user",]
-r"""User message"""
+InvokeAgentRoleUserMessage = Literal["user",]
+r"""Message from the end user"""
 
 
 InvokeAgentRoleTypedDict = TypeAliasType(
-    "InvokeAgentRoleTypedDict", Union[RoleUserMessage, RoleToolMessage]
+    "InvokeAgentRoleTypedDict",
+    Union[InvokeAgentRoleUserMessage, InvokeAgentRoleToolMessage],
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
 InvokeAgentRole = TypeAliasType(
-    "InvokeAgentRole", Union[RoleUserMessage, RoleToolMessage]
+    "InvokeAgentRole", Union[InvokeAgentRoleUserMessage, InvokeAgentRoleToolMessage]
 )
 r"""Message role (user or tool for continuing executions)"""
 
 
-InvokeAgentPublicMessagePartKind = Literal["tool_result",]
+InvokeAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class ToolResultPartTypedDict(TypedDict):
+class PublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
-    kind: InvokeAgentPublicMessagePartKind
+    kind: InvokeAgentPublicMessagePartAgentsRequestKind
     tool_call_id: str
     result: NotRequired[Any]
     metadata: NotRequired[Dict[str, Any]]
 
 
-class ToolResultPart(BaseModel):
+class PublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
-    kind: InvokeAgentPublicMessagePartKind
+    kind: InvokeAgentPublicMessagePartAgentsRequestKind
 
     tool_call_id: str
 
@@ -52,10 +53,10 @@ class ToolResultPart(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-PublicMessagePartKind = Literal["file",]
+InvokeAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileInURIFormatTypedDict(TypedDict):
+class FileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -66,7 +67,7 @@ class FileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileInURIFormat(BaseModel):
+class FileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -79,7 +80,7 @@ class FileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class BinaryFormatTypedDict(TypedDict):
+class FileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -90,7 +91,7 @@ class BinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class BinaryFormat(BaseModel):
+class FileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -103,87 +104,100 @@ class BinaryFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-PublicMessagePartFileTypedDict = TypeAliasType(
-    "PublicMessagePartFileTypedDict",
-    Union[BinaryFormatTypedDict, FileInURIFormatTypedDict],
+InvokeAgentPublicMessagePartFileTypedDict = TypeAliasType(
+    "InvokeAgentPublicMessagePartFileTypedDict",
+    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
 )
 
 
-PublicMessagePartFile = TypeAliasType(
-    "PublicMessagePartFile", Union[BinaryFormat, FileInURIFormat]
+InvokeAgentPublicMessagePartFile = TypeAliasType(
+    "InvokeAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
 )
 
 
-class FilePartTypedDict(TypedDict):
+class PublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
-    kind: PublicMessagePartKind
-    file: PublicMessagePartFileTypedDict
+    kind: InvokeAgentPublicMessagePartAgentsKind
+    file: InvokeAgentPublicMessagePartFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class FilePart(BaseModel):
+class PublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
-    kind: PublicMessagePartKind
+    kind: InvokeAgentPublicMessagePartAgentsKind
 
-    file: PublicMessagePartFile
+    file: InvokeAgentPublicMessagePartFile
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-Kind = Literal["text",]
+InvokeAgentPublicMessagePartKind = Literal["text",]
 
 
-class TextPartTypedDict(TypedDict):
+class PublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
-    kind: Kind
+    kind: InvokeAgentPublicMessagePartKind
     text: str
 
 
-class TextPart(BaseModel):
+class PublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
-    kind: Kind
+    kind: InvokeAgentPublicMessagePartKind
 
     text: str
 
 
-PublicMessagePartTypedDict = TypeAliasType(
-    "PublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+InvokeAgentPublicMessagePartTypedDict = TypeAliasType(
+    "InvokeAgentPublicMessagePartTypedDict",
+    Union[
+        PublicMessagePartTextPartTypedDict,
+        PublicMessagePartFilePartTypedDict,
+        PublicMessagePartToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-PublicMessagePart = TypeAliasType(
-    "PublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
+InvokeAgentPublicMessagePart = TypeAliasType(
+    "InvokeAgentPublicMessagePart",
+    Union[
+        PublicMessagePartTextPart,
+        PublicMessagePartFilePart,
+        PublicMessagePartToolResultPart,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class MessageTypedDict(TypedDict):
+class InvokeAgentA2AMessageTypedDict(TypedDict):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: InvokeAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
-    parts: List[PublicMessagePartTypedDict]
+    parts: List[InvokeAgentPublicMessagePartTypedDict]
     r"""A2A message parts (text, file, or tool_result only)"""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
 
-class Message(BaseModel):
+class InvokeAgentA2AMessage(BaseModel):
+    r"""The A2A message to send to the agent (user input or tool results)"""
+
     role: InvokeAgentRole
     r"""Message role (user or tool for continuing executions)"""
 
-    parts: List[PublicMessagePart]
+    parts: List[InvokeAgentPublicMessagePart]
     r"""A2A message parts (text, file, or tool_result only)"""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
 
-class ContactTypedDict(TypedDict):
+class InvokeAgentContactTypedDict(TypedDict):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     id: str
@@ -200,7 +214,7 @@ class ContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
-class Contact(BaseModel):
+class InvokeAgentContact(BaseModel):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     id: str
@@ -241,14 +255,14 @@ class InvokeAgentThread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class MemoryTypedDict(TypedDict):
+class InvokeAgentMemoryTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-class Memory(BaseModel):
+class InvokeAgentMemory(BaseModel):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
@@ -256,23 +270,25 @@ class Memory(BaseModel):
 
 
 class InvokeAgentRequestBodyTypedDict(TypedDict):
-    message: MessageTypedDict
+    message: InvokeAgentA2AMessageTypedDict
+    r"""The A2A message to send to the agent (user input or tool results)"""
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
-    contact: NotRequired[ContactTypedDict]
+    contact: NotRequired[InvokeAgentContactTypedDict]
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
     thread: NotRequired[InvokeAgentThreadTypedDict]
     r"""Thread information to group related requests"""
-    memory: NotRequired[MemoryTypedDict]
+    memory: NotRequired[InvokeAgentMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
 
 class InvokeAgentRequestBody(BaseModel):
-    message: Message
+    message: InvokeAgentA2AMessage
+    r"""The A2A message to send to the agent (user input or tool results)"""
 
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
@@ -280,13 +296,13 @@ class InvokeAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[Contact] = None
+    contact: Optional[InvokeAgentContact] = None
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
 
     thread: Optional[InvokeAgentThread] = None
     r"""Thread information to group related requests"""
 
-    memory: Optional[Memory] = None
+    memory: Optional[InvokeAgentMemory] = None
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     metadata: Optional[Dict[str, Any]] = None
@@ -312,111 +328,300 @@ class InvokeAgentRequest(BaseModel):
 
 
 InvokeAgentKind = Literal["task",]
-r"""A2A entity type"""
+r"""A2A entity type identifier"""
 
 
-InvokeAgentState = Literal[
+TaskState = Literal[
     "submitted",
     "working",
     "input-required",
+    "auth-required",
     "completed",
     "failed",
     "canceled",
     "rejected",
-    "auth-required",
-    "unknown",
 ]
-r"""Current task state"""
+r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
 
 InvokeAgentAgentsKind = Literal["message",]
 
 
-InvokeAgentAgentsRole = Literal[
+ExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
     "system",
 ]
-r"""Extended A2A message role"""
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
 
-class InvokeAgentMessageTypedDict(TypedDict):
-    r"""Optional status message"""
+InvokeAgentPartsAgentsResponse200Kind = Literal["tool_result",]
+
+
+class PartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: InvokeAgentPartsAgentsResponse200Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class PartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: InvokeAgentPartsAgentsResponse200Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsAgentsResponseKind = Literal["tool_call",]
+
+
+class ToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: InvokeAgentPartsAgentsResponseKind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class ToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: InvokeAgentPartsAgentsResponseKind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsAgentsKind = Literal["file",]
+
+
+class InvokeAgentFileFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class InvokeAgentFileBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+PartsFileTypedDict = TypeAliasType(
+    "PartsFileTypedDict",
+    Union[
+        InvokeAgentFileBinaryFormatTypedDict, InvokeAgentFileFileInURIFormatTypedDict
+    ],
+)
+
+
+PartsFile = TypeAliasType(
+    "PartsFile", Union[InvokeAgentFileBinaryFormat, InvokeAgentFileFileInURIFormat]
+)
+
+
+class PartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: InvokeAgentPartsAgentsKind
+    file: PartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class PartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: InvokeAgentPartsAgentsKind
+
+    file: PartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+InvokeAgentPartsKind = Literal["data",]
+
+
+class DataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: InvokeAgentPartsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class DataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: InvokeAgentPartsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+PartsKind = Literal["text",]
+
+
+class PartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: PartsKind
+    text: str
+
+
+class PartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: PartsKind
+
+    text: str
+
+
+PartsTypedDict = TypeAliasType(
+    "PartsTypedDict",
+    Union[
+        PartsTextPartTypedDict,
+        DataPartTypedDict,
+        PartsFilePartTypedDict,
+        PartsToolResultPartTypedDict,
+        ToolCallPartTypedDict,
+    ],
+)
+
+
+Parts = TypeAliasType(
+    "Parts",
+    Union[PartsTextPart, DataPart, PartsFilePart, PartsToolResultPart, ToolCallPart],
+)
+
+
+class TaskStatusMessageTypedDict(TypedDict):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: InvokeAgentAgentsKind
     message_id: str
-    role: InvokeAgentAgentsRole
-    r"""Extended A2A message role"""
-    parts: List[Any]
+    role: ExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
+    parts: List[PartsTypedDict]
 
 
-class InvokeAgentMessage(BaseModel):
-    r"""Optional status message"""
+class TaskStatusMessage(BaseModel):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: InvokeAgentAgentsKind
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: InvokeAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: ExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
-    parts: List[Any]
+    parts: List[Parts]
 
 
-class InvokeAgentStatusTypedDict(TypedDict):
-    r"""Task status information"""
+class TaskStatusTypedDict(TypedDict):
+    r"""Current task status information"""
 
-    state: InvokeAgentState
-    r"""Current task state"""
+    state: TaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
     timestamp: NotRequired[str]
-    r"""ISO timestamp of status update"""
-    message: NotRequired[InvokeAgentMessageTypedDict]
-    r"""Optional status message"""
+    r"""ISO 8601 timestamp of when the status was updated"""
+    message: NotRequired[TaskStatusMessageTypedDict]
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class InvokeAgentStatus(BaseModel):
-    r"""Task status information"""
+class TaskStatus(BaseModel):
+    r"""Current task status information"""
 
-    state: InvokeAgentState
-    r"""Current task state"""
+    state: TaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
     timestamp: Optional[str] = None
-    r"""ISO timestamp of status update"""
+    r"""ISO 8601 timestamp of when the status was updated"""
 
-    message: Optional[InvokeAgentMessage] = None
-    r"""Optional status message"""
+    message: Optional[TaskStatusMessage] = None
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class InvokeAgentResponseBodyTypedDict(TypedDict):
-    r"""A2A Task response format"""
+class InvokeAgentA2ATaskResponseTypedDict(TypedDict):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
     context_id: str
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
     kind: InvokeAgentKind
-    r"""A2A entity type"""
-    status: InvokeAgentStatusTypedDict
-    r"""Task status information"""
+    r"""A2A entity type identifier"""
+    status: TaskStatusTypedDict
+    r"""Current task status information"""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
 
-class InvokeAgentResponseBody(BaseModel):
-    r"""A2A Task response format"""
+class InvokeAgentA2ATaskResponse(BaseModel):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
 
     context_id: Annotated[str, pydantic.Field(alias="contextId")]
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
 
     kind: InvokeAgentKind
-    r"""A2A entity type"""
+    r"""A2A entity type identifier"""
 
-    status: InvokeAgentStatus
-    r"""Task status information"""
+    status: TaskStatus
+    r"""Current task status information"""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""

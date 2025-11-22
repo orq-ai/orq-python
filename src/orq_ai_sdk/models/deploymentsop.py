@@ -116,6 +116,7 @@ class DeploymentsToolsTypedDict(TypedDict):
     type: DeploymentsType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentsFunctionTypedDict
+    display_name: NotRequired[str]
     id: NotRequired[float]
 
 
@@ -124,6 +125,8 @@ class DeploymentsTools(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentsFunction
+
+    display_name: Optional[str] = None
 
     id: Optional[float] = None
 
@@ -221,12 +224,15 @@ class DeploymentsResponseFormatJSONSchema(BaseModel):
 class DeploymentsResponseFormat1TypedDict(TypedDict):
     type: DeploymentsResponseFormatDeploymentsResponseType
     json_schema: DeploymentsResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class DeploymentsResponseFormat1(BaseModel):
     type: DeploymentsResponseFormatDeploymentsResponseType
 
     json_schema: DeploymentsResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 DeploymentsResponseFormatTypedDict = TypeAliasType(

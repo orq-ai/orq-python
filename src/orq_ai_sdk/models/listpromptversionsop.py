@@ -145,12 +145,15 @@ class ListPromptVersionsResponseFormatJSONSchema(BaseModel):
 class ListPromptVersionsResponseFormat1TypedDict(TypedDict):
     type: ListPromptVersionsResponseFormatType
     json_schema: ListPromptVersionsResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class ListPromptVersionsResponseFormat1(BaseModel):
     type: ListPromptVersionsResponseFormatType
 
     json_schema: ListPromptVersionsResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 ListPromptVersionsResponseFormatTypedDict = TypeAliasType(

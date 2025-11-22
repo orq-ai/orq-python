@@ -1,0 +1,9 @@
+# CreateAgentRequestToolChoice2
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [Optional[models.CreateAgentRequestToolChoiceType]](../models/createagentrequesttoolchoicetype.md) | :heavy_minus_sign:                                                                                 | The type of the tool. Currently, only function is supported.                                       |
+| `function`                                                                                         | [models.CreateAgentRequestToolChoiceFunction](../models/createagentrequesttoolchoicefunction.md)   | :heavy_check_mark:                                                                                 | N/A                                                                                                |

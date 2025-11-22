@@ -9,12 +9,12 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import ConfigDict, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-RunAgentModelVoice = Literal[
+RunAgentModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -25,7 +25,7 @@ RunAgentModelVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-RunAgentModelFormat = Literal[
+RunAgentModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -35,29 +35,29 @@ RunAgentModelFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class RunAgentModelAudioTypedDict(TypedDict):
+class RunAgentModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: RunAgentModelVoice
+    voice: RunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: RunAgentModelFormat
+    format_: RunAgentModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class RunAgentModelAudio(BaseModel):
+class RunAgentModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: RunAgentModelVoice
+    voice: RunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[RunAgentModelFormat, pydantic.Field(alias="format")]
+    format_: Annotated[RunAgentModelConfigurationFormat, pydantic.Field(alias="format")]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 RunAgentResponseFormatAgentsRequestType = Literal["json_schema",]
 
 
-class RunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+class RunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -68,7 +68,7 @@ class RunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class RunAgentResponseFormatJSONSchema(BaseModel):
+class RunAgentResponseFormatAgentsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -78,116 +78,152 @@ class RunAgentResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class RunAgentResponseFormat3TypedDict(TypedDict):
+class RunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: RunAgentResponseFormatAgentsRequestType
-    json_schema: RunAgentResponseFormatJSONSchemaTypedDict
+    json_schema: RunAgentResponseFormatAgentsJSONSchemaTypedDict
 
 
-class RunAgentResponseFormat3(BaseModel):
+class RunAgentResponseFormatJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: RunAgentResponseFormatAgentsRequestType
 
-    json_schema: RunAgentResponseFormatJSONSchema
+    json_schema: RunAgentResponseFormatAgentsJSONSchema
 
 
 RunAgentResponseFormatAgentsType = Literal["json_object",]
 
 
-class RunAgentResponseFormat2TypedDict(TypedDict):
+class RunAgentResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: RunAgentResponseFormatAgentsType
 
 
-class RunAgentResponseFormat2(BaseModel):
+class RunAgentResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: RunAgentResponseFormatAgentsType
 
 
 RunAgentResponseFormatType = Literal["text",]
 
 
-class RunAgentResponseFormat1TypedDict(TypedDict):
+class RunAgentResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: RunAgentResponseFormatType
 
 
-class RunAgentResponseFormat1(BaseModel):
+class RunAgentResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: RunAgentResponseFormatType
 
 
-RunAgentModelResponseFormatTypedDict = TypeAliasType(
-    "RunAgentModelResponseFormatTypedDict",
+RunAgentModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationResponseFormatTypedDict",
     Union[
-        RunAgentResponseFormat1TypedDict,
-        RunAgentResponseFormat2TypedDict,
-        RunAgentResponseFormat3TypedDict,
+        RunAgentResponseFormatTextTypedDict,
+        RunAgentResponseFormatJSONObjectTypedDict,
+        RunAgentResponseFormatJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentModelResponseFormat = TypeAliasType(
-    "RunAgentModelResponseFormat",
-    Union[RunAgentResponseFormat1, RunAgentResponseFormat2, RunAgentResponseFormat3],
+RunAgentModelConfigurationResponseFormat = TypeAliasType(
+    "RunAgentModelConfigurationResponseFormat",
+    Union[
+        RunAgentResponseFormatText,
+        RunAgentResponseFormatJSONObject,
+        RunAgentResponseFormatJSONSchema,
+    ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentModelStopTypedDict = TypeAliasType(
-    "RunAgentModelStopTypedDict", Union[str, List[str]]
+RunAgentModelConfigurationStopTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-RunAgentModelStop = TypeAliasType("RunAgentModelStop", Union[str, List[str]])
+RunAgentModelConfigurationStop = TypeAliasType(
+    "RunAgentModelConfigurationStop", Union[str, List[str]]
+)
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class RunAgentModelStreamOptionsTypedDict(TypedDict):
+class RunAgentModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class RunAgentModelStreamOptions(BaseModel):
+class RunAgentModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-RunAgentModelType = Literal[
+RunAgentModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-RunAgentModelThinkingLevel = Literal[
+RunAgentModelConfigurationThinkingLevel = Literal[
     "low",
     "high",
 ]
 r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class RunAgentModelThinkingTypedDict(TypedDict):
-    type: RunAgentModelType
+class RunAgentModelConfigurationThinkingTypedDict(TypedDict):
+    type: RunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[RunAgentModelThinkingLevel]
+    thinking_level: NotRequired[RunAgentModelConfigurationThinkingLevel]
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class RunAgentModelThinking(BaseModel):
-    type: RunAgentModelType
+class RunAgentModelConfigurationThinking(BaseModel):
+    type: RunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
-    thinking_level: Optional[RunAgentModelThinkingLevel] = None
+    thinking_level: Optional[RunAgentModelConfigurationThinkingLevel] = None
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
@@ -225,43 +261,30 @@ RunAgentToolChoice1 = Literal[
 ]
 
 
-RunAgentModelToolChoiceTypedDict = TypeAliasType(
-    "RunAgentModelToolChoiceTypedDict",
+RunAgentModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationToolChoiceTypedDict",
     Union[RunAgentToolChoice2TypedDict, RunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-RunAgentModelToolChoice = TypeAliasType(
-    "RunAgentModelToolChoice", Union[RunAgentToolChoice2, RunAgentToolChoice1]
+RunAgentModelConfigurationToolChoice = TypeAliasType(
+    "RunAgentModelConfigurationToolChoice",
+    Union[RunAgentToolChoice2, RunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-RunAgentModelModalities = Literal[
+RunAgentModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class RunAgentModelWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class RunAgentModelConfigurationParametersTypedDict(TypedDict):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class RunAgentModelWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class RunAgentModelParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    audio: NotRequired[Nullable[RunAgentModelAudioTypedDict]]
+    audio: NotRequired[Nullable[RunAgentModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -280,7 +303,7 @@ class RunAgentModelParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[RunAgentModelResponseFormatTypedDict]
+    response_format: NotRequired[RunAgentModelConfigurationResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -288,31 +311,31 @@ class RunAgentModelParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[RunAgentModelStopTypedDict]]
+    stop: NotRequired[Nullable[RunAgentModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[RunAgentModelStreamOptionsTypedDict]]
+    stream_options: NotRequired[
+        Nullable[RunAgentModelConfigurationStreamOptionsTypedDict]
+    ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[RunAgentModelThinkingTypedDict]
+    thinking: NotRequired[RunAgentModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[RunAgentModelToolChoiceTypedDict]
+    tool_choice: NotRequired[RunAgentModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[RunAgentModelModalities]]]
+    modalities: NotRequired[Nullable[List[RunAgentModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[RunAgentModelWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class RunAgentModelParameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+class RunAgentModelConfigurationParameters(BaseModel):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    audio: OptionalNullable[RunAgentModelAudio] = UNSET
+    audio: OptionalNullable[RunAgentModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -339,7 +362,7 @@ class RunAgentModelParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[RunAgentModelResponseFormat] = None
+    response_format: Optional[RunAgentModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -351,13 +374,13 @@ class RunAgentModelParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[RunAgentModelStop] = UNSET
+    stop: OptionalNullable[RunAgentModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[RunAgentModelStreamOptions] = UNSET
+    stream_options: OptionalNullable[RunAgentModelConfigurationStreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[RunAgentModelThinking] = None
+    thinking: Optional[RunAgentModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -368,17 +391,14 @@ class RunAgentModelParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[RunAgentModelToolChoice] = None
+    tool_choice: Optional[RunAgentModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[RunAgentModelModalities]] = UNSET
+    modalities: OptionalNullable[List[RunAgentModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[RunAgentModelWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -404,7 +424,6 @@ class RunAgentModelParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -450,71 +469,69 @@ class RunAgentModelParameters(BaseModel):
         return m
 
 
-class RunAgentModel2TypedDict(TypedDict):
-    r"""Model configuration with parameters"""
+class RunAgentModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class RunAgentModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class RunAgentModelConfiguration2TypedDict(TypedDict):
+    r"""
+
+    Model configuration with parameters and retry settings.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
-    integration_id: NotRequired[Nullable[str]]
-    r"""Optional integration ID for custom configurations"""
-    parameters: NotRequired[RunAgentModelParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
+    parameters: NotRequired[RunAgentModelConfigurationParametersTypedDict]
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    retry: NotRequired[RunAgentModelConfigurationRetryTypedDict]
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
-class RunAgentModel2(BaseModel):
-    r"""Model configuration with parameters"""
+class RunAgentModelConfiguration2(BaseModel):
+    r"""
+
+    Model configuration with parameters and retry settings.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
-    integration_id: OptionalNullable[str] = UNSET
-    r"""Optional integration ID for custom configurations"""
+    parameters: Optional[RunAgentModelConfigurationParameters] = None
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    parameters: Optional[RunAgentModelParameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    retry: Optional[RunAgentModelConfigurationRetry] = None
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
-RunAgentModelTypedDict = TypeAliasType(
-    "RunAgentModelTypedDict", Union[RunAgentModel2TypedDict, str]
+RunAgentModelConfigurationTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationTypedDict",
+    Union[RunAgentModelConfiguration2TypedDict, str],
 )
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-RunAgentModel = TypeAliasType("RunAgentModel", Union[RunAgentModel2, str])
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+RunAgentModelConfiguration = TypeAliasType(
+    "RunAgentModelConfiguration", Union[RunAgentModelConfiguration2, str]
+)
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-RunAgentFallbackModelsVoice = Literal[
+RunAgentFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -525,7 +542,7 @@ RunAgentFallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-RunAgentFallbackModelsFormat = Literal[
+RunAgentFallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -535,31 +552,33 @@ RunAgentFallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class RunAgentFallbackModelsAudioTypedDict(TypedDict):
+class RunAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: RunAgentFallbackModelsVoice
+    voice: RunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: RunAgentFallbackModelsFormat
+    format_: RunAgentFallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class RunAgentFallbackModelsAudio(BaseModel):
+class RunAgentFallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: RunAgentFallbackModelsVoice
+    voice: RunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[RunAgentFallbackModelsFormat, pydantic.Field(alias="format")]
+    format_: Annotated[
+        RunAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
+    ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-RunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type = Literal[
+RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType = Literal[
     "json_schema",
 ]
 
 
-class RunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+class RunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -570,7 +589,7 @@ class RunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class RunAgentResponseFormatAgentsJSONSchema(BaseModel):
+class RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -580,19 +599,29 @@ class RunAgentResponseFormatAgentsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class RunAgentResponseFormatAgents3TypedDict(TypedDict):
-    type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
-    json_schema: RunAgentResponseFormatAgentsJSONSchemaTypedDict
+class RunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+    json_schema: RunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict
 
 
-class RunAgentResponseFormatAgents3(BaseModel):
-    type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
+class RunAgentResponseFormatAgentsRequestJSONSchema(BaseModel):
+    r"""
 
-    json_schema: RunAgentResponseFormatAgentsJSONSchema
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+
+    json_schema: RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema
 
 
 RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
@@ -600,104 +629,124 @@ RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
 ]
 
 
-class RunAgentResponseFormatAgents2TypedDict(TypedDict):
+class RunAgentResponseFormatAgentsJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
-class RunAgentResponseFormatAgents2(BaseModel):
+class RunAgentResponseFormatAgentsJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: RunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
 RunAgentResponseFormatAgentsRequestRequestBodyType = Literal["text",]
 
 
-class RunAgentResponseFormatAgents1TypedDict(TypedDict):
+class RunAgentResponseFormatAgentsTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: RunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-class RunAgentResponseFormatAgents1(BaseModel):
+class RunAgentResponseFormatAgentsText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: RunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-RunAgentFallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "RunAgentFallbackModelsResponseFormatTypedDict",
+RunAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        RunAgentResponseFormatAgents1TypedDict,
-        RunAgentResponseFormatAgents2TypedDict,
-        RunAgentResponseFormatAgents3TypedDict,
+        RunAgentResponseFormatAgentsTextTypedDict,
+        RunAgentResponseFormatAgentsJSONObjectTypedDict,
+        RunAgentResponseFormatAgentsRequestJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentFallbackModelsResponseFormat = TypeAliasType(
-    "RunAgentFallbackModelsResponseFormat",
+RunAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
+    "RunAgentFallbackModelConfigurationResponseFormat",
     Union[
-        RunAgentResponseFormatAgents1,
-        RunAgentResponseFormatAgents2,
-        RunAgentResponseFormatAgents3,
+        RunAgentResponseFormatAgentsText,
+        RunAgentResponseFormatAgentsJSONObject,
+        RunAgentResponseFormatAgentsRequestJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentFallbackModelsStopTypedDict = TypeAliasType(
-    "RunAgentFallbackModelsStopTypedDict", Union[str, List[str]]
+RunAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-RunAgentFallbackModelsStop = TypeAliasType(
-    "RunAgentFallbackModelsStop", Union[str, List[str]]
+RunAgentFallbackModelConfigurationStop = TypeAliasType(
+    "RunAgentFallbackModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class RunAgentFallbackModelsStreamOptionsTypedDict(TypedDict):
+class RunAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class RunAgentFallbackModelsStreamOptions(BaseModel):
+class RunAgentFallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-RunAgentFallbackModelsType = Literal[
+RunAgentFallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-RunAgentFallbackModelsThinkingLevel = Literal[
+RunAgentFallbackModelConfigurationThinkingLevel = Literal[
     "low",
     "high",
 ]
 r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class RunAgentFallbackModelsThinkingTypedDict(TypedDict):
-    type: RunAgentFallbackModelsType
+class RunAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: RunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[RunAgentFallbackModelsThinkingLevel]
+    thinking_level: NotRequired[RunAgentFallbackModelConfigurationThinkingLevel]
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class RunAgentFallbackModelsThinking(BaseModel):
-    type: RunAgentFallbackModelsType
+class RunAgentFallbackModelConfigurationThinking(BaseModel):
+    type: RunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
-    thinking_level: Optional[RunAgentFallbackModelsThinkingLevel] = None
+    thinking_level: Optional[RunAgentFallbackModelConfigurationThinkingLevel] = None
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
@@ -735,42 +784,30 @@ RunAgentToolChoiceAgents1 = Literal[
 ]
 
 
-RunAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "RunAgentFallbackModelsToolChoiceTypedDict",
+RunAgentFallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationToolChoiceTypedDict",
     Union[RunAgentToolChoiceAgents2TypedDict, RunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-RunAgentFallbackModelsToolChoice = TypeAliasType(
-    "RunAgentFallbackModelsToolChoice",
+RunAgentFallbackModelConfigurationToolChoice = TypeAliasType(
+    "RunAgentFallbackModelConfigurationToolChoice",
     Union[RunAgentToolChoiceAgents2, RunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-RunAgentFallbackModelsModalities = Literal[
+RunAgentFallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class RunAgentFallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class RunAgentFallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class RunAgentFallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[RunAgentFallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[RunAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -789,7 +826,9 @@ class RunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[RunAgentFallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[
+        RunAgentFallbackModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -797,29 +836,33 @@ class RunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[RunAgentFallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[RunAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[RunAgentFallbackModelsStreamOptionsTypedDict]]
+    stream_options: NotRequired[
+        Nullable[RunAgentFallbackModelConfigurationStreamOptionsTypedDict]
+    ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[RunAgentFallbackModelsThinkingTypedDict]
+    thinking: NotRequired[RunAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[RunAgentFallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[RunAgentFallbackModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[RunAgentFallbackModelsModalities]]]
+    modalities: NotRequired[
+        Nullable[List[RunAgentFallbackModelConfigurationModalities]]
+    ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[RunAgentFallbackModelsWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class RunAgentFallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[RunAgentFallbackModelsAudio] = UNSET
+class RunAgentFallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[RunAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -846,7 +889,7 @@ class RunAgentFallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[RunAgentFallbackModelsResponseFormat] = None
+    response_format: Optional[RunAgentFallbackModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -858,13 +901,15 @@ class RunAgentFallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[RunAgentFallbackModelsStop] = UNSET
+    stop: OptionalNullable[RunAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[RunAgentFallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[
+        RunAgentFallbackModelConfigurationStreamOptions
+    ] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[RunAgentFallbackModelsThinking] = None
+    thinking: Optional[RunAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -875,17 +920,16 @@ class RunAgentFallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[RunAgentFallbackModelsToolChoice] = None
+    tool_choice: Optional[RunAgentFallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[RunAgentFallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[List[RunAgentFallbackModelConfigurationModalities]] = (
+        UNSET
+    )
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[RunAgentFallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -911,7 +955,6 @@ class RunAgentFallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -957,68 +1000,45 @@ class RunAgentFallbackModelsParameters(BaseModel):
         return m
 
 
-class RunAgentFallbackModels2TypedDict(TypedDict):
+class RunAgentFallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[RunAgentFallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[RunAgentFallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class RunAgentFallbackModels2(BaseModel):
+class RunAgentFallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[RunAgentFallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[RunAgentFallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-RunAgentFallbackModelsTypedDict = TypeAliasType(
-    "RunAgentFallbackModelsTypedDict", Union[RunAgentFallbackModels2TypedDict, str]
+RunAgentFallbackModelConfigurationTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationTypedDict",
+    Union[RunAgentFallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-RunAgentFallbackModels = TypeAliasType(
-    "RunAgentFallbackModels", Union[RunAgentFallbackModels2, str]
+RunAgentFallbackModelConfiguration = TypeAliasType(
+    "RunAgentFallbackModelConfiguration",
+    Union[RunAgentFallbackModelConfiguration2, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 RunAgentRoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 RunAgentRoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 RunAgentRoleTypedDict = TypeAliasType(
@@ -1036,7 +1056,7 @@ r"""Message role (user or tool for continuing executions)"""
 RunAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class PublicMessagePartToolResultPartTypedDict(TypedDict):
+class RunAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: RunAgentPublicMessagePartAgentsRequestKind
@@ -1045,7 +1065,7 @@ class PublicMessagePartToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartToolResultPart(BaseModel):
+class RunAgentPublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: RunAgentPublicMessagePartAgentsRequestKind
@@ -1060,7 +1080,7 @@ class PublicMessagePartToolResultPart(BaseModel):
 RunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileFileInURIFormatTypedDict(TypedDict):
+class RunAgentFileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -1071,7 +1091,7 @@ class FileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileFileInURIFormat(BaseModel):
+class RunAgentFileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -1084,7 +1104,7 @@ class FileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormatTypedDict(TypedDict):
+class RunAgentFileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -1095,7 +1115,7 @@ class FileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormat(BaseModel):
+class RunAgentFileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -1110,16 +1130,17 @@ class FileBinaryFormat(BaseModel):
 
 RunAgentPublicMessagePartFileTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartFileTypedDict",
-    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
+    Union[RunAgentFileBinaryFormatTypedDict, RunAgentFileFileInURIFormatTypedDict],
 )
 
 
 RunAgentPublicMessagePartFile = TypeAliasType(
-    "RunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
+    "RunAgentPublicMessagePartFile",
+    Union[RunAgentFileBinaryFormat, RunAgentFileFileInURIFormat],
 )
 
 
-class PublicMessagePartFilePartTypedDict(TypedDict):
+class RunAgentPublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: RunAgentPublicMessagePartAgentsKind
@@ -1127,7 +1148,7 @@ class PublicMessagePartFilePartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartFilePart(BaseModel):
+class RunAgentPublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: RunAgentPublicMessagePartAgentsKind
@@ -1140,14 +1161,14 @@ class PublicMessagePartFilePart(BaseModel):
 RunAgentPublicMessagePartKind = Literal["text",]
 
 
-class PublicMessagePartTextPartTypedDict(TypedDict):
+class RunAgentPublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: RunAgentPublicMessagePartKind
     text: str
 
 
-class PublicMessagePartTextPart(BaseModel):
+class RunAgentPublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: RunAgentPublicMessagePartKind
@@ -1158,9 +1179,9 @@ class PublicMessagePartTextPart(BaseModel):
 RunAgentPublicMessagePartTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartTypedDict",
     Union[
-        PublicMessagePartTextPartTypedDict,
-        PublicMessagePartFilePartTypedDict,
-        PublicMessagePartToolResultPartTypedDict,
+        RunAgentPublicMessagePartTextPartTypedDict,
+        RunAgentPublicMessagePartFilePartTypedDict,
+        RunAgentPublicMessagePartToolResultPartTypedDict,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -1169,15 +1190,15 @@ r"""Message part that can be provided by users. Use \"text\" for regular message
 RunAgentPublicMessagePart = TypeAliasType(
     "RunAgentPublicMessagePart",
     Union[
-        PublicMessagePartTextPart,
-        PublicMessagePartFilePart,
-        PublicMessagePartToolResultPart,
+        RunAgentPublicMessagePartTextPart,
+        RunAgentPublicMessagePartFilePart,
+        RunAgentPublicMessagePartToolResultPart,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class RunAgentMessageTypedDict(TypedDict):
+class RunAgentA2AMessageTypedDict(TypedDict):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRoleTypedDict
@@ -1188,7 +1209,7 @@ class RunAgentMessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class RunAgentMessage(BaseModel):
+class RunAgentA2AMessage(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: RunAgentRole
@@ -1298,9 +1319,168 @@ class RunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal["mcp",]
+
+
+class AgentToolInputRunHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class AgentToolInputRunHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+    "object",
+]
+
+
+class SchemaTypedDict(TypedDict):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+    properties: NotRequired[Dict[str, Any]]
+    required: NotRequired[List[str]]
+
+
+class Schema(BaseModel):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+
+    properties: Optional[Dict[str, Any]] = None
+
+    required: Optional[List[str]] = None
+
+
+class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
+    name: str
+    schema_: SchemaTypedDict
+    id: NotRequired[str]
+    description: NotRequired[str]
+
+
+class RunAgentAgentToolInputRunTools(BaseModel):
+    name: str
+
+    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+
+    id: Optional[str] = "01KAPWG4B10QW3MTAA46C3KV8R"
+
+    description: Optional[str] = None
+
+
+ConnectionType = Literal[
+    "http",
+    "sse",
+]
+r"""The connection type used by the MCP server"""
+
+
+class McpTypedDict(TypedDict):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+    tools: List[RunAgentAgentToolInputRunToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
+    connection_type: ConnectionType
+    r"""The connection type used by the MCP server"""
+    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class Mcp(BaseModel):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+
+    tools: List[RunAgentAgentToolInputRunTools]
+    r"""Array of tools available from the MCP server"""
+
+    connection_type: ConnectionType
+    r"""The connection type used by the MCP server"""
+
+    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class MCPToolRunTypedDict(TypedDict):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    mcp: McpTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class MCPToolRun(BaseModel):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    mcp: Mcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = Literal[
+    "object",
+]
+r"""The type must be \"object\" """
+
+
+class RunAgentAgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class RunAgentAgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
 class AgentToolInputRunFunctionTypedDict(TypedDict):
@@ -1310,7 +1490,7 @@ class AgentToolInputRunFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[RunAgentAgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1324,7 +1504,7 @@ class AgentToolInputRunFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[RunAgentAgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1363,6 +1543,49 @@ class FunctionToolRun(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["code",]
 
 
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = Literal[
+    "object",
+]
+r"""The type must be \"object\" """
+
+
+class AgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class AgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 Language = Literal["python",]
 
 
@@ -1370,7 +1593,7 @@ class CodeToolTypedDict(TypedDict):
     language: Language
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[AgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1380,7 +1603,7 @@ class CodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[AgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1430,6 +1653,23 @@ Method = Literal[
 r"""The HTTP method to use."""
 
 
+class Headers2TypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class Headers2(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
+
+
+Headers = TypeAliasType("Headers", Union[Headers2, str])
+
+
 class BlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -1437,8 +1677,8 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: Method
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
-    r"""The headers to send with the request."""
+    headers: NotRequired[Dict[str, HeadersTypedDict]]
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -1452,8 +1692,8 @@ class Blueprint(BaseModel):
     method: Method
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
-    r"""The headers to send with the request."""
+    headers: Optional[Dict[str, Headers]] = None
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -1798,9 +2038,10 @@ AgentToolInputRunTypedDict = TypeAliasType(
         HTTPToolRunTypedDict,
         CodeToolRunTypedDict,
         FunctionToolRunTypedDict,
+        MCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 AgentToolInputRun = TypeAliasType(
@@ -1820,9 +2061,10 @@ AgentToolInputRun = TypeAliasType(
         HTTPToolRun,
         CodeToolRun,
         FunctionToolRun,
+        MCPToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 RunAgentToolApprovalRequired = Literal[
@@ -1831,6 +2073,60 @@ RunAgentToolApprovalRequired = Literal[
     "none",
 ]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+
+RunAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class RunAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: RunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class RunAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: RunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+RunAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class RunAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: RunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class RunAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: RunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
 class RunAgentSettingsTypedDict(TypedDict):
@@ -1842,6 +2138,10 @@ class RunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    evaluators: NotRequired[List[RunAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[RunAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class RunAgentSettings(BaseModel):
@@ -1851,23 +2151,29 @@ class RunAgentSettings(BaseModel):
     tool_approval_required: Optional[RunAgentToolApprovalRequired] = "none"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
+    evaluators: Optional[List[RunAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[RunAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
+
 
 class RunAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
-    model: RunAgentModelTypedDict
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: RunAgentModelConfigurationTypedDict
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
     role: str
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
-    message: RunAgentMessageTypedDict
+    message: RunAgentA2AMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -1879,8 +2185,8 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     settings: RunAgentSettingsTypedDict
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
-    fallback_models: NotRequired[List[RunAgentFallbackModelsTypedDict]]
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: NotRequired[List[RunAgentFallbackModelConfigurationTypedDict]]
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
     contact: NotRequired[RunAgentContactTypedDict]
@@ -1894,7 +2200,7 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
     knowledge_bases: NotRequired[List[RunAgentKnowledgeBasesTypedDict]]
     r"""Knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[RunAgentTeamOfAgentsTypedDict]]
@@ -1907,8 +2213,8 @@ class RunAgentRequestBody(BaseModel):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
 
-    model: RunAgentModel
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: RunAgentModelConfiguration
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
     role: str
     r"""Specifies the agent's function and area of expertise."""
@@ -1916,7 +2222,7 @@ class RunAgentRequestBody(BaseModel):
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
 
-    message: RunAgentMessage
+    message: RunAgentA2AMessage
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
@@ -1932,8 +2238,8 @@ class RunAgentRequestBody(BaseModel):
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
-    fallback_models: Optional[List[RunAgentFallbackModels]] = None
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: Optional[List[RunAgentFallbackModelConfiguration]] = None
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
 
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
@@ -1954,7 +2260,7 @@ class RunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
 
     knowledge_bases: Optional[List[RunAgentKnowledgeBases]] = None
     r"""Knowledge base configurations for the agent to access"""
@@ -1967,111 +2273,308 @@ class RunAgentRequestBody(BaseModel):
 
 
 RunAgentKind = Literal["task",]
-r"""A2A entity type"""
+r"""A2A entity type identifier"""
 
 
-RunAgentState = Literal[
+RunAgentTaskState = Literal[
     "submitted",
     "working",
     "input-required",
+    "auth-required",
     "completed",
     "failed",
     "canceled",
     "rejected",
-    "auth-required",
-    "unknown",
 ]
-r"""Current task state"""
+r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
 
 RunAgentAgentsKind = Literal["message",]
 
 
-RunAgentAgentsRole = Literal[
+RunAgentExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
     "system",
 ]
-r"""Extended A2A message role"""
+r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
 
-class RunAgentAgentsMessageTypedDict(TypedDict):
-    r"""Optional status message"""
+RunAgentPartsAgentsResponse200ApplicationJSONKind = Literal["tool_result",]
+
+
+class RunAgentPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: RunAgentPartsAgentsResponse200ApplicationJSONKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+
+
+class PartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: RunAgentPartsAgentsResponse200Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class PartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: RunAgentPartsAgentsResponse200Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsResponseKind = Literal["file",]
+
+
+class RunAgentFileAgentsFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class RunAgentFileAgentsFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class RunAgentFileAgentsBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class RunAgentFileAgentsBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+RunAgentPartsFileTypedDict = TypeAliasType(
+    "RunAgentPartsFileTypedDict",
+    Union[
+        RunAgentFileAgentsBinaryFormatTypedDict,
+        RunAgentFileAgentsFileInURIFormatTypedDict,
+    ],
+)
+
+
+RunAgentPartsFile = TypeAliasType(
+    "RunAgentPartsFile",
+    Union[RunAgentFileAgentsBinaryFormat, RunAgentFileAgentsFileInURIFormat],
+)
+
+
+class RunAgentPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: RunAgentPartsAgentsResponseKind
+    file: RunAgentPartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class RunAgentPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: RunAgentPartsAgentsResponseKind
+
+    file: RunAgentPartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsAgentsKind = Literal["data",]
+
+
+class PartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: RunAgentPartsAgentsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class PartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: RunAgentPartsAgentsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+RunAgentPartsKind = Literal["text",]
+
+
+class RunAgentPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: RunAgentPartsKind
+    text: str
+
+
+class RunAgentPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: RunAgentPartsKind
+
+    text: str
+
+
+RunAgentPartsTypedDict = TypeAliasType(
+    "RunAgentPartsTypedDict",
+    Union[
+        RunAgentPartsTextPartTypedDict,
+        PartsDataPartTypedDict,
+        RunAgentPartsFilePartTypedDict,
+        RunAgentPartsToolResultPartTypedDict,
+        PartsToolCallPartTypedDict,
+    ],
+)
+
+
+RunAgentParts = TypeAliasType(
+    "RunAgentParts",
+    Union[
+        RunAgentPartsTextPart,
+        PartsDataPart,
+        RunAgentPartsFilePart,
+        RunAgentPartsToolResultPart,
+        PartsToolCallPart,
+    ],
+)
+
+
+class RunAgentTaskStatusMessageTypedDict(TypedDict):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: RunAgentAgentsKind
     message_id: str
-    role: RunAgentAgentsRole
-    r"""Extended A2A message role"""
-    parts: List[Any]
+    role: RunAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
+    parts: List[RunAgentPartsTypedDict]
 
 
-class RunAgentAgentsMessage(BaseModel):
-    r"""Optional status message"""
+class RunAgentTaskStatusMessage(BaseModel):
+    r"""Optional A2A message providing additional context about the current status"""
 
     kind: RunAgentAgentsKind
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: RunAgentAgentsRole
-    r"""Extended A2A message role"""
+    role: RunAgentExtendedMessageRole
+    r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
-    parts: List[Any]
+    parts: List[RunAgentParts]
 
 
-class RunAgentStatusTypedDict(TypedDict):
-    r"""Task status information"""
+class RunAgentTaskStatusTypedDict(TypedDict):
+    r"""Current task status information"""
 
-    state: RunAgentState
-    r"""Current task state"""
+    state: RunAgentTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
     timestamp: NotRequired[str]
-    r"""ISO timestamp of status update"""
-    message: NotRequired[RunAgentAgentsMessageTypedDict]
-    r"""Optional status message"""
+    r"""ISO 8601 timestamp of when the status was updated"""
+    message: NotRequired[RunAgentTaskStatusMessageTypedDict]
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class RunAgentStatus(BaseModel):
-    r"""Task status information"""
+class RunAgentTaskStatus(BaseModel):
+    r"""Current task status information"""
 
-    state: RunAgentState
-    r"""Current task state"""
+    state: RunAgentTaskState
+    r"""Current state of the agent task execution. Values: submitted (queued), working (executing), input-required (awaiting user input), completed (finished successfully), failed (error occurred). Note: auth-required, canceled, and rejected statuses are defined for A2A protocol compatibility but are not currently supported in task execution."""
 
     timestamp: Optional[str] = None
-    r"""ISO timestamp of status update"""
+    r"""ISO 8601 timestamp of when the status was updated"""
 
-    message: Optional[RunAgentAgentsMessage] = None
-    r"""Optional status message"""
+    message: Optional[RunAgentTaskStatusMessage] = None
+    r"""Optional A2A message providing additional context about the current status"""
 
 
-class RunAgentResponseBodyTypedDict(TypedDict):
-    r"""A2A Task response format"""
+class RunAgentA2ATaskResponseTypedDict(TypedDict):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
     context_id: str
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
     kind: RunAgentKind
-    r"""A2A entity type"""
-    status: RunAgentStatusTypedDict
-    r"""Task status information"""
+    r"""A2A entity type identifier"""
+    status: RunAgentTaskStatusTypedDict
+    r"""Current task status information"""
     metadata: NotRequired[Dict[str, Any]]
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
 
-class RunAgentResponseBody(BaseModel):
-    r"""A2A Task response format"""
+class RunAgentA2ATaskResponse(BaseModel):
+    r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
 
     id: str
-    r"""The ID of the created agent execution task"""
+    r"""The unique ID of the created agent execution task"""
 
     context_id: Annotated[str, pydantic.Field(alias="contextId")]
-    r"""The correlation ID for this execution"""
+    r"""The correlation ID for this execution (used for tracking)"""
 
     kind: RunAgentKind
-    r"""A2A entity type"""
+    r"""A2A entity type identifier"""
 
-    status: RunAgentStatus
-    r"""Task status information"""
+    status: RunAgentTaskStatus
+    r"""Current task status information"""
 
     metadata: Optional[Dict[str, Any]] = None
-    r"""Task metadata containing workspace_id and trace_id for feedback"""
+    r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""

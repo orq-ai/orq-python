@@ -1210,9 +1210,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         limit: Optional[float] = 50,
-        status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
-        ] = None,
+        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1313,9 +1311,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         limit: Optional[float] = 50,
-        status: Optional[
-            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
-        ] = None,
+        status: Optional[Union[models.Status, models.StatusTypedDict]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2398,10 +2394,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[
-                models.ListChunksQueryParamStatus,
-                models.ListChunksQueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2507,10 +2500,7 @@ class Knowledge(BaseSDK):
         ending_before: Optional[str] = None,
         q: Optional[str] = None,
         status: Optional[
-            Union[
-                models.ListChunksQueryParamStatus,
-                models.ListChunksQueryParamStatusTypedDict,
-            ]
+            Union[models.QueryParamStatus, models.QueryParamStatusTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,

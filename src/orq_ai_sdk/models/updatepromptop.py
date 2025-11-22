@@ -103,12 +103,15 @@ class UpdatePromptResponseFormatJSONSchema(BaseModel):
 class UpdatePromptResponseFormat1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatType
     json_schema: UpdatePromptResponseFormatJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
 class UpdatePromptResponseFormat1(BaseModel):
     type: UpdatePromptResponseFormatType
 
     json_schema: UpdatePromptResponseFormatJSONSchema
+
+    display_name: Optional[str] = None
 
 
 UpdatePromptResponseFormatTypedDict = TypeAliasType(
@@ -1369,7 +1372,7 @@ UpdatePromptPromptsMessages = TypeAliasType(
 UpdatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type = Literal["json_schema",]
 
 
-class UpdatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
+class UpdatePromptResponseFormatPromptsRequestJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -1380,7 +1383,7 @@ class UpdatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class UpdatePromptResponseFormatPromptsJSONSchema(BaseModel):
+class UpdatePromptResponseFormatPromptsRequestJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -1390,49 +1393,79 @@ class UpdatePromptResponseFormatPromptsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class UpdatePromptResponseFormatPrompts3TypedDict(TypedDict):
+class UpdatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type
-    json_schema: UpdatePromptResponseFormatPromptsJSONSchemaTypedDict
+    json_schema: UpdatePromptResponseFormatPromptsRequestJSONSchemaTypedDict
 
 
-class UpdatePromptResponseFormatPrompts3(BaseModel):
+class UpdatePromptResponseFormatPromptsJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type
 
-    json_schema: UpdatePromptResponseFormatPromptsJSONSchema
+    json_schema: UpdatePromptResponseFormatPromptsRequestJSONSchema
 
 
 UpdatePromptResponseFormatPromptsRequestRequestBodyPromptType = Literal["json_object",]
 
 
-class UpdatePromptResponseFormatPrompts2TypedDict(TypedDict):
+class UpdatePromptResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyPromptType
 
 
-class UpdatePromptResponseFormatPrompts2(BaseModel):
+class UpdatePromptResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyPromptType
 
 
 UpdatePromptResponseFormatPromptsRequestRequestBodyType = Literal["text",]
 
 
-class UpdatePromptResponseFormatPrompts1TypedDict(TypedDict):
+class UpdatePromptResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyType
 
 
-class UpdatePromptResponseFormatPrompts1(BaseModel):
+class UpdatePromptResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: UpdatePromptResponseFormatPromptsRequestRequestBodyType
 
 
 UpdatePromptPromptsResponseFormatTypedDict = TypeAliasType(
     "UpdatePromptPromptsResponseFormatTypedDict",
     Union[
-        UpdatePromptResponseFormatPrompts1TypedDict,
-        UpdatePromptResponseFormatPrompts2TypedDict,
-        UpdatePromptResponseFormatPrompts3TypedDict,
+        UpdatePromptResponseFormatTextTypedDict,
+        UpdatePromptResponseFormatJSONObjectTypedDict,
+        UpdatePromptResponseFormatPromptsJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -1441,9 +1474,9 @@ r"""An object specifying the format that the model must output"""
 UpdatePromptPromptsResponseFormat = TypeAliasType(
     "UpdatePromptPromptsResponseFormat",
     Union[
-        UpdatePromptResponseFormatPrompts1,
-        UpdatePromptResponseFormatPrompts2,
-        UpdatePromptResponseFormatPrompts3,
+        UpdatePromptResponseFormatText,
+        UpdatePromptResponseFormatJSONObject,
+        UpdatePromptResponseFormatPromptsJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
@@ -1732,22 +1765,22 @@ UpdatePromptResponseFormatPrompts4 = Literal[
 UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType = Literal["text",]
 
 
-class UpdatePromptResponseFormatPromptsResponse3TypedDict(TypedDict):
+class UpdatePromptResponseFormatPrompts3TypedDict(TypedDict):
     type: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
-class UpdatePromptResponseFormatPromptsResponse3(BaseModel):
+class UpdatePromptResponseFormatPrompts3(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType
 
 
 UpdatePromptResponseFormatPromptsResponse200Type = Literal["json_object",]
 
 
-class UpdatePromptResponseFormatPromptsResponse2TypedDict(TypedDict):
+class UpdatePromptResponseFormatPrompts2TypedDict(TypedDict):
     type: UpdatePromptResponseFormatPromptsResponse200Type
 
 
-class UpdatePromptResponseFormatPromptsResponse2(BaseModel):
+class UpdatePromptResponseFormatPrompts2(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponse200Type
 
 
@@ -1771,23 +1804,26 @@ class UpdatePromptResponseFormatPromptsResponseJSONSchema(BaseModel):
     strict: Optional[bool] = None
 
 
-class UpdatePromptResponseFormatPromptsResponse1TypedDict(TypedDict):
+class UpdatePromptResponseFormatPrompts1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatPromptsResponseType
     json_schema: UpdatePromptResponseFormatPromptsResponseJSONSchemaTypedDict
+    display_name: NotRequired[str]
 
 
-class UpdatePromptResponseFormatPromptsResponse1(BaseModel):
+class UpdatePromptResponseFormatPrompts1(BaseModel):
     type: UpdatePromptResponseFormatPromptsResponseType
 
     json_schema: UpdatePromptResponseFormatPromptsResponseJSONSchema
+
+    display_name: Optional[str] = None
 
 
 UpdatePromptPromptsResponseResponseFormatTypedDict = TypeAliasType(
     "UpdatePromptPromptsResponseResponseFormatTypedDict",
     Union[
-        UpdatePromptResponseFormatPromptsResponse2TypedDict,
-        UpdatePromptResponseFormatPromptsResponse3TypedDict,
-        UpdatePromptResponseFormatPromptsResponse1TypedDict,
+        UpdatePromptResponseFormatPrompts2TypedDict,
+        UpdatePromptResponseFormatPrompts3TypedDict,
+        UpdatePromptResponseFormatPrompts1TypedDict,
         UpdatePromptResponseFormatPrompts4,
         UpdatePromptResponseFormat5,
         UpdatePromptResponseFormat6,
@@ -1806,9 +1842,9 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 UpdatePromptPromptsResponseResponseFormat = TypeAliasType(
     "UpdatePromptPromptsResponseResponseFormat",
     Union[
-        UpdatePromptResponseFormatPromptsResponse2,
-        UpdatePromptResponseFormatPromptsResponse3,
-        UpdatePromptResponseFormatPromptsResponse1,
+        UpdatePromptResponseFormatPrompts2,
+        UpdatePromptResponseFormatPrompts3,
+        UpdatePromptResponseFormatPrompts1,
         UpdatePromptResponseFormatPrompts4,
         UpdatePromptResponseFormat5,
         UpdatePromptResponseFormat6,

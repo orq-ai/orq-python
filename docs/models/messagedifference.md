@@ -1,0 +1,14 @@
+# MessageDifference
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `message_id`                                                                 | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `role`                                                                       | [models.StreamRunAgentDataRole](../models/streamrunagentdatarole.md)         | :heavy_check_mark:                                                           | N/A                                                                          |
+| `parts`                                                                      | List[[models.StreamRunAgentDataParts](../models/streamrunagentdataparts.md)] | :heavy_check_mark:                                                           | N/A                                                                          |
+| `metadata`                                                                   | Dict[str, *Any*]                                                             | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `agent_id`                                                                   | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `agent_execution_id`                                                         | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `workspace_id`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |

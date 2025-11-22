@@ -1,0 +1,14 @@
+# PartsToolCallPart
+
+A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution.
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `kind`                                                                                       | [models.RunAgentPartsAgentsResponse200Kind](../models/runagentpartsagentsresponse200kind.md) | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `tool_name`                                                                                  | *str*                                                                                        | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `tool_call_id`                                                                               | *str*                                                                                        | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `arguments`                                                                                  | Dict[str, *Any*]                                                                             | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `metadata`                                                                                   | Dict[str, *Any*]                                                                             | :heavy_minus_sign:                                                                           | N/A                                                                                          |

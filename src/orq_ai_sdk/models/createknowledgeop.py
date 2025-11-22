@@ -182,7 +182,7 @@ class RetrievalSettings(BaseModel):
 class RequestBody1TypedDict(TypedDict):
     key: str
     embedding_model: str
-    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -192,7 +192,6 @@ class RequestBody1TypedDict(TypedDict):
     """
     type: NotRequired[CreateKnowledgeRequestBodyType]
     description: NotRequired[str]
-    is_private_model: NotRequired[bool]
     retrieval_settings: NotRequired[RetrievalSettingsTypedDict]
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
@@ -201,7 +200,7 @@ class RequestBody1(BaseModel):
     key: str
 
     embedding_model: str
-    r"""The embeddings model to use for the knowledge base. This model will be used to embed the chunks when they are added to the knowledge base."""
+    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base."""
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -214,8 +213,6 @@ class RequestBody1(BaseModel):
     type: Optional[CreateKnowledgeRequestBodyType] = "internal"
 
     description: Optional[str] = None
-
-    is_private_model: Optional[bool] = False
 
     retrieval_settings: Optional[RetrievalSettings] = None
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
@@ -353,7 +350,7 @@ class ResponseBodyExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class CreateKnowledgeResponseBody2TypedDict(TypedDict):
+class ResponseBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -383,7 +380,7 @@ class CreateKnowledgeResponseBody2TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
 
-class CreateKnowledgeResponseBody2(BaseModel):
+class ResponseBody2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -578,7 +575,7 @@ class ResponseBodyRetrievalSettings(BaseModel):
         return m
 
 
-class CreateKnowledgeResponseBody1TypedDict(TypedDict):
+class ResponseBody1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -607,7 +604,7 @@ class CreateKnowledgeResponseBody1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class CreateKnowledgeResponseBody1(BaseModel):
+class ResponseBody1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -686,13 +683,12 @@ class CreateKnowledgeResponseBody1(BaseModel):
 
 CreateKnowledgeResponseBodyTypedDict = TypeAliasType(
     "CreateKnowledgeResponseBodyTypedDict",
-    Union[CreateKnowledgeResponseBody1TypedDict, CreateKnowledgeResponseBody2TypedDict],
+    Union[ResponseBody1TypedDict, ResponseBody2TypedDict],
 )
 r"""Knowledge successfully created"""
 
 
 CreateKnowledgeResponseBody = TypeAliasType(
-    "CreateKnowledgeResponseBody",
-    Union[CreateKnowledgeResponseBody1, CreateKnowledgeResponseBody2],
+    "CreateKnowledgeResponseBody", Union[ResponseBody1, ResponseBody2]
 )
 r"""Knowledge successfully created"""

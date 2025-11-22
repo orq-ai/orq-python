@@ -12,12 +12,12 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import ConfigDict, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-StreamRunAgentModelVoice = Literal[
+StreamRunAgentModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -28,7 +28,7 @@ StreamRunAgentModelVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-StreamRunAgentModelFormat = Literal[
+StreamRunAgentModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -38,29 +38,31 @@ StreamRunAgentModelFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentModelAudioTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentModelVoice
+    voice: StreamRunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentModelFormat
+    format_: StreamRunAgentModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentModelAudio(BaseModel):
+class StreamRunAgentModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentModelVoice
+    voice: StreamRunAgentModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
-    format_: Annotated[StreamRunAgentModelFormat, pydantic.Field(alias="format")]
+    format_: Annotated[
+        StreamRunAgentModelConfigurationFormat, pydantic.Field(alias="format")
+    ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 StreamRunAgentResponseFormatAgentsRequestType = Literal["json_schema",]
 
 
-class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -71,7 +73,7 @@ class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatJSONSchema(BaseModel):
+class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -81,122 +83,152 @@ class StreamRunAgentResponseFormatJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormat3TypedDict(TypedDict):
+class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestType
-    json_schema: StreamRunAgentResponseFormatJSONSchemaTypedDict
+    json_schema: StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict
 
 
-class StreamRunAgentResponseFormat3(BaseModel):
+class StreamRunAgentResponseFormatJSONSchema(BaseModel):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestType
 
-    json_schema: StreamRunAgentResponseFormatJSONSchema
+    json_schema: StreamRunAgentResponseFormatAgentsJSONSchema
 
 
 StreamRunAgentResponseFormatAgentsType = Literal["json_object",]
 
 
-class StreamRunAgentResponseFormat2TypedDict(TypedDict):
+class StreamRunAgentResponseFormatJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsType
 
 
-class StreamRunAgentResponseFormat2(BaseModel):
+class StreamRunAgentResponseFormatJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsType
 
 
 StreamRunAgentResponseFormatType = Literal["text",]
 
 
-class StreamRunAgentResponseFormat1TypedDict(TypedDict):
+class StreamRunAgentResponseFormatTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatType
 
 
-class StreamRunAgentResponseFormat1(BaseModel):
+class StreamRunAgentResponseFormatText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatType
 
 
-StreamRunAgentModelResponseFormatTypedDict = TypeAliasType(
-    "StreamRunAgentModelResponseFormatTypedDict",
+StreamRunAgentModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationResponseFormatTypedDict",
     Union[
-        StreamRunAgentResponseFormat1TypedDict,
-        StreamRunAgentResponseFormat2TypedDict,
-        StreamRunAgentResponseFormat3TypedDict,
+        StreamRunAgentResponseFormatTextTypedDict,
+        StreamRunAgentResponseFormatJSONObjectTypedDict,
+        StreamRunAgentResponseFormatJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentModelResponseFormat = TypeAliasType(
-    "StreamRunAgentModelResponseFormat",
+StreamRunAgentModelConfigurationResponseFormat = TypeAliasType(
+    "StreamRunAgentModelConfigurationResponseFormat",
     Union[
-        StreamRunAgentResponseFormat1,
-        StreamRunAgentResponseFormat2,
-        StreamRunAgentResponseFormat3,
+        StreamRunAgentResponseFormatText,
+        StreamRunAgentResponseFormatJSONObject,
+        StreamRunAgentResponseFormatJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentModelStopTypedDict = TypeAliasType(
-    "StreamRunAgentModelStopTypedDict", Union[str, List[str]]
+StreamRunAgentModelConfigurationStopTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-StreamRunAgentModelStop = TypeAliasType(
-    "StreamRunAgentModelStop", Union[str, List[str]]
+StreamRunAgentModelConfigurationStop = TypeAliasType(
+    "StreamRunAgentModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentModelStreamOptionsTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class StreamRunAgentModelStreamOptions(BaseModel):
+class StreamRunAgentModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentModelType = Literal[
+StreamRunAgentModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-StreamRunAgentModelThinkingLevel = Literal[
+StreamRunAgentModelConfigurationThinkingLevel = Literal[
     "low",
     "high",
 ]
 r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class StreamRunAgentModelThinkingTypedDict(TypedDict):
-    type: StreamRunAgentModelType
+class StreamRunAgentModelConfigurationThinkingTypedDict(TypedDict):
+    type: StreamRunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[StreamRunAgentModelThinkingLevel]
+    thinking_level: NotRequired[StreamRunAgentModelConfigurationThinkingLevel]
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class StreamRunAgentModelThinking(BaseModel):
-    type: StreamRunAgentModelType
+class StreamRunAgentModelConfigurationThinking(BaseModel):
+    type: StreamRunAgentModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
-    thinking_level: Optional[StreamRunAgentModelThinkingLevel] = None
+    thinking_level: Optional[StreamRunAgentModelConfigurationThinkingLevel] = None
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
@@ -234,44 +266,30 @@ StreamRunAgentToolChoice1 = Literal[
 ]
 
 
-StreamRunAgentModelToolChoiceTypedDict = TypeAliasType(
-    "StreamRunAgentModelToolChoiceTypedDict",
+StreamRunAgentModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationToolChoiceTypedDict",
     Union[StreamRunAgentToolChoice2TypedDict, StreamRunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentModelToolChoice = TypeAliasType(
-    "StreamRunAgentModelToolChoice",
+StreamRunAgentModelConfigurationToolChoice = TypeAliasType(
+    "StreamRunAgentModelConfigurationToolChoice",
     Union[StreamRunAgentToolChoice2, StreamRunAgentToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentModelModalities = Literal[
+StreamRunAgentModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class StreamRunAgentModelWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentModelWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentModelParametersTypedDict(TypedDict):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    audio: NotRequired[Nullable[StreamRunAgentModelAudioTypedDict]]
+    audio: NotRequired[Nullable[StreamRunAgentModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -290,7 +308,9 @@ class StreamRunAgentModelParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[StreamRunAgentModelResponseFormatTypedDict]
+    response_format: NotRequired[
+        StreamRunAgentModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -298,31 +318,31 @@ class StreamRunAgentModelParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[StreamRunAgentModelStopTypedDict]]
+    stop: NotRequired[Nullable[StreamRunAgentModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[StreamRunAgentModelStreamOptionsTypedDict]]
+    stream_options: NotRequired[
+        Nullable[StreamRunAgentModelConfigurationStreamOptionsTypedDict]
+    ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[StreamRunAgentModelThinkingTypedDict]
+    thinking: NotRequired[StreamRunAgentModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[StreamRunAgentModelToolChoiceTypedDict]
+    tool_choice: NotRequired[StreamRunAgentModelConfigurationToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[StreamRunAgentModelModalities]]]
+    modalities: NotRequired[Nullable[List[StreamRunAgentModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[StreamRunAgentModelWebSearchOptionsTypedDict]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
 
-class StreamRunAgentModelParameters(BaseModel):
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+class StreamRunAgentModelConfigurationParameters(BaseModel):
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    audio: OptionalNullable[StreamRunAgentModelAudio] = UNSET
+    audio: OptionalNullable[StreamRunAgentModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -349,7 +369,7 @@ class StreamRunAgentModelParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[StreamRunAgentModelResponseFormat] = None
+    response_format: Optional[StreamRunAgentModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -361,13 +381,15 @@ class StreamRunAgentModelParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[StreamRunAgentModelStop] = UNSET
+    stop: OptionalNullable[StreamRunAgentModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[StreamRunAgentModelStreamOptions] = UNSET
+    stream_options: OptionalNullable[StreamRunAgentModelConfigurationStreamOptions] = (
+        UNSET
+    )
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[StreamRunAgentModelThinking] = None
+    thinking: Optional[StreamRunAgentModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -378,17 +400,16 @@ class StreamRunAgentModelParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[StreamRunAgentModelToolChoice] = None
+    tool_choice: Optional[StreamRunAgentModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[StreamRunAgentModelModalities]] = UNSET
+    modalities: OptionalNullable[List[StreamRunAgentModelConfigurationModalities]] = (
+        UNSET
+    )
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[StreamRunAgentModelWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -414,7 +435,6 @@ class StreamRunAgentModelParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -460,73 +480,69 @@ class StreamRunAgentModelParameters(BaseModel):
         return m
 
 
-class StreamRunAgentModel2TypedDict(TypedDict):
-    r"""Model configuration with parameters"""
+class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class StreamRunAgentModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
+    r"""
+
+    Model configuration with parameters and retry settings.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
-    integration_id: NotRequired[Nullable[str]]
-    r"""Optional integration ID for custom configurations"""
-    parameters: NotRequired[StreamRunAgentModelParametersTypedDict]
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
+    parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+    retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
-class StreamRunAgentModel2(BaseModel):
-    r"""Model configuration with parameters"""
+class StreamRunAgentModelConfiguration2(BaseModel):
+    r"""
+
+    Model configuration with parameters and retry settings.
+    """
 
     id: str
-    r"""Model ID or provider/model string"""
+    r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
 
-    integration_id: OptionalNullable[str] = UNSET
-    r"""Optional integration ID for custom configurations"""
+    parameters: Optional[StreamRunAgentModelConfigurationParameters] = None
+    r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    parameters: Optional[StreamRunAgentModelParameters] = None
-    r"""Model parameters to customize behavior (snake_case). Common: temperature (0-1, controls randomness), max_tokens (response length). Advanced: top_p (nucleus sampling), frequency_penalty, presence_penalty, response_format, reasoning_effort. Not all parameters work with all models."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    retry: Optional[StreamRunAgentModelConfigurationRetry] = None
+    r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
-StreamRunAgentModelTypedDict = TypeAliasType(
-    "StreamRunAgentModelTypedDict", Union[StreamRunAgentModel2TypedDict, str]
+StreamRunAgentModelConfigurationTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationTypedDict",
+    Union[StreamRunAgentModelConfiguration2TypedDict, str],
 )
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-StreamRunAgentModel = TypeAliasType(
-    "StreamRunAgentModel", Union[StreamRunAgentModel2, str]
+StreamRunAgentModelConfiguration = TypeAliasType(
+    "StreamRunAgentModelConfiguration", Union[StreamRunAgentModelConfiguration2, str]
 )
-r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
 
-StreamRunAgentFallbackModelsVoice = Literal[
+StreamRunAgentFallbackModelConfigurationVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -537,7 +553,7 @@ StreamRunAgentFallbackModelsVoice = Literal[
 r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
 
-StreamRunAgentFallbackModelsFormat = Literal[
+StreamRunAgentFallbackModelConfigurationFormat = Literal[
     "wav",
     "mp3",
     "flac",
@@ -547,33 +563,35 @@ StreamRunAgentFallbackModelsFormat = Literal[
 r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentFallbackModelsAudioTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentFallbackModelsVoice
+    voice: StreamRunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: StreamRunAgentFallbackModelsFormat
+    format_: StreamRunAgentFallbackModelConfigurationFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-class StreamRunAgentFallbackModelsAudio(BaseModel):
+class StreamRunAgentFallbackModelConfigurationAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: StreamRunAgentFallbackModelsVoice
+    voice: StreamRunAgentFallbackModelConfigurationVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[
-        StreamRunAgentFallbackModelsFormat, pydantic.Field(alias="format")
+        StreamRunAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
     ]
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type = Literal[
+StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType = Literal[
     "json_schema",
 ]
 
 
-class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict(
+    TypedDict
+):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -584,7 +602,7 @@ class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
+class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -594,19 +612,29 @@ class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: Optional[bool] = None
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class StreamRunAgentResponseFormatAgents3TypedDict(TypedDict):
-    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
-    json_schema: StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict
+class StreamRunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+    json_schema: StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict
 
 
-class StreamRunAgentResponseFormatAgents3(BaseModel):
-    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModels2Type
+class StreamRunAgentResponseFormatAgentsRequestJSONSchema(BaseModel):
+    r"""
 
-    json_schema: StreamRunAgentResponseFormatAgentsJSONSchema
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType
+
+    json_schema: StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema
 
 
 StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal[
@@ -614,104 +642,126 @@ StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType = Literal
 ]
 
 
-class StreamRunAgentResponseFormatAgents2TypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsJSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
-class StreamRunAgentResponseFormatAgents2(BaseModel):
+class StreamRunAgentResponseFormatAgentsJSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyFallbackModelsType
 
 
 StreamRunAgentResponseFormatAgentsRequestRequestBodyType = Literal["text",]
 
 
-class StreamRunAgentResponseFormatAgents1TypedDict(TypedDict):
+class StreamRunAgentResponseFormatAgentsTextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-class StreamRunAgentResponseFormatAgents1(BaseModel):
+class StreamRunAgentResponseFormatAgentsText(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
     type: StreamRunAgentResponseFormatAgentsRequestRequestBodyType
 
 
-StreamRunAgentFallbackModelsResponseFormatTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsResponseFormatTypedDict",
+StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict",
     Union[
-        StreamRunAgentResponseFormatAgents1TypedDict,
-        StreamRunAgentResponseFormatAgents2TypedDict,
-        StreamRunAgentResponseFormatAgents3TypedDict,
+        StreamRunAgentResponseFormatAgentsTextTypedDict,
+        StreamRunAgentResponseFormatAgentsJSONObjectTypedDict,
+        StreamRunAgentResponseFormatAgentsRequestJSONSchemaTypedDict,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentFallbackModelsResponseFormat = TypeAliasType(
-    "StreamRunAgentFallbackModelsResponseFormat",
+StreamRunAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationResponseFormat",
     Union[
-        StreamRunAgentResponseFormatAgents1,
-        StreamRunAgentResponseFormatAgents2,
-        StreamRunAgentResponseFormatAgents3,
+        StreamRunAgentResponseFormatAgentsText,
+        StreamRunAgentResponseFormatAgentsJSONObject,
+        StreamRunAgentResponseFormatAgentsRequestJSONSchema,
     ],
 )
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentFallbackModelsStopTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsStopTypedDict", Union[str, List[str]]
+StreamRunAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-StreamRunAgentFallbackModelsStop = TypeAliasType(
-    "StreamRunAgentFallbackModelsStop", Union[str, List[str]]
+StreamRunAgentFallbackModelConfigurationStop = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationStop", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class StreamRunAgentFallbackModelsStreamOptionsTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class StreamRunAgentFallbackModelsStreamOptions(BaseModel):
+class StreamRunAgentFallbackModelConfigurationStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentFallbackModelsType = Literal[
+StreamRunAgentFallbackModelConfigurationType = Literal[
     "enabled",
     "disabled",
 ]
 r"""Enables or disables the thinking mode capability"""
 
 
-StreamRunAgentFallbackModelsThinkingLevel = Literal[
+StreamRunAgentFallbackModelConfigurationThinkingLevel = Literal[
     "low",
     "high",
 ]
 r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class StreamRunAgentFallbackModelsThinkingTypedDict(TypedDict):
-    type: StreamRunAgentFallbackModelsType
+class StreamRunAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
+    type: StreamRunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[StreamRunAgentFallbackModelsThinkingLevel]
+    thinking_level: NotRequired[StreamRunAgentFallbackModelConfigurationThinkingLevel]
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
-class StreamRunAgentFallbackModelsThinking(BaseModel):
-    type: StreamRunAgentFallbackModelsType
+class StreamRunAgentFallbackModelConfigurationThinking(BaseModel):
+    type: StreamRunAgentFallbackModelConfigurationType
     r"""Enables or disables the thinking mode capability"""
 
     budget_tokens: float
     r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
 
-    thinking_level: Optional[StreamRunAgentFallbackModelsThinkingLevel] = None
+    thinking_level: Optional[StreamRunAgentFallbackModelConfigurationThinkingLevel] = (
+        None
+    )
     r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
@@ -749,42 +799,30 @@ StreamRunAgentToolChoiceAgents1 = Literal[
 ]
 
 
-StreamRunAgentFallbackModelsToolChoiceTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsToolChoiceTypedDict",
+StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict",
     Union[StreamRunAgentToolChoiceAgents2TypedDict, StreamRunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentFallbackModelsToolChoice = TypeAliasType(
-    "StreamRunAgentFallbackModelsToolChoice",
+StreamRunAgentFallbackModelConfigurationToolChoice = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationToolChoice",
     Union[StreamRunAgentToolChoiceAgents2, StreamRunAgentToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-StreamRunAgentFallbackModelsModalities = Literal[
+StreamRunAgentFallbackModelConfigurationModalities = Literal[
     "text",
     "audio",
 ]
 
 
-class StreamRunAgentFallbackModelsWebSearchOptionsTypedDict(TypedDict):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    enabled: NotRequired[bool]
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentFallbackModelsWebSearchOptions(BaseModel):
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
-
-    enabled: Optional[bool] = None
-    r"""Whether to enable web search for this request."""
-
-
-class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
-    audio: NotRequired[Nullable[StreamRunAgentFallbackModelsAudioTypedDict]]
+    audio: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
@@ -803,7 +841,9 @@ class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[StreamRunAgentFallbackModelsResponseFormatTypedDict]
+    response_format: NotRequired[
+        StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict
+    ]
     r"""An object specifying the format that the model must output"""
     reasoning_effort: NotRequired[str]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -811,33 +851,35 @@ class StreamRunAgentFallbackModelsParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[StreamRunAgentFallbackModelsStopTypedDict]]
+    stop: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
     stream_options: NotRequired[
-        Nullable[StreamRunAgentFallbackModelsStreamOptionsTypedDict]
+        Nullable[StreamRunAgentFallbackModelConfigurationStreamOptionsTypedDict]
     ]
     r"""Options for streaming response. Only set this when you set stream: true."""
-    thinking: NotRequired[StreamRunAgentFallbackModelsThinkingTypedDict]
+    thinking: NotRequired[StreamRunAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[StreamRunAgentFallbackModelsToolChoiceTypedDict]
+    tool_choice: NotRequired[
+        StreamRunAgentFallbackModelConfigurationToolChoiceTypedDict
+    ]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[StreamRunAgentFallbackModelsModalities]]]
-    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    web_search_options: NotRequired[
-        StreamRunAgentFallbackModelsWebSearchOptionsTypedDict
+    modalities: NotRequired[
+        Nullable[List[StreamRunAgentFallbackModelConfigurationModalities]]
     ]
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
 
-class StreamRunAgentFallbackModelsParameters(BaseModel):
-    audio: OptionalNullable[StreamRunAgentFallbackModelsAudio] = UNSET
+class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    audio: OptionalNullable[StreamRunAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
     frequency_penalty: OptionalNullable[float] = UNSET
@@ -864,7 +906,9 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[StreamRunAgentFallbackModelsResponseFormat] = None
+    response_format: Optional[
+        StreamRunAgentFallbackModelConfigurationResponseFormat
+    ] = None
     r"""An object specifying the format that the model must output"""
 
     reasoning_effort: Optional[str] = None
@@ -876,13 +920,15 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[StreamRunAgentFallbackModelsStop] = UNSET
+    stop: OptionalNullable[StreamRunAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[StreamRunAgentFallbackModelsStreamOptions] = UNSET
+    stream_options: OptionalNullable[
+        StreamRunAgentFallbackModelConfigurationStreamOptions
+    ] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
-    thinking: Optional[StreamRunAgentFallbackModelsThinking] = None
+    thinking: Optional[StreamRunAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -893,17 +939,16 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[StreamRunAgentFallbackModelsToolChoice] = None
+    tool_choice: Optional[StreamRunAgentFallbackModelConfigurationToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[StreamRunAgentFallbackModelsModalities]] = UNSET
+    modalities: OptionalNullable[
+        List[StreamRunAgentFallbackModelConfigurationModalities]
+    ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-
-    web_search_options: Optional[StreamRunAgentFallbackModelsWebSearchOptions] = None
-    r"""This tool searches the web for relevant results to use in a response. Learn more about the web search tool."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -929,7 +974,6 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
-            "web_search_options",
         ]
         nullable_fields = [
             "audio",
@@ -975,69 +1019,45 @@ class StreamRunAgentFallbackModelsParameters(BaseModel):
         return m
 
 
-class StreamRunAgentFallbackModels2TypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfiguration2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
-    integration_id: NotRequired[Nullable[str]]
-    parameters: NotRequired[StreamRunAgentFallbackModelsParametersTypedDict]
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[StreamRunAgentFallbackModelConfigurationParametersTypedDict]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-class StreamRunAgentFallbackModels2(BaseModel):
+class StreamRunAgentFallbackModelConfiguration2(BaseModel):
+    r"""Fallback model configuration with optional parameters."""
+
     id: str
-    r"""Fallback model ID"""
+    r"""A fallback model ID string. Must support tool calling."""
 
-    integration_id: OptionalNullable[str] = UNSET
-
-    parameters: Optional[StreamRunAgentFallbackModelsParameters] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters"]
-        nullable_fields = ["integration_id"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
+    parameters: Optional[StreamRunAgentFallbackModelConfigurationParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
 
-StreamRunAgentFallbackModelsTypedDict = TypeAliasType(
-    "StreamRunAgentFallbackModelsTypedDict",
-    Union[StreamRunAgentFallbackModels2TypedDict, str],
+StreamRunAgentFallbackModelConfigurationTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationTypedDict",
+    Union[StreamRunAgentFallbackModelConfiguration2TypedDict, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-StreamRunAgentFallbackModels = TypeAliasType(
-    "StreamRunAgentFallbackModels", Union[StreamRunAgentFallbackModels2, str]
+StreamRunAgentFallbackModelConfiguration = TypeAliasType(
+    "StreamRunAgentFallbackModelConfiguration",
+    Union[StreamRunAgentFallbackModelConfiguration2, str],
 )
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
 StreamRunAgentRoleToolMessage = Literal["tool",]
-r"""Tool message"""
+r"""Message containing tool execution results"""
 
 
 StreamRunAgentRoleUserMessage = Literal["user",]
-r"""User message"""
+r"""Message from the end user"""
 
 
 StreamRunAgentRoleTypedDict = TypeAliasType(
@@ -1202,7 +1222,7 @@ StreamRunAgentPublicMessagePart = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-class StreamRunAgentMessageTypedDict(TypedDict):
+class StreamRunAgentA2AMessageTypedDict(TypedDict):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: StreamRunAgentRoleTypedDict
@@ -1213,7 +1233,7 @@ class StreamRunAgentMessageTypedDict(TypedDict):
     r"""Optional A2A message ID in ULID format"""
 
 
-class StreamRunAgentMessage(BaseModel):
+class StreamRunAgentA2AMessage(BaseModel):
     r"""The A2A format message containing the task for the agent to perform."""
 
     role: StreamRunAgentRole
@@ -1323,9 +1343,172 @@ class StreamRunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "mcp",
+]
+
+
+class StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class StreamRunAgentAgentToolInputRunAgentsHeaders(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+    "object",
+]
+
+
+class AgentToolInputRunSchemaTypedDict(TypedDict):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+    properties: NotRequired[Dict[str, Any]]
+    required: NotRequired[List[str]]
+
+
+class AgentToolInputRunSchema(BaseModel):
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+
+    properties: Optional[Dict[str, Any]] = None
+
+    required: Optional[List[str]] = None
+
+
+class AgentToolInputRunToolsTypedDict(TypedDict):
+    name: str
+    schema_: AgentToolInputRunSchemaTypedDict
+    id: NotRequired[str]
+    description: NotRequired[str]
+
+
+class AgentToolInputRunTools(BaseModel):
+    name: str
+
+    schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
+
+    id: Optional[str] = "01KAPWG4CRQETTTRT2J2RSC82J"
+
+    description: Optional[str] = None
+
+
+AgentToolInputRunConnectionType = Literal[
+    "http",
+    "sse",
+]
+r"""The connection type used by the MCP server"""
+
+
+class AgentToolInputRunMcpTypedDict(TypedDict):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+    tools: List[AgentToolInputRunToolsTypedDict]
+    r"""Array of tools available from the MCP server"""
+    connection_type: AgentToolInputRunConnectionType
+    r"""The connection type used by the MCP server"""
+    headers: NotRequired[
+        Dict[str, StreamRunAgentAgentToolInputRunAgentsHeadersTypedDict]
+    ]
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class AgentToolInputRunMcp(BaseModel):
+    server_url: str
+    r"""The MCP server URL (cached for execution)"""
+
+    tools: List[AgentToolInputRunTools]
+    r"""Array of tools available from the MCP server"""
+
+    connection_type: AgentToolInputRunConnectionType
+    r"""The connection type used by the MCP server"""
+
+    headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunAgentsHeaders]] = None
+    r"""HTTP headers for MCP server requests with encryption support"""
+
+
+class AgentToolInputRunMCPToolRunTypedDict(TypedDict):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    mcp: AgentToolInputRunMcpTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class AgentToolInputRunMCPToolRun(BaseModel):
+    r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    mcp: AgentToolInputRunMcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+
 StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
 ]
+
+
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType = (
+    Literal["object",]
+)
+r"""The type must be \"object\" """
+
+
+class StreamRunAgentAgentToolInputRunAgentsParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class StreamRunAgentAgentToolInputRunAgentsParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14FunctionType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
 class StreamRunAgentAgentToolInputRunFunctionTypedDict(TypedDict):
@@ -1335,7 +1518,7 @@ class StreamRunAgentAgentToolInputRunFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[StreamRunAgentAgentToolInputRunAgentsParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1349,7 +1532,7 @@ class StreamRunAgentAgentToolInputRunFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[StreamRunAgentAgentToolInputRunAgentsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1390,6 +1573,49 @@ StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Lit
 ]
 
 
+StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType = (
+    Literal["object",]
+)
+r"""The type must be \"object\" """
+
+
+class StreamRunAgentAgentToolInputRunParametersTypedDict(TypedDict):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+    required: List[str]
+    r"""Array of required parameter names"""
+
+
+class StreamRunAgentAgentToolInputRunParameters(BaseModel):
+    r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolType
+    r"""The type must be \"object\" """
+
+    properties: Dict[str, Any]
+    r"""The properties of the function parameters"""
+
+    required: List[str]
+    r"""Array of required parameter names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
 AgentToolInputRunLanguage = Literal["python",]
 
 
@@ -1397,7 +1623,7 @@ class AgentToolInputRunCodeToolTypedDict(TypedDict):
     language: AgentToolInputRunLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[Dict[str, Any]]
+    parameters: NotRequired[StreamRunAgentAgentToolInputRunParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1407,7 +1633,7 @@ class AgentToolInputRunCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[Dict[str, Any]] = None
+    parameters: Optional[StreamRunAgentAgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1459,6 +1685,28 @@ AgentToolInputRunMethod = Literal[
 r"""The HTTP method to use."""
 
 
+class StreamRunAgentHeaders2TypedDict(TypedDict):
+    value: str
+    encrypted: NotRequired[bool]
+
+
+class StreamRunAgentHeaders2(BaseModel):
+    value: str
+
+    encrypted: Optional[bool] = False
+
+
+StreamRunAgentAgentToolInputRunHeadersTypedDict = TypeAliasType(
+    "StreamRunAgentAgentToolInputRunHeadersTypedDict",
+    Union[StreamRunAgentHeaders2TypedDict, str],
+)
+
+
+StreamRunAgentAgentToolInputRunHeaders = TypeAliasType(
+    "StreamRunAgentAgentToolInputRunHeaders", Union[StreamRunAgentHeaders2, str]
+)
+
+
 class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The blueprint for the HTTP request. The `arguments` field will be used to replace the placeholders in the `url`, `headers`, `body`, and `arguments` fields."""
 
@@ -1466,8 +1714,8 @@ class AgentToolInputRunBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, str]]
-    r"""The headers to send with the request."""
+    headers: NotRequired[Dict[str, StreamRunAgentAgentToolInputRunHeadersTypedDict]]
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
 
@@ -1481,8 +1729,8 @@ class AgentToolInputRunBlueprint(BaseModel):
     method: AgentToolInputRunMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, str]] = None
-    r"""The headers to send with the request."""
+    headers: Optional[Dict[str, StreamRunAgentAgentToolInputRunHeaders]] = None
+    r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
@@ -1837,9 +2085,10 @@ StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
         AgentToolInputRunHTTPToolRunTypedDict,
         AgentToolInputRunCodeToolRunTypedDict,
         AgentToolInputRunFunctionToolRunTypedDict,
+        AgentToolInputRunMCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentAgentToolInputRun = TypeAliasType(
@@ -1859,9 +2108,10 @@ StreamRunAgentAgentToolInputRun = TypeAliasType(
         AgentToolInputRunHTTPToolRun,
         AgentToolInputRunCodeToolRun,
         AgentToolInputRunFunctionToolRun,
+        AgentToolInputRunMCPToolRun,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
 StreamRunAgentToolApprovalRequired = Literal[
@@ -1870,6 +2120,60 @@ StreamRunAgentToolApprovalRequired = Literal[
     "none",
 ]
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+
+StreamRunAgentExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamRunAgentEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamRunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamRunAgentEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamRunAgentExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+StreamRunAgentAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class StreamRunAgentGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamRunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class StreamRunAgentGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamRunAgentAgentsExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
 class StreamRunAgentSettingsTypedDict(TypedDict):
@@ -1881,6 +2185,10 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    evaluators: NotRequired[List[StreamRunAgentEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[StreamRunAgentGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
 
 
 class StreamRunAgentSettings(BaseModel):
@@ -1890,23 +2198,29 @@ class StreamRunAgentSettings(BaseModel):
     tool_approval_required: Optional[StreamRunAgentToolApprovalRequired] = "none"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
+    evaluators: Optional[List[StreamRunAgentEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[StreamRunAgentGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
+
 
 class StreamRunAgentRequestBodyTypedDict(TypedDict):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
-    model: StreamRunAgentModelTypedDict
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: StreamRunAgentModelConfigurationTypedDict
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
     role: str
     r"""Specifies the agent's function and area of expertise."""
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
-    message: StreamRunAgentMessageTypedDict
+    message: StreamRunAgentA2AMessageTypedDict
     r"""The A2A format message containing the task for the agent to perform."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -1918,8 +2232,10 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     settings: StreamRunAgentSettingsTypedDict
     task_id: NotRequired[str]
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
-    fallback_models: NotRequired[List[StreamRunAgentFallbackModelsTypedDict]]
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: NotRequired[
+        List[StreamRunAgentFallbackModelConfigurationTypedDict]
+    ]
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
     contact: NotRequired[StreamRunAgentContactTypedDict]
@@ -1933,7 +2249,7 @@ class StreamRunAgentRequestBodyTypedDict(TypedDict):
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
     memory_stores: NotRequired[List[str]]
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
     knowledge_bases: NotRequired[List[StreamRunAgentKnowledgeBasesTypedDict]]
     r"""Knowledge base configurations for the agent to access"""
     team_of_agents: NotRequired[List[StreamRunAgentTeamOfAgentsTypedDict]]
@@ -1948,8 +2264,8 @@ class StreamRunAgentRequestBody(BaseModel):
     key: str
     r"""A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed."""
 
-    model: StreamRunAgentModel
-    r"""The language model that powers the agent. Can be a simple string (e.g., \"openai/gpt-4o\") or an object with model ID and parameters. The model must support tool calling capabilities."""
+    model: StreamRunAgentModelConfiguration
+    r"""Model configuration for this execution. Can override the agent manifest defaults if the agent already exists."""
 
     role: str
     r"""Specifies the agent's function and area of expertise."""
@@ -1957,7 +2273,7 @@ class StreamRunAgentRequestBody(BaseModel):
     instructions: str
     r"""Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions."""
 
-    message: StreamRunAgentMessage
+    message: StreamRunAgentA2AMessage
     r"""The A2A format message containing the task for the agent to perform."""
 
     path: str
@@ -1973,8 +2289,8 @@ class StreamRunAgentRequestBody(BaseModel):
     task_id: Optional[str] = None
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
 
-    fallback_models: Optional[List[StreamRunAgentFallbackModels]] = None
-    r"""Optional array of fallback models (string IDs or config objects) to use when the primary model fails. Models are tried in order. All models must support tool calling capabilities."""
+    fallback_models: Optional[List[StreamRunAgentFallbackModelConfiguration]] = None
+    r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
 
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
@@ -1995,7 +2311,7 @@ class StreamRunAgentRequestBody(BaseModel):
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
 
     memory_stores: Optional[List[str]] = None
-    r"""The list of keys of the memory stores that are accessible to the agent."""
+    r"""Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys."""
 
     knowledge_bases: Optional[List[StreamRunAgentKnowledgeBases]] = None
     r"""Knowledge base configurations for the agent to access"""
@@ -2032,15 +2348,2990 @@ class StreamRunAgentAgentsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-class StreamRunAgentResponseBodyTypedDict(TypedDict):
-    r"""SSE stream of agent events"""
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17Type = Literal[
+    "agents.error",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17DataTypedDict(
+    TypedDict
+):
+    error: str
+    code: str
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17Data(BaseModel):
+    error: str
+
+    code: str
+
+
+class SeventeenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17DataTypedDict
+
+
+class Seventeen(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody17Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16Type = Literal[
+    "agents.timeout",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16DataTypedDict(
+    TypedDict
+):
+    message: str
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16Data(BaseModel):
+    message: str
+
+
+class SixteenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16DataTypedDict
+
+
+class Sixteen(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody16Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Type = Literal[
+    "event.workflow_events.tool_execution_failed",
+]
+
+
+class ErrorTypedDict(TypedDict):
+    message: str
+    stack: NotRequired[str]
+
+
+class Error(BaseModel):
+    message: str
+
+    stack: Optional[str] = None
+
+
+StreamRunAgentDataProduct = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class StreamRunAgentDataAgentsMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class StreamRunAgentDataAgentsMemory(BaseModel):
+    entity_id: str
+
+
+class StreamRunAgentDataToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: StreamRunAgentDataProduct
+    r"""Orquesta product"""
+    memory: NotRequired[StreamRunAgentDataAgentsMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class StreamRunAgentDataToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: StreamRunAgentDataProduct
+    r"""Orquesta product"""
+
+    memory: Optional[StreamRunAgentDataAgentsMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15DataTypedDict(
+    TypedDict
+):
+    error: ErrorTypedDict
+    action_type: str
+    tool_execution_context: StreamRunAgentDataToolExecutionContextTypedDict
+    response_id: NotRequired[str]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Data(BaseModel):
+    error: Error
+
+    action_type: str
+
+    tool_execution_context: StreamRunAgentDataToolExecutionContext
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+
+class FifteenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15DataTypedDict
+
+
+class Fifteen(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody15Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14Type = Literal[
+    "event.workflow_events.tool_execution_finished",
+]
+
+
+DataProduct = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class StreamRunAgentDataMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class StreamRunAgentDataMemory(BaseModel):
+    entity_id: str
+
+
+class DataToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: DataProduct
+    r"""Orquesta product"""
+    memory: NotRequired[StreamRunAgentDataMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class DataToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: DataProduct
+    r"""Orquesta product"""
+
+    memory: Optional[StreamRunAgentDataMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14DataTypedDict(
+    TypedDict
+):
+    action_type: str
+    tool_execution_context: DataToolExecutionContextTypedDict
+    result: NotRequired[Any]
+    response_id: NotRequired[str]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14Data(BaseModel):
+    action_type: str
+
+    tool_execution_context: DataToolExecutionContext
+
+    result: Optional[Any] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+
+class FourteenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14DataTypedDict
+
+
+class Fourteen(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody14Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13Type = Literal[
+    "event.workflow_events.tool_execution_started",
+]
+
+
+Product = Literal[
+    "remoteconfigs",
+    "deployments",
+    "experiments",
+    "playgrounds",
+    "spreadsheets",
+    "spreadsheet_run",
+    "llm_evaluator",
+    "knowledge",
+    "router",
+    "workflows",
+    "external_events",
+    "agents",
+    "memory-stores",
+    "generic",
+    "evaluators",
+    "otel",
+]
+r"""Orquesta product"""
+
+
+class DataMemoryTypedDict(TypedDict):
+    entity_id: str
+
+
+class DataMemory(BaseModel):
+    entity_id: str
+
+
+class ToolExecutionContextTypedDict(TypedDict):
+    action_id: str
+    agent_tool_call_id: str
+    workspace_id: str
+    agent_manifest_id: str
+    agent_execution_id: str
+    product: Product
+    r"""Orquesta product"""
+    memory: NotRequired[DataMemoryTypedDict]
+    parent_id: NotRequired[str]
+
+
+class ToolExecutionContext(BaseModel):
+    action_id: str
+
+    agent_tool_call_id: str
+
+    workspace_id: str
+
+    agent_manifest_id: str
+
+    agent_execution_id: str
+
+    product: Product
+    r"""Orquesta product"""
+
+    memory: Optional[DataMemory] = None
+
+    parent_id: Optional[str] = None
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13DataTypedDict(
+    TypedDict
+):
+    tool_id: str
+    action_type: str
+    tool_arguments: Dict[str, Any]
+    tool_execution_context: ToolExecutionContextTypedDict
+    tool_key: NotRequired[str]
+    tool_display_name: NotRequired[str]
+    response_id: NotRequired[str]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13Data(BaseModel):
+    tool_id: str
+
+    action_type: str
+
+    tool_arguments: Dict[str, Any]
+
+    tool_execution_context: ToolExecutionContext
+
+    tool_key: Optional[str] = None
+
+    tool_display_name: Optional[str] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+
+class ThirteenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13DataTypedDict
+
+
+class Thirteen(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody13Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12Type = Literal[
+    "event.agents.message-created",
+]
+
+
+StreamRunAgentDataAgentsResponseRole = Literal[
+    "user",
+    "tool",
+]
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind = Literal[
+    "tool_result",
+]
+
+
+class StreamRunAgentPartsAgentsResponse200ToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponse200ToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind = Literal[
+    "tool_call",
+]
+
+
+class StreamRunAgentPartsAgentsResponse200ToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponse200ToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind = (
+    Literal["file",]
+)
+
+
+class StreamRunAgentFileAgentsResponse200TextEventStreamFileInURIFormatTypedDict(
+    TypedDict
+):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200TextEventStreamFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200TextEventStreamBinaryFormatTypedDict(
+    TypedDict
+):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200TextEventStreamBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamRunAgentPartsAgentsResponse200FileTypedDict = TypeAliasType(
+    "StreamRunAgentPartsAgentsResponse200FileTypedDict",
+    Union[
+        StreamRunAgentFileAgentsResponse200TextEventStreamBinaryFormatTypedDict,
+        StreamRunAgentFileAgentsResponse200TextEventStreamFileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamRunAgentPartsAgentsResponse200File = TypeAliasType(
+    "StreamRunAgentPartsAgentsResponse200File",
+    Union[
+        StreamRunAgentFileAgentsResponse200TextEventStreamBinaryFormat,
+        StreamRunAgentFileAgentsResponse200TextEventStreamFileInURIFormat,
+    ],
+)
+
+
+class StreamRunAgentPartsAgentsResponse200FilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
+    file: StreamRunAgentPartsAgentsResponse200FileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponse200FilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
+
+    file: StreamRunAgentPartsAgentsResponse200File
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind = Literal[
+    "data",
+]
+
+
+class StreamRunAgentPartsAgentsResponse200DataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponse200DataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind = Literal[
+    "text",
+]
+
+
+class StreamRunAgentPartsAgentsResponse200TextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
+    text: str
+
+
+class StreamRunAgentPartsAgentsResponse200TextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
+
+    text: str
+
+
+StreamRunAgentDataAgentsResponsePartsTypedDict = TypeAliasType(
+    "StreamRunAgentDataAgentsResponsePartsTypedDict",
+    Union[
+        StreamRunAgentPartsAgentsResponse200TextPartTypedDict,
+        StreamRunAgentPartsAgentsResponse200DataPartTypedDict,
+        StreamRunAgentPartsAgentsResponse200FilePartTypedDict,
+        StreamRunAgentPartsAgentsResponse200ToolResultPartTypedDict,
+        StreamRunAgentPartsAgentsResponse200ToolCallPartTypedDict,
+    ],
+)
+
+
+StreamRunAgentDataAgentsResponseParts = TypeAliasType(
+    "StreamRunAgentDataAgentsResponseParts",
+    Union[
+        StreamRunAgentPartsAgentsResponse200TextPart,
+        StreamRunAgentPartsAgentsResponse200DataPart,
+        StreamRunAgentPartsAgentsResponse200FilePart,
+        StreamRunAgentPartsAgentsResponse200ToolResultPart,
+        StreamRunAgentPartsAgentsResponse200ToolCallPart,
+    ],
+)
+
+
+class DataMessageTypedDict(TypedDict):
+    role: StreamRunAgentDataAgentsResponseRole
+    parts: List[StreamRunAgentDataAgentsResponsePartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class DataMessage(BaseModel):
+    role: StreamRunAgentDataAgentsResponseRole
+
+    parts: List[StreamRunAgentDataAgentsResponseParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12DataTypedDict(
+    TypedDict
+):
+    workflow_run_id: str
+    span_id: str
+    parent_id: str
+    message: List[DataMessageTypedDict]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12Data(BaseModel):
+    workflow_run_id: Annotated[str, pydantic.Field(alias="workflowRunId")]
+
+    span_id: Annotated[str, pydantic.Field(alias="spanId")]
+
+    parent_id: Annotated[str, pydantic.Field(alias="parentId")]
+
+    message: List[DataMessage]
+
+
+class TwelveTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12DataTypedDict
+
+
+class Twelve(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody12Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11Type = Literal[
+    "event.agents.handed_off",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11DataTypedDict(
+    TypedDict
+):
+    agent_id: str
+    input: str
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11Data(BaseModel):
+    agent_id: str
+
+    input: str
+
+
+class ElevenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11DataTypedDict
+
+
+class Eleven(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody11Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10Type = Literal[
+    "event.agents.execution_named",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10DataTypedDict(
+    TypedDict
+):
+    name: str
+    agent_manifest_id: str
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10Data(BaseModel):
+    name: str
+
+    agent_manifest_id: str
+
+
+class TenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10DataTypedDict
+
+
+class Ten(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody10Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9Type = Literal[
+    "event.agents.execution_reviewed",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9DataTypedDict(
+    TypedDict
+):
+    pass
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9Data(BaseModel):
+    pass
+
+
+class NineTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9DataTypedDict
+
+
+class Nine(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody9Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8Type = Literal[
+    "event.agents.execution_review_required",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8DataTypedDict(
+    TypedDict
+):
+    pass
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8Data(BaseModel):
+    pass
+
+
+class EightTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8DataTypedDict
+
+
+class Eight(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody8Data
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody7Type = Literal[
+    "event.agents.action_reviewed",
+]
+
+
+Review = Literal[
+    "approved",
+    "rejected",
+]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDict(
+    TypedDict
+):
+    agent_id: str
+    action_id: str
+    agent_tool_call_id: str
+    review: Review
+    mock_output: NotRequired[Dict[str, Any]]
+    review_source: NotRequired[str]
+    reviewed_by_id: NotRequired[str]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyData(BaseModel):
+    agent_id: str
+
+    action_id: str
+
+    agent_tool_call_id: str
+
+    review: Review
+
+    mock_output: Optional[Dict[str, Any]] = None
+
+    review_source: Optional[str] = None
+
+    reviewed_by_id: Optional[str] = None
+
+
+class SevenTypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody7Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDict
+
+
+class Seven(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody7Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyData
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyType = Literal[
+    "event.agents.action_review_requested",
+]
+
+
+class DataConditionsTypedDict(TypedDict):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+    operator: str
+    r"""The operator to use"""
+    value: str
+    r"""The value to compare against"""
+
+
+class DataConditions(BaseModel):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+
+    operator: str
+    r"""The operator to use"""
+
+    value: str
+    r"""The value to compare against"""
+
+
+class ToolTypedDict(TypedDict):
+    id: str
+    r"""The id of the resource"""
+    action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
+    display_name: NotRequired[str]
+    description: NotRequired[str]
+    r"""Optional tool description"""
+    requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+    conditions: NotRequired[List[DataConditionsTypedDict]]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class Tool(BaseModel):
+    id: str
+    r"""The id of the resource"""
+
+    action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
+
+    display_name: Optional[str] = None
+
+    description: Optional[str] = None
+    r"""Optional tool description"""
+
+    requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+
+    conditions: Optional[List[DataConditions]] = None
+
+    timeout: Optional[float] = 120
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamDataTypedDict(TypedDict):
+    agent_id: str
+    action_id: str
+    requires_approval: bool
+    tool: ToolTypedDict
+    input: Dict[str, Any]
+    agent_tool_call_id: str
+    response_id: NotRequired[str]
+
+
+class StreamRunAgentDataAgentsResponse200TextEventStreamData(BaseModel):
+    agent_id: str
+
+    action_id: str
+
+    requires_approval: bool
+
+    tool: Tool
+
+    input: Dict[str, Any]
+
+    agent_tool_call_id: str
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+
+class StreamRunAgentData6TypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamDataTypedDict
+
+
+class StreamRunAgentData6(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200TextEventStreamData
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamType = Literal[
+    "event.agents.errored",
+]
+
+
+class StreamRunAgentDataAgentsResponse200DataTypedDict(TypedDict):
+    error: str
+    code: float
+    response_id: NotRequired[str]
+    r"""ID of the response tracking this execution"""
+
+
+class StreamRunAgentDataAgentsResponse200Data(BaseModel):
+    error: str
+
+    code: float
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+    r"""ID of the response tracking this execution"""
+
+
+class StreamRunAgentData5TypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponse200DataTypedDict
+
+
+class StreamRunAgentData5(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponse200Data
+
+
+StreamRunAgentDataAgentsResponse200Type = Literal["event.agents.inactive",]
+
+
+StreamRunAgentDataAgentsRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Extended A2A message role"""
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind = Literal[
+    "tool_result",
+]
+
+
+class StreamRunAgentPartsAgentsResponseToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponseToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind = Literal[
+    "tool_call",
+]
+
+
+class StreamRunAgentPartsAgentsResponseToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponseToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind = Literal[
+    "file",
+]
+
+
+class StreamRunAgentFileAgentsResponse200FileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200FileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200BinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponse200BinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamRunAgentPartsAgentsResponseFileTypedDict = TypeAliasType(
+    "StreamRunAgentPartsAgentsResponseFileTypedDict",
+    Union[
+        StreamRunAgentFileAgentsResponse200BinaryFormatTypedDict,
+        StreamRunAgentFileAgentsResponse200FileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamRunAgentPartsAgentsResponseFile = TypeAliasType(
+    "StreamRunAgentPartsAgentsResponseFile",
+    Union[
+        StreamRunAgentFileAgentsResponse200BinaryFormat,
+        StreamRunAgentFileAgentsResponse200FileInURIFormat,
+    ],
+)
+
+
+class StreamRunAgentPartsAgentsResponseFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind
+    file: StreamRunAgentPartsAgentsResponseFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponseFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind
+
+    file: StreamRunAgentPartsAgentsResponseFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind = Literal[
+    "data",
+]
+
+
+class StreamRunAgentPartsAgentsResponseDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsResponseDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind = Literal[
+    "text",
+]
+
+
+class StreamRunAgentPartsAgentsResponseTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind
+    text: str
+
+
+class StreamRunAgentPartsAgentsResponseTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind
+
+    text: str
+
+
+StreamRunAgentDataAgentsPartsTypedDict = TypeAliasType(
+    "StreamRunAgentDataAgentsPartsTypedDict",
+    Union[
+        StreamRunAgentPartsAgentsResponseTextPartTypedDict,
+        StreamRunAgentPartsAgentsResponseDataPartTypedDict,
+        StreamRunAgentPartsAgentsResponseFilePartTypedDict,
+        StreamRunAgentPartsAgentsResponseToolResultPartTypedDict,
+        StreamRunAgentPartsAgentsResponseToolCallPartTypedDict,
+    ],
+)
+
+
+StreamRunAgentDataAgentsParts = TypeAliasType(
+    "StreamRunAgentDataAgentsParts",
+    Union[
+        StreamRunAgentPartsAgentsResponseTextPart,
+        StreamRunAgentPartsAgentsResponseDataPart,
+        StreamRunAgentPartsAgentsResponseFilePart,
+        StreamRunAgentPartsAgentsResponseToolResultPart,
+        StreamRunAgentPartsAgentsResponseToolCallPart,
+    ],
+)
+
+
+class LastMessageFullTypedDict(TypedDict):
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
+    role: StreamRunAgentDataAgentsRole
+    r"""Extended A2A message role"""
+    parts: List[StreamRunAgentDataAgentsPartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class LastMessageFull(BaseModel):
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
+    role: StreamRunAgentDataAgentsRole
+    r"""Extended A2A message role"""
+
+    parts: List[StreamRunAgentDataAgentsParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+FinishReason = Literal[
+    "stop",
+    "length",
+    "tool_calls",
+    "content_filter",
+    "function_call",
+    "max_iterations",
+    "max_time",
+]
+r"""The reason why the agent execution became inactive"""
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody4Type = Literal[
+    "function",
+]
+
+
+class StreamRunAgentDataFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    arguments: NotRequired[str]
+
+
+class StreamRunAgentDataFunction(BaseModel):
+    name: Optional[str] = None
+
+    arguments: Optional[str] = None
+
+
+class PendingToolCallsTypedDict(TypedDict):
+    id: str
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody4Type
+    function: StreamRunAgentDataFunctionTypedDict
+
+
+class PendingToolCalls(BaseModel):
+    id: str
+
+    type: StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody4Type
+
+    function: StreamRunAgentDataFunction
+
+
+class StreamRunAgentDataPromptTokensDetailsTypedDict(TypedDict):
+    cached_tokens: NotRequired[Nullable[int]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio input tokens consumed by the request."""
+
+
+class StreamRunAgentDataPromptTokensDetails(BaseModel):
+    cached_tokens: OptionalNullable[int] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio input tokens consumed by the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cached_tokens", "audio_tokens"]
+        nullable_fields = ["cached_tokens", "audio_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamRunAgentDataCompletionTokensDetailsTypedDict(TypedDict):
+    reasoning_tokens: NotRequired[Nullable[float]]
+    accepted_prediction_tokens: NotRequired[Nullable[float]]
+    rejected_prediction_tokens: NotRequired[Nullable[float]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio output tokens produced by the response."""
+
+
+class StreamRunAgentDataCompletionTokensDetails(BaseModel):
+    reasoning_tokens: OptionalNullable[float] = UNSET
+
+    accepted_prediction_tokens: OptionalNullable[float] = UNSET
+
+    rejected_prediction_tokens: OptionalNullable[float] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio output tokens produced by the response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        nullable_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamRunAgentDataUsageTypedDict(TypedDict):
+    r"""Token usage from the last agent message"""
+
+    completion_tokens: NotRequired[float]
+    r"""Number of tokens in the generated completion."""
+    prompt_tokens: NotRequired[float]
+    r"""Number of tokens in the prompt."""
+    total_tokens: NotRequired[float]
+    r"""Total number of tokens used in the request (prompt + completion)."""
+    prompt_tokens_details: NotRequired[
+        Nullable[StreamRunAgentDataPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[StreamRunAgentDataCompletionTokensDetailsTypedDict]
+    ]
+
+
+class StreamRunAgentDataUsage(BaseModel):
+    r"""Token usage from the last agent message"""
+
+    completion_tokens: Optional[float] = None
+    r"""Number of tokens in the generated completion."""
+
+    prompt_tokens: Optional[float] = None
+    r"""Number of tokens in the prompt."""
+
+    total_tokens: Optional[float] = None
+    r"""Total number of tokens used in the request (prompt + completion)."""
+
+    prompt_tokens_details: OptionalNullable[StreamRunAgentDataPromptTokensDetails] = (
+        UNSET
+    )
+
+    completion_tokens_details: OptionalNullable[
+        StreamRunAgentDataCompletionTokensDetails
+    ] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "completion_tokens",
+            "prompt_tokens",
+            "total_tokens",
+            "prompt_tokens_details",
+            "completion_tokens_details",
+        ]
+        nullable_fields = ["prompt_tokens_details", "completion_tokens_details"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamRunAgentDataAgentsResponseDataTypedDict(TypedDict):
+    last_message: str
+    finish_reason: FinishReason
+    r"""The reason why the agent execution became inactive"""
+    last_message_full: NotRequired[LastMessageFullTypedDict]
+    r"""Full last message in A2A format (for backwards compatibility)"""
+    pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
+    r"""Tool calls that are pending user response (for function_call finish reason)"""
+    usage: NotRequired[StreamRunAgentDataUsageTypedDict]
+    r"""Token usage from the last agent message"""
+    response_id: NotRequired[str]
+    r"""ID of the response tracking this execution"""
+
+
+class StreamRunAgentDataAgentsResponseData(BaseModel):
+    last_message: str
+
+    finish_reason: FinishReason
+    r"""The reason why the agent execution became inactive"""
+
+    last_message_full: Optional[LastMessageFull] = None
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
+    pending_tool_calls: Optional[List[PendingToolCalls]] = None
+    r"""Tool calls that are pending user response (for function_call finish reason)"""
+
+    usage: Optional[StreamRunAgentDataUsage] = None
+    r"""Token usage from the last agent message"""
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+    r"""ID of the response tracking this execution"""
+
+
+class Data4TypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponse200Type
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsResponseDataTypedDict
+
+
+class Data4(BaseModel):
+    type: StreamRunAgentDataAgentsResponse200Type
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsResponseData
+
+
+StreamRunAgentDataAgentsResponseType = Literal["event.agents.thought",]
+
+
+StreamRunAgentDataRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind = Literal[
+    "tool_result",
+]
+
+
+class StreamRunAgentPartsAgentsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataMessageDifferenceKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind = Literal[
+    "tool_call",
+]
+
+
+class StreamRunAgentPartsAgentsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3DataKind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind = Literal[
+    "file",
+]
+
+
+class StreamRunAgentFileAgentsResponseFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponseFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponseBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsResponseBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamRunAgentPartsAgentsFileTypedDict = TypeAliasType(
+    "StreamRunAgentPartsAgentsFileTypedDict",
+    Union[
+        StreamRunAgentFileAgentsResponseBinaryFormatTypedDict,
+        StreamRunAgentFileAgentsResponseFileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamRunAgentPartsAgentsFile = TypeAliasType(
+    "StreamRunAgentPartsAgentsFile",
+    Union[
+        StreamRunAgentFileAgentsResponseBinaryFormat,
+        StreamRunAgentFileAgentsResponseFileInURIFormat,
+    ],
+)
+
+
+class StreamRunAgentPartsAgentsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind
+    file: StreamRunAgentPartsAgentsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyData3Kind
+
+    file: StreamRunAgentPartsAgentsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind = Literal[
+    "data",
+]
+
+
+class StreamRunAgentPartsAgentsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsAgentsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyDataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyKind = Literal["text",]
+
+
+class StreamRunAgentPartsAgentsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyKind
+    text: str
+
+
+class StreamRunAgentPartsAgentsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamResponseBodyKind
+
+    text: str
+
+
+StreamRunAgentDataPartsTypedDict = TypeAliasType(
+    "StreamRunAgentDataPartsTypedDict",
+    Union[
+        StreamRunAgentPartsAgentsTextPartTypedDict,
+        StreamRunAgentPartsAgentsDataPartTypedDict,
+        StreamRunAgentPartsAgentsFilePartTypedDict,
+        StreamRunAgentPartsAgentsToolResultPartTypedDict,
+        StreamRunAgentPartsAgentsToolCallPartTypedDict,
+    ],
+)
+
+
+StreamRunAgentDataParts = TypeAliasType(
+    "StreamRunAgentDataParts",
+    Union[
+        StreamRunAgentPartsAgentsTextPart,
+        StreamRunAgentPartsAgentsDataPart,
+        StreamRunAgentPartsAgentsFilePart,
+        StreamRunAgentPartsAgentsToolResultPart,
+        StreamRunAgentPartsAgentsToolCallPart,
+    ],
+)
+
+
+class MessageDifferenceTypedDict(TypedDict):
+    message_id: str
+    role: StreamRunAgentDataRole
+    parts: List[StreamRunAgentDataPartsTypedDict]
+    agent_id: str
+    agent_execution_id: str
+    workspace_id: str
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class MessageDifference(BaseModel):
+    message_id: Annotated[str, pydantic.Field(alias="messageId")]
+
+    role: StreamRunAgentDataRole
+
+    parts: List[StreamRunAgentDataParts]
+
+    agent_id: str
+
+    agent_execution_id: str
+
+    workspace_id: str
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentDataFinishReason = Literal[
+    "stop",
+    "length",
+    "tool_calls",
+    "content_filter",
+    "function_call",
+]
+r"""The reason the model stopped generating tokens."""
+
+
+StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody3Type = Literal[
+    "function",
+]
+
+
+class StreamRunAgentDataAgentsFunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    arguments: NotRequired[str]
+    r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
+
+
+class StreamRunAgentDataAgentsFunction(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    arguments: Optional[str] = None
+    r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
+
+
+class DataToolCallsTypedDict(TypedDict):
+    id: NotRequired[str]
+    type: NotRequired[
+        StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody3Type
+    ]
+    function: NotRequired[StreamRunAgentDataAgentsFunctionTypedDict]
+
+
+class DataToolCalls(BaseModel):
+    id: Optional[str] = None
+
+    type: Optional[
+        StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody3Type
+    ] = None
+
+    function: Optional[StreamRunAgentDataAgentsFunction] = None
+
+
+StreamRunAgentDataAgentsResponse200Role = Literal["assistant",]
+
+
+class DataAudioTypedDict(TypedDict):
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    id: str
+    expires_at: int
+    data: str
+    transcript: str
+
+
+class DataAudio(BaseModel):
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    id: str
+
+    expires_at: int
 
     data: str
-    r"""JSON-encoded event data"""
+
+    transcript: str
+
+
+class StreamRunAgentDataMessageTypedDict(TypedDict):
+    r"""A chat completion message generated by the model."""
+
+    content: NotRequired[Nullable[str]]
+    refusal: NotRequired[Nullable[str]]
+    tool_calls: NotRequired[List[DataToolCallsTypedDict]]
+    role: NotRequired[StreamRunAgentDataAgentsResponse200Role]
+    reasoning: NotRequired[Nullable[str]]
+    r"""Internal thought process of the model"""
+    reasoning_signature: NotRequired[Nullable[str]]
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+    redacted_reasoning: NotRequired[str]
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+    audio: NotRequired[Nullable[DataAudioTypedDict]]
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+
+class StreamRunAgentDataMessage(BaseModel):
+    r"""A chat completion message generated by the model."""
+
+    content: OptionalNullable[str] = UNSET
+
+    refusal: OptionalNullable[str] = UNSET
+
+    tool_calls: Optional[List[DataToolCalls]] = None
+
+    role: Optional[StreamRunAgentDataAgentsResponse200Role] = None
+
+    reasoning: OptionalNullable[str] = UNSET
+    r"""Internal thought process of the model"""
+
+    reasoning_signature: OptionalNullable[str] = UNSET
+    r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
+
+    redacted_reasoning: Optional[str] = None
+    r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
+
+    audio: OptionalNullable[DataAudio] = UNSET
+    r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "content",
+            "refusal",
+            "tool_calls",
+            "role",
+            "reasoning",
+            "reasoning_signature",
+            "redacted_reasoning",
+            "audio",
+        ]
+        nullable_fields = [
+            "content",
+            "refusal",
+            "reasoning",
+            "reasoning_signature",
+            "audio",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class TopLogprobsTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+
+class TopLogprobs(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataContentTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+    top_logprobs: List[TopLogprobsTypedDict]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+
+class DataContent(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    top_logprobs: List[TopLogprobs]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataTopLogprobsTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+
+class DataTopLogprobs(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class RefusalTypedDict(TypedDict):
+    token: str
+    r"""The token."""
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+    bytes_: Nullable[List[float]]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+    top_logprobs: List[DataTopLogprobsTypedDict]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+
+class Refusal(BaseModel):
+    token: str
+    r"""The token."""
+
+    logprob: float
+    r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
+
+    bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
+    r"""A list of integers representing the UTF-8 bytes representation of the token."""
+
+    top_logprobs: List[DataTopLogprobs]
+    r"""List of the most likely tokens and their log probability, at this token position."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["bytes"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class LogprobsTypedDict(TypedDict):
+    r"""Log probability information for the choice."""
+
+    content: Nullable[List[DataContentTypedDict]]
+    r"""A list of message content tokens with log probability information."""
+    refusal: Nullable[List[RefusalTypedDict]]
+    r"""A list of message refusal tokens with log probability information."""
+
+
+class Logprobs(BaseModel):
+    r"""Log probability information for the choice."""
+
+    content: Nullable[List[DataContent]]
+    r"""A list of message content tokens with log probability information."""
+
+    refusal: Nullable[List[Refusal]]
+    r"""A list of message refusal tokens with log probability information."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = []
+        nullable_fields = ["content", "refusal"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class ChoiceTypedDict(TypedDict):
+    finish_reason: Nullable[StreamRunAgentDataFinishReason]
+    r"""The reason the model stopped generating tokens."""
+    message: StreamRunAgentDataMessageTypedDict
+    r"""A chat completion message generated by the model."""
+    index: NotRequired[float]
+    r"""The index of the choice in the list of choices."""
+    logprobs: NotRequired[Nullable[LogprobsTypedDict]]
+    r"""Log probability information for the choice."""
+
+
+class Choice(BaseModel):
+    finish_reason: Nullable[StreamRunAgentDataFinishReason]
+    r"""The reason the model stopped generating tokens."""
+
+    message: StreamRunAgentDataMessage
+    r"""A chat completion message generated by the model."""
+
+    index: Optional[float] = 0
+    r"""The index of the choice in the list of choices."""
+
+    logprobs: OptionalNullable[Logprobs] = UNSET
+    r"""Log probability information for the choice."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["index", "logprobs"]
+        nullable_fields = ["finish_reason", "logprobs"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataPromptTokensDetailsTypedDict(TypedDict):
+    cached_tokens: NotRequired[Nullable[int]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio input tokens consumed by the request."""
+
+
+class DataPromptTokensDetails(BaseModel):
+    cached_tokens: OptionalNullable[int] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio input tokens consumed by the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cached_tokens", "audio_tokens"]
+        nullable_fields = ["cached_tokens", "audio_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataCompletionTokensDetailsTypedDict(TypedDict):
+    reasoning_tokens: NotRequired[Nullable[float]]
+    accepted_prediction_tokens: NotRequired[Nullable[float]]
+    rejected_prediction_tokens: NotRequired[Nullable[float]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio output tokens produced by the response."""
+
+
+class DataCompletionTokensDetails(BaseModel):
+    reasoning_tokens: OptionalNullable[float] = UNSET
+
+    accepted_prediction_tokens: OptionalNullable[float] = UNSET
+
+    rejected_prediction_tokens: OptionalNullable[float] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio output tokens produced by the response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        nullable_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DataUsageTypedDict(TypedDict):
+    r"""Usage statistics for the completion request."""
+
+    completion_tokens: NotRequired[float]
+    r"""Number of tokens in the generated completion."""
+    prompt_tokens: NotRequired[float]
+    r"""Number of tokens in the prompt."""
+    total_tokens: NotRequired[float]
+    r"""Total number of tokens used in the request (prompt + completion)."""
+    prompt_tokens_details: NotRequired[Nullable[DataPromptTokensDetailsTypedDict]]
+    completion_tokens_details: NotRequired[
+        Nullable[DataCompletionTokensDetailsTypedDict]
+    ]
+
+
+class DataUsage(BaseModel):
+    r"""Usage statistics for the completion request."""
+
+    completion_tokens: Optional[float] = None
+    r"""Number of tokens in the generated completion."""
+
+    prompt_tokens: Optional[float] = None
+    r"""Number of tokens in the prompt."""
+
+    total_tokens: Optional[float] = None
+    r"""Total number of tokens used in the request (prompt + completion)."""
+
+    prompt_tokens_details: OptionalNullable[DataPromptTokensDetails] = UNSET
+
+    completion_tokens_details: OptionalNullable[DataCompletionTokensDetails] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "completion_tokens",
+            "prompt_tokens",
+            "total_tokens",
+            "prompt_tokens_details",
+            "completion_tokens_details",
+        ]
+        nullable_fields = ["prompt_tokens_details", "completion_tokens_details"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamRunAgentDataAgentsDataTypedDict(TypedDict):
+    agent_id: str
+    message_difference: Dict[str, MessageDifferenceTypedDict]
+    iteration: float
+    accumulated_execution_time: float
+    choice: NotRequired[ChoiceTypedDict]
+    choice_index: NotRequired[float]
+    response_id: NotRequired[str]
+    usage: NotRequired[DataUsageTypedDict]
+    r"""Usage statistics for the completion request."""
+
+
+class StreamRunAgentDataAgentsData(BaseModel):
+    agent_id: str
+
+    message_difference: Dict[str, MessageDifference]
+
+    iteration: float
+
+    accumulated_execution_time: float
+
+    choice: Optional[Choice] = None
+
+    choice_index: Annotated[Optional[float], pydantic.Field(alias="choiceIndex")] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+    usage: Optional[DataUsage] = None
+    r"""Usage statistics for the completion request."""
+
+
+class Data3TypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsResponseType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataAgentsDataTypedDict
+
+
+class Data3(BaseModel):
+    type: StreamRunAgentDataAgentsResponseType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataAgentsData
+
+
+StreamRunAgentDataAgentsType = Literal["event.agents.started",]
+
+
+DataRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Extended A2A message role"""
+
+
+StreamRunAgentPartsAgentsResponse200TextEventStreamKind = Literal["tool_result",]
+
+
+class StreamRunAgentPartsToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamKind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamRunAgentPartsAgentsResponse200TextEventStreamKind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponse200Kind = Literal["tool_call",]
+
+
+class StreamRunAgentPartsToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamRunAgentPartsAgentsResponse200Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsResponseKind = Literal["file",]
+
+
+class StreamRunAgentFileAgentsFileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsFileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsBinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamRunAgentFileAgentsBinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamRunAgentPartsFileTypedDict = TypeAliasType(
+    "StreamRunAgentPartsFileTypedDict",
+    Union[
+        StreamRunAgentFileAgentsBinaryFormatTypedDict,
+        StreamRunAgentFileAgentsFileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamRunAgentPartsFile = TypeAliasType(
+    "StreamRunAgentPartsFile",
+    Union[
+        StreamRunAgentFileAgentsBinaryFormat, StreamRunAgentFileAgentsFileInURIFormat
+    ],
+)
+
+
+class StreamRunAgentPartsFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponseKind
+    file: StreamRunAgentPartsFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamRunAgentPartsAgentsResponseKind
+
+    file: StreamRunAgentPartsFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsAgentsKind = Literal["data",]
+
+
+class StreamRunAgentPartsDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamRunAgentPartsDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamRunAgentPartsAgentsKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamRunAgentPartsKind = Literal["text",]
+
+
+class StreamRunAgentPartsTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsKind
+    text: str
+
+
+class StreamRunAgentPartsTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamRunAgentPartsKind
+
+    text: str
+
+
+DataPartsTypedDict = TypeAliasType(
+    "DataPartsTypedDict",
+    Union[
+        StreamRunAgentPartsTextPartTypedDict,
+        StreamRunAgentPartsDataPartTypedDict,
+        StreamRunAgentPartsFilePartTypedDict,
+        StreamRunAgentPartsToolResultPartTypedDict,
+        StreamRunAgentPartsToolCallPartTypedDict,
+    ],
+)
+
+
+DataParts = TypeAliasType(
+    "DataParts",
+    Union[
+        StreamRunAgentPartsTextPart,
+        StreamRunAgentPartsDataPart,
+        StreamRunAgentPartsFilePart,
+        StreamRunAgentPartsToolResultPart,
+        StreamRunAgentPartsToolCallPart,
+    ],
+)
+
+
+class InputMessageTypedDict(TypedDict):
+    role: DataRole
+    r"""Extended A2A message role"""
+    parts: List[DataPartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class InputMessage(BaseModel):
+    role: DataRole
+    r"""Extended A2A message role"""
+
+    parts: List[DataParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+DataToolApprovalRequired = Literal[
+    "all",
+    "respect_tool",
+    "none",
+]
+r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+
+class StreamRunAgentDataConditionsTypedDict(TypedDict):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+    operator: str
+    r"""The operator to use"""
+    value: str
+    r"""The value to compare against"""
+
+
+class StreamRunAgentDataConditions(BaseModel):
+    condition: str
+    r"""The argument of the tool call to evaluate"""
+
+    operator: str
+    r"""The operator to use"""
+
+    value: str
+    r"""The value to compare against"""
+
+
+class StreamRunAgentDataToolsTypedDict(TypedDict):
+    id: str
+    r"""The id of the resource"""
+    action_type: str
+    key: NotRequired[str]
+    r"""Optional tool key for custom tools"""
+    display_name: NotRequired[str]
+    description: NotRequired[str]
+    r"""Optional tool description"""
+    requires_approval: NotRequired[bool]
+    tool_id: NotRequired[str]
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+    conditions: NotRequired[List[StreamRunAgentDataConditionsTypedDict]]
+    timeout: NotRequired[float]
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+class StreamRunAgentDataTools(BaseModel):
+    id: str
+    r"""The id of the resource"""
+
+    action_type: str
+
+    key: Optional[str] = None
+    r"""Optional tool key for custom tools"""
+
+    display_name: Optional[str] = None
+
+    description: Optional[str] = None
+    r"""Optional tool description"""
+
+    requires_approval: Optional[bool] = False
+
+    tool_id: Optional[str] = None
+    r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
+
+    conditions: Optional[List[StreamRunAgentDataConditions]] = None
+
+    timeout: Optional[float] = 120
+    r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
+
+
+DataExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class DataEvaluatorsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: DataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class DataEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: DataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+StreamRunAgentDataExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class DataGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: StreamRunAgentDataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class DataGuardrails(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: StreamRunAgentDataExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class DataSettingsTypedDict(TypedDict):
+    max_iterations: NotRequired[int]
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+    max_execution_time: NotRequired[int]
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    tool_approval_required: NotRequired[DataToolApprovalRequired]
+    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+    tools: NotRequired[List[StreamRunAgentDataToolsTypedDict]]
+    evaluators: NotRequired[List[DataEvaluatorsTypedDict]]
+    r"""Configuration for an evaluator applied to the agent"""
+    guardrails: NotRequired[List[DataGuardrailsTypedDict]]
+    r"""Configuration for a guardrail applied to the agent"""
+
+
+class DataSettings(BaseModel):
+    max_iterations: Optional[int] = 100
+    r"""Maximum iterations(llm calls) before the agent will stop executing."""
+
+    max_execution_time: Optional[int] = 300
+    r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    tool_approval_required: Optional[DataToolApprovalRequired] = "respect_tool"
+    r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
+
+    tools: Optional[List[StreamRunAgentDataTools]] = None
+
+    evaluators: Optional[List[DataEvaluators]] = None
+    r"""Configuration for an evaluator applied to the agent"""
+
+    guardrails: Optional[List[DataGuardrails]] = None
+    r"""Configuration for a guardrail applied to the agent"""
+
+
+class StreamRunAgentDataDataTypedDict(TypedDict):
+    input_message: InputMessageTypedDict
+    model_id: str
+    instructions: str
+    system_prompt: str
+    agent_manifest_id: str
+    agent_key: str
+    integration_id: NotRequired[str]
+    settings: NotRequired[DataSettingsTypedDict]
+    variables: NotRequired[Dict[str, Any]]
+    tool_execution_id: NotRequired[str]
+    is_continuation: NotRequired[bool]
+    stream: NotRequired[bool]
+    response_id: NotRequired[str]
+
+
+class StreamRunAgentDataData(BaseModel):
+    input_message: Annotated[InputMessage, pydantic.Field(alias="inputMessage")]
+
+    model_id: Annotated[str, pydantic.Field(alias="modelId")]
+
+    instructions: str
+
+    system_prompt: str
+
+    agent_manifest_id: str
+
+    agent_key: str
+
+    integration_id: Optional[str] = None
+
+    settings: Optional[DataSettings] = None
+
+    variables: Optional[Dict[str, Any]] = None
+
+    tool_execution_id: Optional[str] = None
+
+    is_continuation: Optional[bool] = None
+
+    stream: Optional[bool] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+
+class Data2TypedDict(TypedDict):
+    type: StreamRunAgentDataAgentsType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: StreamRunAgentDataDataTypedDict
+
+
+class Data2(BaseModel):
+    type: StreamRunAgentDataAgentsType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: StreamRunAgentDataData
+
+
+StreamRunAgentDataType = Literal["agents.execution_started",]
+
+
+class DataDataTypedDict(TypedDict):
+    agent_task_id: str
+    r"""Agent execution task ID (ULID)"""
+    workspace_id: str
+    r"""Workspace ID"""
+    trace_id: str
+    r"""Trace ID for the workflow run"""
+
+
+class DataData(BaseModel):
+    agent_task_id: str
+    r"""Agent execution task ID (ULID)"""
+
+    workspace_id: str
+    r"""Workspace ID"""
+
+    trace_id: str
+    r"""Trace ID for the workflow run"""
+
+
+class Data1TypedDict(TypedDict):
+    type: StreamRunAgentDataType
+    timestamp: str
+    r"""ISO timestamp of the event"""
+    data: DataDataTypedDict
+
+
+class Data1(BaseModel):
+    type: StreamRunAgentDataType
+
+    timestamp: str
+    r"""ISO timestamp of the event"""
+
+    data: DataData
+
+
+StreamRunAgentDataTypedDict = TypeAliasType(
+    "StreamRunAgentDataTypedDict",
+    Union[
+        Data1TypedDict,
+        Data2TypedDict,
+        Data3TypedDict,
+        Data4TypedDict,
+        StreamRunAgentData5TypedDict,
+        StreamRunAgentData6TypedDict,
+        SevenTypedDict,
+        EightTypedDict,
+        NineTypedDict,
+        TenTypedDict,
+        ElevenTypedDict,
+        TwelveTypedDict,
+        ThirteenTypedDict,
+        FourteenTypedDict,
+        FifteenTypedDict,
+        SixteenTypedDict,
+        SeventeenTypedDict,
+    ],
+)
+
+
+StreamRunAgentData = TypeAliasType(
+    "StreamRunAgentData",
+    Union[
+        Data1,
+        Data2,
+        Data3,
+        Data4,
+        StreamRunAgentData5,
+        StreamRunAgentData6,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Eleven,
+        Twelve,
+        Thirteen,
+        Fourteen,
+        Fifteen,
+        Sixteen,
+        Seventeen,
+    ],
+)
+
+
+class StreamRunAgentResponseBodyTypedDict(TypedDict):
+    r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
+
+    data: StreamRunAgentDataTypedDict
 
 
 class StreamRunAgentResponseBody(BaseModel):
-    r"""SSE stream of agent events"""
+    r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
 
-    data: str
-    r"""JSON-encoded event data"""
+    data: StreamRunAgentData

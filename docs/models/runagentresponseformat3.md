@@ -1,9 +1,0 @@
-# RunAgentResponseFormat3
-
-
-## Fields
-
-| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                 | [models.RunAgentResponseFormatAgentsRequestType](../models/runagentresponseformatagentsrequesttype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
-| `json_schema`                                                                                          | [models.RunAgentResponseFormatJSONSchema](../models/runagentresponseformatjsonschema.md)               | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

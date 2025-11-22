@@ -5,33 +5,33 @@ Successfully updated the tool.
 
 ## Supported Types
 
-### `models.UpdateToolResponseBody1`
+### `models.UpdateToolResponseBodyFunctionTool`
 
 ```python
-value: models.UpdateToolResponseBody1 = /* values here */
+value: models.UpdateToolResponseBodyFunctionTool = /* values here */
 ```
 
-### `models.UpdateToolResponseBody2`
+### `models.UpdateToolResponseBodyJSONSchemaTool`
 
 ```python
-value: models.UpdateToolResponseBody2 = /* values here */
+value: models.UpdateToolResponseBodyJSONSchemaTool = /* values here */
 ```
 
-### `models.UpdateToolResponseBody3`
+### `models.UpdateToolResponseBodyHTTPTool`
 
 ```python
-value: models.UpdateToolResponseBody3 = /* values here */
+value: models.UpdateToolResponseBodyHTTPTool = /* values here */
 ```
 
-### `models.UpdateToolResponseBody4`
+### `models.UpdateToolResponseBodyMCPTool`
 
 ```python
-value: models.UpdateToolResponseBody4 = /* values here */
+value: models.UpdateToolResponseBodyMCPTool = /* values here */
 ```
 
-### `models.UpdateToolResponseBody5`
+### `models.UpdateToolResponseBodyCodeExecutionTool`
 
 ```python
-value: models.UpdateToolResponseBody5 = /* values here */
+value: models.UpdateToolResponseBodyCodeExecutionTool = /* values here */
 ```
 

@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    creatememorystoreop as models_creatememorystoreop,
+    updatememorystoreop as models_updatememorystoreop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -211,8 +215,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -289,18 +293,14 @@ class MemoryStores(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "4XX", "5XX"],
+            error_status_codes=["4XX", "5XX"],
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
                 Optional[models.CreateMemoryStoreResponseBody], http_res
             )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -315,8 +315,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -393,18 +393,14 @@ class MemoryStores(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "4XX", "5XX"],
+            error_status_codes=["4XX", "5XX"],
             retry_config=retry_config,
         )
 
-        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
                 Optional[models.CreateMemoryStoreResponseBody], http_res
             )
-        if utils.match_response(http_res, "400", "application/json"):
-            response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
-            raise models.HonoAPIError(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -603,8 +599,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,
@@ -721,8 +717,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,
