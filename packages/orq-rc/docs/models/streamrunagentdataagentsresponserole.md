@@ -3,6 +3,7 @@
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+| Name   | Value  |
+| ------ | ------ |
+| `USER` | user   |
+| `TOOL` | tool   |

@@ -388,7 +388,7 @@ class ToolCallPart(BaseModel):
 GetAgentTaskPartsAgentsKind = Literal["file",]
 
 
-class GetAgentTaskFileAgentsFileInURIFormatTypedDict(TypedDict):
+class GetAgentTaskFileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -399,7 +399,7 @@ class GetAgentTaskFileAgentsFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileAgentsFileInURIFormat(BaseModel):
+class GetAgentTaskFileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -412,7 +412,7 @@ class GetAgentTaskFileAgentsFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileAgentsBinaryFormatTypedDict(TypedDict):
+class GetAgentTaskFileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -423,7 +423,7 @@ class GetAgentTaskFileAgentsBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileAgentsBinaryFormat(BaseModel):
+class GetAgentTaskFileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -439,15 +439,13 @@ class GetAgentTaskFileAgentsBinaryFormat(BaseModel):
 PartsFileTypedDict = TypeAliasType(
     "PartsFileTypedDict",
     Union[
-        GetAgentTaskFileAgentsBinaryFormatTypedDict,
-        GetAgentTaskFileAgentsFileInURIFormatTypedDict,
+        GetAgentTaskFileBinaryFormatTypedDict, GetAgentTaskFileFileInURIFormatTypedDict
     ],
 )
 
 
 PartsFile = TypeAliasType(
-    "PartsFile",
-    Union[GetAgentTaskFileAgentsBinaryFormat, GetAgentTaskFileAgentsFileInURIFormat],
+    "PartsFile", Union[GetAgentTaskFileBinaryFormat, GetAgentTaskFileFileInURIFormat]
 )
 
 
@@ -594,7 +592,7 @@ class PartsDataPart(BaseModel):
 GetAgentTaskPartsAgentsResponse200ApplicationJSONResponseBodyKind = Literal["file",]
 
 
-class GetAgentTaskFileFileInURIFormatTypedDict(TypedDict):
+class GetAgentTaskFileAgentsFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -605,7 +603,7 @@ class GetAgentTaskFileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileFileInURIFormat(BaseModel):
+class GetAgentTaskFileAgentsFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -618,7 +616,7 @@ class GetAgentTaskFileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileBinaryFormatTypedDict(TypedDict):
+class GetAgentTaskFileAgentsBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -629,7 +627,7 @@ class GetAgentTaskFileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class GetAgentTaskFileBinaryFormat(BaseModel):
+class GetAgentTaskFileAgentsBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -645,14 +643,15 @@ class GetAgentTaskFileBinaryFormat(BaseModel):
 GetAgentTaskPartsFileTypedDict = TypeAliasType(
     "GetAgentTaskPartsFileTypedDict",
     Union[
-        GetAgentTaskFileBinaryFormatTypedDict, GetAgentTaskFileFileInURIFormatTypedDict
+        GetAgentTaskFileAgentsBinaryFormatTypedDict,
+        GetAgentTaskFileAgentsFileInURIFormatTypedDict,
     ],
 )
 
 
 GetAgentTaskPartsFile = TypeAliasType(
     "GetAgentTaskPartsFile",
-    Union[GetAgentTaskFileBinaryFormat, GetAgentTaskFileFileInURIFormat],
+    Union[GetAgentTaskFileAgentsBinaryFormat, GetAgentTaskFileAgentsFileInURIFormat],
 )
 
 

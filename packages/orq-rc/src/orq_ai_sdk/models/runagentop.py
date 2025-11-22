@@ -1116,7 +1116,7 @@ r"""Message role (user or tool for continuing executions)"""
 RunAgentPublicMessagePartAgentsRequestKind = Literal["tool_result",]
 
 
-class PublicMessagePartToolResultPartTypedDict(TypedDict):
+class RunAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: RunAgentPublicMessagePartAgentsRequestKind
@@ -1125,7 +1125,7 @@ class PublicMessagePartToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartToolResultPart(BaseModel):
+class RunAgentPublicMessagePartToolResultPart(BaseModel):
     r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
 
     kind: RunAgentPublicMessagePartAgentsRequestKind
@@ -1140,7 +1140,7 @@ class PublicMessagePartToolResultPart(BaseModel):
 RunAgentPublicMessagePartAgentsKind = Literal["file",]
 
 
-class FileFileInURIFormatTypedDict(TypedDict):
+class RunAgentFileFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -1151,7 +1151,7 @@ class FileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileFileInURIFormat(BaseModel):
+class RunAgentFileFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -1164,7 +1164,7 @@ class FileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormatTypedDict(TypedDict):
+class RunAgentFileBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -1175,7 +1175,7 @@ class FileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class FileBinaryFormat(BaseModel):
+class RunAgentFileBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -1190,16 +1190,17 @@ class FileBinaryFormat(BaseModel):
 
 RunAgentPublicMessagePartFileTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartFileTypedDict",
-    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
+    Union[RunAgentFileBinaryFormatTypedDict, RunAgentFileFileInURIFormatTypedDict],
 )
 
 
 RunAgentPublicMessagePartFile = TypeAliasType(
-    "RunAgentPublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
+    "RunAgentPublicMessagePartFile",
+    Union[RunAgentFileBinaryFormat, RunAgentFileFileInURIFormat],
 )
 
 
-class PublicMessagePartFilePartTypedDict(TypedDict):
+class RunAgentPublicMessagePartFilePartTypedDict(TypedDict):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: RunAgentPublicMessagePartAgentsKind
@@ -1207,7 +1208,7 @@ class PublicMessagePartFilePartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class PublicMessagePartFilePart(BaseModel):
+class RunAgentPublicMessagePartFilePart(BaseModel):
     r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: RunAgentPublicMessagePartAgentsKind
@@ -1220,14 +1221,14 @@ class PublicMessagePartFilePart(BaseModel):
 RunAgentPublicMessagePartKind = Literal["text",]
 
 
-class PublicMessagePartTextPartTypedDict(TypedDict):
+class RunAgentPublicMessagePartTextPartTypedDict(TypedDict):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: RunAgentPublicMessagePartKind
     text: str
 
 
-class PublicMessagePartTextPart(BaseModel):
+class RunAgentPublicMessagePartTextPart(BaseModel):
     r"""Text content part. Use this to send text messages to the agent."""
 
     kind: RunAgentPublicMessagePartKind
@@ -1238,9 +1239,9 @@ class PublicMessagePartTextPart(BaseModel):
 RunAgentPublicMessagePartTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartTypedDict",
     Union[
-        PublicMessagePartTextPartTypedDict,
-        PublicMessagePartFilePartTypedDict,
-        PublicMessagePartToolResultPartTypedDict,
+        RunAgentPublicMessagePartTextPartTypedDict,
+        RunAgentPublicMessagePartFilePartTypedDict,
+        RunAgentPublicMessagePartToolResultPartTypedDict,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -1249,9 +1250,9 @@ r"""Message part that can be provided by users. Use \"text\" for regular message
 RunAgentPublicMessagePart = TypeAliasType(
     "RunAgentPublicMessagePart",
     Union[
-        PublicMessagePartTextPart,
-        PublicMessagePartFilePart,
-        PublicMessagePartToolResultPart,
+        RunAgentPublicMessagePartTextPart,
+        RunAgentPublicMessagePartFilePart,
+        RunAgentPublicMessagePartToolResultPart,
     ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
@@ -1423,7 +1424,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAKF250M37Y466RAE0RMBQBD"
+    id: Optional[str] = "01KAPPHK6BF0YKV93QFZZSJKT9"
 
     description: Optional[str] = None
 
@@ -2210,7 +2211,7 @@ class RunAgentSettings(BaseModel):
     tool_approval_required: Optional[RunAgentToolApprovalRequired] = "none"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
@@ -2414,7 +2415,7 @@ class RunAgentPartsToolCallPart(BaseModel):
 RunAgentPartsAgentsResponseKind = Literal["file",]
 
 
-class RunAgentFileFileInURIFormatTypedDict(TypedDict):
+class RunAgentFileAgentsFileInURIFormatTypedDict(TypedDict):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -2425,7 +2426,7 @@ class RunAgentFileFileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class RunAgentFileFileInURIFormat(BaseModel):
+class RunAgentFileAgentsFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -2438,7 +2439,7 @@ class RunAgentFileFileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class RunAgentFileBinaryFormatTypedDict(TypedDict):
+class RunAgentFileAgentsBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -2449,7 +2450,7 @@ class RunAgentFileBinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class RunAgentFileBinaryFormat(BaseModel):
+class RunAgentFileAgentsBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -2464,12 +2465,16 @@ class RunAgentFileBinaryFormat(BaseModel):
 
 RunAgentPartsFileTypedDict = TypeAliasType(
     "RunAgentPartsFileTypedDict",
-    Union[RunAgentFileBinaryFormatTypedDict, RunAgentFileFileInURIFormatTypedDict],
+    Union[
+        RunAgentFileAgentsBinaryFormatTypedDict,
+        RunAgentFileAgentsFileInURIFormatTypedDict,
+    ],
 )
 
 
 RunAgentPartsFile = TypeAliasType(
-    "RunAgentPartsFile", Union[RunAgentFileBinaryFormat, RunAgentFileFileInURIFormat]
+    "RunAgentPartsFile",
+    Union[RunAgentFileAgentsBinaryFormat, RunAgentFileAgentsFileInURIFormat],
 )
 
 

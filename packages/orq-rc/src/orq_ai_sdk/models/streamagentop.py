@@ -514,6 +514,7 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody15DataTypedDict
     error: DataErrorTypedDict
     action_type: str
     tool_execution_context: StreamAgentDataAgentsResponseToolExecutionContextTypedDict
+    response_id: NotRequired[str]
 
 
 class StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Data(BaseModel):
@@ -522,6 +523,8 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody15Data(BaseMode
     action_type: str
 
     tool_execution_context: StreamAgentDataAgentsResponseToolExecutionContext
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
 
 class Data15TypedDict(TypedDict):
@@ -611,6 +614,7 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody14DataTypedDict
     action_type: str
     tool_execution_context: StreamAgentDataAgentsToolExecutionContextTypedDict
     result: NotRequired[Any]
+    response_id: NotRequired[str]
 
 
 class StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Data(BaseModel):
@@ -619,6 +623,8 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody14Data(BaseMode
     tool_execution_context: StreamAgentDataAgentsToolExecutionContext
 
     result: Optional[Any] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
 
 class Data14TypedDict(TypedDict):
@@ -711,6 +717,7 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody13DataTypedDict
     tool_execution_context: StreamAgentDataToolExecutionContextTypedDict
     tool_key: NotRequired[str]
     tool_display_name: NotRequired[str]
+    response_id: NotRequired[str]
 
 
 class StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Data(BaseModel):
@@ -725,6 +732,8 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBody13Data(BaseMode
     tool_key: Optional[str] = None
 
     tool_display_name: Optional[str] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
 
 class Data13TypedDict(TypedDict):
@@ -748,7 +757,7 @@ StreamAgentDataAgentsResponse200TextEventStreamResponseBody12Type = Literal[
 ]
 
 
-StreamAgentDataAgentsResponseRole = Literal[
+StreamAgentDataAgentsResponse200Role = Literal[
     "user",
     "tool",
 ]
@@ -759,7 +768,7 @@ StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Ki
 )
 
 
-class StreamAgentPartsAgentsResponseToolResultPartTypedDict(TypedDict):
+class StreamAgentPartsAgentsResponse200ToolResultPartTypedDict(TypedDict):
     r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
@@ -768,7 +777,7 @@ class StreamAgentPartsAgentsResponseToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class StreamAgentPartsAgentsResponseToolResultPart(BaseModel):
+class StreamAgentPartsAgentsResponse200ToolResultPart(BaseModel):
     r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage5Kind
@@ -785,7 +794,7 @@ StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Ki
 )
 
 
-class StreamAgentPartsAgentsResponseToolCallPartTypedDict(TypedDict):
+class StreamAgentPartsAgentsResponse200ToolCallPartTypedDict(TypedDict):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
@@ -795,7 +804,7 @@ class StreamAgentPartsAgentsResponseToolCallPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class StreamAgentPartsAgentsResponseToolCallPart(BaseModel):
+class StreamAgentPartsAgentsResponse200ToolCallPart(BaseModel):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessage4Kind
@@ -814,7 +823,9 @@ StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKin
 )
 
 
-class StreamAgentFileAgentsResponse200FileInURIFormatTypedDict(TypedDict):
+class StreamAgentFileAgentsResponse200TextEventStreamFileInURIFormatTypedDict(
+    TypedDict
+):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -825,7 +836,7 @@ class StreamAgentFileAgentsResponse200FileInURIFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class StreamAgentFileAgentsResponse200FileInURIFormat(BaseModel):
+class StreamAgentFileAgentsResponse200TextEventStreamFileInURIFormat(BaseModel):
     r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
 
     uri: str
@@ -838,7 +849,7 @@ class StreamAgentFileAgentsResponse200FileInURIFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-class StreamAgentFileAgentsResponse200BinaryFormatTypedDict(TypedDict):
+class StreamAgentFileAgentsResponse200TextEventStreamBinaryFormatTypedDict(TypedDict):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: str
@@ -849,7 +860,7 @@ class StreamAgentFileAgentsResponse200BinaryFormatTypedDict(TypedDict):
     r"""Optional name for the file"""
 
 
-class StreamAgentFileAgentsResponse200BinaryFormat(BaseModel):
+class StreamAgentFileAgentsResponse200TextEventStreamBinaryFormat(BaseModel):
     r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
 
     bytes_: Annotated[str, pydantic.Field(alias="bytes")]
@@ -862,38 +873,38 @@ class StreamAgentFileAgentsResponse200BinaryFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-StreamAgentPartsAgentsResponseFileTypedDict = TypeAliasType(
-    "StreamAgentPartsAgentsResponseFileTypedDict",
+StreamAgentPartsAgentsResponse200FileTypedDict = TypeAliasType(
+    "StreamAgentPartsAgentsResponse200FileTypedDict",
     Union[
-        StreamAgentFileAgentsResponse200BinaryFormatTypedDict,
-        StreamAgentFileAgentsResponse200FileInURIFormatTypedDict,
+        StreamAgentFileAgentsResponse200TextEventStreamBinaryFormatTypedDict,
+        StreamAgentFileAgentsResponse200TextEventStreamFileInURIFormatTypedDict,
     ],
 )
 
 
-StreamAgentPartsAgentsResponseFile = TypeAliasType(
-    "StreamAgentPartsAgentsResponseFile",
+StreamAgentPartsAgentsResponse200File = TypeAliasType(
+    "StreamAgentPartsAgentsResponse200File",
     Union[
-        StreamAgentFileAgentsResponse200BinaryFormat,
-        StreamAgentFileAgentsResponse200FileInURIFormat,
+        StreamAgentFileAgentsResponse200TextEventStreamBinaryFormat,
+        StreamAgentFileAgentsResponse200TextEventStreamFileInURIFormat,
     ],
 )
 
 
-class StreamAgentPartsAgentsResponseFilePartTypedDict(TypedDict):
+class StreamAgentPartsAgentsResponse200FilePartTypedDict(TypedDict):
     r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
-    file: StreamAgentPartsAgentsResponseFileTypedDict
+    file: StreamAgentPartsAgentsResponse200FileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class StreamAgentPartsAgentsResponseFilePart(BaseModel):
+class StreamAgentPartsAgentsResponse200FilePart(BaseModel):
     r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataMessageKind
 
-    file: StreamAgentPartsAgentsResponseFile
+    file: StreamAgentPartsAgentsResponse200File
 
     metadata: Optional[Dict[str, Any]] = None
 
@@ -903,7 +914,7 @@ StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind = Lit
 ]
 
 
-class StreamAgentPartsAgentsResponseDataPartTypedDict(TypedDict):
+class StreamAgentPartsAgentsResponse200DataPartTypedDict(TypedDict):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
@@ -911,7 +922,7 @@ class StreamAgentPartsAgentsResponseDataPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class StreamAgentPartsAgentsResponseDataPart(BaseModel):
+class StreamAgentPartsAgentsResponse200DataPart(BaseModel):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12DataKind
@@ -926,14 +937,14 @@ StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind = Literal
 ]
 
 
-class StreamAgentPartsAgentsResponseTextPartTypedDict(TypedDict):
+class StreamAgentPartsAgentsResponse200TextPartTypedDict(TypedDict):
     r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
     text: str
 
 
-class StreamAgentPartsAgentsResponseTextPart(BaseModel):
+class StreamAgentPartsAgentsResponse200TextPart(BaseModel):
     r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
 
     kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData12Kind
@@ -941,41 +952,41 @@ class StreamAgentPartsAgentsResponseTextPart(BaseModel):
     text: str
 
 
-StreamAgentDataAgentsResponsePartsTypedDict = TypeAliasType(
-    "StreamAgentDataAgentsResponsePartsTypedDict",
+StreamAgentDataAgentsResponse200PartsTypedDict = TypeAliasType(
+    "StreamAgentDataAgentsResponse200PartsTypedDict",
     Union[
-        StreamAgentPartsAgentsResponseTextPartTypedDict,
-        StreamAgentPartsAgentsResponseDataPartTypedDict,
-        StreamAgentPartsAgentsResponseFilePartTypedDict,
-        StreamAgentPartsAgentsResponseToolResultPartTypedDict,
-        StreamAgentPartsAgentsResponseToolCallPartTypedDict,
+        StreamAgentPartsAgentsResponse200TextPartTypedDict,
+        StreamAgentPartsAgentsResponse200DataPartTypedDict,
+        StreamAgentPartsAgentsResponse200FilePartTypedDict,
+        StreamAgentPartsAgentsResponse200ToolResultPartTypedDict,
+        StreamAgentPartsAgentsResponse200ToolCallPartTypedDict,
     ],
 )
 
 
-StreamAgentDataAgentsResponseParts = TypeAliasType(
-    "StreamAgentDataAgentsResponseParts",
+StreamAgentDataAgentsResponse200Parts = TypeAliasType(
+    "StreamAgentDataAgentsResponse200Parts",
     Union[
-        StreamAgentPartsAgentsResponseTextPart,
-        StreamAgentPartsAgentsResponseDataPart,
-        StreamAgentPartsAgentsResponseFilePart,
-        StreamAgentPartsAgentsResponseToolResultPart,
-        StreamAgentPartsAgentsResponseToolCallPart,
+        StreamAgentPartsAgentsResponse200TextPart,
+        StreamAgentPartsAgentsResponse200DataPart,
+        StreamAgentPartsAgentsResponse200FilePart,
+        StreamAgentPartsAgentsResponse200ToolResultPart,
+        StreamAgentPartsAgentsResponse200ToolCallPart,
     ],
 )
 
 
 class StreamAgentDataMessageTypedDict(TypedDict):
-    role: StreamAgentDataAgentsResponseRole
-    parts: List[StreamAgentDataAgentsResponsePartsTypedDict]
+    role: StreamAgentDataAgentsResponse200Role
+    parts: List[StreamAgentDataAgentsResponse200PartsTypedDict]
     message_id: NotRequired[str]
     metadata: NotRequired[Dict[str, Any]]
 
 
 class StreamAgentDataMessage(BaseModel):
-    role: StreamAgentDataAgentsResponseRole
+    role: StreamAgentDataAgentsResponse200Role
 
-    parts: List[StreamAgentDataAgentsResponseParts]
+    parts: List[StreamAgentDataAgentsResponse200Parts]
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
 
@@ -1278,6 +1289,7 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDict(
     tool: DataToolTypedDict
     input: Dict[str, Any]
     agent_tool_call_id: str
+    response_id: NotRequired[str]
 
 
 class StreamAgentDataAgentsResponse200TextEventStreamResponseBodyData(BaseModel):
@@ -1292,6 +1304,8 @@ class StreamAgentDataAgentsResponse200TextEventStreamResponseBodyData(BaseModel)
     input: Dict[str, Any]
 
     agent_tool_call_id: str
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
 
 class Data6TypedDict(TypedDict):
@@ -1316,12 +1330,17 @@ StreamAgentDataAgentsResponse200TextEventStreamType = Literal["event.agents.erro
 class StreamAgentDataAgentsResponse200TextEventStreamDataTypedDict(TypedDict):
     error: str
     code: float
+    response_id: NotRequired[str]
+    r"""ID of the response tracking this execution"""
 
 
 class StreamAgentDataAgentsResponse200TextEventStreamData(BaseModel):
     error: str
 
     code: float
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+    r"""ID of the response tracking this execution"""
 
 
 class Data5TypedDict(TypedDict):
@@ -1341,6 +1360,247 @@ class Data5(BaseModel):
 
 
 StreamAgentDataAgentsResponse200Type = Literal["event.agents.inactive",]
+
+
+StreamAgentDataAgentsResponseRole = Literal[
+    "user",
+    "agent",
+    "tool",
+    "system",
+]
+r"""Extended A2A message role"""
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind = Literal[
+    "tool_result",
+]
+
+
+class StreamAgentPartsAgentsResponseToolResultPartTypedDict(TypedDict):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind
+    tool_call_id: str
+    result: NotRequired[Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseToolResultPart(BaseModel):
+    r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull5Kind
+
+    tool_call_id: str
+
+    result: Optional[Any] = None
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind = Literal[
+    "tool_call",
+]
+
+
+class StreamAgentPartsAgentsResponseToolCallPartTypedDict(TypedDict):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind
+    tool_name: str
+    tool_call_id: str
+    arguments: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseToolCallPart(BaseModel):
+    r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFull4Kind
+
+    tool_name: str
+
+    tool_call_id: str
+
+    arguments: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind = Literal[
+    "file",
+]
+
+
+class StreamAgentFileAgentsResponse200FileInURIFormatTypedDict(TypedDict):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200FileInURIFormat(BaseModel):
+    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
+
+    uri: str
+    r"""URL for the File content"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200BinaryFormatTypedDict(TypedDict):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: str
+    r"""base64 encoded content of the file"""
+    mime_type: NotRequired[str]
+    r"""Optional mimeType for the file"""
+    name: NotRequired[str]
+    r"""Optional name for the file"""
+
+
+class StreamAgentFileAgentsResponse200BinaryFormat(BaseModel):
+    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
+
+    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
+    r"""base64 encoded content of the file"""
+
+    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
+    r"""Optional mimeType for the file"""
+
+    name: Optional[str] = None
+    r"""Optional name for the file"""
+
+
+StreamAgentPartsAgentsResponseFileTypedDict = TypeAliasType(
+    "StreamAgentPartsAgentsResponseFileTypedDict",
+    Union[
+        StreamAgentFileAgentsResponse200BinaryFormatTypedDict,
+        StreamAgentFileAgentsResponse200FileInURIFormatTypedDict,
+    ],
+)
+
+
+StreamAgentPartsAgentsResponseFile = TypeAliasType(
+    "StreamAgentPartsAgentsResponseFile",
+    Union[
+        StreamAgentFileAgentsResponse200BinaryFormat,
+        StreamAgentFileAgentsResponse200FileInURIFormat,
+    ],
+)
+
+
+class StreamAgentPartsAgentsResponseFilePartTypedDict(TypedDict):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind
+    file: StreamAgentPartsAgentsResponseFileTypedDict
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseFilePart(BaseModel):
+    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataLastMessageFullKind
+
+    file: StreamAgentPartsAgentsResponseFile
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind = Literal[
+    "data",
+]
+
+
+class StreamAgentPartsAgentsResponseDataPartTypedDict(TypedDict):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind
+    data: Dict[str, Any]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class StreamAgentPartsAgentsResponseDataPart(BaseModel):
+    r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4DataKind
+
+    data: Dict[str, Any]
+
+    metadata: Optional[Dict[str, Any]] = None
+
+
+StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind = Literal["text",]
+
+
+class StreamAgentPartsAgentsResponseTextPartTypedDict(TypedDict):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind
+    text: str
+
+
+class StreamAgentPartsAgentsResponseTextPart(BaseModel):
+    r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
+
+    kind: StreamAgentPartsAgentsResponse200TextEventStreamResponseBodyData4Kind
+
+    text: str
+
+
+StreamAgentDataAgentsResponsePartsTypedDict = TypeAliasType(
+    "StreamAgentDataAgentsResponsePartsTypedDict",
+    Union[
+        StreamAgentPartsAgentsResponseTextPartTypedDict,
+        StreamAgentPartsAgentsResponseDataPartTypedDict,
+        StreamAgentPartsAgentsResponseFilePartTypedDict,
+        StreamAgentPartsAgentsResponseToolResultPartTypedDict,
+        StreamAgentPartsAgentsResponseToolCallPartTypedDict,
+    ],
+)
+
+
+StreamAgentDataAgentsResponseParts = TypeAliasType(
+    "StreamAgentDataAgentsResponseParts",
+    Union[
+        StreamAgentPartsAgentsResponseTextPart,
+        StreamAgentPartsAgentsResponseDataPart,
+        StreamAgentPartsAgentsResponseFilePart,
+        StreamAgentPartsAgentsResponseToolResultPart,
+        StreamAgentPartsAgentsResponseToolCallPart,
+    ],
+)
+
+
+class DataLastMessageFullTypedDict(TypedDict):
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
+    role: StreamAgentDataAgentsResponseRole
+    r"""Extended A2A message role"""
+    parts: List[StreamAgentDataAgentsResponsePartsTypedDict]
+    message_id: NotRequired[str]
+    metadata: NotRequired[Dict[str, Any]]
+
+
+class DataLastMessageFull(BaseModel):
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
+    role: StreamAgentDataAgentsResponseRole
+    r"""Extended A2A message role"""
+
+    parts: List[StreamAgentDataAgentsResponseParts]
+
+    message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
+
+    metadata: Optional[Dict[str, Any]] = None
 
 
 DataFinishReason = Literal[
@@ -1383,12 +1643,194 @@ class DataPendingToolCalls(BaseModel):
     function: StreamAgentDataFunction
 
 
+class StreamAgentDataAgentsPromptTokensDetailsTypedDict(TypedDict):
+    cached_tokens: NotRequired[Nullable[int]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio input tokens consumed by the request."""
+
+
+class StreamAgentDataAgentsPromptTokensDetails(BaseModel):
+    cached_tokens: OptionalNullable[int] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio input tokens consumed by the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cached_tokens", "audio_tokens"]
+        nullable_fields = ["cached_tokens", "audio_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataAgentsCompletionTokensDetailsTypedDict(TypedDict):
+    reasoning_tokens: NotRequired[Nullable[float]]
+    accepted_prediction_tokens: NotRequired[Nullable[float]]
+    rejected_prediction_tokens: NotRequired[Nullable[float]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio output tokens produced by the response."""
+
+
+class StreamAgentDataAgentsCompletionTokensDetails(BaseModel):
+    reasoning_tokens: OptionalNullable[float] = UNSET
+
+    accepted_prediction_tokens: OptionalNullable[float] = UNSET
+
+    rejected_prediction_tokens: OptionalNullable[float] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio output tokens produced by the response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        nullable_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataAgentsUsageTypedDict(TypedDict):
+    r"""Token usage from the last agent message"""
+
+    completion_tokens: NotRequired[float]
+    r"""Number of tokens in the generated completion."""
+    prompt_tokens: NotRequired[float]
+    r"""Number of tokens in the prompt."""
+    total_tokens: NotRequired[float]
+    r"""Total number of tokens used in the request (prompt + completion)."""
+    prompt_tokens_details: NotRequired[
+        Nullable[StreamAgentDataAgentsPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[StreamAgentDataAgentsCompletionTokensDetailsTypedDict]
+    ]
+
+
+class StreamAgentDataAgentsUsage(BaseModel):
+    r"""Token usage from the last agent message"""
+
+    completion_tokens: Optional[float] = None
+    r"""Number of tokens in the generated completion."""
+
+    prompt_tokens: Optional[float] = None
+    r"""Number of tokens in the prompt."""
+
+    total_tokens: Optional[float] = None
+    r"""Total number of tokens used in the request (prompt + completion)."""
+
+    prompt_tokens_details: OptionalNullable[
+        StreamAgentDataAgentsPromptTokensDetails
+    ] = UNSET
+
+    completion_tokens_details: OptionalNullable[
+        StreamAgentDataAgentsCompletionTokensDetails
+    ] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "completion_tokens",
+            "prompt_tokens",
+            "total_tokens",
+            "prompt_tokens_details",
+            "completion_tokens_details",
+        ]
+        nullable_fields = ["prompt_tokens_details", "completion_tokens_details"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
 class StreamAgentDataAgentsResponse200DataTypedDict(TypedDict):
     last_message: str
     finish_reason: DataFinishReason
     r"""The reason why the agent execution became inactive"""
+    last_message_full: NotRequired[DataLastMessageFullTypedDict]
+    r"""Full last message in A2A format (for backwards compatibility)"""
     pending_tool_calls: NotRequired[List[DataPendingToolCallsTypedDict]]
     r"""Tool calls that are pending user response (for function_call finish reason)"""
+    usage: NotRequired[StreamAgentDataAgentsUsageTypedDict]
+    r"""Token usage from the last agent message"""
+    response_id: NotRequired[str]
+    r"""ID of the response tracking this execution"""
 
 
 class StreamAgentDataAgentsResponse200Data(BaseModel):
@@ -1397,8 +1839,17 @@ class StreamAgentDataAgentsResponse200Data(BaseModel):
     finish_reason: DataFinishReason
     r"""The reason why the agent execution became inactive"""
 
+    last_message_full: Optional[DataLastMessageFull] = None
+    r"""Full last message in A2A format (for backwards compatibility)"""
+
     pending_tool_calls: Optional[List[DataPendingToolCalls]] = None
     r"""Tool calls that are pending user response (for function_call finish reason)"""
+
+    usage: Optional[StreamAgentDataAgentsUsage] = None
+    r"""Token usage from the last agent message"""
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+    r"""ID of the response tracking this execution"""
 
 
 class StreamAgentData4TypedDict(TypedDict):
@@ -1703,7 +2154,7 @@ class StreamAgentDataToolCalls(BaseModel):
     function: Optional[StreamAgentDataAgentsFunction] = None
 
 
-StreamAgentDataAgentsResponse200Role = Literal["assistant",]
+StreamAgentDataAgentsResponse200TextEventStreamRole = Literal["assistant",]
 
 
 class StreamAgentDataAudioTypedDict(TypedDict):
@@ -1733,7 +2184,7 @@ class StreamAgentDataAgentsMessageTypedDict(TypedDict):
     content: NotRequired[Nullable[str]]
     refusal: NotRequired[Nullable[str]]
     tool_calls: NotRequired[List[StreamAgentDataToolCallsTypedDict]]
-    role: NotRequired[StreamAgentDataAgentsResponse200Role]
+    role: NotRequired[StreamAgentDataAgentsResponse200TextEventStreamRole]
     reasoning: NotRequired[Nullable[str]]
     r"""Internal thought process of the model"""
     reasoning_signature: NotRequired[Nullable[str]]
@@ -1753,7 +2204,7 @@ class StreamAgentDataAgentsMessage(BaseModel):
 
     tool_calls: Optional[List[StreamAgentDataToolCalls]] = None
 
-    role: Optional[StreamAgentDataAgentsResponse200Role] = None
+    role: Optional[StreamAgentDataAgentsResponse200TextEventStreamRole] = None
 
     reasoning: OptionalNullable[str] = UNSET
     r"""Internal thought process of the model"""
@@ -2127,6 +2578,180 @@ class DataChoice(BaseModel):
         return m
 
 
+class StreamAgentDataPromptTokensDetailsTypedDict(TypedDict):
+    cached_tokens: NotRequired[Nullable[int]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio input tokens consumed by the request."""
+
+
+class StreamAgentDataPromptTokensDetails(BaseModel):
+    cached_tokens: OptionalNullable[int] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio input tokens consumed by the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cached_tokens", "audio_tokens"]
+        nullable_fields = ["cached_tokens", "audio_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataCompletionTokensDetailsTypedDict(TypedDict):
+    reasoning_tokens: NotRequired[Nullable[float]]
+    accepted_prediction_tokens: NotRequired[Nullable[float]]
+    rejected_prediction_tokens: NotRequired[Nullable[float]]
+    audio_tokens: NotRequired[Nullable[int]]
+    r"""The number of audio output tokens produced by the response."""
+
+
+class StreamAgentDataCompletionTokensDetails(BaseModel):
+    reasoning_tokens: OptionalNullable[float] = UNSET
+
+    accepted_prediction_tokens: OptionalNullable[float] = UNSET
+
+    rejected_prediction_tokens: OptionalNullable[float] = UNSET
+
+    audio_tokens: OptionalNullable[int] = UNSET
+    r"""The number of audio output tokens produced by the response."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        nullable_fields = [
+            "reasoning_tokens",
+            "accepted_prediction_tokens",
+            "rejected_prediction_tokens",
+            "audio_tokens",
+        ]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class StreamAgentDataUsageTypedDict(TypedDict):
+    r"""Usage statistics for the completion request."""
+
+    completion_tokens: NotRequired[float]
+    r"""Number of tokens in the generated completion."""
+    prompt_tokens: NotRequired[float]
+    r"""Number of tokens in the prompt."""
+    total_tokens: NotRequired[float]
+    r"""Total number of tokens used in the request (prompt + completion)."""
+    prompt_tokens_details: NotRequired[
+        Nullable[StreamAgentDataPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[StreamAgentDataCompletionTokensDetailsTypedDict]
+    ]
+
+
+class StreamAgentDataUsage(BaseModel):
+    r"""Usage statistics for the completion request."""
+
+    completion_tokens: Optional[float] = None
+    r"""Number of tokens in the generated completion."""
+
+    prompt_tokens: Optional[float] = None
+    r"""Number of tokens in the prompt."""
+
+    total_tokens: Optional[float] = None
+    r"""Total number of tokens used in the request (prompt + completion)."""
+
+    prompt_tokens_details: OptionalNullable[StreamAgentDataPromptTokensDetails] = UNSET
+
+    completion_tokens_details: OptionalNullable[
+        StreamAgentDataCompletionTokensDetails
+    ] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "completion_tokens",
+            "prompt_tokens",
+            "total_tokens",
+            "prompt_tokens_details",
+            "completion_tokens_details",
+        ]
+        nullable_fields = ["prompt_tokens_details", "completion_tokens_details"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
 class StreamAgentDataAgentsResponseDataTypedDict(TypedDict):
     agent_id: str
     message_difference: Dict[str, DataMessageDifferenceTypedDict]
@@ -2134,6 +2759,9 @@ class StreamAgentDataAgentsResponseDataTypedDict(TypedDict):
     accumulated_execution_time: float
     choice: NotRequired[DataChoiceTypedDict]
     choice_index: NotRequired[float]
+    response_id: NotRequired[str]
+    usage: NotRequired[StreamAgentDataUsageTypedDict]
+    r"""Usage statistics for the completion request."""
 
 
 class StreamAgentDataAgentsResponseData(BaseModel):
@@ -2148,6 +2776,11 @@ class StreamAgentDataAgentsResponseData(BaseModel):
     choice: Optional[DataChoice] = None
 
     choice_index: Annotated[Optional[float], pydantic.Field(alias="choiceIndex")] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+    usage: Optional[StreamAgentDataUsage] = None
+    r"""Usage statistics for the completion request."""
 
 
 class StreamAgentData3TypedDict(TypedDict):
@@ -2534,7 +3167,7 @@ class StreamAgentDataSettingsTypedDict(TypedDict):
 
 
 class StreamAgentDataSettings(BaseModel):
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
@@ -2567,6 +3200,7 @@ class StreamAgentDataAgentsDataTypedDict(TypedDict):
     tool_execution_id: NotRequired[str]
     is_continuation: NotRequired[bool]
     stream: NotRequired[bool]
+    response_id: NotRequired[str]
 
 
 class StreamAgentDataAgentsData(BaseModel):
@@ -2593,6 +3227,8 @@ class StreamAgentDataAgentsData(BaseModel):
     is_continuation: Optional[bool] = None
 
     stream: Optional[bool] = None
+
+    response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
 
 class StreamAgentData2TypedDict(TypedDict):

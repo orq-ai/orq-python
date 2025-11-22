@@ -200,7 +200,7 @@ class GetAgentSettingsTypedDict(TypedDict):
 
 
 class GetAgentSettings(BaseModel):
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300

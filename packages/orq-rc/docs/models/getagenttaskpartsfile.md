@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.GetAgentTaskFileBinaryFormat`
+### `models.GetAgentTaskFileAgentsBinaryFormat`
 
 ```python
-value: models.GetAgentTaskFileBinaryFormat = /* values here */
+value: models.GetAgentTaskFileAgentsBinaryFormat = /* values here */
 ```
 
-### `models.GetAgentTaskFileFileInURIFormat`
+### `models.GetAgentTaskFileAgentsFileInURIFormat`
 
 ```python
-value: models.GetAgentTaskFileFileInURIFormat = /* values here */
+value: models.GetAgentTaskFileAgentsFileInURIFormat = /* values here */
 ```
 

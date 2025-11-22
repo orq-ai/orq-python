@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.RunAgentFileBinaryFormat`
+### `models.RunAgentFileAgentsBinaryFormat`
 
 ```python
-value: models.RunAgentFileBinaryFormat = /* values here */
+value: models.RunAgentFileAgentsBinaryFormat = /* values here */
 ```
 
-### `models.RunAgentFileFileInURIFormat`
+### `models.RunAgentFileAgentsFileInURIFormat`
 
 ```python
-value: models.RunAgentFileFileInURIFormat = /* values here */
+value: models.RunAgentFileAgentsFileInURIFormat = /* values here */
 ```
 

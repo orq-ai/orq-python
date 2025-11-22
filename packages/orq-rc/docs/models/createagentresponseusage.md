@@ -1,0 +1,14 @@
+# CreateAgentResponseUsage
+
+Token usage from the agent execution
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `completion_tokens`                                                                      | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Number of tokens in the generated completion.                                            |
+| `prompt_tokens`                                                                          | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Number of tokens in the prompt.                                                          |
+| `total_tokens`                                                                           | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Total number of tokens used in the request (prompt + completion).                        |
+| `prompt_tokens_details`                                                                  | [OptionalNullable[models.PromptTokensDetails]](../models/prompttokensdetails.md)         | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `completion_tokens_details`                                                              | [OptionalNullable[models.CompletionTokensDetails]](../models/completiontokensdetails.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |

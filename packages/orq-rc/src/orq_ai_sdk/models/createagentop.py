@@ -1568,7 +1568,7 @@ class SettingsTypedDict(TypedDict):
 class Settings(BaseModel):
     r"""Configuration settings for the agent's behavior"""
 
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
@@ -1861,7 +1861,7 @@ class CreateAgentSettingsTypedDict(TypedDict):
 
 
 class CreateAgentSettings(BaseModel):
-    max_iterations: Optional[int] = 15
+    max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
