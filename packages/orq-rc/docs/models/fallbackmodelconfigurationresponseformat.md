@@ -17,9 +17,9 @@ value: models.ResponseFormatText = /* values here */
 value: models.ResponseFormatJSONObject = /* values here */
 ```
 
-### `models.CreateAgentResponseFormatJSONSchema`
+### `models.CreateAgentRequestResponseFormatJSONSchema`
 
 ```python
-value: models.CreateAgentResponseFormatJSONSchema = /* values here */
+value: models.CreateAgentRequestResponseFormatJSONSchema = /* values here */
 ```
 

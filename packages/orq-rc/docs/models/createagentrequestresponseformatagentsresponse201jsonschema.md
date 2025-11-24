@@ -1,0 +1,13 @@
+# CreateAgentRequestResponseFormatAgentsResponse201JSONSchema
+
+
+
+JSON Schema response format. Used to generate structured JSON responses
+
+
+## Fields
+
+| Field                                                                                                                                                            | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                                           | [models.CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONType](../models/createagentrequestresponseformatagentsresponse201applicationjsontype.md) | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              |
+| `json_schema`                                                                                                                                                    | [models.CreateAgentRequestResponseFormatAgentsResponseJSONSchema](../models/createagentrequestresponseformatagentsresponsejsonschema.md)                         | :heavy_check_mark:                                                                                                                                               | N/A                                                                                                                                                              |

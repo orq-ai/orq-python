@@ -347,7 +347,7 @@ r"""Current state of the agent task execution. Values: submitted (queued), worki
 InvokeAgentAgentsKind = Literal["message",]
 
 
-InvokeAgentExtendedMessageRole = Literal[
+ExtendedMessageRole = Literal[
     "user",
     "agent",
     "tool",
@@ -359,7 +359,7 @@ r"""Role of the message sender in the A2A protocol. Values: user (end user), age
 InvokeAgentPartsAgentsResponse200Kind = Literal["tool_result",]
 
 
-class InvokeAgentPartsToolResultPartTypedDict(TypedDict):
+class PartsToolResultPartTypedDict(TypedDict):
     r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
 
     kind: InvokeAgentPartsAgentsResponse200Kind
@@ -368,7 +368,7 @@ class InvokeAgentPartsToolResultPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentPartsToolResultPart(BaseModel):
+class PartsToolResultPart(BaseModel):
     r"""The result of a tool execution. Contains the tool call ID for correlation and the result data from the tool invocation."""
 
     kind: InvokeAgentPartsAgentsResponse200Kind
@@ -383,7 +383,7 @@ class InvokeAgentPartsToolResultPart(BaseModel):
 InvokeAgentPartsAgentsResponseKind = Literal["tool_call",]
 
 
-class InvokeAgentPartsToolCallPartTypedDict(TypedDict):
+class ToolCallPartTypedDict(TypedDict):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: InvokeAgentPartsAgentsResponseKind
@@ -393,7 +393,7 @@ class InvokeAgentPartsToolCallPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentPartsToolCallPart(BaseModel):
+class ToolCallPart(BaseModel):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: InvokeAgentPartsAgentsResponseKind
@@ -458,34 +458,33 @@ class InvokeAgentFileBinaryFormat(BaseModel):
     r"""Optional name for the file"""
 
 
-InvokeAgentPartsFileTypedDict = TypeAliasType(
-    "InvokeAgentPartsFileTypedDict",
+PartsFileTypedDict = TypeAliasType(
+    "PartsFileTypedDict",
     Union[
         InvokeAgentFileBinaryFormatTypedDict, InvokeAgentFileFileInURIFormatTypedDict
     ],
 )
 
 
-InvokeAgentPartsFile = TypeAliasType(
-    "InvokeAgentPartsFile",
-    Union[InvokeAgentFileBinaryFormat, InvokeAgentFileFileInURIFormat],
+PartsFile = TypeAliasType(
+    "PartsFile", Union[InvokeAgentFileBinaryFormat, InvokeAgentFileFileInURIFormat]
 )
 
 
-class InvokeAgentPartsFilePartTypedDict(TypedDict):
+class PartsFilePartTypedDict(TypedDict):
     r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
 
     kind: InvokeAgentPartsAgentsKind
-    file: InvokeAgentPartsFileTypedDict
+    file: PartsFileTypedDict
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentPartsFilePart(BaseModel):
+class PartsFilePart(BaseModel):
     r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
 
     kind: InvokeAgentPartsAgentsKind
 
-    file: InvokeAgentPartsFile
+    file: PartsFile
 
     metadata: Optional[Dict[str, Any]] = None
 
@@ -493,7 +492,7 @@ class InvokeAgentPartsFilePart(BaseModel):
 InvokeAgentPartsKind = Literal["data",]
 
 
-class InvokeAgentPartsDataPartTypedDict(TypedDict):
+class DataPartTypedDict(TypedDict):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: InvokeAgentPartsKind
@@ -501,7 +500,7 @@ class InvokeAgentPartsDataPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class InvokeAgentPartsDataPart(BaseModel):
+class DataPart(BaseModel):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: InvokeAgentPartsKind
@@ -511,45 +510,39 @@ class InvokeAgentPartsDataPart(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-InvokeAgentPartsAgentsResponse200ApplicationJSONKind = Literal["text",]
+PartsKind = Literal["text",]
 
 
-class InvokeAgentPartsTextPartTypedDict(TypedDict):
+class PartsTextPartTypedDict(TypedDict):
     r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
 
-    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+    kind: PartsKind
     text: str
 
 
-class InvokeAgentPartsTextPart(BaseModel):
+class PartsTextPart(BaseModel):
     r"""A text content part containing plain text or markdown. Used for agent messages, user input, and text-based responses."""
 
-    kind: InvokeAgentPartsAgentsResponse200ApplicationJSONKind
+    kind: PartsKind
 
     text: str
 
 
-InvokeAgentPartsTypedDict = TypeAliasType(
-    "InvokeAgentPartsTypedDict",
+PartsTypedDict = TypeAliasType(
+    "PartsTypedDict",
     Union[
-        InvokeAgentPartsTextPartTypedDict,
-        InvokeAgentPartsDataPartTypedDict,
-        InvokeAgentPartsFilePartTypedDict,
-        InvokeAgentPartsToolResultPartTypedDict,
-        InvokeAgentPartsToolCallPartTypedDict,
+        PartsTextPartTypedDict,
+        DataPartTypedDict,
+        PartsFilePartTypedDict,
+        PartsToolResultPartTypedDict,
+        ToolCallPartTypedDict,
     ],
 )
 
 
-InvokeAgentParts = TypeAliasType(
-    "InvokeAgentParts",
-    Union[
-        InvokeAgentPartsTextPart,
-        InvokeAgentPartsDataPart,
-        InvokeAgentPartsFilePart,
-        InvokeAgentPartsToolResultPart,
-        InvokeAgentPartsToolCallPart,
-    ],
+Parts = TypeAliasType(
+    "Parts",
+    Union[PartsTextPart, DataPart, PartsFilePart, PartsToolResultPart, ToolCallPart],
 )
 
 
@@ -558,9 +551,9 @@ class TaskStatusMessageTypedDict(TypedDict):
 
     kind: InvokeAgentAgentsKind
     message_id: str
-    role: InvokeAgentExtendedMessageRole
+    role: ExtendedMessageRole
     r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
-    parts: List[InvokeAgentPartsTypedDict]
+    parts: List[PartsTypedDict]
 
 
 class TaskStatusMessage(BaseModel):
@@ -570,10 +563,10 @@ class TaskStatusMessage(BaseModel):
 
     message_id: Annotated[str, pydantic.Field(alias="messageId")]
 
-    role: InvokeAgentExtendedMessageRole
+    role: ExtendedMessageRole
     r"""Role of the message sender in the A2A protocol. Values: user (end user), agent (AI agent), tool (tool execution result), system (system instructions/prompts)."""
 
-    parts: List[InvokeAgentParts]
+    parts: List[Parts]
 
 
 class TaskStatusTypedDict(TypedDict):

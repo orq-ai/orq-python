@@ -1,6 +1,6 @@
 # ListAgentsResponseBody
 
-List of agents with their configurations including fallback models
+Successfully retrieved the list of agents. Returns a paginated response containing agent manifests with complete configurations, including primary and fallback models, tools, knowledge bases, and execution settings.
 
 
 ## Fields

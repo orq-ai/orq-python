@@ -1,9 +1,0 @@
-# CreateAgentToolChoiceAgents2
-
-
-## Fields
-
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `type`                                                                                           | [Optional[models.CreateAgentToolChoiceAgentsType]](../models/createagenttoolchoiceagentstype.md) | :heavy_minus_sign:                                                                               | The type of the tool. Currently, only function is supported.                                     |
-| `function`                                                                                       | [models.CreateAgentToolChoiceAgentsFunction](../models/createagenttoolchoiceagentsfunction.md)   | :heavy_check_mark:                                                                               | N/A                                                                                              |

@@ -3,12 +3,12 @@
 
 ## Fields
 
-| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `agent_id`                                                           | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
-| `action_id`                                                          | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
-| `requires_approval`                                                  | *bool*                                                               | :heavy_check_mark:                                                   | N/A                                                                  |
-| `tool`                                                               | [models.StreamRunAgentDataTool](../models/streamrunagentdatatool.md) | :heavy_check_mark:                                                   | N/A                                                                  |
-| `input`                                                              | Dict[str, *Any*]                                                     | :heavy_check_mark:                                                   | N/A                                                                  |
-| `agent_tool_call_id`                                                 | *str*                                                                | :heavy_check_mark:                                                   | N/A                                                                  |
-| `response_id`                                                        | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | N/A                                                                  |
+| Field                            | Type                             | Required                         | Description                      |
+| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
+| `agent_id`                       | *str*                            | :heavy_check_mark:               | N/A                              |
+| `action_id`                      | *str*                            | :heavy_check_mark:               | N/A                              |
+| `requires_approval`              | *bool*                           | :heavy_check_mark:               | N/A                              |
+| `tool`                           | [models.Tool](../models/tool.md) | :heavy_check_mark:               | N/A                              |
+| `input`                          | Dict[str, *Any*]                 | :heavy_check_mark:               | N/A                              |
+| `agent_tool_call_id`             | *str*                            | :heavy_check_mark:               | N/A                              |
+| `response_id`                    | *Optional[str]*                  | :heavy_minus_sign:               | N/A                              |

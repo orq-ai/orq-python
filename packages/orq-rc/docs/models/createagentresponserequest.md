@@ -1,9 +1,0 @@
-# CreateAgentResponseRequest
-
-
-## Fields
-
-| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `agent_key`                                                                                    | *str*                                                                                          | :heavy_check_mark:                                                                             | The key or ID of the agent to invoke                                                           |
-| `request_body`                                                                                 | [Optional[models.CreateAgentResponseRequestBody]](../models/createagentresponserequestbody.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |

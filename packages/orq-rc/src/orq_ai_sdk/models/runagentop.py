@@ -64,7 +64,7 @@ class RunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -78,38 +78,8 @@ class RunAgentResponseFormatAgentsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: OptionalNullable[bool] = UNSET
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "schema", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class RunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -615,7 +585,7 @@ class RunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict(TypedDic
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -629,38 +599,8 @@ class RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: OptionalNullable[bool] = UNSET
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "schema", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class RunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
@@ -1424,7 +1364,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAPPHK6BF0YKV93QFZZSJKT9"
+    id: Optional[str] = "01KATB7ENXJV59B2GHSCEN2KTR"
 
     description: Optional[str] = None
 
@@ -2388,7 +2328,7 @@ class RunAgentPartsToolResultPart(BaseModel):
 RunAgentPartsAgentsResponse200Kind = Literal["tool_call",]
 
 
-class RunAgentPartsToolCallPartTypedDict(TypedDict):
+class PartsToolCallPartTypedDict(TypedDict):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: RunAgentPartsAgentsResponse200Kind
@@ -2398,7 +2338,7 @@ class RunAgentPartsToolCallPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentPartsToolCallPart(BaseModel):
+class PartsToolCallPart(BaseModel):
     r"""A tool invocation request from an agent. Contains the tool name, unique call ID, and arguments for the tool execution."""
 
     kind: RunAgentPartsAgentsResponse200Kind
@@ -2499,7 +2439,7 @@ class RunAgentPartsFilePart(BaseModel):
 RunAgentPartsAgentsKind = Literal["data",]
 
 
-class RunAgentPartsDataPartTypedDict(TypedDict):
+class PartsDataPartTypedDict(TypedDict):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: RunAgentPartsAgentsKind
@@ -2507,7 +2447,7 @@ class RunAgentPartsDataPartTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
 
 
-class RunAgentPartsDataPart(BaseModel):
+class PartsDataPart(BaseModel):
     r"""A structured data part containing JSON-serializable key-value pairs. Used for passing structured information between agents and tools."""
 
     kind: RunAgentPartsAgentsKind
@@ -2539,10 +2479,10 @@ RunAgentPartsTypedDict = TypeAliasType(
     "RunAgentPartsTypedDict",
     Union[
         RunAgentPartsTextPartTypedDict,
-        RunAgentPartsDataPartTypedDict,
+        PartsDataPartTypedDict,
         RunAgentPartsFilePartTypedDict,
         RunAgentPartsToolResultPartTypedDict,
-        RunAgentPartsToolCallPartTypedDict,
+        PartsToolCallPartTypedDict,
     ],
 )
 
@@ -2551,10 +2491,10 @@ RunAgentParts = TypeAliasType(
     "RunAgentParts",
     Union[
         RunAgentPartsTextPart,
-        RunAgentPartsDataPart,
+        PartsDataPart,
         RunAgentPartsFilePart,
         RunAgentPartsToolResultPart,
-        RunAgentPartsToolCallPart,
+        PartsToolCallPart,
     ],
 )
 

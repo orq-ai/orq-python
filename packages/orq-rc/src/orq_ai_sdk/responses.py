@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createagentresponseop as models_createagentresponseop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,42 +14,29 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponseop.A2AMessage,
-            models_createagentresponseop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponseop.Contact,
-                models_createagentresponseop.ContactTypedDict,
-            ]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponseop.CreateAgentResponseThread,
-                models_createagentresponseop.CreateAgentResponseThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[
-            Union[
-                models_createagentresponseop.Memory,
-                models_createagentresponseop.MemoryTypedDict,
-            ]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentResponseResponseBody]:
-        r"""Create an agent response
+    ) -> Optional[models.CreateAgentResponseRequestResponseBody]:
+        r"""Create response
 
-        Creates a new response representing an agent interaction. A response tracks the conversation from the initial message until the agent becomes inactive or errors. Supports both synchronous (waiting) and asynchronous (background) execution modes.
+        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
 
-        :param agent_key: The key or ID of the agent to invoke
+        :param agent_key: The unique key of identifier of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
@@ -77,15 +63,15 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAgentResponseRequest(
+        request = models.CreateAgentResponseRequestRequest(
             agent_key=agent_key,
-            request_body=models.CreateAgentResponseRequestBody(
+            request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
-                    thread, Optional[models.CreateAgentResponseThread]
+                    thread, Optional[models.CreateAgentResponseRequestThread]
                 ),
                 memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
                 metadata=metadata,
@@ -111,7 +97,7 @@ class Responses(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.CreateAgentResponseRequestBody],
+                Optional[models.CreateAgentResponseRequestRequestBody],
             ),
             timeout_ms=timeout_ms,
         )
@@ -128,7 +114,7 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="CreateAgentResponse",
+                operation_id="CreateAgentResponseRequest",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -141,7 +127,7 @@ class Responses(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentResponseResponseBody], http_res
+                Optional[models.CreateAgentResponseRequestResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -156,42 +142,29 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponseop.A2AMessage,
-            models_createagentresponseop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponseop.Contact,
-                models_createagentresponseop.ContactTypedDict,
-            ]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponseop.CreateAgentResponseThread,
-                models_createagentresponseop.CreateAgentResponseThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
-        memory: Optional[
-            Union[
-                models_createagentresponseop.Memory,
-                models_createagentresponseop.MemoryTypedDict,
-            ]
-        ] = None,
+        memory: Optional[Union[models.Memory, models.MemoryTypedDict]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentResponseResponseBody]:
-        r"""Create an agent response
+    ) -> Optional[models.CreateAgentResponseRequestResponseBody]:
+        r"""Create response
 
-        Creates a new response representing an agent interaction. A response tracks the conversation from the initial message until the agent becomes inactive or errors. Supports both synchronous (waiting) and asynchronous (background) execution modes.
+        Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
 
-        :param agent_key: The key or ID of the agent to invoke
+        :param agent_key: The unique key of identifier of the agent to invoke
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
@@ -218,15 +191,15 @@ class Responses(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAgentResponseRequest(
+        request = models.CreateAgentResponseRequestRequest(
             agent_key=agent_key,
-            request_body=models.CreateAgentResponseRequestBody(
+            request_body=models.CreateAgentResponseRequestRequestBody(
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
-                    thread, Optional[models.CreateAgentResponseThread]
+                    thread, Optional[models.CreateAgentResponseRequestThread]
                 ),
                 memory=utils.get_pydantic_model(memory, Optional[models.Memory]),
                 metadata=metadata,
@@ -252,7 +225,7 @@ class Responses(BaseSDK):
                 False,
                 True,
                 "json",
-                Optional[models.CreateAgentResponseRequestBody],
+                Optional[models.CreateAgentResponseRequestRequestBody],
             ),
             timeout_ms=timeout_ms,
         )
@@ -269,7 +242,7 @@ class Responses(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="CreateAgentResponse",
+                operation_id="CreateAgentResponseRequest",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -282,7 +255,7 @@ class Responses(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentResponseResponseBody], http_res
+                Optional[models.CreateAgentResponseRequestResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

@@ -1,7 +1,5 @@
 # Review
 
-Review status of the tool call
-
 
 ## Values
 

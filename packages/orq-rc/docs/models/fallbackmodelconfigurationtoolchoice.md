@@ -5,15 +5,15 @@ Controls which (if any) tool is called by the model.
 
 ## Supported Types
 
-### `models.CreateAgentToolChoice1`
+### `models.CreateAgentRequestToolChoice1`
 
 ```python
-value: models.CreateAgentToolChoice1 = /* values here */
+value: models.CreateAgentRequestToolChoice1 = /* values here */
 ```
 
-### `models.CreateAgentToolChoice2`
+### `models.CreateAgentRequestToolChoice2`
 
 ```python
-value: models.CreateAgentToolChoice2 = /* values here */
+value: models.CreateAgentRequestToolChoice2 = /* values here */
 ```
 

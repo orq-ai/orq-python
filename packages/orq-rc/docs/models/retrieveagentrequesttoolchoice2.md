@@ -1,0 +1,9 @@
+# RetrieveAgentRequestToolChoice2
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [Optional[models.RetrieveAgentRequestToolChoiceType]](../models/retrieveagentrequesttoolchoicetype.md) | :heavy_minus_sign:                                                                                     | The type of the tool. Currently, only function is supported.                                           |
+| `function`                                                                                             | [models.RetrieveAgentRequestToolChoiceFunction](../models/retrieveagentrequesttoolchoicefunction.md)   | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

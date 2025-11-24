@@ -28,7 +28,7 @@ class DeleteAgentResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class DeleteAgentResponseBody(OrqError):
-    r"""Agent not found"""
+    r"""Agent not found. The specified agent key does not exist in the workspace or has already been deleted."""
 
     data: DeleteAgentResponseBodyData = field(hash=False)
 

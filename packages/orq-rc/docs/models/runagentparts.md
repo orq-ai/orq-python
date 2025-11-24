@@ -9,10 +9,10 @@
 value: models.RunAgentPartsTextPart = /* values here */
 ```
 
-### `models.RunAgentPartsDataPart`
+### `models.PartsDataPart`
 
 ```python
-value: models.RunAgentPartsDataPart = /* values here */
+value: models.PartsDataPart = /* values here */
 ```
 
 ### `models.RunAgentPartsFilePart`
@@ -21,10 +21,10 @@ value: models.RunAgentPartsDataPart = /* values here */
 value: models.RunAgentPartsFilePart = /* values here */
 ```
 
-### `models.RunAgentPartsToolCallPart`
+### `models.PartsToolCallPart`
 
 ```python
-value: models.RunAgentPartsToolCallPart = /* values here */
+value: models.PartsToolCallPart = /* values here */
 ```
 
 ### `models.RunAgentPartsToolResultPart`

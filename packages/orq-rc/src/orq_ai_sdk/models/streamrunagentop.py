@@ -69,7 +69,7 @@ class StreamRunAgentResponseFormatAgentsJSONSchemaTypedDict(TypedDict):
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -83,38 +83,8 @@ class StreamRunAgentResponseFormatAgentsJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: OptionalNullable[bool] = UNSET
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "schema", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class StreamRunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
@@ -628,7 +598,7 @@ class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchemaTypedDict(
     r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
     schema_: NotRequired[Any]
     r"""The schema for the response format, described as a JSON Schema object."""
-    strict: NotRequired[Nullable[bool]]
+    strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
@@ -642,38 +612,8 @@ class StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
     schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
     r"""The schema for the response format, described as a JSON Schema object."""
 
-    strict: OptionalNullable[bool] = UNSET
+    strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = ["description", "schema", "strict"]
-        nullable_fields = ["strict"]
-        null_default_fields = []
-
-        serialized = handler(self)
-
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-            serialized.pop(k, None)
-
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
-
-        return m
 
 
 class StreamRunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
@@ -1450,7 +1390,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAPPHK7QM15CJG4A8SSCAAXJ"
+    id: Optional[str] = "01KATB7EQGE05X8Y6R5Y5QNYRR"
 
     description: Optional[str] = None
 
@@ -3206,7 +3146,7 @@ StreamRunAgentDataAgentsResponse200TextEventStreamResponseBody7Type = Literal[
 ]
 
 
-StreamRunAgentDataReview = Literal[
+Review = Literal[
     "approved",
     "rejected",
 ]
@@ -3218,7 +3158,7 @@ class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyDataTypedDic
     agent_id: str
     action_id: str
     agent_tool_call_id: str
-    review: StreamRunAgentDataReview
+    review: Review
     mock_output: NotRequired[Dict[str, Any]]
     review_source: NotRequired[str]
     reviewed_by_id: NotRequired[str]
@@ -3231,7 +3171,7 @@ class StreamRunAgentDataAgentsResponse200TextEventStreamResponseBodyData(BaseMod
 
     agent_tool_call_id: str
 
-    review: StreamRunAgentDataReview
+    review: Review
 
     mock_output: Optional[Dict[str, Any]] = None
 
@@ -3281,7 +3221,7 @@ class DataConditions(BaseModel):
     r"""The value to compare against"""
 
 
-class StreamRunAgentDataToolTypedDict(TypedDict):
+class ToolTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
@@ -3298,7 +3238,7 @@ class StreamRunAgentDataToolTypedDict(TypedDict):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-class StreamRunAgentDataTool(BaseModel):
+class Tool(BaseModel):
     id: str
     r"""The id of the resource"""
 
@@ -3327,7 +3267,7 @@ class StreamRunAgentDataAgentsResponse200TextEventStreamDataTypedDict(TypedDict)
     agent_id: str
     action_id: str
     requires_approval: bool
-    tool: StreamRunAgentDataToolTypedDict
+    tool: ToolTypedDict
     input: Dict[str, Any]
     agent_tool_call_id: str
     response_id: NotRequired[str]
@@ -3340,7 +3280,7 @@ class StreamRunAgentDataAgentsResponse200TextEventStreamData(BaseModel):
 
     requires_approval: bool
 
-    tool: StreamRunAgentDataTool
+    tool: Tool
 
     input: Dict[str, Any]
 
@@ -5386,12 +5326,12 @@ StreamRunAgentData = TypeAliasType(
 
 
 class StreamRunAgentResponseBodyTypedDict(TypedDict):
-    r"""SSE stream of agent events"""
+    r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
 
     data: StreamRunAgentDataTypedDict
 
 
 class StreamRunAgentResponseBody(BaseModel):
-    r"""SSE stream of agent events"""
+    r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
 
     data: StreamRunAgentData
