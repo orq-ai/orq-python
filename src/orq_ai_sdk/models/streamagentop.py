@@ -330,7 +330,7 @@ class StreamAgentRequestBody(BaseModel):
 class StreamAgentRequestTypedDict(TypedDict):
     key: str
     r"""The key or ID of the agent to invoke"""
-    request_body: NotRequired[StreamAgentRequestBodyTypedDict]
+    request_body: StreamAgentRequestBodyTypedDict
 
 
 class StreamAgentRequest(BaseModel):
@@ -340,9 +340,9 @@ class StreamAgentRequest(BaseModel):
     r"""The key or ID of the agent to invoke"""
 
     request_body: Annotated[
-        Optional[StreamAgentRequestBody],
+        StreamAgentRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = None
+    ]
 
 
 class StreamAgentAgentsResponseBodyData(BaseModel):

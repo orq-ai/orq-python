@@ -314,7 +314,7 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
 class CreateAgentResponseRequestRequestTypedDict(TypedDict):
     agent_key: str
     r"""The unique key of identifier of the agent to invoke"""
-    request_body: NotRequired[CreateAgentResponseRequestRequestBodyTypedDict]
+    request_body: CreateAgentResponseRequestRequestBodyTypedDict
 
 
 class CreateAgentResponseRequestRequest(BaseModel):
@@ -324,9 +324,9 @@ class CreateAgentResponseRequestRequest(BaseModel):
     r"""The unique key of identifier of the agent to invoke"""
 
     request_body: Annotated[
-        Optional[CreateAgentResponseRequestRequestBody],
+        CreateAgentResponseRequestRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = None
+    ]
 
 
 CreateAgentResponseRequestAgentsResponsesRole = Literal[

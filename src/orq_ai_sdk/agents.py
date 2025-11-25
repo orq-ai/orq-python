@@ -5,10 +5,10 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.responses import Responses
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
@@ -28,12 +28,29 @@ class Agents(BaseSDK):
     def create(
         self,
         *,
-        request: Optional[
+        key: str,
+        role: str,
+        description: str,
+        instructions: str,
+        path: str,
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
+        settings: Union[models.Settings, models.SettingsTypedDict],
+        display_name: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        fallback_models: Optional[
             Union[
-                models.CreateAgentRequestRequestBody,
-                models.CreateAgentRequestRequestBodyTypedDict,
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
+        ] = None,
+        team_of_agents: Optional[
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
+        ] = None,
+        variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -43,7 +60,22 @@ class Agents(BaseSDK):
 
         Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
 
-        :param request: The request object to send.
+        :param key: Unique identifier for the agent within the workspace
+        :param role: The role or function of the agent
+        :param description: A brief description of what the agent does
+        :param instructions: Detailed instructions that guide the agent's behavior
+        :param path: The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
+        :param settings: Configuration settings for the agent's behavior
+        :param display_name: agent display name within the workspace
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param memory_stores: Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param variables:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -62,11 +94,28 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateAgentRequestRequestBody]
-            )
-        request = cast(Optional[models.CreateAgentRequestRequestBody], request)
+        request = models.CreateAgentRequestRequestBody(
+            key=key,
+            display_name=display_name,
+            role=role,
+            description=description,
+            instructions=instructions,
+            system_prompt=system_prompt,
+            path=path,
+            model=utils.get_pydantic_model(model, models.ModelConfiguration),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models, Optional[List[models.FallbackModelConfiguration]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.Settings),
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.KnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.TeamOfAgents]]
+            ),
+            variables=variables,
+        )
 
         req = self._build_request(
             method="POST",
@@ -74,7 +123,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -82,11 +131,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreateAgentRequestRequestBody],
+                request, False, False, "json", models.CreateAgentRequestRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -136,12 +181,29 @@ class Agents(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Optional[
+        key: str,
+        role: str,
+        description: str,
+        instructions: str,
+        path: str,
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
+        settings: Union[models.Settings, models.SettingsTypedDict],
+        display_name: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        fallback_models: Optional[
             Union[
-                models.CreateAgentRequestRequestBody,
-                models.CreateAgentRequestRequestBodyTypedDict,
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
+        ] = None,
+        team_of_agents: Optional[
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
+        ] = None,
+        variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -151,7 +213,22 @@ class Agents(BaseSDK):
 
         Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
 
-        :param request: The request object to send.
+        :param key: Unique identifier for the agent within the workspace
+        :param role: The role or function of the agent
+        :param description: A brief description of what the agent does
+        :param instructions: Detailed instructions that guide the agent's behavior
+        :param path: The path where the agent will be stored in the project structure. The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
+        :param settings: Configuration settings for the agent's behavior
+        :param display_name: agent display name within the workspace
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param memory_stores: Optional array of memory store identifiers for the agent to access. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param variables:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -170,11 +247,28 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateAgentRequestRequestBody]
-            )
-        request = cast(Optional[models.CreateAgentRequestRequestBody], request)
+        request = models.CreateAgentRequestRequestBody(
+            key=key,
+            display_name=display_name,
+            role=role,
+            description=description,
+            instructions=instructions,
+            system_prompt=system_prompt,
+            path=path,
+            model=utils.get_pydantic_model(model, models.ModelConfiguration),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models, Optional[List[models.FallbackModelConfiguration]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.Settings),
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.KnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.TeamOfAgents]]
+            ),
+            variables=variables,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -182,7 +276,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -190,11 +284,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
-                False,
-                True,
-                "json",
-                Optional[models.CreateAgentRequestRequestBody],
+                request, False, False, "json", models.CreateAgentRequestRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -739,7 +829,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -749,9 +839,9 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.UpdateAgentUpdateAgentRequest],
+                models.UpdateAgentUpdateAgentRequest,
             ),
             timeout_ms=timeout_ms,
         )
@@ -924,7 +1014,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -934,9 +1024,9 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.UpdateAgentUpdateAgentRequest],
+                models.UpdateAgentUpdateAgentRequest,
             ),
             timeout_ms=timeout_ms,
         )
@@ -1447,9 +1537,49 @@ class Agents(BaseSDK):
     def run(
         self,
         *,
-        request: Optional[
-            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
+        key: str,
+        model: Union[
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
+        ],
+        role: str,
+        instructions: str,
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
+        path: str,
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
+        task_id: Optional[str] = None,
+        fallback_models: Optional[
+            Union[
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
+            ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
+        ] = None,
+        description: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1459,7 +1589,29 @@ class Agents(BaseSDK):
 
         Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
 
-        :param request: The request object to send.
+        :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
+        :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
+        :param role: Specifies the agent's function and area of expertise.
+        :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
+        :param message: The A2A format message containing the task for the agent to perform.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param settings:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param description: A brief summary of the agent's purpose.
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param memory_stores: Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1478,9 +1630,34 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.RunAgentRequestBody])
-        request = cast(Optional[models.RunAgentRequestBody], request)
+        request = models.RunAgentRequestBody(
+            key=key,
+            task_id=task_id,
+            model=utils.get_pydantic_model(model, models.RunAgentModelConfiguration),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models,
+                Optional[List[models.RunAgentFallbackModelConfiguration]],
+            ),
+            role=role,
+            instructions=instructions,
+            message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
+            variables=variables,
+            contact=utils.get_pydantic_model(contact, Optional[models.RunAgentContact]),
+            thread=utils.get_pydantic_model(thread, Optional[models.RunAgentThread]),
+            memory=utils.get_pydantic_model(memory, Optional[models.RunAgentMemory]),
+            path=path,
+            description=description,
+            system_prompt=system_prompt,
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.RunAgentKnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.RunAgentTeamOfAgents]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
+            metadata=metadata,
+        )
 
         req = self._build_request(
             method="POST",
@@ -1488,7 +1665,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1496,7 +1673,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.RunAgentRequestBody]
+                request, False, False, "json", models.RunAgentRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -1543,9 +1720,49 @@ class Agents(BaseSDK):
     async def run_async(
         self,
         *,
-        request: Optional[
-            Union[models.RunAgentRequestBody, models.RunAgentRequestBodyTypedDict]
+        key: str,
+        model: Union[
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
+        ],
+        role: str,
+        instructions: str,
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
+        path: str,
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
+        task_id: Optional[str] = None,
+        fallback_models: Optional[
+            Union[
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
+            ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
+        ] = None,
+        description: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1555,7 +1772,29 @@ class Agents(BaseSDK):
 
         Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
 
-        :param request: The request object to send.
+        :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
+        :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
+        :param role: Specifies the agent's function and area of expertise.
+        :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
+        :param message: The A2A format message containing the task for the agent to perform.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param settings:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param description: A brief summary of the agent's purpose.
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param memory_stores: Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1574,9 +1813,34 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.RunAgentRequestBody])
-        request = cast(Optional[models.RunAgentRequestBody], request)
+        request = models.RunAgentRequestBody(
+            key=key,
+            task_id=task_id,
+            model=utils.get_pydantic_model(model, models.RunAgentModelConfiguration),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models,
+                Optional[List[models.RunAgentFallbackModelConfiguration]],
+            ),
+            role=role,
+            instructions=instructions,
+            message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
+            variables=variables,
+            contact=utils.get_pydantic_model(contact, Optional[models.RunAgentContact]),
+            thread=utils.get_pydantic_model(thread, Optional[models.RunAgentThread]),
+            memory=utils.get_pydantic_model(memory, Optional[models.RunAgentMemory]),
+            path=path,
+            description=description,
+            system_prompt=system_prompt,
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.RunAgentKnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.RunAgentTeamOfAgents]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.RunAgentSettings),
+            metadata=metadata,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -1584,7 +1848,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1592,7 +1856,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.RunAgentRequestBody]
+                request, False, False, "json", models.RunAgentRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -1639,12 +1903,54 @@ class Agents(BaseSDK):
     def stream_run(
         self,
         *,
-        request: Optional[
+        key: str,
+        model: Union[
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
+        ],
+        role: str,
+        instructions: str,
+        message: Union[
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
+        ],
+        path: str,
+        settings: Union[
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
+        ],
+        task_id: Optional[str] = None,
+        fallback_models: Optional[
             Union[
-                models.StreamRunAgentRequestBody,
-                models.StreamRunAgentRequestBodyTypedDict,
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
+        ] = None,
+        description: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1654,7 +1960,30 @@ class Agents(BaseSDK):
 
         Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
 
-        :param request: The request object to send.
+        :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
+        :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
+        :param role: Specifies the agent's function and area of expertise.
+        :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
+        :param message: The A2A format message containing the task for the agent to perform.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param settings:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param description: A brief summary of the agent's purpose.
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param memory_stores: Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1673,11 +2002,43 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.StreamRunAgentRequestBody]
-            )
-        request = cast(Optional[models.StreamRunAgentRequestBody], request)
+        request = models.StreamRunAgentRequestBody(
+            key=key,
+            task_id=task_id,
+            model=utils.get_pydantic_model(
+                model, models.StreamRunAgentModelConfiguration
+            ),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models,
+                Optional[List[models.StreamRunAgentFallbackModelConfiguration]],
+            ),
+            role=role,
+            instructions=instructions,
+            message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
+            variables=variables,
+            contact=utils.get_pydantic_model(
+                contact, Optional[models.StreamRunAgentContact]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.StreamRunAgentThread]
+            ),
+            memory=utils.get_pydantic_model(
+                memory, Optional[models.StreamRunAgentMemory]
+            ),
+            path=path,
+            description=description,
+            system_prompt=system_prompt,
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.StreamRunAgentKnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.StreamRunAgentTeamOfAgents]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
+            metadata=metadata,
+            stream_timeout_seconds=stream_timeout_seconds,
+        )
 
         req = self._build_request(
             method="POST",
@@ -1685,7 +2046,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1693,7 +2054,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.StreamRunAgentRequestBody]
+                request, False, False, "json", models.StreamRunAgentRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -1756,12 +2117,54 @@ class Agents(BaseSDK):
     async def stream_run_async(
         self,
         *,
-        request: Optional[
+        key: str,
+        model: Union[
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
+        ],
+        role: str,
+        instructions: str,
+        message: Union[
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
+        ],
+        path: str,
+        settings: Union[
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
+        ],
+        task_id: Optional[str] = None,
+        fallback_models: Optional[
             Union[
-                models.StreamRunAgentRequestBody,
-                models.StreamRunAgentRequestBodyTypedDict,
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
+        variables: Optional[Dict[str, Any]] = None,
+        contact: Optional[
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
+        ] = None,
+        thread: Optional[
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
+        ] = None,
+        memory: Optional[
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
+        ] = None,
+        description: Optional[str] = None,
+        system_prompt: Optional[str] = None,
+        memory_stores: Optional[List[str]] = None,
+        knowledge_bases: Optional[
+            Union[
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
+            ]
+        ] = None,
+        team_of_agents: Optional[
+            Union[
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
+            ]
+        ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        stream_timeout_seconds: Optional[float] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1771,7 +2174,30 @@ class Agents(BaseSDK):
 
         Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
 
-        :param request: The request object to send.
+        :param key: A unique identifier for the agent. This key must be unique within the same workspace and cannot be reused. When executing the agent, this key determines if the agent already exists. If the agent version differs, a new version is created at the end of the execution, except for the task. All agent parameters are evaluated to decide if a new version is needed.
+        :param model: Model configuration for this execution. Can override the agent manifest defaults if the agent already exists.
+        :param role: Specifies the agent's function and area of expertise.
+        :param instructions: Provides context and purpose for the agent. Combined with the system prompt template to generate the agent's instructions.
+        :param message: The A2A format message containing the task for the agent to perform.
+        :param path: Entity storage path in the format: `project/folder/subfolder/...`
+
+            The first element identifies the project, followed by nested folders (auto-created as needed).
+
+            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+        :param settings:
+        :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
+        :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
+        :param variables: Optional variables for template replacement in system prompt, instructions, and messages
+        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param thread: Thread information to group related requests
+        :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
+        :param description: A brief summary of the agent's purpose.
+        :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
+        :param memory_stores: Array of memory store identifiers that are accessible to the agent. Accepts both memory store IDs and keys.
+        :param knowledge_bases: Knowledge base configurations for the agent to access
+        :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
+        :param metadata: Optional metadata for the agent run as key-value pairs that will be included in traces
+        :param stream_timeout_seconds: Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1790,11 +2216,43 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.StreamRunAgentRequestBody]
-            )
-        request = cast(Optional[models.StreamRunAgentRequestBody], request)
+        request = models.StreamRunAgentRequestBody(
+            key=key,
+            task_id=task_id,
+            model=utils.get_pydantic_model(
+                model, models.StreamRunAgentModelConfiguration
+            ),
+            fallback_models=utils.get_pydantic_model(
+                fallback_models,
+                Optional[List[models.StreamRunAgentFallbackModelConfiguration]],
+            ),
+            role=role,
+            instructions=instructions,
+            message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
+            variables=variables,
+            contact=utils.get_pydantic_model(
+                contact, Optional[models.StreamRunAgentContact]
+            ),
+            thread=utils.get_pydantic_model(
+                thread, Optional[models.StreamRunAgentThread]
+            ),
+            memory=utils.get_pydantic_model(
+                memory, Optional[models.StreamRunAgentMemory]
+            ),
+            path=path,
+            description=description,
+            system_prompt=system_prompt,
+            memory_stores=memory_stores,
+            knowledge_bases=utils.get_pydantic_model(
+                knowledge_bases, Optional[List[models.StreamRunAgentKnowledgeBases]]
+            ),
+            team_of_agents=utils.get_pydantic_model(
+                team_of_agents, Optional[List[models.StreamRunAgentTeamOfAgents]]
+            ),
+            settings=utils.get_pydantic_model(settings, models.StreamRunAgentSettings),
+            metadata=metadata,
+            stream_timeout_seconds=stream_timeout_seconds,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -1802,7 +2260,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1810,7 +2268,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.StreamRunAgentRequestBody]
+                request, False, False, "json", models.StreamRunAgentRequestBody
             ),
             timeout_ms=timeout_ms,
         )
@@ -1952,7 +2410,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -1962,9 +2420,9 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.StreamAgentRequestBody],
+                models.StreamAgentRequestBody,
             ),
             timeout_ms=timeout_ms,
         )
@@ -2104,7 +2562,7 @@ class Agents(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -2114,9 +2572,9 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.StreamAgentRequestBody],
+                models.StreamAgentRequestBody,
             ),
             timeout_ms=timeout_ms,
         )

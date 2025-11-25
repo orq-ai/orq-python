@@ -1665,7 +1665,7 @@ class UpdateAgentUpdateAgentRequest(BaseModel):
 class UpdateAgentRequestTypedDict(TypedDict):
     agent_key: str
     r"""The unique key of the agent to update"""
-    request_body: NotRequired[UpdateAgentUpdateAgentRequestTypedDict]
+    request_body: UpdateAgentUpdateAgentRequestTypedDict
 
 
 class UpdateAgentRequest(BaseModel):
@@ -1675,9 +1675,9 @@ class UpdateAgentRequest(BaseModel):
     r"""The unique key of the agent to update"""
 
     request_body: Annotated[
-        Optional[UpdateAgentUpdateAgentRequest],
+        UpdateAgentUpdateAgentRequest,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
-    ] = None
+    ]
 
 
 class UpdateAgentAgentsResponseBodyData(BaseModel):
