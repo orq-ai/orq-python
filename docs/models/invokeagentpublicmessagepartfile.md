@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.FileBinaryFormat`
+### `models.InvokeAgentFileBinaryFormat`
 
 ```python
-value: models.FileBinaryFormat = /* values here */
+value: models.InvokeAgentFileBinaryFormat = /* values here */
 ```
 
-### `models.FileFileInURIFormat`
+### `models.InvokeAgentFileFileInURIFormat`
 
 ```python
-value: models.FileFileInURIFormat = /* values here */
+value: models.InvokeAgentFileFileInURIFormat = /* values here */
 ```
 

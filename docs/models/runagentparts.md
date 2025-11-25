@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.RunAgentPartsTextPart`
+### `models.TextPart`
 
 ```python
-value: models.RunAgentPartsTextPart = /* values here */
+value: models.TextPart = /* values here */
 ```
 
-### `models.PartsDataPart`
+### `models.DataPart`
 
 ```python
-value: models.PartsDataPart = /* values here */
+value: models.DataPart = /* values here */
 ```
 
-### `models.RunAgentPartsFilePart`
+### `models.FilePart`
 
 ```python
-value: models.RunAgentPartsFilePart = /* values here */
+value: models.FilePart = /* values here */
 ```
 
-### `models.PartsToolCallPart`
+### `models.ToolCallPart`
 
 ```python
-value: models.PartsToolCallPart = /* values here */
+value: models.ToolCallPart = /* values here */
 ```
 
-### `models.RunAgentPartsToolResultPart`
+### `models.ToolResultPart`
 
 ```python
-value: models.RunAgentPartsToolResultPart = /* values here */
+value: models.ToolResultPart = /* values here */
 ```
 

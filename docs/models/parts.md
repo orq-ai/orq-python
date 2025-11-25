@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.PartsTextPart`
+### `models.TextPart`
 
 ```python
-value: models.PartsTextPart = /* values here */
+value: models.TextPart = /* values here */
 ```
 
 ### `models.DataPart`
@@ -15,10 +15,10 @@ value: models.PartsTextPart = /* values here */
 value: models.DataPart = /* values here */
 ```
 
-### `models.PartsFilePart`
+### `models.FilePart`
 
 ```python
-value: models.PartsFilePart = /* values here */
+value: models.FilePart = /* values here */
 ```
 
 ### `models.ToolCallPart`
@@ -27,9 +27,9 @@ value: models.PartsFilePart = /* values here */
 value: models.ToolCallPart = /* values here */
 ```
 
-### `models.PartsToolResultPart`
+### `models.ToolResultPart`
 
 ```python
-value: models.PartsToolResultPart = /* values here */
+value: models.ToolResultPart = /* values here */
 ```
 

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: fd34e2fb-ef13-41ac-aee3-a7cff2be8de7
 management:
-  docChecksum: 762754d845e42c2802e7a988df9250f6
+  docChecksum: 8868832687e85c8c916212ea4fd24301
   docVersion: "2.0"
   speakeasyVersion: 1.656.1
   generationVersion: 2.753.1
-  releaseVersion: 4.0.9
-  configChecksum: 0003042e98aca6e3b66e1f343e5ff6c7
+  releaseVersion: 4.0.11
+  configChecksum: 26e4eced4eef2adb352e1693d54e6a57
   repoURL: https://github.com/orq-ai/orq-python.git
   installationURL: https://github.com/orq-ai/orq-python.git
   published: true
@@ -732,6 +732,7 @@ generatedFiles:
   - docs/models/datamethod.md
   - docs/models/dataparameters.md
   - docs/models/datapart.md
+  - docs/models/datapartkind.md
   - docs/models/dataparts.md
   - docs/models/datapendingtoolcalls.md
   - docs/models/dataproduct.md
@@ -1288,6 +1289,7 @@ generatedFiles:
   - docs/models/filelistrequest.md
   - docs/models/filelistresponsebody.md
   - docs/models/filepart.md
+  - docs/models/filepartkind.md
   - docs/models/filepath.md
   - docs/models/fileuploadfile.md
   - docs/models/fileuploadpurpose.md
@@ -1683,15 +1685,13 @@ generatedFiles:
   - docs/models/invokeagentfilefileinuriformat.md
   - docs/models/invokeagentkind.md
   - docs/models/invokeagentmemory.md
-  - docs/models/invokeagentpartsagentskind.md
-  - docs/models/invokeagentpartsagentsresponse200kind.md
-  - docs/models/invokeagentpartsagentsresponsekind.md
-  - docs/models/invokeagentpartskind.md
+  - docs/models/invokeagentparts.md
   - docs/models/invokeagentpublicmessagepart.md
   - docs/models/invokeagentpublicmessagepartagentskind.md
-  - docs/models/invokeagentpublicmessagepartagentsrequestkind.md
   - docs/models/invokeagentpublicmessagepartfile.md
+  - docs/models/invokeagentpublicmessagepartfilepart.md
   - docs/models/invokeagentpublicmessagepartkind.md
+  - docs/models/invokeagentpublicmessageparttoolresultpart.md
   - docs/models/invokeagentrequest.md
   - docs/models/invokeagentrequestbody.md
   - docs/models/invokeagentrole.md
@@ -1701,6 +1701,7 @@ generatedFiles:
   - docs/models/invokedeploymentrequest.md
   - docs/models/invokedeploymentrequest21.md
   - docs/models/invokedeploymentrequest22.md
+  - docs/models/invokedeploymentrequest2file.md
   - docs/models/invokedeploymentrequest2messages3content4type.md
   - docs/models/invokedeploymentrequest2messages3contenttype.md
   - docs/models/invokedeploymentrequest2messages3type.md
@@ -2059,13 +2060,6 @@ generatedFiles:
   - docs/models/parsemetadata.md
   - docs/models/parseresponsebody.md
   - docs/models/parts.md
-  - docs/models/partsdatapart.md
-  - docs/models/partsfile.md
-  - docs/models/partsfilepart.md
-  - docs/models/partskind.md
-  - docs/models/partstextpart.md
-  - docs/models/partstoolcallpart.md
-  - docs/models/partstoolresultpart.md
   - docs/models/pendingtoolcalls.md
   - docs/models/performance.md
   - docs/models/period.md
@@ -2093,7 +2087,6 @@ generatedFiles:
   - docs/models/publicmessagepartfile.md
   - docs/models/publicmessagepartfilepart.md
   - docs/models/publicmessagepartkind.md
-  - docs/models/publicmessageparttextpart.md
   - docs/models/publicmessageparttoolresultpart.md
   - docs/models/purpose.md
   - docs/models/python.md
@@ -2431,8 +2424,6 @@ generatedFiles:
   - docs/models/runagentfallbackmodelconfigurationtoolchoice.md
   - docs/models/runagentfallbackmodelconfigurationtype.md
   - docs/models/runagentfallbackmodelconfigurationvoice.md
-  - docs/models/runagentfileagentsbinaryformat.md
-  - docs/models/runagentfileagentsfileinuriformat.md
   - docs/models/runagentfilebinaryformat.md
   - docs/models/runagentfilefileinuriformat.md
   - docs/models/runagentguardrails.md
@@ -2455,22 +2446,11 @@ generatedFiles:
   - docs/models/runagentmodelconfigurationtype.md
   - docs/models/runagentmodelconfigurationvoice.md
   - docs/models/runagentparts.md
-  - docs/models/runagentpartsagentskind.md
-  - docs/models/runagentpartsagentsresponse200applicationjsonkind.md
-  - docs/models/runagentpartsagentsresponse200kind.md
-  - docs/models/runagentpartsagentsresponsekind.md
-  - docs/models/runagentpartsfile.md
-  - docs/models/runagentpartsfilepart.md
-  - docs/models/runagentpartskind.md
-  - docs/models/runagentpartstextpart.md
-  - docs/models/runagentpartstoolresultpart.md
   - docs/models/runagentpublicmessagepart.md
   - docs/models/runagentpublicmessagepartagentskind.md
-  - docs/models/runagentpublicmessagepartagentsrequestkind.md
   - docs/models/runagentpublicmessagepartfile.md
   - docs/models/runagentpublicmessagepartfilepart.md
   - docs/models/runagentpublicmessagepartkind.md
-  - docs/models/runagentpublicmessageparttextpart.md
   - docs/models/runagentpublicmessageparttoolresultpart.md
   - docs/models/runagentrequestbody.md
   - docs/models/runagentresponseformatagentsjsonobject.md
@@ -2653,68 +2633,14 @@ generatedFiles:
   - docs/models/streamagentdatatoplogprobs.md
   - docs/models/streamagentdatatype.md
   - docs/models/streamagentdatausage.md
-  - docs/models/streamagentfileagentsbinaryformat.md
-  - docs/models/streamagentfileagentsfileinuriformat.md
-  - docs/models/streamagentfileagentsresponse200binaryformat.md
-  - docs/models/streamagentfileagentsresponse200fileinuriformat.md
-  - docs/models/streamagentfileagentsresponse200texteventstreambinaryformat.md
-  - docs/models/streamagentfileagentsresponse200texteventstreamfileinuriformat.md
-  - docs/models/streamagentfileagentsresponsebinaryformat.md
-  - docs/models/streamagentfileagentsresponsefileinuriformat.md
   - docs/models/streamagentfilebinaryformat.md
   - docs/models/streamagentfilefileinuriformat.md
   - docs/models/streamagentmemory.md
-  - docs/models/streamagentpartsagentsdatapart.md
-  - docs/models/streamagentpartsagentsfile.md
-  - docs/models/streamagentpartsagentsfilepart.md
-  - docs/models/streamagentpartsagentskind.md
-  - docs/models/streamagentpartsagentsresponse200datapart.md
-  - docs/models/streamagentpartsagentsresponse200file.md
-  - docs/models/streamagentpartsagentsresponse200filepart.md
-  - docs/models/streamagentpartsagentsresponse200kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamkind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata12datakind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata12datamessage4kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata12datamessage5kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata12datamessagekind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata12kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata3datakind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata3datamessagedifferencekind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata3kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata4datakind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefull4kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefull5kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefullkind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydata4kind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodydatakind.md
-  - docs/models/streamagentpartsagentsresponse200texteventstreamresponsebodykind.md
-  - docs/models/streamagentpartsagentsresponse200textpart.md
-  - docs/models/streamagentpartsagentsresponse200toolcallpart.md
-  - docs/models/streamagentpartsagentsresponse200toolresultpart.md
-  - docs/models/streamagentpartsagentsresponsedatapart.md
-  - docs/models/streamagentpartsagentsresponsefile.md
-  - docs/models/streamagentpartsagentsresponsefilepart.md
-  - docs/models/streamagentpartsagentsresponsekind.md
-  - docs/models/streamagentpartsagentsresponsetextpart.md
-  - docs/models/streamagentpartsagentsresponsetoolcallpart.md
-  - docs/models/streamagentpartsagentsresponsetoolresultpart.md
-  - docs/models/streamagentpartsagentstextpart.md
-  - docs/models/streamagentpartsagentstoolcallpart.md
-  - docs/models/streamagentpartsagentstoolresultpart.md
-  - docs/models/streamagentpartsdatapart.md
-  - docs/models/streamagentpartsfile.md
-  - docs/models/streamagentpartsfilepart.md
-  - docs/models/streamagentpartskind.md
-  - docs/models/streamagentpartstextpart.md
-  - docs/models/streamagentpartstoolcallpart.md
-  - docs/models/streamagentpartstoolresultpart.md
   - docs/models/streamagentpublicmessagepart.md
   - docs/models/streamagentpublicmessagepartagentskind.md
-  - docs/models/streamagentpublicmessagepartagentsrequestkind.md
   - docs/models/streamagentpublicmessagepartfile.md
   - docs/models/streamagentpublicmessagepartfilepart.md
   - docs/models/streamagentpublicmessagepartkind.md
-  - docs/models/streamagentpublicmessageparttextpart.md
   - docs/models/streamagentpublicmessageparttoolresultpart.md
   - docs/models/streamagentrequest.md
   - docs/models/streamagentrequestbody.md
@@ -2839,14 +2765,6 @@ generatedFiles:
   - docs/models/streamrunagentfallbackmodelconfigurationtoolchoice.md
   - docs/models/streamrunagentfallbackmodelconfigurationtype.md
   - docs/models/streamrunagentfallbackmodelconfigurationvoice.md
-  - docs/models/streamrunagentfileagentsbinaryformat.md
-  - docs/models/streamrunagentfileagentsfileinuriformat.md
-  - docs/models/streamrunagentfileagentsresponse200binaryformat.md
-  - docs/models/streamrunagentfileagentsresponse200fileinuriformat.md
-  - docs/models/streamrunagentfileagentsresponse200texteventstreambinaryformat.md
-  - docs/models/streamrunagentfileagentsresponse200texteventstreamfileinuriformat.md
-  - docs/models/streamrunagentfileagentsresponsebinaryformat.md
-  - docs/models/streamrunagentfileagentsresponsefileinuriformat.md
   - docs/models/streamrunagentfilebinaryformat.md
   - docs/models/streamrunagentfilefileinuriformat.md
   - docs/models/streamrunagentguardrails.md
@@ -2868,57 +2786,11 @@ generatedFiles:
   - docs/models/streamrunagentmodelconfigurationtoolchoice.md
   - docs/models/streamrunagentmodelconfigurationtype.md
   - docs/models/streamrunagentmodelconfigurationvoice.md
-  - docs/models/streamrunagentpartsagentsdatapart.md
-  - docs/models/streamrunagentpartsagentsfile.md
-  - docs/models/streamrunagentpartsagentsfilepart.md
-  - docs/models/streamrunagentpartsagentskind.md
-  - docs/models/streamrunagentpartsagentsresponse200datapart.md
-  - docs/models/streamrunagentpartsagentsresponse200file.md
-  - docs/models/streamrunagentpartsagentsresponse200filepart.md
-  - docs/models/streamrunagentpartsagentsresponse200kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamkind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata12datakind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata12datamessage4kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata12datamessage5kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata12datamessagekind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata12kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata3datakind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata3datamessagedifferencekind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata3kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata4datakind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefull4kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefull5kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata4datalastmessagefullkind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydata4kind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodydatakind.md
-  - docs/models/streamrunagentpartsagentsresponse200texteventstreamresponsebodykind.md
-  - docs/models/streamrunagentpartsagentsresponse200textpart.md
-  - docs/models/streamrunagentpartsagentsresponse200toolcallpart.md
-  - docs/models/streamrunagentpartsagentsresponse200toolresultpart.md
-  - docs/models/streamrunagentpartsagentsresponsedatapart.md
-  - docs/models/streamrunagentpartsagentsresponsefile.md
-  - docs/models/streamrunagentpartsagentsresponsefilepart.md
-  - docs/models/streamrunagentpartsagentsresponsekind.md
-  - docs/models/streamrunagentpartsagentsresponsetextpart.md
-  - docs/models/streamrunagentpartsagentsresponsetoolcallpart.md
-  - docs/models/streamrunagentpartsagentsresponsetoolresultpart.md
-  - docs/models/streamrunagentpartsagentstextpart.md
-  - docs/models/streamrunagentpartsagentstoolcallpart.md
-  - docs/models/streamrunagentpartsagentstoolresultpart.md
-  - docs/models/streamrunagentpartsdatapart.md
-  - docs/models/streamrunagentpartsfile.md
-  - docs/models/streamrunagentpartsfilepart.md
-  - docs/models/streamrunagentpartskind.md
-  - docs/models/streamrunagentpartstextpart.md
-  - docs/models/streamrunagentpartstoolcallpart.md
-  - docs/models/streamrunagentpartstoolresultpart.md
   - docs/models/streamrunagentpublicmessagepart.md
   - docs/models/streamrunagentpublicmessagepartagentskind.md
-  - docs/models/streamrunagentpublicmessagepartagentsrequestkind.md
   - docs/models/streamrunagentpublicmessagepartfile.md
   - docs/models/streamrunagentpublicmessagepartfilepart.md
   - docs/models/streamrunagentpublicmessagepartkind.md
-  - docs/models/streamrunagentpublicmessageparttextpart.md
   - docs/models/streamrunagentpublicmessageparttoolresultpart.md
   - docs/models/streamrunagentrequestbody.md
   - docs/models/streamrunagentresponsebody.md
@@ -2978,6 +2850,7 @@ generatedFiles:
   - docs/models/tool.md
   - docs/models/toolapprovalrequired.md
   - docs/models/toolcallpart.md
+  - docs/models/toolcallpartkind.md
   - docs/models/toolcalls.md
   - docs/models/toolchoice.md
   - docs/models/toolchoice1.md
@@ -2987,6 +2860,7 @@ generatedFiles:
   - docs/models/toolexecutioncontext.md
   - docs/models/toolmessage.md
   - docs/models/toolresultpart.md
+  - docs/models/toolresultpartkind.md
   - docs/models/toplogprobs.md
   - docs/models/twelve.md
   - docs/models/twenty.md
@@ -3713,6 +3587,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/creatememorystoreop.py
   - src/orq_ai_sdk/models/createpromptop.py
   - src/orq_ai_sdk/models/createtoolop.py
+  - src/orq_ai_sdk/models/datapart.py
   - src/orq_ai_sdk/models/deleteagentop.py
   - src/orq_ai_sdk/models/deletebudgetop.py
   - src/orq_ai_sdk/models/deletechunkop.py
@@ -3736,6 +3611,7 @@ generatedFiles:
   - src/orq_ai_sdk/models/filedeleteop.py
   - src/orq_ai_sdk/models/filegetop.py
   - src/orq_ai_sdk/models/filelistop.py
+  - src/orq_ai_sdk/models/filepart.py
   - src/orq_ai_sdk/models/fileuploadop.py
   - src/orq_ai_sdk/models/getallmemoriesop.py
   - src/orq_ai_sdk/models/getallmemorydocumentsop.py
@@ -3784,6 +3660,9 @@ generatedFiles:
   - src/orq_ai_sdk/models/security.py
   - src/orq_ai_sdk/models/streamagentop.py
   - src/orq_ai_sdk/models/streamrunagentop.py
+  - src/orq_ai_sdk/models/textpart.py
+  - src/orq_ai_sdk/models/toolcallpart.py
+  - src/orq_ai_sdk/models/toolresultpart.py
   - src/orq_ai_sdk/models/updateagentop.py
   - src/orq_ai_sdk/models/updatebudgetop.py
   - src/orq_ai_sdk/models/updatechunkop.py
@@ -3834,7 +3713,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-17T14:04:15.852Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T11:27:50.075Z"}
   CreateFeedback:
     "":
       requestBody:
@@ -3892,7 +3771,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-25T08:36:26.755Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-25T11:27:53.047Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3908,7 +3787,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-25T08:36:26.755Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-25T11:27:53.047Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3999,7 +3878,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-25T11:27:50.075Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -4007,7 +3886,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -4019,7 +3898,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -4053,7 +3932,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -4064,7 +3943,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -4147,7 +4026,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01KAX2GM4CE0WRFKYKERRQR0VW", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01KAXCAGCJWJ1MS8ABN7G183NT", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -4156,7 +4035,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01KAX2GM4BT0BRXKHRM713PXSC", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01KAXCAGCH00A73X3FR62KKC3V", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -4173,7 +4052,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01KAX2GM4FNNFHBZ5MS81J1XTD", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01KAXCAGCMPQ8GA7FBTW1ZQD54", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4269,7 +4148,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4281,7 +4160,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T08:36:23.526Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-25T11:27:50.075Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4826,7 +4705,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T08:36:23.890Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T11:27:50.415Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4834,7 +4713,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T08:36:23.890Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T11:27:50.415Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4844,7 +4723,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T08:36:23.890Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-25T11:27:50.415Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -5224,8 +5103,3 @@ examples:
           application/json: {"_id": "<id>", "task_id": "<id>", "output": [], "created_at": "1709610768029", "model": "Charger"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Python SDK Changes Detected:
-  * `orq.agents.create()`:  `request` **Changed** **Breaking** :warning:
-  * `orq.agents.run()`:  `request` **Changed** **Breaking** :warning:
-  * `orq.agents.stream_run()`:  `request` **Changed** **Breaking** :warning:

@@ -3,33 +3,33 @@
 
 ## Supported Types
 
-### `models.StreamRunAgentPartsAgentsTextPart`
+### `models.TextPart`
 
 ```python
-value: models.StreamRunAgentPartsAgentsTextPart = /* values here */
+value: models.TextPart = /* values here */
 ```
 
-### `models.StreamRunAgentPartsAgentsDataPart`
+### `models.DataPart`
 
 ```python
-value: models.StreamRunAgentPartsAgentsDataPart = /* values here */
+value: models.DataPart = /* values here */
 ```
 
-### `models.StreamRunAgentPartsAgentsFilePart`
+### `models.FilePart`
 
 ```python
-value: models.StreamRunAgentPartsAgentsFilePart = /* values here */
+value: models.FilePart = /* values here */
 ```
 
-### `models.StreamRunAgentPartsAgentsToolCallPart`
+### `models.ToolCallPart`
 
 ```python
-value: models.StreamRunAgentPartsAgentsToolCallPart = /* values here */
+value: models.ToolCallPart = /* values here */
 ```
 
-### `models.StreamRunAgentPartsAgentsToolResultPart`
+### `models.ToolResultPart`
 
 ```python
-value: models.StreamRunAgentPartsAgentsToolResultPart = /* values here */
+value: models.ToolResultPart = /* values here */
 ```
 
