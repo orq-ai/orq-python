@@ -338,7 +338,7 @@ InvokeDeploymentRequest2PrefixMessagesType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-class FileTypedDict(TypedDict):
+class InvokeDeploymentRequest2FileTypedDict(TypedDict):
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     file_data: NotRequired[str]
@@ -351,7 +351,7 @@ class FileTypedDict(TypedDict):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class File(BaseModel):
+class InvokeDeploymentRequest2File(BaseModel):
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     file_data: Optional[str] = None
@@ -370,7 +370,7 @@ class File(BaseModel):
 class FourTypedDict(TypedDict):
     type: InvokeDeploymentRequest2PrefixMessagesType
     r"""The type of the content part. Always `file`."""
-    file: FileTypedDict
+    file: InvokeDeploymentRequest2FileTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 
@@ -378,7 +378,7 @@ class Four(BaseModel):
     type: InvokeDeploymentRequest2PrefixMessagesType
     r"""The type of the content part. Always `file`."""
 
-    file: File
+    file: InvokeDeploymentRequest2File
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
 

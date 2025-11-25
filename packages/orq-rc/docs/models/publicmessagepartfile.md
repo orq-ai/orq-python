@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.BinaryFormat`
+### `models.FileBinaryFormat`
 
 ```python
-value: models.BinaryFormat = /* values here */
+value: models.FileBinaryFormat = /* values here */
 ```
 
-### `models.FileInURIFormat`
+### `models.FileFileInURIFormat`
 
 ```python
-value: models.FileInURIFormat = /* values here */
+value: models.FileFileInURIFormat = /* values here */
 ```
 

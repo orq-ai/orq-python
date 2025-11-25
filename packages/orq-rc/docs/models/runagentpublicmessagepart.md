@@ -5,10 +5,10 @@ Message part that can be provided by users. Use "text" for regular messages, "fi
 
 ## Supported Types
 
-### `models.RunAgentPublicMessagePartTextPart`
+### `models.TextPart`
 
 ```python
-value: models.RunAgentPublicMessagePartTextPart = /* values here */
+value: models.TextPart = /* values here */
 ```
 
 ### `models.RunAgentPublicMessagePartFilePart`

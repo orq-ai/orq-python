@@ -70,37 +70,33 @@ class UpdateMemoryStoreRequest(BaseModel):
 
 
 UpdateMemoryStoreProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
 ]
-r"""The provider of the AI service"""
 
 
 class UpdateMemoryStoreMemoryStoresEmbeddingConfigTypedDict(TypedDict):
     model_id: str
     provider: UpdateMemoryStoreProvider
-    r"""The provider of the AI service"""
     integration_id: NotRequired[str]
     top_k: NotRequired[float]
     r"""Number of results to return"""
@@ -110,7 +106,6 @@ class UpdateMemoryStoreMemoryStoresEmbeddingConfig(BaseModel):
     model_id: str
 
     provider: UpdateMemoryStoreProvider
-    r"""The provider of the AI service"""
 
     integration_id: Optional[str] = None
 

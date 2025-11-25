@@ -12,3 +12,4 @@
 | `mock_output`                        | Dict[str, *Any*]                     | :heavy_minus_sign:                   | N/A                                  |
 | `review_source`                      | *Optional[str]*                      | :heavy_minus_sign:                   | N/A                                  |
 | `reviewed_by_id`                     | *Optional[str]*                      | :heavy_minus_sign:                   | N/A                                  |
+| `workflow_run_id`                    | *str*                                | :heavy_check_mark:                   | N/A                                  |

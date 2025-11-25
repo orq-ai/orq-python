@@ -5,10 +5,10 @@ Message part that can be provided by users. Use "text" for regular messages, "fi
 
 ## Supported Types
 
-### `models.StreamRunAgentPublicMessagePartTextPart`
+### `models.TextPart`
 
 ```python
-value: models.StreamRunAgentPublicMessagePartTextPart = /* values here */
+value: models.TextPart = /* values here */
 ```
 
 ### `models.StreamRunAgentPublicMessagePartFilePart`
