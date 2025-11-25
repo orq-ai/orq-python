@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `LEXICAL_REPETITION` | lexical_repetition   |
+| Name                | Value               |
+| ------------------- | ------------------- |
+| `GRAMMAR_DIVERSITY` | grammar_diversity   |

@@ -195,21 +195,3 @@ value: models.ThirtyOne = /* values here */
 value: models.ThirtyTwo = /* values here */
 ```
 
-### `models.ThirtyThree`
-
-```python
-value: models.ThirtyThree = /* values here */
-```
-
-### `models.ThirtyFour`
-
-```python
-value: models.ThirtyFour = /* values here */
-```
-
-### `models.ThirtyFive`
-
-```python
-value: models.ThirtyFive = /* values here */
-```
-

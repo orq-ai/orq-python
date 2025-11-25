@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `SENTENCES_COUNT` | sentences_count   |
+| Name                 | Value                |
+| -------------------- | -------------------- |
+| `LEXICAL_REPETITION` | lexical_repetition   |

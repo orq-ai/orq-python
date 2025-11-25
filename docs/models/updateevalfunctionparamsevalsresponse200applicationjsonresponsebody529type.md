@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `GSE_ENGLISH_LEVEL` | gse_english_level   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `WORDS_COUNT` | words_count   |

@@ -4,14 +4,6 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentrequestop as models_createagentrequestop,
-    invokeagentop as models_invokeagentop,
-    runagentop as models_runagentop,
-    streamagentop as models_streamagentop,
-    streamrunagentop as models_streamrunagentop,
-    updateagentop as models_updateagentop,
-)
 from orq_ai_sdk.responses import Responses
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
@@ -41,34 +33,22 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
-        settings: Union[
-            models_createagentrequestop.Settings,
-            models_createagentrequestop.SettingsTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
+        settings: Union[models.Settings, models.SettingsTypedDict],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -206,34 +186,22 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
-        settings: Union[
-            models_createagentrequestop.Settings,
-            models_createagentrequestop.SettingsTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
+        settings: Union[models.Settings, models.SettingsTypedDict],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -748,36 +716,31 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
@@ -938,36 +901,31 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
@@ -1123,28 +1081,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1268,28 +1216,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1601,59 +1539,44 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -1799,59 +1722,44 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -1997,61 +1905,48 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -2224,61 +2119,48 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -2451,28 +2333,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -2613,28 +2485,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
