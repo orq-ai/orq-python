@@ -34,7 +34,10 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
-        settings: Union[models.Settings, models.SettingsTypedDict],
+        settings: Union[
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
+        ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
@@ -106,7 +109,9 @@ class Agents(BaseSDK):
             fallback_models=utils.get_pydantic_model(
                 fallback_models, Optional[List[models.FallbackModelConfiguration]]
             ),
-            settings=utils.get_pydantic_model(settings, models.Settings),
+            settings=utils.get_pydantic_model(
+                settings, models.CreateAgentRequestSettings
+            ),
             memory_stores=memory_stores,
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.KnowledgeBases]]
@@ -187,7 +192,10 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
-        settings: Union[models.Settings, models.SettingsTypedDict],
+        settings: Union[
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
+        ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
@@ -259,7 +267,9 @@ class Agents(BaseSDK):
             fallback_models=utils.get_pydantic_model(
                 fallback_models, Optional[List[models.FallbackModelConfiguration]]
             ),
-            settings=utils.get_pydantic_model(settings, models.Settings),
+            settings=utils.get_pydantic_model(
+                settings, models.CreateAgentRequestSettings
+            ),
             memory_stores=memory_stores,
             knowledge_bases=utils.get_pydantic_model(
                 knowledge_bases, Optional[List[models.KnowledgeBases]]

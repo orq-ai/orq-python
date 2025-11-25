@@ -1,12 +1,14 @@
 # Usage
 
-Usage statistics to add to the deployment
+Usage statistics for the completion request.
 
 
 ## Fields
 
-| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `prompt_tokens`                                                   | *float*                                                           | :heavy_check_mark:                                                | Number of tokens in the prompt.                                   |
-| `completion_tokens`                                               | *float*                                                           | :heavy_check_mark:                                                | Number of tokens in the generated completion.                     |
-| `total_tokens`                                                    | *Optional[float]*                                                 | :heavy_minus_sign:                                                | Total number of tokens used in the request (prompt + completion). |
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `completion_tokens`                                                                      | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Number of tokens in the generated completion.                                            |
+| `prompt_tokens`                                                                          | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Number of tokens in the prompt.                                                          |
+| `total_tokens`                                                                           | *Optional[float]*                                                                        | :heavy_minus_sign:                                                                       | Total number of tokens used in the request (prompt + completion).                        |
+| `prompt_tokens_details`                                                                  | [OptionalNullable[models.PromptTokensDetails]](../models/prompttokensdetails.md)         | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `completion_tokens_details`                                                              | [OptionalNullable[models.CompletionTokensDetails]](../models/completiontokensdetails.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |

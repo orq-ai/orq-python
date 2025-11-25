@@ -11,15 +11,15 @@ Message part that can be provided by users. Use "text" for regular messages, "fi
 value: models.TextPart = /* values here */
 ```
 
-### `models.RunAgentPublicMessagePartFilePart`
+### `models.FilePart`
 
 ```python
-value: models.RunAgentPublicMessagePartFilePart = /* values here */
+value: models.FilePart = /* values here */
 ```
 
-### `models.RunAgentPublicMessagePartToolResultPart`
+### `models.ToolResultPart`
 
 ```python
-value: models.RunAgentPublicMessagePartToolResultPart = /* values here */
+value: models.ToolResultPart = /* values here */
 ```
 

@@ -1,0 +1,15 @@
+# AgentThoughtStreamingEventData
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `agent_id`                                                            | *str*                                                                 | :heavy_check_mark:                                                    | N/A                                                                   |
+| `message_difference`                                                  | Dict[str, [models.MessageDifference](../models/messagedifference.md)] | :heavy_check_mark:                                                    | N/A                                                                   |
+| `choice`                                                              | [Optional[models.Choice]](../models/choice.md)                        | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `choice_index`                                                        | *Optional[float]*                                                     | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `iteration`                                                           | *float*                                                               | :heavy_check_mark:                                                    | N/A                                                                   |
+| `accumulated_execution_time`                                          | *float*                                                               | :heavy_check_mark:                                                    | N/A                                                                   |
+| `response_id`                                                         | *Optional[str]*                                                       | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `usage`                                                               | [Optional[models.Usage]](../models/usage.md)                          | :heavy_minus_sign:                                                    | Usage statistics for the completion request.                          |

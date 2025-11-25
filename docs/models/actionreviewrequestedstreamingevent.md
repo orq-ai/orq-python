@@ -1,0 +1,12 @@
+# ActionReviewRequestedStreamingEvent
+
+Emitted when a tool action requires approval before execution. Contains the tool details, input arguments, and whether approval is mandatory.
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [models.ActionReviewRequestedStreamingEventType](../models/actionreviewrequestedstreamingeventtype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `timestamp`                                                                                            | *str*                                                                                                  | :heavy_check_mark:                                                                                     | ISO timestamp of the event                                                                             |
+| `data`                                                                                                 | [models.ActionReviewRequestedStreamingEventData](../models/actionreviewrequestedstreamingeventdata.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
