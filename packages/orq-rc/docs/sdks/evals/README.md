@@ -9,6 +9,7 @@
 * [create](#create) - Create an Evaluator
 * [update](#update) - Update an Evaluator
 * [delete](#delete) - Delete an Evaluator
+* [invoke](#invoke) - Invoke a Custom Evaluator
 
 ## all
 
@@ -196,3 +197,62 @@ with Orq(
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | models.DeleteEvalResponseBody | 404                           | application/json              |
 | models.APIError               | 4XX, 5XX                      | \*/\*                         |
+
+## invoke
+
+Invoke a Custom Evaluator
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="InvokeEval" method="post" path="/v2/evaluators/{id}/invoke" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.evals.invoke(id="<id>", messages=[
+        {
+            "role": "tool",
+            "content": [
+                {
+                    "type": "text",
+                    "text": "<value>",
+                },
+            ],
+        },
+    ])
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `id`                                                                    | *str*                                                                   | :heavy_check_mark:                                                      | Evaluator ID                                                            |
+| `query`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Latest user message                                                     |
+| `output`                                                                | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The generated response from the model                                   |
+| `reference`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The reference used to compare the output                                |
+| `retrievals`                                                            | List[*str*]                                                             | :heavy_minus_sign:                                                      | Knowledge base retrievals                                               |
+| `messages`                                                              | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]   | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
+| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+
+### Response
+
+**[models.InvokeEvalResponseBody](../../models/invokeevalresponsebody.md)**
+
+### Errors
+
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| models.InvokeEvalEvalsResponseBody         | 404                                        | application/json                           |
+| models.InvokeEvalEvalsResponseResponseBody | 500                                        | application/json                           |
+| models.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
