@@ -195,21 +195,3 @@ value: models.GetEvalsFunctionParams31 = /* values here */
 value: models.GetEvalsFunctionParams32 = /* values here */
 ```
 
-### `models.GetEvalsFunctionParams33`
-
-```python
-value: models.GetEvalsFunctionParams33 = /* values here */
-```
-
-### `models.GetEvalsFunctionParams34`
-
-```python
-value: models.GetEvalsFunctionParams34 = /* values here */
-```
-
-### `models.GetEvalsFunctionParams35`
-
-```python
-value: models.GetEvalsFunctionParams35 = /* values here */
-```
-

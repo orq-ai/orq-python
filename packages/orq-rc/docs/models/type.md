@@ -1,10 +1,8 @@
 # Type
 
-The type of the tool. Currently, only `function` is supported.
-
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+| Name                       | Value                      |
+| -------------------------- | -------------------------- |
+| `AGENTS_EXECUTION_STARTED` | agents.execution_started   |

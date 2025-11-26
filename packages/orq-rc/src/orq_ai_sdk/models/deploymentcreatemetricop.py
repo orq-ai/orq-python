@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class UsageTypedDict(TypedDict):
+class DeploymentCreateMetricUsageTypedDict(TypedDict):
     r"""Usage statistics to add to the deployment"""
 
     prompt_tokens: float
@@ -26,7 +26,7 @@ class UsageTypedDict(TypedDict):
     r"""Total number of tokens used in the request (prompt + completion)."""
 
 
-class Usage(BaseModel):
+class DeploymentCreateMetricUsage(BaseModel):
     r"""Usage statistics to add to the deployment"""
 
     prompt_tokens: float
@@ -1334,7 +1334,7 @@ class DeploymentCreateMetricRequestBodyTypedDict(TypedDict):
 
     metadata: NotRequired[Dict[str, Any]]
     r"""Your own custom key-value pairs can be attached to the logs. This is useful for storing additional information related to your interactions with the LLM providers or specifics within your application."""
-    usage: NotRequired[UsageTypedDict]
+    usage: NotRequired[DeploymentCreateMetricUsageTypedDict]
     r"""Usage statistics to add to the deployment"""
     performance: NotRequired[PerformanceTypedDict]
     messages: NotRequired[List[DeploymentCreateMetricMessagesTypedDict]]
@@ -1351,7 +1351,7 @@ class DeploymentCreateMetricRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Your own custom key-value pairs can be attached to the logs. This is useful for storing additional information related to your interactions with the LLM providers or specifics within your application."""
 
-    usage: Optional[Usage] = None
+    usage: Optional[DeploymentCreateMetricUsage] = None
     r"""Usage statistics to add to the deployment"""
 
     performance: Optional[Performance] = None

@@ -1,0 +1,12 @@
+# ToolExecutionFinishedStreamingEvent
+
+Emitted when a tool completes execution successfully. Contains the result data, action type, and execution context.
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [models.ToolExecutionFinishedStreamingEventType](../models/toolexecutionfinishedstreamingeventtype.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `timestamp`                                                                                            | *str*                                                                                                  | :heavy_check_mark:                                                                                     | ISO timestamp of the event                                                                             |
+| `data`                                                                                                 | [models.ToolExecutionFinishedStreamingEventData](../models/toolexecutionfinishedstreamingeventdata.md) | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

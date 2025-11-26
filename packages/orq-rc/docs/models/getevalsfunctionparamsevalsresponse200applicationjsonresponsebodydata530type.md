@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `WORDS_COUNT` | words_count   |
+| Name              | Value             |
+| ----------------- | ----------------- |
+| `SENTENCES_COUNT` | sentences_count   |

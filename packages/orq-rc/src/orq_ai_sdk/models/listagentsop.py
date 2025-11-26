@@ -1282,6 +1282,7 @@ class ListAgentsKnowledgeBases(BaseModel):
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     role: str
     description: str
@@ -1318,6 +1319,7 @@ class ListAgentsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

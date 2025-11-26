@@ -3,105 +3,105 @@
 
 ## Supported Types
 
-### `models.StreamAgentData1`
+### `models.AgentExecutionStartedStreamingEvent`
 
 ```python
-value: models.StreamAgentData1 = /* values here */
+value: models.AgentExecutionStartedStreamingEvent = /* values here */
 ```
 
-### `models.StreamAgentData2`
+### `models.AgentStartedStreamingEvent`
 
 ```python
-value: models.StreamAgentData2 = /* values here */
+value: models.AgentStartedStreamingEvent = /* values here */
 ```
 
-### `models.StreamAgentData3`
+### `models.AgentThoughtStreamingEvent`
 
 ```python
-value: models.StreamAgentData3 = /* values here */
+value: models.AgentThoughtStreamingEvent = /* values here */
 ```
 
-### `models.StreamAgentData4`
+### `models.AgentInactiveStreamingEvent`
 
 ```python
-value: models.StreamAgentData4 = /* values here */
+value: models.AgentInactiveStreamingEvent = /* values here */
 ```
 
-### `models.Data5`
+### `models.AgentErroredStreamingEvent`
 
 ```python
-value: models.Data5 = /* values here */
+value: models.AgentErroredStreamingEvent = /* values here */
 ```
 
-### `models.Data6`
+### `models.ActionReviewRequestedStreamingEvent`
 
 ```python
-value: models.Data6 = /* values here */
+value: models.ActionReviewRequestedStreamingEvent = /* values here */
 ```
 
-### `models.Data7`
+### `models.ActionReviewedStreamingEvent`
 
 ```python
-value: models.Data7 = /* values here */
+value: models.ActionReviewedStreamingEvent = /* values here */
 ```
 
-### `models.Data8`
+### `models.ExecutionReviewRequiredStreamingEvent`
 
 ```python
-value: models.Data8 = /* values here */
+value: models.ExecutionReviewRequiredStreamingEvent = /* values here */
 ```
 
-### `models.Data9`
+### `models.ExecutionReviewedStreamingEvent`
 
 ```python
-value: models.Data9 = /* values here */
+value: models.ExecutionReviewedStreamingEvent = /* values here */
 ```
 
-### `models.Data10`
+### `models.ExecutionNamedStreamingEvent`
 
 ```python
-value: models.Data10 = /* values here */
+value: models.ExecutionNamedStreamingEvent = /* values here */
 ```
 
-### `models.Data11`
+### `models.AgentHandedOffStreamingEvent`
 
 ```python
-value: models.Data11 = /* values here */
+value: models.AgentHandedOffStreamingEvent = /* values here */
 ```
 
-### `models.Data12`
+### `models.AgentMessageCreatedStreamingEvent`
 
 ```python
-value: models.Data12 = /* values here */
+value: models.AgentMessageCreatedStreamingEvent = /* values here */
 ```
 
-### `models.Data13`
+### `models.ToolExecutionStartedStreamingEvent`
 
 ```python
-value: models.Data13 = /* values here */
+value: models.ToolExecutionStartedStreamingEvent = /* values here */
 ```
 
-### `models.Data14`
+### `models.ToolExecutionFinishedStreamingEvent`
 
 ```python
-value: models.Data14 = /* values here */
+value: models.ToolExecutionFinishedStreamingEvent = /* values here */
 ```
 
-### `models.Data15`
+### `models.ToolExecutionFailedStreamingEvent`
 
 ```python
-value: models.Data15 = /* values here */
+value: models.ToolExecutionFailedStreamingEvent = /* values here */
 ```
 
-### `models.Data16`
+### `models.TimeoutStreamingEvent`
 
 ```python
-value: models.Data16 = /* values here */
+value: models.TimeoutStreamingEvent = /* values here */
 ```
 
-### `models.Data17`
+### `models.ErrorStreamingEvent`
 
 ```python
-value: models.Data17 = /* values here */
+value: models.ErrorStreamingEvent = /* values here */
 ```
 

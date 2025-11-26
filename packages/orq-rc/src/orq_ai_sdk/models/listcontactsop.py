@@ -137,7 +137,7 @@ class ListContactsMetrics(BaseModel):
     r"""P50 error rate of the last 30 days"""
 
 
-class DataTypedDict(TypedDict):
+class ListContactsDataTypedDict(TypedDict):
     id: str
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
     external_id: str
@@ -159,7 +159,7 @@ class DataTypedDict(TypedDict):
     r"""The date and time the resource was last updated"""
 
 
-class Data(BaseModel):
+class ListContactsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
 
@@ -186,7 +186,7 @@ class Data(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-11-25T12:44:27.774Z")
+    updated: Optional[datetime] = parse_datetime("2025-11-26T06:13:13.969Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -232,7 +232,7 @@ class ListContactsResponseBodyTypedDict(TypedDict):
     r"""List of contacts"""
 
     object: Object
-    data: List[DataTypedDict]
+    data: List[ListContactsDataTypedDict]
     has_more: bool
 
 
@@ -241,6 +241,6 @@ class ListContactsResponseBody(BaseModel):
 
     object: Object
 
-    data: List[Data]
+    data: List[ListContactsData]
 
     has_more: bool

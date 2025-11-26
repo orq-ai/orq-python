@@ -1,0 +1,12 @@
+# ExecutionReviewRequiredStreamingEvent
+
+Emitted when the entire agent execution requires human review before proceeding. The execution will pause until reviewed.
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.ExecutionReviewRequiredStreamingEventType](../models/executionreviewrequiredstreamingeventtype.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `timestamp`                                                                                                | *str*                                                                                                      | :heavy_check_mark:                                                                                         | ISO timestamp of the event                                                                                 |
+| `data`                                                                                                     | [models.ExecutionReviewRequiredStreamingEventData](../models/executionreviewrequiredstreamingeventdata.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

@@ -40,131 +40,15 @@ InvokeAgentRole = TypeAliasType(
 r"""Message role (user or tool for continuing executions)"""
 
 
-InvokeAgentPublicMessagePartAgentsKind = Literal["tool_result",]
-
-
-class InvokeAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: InvokeAgentPublicMessagePartAgentsKind
-    tool_call_id: str
-    result: NotRequired[Any]
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class InvokeAgentPublicMessagePartToolResultPart(BaseModel):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: InvokeAgentPublicMessagePartAgentsKind
-
-    tool_call_id: str
-
-    result: Optional[Any] = None
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
-InvokeAgentPublicMessagePartKind = Literal["file",]
-
-
-class InvokeAgentFileFileInURIFormatTypedDict(TypedDict):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class InvokeAgentFileFileInURIFormat(BaseModel):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-class InvokeAgentFileBinaryFormatTypedDict(TypedDict):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: str
-    r"""base64 encoded content of the file"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class InvokeAgentFileBinaryFormat(BaseModel):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
-    r"""base64 encoded content of the file"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-InvokeAgentPublicMessagePartFileTypedDict = TypeAliasType(
-    "InvokeAgentPublicMessagePartFileTypedDict",
-    Union[
-        InvokeAgentFileBinaryFormatTypedDict, InvokeAgentFileFileInURIFormatTypedDict
-    ],
-)
-
-
-InvokeAgentPublicMessagePartFile = TypeAliasType(
-    "InvokeAgentPublicMessagePartFile",
-    Union[InvokeAgentFileBinaryFormat, InvokeAgentFileFileInURIFormat],
-)
-
-
-class InvokeAgentPublicMessagePartFilePartTypedDict(TypedDict):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: InvokeAgentPublicMessagePartKind
-    file: InvokeAgentPublicMessagePartFileTypedDict
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class InvokeAgentPublicMessagePartFilePart(BaseModel):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: InvokeAgentPublicMessagePartKind
-
-    file: InvokeAgentPublicMessagePartFile
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
 InvokeAgentPublicMessagePartTypedDict = TypeAliasType(
     "InvokeAgentPublicMessagePartTypedDict",
-    Union[
-        TextPartTypedDict,
-        InvokeAgentPublicMessagePartFilePartTypedDict,
-        InvokeAgentPublicMessagePartToolResultPartTypedDict,
-    ],
+    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
 InvokeAgentPublicMessagePart = TypeAliasType(
-    "InvokeAgentPublicMessagePart",
-    Union[
-        TextPart,
-        InvokeAgentPublicMessagePartFilePart,
-        InvokeAgentPublicMessagePartToolResultPart,
-    ],
+    "InvokeAgentPublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 

@@ -67,7 +67,7 @@ File = TypeAliasType("File", Union[BinaryFormat, FileInURIFormat])
 
 
 class FilePartTypedDict(TypedDict):
-    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: FilePartKind
     file: FileTypedDict
@@ -75,7 +75,7 @@ class FilePartTypedDict(TypedDict):
 
 
 class FilePart(BaseModel):
-    r"""A file content part that can contain either base64-encoded bytes or a URI reference. Used for images, documents, and other binary content in agent communications."""
+    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
 
     kind: FilePartKind
 

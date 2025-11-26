@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `KEYWORDS_MATCH` | keywords_match   |
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `MOST_REPEATED_WORDS` | most_repeated_words   |

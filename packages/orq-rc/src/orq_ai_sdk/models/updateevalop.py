@@ -645,9 +645,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -781,9 +781,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -874,47 +874,8 @@ UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig = TypeAlias
 UpdateEvalResponseBodyEvalsResponse200ApplicationJSONType = Literal["function_eval",]
 
 
-UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type = Literal[
-    "bert_coherence",
-]
-
-
-class FunctionParams35TypedDict(TypedDict):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type
-
-
-class FunctionParams35(BaseModel):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody535Type
-
-
-UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type = Literal[
-    "grammar_diversity",
-]
-
-
-class FunctionParams34TypedDict(TypedDict):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type
-
-
-class FunctionParams34(BaseModel):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody534Type
-
-
-UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type = Literal[
-    "semantic_repetition",
-]
-
-
-class FunctionParams33TypedDict(TypedDict):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type
-
-
-class FunctionParams33(BaseModel):
-    type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody533Type
-
-
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody532Type = Literal[
-    "lexical_repetition",
+    "grammar_diversity",
 ]
 
 
@@ -927,7 +888,7 @@ class FunctionParams32(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody531Type = Literal[
-    "sentences_count",
+    "lexical_repetition",
 ]
 
 
@@ -940,7 +901,7 @@ class FunctionParams31(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody530Type = Literal[
-    "words_count",
+    "sentences_count",
 ]
 
 
@@ -953,7 +914,7 @@ class FunctionParams30(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody529Type = Literal[
-    "gse_english_level",
+    "words_count",
 ]
 
 
@@ -966,7 +927,7 @@ class FunctionParams29(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody528Type = Literal[
-    "flesch_reading_ease",
+    "gse_english_level",
 ]
 
 
@@ -979,7 +940,7 @@ class FunctionParams28(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody527Type = Literal[
-    "most_repeated_words",
+    "flesch_reading_ease",
 ]
 
 
@@ -992,35 +953,32 @@ class FunctionParams27(BaseModel):
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type = Literal[
-    "keywords_match",
+    "most_repeated_words",
 ]
 
 
 class FunctionParams26TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type
-    keywords: List[str]
 
 
 class FunctionParams26(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody526Type
 
-    keywords: List[str]
-
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type = Literal[
-    "topic_match",
+    "keywords_match",
 ]
 
 
 class FunctionParams25TypedDict(TypedDict):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type
-    topic: str
+    keywords: List[str]
 
 
 class FunctionParams25(BaseModel):
     type: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody525Type
 
-    topic: str
+    keywords: List[str]
 
 
 UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody524Type = Literal[
@@ -1361,34 +1319,31 @@ class FunctionParams1(BaseModel):
 ResponseBodyFunctionParamsTypedDict = TypeAliasType(
     "ResponseBodyFunctionParamsTypedDict",
     Union[
-        FunctionParams30TypedDict,
+        FunctionParams27TypedDict,
+        FunctionParams26TypedDict,
         FunctionParams31TypedDict,
-        FunctionParams34TypedDict,
-        FunctionParams33TypedDict,
+        FunctionParams30TypedDict,
         FunctionParams5TypedDict,
         FunctionParams6TypedDict,
         FunctionParams7TypedDict,
-        FunctionParams28TypedDict,
         FunctionParams29TypedDict,
+        FunctionParams28TypedDict,
         FunctionParams10TypedDict,
-        FunctionParams35TypedDict,
-        FunctionParams24TypedDict,
         FunctionParams32TypedDict,
+        FunctionParams24TypedDict,
+        FunctionParams22TypedDict,
         FunctionParams14TypedDict,
-        FunctionParams27TypedDict,
+        FunctionParams23TypedDict,
         FunctionParams16TypedDict,
         FunctionParams17TypedDict,
         FunctionParams18TypedDict,
         FunctionParams19TypedDict,
         FunctionParams20TypedDict,
         FunctionParams21TypedDict,
-        FunctionParams22TypedDict,
-        FunctionParams23TypedDict,
         FunctionParams9TypedDict,
-        FunctionParams25TypedDict,
-        FunctionParams26TypedDict,
         FunctionParams15TypedDict,
         FunctionParams13TypedDict,
+        FunctionParams25TypedDict,
         FunctionParams11TypedDict,
         FunctionParams1TypedDict,
         FunctionParams8TypedDict,
@@ -1403,34 +1358,31 @@ ResponseBodyFunctionParamsTypedDict = TypeAliasType(
 ResponseBodyFunctionParams = TypeAliasType(
     "ResponseBodyFunctionParams",
     Union[
-        FunctionParams30,
+        FunctionParams27,
+        FunctionParams26,
         FunctionParams31,
-        FunctionParams34,
-        FunctionParams33,
+        FunctionParams30,
         FunctionParams5,
         FunctionParams6,
         FunctionParams7,
-        FunctionParams28,
         FunctionParams29,
+        FunctionParams28,
         FunctionParams10,
-        FunctionParams35,
-        FunctionParams24,
         FunctionParams32,
+        FunctionParams24,
+        FunctionParams22,
         FunctionParams14,
-        FunctionParams27,
+        FunctionParams23,
         FunctionParams16,
         FunctionParams17,
         FunctionParams18,
         FunctionParams19,
         FunctionParams20,
         FunctionParams21,
-        FunctionParams22,
-        FunctionParams23,
         FunctionParams9,
-        FunctionParams25,
-        FunctionParams26,
         FunctionParams15,
         FunctionParams13,
+        FunctionParams25,
         FunctionParams11,
         FunctionParams1,
         FunctionParams8,
@@ -1466,9 +1418,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1583,9 +1535,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1707,9 +1659,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1808,9 +1760,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1908,9 +1860,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-11-25T12:44:29.770Z"
+    created: Optional[str] = "2025-11-26T06:13:15.994Z"
 
-    updated: Optional[str] = "2025-11-25T12:44:29.770Z"
+    updated: Optional[str] = "2025-11-26T06:13:15.994Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 

@@ -1059,129 +1059,15 @@ RunAgentRole = TypeAliasType(
 r"""Message role (user or tool for continuing executions)"""
 
 
-RunAgentPublicMessagePartAgentsKind = Literal["tool_result",]
-
-
-class RunAgentPublicMessagePartToolResultPartTypedDict(TypedDict):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: RunAgentPublicMessagePartAgentsKind
-    tool_call_id: str
-    result: NotRequired[Any]
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class RunAgentPublicMessagePartToolResultPart(BaseModel):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: RunAgentPublicMessagePartAgentsKind
-
-    tool_call_id: str
-
-    result: Optional[Any] = None
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
-RunAgentPublicMessagePartKind = Literal["file",]
-
-
-class RunAgentFileFileInURIFormatTypedDict(TypedDict):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class RunAgentFileFileInURIFormat(BaseModel):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-class RunAgentFileBinaryFormatTypedDict(TypedDict):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: str
-    r"""base64 encoded content of the file"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class RunAgentFileBinaryFormat(BaseModel):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
-    r"""base64 encoded content of the file"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-RunAgentPublicMessagePartFileTypedDict = TypeAliasType(
-    "RunAgentPublicMessagePartFileTypedDict",
-    Union[RunAgentFileBinaryFormatTypedDict, RunAgentFileFileInURIFormatTypedDict],
-)
-
-
-RunAgentPublicMessagePartFile = TypeAliasType(
-    "RunAgentPublicMessagePartFile",
-    Union[RunAgentFileBinaryFormat, RunAgentFileFileInURIFormat],
-)
-
-
-class RunAgentPublicMessagePartFilePartTypedDict(TypedDict):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: RunAgentPublicMessagePartKind
-    file: RunAgentPublicMessagePartFileTypedDict
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class RunAgentPublicMessagePartFilePart(BaseModel):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: RunAgentPublicMessagePartKind
-
-    file: RunAgentPublicMessagePartFile
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
 RunAgentPublicMessagePartTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartTypedDict",
-    Union[
-        TextPartTypedDict,
-        RunAgentPublicMessagePartFilePartTypedDict,
-        RunAgentPublicMessagePartToolResultPartTypedDict,
-    ],
+    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
 RunAgentPublicMessagePart = TypeAliasType(
-    "RunAgentPublicMessagePart",
-    Union[
-        TextPart,
-        RunAgentPublicMessagePartFilePart,
-        RunAgentPublicMessagePartToolResultPart,
-    ],
+    "RunAgentPublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -1352,7 +1238,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KAXGPSKKRBSE57K4PEH7FGJD"
+    id: Optional[str] = "01KAZCQ509X8YP4B90M5MVYKBW"
 
     description: Optional[str] = None
 

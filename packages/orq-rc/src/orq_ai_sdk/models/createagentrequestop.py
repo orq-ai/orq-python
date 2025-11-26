@@ -1001,7 +1001,7 @@ FallbackModelConfiguration = TypeAliasType(
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-ToolApprovalRequired = Literal[
+CreateAgentRequestToolApprovalRequired = Literal[
     "all",
     "respect_tool",
     "none",
@@ -1458,27 +1458,27 @@ AgentToolInputCRUD = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-ExecuteOn = Literal[
+CreateAgentRequestAgentsExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class EvaluatorsTypedDict(TypedDict):
+class CreateAgentRequestEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: ExecuteOn
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class Evaluators(BaseModel):
+class CreateAgentRequestEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: ExecuteOn
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -1492,7 +1492,7 @@ CreateAgentRequestExecuteOn = Literal[
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class GuardrailsTypedDict(TypedDict):
+class CreateAgentRequestGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
     execute_on: CreateAgentRequestExecuteOn
@@ -1501,7 +1501,7 @@ class GuardrailsTypedDict(TypedDict):
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class Guardrails(BaseModel):
+class CreateAgentRequestGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
@@ -1512,24 +1512,24 @@ class Guardrails(BaseModel):
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class SettingsTypedDict(TypedDict):
+class CreateAgentRequestSettingsTypedDict(TypedDict):
     r"""Configuration settings for the agent's behavior"""
 
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
-    tool_approval_required: NotRequired[ToolApprovalRequired]
+    tool_approval_required: NotRequired[CreateAgentRequestToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[AgentToolInputCRUDTypedDict]]
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
-    evaluators: NotRequired[List[EvaluatorsTypedDict]]
+    evaluators: NotRequired[List[CreateAgentRequestEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
-    guardrails: NotRequired[List[GuardrailsTypedDict]]
+    guardrails: NotRequired[List[CreateAgentRequestGuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
 
 
-class Settings(BaseModel):
+class CreateAgentRequestSettings(BaseModel):
     r"""Configuration settings for the agent's behavior"""
 
     max_iterations: Optional[int] = 100
@@ -1538,16 +1538,18 @@ class Settings(BaseModel):
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
-    tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"
+    tool_approval_required: Optional[CreateAgentRequestToolApprovalRequired] = (
+        "respect_tool"
+    )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[AgentToolInputCRUD]] = None
     r"""Tools available to the agent. Built-in tools only need a type, while custom tools (http, code, function) must reference pre-created tools by key or id."""
 
-    evaluators: Optional[List[Evaluators]] = None
+    evaluators: Optional[List[CreateAgentRequestEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
-    guardrails: Optional[List[Guardrails]] = None
+    guardrails: Optional[List[CreateAgentRequestGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
 
 
@@ -1592,7 +1594,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     """
     model: ModelConfigurationTypedDict
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
-    settings: SettingsTypedDict
+    settings: CreateAgentRequestSettingsTypedDict
     r"""Configuration settings for the agent's behavior"""
     display_name: NotRequired[str]
     r"""agent display name within the workspace"""
@@ -1631,7 +1633,7 @@ class CreateAgentRequestRequestBody(BaseModel):
     model: ModelConfiguration
     r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
 
-    settings: Settings
+    settings: CreateAgentRequestSettings
     r"""Configuration settings for the agent's behavior"""
 
     display_name: Optional[str] = None
@@ -1686,7 +1688,7 @@ CreateAgentRequestStatus = Literal[
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-CreateAgentRequestToolApprovalRequired = Literal[
+CreateAgentRequestAgentsToolApprovalRequired = Literal[
     "all",
     "respect_tool",
     "none",
@@ -1694,7 +1696,7 @@ CreateAgentRequestToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-class ConditionsTypedDict(TypedDict):
+class CreateAgentRequestConditionsTypedDict(TypedDict):
     condition: str
     r"""The argument of the tool call to evaluate"""
     operator: str
@@ -1703,7 +1705,7 @@ class ConditionsTypedDict(TypedDict):
     r"""The value to compare against"""
 
 
-class Conditions(BaseModel):
+class CreateAgentRequestConditions(BaseModel):
     condition: str
     r"""The argument of the tool call to evaluate"""
 
@@ -1726,7 +1728,7 @@ class CreateAgentRequestToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
-    conditions: NotRequired[List[ConditionsTypedDict]]
+    conditions: NotRequired[List[CreateAgentRequestConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
@@ -1750,33 +1752,33 @@ class CreateAgentRequestTools(BaseModel):
     tool_id: Optional[str] = None
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
-    conditions: Optional[List[Conditions]] = None
+    conditions: Optional[List[CreateAgentRequestConditions]] = None
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-CreateAgentRequestAgentsExecuteOn = Literal[
+CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class CreateAgentRequestEvaluatorsTypedDict(TypedDict):
+class CreateAgentRequestAgentsEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class CreateAgentRequestEvaluators(BaseModel):
+class CreateAgentRequestAgentsEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -1790,7 +1792,7 @@ CreateAgentRequestAgentsResponseExecuteOn = Literal[
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class CreateAgentRequestGuardrailsTypedDict(TypedDict):
+class CreateAgentRequestAgentsGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
     execute_on: CreateAgentRequestAgentsResponseExecuteOn
@@ -1799,7 +1801,7 @@ class CreateAgentRequestGuardrailsTypedDict(TypedDict):
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class CreateAgentRequestGuardrails(BaseModel):
+class CreateAgentRequestAgentsGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
@@ -1810,38 +1812,38 @@ class CreateAgentRequestGuardrails(BaseModel):
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class CreateAgentRequestSettingsTypedDict(TypedDict):
+class CreateAgentRequestAgentsSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
-    tool_approval_required: NotRequired[CreateAgentRequestToolApprovalRequired]
+    tool_approval_required: NotRequired[CreateAgentRequestAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[CreateAgentRequestToolsTypedDict]]
-    evaluators: NotRequired[List[CreateAgentRequestEvaluatorsTypedDict]]
+    evaluators: NotRequired[List[CreateAgentRequestAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
-    guardrails: NotRequired[List[CreateAgentRequestGuardrailsTypedDict]]
+    guardrails: NotRequired[List[CreateAgentRequestAgentsGuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
 
 
-class CreateAgentRequestSettings(BaseModel):
+class CreateAgentRequestAgentsSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
     max_execution_time: Optional[int] = 300
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
-    tool_approval_required: Optional[CreateAgentRequestToolApprovalRequired] = (
+    tool_approval_required: Optional[CreateAgentRequestAgentsToolApprovalRequired] = (
         "respect_tool"
     )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
     tools: Optional[List[CreateAgentRequestTools]] = None
 
-    evaluators: Optional[List[CreateAgentRequestEvaluators]] = None
+    evaluators: Optional[List[CreateAgentRequestAgentsEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
-    guardrails: Optional[List[CreateAgentRequestGuardrails]] = None
+    guardrails: Optional[List[CreateAgentRequestAgentsGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
 
 
@@ -2961,6 +2963,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     project_id: str
     role: str
@@ -2985,7 +2988,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     created: NotRequired[str]
     updated: NotRequired[str]
     system_prompt: NotRequired[str]
-    settings: NotRequired[CreateAgentRequestSettingsTypedDict]
+    settings: NotRequired[CreateAgentRequestAgentsSettingsTypedDict]
     version_hash: NotRequired[str]
     metrics: NotRequired[CreateAgentRequestMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
@@ -3000,6 +3003,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 
@@ -3040,7 +3044,7 @@ class CreateAgentRequestResponseBody(BaseModel):
 
     system_prompt: Optional[str] = None
 
-    settings: Optional[CreateAgentRequestSettings] = None
+    settings: Optional[CreateAgentRequestAgentsSettings] = None
 
     version_hash: Optional[str] = None
 

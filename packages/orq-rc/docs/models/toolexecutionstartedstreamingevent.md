@@ -1,0 +1,12 @@
+# ToolExecutionStartedStreamingEvent
+
+Emitted when a tool begins execution. Contains the tool ID, name, action type, input arguments, and execution context.
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.ToolExecutionStartedStreamingEventType](../models/toolexecutionstartedstreamingeventtype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `timestamp`                                                                                          | *str*                                                                                                | :heavy_check_mark:                                                                                   | ISO timestamp of the event                                                                           |
+| `data`                                                                                               | [models.ToolExecutionStartedStreamingEventData](../models/toolexecutionstartedstreamingeventdata.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

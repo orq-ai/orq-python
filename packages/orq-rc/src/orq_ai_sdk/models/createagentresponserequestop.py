@@ -45,124 +45,15 @@ CreateAgentResponseRequestRole = TypeAliasType(
 r"""Message role (user or tool for continuing executions)"""
 
 
-CreateAgentResponseRequestPublicMessagePartKind = Literal["tool_result",]
-
-
-class PublicMessagePartToolResultPartTypedDict(TypedDict):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: CreateAgentResponseRequestPublicMessagePartKind
-    tool_call_id: str
-    result: NotRequired[Any]
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class PublicMessagePartToolResultPart(BaseModel):
-    r"""Tool execution result part. Use this ONLY when providing results for a pending tool call from the agent. The tool_call_id must match the ID from the agent's tool call request."""
-
-    kind: CreateAgentResponseRequestPublicMessagePartKind
-
-    tool_call_id: str
-
-    result: Optional[Any] = None
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
-PublicMessagePartKind = Literal["file",]
-
-
-class FileFileInURIFormatTypedDict(TypedDict):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class FileFileInURIFormat(BaseModel):
-    r"""File in URI format. Check in the model's documentation for the supported mime types for the URI format"""
-
-    uri: str
-    r"""URL for the File content"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-class FileBinaryFormatTypedDict(TypedDict):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: str
-    r"""base64 encoded content of the file"""
-    mime_type: NotRequired[str]
-    r"""Optional mimeType for the file"""
-    name: NotRequired[str]
-    r"""Optional name for the file"""
-
-
-class FileBinaryFormat(BaseModel):
-    r"""Binary in base64 format. Check in the model's documentation for the supported mime types for the binary format."""
-
-    bytes_: Annotated[str, pydantic.Field(alias="bytes")]
-    r"""base64 encoded content of the file"""
-
-    mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
-    r"""Optional mimeType for the file"""
-
-    name: Optional[str] = None
-    r"""Optional name for the file"""
-
-
-PublicMessagePartFileTypedDict = TypeAliasType(
-    "PublicMessagePartFileTypedDict",
-    Union[FileBinaryFormatTypedDict, FileFileInURIFormatTypedDict],
-)
-
-
-PublicMessagePartFile = TypeAliasType(
-    "PublicMessagePartFile", Union[FileBinaryFormat, FileFileInURIFormat]
-)
-
-
-class PublicMessagePartFilePartTypedDict(TypedDict):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: PublicMessagePartKind
-    file: PublicMessagePartFileTypedDict
-    metadata: NotRequired[Dict[str, Any]]
-
-
-class PublicMessagePartFilePart(BaseModel):
-    r"""File attachment part. Use this to send files (images, documents, etc.) to the agent for processing."""
-
-    kind: PublicMessagePartKind
-
-    file: PublicMessagePartFile
-
-    metadata: Optional[Dict[str, Any]] = None
-
-
 PublicMessagePartTypedDict = TypeAliasType(
     "PublicMessagePartTypedDict",
-    Union[
-        TextPartTypedDict,
-        PublicMessagePartFilePartTypedDict,
-        PublicMessagePartToolResultPartTypedDict,
-    ],
+    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
 PublicMessagePart = TypeAliasType(
-    "PublicMessagePart",
-    Union[TextPart, PublicMessagePartFilePart, PublicMessagePartToolResultPart],
+    "PublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -249,14 +140,14 @@ class CreateAgentResponseRequestThread(BaseModel):
     r"""Optional tags to differentiate or categorize threads"""
 
 
-class MemoryTypedDict(TypedDict):
+class CreateAgentResponseRequestMemoryTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
-class Memory(BaseModel):
+class CreateAgentResponseRequestMemory(BaseModel):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     entity_id: str
@@ -274,7 +165,7 @@ class CreateAgentResponseRequestRequestBodyTypedDict(TypedDict):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
     thread: NotRequired[CreateAgentResponseRequestThreadTypedDict]
     r"""Thread information to group related requests"""
-    memory: NotRequired[MemoryTypedDict]
+    memory: NotRequired[CreateAgentResponseRequestMemoryTypedDict]
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
@@ -298,7 +189,7 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
     thread: Optional[CreateAgentResponseRequestThread] = None
     r"""Thread information to group related requests"""
 
-    memory: Optional[Memory] = None
+    memory: Optional[CreateAgentResponseRequestMemory] = None
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
 
     metadata: Optional[Dict[str, Any]] = None
@@ -334,8 +225,8 @@ CreateAgentResponseRequestAgentsResponsesRole = Literal[
 ]
 
 
-PartsTypedDict = TypeAliasType(
-    "PartsTypedDict",
+CreateAgentResponseRequestPartsTypedDict = TypeAliasType(
+    "CreateAgentResponseRequestPartsTypedDict",
     Union[
         TextPartTypedDict,
         DataPartTypedDict,
@@ -346,7 +237,7 @@ PartsTypedDict = TypeAliasType(
 )
 
 
-Parts = Annotated[
+CreateAgentResponseRequestParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
         Annotated[DataPart, Tag("data")],
@@ -361,7 +252,7 @@ Parts = Annotated[
 class OutputTypedDict(TypedDict):
     message_id: str
     role: CreateAgentResponseRequestAgentsResponsesRole
-    parts: List[PartsTypedDict]
+    parts: List[CreateAgentResponseRequestPartsTypedDict]
     metadata: NotRequired[Dict[str, Any]]
 
 
@@ -370,18 +261,18 @@ class Output(BaseModel):
 
     role: CreateAgentResponseRequestAgentsResponsesRole
 
-    parts: List[Parts]
+    parts: List[CreateAgentResponseRequestParts]
 
     metadata: Optional[Dict[str, Any]] = None
 
 
-class PromptTokensDetailsTypedDict(TypedDict):
+class CreateAgentResponseRequestPromptTokensDetailsTypedDict(TypedDict):
     cached_tokens: NotRequired[Nullable[int]]
     audio_tokens: NotRequired[Nullable[int]]
     r"""The number of audio input tokens consumed by the request."""
 
 
-class PromptTokensDetails(BaseModel):
+class CreateAgentResponseRequestPromptTokensDetails(BaseModel):
     cached_tokens: OptionalNullable[int] = UNSET
 
     audio_tokens: OptionalNullable[int] = UNSET
@@ -418,7 +309,7 @@ class PromptTokensDetails(BaseModel):
         return m
 
 
-class CompletionTokensDetailsTypedDict(TypedDict):
+class CreateAgentResponseRequestCompletionTokensDetailsTypedDict(TypedDict):
     reasoning_tokens: NotRequired[Nullable[float]]
     accepted_prediction_tokens: NotRequired[Nullable[float]]
     rejected_prediction_tokens: NotRequired[Nullable[float]]
@@ -426,7 +317,7 @@ class CompletionTokensDetailsTypedDict(TypedDict):
     r"""The number of audio output tokens produced by the response."""
 
 
-class CompletionTokensDetails(BaseModel):
+class CreateAgentResponseRequestCompletionTokensDetails(BaseModel):
     reasoning_tokens: OptionalNullable[float] = UNSET
 
     accepted_prediction_tokens: OptionalNullable[float] = UNSET
@@ -486,8 +377,12 @@ class CreateAgentResponseRequestUsageTypedDict(TypedDict):
     r"""Number of tokens in the prompt."""
     total_tokens: NotRequired[float]
     r"""Total number of tokens used in the request (prompt + completion)."""
-    prompt_tokens_details: NotRequired[Nullable[PromptTokensDetailsTypedDict]]
-    completion_tokens_details: NotRequired[Nullable[CompletionTokensDetailsTypedDict]]
+    prompt_tokens_details: NotRequired[
+        Nullable[CreateAgentResponseRequestPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[CreateAgentResponseRequestCompletionTokensDetailsTypedDict]
+    ]
 
 
 class CreateAgentResponseRequestUsage(BaseModel):
@@ -502,9 +397,13 @@ class CreateAgentResponseRequestUsage(BaseModel):
     total_tokens: Optional[float] = None
     r"""Total number of tokens used in the request (prompt + completion)."""
 
-    prompt_tokens_details: OptionalNullable[PromptTokensDetails] = UNSET
+    prompt_tokens_details: OptionalNullable[
+        CreateAgentResponseRequestPromptTokensDetails
+    ] = UNSET
 
-    completion_tokens_details: OptionalNullable[CompletionTokensDetails] = UNSET
+    completion_tokens_details: OptionalNullable[
+        CreateAgentResponseRequestCompletionTokensDetails
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

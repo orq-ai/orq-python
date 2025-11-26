@@ -5,4 +5,4 @@
 
 | Name                  | Value                 |
 | --------------------- | --------------------- |
-| `MOST_REPEATED_WORDS` | most_repeated_words   |
+| `FLESCH_READING_EASE` | flesch_reading_ease   |

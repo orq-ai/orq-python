@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `TOPIC_MATCH` | topic_match   |
+| Name             | Value            |
+| ---------------- | ---------------- |
+| `KEYWORDS_MATCH` | keywords_match   |

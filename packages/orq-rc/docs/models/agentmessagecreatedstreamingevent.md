@@ -1,0 +1,12 @@
+# AgentMessageCreatedStreamingEvent
+
+Emitted when a new message is added to the conversation. Contains the message content, workflow run ID, and span context for tracing.
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.AgentMessageCreatedStreamingEventType](../models/agentmessagecreatedstreamingeventtype.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `timestamp`                                                                                        | *str*                                                                                              | :heavy_check_mark:                                                                                 | ISO timestamp of the event                                                                         |
+| `data`                                                                                             | [models.AgentMessageCreatedStreamingEventData](../models/agentmessagecreatedstreamingeventdata.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

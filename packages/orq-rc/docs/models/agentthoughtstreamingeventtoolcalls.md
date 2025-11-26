@@ -1,0 +1,10 @@
+# AgentThoughtStreamingEventToolCalls
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                   | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `type`                                                                                                 | [Optional[models.AgentThoughtStreamingEventDataType]](../models/agentthoughtstreamingeventdatatype.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `function`                                                                                             | [Optional[models.AgentThoughtStreamingEventFunction]](../models/agentthoughtstreamingeventfunction.md) | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
