@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 4.0.20
+  version: 4.0.21
   additionalDependencies:
     dev:
       openai-agents: ==0.4.0
@@ -68,6 +68,7 @@ python:
   maxMethodParams: 15
   methodArguments: infer-optional-args
   moduleName: ""
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageManager: poetry
   packageName: orq-ai-sdk
