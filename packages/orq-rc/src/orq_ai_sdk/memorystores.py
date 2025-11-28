@@ -3,6 +3,7 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import creatememorystoreop as models_creatememorystoreop
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -211,8 +212,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -311,8 +312,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -594,13 +595,9 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
-        ],
-        description: str,
-        path: str,
+        description: Optional[str] = None,
         ttl: Optional[float] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -611,14 +608,9 @@ class MemoryStores(BaseSDK):
         Update the memory store configuration
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param embedding_config:
         :param description: The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
-
-            The first element identifies the project, followed by nested folders (auto-created as needed).
-
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param ttl: The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term.
+        :param path:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -640,9 +632,6 @@ class MemoryStores(BaseSDK):
         request = models.UpdateMemoryStoreRequest(
             memory_store_key=memory_store_key,
             request_body=models.UpdateMemoryStoreRequestBody(
-                embedding_config=utils.get_pydantic_model(
-                    embedding_config, models.UpdateMemoryStoreEmbeddingConfig
-                ),
                 description=description,
                 ttl=ttl,
                 path=path,
@@ -712,13 +701,9 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
-        ],
-        description: str,
-        path: str,
+        description: Optional[str] = None,
         ttl: Optional[float] = None,
+        path: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -729,14 +714,9 @@ class MemoryStores(BaseSDK):
         Update the memory store configuration
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param embedding_config:
         :param description: The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store.
-        :param path: Entity storage path in the format: `project/folder/subfolder/...`
-
-            The first element identifies the project, followed by nested folders (auto-created as needed).
-
-            With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
         :param ttl: The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term.
+        :param path:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -758,9 +738,6 @@ class MemoryStores(BaseSDK):
         request = models.UpdateMemoryStoreRequest(
             memory_store_key=memory_store_key,
             request_body=models.UpdateMemoryStoreRequestBody(
-                embedding_config=utils.get_pydantic_model(
-                    embedding_config, models.UpdateMemoryStoreEmbeddingConfig
-                ),
                 description=description,
                 ttl=ttl,
                 path=path,
@@ -1197,7 +1174,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1208,7 +1185,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1300,7 +1277,7 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1311,7 +1288,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1586,7 +1563,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         entity_id: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1598,7 +1575,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1692,7 +1669,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         entity_id: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1704,7 +1681,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2186,7 +2163,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         text: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2292,7 +2269,7 @@ class MemoryStores(BaseSDK):
         memory_store_key: str,
         memory_id: str,
         text: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2587,7 +2564,7 @@ class MemoryStores(BaseSDK):
         memory_id: str,
         document_id: str,
         text: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2696,7 +2673,7 @@ class MemoryStores(BaseSDK):
         memory_id: str,
         document_id: str,
         text: str,
-        metadata: Dict[str, str],
+        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,

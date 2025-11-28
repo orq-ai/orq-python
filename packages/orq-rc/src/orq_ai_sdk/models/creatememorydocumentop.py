@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class CreateMemoryDocumentRequestBodyTypedDict(TypedDict):
     text: str
     r"""The content of the memory document"""
-    metadata: Dict[str, str]
+    metadata: NotRequired[Dict[str, str]]
     r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
 
 
@@ -19,7 +19,7 @@ class CreateMemoryDocumentRequestBody(BaseModel):
     text: str
     r"""The content of the memory document"""
 
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]] = None
     r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
 
 
