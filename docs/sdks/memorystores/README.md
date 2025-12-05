@@ -1,5 +1,4 @@
 # MemoryStores
-(*memory_stores*)
 
 ## Overview
 
