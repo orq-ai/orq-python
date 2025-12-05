@@ -35,8 +35,6 @@ with Orq(
         "similarity_window": 1,
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 

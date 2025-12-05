@@ -52,9 +52,14 @@ PublicMessagePartTypedDict = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-PublicMessagePart = TypeAliasType(
-    "PublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
-)
+PublicMessagePart = Annotated[
+    Union[
+        Annotated[TextPart, Tag("text")],
+        Annotated[FilePart, Tag("file")],
+        Annotated[ToolResultPart, Tag("tool_result")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
+]
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 

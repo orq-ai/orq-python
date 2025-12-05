@@ -149,8 +149,6 @@ with Orq(
         },
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 ```
@@ -188,8 +186,6 @@ async def main():
                 "last_login": "2024-01-15T10:30:00Z",
             },
         })
-
-        assert res is not None
 
         # Handle response
         print(res)
@@ -236,8 +232,6 @@ with Orq(
             "last_login": "2024-01-15T10:30:00Z",
         },
     })
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -424,8 +418,6 @@ with Orq(
 
     res = orq.deployments.stream(key="<key>")
 
-    assert res is not None
-
     with res as event_stream:
         for event in event_stream:
             # handle event
@@ -461,8 +453,6 @@ with Orq(
         "file_name": "example.file",
         "content": open("example.file", "rb"),
     }, purpose="retrieval")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -505,8 +495,6 @@ with Orq(
     },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -542,8 +530,6 @@ with Orq(
         },
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -577,8 +563,6 @@ with Orq(
     try:
 
         res = orq.contacts.retrieve(id="<id>")
-
-        assert res is not None
 
         # Handle response
         print(res)
@@ -669,8 +653,6 @@ with Orq(
             "last_login": "2024-01-15T10:30:00Z",
         },
     })
-
-    assert res is not None
 
     # Handle response
     print(res)

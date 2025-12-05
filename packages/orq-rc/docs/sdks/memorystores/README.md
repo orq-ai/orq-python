@@ -39,8 +39,6 @@ with Orq(
 
     res = orq.memory_stores.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -91,8 +89,6 @@ with Orq(
         "path": "Default",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -132,8 +128,6 @@ with Orq(
 ) as orq:
 
     res = orq.memory_stores.retrieve(memory_store_key="<value>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -177,8 +171,6 @@ with Orq(
     res = orq.memory_stores.update(memory_store_key="<value>", embedding_config={
         "model": "google/text-multilingual-embedding-002",
     }, description="wherever cash since now exempt proliferate aha tabulate ack", path="Default")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -259,8 +251,6 @@ with Orq(
 
     res = orq.memory_stores.list_memories(memory_store_key="<value>", limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -307,8 +297,6 @@ with Orq(
         "key1": "<value>",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -350,8 +338,6 @@ with Orq(
 ) as orq:
 
     res = orq.memory_stores.retrieve_memory(memory_store_key="<value>", memory_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -396,8 +382,6 @@ with Orq(
         "key": "<value>",
         "key1": "<value>",
     })
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -483,8 +467,6 @@ with Orq(
 
     res = orq.memory_stores.list_documents(memory_store_key="<value>", memory_id="<id>", limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -531,8 +513,6 @@ with Orq(
 
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -575,8 +555,6 @@ with Orq(
 ) as orq:
 
     res = orq.memory_stores.retrieve_document(memory_store_key="<value>", memory_id="<id>", document_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -621,8 +599,6 @@ with Orq(
     res = orq.memory_stores.update_document(memory_store_key="<value>", memory_id="<id>", document_id="<id>", text="<value>", metadata={
         "key": "<value>",
     })
-
-    assert res is not None
 
     # Handle response
     print(res)

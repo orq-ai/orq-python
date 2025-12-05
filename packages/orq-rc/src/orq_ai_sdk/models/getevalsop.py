@@ -5,8 +5,9 @@ from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
+from pydantic import Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -125,13 +126,18 @@ GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasT
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig = TypeAliasType(
-    "GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig",
+GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig = Annotated[
     Union[
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONBoolean,
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumber,
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONBoolean,
+            Tag("boolean"),
+        ],
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumber, Tag("number")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataEvalsResponse200ApplicationJSONType = Literal["typescript_eval",]
@@ -230,13 +236,13 @@ GetEvalsDataEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponse200GuardrailConfig = TypeAliasType(
-    "GetEvalsDataEvalsResponse200GuardrailConfig",
+GetEvalsDataEvalsResponse200GuardrailConfig = Annotated[
     Union[
-        GetEvalsGuardrailConfigEvalsResponse200Boolean,
-        GetEvalsGuardrailConfigEvalsResponse200Number,
+        Annotated[GetEvalsGuardrailConfigEvalsResponse200Boolean, Tag("boolean")],
+        Annotated[GetEvalsGuardrailConfigEvalsResponse200Number, Tag("number")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataEvalsResponse200Type = Literal["ragas",]
@@ -350,13 +356,13 @@ GetEvalsDataEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsResponseGuardrailConfig = TypeAliasType(
-    "GetEvalsDataEvalsResponseGuardrailConfig",
+GetEvalsDataEvalsResponseGuardrailConfig = Annotated[
     Union[
-        GetEvalsGuardrailConfigEvalsResponseBoolean,
-        GetEvalsGuardrailConfigEvalsResponseNumber,
+        Annotated[GetEvalsGuardrailConfigEvalsResponseBoolean, Tag("boolean")],
+        Annotated[GetEvalsGuardrailConfigEvalsResponseNumber, Tag("number")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataEvalsResponseType = Literal["function_eval",]
@@ -843,43 +849,43 @@ DataFunctionParamsTypedDict = TypeAliasType(
 )
 
 
-DataFunctionParams = TypeAliasType(
-    "DataFunctionParams",
+DataFunctionParams = Annotated[
     Union[
-        GetEvalsFunctionParams27,
-        GetEvalsFunctionParams26,
-        GetEvalsFunctionParams31,
-        GetEvalsFunctionParams30,
-        GetEvalsFunctionParams5,
-        GetEvalsFunctionParams6,
-        GetEvalsFunctionParams7,
-        GetEvalsFunctionParams29,
-        GetEvalsFunctionParams28,
-        GetEvalsFunctionParams10,
-        GetEvalsFunctionParams32,
-        GetEvalsFunctionParams24,
-        GetEvalsFunctionParams22,
-        GetEvalsFunctionParams14,
-        GetEvalsFunctionParams23,
-        GetEvalsFunctionParams16,
-        GetEvalsFunctionParams17,
-        GetEvalsFunctionParams18,
-        GetEvalsFunctionParams19,
-        GetEvalsFunctionParams20,
-        GetEvalsFunctionParams21,
-        GetEvalsFunctionParams9,
-        GetEvalsFunctionParams15,
-        GetEvalsFunctionParams13,
-        GetEvalsFunctionParams25,
-        GetEvalsFunctionParams11,
-        GetEvalsFunctionParams1,
-        GetEvalsFunctionParams8,
-        GetEvalsFunctionParams4,
-        GetEvalsFunctionParams3,
-        GetEvalsFunctionParams2,
-        GetEvalsFunctionParams12,
+        Annotated[GetEvalsFunctionParams1, Tag("contains")],
+        Annotated[GetEvalsFunctionParams2, Tag("contains_none")],
+        Annotated[GetEvalsFunctionParams3, Tag("contains_all")],
+        Annotated[GetEvalsFunctionParams4, Tag("contains_any")],
+        Annotated[GetEvalsFunctionParams5, Tag("contains_email")],
+        Annotated[GetEvalsFunctionParams6, Tag("contains_url")],
+        Annotated[GetEvalsFunctionParams7, Tag("contains_valid_link")],
+        Annotated[GetEvalsFunctionParams8, Tag("start_with")],
+        Annotated[GetEvalsFunctionParams9, Tag("ends_with")],
+        Annotated[GetEvalsFunctionParams10, Tag("exact_match")],
+        Annotated[GetEvalsFunctionParams11, Tag("length_less_than")],
+        Annotated[GetEvalsFunctionParams12, Tag("length_between")],
+        Annotated[GetEvalsFunctionParams13, Tag("length_greater_than")],
+        Annotated[GetEvalsFunctionParams14, Tag("one_line")],
+        Annotated[GetEvalsFunctionParams15, Tag("regex")],
+        Annotated[GetEvalsFunctionParams16, Tag("is_valid_json")],
+        Annotated[GetEvalsFunctionParams17, Tag("moderations_openai")],
+        Annotated[GetEvalsFunctionParams18, Tag("moderations_google")],
+        Annotated[GetEvalsFunctionParams19, Tag("bert_score")],
+        Annotated[GetEvalsFunctionParams20, Tag("bleu_score")],
+        Annotated[GetEvalsFunctionParams21, Tag("rouge_n")],
+        Annotated[GetEvalsFunctionParams22, Tag("meteor_score")],
+        Annotated[GetEvalsFunctionParams23, Tag("cosine_similarity")],
+        Annotated[GetEvalsFunctionParams24, Tag("levenshtein_distance")],
+        Annotated[GetEvalsFunctionParams25, Tag("keywords_match")],
+        Annotated[GetEvalsFunctionParams26, Tag("most_repeated_words")],
+        Annotated[GetEvalsFunctionParams27, Tag("flesch_reading_ease")],
+        Annotated[GetEvalsFunctionParams28, Tag("gse_english_level")],
+        Annotated[GetEvalsFunctionParams29, Tag("words_count")],
+        Annotated[GetEvalsFunctionParams30, Tag("sentences_count")],
+        Annotated[GetEvalsFunctionParams31, Tag("lexical_repetition")],
+        Annotated[GetEvalsFunctionParams32, Tag("grammar_diversity")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DataFunctionTypedDict(TypedDict):
@@ -971,10 +977,13 @@ GetEvalsDataEvalsGuardrailConfigTypedDict = TypeAliasType(
 )
 
 
-GetEvalsDataEvalsGuardrailConfig = TypeAliasType(
-    "GetEvalsDataEvalsGuardrailConfig",
-    Union[GetEvalsGuardrailConfigEvalsBoolean, GetEvalsGuardrailConfigEvalsNumber],
-)
+GetEvalsDataEvalsGuardrailConfig = Annotated[
+    Union[
+        Annotated[GetEvalsGuardrailConfigEvalsBoolean, Tag("boolean")],
+        Annotated[GetEvalsGuardrailConfigEvalsNumber, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataEvalsType = Literal["python_eval",]
@@ -1064,10 +1073,13 @@ GetEvalsDataGuardrailConfigTypedDict = TypeAliasType(
 )
 
 
-GetEvalsDataGuardrailConfig = TypeAliasType(
-    "GetEvalsDataGuardrailConfig",
-    Union[GetEvalsGuardrailConfigBoolean, GetEvalsGuardrailConfigNumber],
-)
+GetEvalsDataGuardrailConfig = Annotated[
+    Union[
+        Annotated[GetEvalsGuardrailConfigBoolean, Tag("boolean")],
+        Annotated[GetEvalsGuardrailConfigNumber, Tag("number")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataType = Literal["http_eval",]
@@ -1187,13 +1199,19 @@ DataGuardrailConfigTypedDict = TypeAliasType(
 )
 
 
-DataGuardrailConfig = TypeAliasType(
-    "DataGuardrailConfig",
+DataGuardrailConfig = Annotated[
     Union[
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBoolean,
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumber,
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBoolean,
+            Tag("boolean"),
+        ],
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumber,
+            Tag("number"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DataType = Literal["json_schema",]
@@ -1294,13 +1312,19 @@ GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfigTypedDict 
 )
 
 
-GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig = TypeAliasType(
-    "GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig",
+GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig = Annotated[
     Union[
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean,
-        GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber,
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean,
+            Tag("boolean"),
+        ],
+        Annotated[
+            GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber,
+            Tag("number"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyType = Literal["llm_eval",]
@@ -1356,12 +1380,18 @@ GetEvalsDataTypedDict = TypeAliasType(
 )
 
 
-GetEvalsData = TypeAliasType(
-    "GetEvalsData",
+GetEvalsData = Annotated[
     Union[
-        DataJSON, DataPython, DataFunction, DataTypescript, DataLLM, DataRagas, DataHTTP
+        Annotated[DataLLM, Tag("llm_eval")],
+        Annotated[DataJSON, Tag("json_schema")],
+        Annotated[DataHTTP, Tag("http_eval")],
+        Annotated[DataPython, Tag("python_eval")],
+        Annotated[DataFunction, Tag("function_eval")],
+        Annotated[DataRagas, Tag("ragas")],
+        Annotated[DataTypescript, Tag("typescript_eval")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class GetEvalsResponseBodyTypedDict(TypedDict):

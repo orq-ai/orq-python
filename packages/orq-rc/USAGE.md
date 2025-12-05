@@ -27,8 +27,6 @@ with Orq(
         },
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 ```
@@ -66,8 +64,6 @@ async def main():
                 "last_login": "2024-01-15T10:30:00Z",
             },
         })
-
-        assert res is not None
 
         # Handle response
         print(res)

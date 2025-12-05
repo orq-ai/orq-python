@@ -8,8 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import (
     Annotated,
@@ -213,9 +214,14 @@ CreatePromptContent2TypedDict = TypeAliasType(
 )
 
 
-CreatePromptContent2 = TypeAliasType(
-    "CreatePromptContent2", Union[CreatePrompt21, CreatePrompt22, CreatePrompt23]
-)
+CreatePromptContent2 = Annotated[
+    Union[
+        Annotated[CreatePrompt21, Tag("text")],
+        Annotated[CreatePrompt22, Tag("image_url")],
+        Annotated[CreatePrompt23, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreatePromptContentTypedDict = TypeAliasType(
@@ -826,10 +832,13 @@ CreatePrompt2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-CreatePrompt2Annotations = TypeAliasType(
-    "CreatePrompt2Annotations",
-    Union[CreatePromptAnnotations1, CreatePromptAnnotations2],
-)
+CreatePrompt2Annotations = Annotated[
+    Union[
+        Annotated[CreatePromptAnnotations1, Tag("file_citation")],
+        Annotated[CreatePromptAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class CreatePrompt2TextContentPartTypedDict(TypedDict):
@@ -860,10 +869,13 @@ CreatePromptContentPromptsRequest2TypedDict = TypeAliasType(
 )
 
 
-CreatePromptContentPromptsRequest2 = TypeAliasType(
-    "CreatePromptContentPromptsRequest2",
-    Union[CreatePrompt2RefusalContentPart, CreatePrompt2TextContentPart],
-)
+CreatePromptContentPromptsRequest2 = Annotated[
+    Union[
+        Annotated[CreatePrompt2TextContentPart, Tag("text")],
+        Annotated[CreatePrompt2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreatePromptMessagesPromptsContentTypedDict = TypeAliasType(
@@ -1174,15 +1186,15 @@ CreatePromptContentPrompts2TypedDict = TypeAliasType(
 )
 
 
-CreatePromptContentPrompts2 = TypeAliasType(
-    "CreatePromptContentPrompts2",
+CreatePromptContentPrompts2 = Annotated[
     Union[
-        CreatePrompt2Prompts1,
-        CreatePrompt2Prompts2,
-        CreatePrompt2Prompts3,
-        CreatePrompt24,
+        Annotated[CreatePrompt2Prompts1, Tag("text")],
+        Annotated[CreatePrompt2Prompts2, Tag("image_url")],
+        Annotated[CreatePrompt2Prompts3, Tag("input_audio")],
+        Annotated[CreatePrompt24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreatePromptMessagesContentTypedDict = TypeAliasType(
@@ -1253,15 +1265,15 @@ CreatePromptPromptsMessagesTypedDict = TypeAliasType(
 )
 
 
-CreatePromptPromptsMessages = TypeAliasType(
-    "CreatePromptPromptsMessages",
+CreatePromptPromptsMessages = Annotated[
     Union[
-        CreatePromptMessagesSystemMessage,
-        CreatePromptMessagesUserMessage,
-        CreatePromptMessagesToolMessage,
-        CreatePromptMessagesAssistantMessage,
+        Annotated[CreatePromptMessagesSystemMessage, Tag("system")],
+        Annotated[CreatePromptMessagesUserMessage, Tag("user")],
+        Annotated[CreatePromptMessagesAssistantMessage, Tag("assistant")],
+        Annotated[CreatePromptMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 CreatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type = Literal["json_schema",]
@@ -1366,14 +1378,14 @@ CreatePromptPromptsResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-CreatePromptPromptsResponseFormat = TypeAliasType(
-    "CreatePromptPromptsResponseFormat",
+CreatePromptPromptsResponseFormat = Annotated[
     Union[
-        CreatePromptResponseFormatText,
-        CreatePromptResponseFormatJSONObject,
-        CreatePromptResponseFormatPromptsJSONSchema,
+        Annotated[CreatePromptResponseFormatText, Tag("text")],
+        Annotated[CreatePromptResponseFormatJSONObject, Tag("json_object")],
+        Annotated[CreatePromptResponseFormatPromptsJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -2050,14 +2062,14 @@ CreatePromptContentPromptsResponse2TypedDict = TypeAliasType(
 )
 
 
-CreatePromptContentPromptsResponse2 = TypeAliasType(
-    "CreatePromptContentPromptsResponse2",
+CreatePromptContentPromptsResponse2 = Annotated[
     Union[
-        CreatePrompt2PromptsResponse1,
-        CreatePrompt2PromptsResponse2,
-        CreatePrompt2PromptsResponse3,
+        Annotated[CreatePrompt2PromptsResponse1, Tag("text")],
+        Annotated[CreatePrompt2PromptsResponse2, Tag("image_url")],
+        Annotated[CreatePrompt2PromptsResponse3, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreatePromptPromptsContentTypedDict = TypeAliasType(

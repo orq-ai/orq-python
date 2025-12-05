@@ -8,9 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -355,14 +355,14 @@ ListAgentsResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-ListAgentsResponseFormat = TypeAliasType(
-    "ListAgentsResponseFormat",
+ListAgentsResponseFormat = Annotated[
     Union[
-        ListAgentsResponseFormatText,
-        ListAgentsResponseFormatJSONObject,
-        ListAgentsResponseFormatAgentsJSONSchema,
+        Annotated[ListAgentsResponseFormatText, Tag("text")],
+        Annotated[ListAgentsResponseFormatJSONObject, Tag("json_object")],
+        Annotated[ListAgentsResponseFormatAgentsJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -828,14 +828,16 @@ ListAgentsFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-ListAgentsFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "ListAgentsFallbackModelConfigurationResponseFormat",
+ListAgentsFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        ListAgentsResponseFormatAgentsText,
-        ListAgentsResponseFormatAgentsJSONObject,
-        ListAgentsResponseFormatAgentsResponse200JSONSchema,
+        Annotated[ListAgentsResponseFormatAgentsText, Tag("text")],
+        Annotated[ListAgentsResponseFormatAgentsJSONObject, Tag("json_object")],
+        Annotated[
+            ListAgentsResponseFormatAgentsResponse200JSONSchema, Tag("json_schema")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 

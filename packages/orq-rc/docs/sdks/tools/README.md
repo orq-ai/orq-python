@@ -29,8 +29,6 @@ with Orq(
 
     res = orq.tools.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -92,8 +90,6 @@ with Orq(
         ),
     ))
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -139,8 +135,6 @@ with Orq(
         status="live",
         type="function",
     ))
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -218,8 +212,6 @@ with Orq(
 ) as orq:
 
     res = orq.tools.retrieve(tool_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)

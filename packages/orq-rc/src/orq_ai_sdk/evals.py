@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createevalop as models_createevalop,
+    updateevalop as models_updateevalop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -20,7 +24,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetEvalsResponseBody]:
+    ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
@@ -63,6 +67,7 @@ class Evals(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -91,9 +96,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetEvalsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.GetEvalsEvalsResponseBodyData, http_res
@@ -118,7 +121,7 @@ class Evals(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetEvalsResponseBody]:
+    ) -> models.GetEvalsResponseBody:
         r"""Get all Evaluators
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
@@ -161,6 +164,7 @@ class Evals(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -189,9 +193,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetEvalsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetEvalsResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.GetEvalsEvalsResponseBodyData, http_res
@@ -210,13 +212,16 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateEvalResponseBody]:
+    ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
         :param request: The request object to send.
@@ -258,6 +263,7 @@ class Evals(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateEvalRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -286,9 +292,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateEvalResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateEvalEvalsResponseBodyData, http_res
@@ -307,13 +311,16 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateEvalResponseBody]:
+    ) -> models.CreateEvalResponseBody:
         r"""Create an Evaluator
 
         :param request: The request object to send.
@@ -355,6 +362,7 @@ class Evals(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateEvalRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -383,9 +391,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateEvalResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateEvalResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.CreateEvalEvalsResponseBodyData, http_res
@@ -405,13 +411,16 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateEvalResponseBody]:
+    ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
 
         :param id:
@@ -461,6 +470,7 @@ class Evals(BaseSDK):
                 "json",
                 Optional[models.UpdateEvalRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -489,9 +499,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateEvalResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateEvalEvalsResponseBodyData, http_res
@@ -511,13 +519,16 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateEvalResponseBody]:
+    ) -> models.UpdateEvalResponseBody:
         r"""Update an Evaluator
 
         :param id:
@@ -567,6 +578,7 @@ class Evals(BaseSDK):
                 "json",
                 Optional[models.UpdateEvalRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -595,9 +607,7 @@ class Evals(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateEvalResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateEvalResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateEvalEvalsResponseBodyData, http_res
@@ -659,6 +669,7 @@ class Evals(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -749,6 +760,7 @@ class Evals(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

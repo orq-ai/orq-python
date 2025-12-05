@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -883,14 +883,14 @@ RetrieveToolResponseBodyTypedDict = TypeAliasType(
 r"""Successfully retrieved the tool."""
 
 
-RetrieveToolResponseBody = TypeAliasType(
-    "RetrieveToolResponseBody",
+RetrieveToolResponseBody = Annotated[
     Union[
-        RetrieveToolResponseBodyFunctionTool,
-        RetrieveToolResponseBodyJSONSchemaTool,
-        RetrieveToolResponseBodyHTTPTool,
-        RetrieveToolResponseBodyMCPTool,
-        RetrieveToolResponseBodyCodeExecutionTool,
+        Annotated[RetrieveToolResponseBodyFunctionTool, Tag("function")],
+        Annotated[RetrieveToolResponseBodyJSONSchemaTool, Tag("json_schema")],
+        Annotated[RetrieveToolResponseBodyHTTPTool, Tag("http")],
+        Annotated[RetrieveToolResponseBodyMCPTool, Tag("mcp")],
+        Annotated[RetrieveToolResponseBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Successfully retrieved the tool."""

@@ -8,9 +8,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -195,10 +200,13 @@ DeploymentCreateMetric2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentCreateMetric2Annotations = TypeAliasType(
-    "DeploymentCreateMetric2Annotations",
-    Union[DeploymentCreateMetricAnnotations1, DeploymentCreateMetricAnnotations2],
-)
+DeploymentCreateMetric2Annotations = Annotated[
+    Union[
+        Annotated[DeploymentCreateMetricAnnotations1, Tag("file_citation")],
+        Annotated[DeploymentCreateMetricAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentCreateMetric2TextContentPartTypedDict(TypedDict):
@@ -230,13 +238,13 @@ DeploymentCreateMetricContentDeploymentsMetrics2TypedDict = TypeAliasType(
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetrics2 = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetrics2",
+DeploymentCreateMetricContentDeploymentsMetrics2 = Annotated[
     Union[
-        DeploymentCreateMetric2RefusalContentPart,
-        DeploymentCreateMetric2TextContentPart,
+        Annotated[DeploymentCreateMetric2TextContentPart, Tag("text")],
+        Annotated[DeploymentCreateMetric2RefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict = TypeAliasType(
@@ -553,15 +561,15 @@ DeploymentCreateMetricContent2TypedDict = TypeAliasType(
 )
 
 
-DeploymentCreateMetricContent2 = TypeAliasType(
-    "DeploymentCreateMetricContent2",
+DeploymentCreateMetricContent2 = Annotated[
     Union[
-        DeploymentCreateMetric21,
-        DeploymentCreateMetric22,
-        DeploymentCreateMetric23,
-        DeploymentCreateMetric24,
+        Annotated[DeploymentCreateMetric21, Tag("text")],
+        Annotated[DeploymentCreateMetric22, Tag("image_url")],
+        Annotated[DeploymentCreateMetric23, Tag("input_audio")],
+        Annotated[DeploymentCreateMetric24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentCreateMetricMessagesContentTypedDict = TypeAliasType(
@@ -658,16 +666,16 @@ DeploymentCreateMetricMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentCreateMetricMessages = TypeAliasType(
-    "DeploymentCreateMetricMessages",
+DeploymentCreateMetricMessages = Annotated[
     Union[
-        DeploymentCreateMetricMessagesDeveloperMessage,
-        DeploymentCreateMetricMessagesSystemMessage,
-        DeploymentCreateMetricMessagesUserMessage,
-        DeploymentCreateMetricMessagesToolMessage,
-        DeploymentCreateMetricMessagesAssistantMessage,
+        Annotated[DeploymentCreateMetricMessagesDeveloperMessage, Tag("developer")],
+        Annotated[DeploymentCreateMetricMessagesSystemMessage, Tag("system")],
+        Annotated[DeploymentCreateMetricMessagesUserMessage, Tag("user")],
+        Annotated[DeploymentCreateMetricMessagesAssistantMessage, Tag("assistant")],
+        Annotated[DeploymentCreateMetricMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyRole = Literal["tool",]
@@ -816,13 +824,17 @@ DeploymentCreateMetric2DeploymentsMetricsAnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentCreateMetric2DeploymentsMetricsAnnotations = TypeAliasType(
-    "DeploymentCreateMetric2DeploymentsMetricsAnnotations",
+DeploymentCreateMetric2DeploymentsMetricsAnnotations = Annotated[
     Union[
-        DeploymentCreateMetricAnnotationsDeploymentsMetrics1,
-        DeploymentCreateMetricAnnotationsDeploymentsMetrics2,
+        Annotated[
+            DeploymentCreateMetricAnnotationsDeploymentsMetrics1, Tag("file_citation")
+        ],
+        Annotated[
+            DeploymentCreateMetricAnnotationsDeploymentsMetrics2, Tag("file_path")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentCreateMetric2DeploymentsMetricsTextContentPartTypedDict(TypedDict):
@@ -860,13 +872,17 @@ DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict = (
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2",
+DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = Annotated[
     Union[
-        DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart,
-        DeploymentCreateMetric2DeploymentsMetricsTextContentPart,
+        Annotated[
+            DeploymentCreateMetric2DeploymentsMetricsTextContentPart, Tag("text")
+        ],
+        Annotated[
+            DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart, Tag("refusal")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentCreateMetricChoicesContentTypedDict = TypeAliasType(
@@ -1198,15 +1214,15 @@ DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict = TypeAliasType
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequest2 = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetricsRequest2",
+DeploymentCreateMetricContentDeploymentsMetricsRequest2 = Annotated[
     Union[
-        DeploymentCreateMetric2DeploymentsMetrics1,
-        DeploymentCreateMetric2DeploymentsMetrics2,
-        DeploymentCreateMetric2DeploymentsMetrics3,
-        DeploymentCreateMetric2DeploymentsMetrics4,
+        Annotated[DeploymentCreateMetric2DeploymentsMetrics1, Tag("text")],
+        Annotated[DeploymentCreateMetric2DeploymentsMetrics2, Tag("image_url")],
+        Annotated[DeploymentCreateMetric2DeploymentsMetrics3, Tag("input_audio")],
+        Annotated[DeploymentCreateMetric2DeploymentsMetrics4, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 ChoicesContentTypedDict = TypeAliasType(
@@ -1303,16 +1319,16 @@ ChoicesTypedDict = TypeAliasType(
 )
 
 
-Choices = TypeAliasType(
-    "Choices",
+Choices = Annotated[
     Union[
-        ChoicesDeveloperMessage,
-        ChoicesSystemMessage,
-        ChoicesUserMessage,
-        ChoicesToolMessage,
-        ChoicesAssistantMessage,
+        Annotated[ChoicesDeveloperMessage, Tag("developer")],
+        Annotated[ChoicesSystemMessage, Tag("system")],
+        Annotated[ChoicesUserMessage, Tag("user")],
+        Annotated[ChoicesAssistantMessage, Tag("assistant")],
+        Annotated[ChoicesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class DeploymentCreateMetricFeedbackTypedDict(TypedDict):

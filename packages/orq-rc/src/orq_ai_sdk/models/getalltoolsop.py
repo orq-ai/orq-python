@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -897,16 +897,16 @@ GetAllToolsDataTypedDict = TypeAliasType(
 )
 
 
-GetAllToolsData = TypeAliasType(
-    "GetAllToolsData",
+GetAllToolsData = Annotated[
     Union[
-        DataFunctionTool,
-        DataJSONSchemaTool,
-        DataHTTPTool,
-        DataMCPTool,
-        DataCodeExecutionTool,
+        Annotated[DataFunctionTool, Tag("function")],
+        Annotated[DataJSONSchemaTool, Tag("json_schema")],
+        Annotated[DataHTTPTool, Tag("http")],
+        Annotated[DataMCPTool, Tag("mcp")],
+        Annotated[DataCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class GetAllToolsResponseBodyTypedDict(TypedDict):

@@ -8,8 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -150,10 +151,13 @@ DeploymentGetConfig2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfig2Annotations = TypeAliasType(
-    "DeploymentGetConfig2Annotations",
-    Union[DeploymentGetConfigAnnotations1, DeploymentGetConfigAnnotations2],
-)
+DeploymentGetConfig2Annotations = Annotated[
+    Union[
+        Annotated[DeploymentGetConfigAnnotations1, Tag("file_citation")],
+        Annotated[DeploymentGetConfigAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentGetConfig2TextContentPartTypedDict(TypedDict):
@@ -185,10 +189,13 @@ DeploymentGetConfigContentDeployments2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContentDeployments2 = TypeAliasType(
-    "DeploymentGetConfigContentDeployments2",
-    Union[DeploymentGetConfig2RefusalContentPart, DeploymentGetConfig2TextContentPart],
-)
+DeploymentGetConfigContentDeployments2 = Annotated[
+    Union[
+        Annotated[DeploymentGetConfig2TextContentPart, Tag("text")],
+        Annotated[DeploymentGetConfig2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentGetConfigPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
@@ -505,15 +512,15 @@ DeploymentGetConfigContent2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContent2 = TypeAliasType(
-    "DeploymentGetConfigContent2",
+DeploymentGetConfigContent2 = Annotated[
     Union[
-        DeploymentGetConfig21,
-        DeploymentGetConfig22,
-        DeploymentGetConfig23,
-        DeploymentGetConfig24,
+        Annotated[DeploymentGetConfig21, Tag("text")],
+        Annotated[DeploymentGetConfig22, Tag("image_url")],
+        Annotated[DeploymentGetConfig23, Tag("input_audio")],
+        Annotated[DeploymentGetConfig24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentGetConfigPrefixMessagesContentTypedDict = TypeAliasType(
@@ -610,16 +617,16 @@ DeploymentGetConfigPrefixMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigPrefixMessages = TypeAliasType(
-    "DeploymentGetConfigPrefixMessages",
+DeploymentGetConfigPrefixMessages = Annotated[
     Union[
-        PrefixMessagesDeveloperMessage,
-        PrefixMessagesSystemMessage,
-        PrefixMessagesUserMessage,
-        PrefixMessagesToolMessage,
-        PrefixMessagesAssistantMessage,
+        Annotated[PrefixMessagesDeveloperMessage, Tag("developer")],
+        Annotated[PrefixMessagesSystemMessage, Tag("system")],
+        Annotated[PrefixMessagesUserMessage, Tag("user")],
+        Annotated[PrefixMessagesAssistantMessage, Tag("assistant")],
+        Annotated[PrefixMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 DeploymentGetConfigMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]
@@ -758,13 +765,13 @@ DeploymentGetConfig2DeploymentsAnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfig2DeploymentsAnnotations = TypeAliasType(
-    "DeploymentGetConfig2DeploymentsAnnotations",
+DeploymentGetConfig2DeploymentsAnnotations = Annotated[
     Union[
-        DeploymentGetConfigAnnotationsDeployments1,
-        DeploymentGetConfigAnnotationsDeployments2,
+        Annotated[DeploymentGetConfigAnnotationsDeployments1, Tag("file_citation")],
+        Annotated[DeploymentGetConfigAnnotationsDeployments2, Tag("file_path")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentGetConfig2DeploymentsTextContentPartTypedDict(TypedDict):
@@ -796,13 +803,13 @@ DeploymentGetConfigContentDeploymentsRequestRequestBody2TypedDict = TypeAliasTyp
 )
 
 
-DeploymentGetConfigContentDeploymentsRequestRequestBody2 = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsRequestRequestBody2",
+DeploymentGetConfigContentDeploymentsRequestRequestBody2 = Annotated[
     Union[
-        DeploymentGetConfig2DeploymentsRefusalContentPart,
-        DeploymentGetConfig2DeploymentsTextContentPart,
+        Annotated[DeploymentGetConfig2DeploymentsTextContentPart, Tag("text")],
+        Annotated[DeploymentGetConfig2DeploymentsRefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentGetConfigMessagesDeploymentsContentTypedDict = TypeAliasType(
@@ -1121,15 +1128,15 @@ DeploymentGetConfigContentDeploymentsRequest2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContentDeploymentsRequest2 = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsRequest2",
+DeploymentGetConfigContentDeploymentsRequest2 = Annotated[
     Union[
-        DeploymentGetConfig2Deployments1,
-        DeploymentGetConfig2Deployments2,
-        DeploymentGetConfig2Deployments3,
-        DeploymentGetConfig2Deployments4,
+        Annotated[DeploymentGetConfig2Deployments1, Tag("text")],
+        Annotated[DeploymentGetConfig2Deployments2, Tag("image_url")],
+        Annotated[DeploymentGetConfig2Deployments3, Tag("input_audio")],
+        Annotated[DeploymentGetConfig2Deployments4, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentGetConfigMessagesContentTypedDict = TypeAliasType(
@@ -1226,16 +1233,16 @@ DeploymentGetConfigMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigMessages = TypeAliasType(
-    "DeploymentGetConfigMessages",
+DeploymentGetConfigMessages = Annotated[
     Union[
-        DeploymentGetConfigMessagesDeveloperMessage,
-        DeploymentGetConfigMessagesSystemMessage,
-        DeploymentGetConfigMessagesUserMessage,
-        DeploymentGetConfigMessagesToolMessage,
-        DeploymentGetConfigMessagesAssistantMessage,
+        Annotated[DeploymentGetConfigMessagesDeveloperMessage, Tag("developer")],
+        Annotated[DeploymentGetConfigMessagesSystemMessage, Tag("system")],
+        Annotated[DeploymentGetConfigMessagesUserMessage, Tag("user")],
+        Annotated[DeploymentGetConfigMessagesAssistantMessage, Tag("assistant")],
+        Annotated[DeploymentGetConfigMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class DeploymentGetConfigMetadataTypedDict(TypedDict):
@@ -2097,14 +2104,14 @@ DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
 )
 
 
-DeploymentGetConfigContentDeploymentsResponse2 = TypeAliasType(
-    "DeploymentGetConfigContentDeploymentsResponse2",
+DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
-        DeploymentGetConfig2DeploymentsResponse1,
-        DeploymentGetConfig2DeploymentsResponse2,
-        DeploymentGetConfig2DeploymentsResponse3,
+        Annotated[DeploymentGetConfig2DeploymentsResponse1, Tag("text")],
+        Annotated[DeploymentGetConfig2DeploymentsResponse2, Tag("image_url")],
+        Annotated[DeploymentGetConfig2DeploymentsResponse3, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentGetConfigContentTypedDict = TypeAliasType(

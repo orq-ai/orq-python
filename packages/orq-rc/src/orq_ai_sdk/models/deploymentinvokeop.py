@@ -9,9 +9,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -382,9 +382,14 @@ DeploymentInvokeMessageTypedDict = TypeAliasType(
 )
 
 
-DeploymentInvokeMessage = TypeAliasType(
-    "DeploymentInvokeMessage", Union[Message3, Message2, Message1]
-)
+DeploymentInvokeMessage = Annotated[
+    Union[
+        Annotated[Message1, Tag("tool_calls")],
+        Annotated[Message2, Tag("content")],
+        Annotated[Message3, Tag("image")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentInvokeChoicesTypedDict(TypedDict):

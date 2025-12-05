@@ -13,10 +13,11 @@ from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
     RequestMetadata,
+    get_discriminator,
     parse_datetime,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -153,10 +154,13 @@ CreateDatasetItem2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItem2Annotations = TypeAliasType(
-    "CreateDatasetItem2Annotations",
-    Union[CreateDatasetItemAnnotations1, CreateDatasetItemAnnotations2],
-)
+CreateDatasetItem2Annotations = Annotated[
+    Union[
+        Annotated[CreateDatasetItemAnnotations1, Tag("file_citation")],
+        Annotated[CreateDatasetItemAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class CreateDatasetItem2TextContentPartTypedDict(TypedDict):
@@ -188,10 +192,13 @@ CreateDatasetItemContentDatasets2TypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemContentDatasets2 = TypeAliasType(
-    "CreateDatasetItemContentDatasets2",
-    Union[CreateDatasetItem2RefusalContentPart, CreateDatasetItem2TextContentPart],
-)
+CreateDatasetItemContentDatasets2 = Annotated[
+    Union[
+        Annotated[CreateDatasetItem2TextContentPart, Tag("text")],
+        Annotated[CreateDatasetItem2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreateDatasetItemMessagesDatasetsContentTypedDict = TypeAliasType(
@@ -502,15 +509,15 @@ CreateDatasetItemContent2TypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemContent2 = TypeAliasType(
-    "CreateDatasetItemContent2",
+CreateDatasetItemContent2 = Annotated[
     Union[
-        CreateDatasetItem21,
-        CreateDatasetItem22,
-        CreateDatasetItem23,
-        CreateDatasetItem24,
+        Annotated[CreateDatasetItem21, Tag("text")],
+        Annotated[CreateDatasetItem22, Tag("image_url")],
+        Annotated[CreateDatasetItem23, Tag("input_audio")],
+        Annotated[CreateDatasetItem24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreateDatasetItemMessagesContentTypedDict = TypeAliasType(
@@ -606,16 +613,16 @@ CreateDatasetItemMessagesTypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemMessages = TypeAliasType(
-    "CreateDatasetItemMessages",
+CreateDatasetItemMessages = Annotated[
     Union[
-        CreateDatasetItemMessagesDeveloperMessage,
-        CreateDatasetItemMessagesSystemMessage,
-        CreateDatasetItemMessagesUserMessage,
-        CreateDatasetItemMessagesToolMessage,
-        CreateDatasetItemMessagesAssistantMessage,
+        Annotated[CreateDatasetItemMessagesDeveloperMessage, Tag("developer")],
+        Annotated[CreateDatasetItemMessagesSystemMessage, Tag("system")],
+        Annotated[CreateDatasetItemMessagesUserMessage, Tag("user")],
+        Annotated[CreateDatasetItemMessagesAssistantMessage, Tag("assistant")],
+        Annotated[CreateDatasetItemMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class CreateDatasetItemRequestBodyTypedDict(TypedDict):
@@ -797,10 +804,13 @@ CreateDatasetItem2DatasetsAnnotationsTypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItem2DatasetsAnnotations = TypeAliasType(
-    "CreateDatasetItem2DatasetsAnnotations",
-    Union[CreateDatasetItemAnnotationsDatasets1, CreateDatasetItemAnnotationsDatasets2],
-)
+CreateDatasetItem2DatasetsAnnotations = Annotated[
+    Union[
+        Annotated[CreateDatasetItemAnnotationsDatasets1, Tag("file_citation")],
+        Annotated[CreateDatasetItemAnnotationsDatasets2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class CreateDatasetItem2DatasetsTextContentPartTypedDict(TypedDict):
@@ -832,13 +842,13 @@ CreateDatasetItemContentDatasetsResponse2002TypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemContentDatasetsResponse2002 = TypeAliasType(
-    "CreateDatasetItemContentDatasetsResponse2002",
+CreateDatasetItemContentDatasetsResponse2002 = Annotated[
     Union[
-        CreateDatasetItem2DatasetsRefusalContentPart,
-        CreateDatasetItem2DatasetsTextContentPart,
+        Annotated[CreateDatasetItem2DatasetsTextContentPart, Tag("text")],
+        Annotated[CreateDatasetItem2DatasetsRefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict = TypeAliasType(
@@ -1155,15 +1165,15 @@ CreateDatasetItemContentDatasetsResponse2TypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemContentDatasetsResponse2 = TypeAliasType(
-    "CreateDatasetItemContentDatasetsResponse2",
+CreateDatasetItemContentDatasetsResponse2 = Annotated[
     Union[
-        CreateDatasetItem2Datasets1,
-        CreateDatasetItem2Datasets2,
-        CreateDatasetItem2Datasets3,
-        CreateDatasetItem2Datasets4,
+        Annotated[CreateDatasetItem2Datasets1, Tag("text")],
+        Annotated[CreateDatasetItem2Datasets2, Tag("image_url")],
+        Annotated[CreateDatasetItem2Datasets3, Tag("input_audio")],
+        Annotated[CreateDatasetItem2Datasets4, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 CreateDatasetItemMessagesDatasetsResponseContentTypedDict = TypeAliasType(
@@ -1260,16 +1270,16 @@ CreateDatasetItemDatasetsMessagesTypedDict = TypeAliasType(
 )
 
 
-CreateDatasetItemDatasetsMessages = TypeAliasType(
-    "CreateDatasetItemDatasetsMessages",
+CreateDatasetItemDatasetsMessages = Annotated[
     Union[
-        CreateDatasetItemMessagesDatasetsDeveloperMessage,
-        CreateDatasetItemMessagesDatasetsSystemMessage,
-        CreateDatasetItemMessagesDatasetsUserMessage,
-        CreateDatasetItemMessagesDatasetsToolMessage,
-        CreateDatasetItemMessagesDatasetsAssistantMessage,
+        Annotated[CreateDatasetItemMessagesDatasetsDeveloperMessage, Tag("developer")],
+        Annotated[CreateDatasetItemMessagesDatasetsSystemMessage, Tag("system")],
+        Annotated[CreateDatasetItemMessagesDatasetsUserMessage, Tag("user")],
+        Annotated[CreateDatasetItemMessagesDatasetsAssistantMessage, Tag("assistant")],
+        Annotated[CreateDatasetItemMessagesDatasetsToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 CreateDatasetItemEvaluationsEvaluationType = Literal["human_review",]
@@ -1434,9 +1444,14 @@ EvaluationsTypedDict = TypeAliasType(
 )
 
 
-Evaluations = TypeAliasType(
-    "Evaluations", Union[Evaluations1, Evaluations2, Evaluations3]
-)
+Evaluations = Annotated[
+    Union[
+        Annotated[Evaluations1, Tag("string")],
+        Annotated[Evaluations2, Tag("number")],
+        Annotated[Evaluations3, Tag("string_array")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class CreateDatasetItemResponseBodyTypedDict(TypedDict):

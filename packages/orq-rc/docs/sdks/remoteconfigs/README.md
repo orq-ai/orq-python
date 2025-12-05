@@ -25,8 +25,6 @@ with Orq(
 
     res = orq.remoteconfigs.retrieve()
 
-    assert res is not None
-
     # Handle response
     print(res)
 

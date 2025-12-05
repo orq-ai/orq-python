@@ -227,14 +227,14 @@ StreamRunAgentModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentModelConfigurationResponseFormat = TypeAliasType(
-    "StreamRunAgentModelConfigurationResponseFormat",
+StreamRunAgentModelConfigurationResponseFormat = Annotated[
     Union[
-        StreamRunAgentResponseFormatText,
-        StreamRunAgentResponseFormatJSONObject,
-        StreamRunAgentResponseFormatJSONSchema,
+        Annotated[StreamRunAgentResponseFormatText, Tag("text")],
+        Annotated[StreamRunAgentResponseFormatJSONObject, Tag("json_object")],
+        Annotated[StreamRunAgentResponseFormatJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -758,14 +758,16 @@ StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-StreamRunAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "StreamRunAgentFallbackModelConfigurationResponseFormat",
+StreamRunAgentFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        StreamRunAgentResponseFormatAgentsText,
-        StreamRunAgentResponseFormatAgentsJSONObject,
-        StreamRunAgentResponseFormatAgentsRequestJSONSchema,
+        Annotated[StreamRunAgentResponseFormatAgentsText, Tag("text")],
+        Annotated[StreamRunAgentResponseFormatAgentsJSONObject, Tag("json_object")],
+        Annotated[
+            StreamRunAgentResponseFormatAgentsRequestJSONSchema, Tag("json_schema")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -1147,9 +1149,14 @@ StreamRunAgentPublicMessagePartTypedDict = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-StreamRunAgentPublicMessagePart = TypeAliasType(
-    "StreamRunAgentPublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
-)
+StreamRunAgentPublicMessagePart = Annotated[
+    Union[
+        Annotated[TextPart, Tag("text")],
+        Annotated[FilePart, Tag("file")],
+        Annotated[ToolResultPart, Tag("tool_result")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
+]
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
@@ -2022,26 +2029,50 @@ StreamRunAgentAgentToolInputRunTypedDict = TypeAliasType(
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
-StreamRunAgentAgentToolInputRun = TypeAliasType(
-    "StreamRunAgentAgentToolInputRun",
+StreamRunAgentAgentToolInputRun = Annotated[
     Union[
-        StreamRunAgentAgentToolInputRunGoogleSearchTool,
-        StreamRunAgentAgentToolInputRunWebScraperTool,
-        StreamRunAgentAgentToolInputRunCallSubAgentTool,
-        StreamRunAgentAgentToolInputRunRetrieveAgentsTool,
-        StreamRunAgentAgentToolInputRunQueryMemoryStoreTool,
-        StreamRunAgentAgentToolInputRunWriteMemoryStoreTool,
-        StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool,
-        StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool,
-        StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool,
-        StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool,
-        StreamRunAgentAgentToolInputRunCurrentDateTool,
-        AgentToolInputRunHTTPToolRun,
-        AgentToolInputRunCodeToolRun,
-        AgentToolInputRunFunctionToolRun,
-        AgentToolInputRunMCPToolRun,
+        Annotated[
+            StreamRunAgentAgentToolInputRunGoogleSearchTool, Tag("google_search")
+        ],
+        Annotated[StreamRunAgentAgentToolInputRunWebScraperTool, Tag("web_scraper")],
+        Annotated[
+            StreamRunAgentAgentToolInputRunCallSubAgentTool, Tag("call_sub_agent")
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunRetrieveAgentsTool, Tag("retrieve_agents")
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunQueryMemoryStoreTool,
+            Tag("query_memory_store"),
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunWriteMemoryStoreTool,
+            Tag("write_memory_store"),
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunRetrieveMemoryStoresTool,
+            Tag("retrieve_memory_stores"),
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunDeleteMemoryDocumentTool,
+            Tag("delete_memory_document"),
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunRetrieveKnowledgeBasesTool,
+            Tag("retrieve_knowledge_bases"),
+        ],
+        Annotated[
+            StreamRunAgentAgentToolInputRunQueryKnowledgeBaseTool,
+            Tag("query_knowledge_base"),
+        ],
+        Annotated[StreamRunAgentAgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[AgentToolInputRunHTTPToolRun, Tag("http")],
+        Annotated[AgentToolInputRunCodeToolRun, Tag("code")],
+        Annotated[AgentToolInputRunFunctionToolRun, Tag("function")],
+        Annotated[AgentToolInputRunMCPToolRun, Tag("mcp")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 

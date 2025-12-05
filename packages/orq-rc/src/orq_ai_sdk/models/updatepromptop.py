@@ -11,9 +11,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import (
     Annotated,
@@ -520,9 +525,14 @@ UpdatePromptContent2TypedDict = TypeAliasType(
 )
 
 
-UpdatePromptContent2 = TypeAliasType(
-    "UpdatePromptContent2", Union[UpdatePrompt21, UpdatePrompt22, UpdatePrompt23]
-)
+UpdatePromptContent2 = Annotated[
+    Union[
+        Annotated[UpdatePrompt21, Tag("text")],
+        Annotated[UpdatePrompt22, Tag("image_url")],
+        Annotated[UpdatePrompt23, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdatePromptContentTypedDict = TypeAliasType(
@@ -931,10 +941,13 @@ UpdatePrompt2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-UpdatePrompt2Annotations = TypeAliasType(
-    "UpdatePrompt2Annotations",
-    Union[UpdatePromptAnnotations1, UpdatePromptAnnotations2],
-)
+UpdatePrompt2Annotations = Annotated[
+    Union[
+        Annotated[UpdatePromptAnnotations1, Tag("file_citation")],
+        Annotated[UpdatePromptAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class UpdatePrompt2TextContentPartTypedDict(TypedDict):
@@ -965,10 +978,13 @@ UpdatePromptContentPromptsRequest2TypedDict = TypeAliasType(
 )
 
 
-UpdatePromptContentPromptsRequest2 = TypeAliasType(
-    "UpdatePromptContentPromptsRequest2",
-    Union[UpdatePrompt2RefusalContentPart, UpdatePrompt2TextContentPart],
-)
+UpdatePromptContentPromptsRequest2 = Annotated[
+    Union[
+        Annotated[UpdatePrompt2TextContentPart, Tag("text")],
+        Annotated[UpdatePrompt2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdatePromptMessagesPromptsContentTypedDict = TypeAliasType(
@@ -1279,15 +1295,15 @@ UpdatePromptContentPrompts2TypedDict = TypeAliasType(
 )
 
 
-UpdatePromptContentPrompts2 = TypeAliasType(
-    "UpdatePromptContentPrompts2",
+UpdatePromptContentPrompts2 = Annotated[
     Union[
-        UpdatePrompt2Prompts1,
-        UpdatePrompt2Prompts2,
-        UpdatePrompt2Prompts3,
-        UpdatePrompt24,
+        Annotated[UpdatePrompt2Prompts1, Tag("text")],
+        Annotated[UpdatePrompt2Prompts2, Tag("image_url")],
+        Annotated[UpdatePrompt2Prompts3, Tag("input_audio")],
+        Annotated[UpdatePrompt24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdatePromptMessagesContentTypedDict = TypeAliasType(
@@ -1358,15 +1374,15 @@ UpdatePromptPromptsMessagesTypedDict = TypeAliasType(
 )
 
 
-UpdatePromptPromptsMessages = TypeAliasType(
-    "UpdatePromptPromptsMessages",
+UpdatePromptPromptsMessages = Annotated[
     Union[
-        UpdatePromptMessagesSystemMessage,
-        UpdatePromptMessagesUserMessage,
-        UpdatePromptMessagesToolMessage,
-        UpdatePromptMessagesAssistantMessage,
+        Annotated[UpdatePromptMessagesSystemMessage, Tag("system")],
+        Annotated[UpdatePromptMessagesUserMessage, Tag("user")],
+        Annotated[UpdatePromptMessagesAssistantMessage, Tag("assistant")],
+        Annotated[UpdatePromptMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 UpdatePromptResponseFormatPromptsRequestRequestBodyPrompt3Type = Literal["json_schema",]
@@ -1471,14 +1487,14 @@ UpdatePromptPromptsResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-UpdatePromptPromptsResponseFormat = TypeAliasType(
-    "UpdatePromptPromptsResponseFormat",
+UpdatePromptPromptsResponseFormat = Annotated[
     Union[
-        UpdatePromptResponseFormatText,
-        UpdatePromptResponseFormatJSONObject,
-        UpdatePromptResponseFormatPromptsJSONSchema,
+        Annotated[UpdatePromptResponseFormatText, Tag("text")],
+        Annotated[UpdatePromptResponseFormatJSONObject, Tag("json_object")],
+        Annotated[UpdatePromptResponseFormatPromptsJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -2238,14 +2254,14 @@ UpdatePromptContentPromptsResponse2TypedDict = TypeAliasType(
 )
 
 
-UpdatePromptContentPromptsResponse2 = TypeAliasType(
-    "UpdatePromptContentPromptsResponse2",
+UpdatePromptContentPromptsResponse2 = Annotated[
     Union[
-        UpdatePrompt2PromptsResponse1,
-        UpdatePrompt2PromptsResponse2,
-        UpdatePrompt2PromptsResponse3,
+        Annotated[UpdatePrompt2PromptsResponse1, Tag("text")],
+        Annotated[UpdatePrompt2PromptsResponse2, Tag("image_url")],
+        Annotated[UpdatePrompt2PromptsResponse3, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdatePromptPromptsContentTypedDict = TypeAliasType(

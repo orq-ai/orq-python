@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    creatememorystoreop as models_creatememorystoreop,
+    updatememorystoreop as models_updatememorystoreop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -20,7 +24,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoryStoresResponseBody]:
+    ) -> models.GetAllMemoryStoresResponseBody:
         r"""List memory stores
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
@@ -65,6 +69,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -94,7 +99,7 @@ class MemoryStores(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.GetAllMemoryStoresResponseBody], http_res
+                models.GetAllMemoryStoresResponseBody, http_res
             )
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -118,7 +123,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoryStoresResponseBody]:
+    ) -> models.GetAllMemoryStoresResponseBody:
         r"""List memory stores
 
         Retrieves a paginated list of memory stores in the workspace. Use cursor-based pagination parameters to navigate through the results.
@@ -163,6 +168,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -192,7 +198,7 @@ class MemoryStores(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.GetAllMemoryStoresResponseBody], http_res
+                models.GetAllMemoryStoresResponseBody, http_res
             )
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -211,15 +217,15 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryStoreResponseBody]:
+    ) -> models.CreateMemoryStoreResponseBody:
         r"""Create memory store
 
         :param request: The request object to send.
@@ -267,6 +273,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryStoreRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -295,7 +302,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateMemoryStoreResponseBody], http_res
+                models.CreateMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -311,15 +318,15 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryStoreResponseBody]:
+    ) -> models.CreateMemoryStoreResponseBody:
         r"""Create memory store
 
         :param request: The request object to send.
@@ -367,6 +374,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryStoreRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -395,7 +403,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateMemoryStoreResponseBody], http_res
+                models.CreateMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -414,7 +422,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryStoreResponseBody]:
+    ) -> models.RetrieveMemoryStoreResponseBody:
         r"""Retrieve memory store
 
         Retrieves detailed information about a specific memory store, including its configuration and metadata.
@@ -455,6 +463,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -484,7 +493,7 @@ class MemoryStores(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveMemoryStoreResponseBody], http_res
+                models.RetrieveMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -506,7 +515,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryStoreResponseBody]:
+    ) -> models.RetrieveMemoryStoreResponseBody:
         r"""Retrieve memory store
 
         Retrieves detailed information about a specific memory store, including its configuration and metadata.
@@ -547,6 +556,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -576,7 +586,7 @@ class MemoryStores(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveMemoryStoreResponseBody], http_res
+                models.RetrieveMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -595,8 +605,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,
@@ -605,7 +615,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryStoreResponseBody]:
+    ) -> models.UpdateMemoryStoreResponseBody:
         r"""Update memory store
 
         Update the memory store configuration
@@ -669,6 +679,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryStoreRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -697,7 +708,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateMemoryStoreResponseBody], http_res
+                models.UpdateMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -713,8 +724,8 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         embedding_config: Union[
-            models.UpdateMemoryStoreEmbeddingConfig,
-            models.UpdateMemoryStoreEmbeddingConfigTypedDict,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfig,
+            models_updatememorystoreop.UpdateMemoryStoreEmbeddingConfigTypedDict,
         ],
         description: str,
         path: str,
@@ -723,7 +734,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryStoreResponseBody]:
+    ) -> models.UpdateMemoryStoreResponseBody:
         r"""Update memory store
 
         Update the memory store configuration
@@ -787,6 +798,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryStoreRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -815,7 +827,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateMemoryStoreResponseBody], http_res
+                models.UpdateMemoryStoreResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -875,6 +887,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -961,6 +974,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1009,7 +1023,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoriesResponseBody]:
+    ) -> models.GetAllMemoriesResponseBody:
         r"""List all memories
 
         Retrieves a paginated list of memories for the memory store
@@ -1056,6 +1070,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1083,9 +1098,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetAllMemoriesResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetAllMemoriesResponseBody, http_res)
         if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1106,7 +1119,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoriesResponseBody]:
+    ) -> models.GetAllMemoriesResponseBody:
         r"""List all memories
 
         Retrieves a paginated list of memories for the memory store
@@ -1153,6 +1166,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1180,9 +1194,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetAllMemoriesResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetAllMemoriesResponseBody, http_res)
         if utils.match_response(http_res, ["401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1202,7 +1214,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryResponseBody]:
+    ) -> models.CreateMemoryResponseBody:
         r"""Create a new memory
 
         Creates a new memory in the specified memory store.
@@ -1256,6 +1268,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1283,9 +1296,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1305,7 +1316,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryResponseBody]:
+    ) -> models.CreateMemoryResponseBody:
         r"""Create a new memory
 
         Creates a new memory in the specified memory store.
@@ -1359,6 +1370,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1386,9 +1398,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1407,7 +1417,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryResponseBody]:
+    ) -> models.RetrieveMemoryResponseBody:
         r"""Retrieve a specific memory
 
         Retrieves details of a specific memory by its ID
@@ -1450,6 +1460,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1477,9 +1488,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1498,7 +1507,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryResponseBody]:
+    ) -> models.RetrieveMemoryResponseBody:
         r"""Retrieve a specific memory
 
         Retrieves details of a specific memory by its ID
@@ -1541,6 +1550,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1568,9 +1578,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1591,7 +1599,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryResponseBody]:
+    ) -> models.UpdateMemoryResponseBody:
         r"""Update a specific memory
 
         Updates the details of a specific memory.
@@ -1647,6 +1655,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1674,9 +1683,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1697,7 +1704,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryResponseBody]:
+    ) -> models.UpdateMemoryResponseBody:
         r"""Update a specific memory
 
         Updates the details of a specific memory.
@@ -1753,6 +1760,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1780,9 +1788,7 @@ class MemoryStores(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateMemoryResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateMemoryResponseBody, http_res)
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1849,6 +1855,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1943,6 +1950,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1992,7 +2000,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoryDocumentsResponseBody]:
+    ) -> models.GetAllMemoryDocumentsResponseBody:
         r"""List all documents for a memory
 
         Retrieves a paginated list of documents associated with a specific memory.
@@ -2041,6 +2049,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2069,7 +2078,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.GetAllMemoryDocumentsResponseBody], http_res
+                models.GetAllMemoryDocumentsResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2092,7 +2101,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllMemoryDocumentsResponseBody]:
+    ) -> models.GetAllMemoryDocumentsResponseBody:
         r"""List all documents for a memory
 
         Retrieves a paginated list of documents associated with a specific memory.
@@ -2141,6 +2150,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2169,7 +2179,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.GetAllMemoryDocumentsResponseBody], http_res
+                models.GetAllMemoryDocumentsResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -2191,7 +2201,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryDocumentResponseBody]:
+    ) -> models.CreateMemoryDocumentResponseBody:
         r"""Create a new memory document
 
         Creates a new document in the specified memory.
@@ -2247,6 +2257,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryDocumentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2275,7 +2286,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateMemoryDocumentResponseBody], http_res
+                models.CreateMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2297,7 +2308,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateMemoryDocumentResponseBody]:
+    ) -> models.CreateMemoryDocumentResponseBody:
         r"""Create a new memory document
 
         Creates a new document in the specified memory.
@@ -2353,6 +2364,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.CreateMemoryDocumentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2381,7 +2393,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateMemoryDocumentResponseBody], http_res
+                models.CreateMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -2402,7 +2414,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryDocumentResponseBody]:
+    ) -> models.RetrieveMemoryDocumentResponseBody:
         r"""Retrieve a specific memory document
 
         Retrieves details of a specific memory document by its ID.
@@ -2447,6 +2459,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2475,7 +2488,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveMemoryDocumentResponseBody], http_res
+                models.RetrieveMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2496,7 +2509,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveMemoryDocumentResponseBody]:
+    ) -> models.RetrieveMemoryDocumentResponseBody:
         r"""Retrieve a specific memory document
 
         Retrieves details of a specific memory document by its ID.
@@ -2541,6 +2554,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2569,7 +2583,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveMemoryDocumentResponseBody], http_res
+                models.RetrieveMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -2592,7 +2606,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryDocumentResponseBody]:
+    ) -> models.UpdateMemoryDocumentResponseBody:
         r"""Update a specific memory document
 
         Updates the details of a specific memory document.
@@ -2650,6 +2664,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryDocumentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2678,7 +2693,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateMemoryDocumentResponseBody], http_res
+                models.UpdateMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2701,7 +2716,7 @@ class MemoryStores(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateMemoryDocumentResponseBody]:
+    ) -> models.UpdateMemoryDocumentResponseBody:
         r"""Update a specific memory document
 
         Updates the details of a specific memory document.
@@ -2759,6 +2774,7 @@ class MemoryStores(BaseSDK):
                 "json",
                 Optional[models.UpdateMemoryDocumentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2787,7 +2803,7 @@ class MemoryStores(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateMemoryDocumentResponseBody], http_res
+                models.UpdateMemoryDocumentResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "403", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -2858,6 +2874,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2955,6 +2972,7 @@ class MemoryStores(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

@@ -43,8 +43,6 @@ with Orq(
 
     res = orq.knowledge.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -92,8 +90,6 @@ with Orq(
         "path": "Default",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -133,8 +129,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.retrieve(knowledge_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -178,8 +172,6 @@ with Orq(
         "path": "Default",
         "type": "external",
     })
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -259,8 +251,6 @@ with Orq(
         "model": "cohere/rerank-multilingual-v3.0",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -312,8 +302,6 @@ with Orq(
         "failed",
     ])
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -359,8 +347,6 @@ with Orq(
 
     res = orq.knowledge.create_datasource(knowledge_id="<id>")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -403,8 +389,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.retrieve_datasource(knowledge_id="<id>", datasource_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -483,8 +467,6 @@ with Orq(
 
     res = orq.knowledge.update_datasource(knowledge_id="<id>", datasource_id="<id>", display_name="Tony_Roberts")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -526,8 +508,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.create_chunks(knowledge_id="<id>", datasource_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -573,8 +553,6 @@ with Orq(
         "completed",
         "failed",
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -625,8 +603,6 @@ with Orq(
         "<value 2>",
     ])
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -668,8 +644,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.list_chunks_paginated(knowledge_id="<id>", datasource_id="<id>", q="", limit=100, page=1)
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -717,8 +691,6 @@ with Orq(
 
     res = orq.knowledge.get_chunks_count(knowledge_id="<id>", datasource_id="<id>", q="")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -762,8 +734,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.update_chunk(chunk_id="<id>", datasource_id="<id>", knowledge_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -846,8 +816,6 @@ with Orq(
 ) as orq:
 
     res = orq.knowledge.retrieve_chunk(chunk_id="<id>", datasource_id="<id>", knowledge_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)

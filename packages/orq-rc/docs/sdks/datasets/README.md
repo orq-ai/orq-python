@@ -35,8 +35,6 @@ with Orq(
 
     res = orq.datasets.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -82,8 +80,6 @@ with Orq(
         "path": "Default",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -123,8 +119,6 @@ with Orq(
 ) as orq:
 
     res = orq.datasets.retrieve(dataset_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -166,8 +160,6 @@ with Orq(
 ) as orq:
 
     res = orq.datasets.update(dataset_id="<id>", path="Default")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -248,8 +240,6 @@ with Orq(
 
     res = orq.datasets.list_datapoints(dataset_id="<id>", limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -293,8 +283,6 @@ with Orq(
 
     res = orq.datasets.create_datapoint(dataset_id="<id>")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -335,8 +323,6 @@ with Orq(
 ) as orq:
 
     res = orq.datasets.retrieve_datapoint(dataset_id="<id>", datapoint_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -379,8 +365,6 @@ with Orq(
 ) as orq:
 
     res = orq.datasets.update_datapoint(dataset_id="<id>", datapoint_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)

@@ -27,8 +27,6 @@ with Orq(
         "good",
     ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
 
-    assert res is not None
-
     # Handle response
     print(res)
 

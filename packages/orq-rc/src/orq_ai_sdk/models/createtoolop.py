@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -678,16 +679,16 @@ CreateToolRequestBodyTypedDict = TypeAliasType(
 r"""The tool to create"""
 
 
-CreateToolRequestBody = TypeAliasType(
-    "CreateToolRequestBody",
+CreateToolRequestBody = Annotated[
     Union[
-        RequestBodyFunctionTool,
-        JSONSchemaTool,
-        RequestBodyHTTPTool,
-        RequestBodyMCPTool,
-        RequestBodyCodeExecutionTool,
+        Annotated[RequestBodyFunctionTool, Tag("function")],
+        Annotated[JSONSchemaTool, Tag("json_schema")],
+        Annotated[RequestBodyHTTPTool, Tag("http")],
+        Annotated[RequestBodyMCPTool, Tag("mcp")],
+        Annotated[RequestBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The tool to create"""
 
 
@@ -1551,14 +1552,14 @@ CreateToolResponseBodyTypedDict = TypeAliasType(
 r"""Successfully created the tool."""
 
 
-CreateToolResponseBody = TypeAliasType(
-    "CreateToolResponseBody",
+CreateToolResponseBody = Annotated[
     Union[
-        ResponseBodyFunctionTool,
-        ResponseBodyJSONSchemaTool,
-        ResponseBodyHTTPTool,
-        ResponseBodyMCPTool,
-        ResponseBodyCodeExecutionTool,
+        Annotated[ResponseBodyFunctionTool, Tag("function")],
+        Annotated[ResponseBodyJSONSchemaTool, Tag("json_schema")],
+        Annotated[ResponseBodyHTTPTool, Tag("http")],
+        Annotated[ResponseBodyMCPTool, Tag("mcp")],
+        Annotated[ResponseBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Successfully created the tool."""

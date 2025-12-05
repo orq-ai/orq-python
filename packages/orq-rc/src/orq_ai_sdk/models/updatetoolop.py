@@ -5,9 +5,14 @@ from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -722,16 +727,16 @@ UpdateToolRequestBodyTypedDict = TypeAliasType(
 r"""The tool to update"""
 
 
-UpdateToolRequestBody = TypeAliasType(
-    "UpdateToolRequestBody",
+UpdateToolRequestBody = Annotated[
     Union[
-        UpdateFunctionTool,
-        UpdateJSONSchemaTool,
-        UpdateHTTPTool,
-        UpdateMCPTool,
-        UpdateCodeExecutionTool,
+        Annotated[UpdateFunctionTool, Tag("function")],
+        Annotated[UpdateJSONSchemaTool, Tag("json_schema")],
+        Annotated[UpdateHTTPTool, Tag("http")],
+        Annotated[UpdateMCPTool, Tag("mcp")],
+        Annotated[UpdateCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The tool to update"""
 
 
@@ -1639,14 +1644,14 @@ UpdateToolResponseBodyTypedDict = TypeAliasType(
 r"""Successfully updated the tool."""
 
 
-UpdateToolResponseBody = TypeAliasType(
-    "UpdateToolResponseBody",
+UpdateToolResponseBody = Annotated[
     Union[
-        UpdateToolResponseBodyFunctionTool,
-        UpdateToolResponseBodyJSONSchemaTool,
-        UpdateToolResponseBodyHTTPTool,
-        UpdateToolResponseBodyMCPTool,
-        UpdateToolResponseBodyCodeExecutionTool,
+        Annotated[UpdateToolResponseBodyFunctionTool, Tag("function")],
+        Annotated[UpdateToolResponseBodyJSONSchemaTool, Tag("json_schema")],
+        Annotated[UpdateToolResponseBodyHTTPTool, Tag("http")],
+        Annotated[UpdateToolResponseBodyMCPTool, Tag("mcp")],
+        Annotated[UpdateToolResponseBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Successfully updated the tool."""

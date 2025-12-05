@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
-from pydantic import model_serializer
+from orq_ai_sdk.utils import get_discriminator
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 ParseChunkingRequestChunkingRequestReturnType = Literal[
@@ -318,16 +319,16 @@ ParseChunkingRequestTypedDict = TypeAliasType(
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 
-ParseChunkingRequest = TypeAliasType(
-    "ParseChunkingRequest",
+ParseChunkingRequest = Annotated[
     Union[
-        TokenChunkerStrategy,
-        SentenceChunkerStrategy,
-        RecursiveChunkerStrategy,
-        AgenticChunkerStrategy,
-        SemanticChunkerStrategy,
+        Annotated[TokenChunkerStrategy, Tag("token")],
+        Annotated[SentenceChunkerStrategy, Tag("sentence")],
+        Annotated[RecursiveChunkerStrategy, Tag("recursive")],
+        Annotated[SemanticChunkerStrategy, Tag("semantic")],
+        Annotated[AgenticChunkerStrategy, Tag("agentic")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "strategy", "strategy")),
+]
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 

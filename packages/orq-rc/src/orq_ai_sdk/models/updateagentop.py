@@ -11,9 +11,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -162,14 +167,14 @@ ModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-ModelConfigurationResponseFormat = TypeAliasType(
-    "ModelConfigurationResponseFormat",
+ModelConfigurationResponseFormat = Annotated[
     Union[
-        UpdateAgentResponseFormatText,
-        UpdateAgentResponseFormatJSONObject,
-        UpdateAgentResponseFormatJSONSchema,
+        Annotated[UpdateAgentResponseFormatText, Tag("text")],
+        Annotated[UpdateAgentResponseFormatJSONObject, Tag("json_object")],
+        Annotated[UpdateAgentResponseFormatJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -681,14 +686,14 @@ UpdateAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-UpdateAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "UpdateAgentFallbackModelConfigurationResponseFormat",
+UpdateAgentFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        UpdateAgentResponseFormatAgentsText,
-        UpdateAgentResponseFormatAgentsJSONObject,
-        UpdateAgentResponseFormatAgentsRequestJSONSchema,
+        Annotated[UpdateAgentResponseFormatAgentsText, Tag("text")],
+        Annotated[UpdateAgentResponseFormatAgentsJSONObject, Tag("json_object")],
+        Annotated[UpdateAgentResponseFormatAgentsRequestJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -1447,26 +1452,35 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-UpdateAgentAgentToolInputCRUD = TypeAliasType(
-    "UpdateAgentAgentToolInputCRUD",
+UpdateAgentAgentToolInputCRUD = Annotated[
     Union[
-        AgentToolInputCRUDGoogleSearchTool,
-        AgentToolInputCRUDWebScraperTool,
-        AgentToolInputCRUDCallSubAgentTool,
-        AgentToolInputCRUDRetrieveAgentsTool,
-        AgentToolInputCRUDQueryMemoryStoreTool,
-        AgentToolInputCRUDWriteMemoryStoreTool,
-        AgentToolInputCRUDRetrieveMemoryStoresTool,
-        AgentToolInputCRUDDeleteMemoryDocumentTool,
-        AgentToolInputCRUDRetrieveKnowledgeBasesTool,
-        AgentToolInputCRUDQueryKnowledgeBaseTool,
-        AgentToolInputCRUDCurrentDateTool,
-        AgentToolInputCRUDHTTPTool,
-        AgentToolInputCRUDCodeExecutionTool,
-        AgentToolInputCRUDFunctionTool,
-        AgentToolInputCRUDMCPTool,
+        Annotated[AgentToolInputCRUDGoogleSearchTool, Tag("google_search")],
+        Annotated[AgentToolInputCRUDWebScraperTool, Tag("web_scraper")],
+        Annotated[AgentToolInputCRUDCallSubAgentTool, Tag("call_sub_agent")],
+        Annotated[AgentToolInputCRUDRetrieveAgentsTool, Tag("retrieve_agents")],
+        Annotated[AgentToolInputCRUDQueryMemoryStoreTool, Tag("query_memory_store")],
+        Annotated[AgentToolInputCRUDWriteMemoryStoreTool, Tag("write_memory_store")],
+        Annotated[
+            AgentToolInputCRUDRetrieveMemoryStoresTool, Tag("retrieve_memory_stores")
+        ],
+        Annotated[
+            AgentToolInputCRUDDeleteMemoryDocumentTool, Tag("delete_memory_document")
+        ],
+        Annotated[
+            AgentToolInputCRUDRetrieveKnowledgeBasesTool,
+            Tag("retrieve_knowledge_bases"),
+        ],
+        Annotated[
+            AgentToolInputCRUDQueryKnowledgeBaseTool, Tag("query_knowledge_base")
+        ],
+        Annotated[AgentToolInputCRUDCurrentDateTool, Tag("current_date")],
+        Annotated[AgentToolInputCRUDHTTPTool, Tag("http")],
+        Annotated[AgentToolInputCRUDCodeExecutionTool, Tag("code")],
+        Annotated[AgentToolInputCRUDFunctionTool, Tag("function")],
+        Annotated[AgentToolInputCRUDMCPTool, Tag("mcp")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
@@ -2012,14 +2026,18 @@ UpdateAgentResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-UpdateAgentResponseFormat = TypeAliasType(
-    "UpdateAgentResponseFormat",
+UpdateAgentResponseFormat = Annotated[
     Union[
-        UpdateAgentResponseFormatAgentsResponseText,
-        UpdateAgentResponseFormatAgentsResponseJSONObject,
-        UpdateAgentResponseFormatAgentsResponse200JSONSchema,
+        Annotated[UpdateAgentResponseFormatAgentsResponseText, Tag("text")],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponseJSONObject, Tag("json_object")
+        ],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponse200JSONSchema, Tag("json_schema")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -2502,14 +2520,19 @@ UpdateAgentFallbackModelConfigurationAgentsResponseFormatTypedDict = TypeAliasTy
 r"""An object specifying the format that the model must output"""
 
 
-UpdateAgentFallbackModelConfigurationAgentsResponseFormat = TypeAliasType(
-    "UpdateAgentFallbackModelConfigurationAgentsResponseFormat",
+UpdateAgentFallbackModelConfigurationAgentsResponseFormat = Annotated[
     Union[
-        UpdateAgentResponseFormatAgentsResponse200Text,
-        UpdateAgentResponseFormatAgentsResponse200JSONObject,
-        UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchema,
+        Annotated[UpdateAgentResponseFormatAgentsResponse200Text, Tag("text")],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponse200JSONObject, Tag("json_object")
+        ],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchema,
+            Tag("json_schema"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 

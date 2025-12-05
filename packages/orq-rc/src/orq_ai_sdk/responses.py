@@ -36,7 +36,7 @@ class Responses(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentResponseRequestResponseBody]:
+    ) -> models.CreateAgentResponseRequestResponseBody:
         r"""Create response
 
         Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
@@ -106,6 +106,7 @@ class Responses(BaseSDK):
                 "json",
                 models.CreateAgentResponseRequestRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -134,7 +135,7 @@ class Responses(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentResponseRequestResponseBody], http_res
+                models.CreateAgentResponseRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -171,7 +172,7 @@ class Responses(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentResponseRequestResponseBody]:
+    ) -> models.CreateAgentResponseRequestResponseBody:
         r"""Create response
 
         Initiates an agent conversation and returns a complete response. This endpoint manages the full lifecycle of an agent interaction, from receiving the initial message through all processing steps until completion. Supports synchronous execution (waits for completion) and asynchronous execution (returns immediately with task ID). The response includes all messages exchanged, tool calls made, and token usage statistics. Ideal for request-response patterns where you need the complete interaction result.
@@ -241,6 +242,7 @@ class Responses(BaseSDK):
                 "json",
                 models.CreateAgentResponseRequestRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -269,7 +271,7 @@ class Responses(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentResponseRequestResponseBody], http_res
+                models.CreateAgentResponseRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

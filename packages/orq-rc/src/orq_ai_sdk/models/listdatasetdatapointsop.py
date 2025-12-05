@@ -13,10 +13,11 @@ from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
     QueryParamMetadata,
+    get_discriminator,
     parse_datetime,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -196,10 +197,13 @@ ListDatasetDatapoints2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-ListDatasetDatapoints2Annotations = TypeAliasType(
-    "ListDatasetDatapoints2Annotations",
-    Union[ListDatasetDatapointsAnnotations1, ListDatasetDatapointsAnnotations2],
-)
+ListDatasetDatapoints2Annotations = Annotated[
+    Union[
+        Annotated[ListDatasetDatapointsAnnotations1, Tag("file_citation")],
+        Annotated[ListDatasetDatapointsAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class ListDatasetDatapoints2TextContentPartTypedDict(TypedDict):
@@ -231,12 +235,13 @@ ListDatasetDatapointsContentDatasets2TypedDict = TypeAliasType(
 )
 
 
-ListDatasetDatapointsContentDatasets2 = TypeAliasType(
-    "ListDatasetDatapointsContentDatasets2",
+ListDatasetDatapointsContentDatasets2 = Annotated[
     Union[
-        ListDatasetDatapoints2RefusalContentPart, ListDatasetDatapoints2TextContentPart
+        Annotated[ListDatasetDatapoints2TextContentPart, Tag("text")],
+        Annotated[ListDatasetDatapoints2RefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 ListDatasetDatapointsMessagesDatasetsContentTypedDict = TypeAliasType(
@@ -549,15 +554,15 @@ ListDatasetDatapointsContent2TypedDict = TypeAliasType(
 )
 
 
-ListDatasetDatapointsContent2 = TypeAliasType(
-    "ListDatasetDatapointsContent2",
+ListDatasetDatapointsContent2 = Annotated[
     Union[
-        ListDatasetDatapoints21,
-        ListDatasetDatapoints22,
-        ListDatasetDatapoints23,
-        ListDatasetDatapoints24,
+        Annotated[ListDatasetDatapoints21, Tag("text")],
+        Annotated[ListDatasetDatapoints22, Tag("image_url")],
+        Annotated[ListDatasetDatapoints23, Tag("input_audio")],
+        Annotated[ListDatasetDatapoints24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 ListDatasetDatapointsMessagesContentTypedDict = TypeAliasType(
@@ -654,16 +659,16 @@ ListDatasetDatapointsMessagesTypedDict = TypeAliasType(
 )
 
 
-ListDatasetDatapointsMessages = TypeAliasType(
-    "ListDatasetDatapointsMessages",
+ListDatasetDatapointsMessages = Annotated[
     Union[
-        ListDatasetDatapointsMessagesDeveloperMessage,
-        ListDatasetDatapointsMessagesSystemMessage,
-        ListDatasetDatapointsMessagesUserMessage,
-        ListDatasetDatapointsMessagesToolMessage,
-        ListDatasetDatapointsMessagesAssistantMessage,
+        Annotated[ListDatasetDatapointsMessagesDeveloperMessage, Tag("developer")],
+        Annotated[ListDatasetDatapointsMessagesSystemMessage, Tag("system")],
+        Annotated[ListDatasetDatapointsMessagesUserMessage, Tag("user")],
+        Annotated[ListDatasetDatapointsMessagesAssistantMessage, Tag("assistant")],
+        Annotated[ListDatasetDatapointsMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 ListDatasetDatapointsEvaluationsEvaluationType = Literal["human_review",]
@@ -834,14 +839,14 @@ ListDatasetDatapointsEvaluationsTypedDict = TypeAliasType(
 )
 
 
-ListDatasetDatapointsEvaluations = TypeAliasType(
-    "ListDatasetDatapointsEvaluations",
+ListDatasetDatapointsEvaluations = Annotated[
     Union[
-        ListDatasetDatapointsEvaluations1,
-        ListDatasetDatapointsEvaluations2,
-        ListDatasetDatapointsEvaluations3,
+        Annotated[ListDatasetDatapointsEvaluations1, Tag("string")],
+        Annotated[ListDatasetDatapointsEvaluations2, Tag("number")],
+        Annotated[ListDatasetDatapointsEvaluations3, Tag("string_array")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class ListDatasetDatapointsDataTypedDict(TypedDict):

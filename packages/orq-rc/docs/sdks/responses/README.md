@@ -49,8 +49,6 @@ with Orq(
         ],
     }, background=False)
 
-    assert res is not None
-
     # Handle response
     print(res)
 

@@ -3,10 +3,10 @@ id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
   docChecksum: 7ae535993469bc19e857d75457a2d11e
   docVersion: "2.0"
-  speakeasyVersion: 1.656.1
-  generationVersion: 2.753.1
-  releaseVersion: 4.1.0-rc.21
-  configChecksum: a97c662357bcde7d184691f836a470d3
+  speakeasyVersion: 1.668.1
+  generationVersion: 2.770.0
+  releaseVersion: 4.1.0-rc.22
+  configChecksum: 626aa4d4ef547cdd7ca58e43c33e9a2c
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -16,7 +16,7 @@ features:
     additionalDependencies: 1.0.0
     additionalProperties: 1.0.1
     constsAndDefaults: 1.0.5
-    core: 5.23.6
+    core: 5.23.13
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     enumUnions: 0.1.0
@@ -37,8 +37,8 @@ features:
     nullables: 1.0.1
     operationTimeout: 0.3.0
     responseFormat: 1.0.1
-    retries: 3.0.2
-    sdkHooks: 1.1.0
+    retries: 3.0.3
+    sdkHooks: 1.2.0
     serverEvents: 1.0.11
     serverEventsSentinels: 0.1.0
     unions: 3.1.0
@@ -5057,11 +5057,3 @@ examples:
           application/json: {"_id": "<id>", "task_id": "<id>", "output": [], "created_at": "1709610768029", "model": "Charger"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Python SDK Changes Detected:
-  * `orq.memory_stores.update()`:  `request` **Changed** **Breaking** :warning:
-  * `orq.memory_stores.create_memory()`:  `request.metadata` **Changed** **Breaking** :warning:
-  * `orq.memory_stores.update_memory()`:  `request.metadata` **Changed** **Breaking** :warning:
-  * `orq.memory_stores.create_document()`:  `request.metadata` **Changed** **Breaking** :warning:
-  * `orq.memory_stores.update_document()`:  `request.metadata` **Changed** **Breaking** :warning:
-  * `orq.evals.invoke()`: **Deleted** **Breaking** :warning:

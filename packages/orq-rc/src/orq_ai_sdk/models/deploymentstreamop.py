@@ -9,9 +9,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -165,10 +165,13 @@ DeploymentStream2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentStream2Annotations = TypeAliasType(
-    "DeploymentStream2Annotations",
-    Union[DeploymentStreamAnnotations1, DeploymentStreamAnnotations2],
-)
+DeploymentStream2Annotations = Annotated[
+    Union[
+        Annotated[DeploymentStreamAnnotations1, Tag("file_citation")],
+        Annotated[DeploymentStreamAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentStream2TextContentPartTypedDict(TypedDict):
@@ -200,10 +203,13 @@ DeploymentStreamContentDeployments2TypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamContentDeployments2 = TypeAliasType(
-    "DeploymentStreamContentDeployments2",
-    Union[DeploymentStream2RefusalContentPart, DeploymentStream2TextContentPart],
-)
+DeploymentStreamContentDeployments2 = Annotated[
+    Union[
+        Annotated[DeploymentStream2TextContentPart, Tag("text")],
+        Annotated[DeploymentStream2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentStreamPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
@@ -516,12 +522,15 @@ DeploymentStreamContent2TypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamContent2 = TypeAliasType(
-    "DeploymentStreamContent2",
+DeploymentStreamContent2 = Annotated[
     Union[
-        DeploymentStream21, DeploymentStream22, DeploymentStream23, DeploymentStream24
+        Annotated[DeploymentStream21, Tag("text")],
+        Annotated[DeploymentStream22, Tag("image_url")],
+        Annotated[DeploymentStream23, Tag("input_audio")],
+        Annotated[DeploymentStream24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentStreamPrefixMessagesContentTypedDict = TypeAliasType(
@@ -617,16 +626,16 @@ DeploymentStreamPrefixMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamPrefixMessages = TypeAliasType(
-    "DeploymentStreamPrefixMessages",
+DeploymentStreamPrefixMessages = Annotated[
     Union[
-        DeploymentStreamPrefixMessagesDeveloperMessage,
-        DeploymentStreamPrefixMessagesSystemMessage,
-        DeploymentStreamPrefixMessagesUserMessage,
-        DeploymentStreamPrefixMessagesToolMessage,
-        DeploymentStreamPrefixMessagesAssistantMessage,
+        Annotated[DeploymentStreamPrefixMessagesDeveloperMessage, Tag("developer")],
+        Annotated[DeploymentStreamPrefixMessagesSystemMessage, Tag("system")],
+        Annotated[DeploymentStreamPrefixMessagesUserMessage, Tag("user")],
+        Annotated[DeploymentStreamPrefixMessagesAssistantMessage, Tag("assistant")],
+        Annotated[DeploymentStreamPrefixMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 DeploymentStreamMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]
@@ -762,12 +771,13 @@ DeploymentStream2DeploymentsAnnotationsTypedDict = TypeAliasType(
 )
 
 
-DeploymentStream2DeploymentsAnnotations = TypeAliasType(
-    "DeploymentStream2DeploymentsAnnotations",
+DeploymentStream2DeploymentsAnnotations = Annotated[
     Union[
-        DeploymentStreamAnnotationsDeployments1, DeploymentStreamAnnotationsDeployments2
+        Annotated[DeploymentStreamAnnotationsDeployments1, Tag("file_citation")],
+        Annotated[DeploymentStreamAnnotationsDeployments2, Tag("file_path")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentStream2DeploymentsTextContentPartTypedDict(TypedDict):
@@ -799,13 +809,13 @@ DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamContentDeploymentsRequestRequestBody2 = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequestRequestBody2",
+DeploymentStreamContentDeploymentsRequestRequestBody2 = Annotated[
     Union[
-        DeploymentStream2DeploymentsRefusalContentPart,
-        DeploymentStream2DeploymentsTextContentPart,
+        Annotated[DeploymentStream2DeploymentsTextContentPart, Tag("text")],
+        Annotated[DeploymentStream2DeploymentsRefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentStreamMessagesDeploymentsContentTypedDict = TypeAliasType(
@@ -1120,15 +1130,15 @@ DeploymentStreamContentDeploymentsRequest2TypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamContentDeploymentsRequest2 = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequest2",
+DeploymentStreamContentDeploymentsRequest2 = Annotated[
     Union[
-        DeploymentStream2Deployments1,
-        DeploymentStream2Deployments2,
-        DeploymentStream2Deployments3,
-        DeploymentStream2Deployments4,
+        Annotated[DeploymentStream2Deployments1, Tag("text")],
+        Annotated[DeploymentStream2Deployments2, Tag("image_url")],
+        Annotated[DeploymentStream2Deployments3, Tag("input_audio")],
+        Annotated[DeploymentStream2Deployments4, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentStreamMessagesContentTypedDict = TypeAliasType(
@@ -1225,16 +1235,16 @@ DeploymentStreamMessagesTypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamMessages = TypeAliasType(
-    "DeploymentStreamMessages",
+DeploymentStreamMessages = Annotated[
     Union[
-        DeploymentStreamMessagesDeveloperMessage,
-        DeploymentStreamMessagesSystemMessage,
-        DeploymentStreamMessagesUserMessage,
-        DeploymentStreamMessagesToolMessage,
-        DeploymentStreamMessagesAssistantMessage,
+        Annotated[DeploymentStreamMessagesDeveloperMessage, Tag("developer")],
+        Annotated[DeploymentStreamMessagesSystemMessage, Tag("system")],
+        Annotated[DeploymentStreamMessagesUserMessage, Tag("user")],
+        Annotated[DeploymentStreamMessagesAssistantMessage, Tag("assistant")],
+        Annotated[DeploymentStreamMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class DeploymentStreamMetadataTypedDict(TypedDict):
@@ -2311,10 +2321,14 @@ DeploymentStreamMessageTypedDict = TypeAliasType(
 )
 
 
-DeploymentStreamMessage = TypeAliasType(
-    "DeploymentStreamMessage",
-    Union[DeploymentStreamMessage3, DeploymentStreamMessage2, DeploymentStreamMessage1],
-)
+DeploymentStreamMessage = Annotated[
+    Union[
+        Annotated[DeploymentStreamMessage1, Tag("tool_calls")],
+        Annotated[DeploymentStreamMessage2, Tag("content")],
+        Annotated[DeploymentStreamMessage3, Tag("image")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentStreamChoicesTypedDict(TypedDict):

@@ -13,10 +13,11 @@ from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
     RequestMetadata,
+    get_discriminator,
     parse_datetime,
 )
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -151,10 +152,13 @@ UpdateDatapoint2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-UpdateDatapoint2Annotations = TypeAliasType(
-    "UpdateDatapoint2Annotations",
-    Union[UpdateDatapointAnnotations1, UpdateDatapointAnnotations2],
-)
+UpdateDatapoint2Annotations = Annotated[
+    Union[
+        Annotated[UpdateDatapointAnnotations1, Tag("file_citation")],
+        Annotated[UpdateDatapointAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class UpdateDatapoint2TextContentPartTypedDict(TypedDict):
@@ -186,10 +190,13 @@ UpdateDatapointContentDatasets2TypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointContentDatasets2 = TypeAliasType(
-    "UpdateDatapointContentDatasets2",
-    Union[UpdateDatapoint2RefusalContentPart, UpdateDatapoint2TextContentPart],
-)
+UpdateDatapointContentDatasets2 = Annotated[
+    Union[
+        Annotated[UpdateDatapoint2TextContentPart, Tag("text")],
+        Annotated[UpdateDatapoint2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdateDatapointMessagesDatasetsContentTypedDict = TypeAliasType(
@@ -500,10 +507,15 @@ UpdateDatapointContent2TypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointContent2 = TypeAliasType(
-    "UpdateDatapointContent2",
-    Union[UpdateDatapoint21, UpdateDatapoint22, UpdateDatapoint23, UpdateDatapoint24],
-)
+UpdateDatapointContent2 = Annotated[
+    Union[
+        Annotated[UpdateDatapoint21, Tag("text")],
+        Annotated[UpdateDatapoint22, Tag("image_url")],
+        Annotated[UpdateDatapoint23, Tag("input_audio")],
+        Annotated[UpdateDatapoint24, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdateDatapointMessagesContentTypedDict = TypeAliasType(
@@ -599,16 +611,16 @@ UpdateDatapointMessagesTypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointMessages = TypeAliasType(
-    "UpdateDatapointMessages",
+UpdateDatapointMessages = Annotated[
     Union[
-        UpdateDatapointMessagesDeveloperMessage,
-        UpdateDatapointMessagesSystemMessage,
-        UpdateDatapointMessagesUserMessage,
-        UpdateDatapointMessagesToolMessage,
-        UpdateDatapointMessagesAssistantMessage,
+        Annotated[UpdateDatapointMessagesDeveloperMessage, Tag("developer")],
+        Annotated[UpdateDatapointMessagesSystemMessage, Tag("system")],
+        Annotated[UpdateDatapointMessagesUserMessage, Tag("user")],
+        Annotated[UpdateDatapointMessagesAssistantMessage, Tag("assistant")],
+        Annotated[UpdateDatapointMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class UpdateDatapointRequestBodyTypedDict(TypedDict):
@@ -797,10 +809,13 @@ UpdateDatapoint2DatasetsAnnotationsTypedDict = TypeAliasType(
 )
 
 
-UpdateDatapoint2DatasetsAnnotations = TypeAliasType(
-    "UpdateDatapoint2DatasetsAnnotations",
-    Union[UpdateDatapointAnnotationsDatasets1, UpdateDatapointAnnotationsDatasets2],
-)
+UpdateDatapoint2DatasetsAnnotations = Annotated[
+    Union[
+        Annotated[UpdateDatapointAnnotationsDatasets1, Tag("file_citation")],
+        Annotated[UpdateDatapointAnnotationsDatasets2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class UpdateDatapoint2DatasetsTextContentPartTypedDict(TypedDict):
@@ -832,13 +847,13 @@ UpdateDatapointContentDatasetsResponse2002TypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointContentDatasetsResponse2002 = TypeAliasType(
-    "UpdateDatapointContentDatasetsResponse2002",
+UpdateDatapointContentDatasetsResponse2002 = Annotated[
     Union[
-        UpdateDatapoint2DatasetsRefusalContentPart,
-        UpdateDatapoint2DatasetsTextContentPart,
+        Annotated[UpdateDatapoint2DatasetsTextContentPart, Tag("text")],
+        Annotated[UpdateDatapoint2DatasetsRefusalContentPart, Tag("refusal")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdateDatapointMessagesDatasetsResponse200ContentTypedDict = TypeAliasType(
@@ -1153,15 +1168,15 @@ UpdateDatapointContentDatasetsResponse2TypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointContentDatasetsResponse2 = TypeAliasType(
-    "UpdateDatapointContentDatasetsResponse2",
+UpdateDatapointContentDatasetsResponse2 = Annotated[
     Union[
-        UpdateDatapoint2Datasets1,
-        UpdateDatapoint2Datasets2,
-        UpdateDatapoint2Datasets3,
-        UpdateDatapoint2Datasets4,
+        Annotated[UpdateDatapoint2Datasets1, Tag("text")],
+        Annotated[UpdateDatapoint2Datasets2, Tag("image_url")],
+        Annotated[UpdateDatapoint2Datasets3, Tag("input_audio")],
+        Annotated[UpdateDatapoint2Datasets4, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 UpdateDatapointMessagesDatasetsResponseContentTypedDict = TypeAliasType(
@@ -1258,16 +1273,16 @@ UpdateDatapointDatasetsMessagesTypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointDatasetsMessages = TypeAliasType(
-    "UpdateDatapointDatasetsMessages",
+UpdateDatapointDatasetsMessages = Annotated[
     Union[
-        UpdateDatapointMessagesDatasetsDeveloperMessage,
-        UpdateDatapointMessagesDatasetsSystemMessage,
-        UpdateDatapointMessagesDatasetsUserMessage,
-        UpdateDatapointMessagesDatasetsToolMessage,
-        UpdateDatapointMessagesDatasetsAssistantMessage,
+        Annotated[UpdateDatapointMessagesDatasetsDeveloperMessage, Tag("developer")],
+        Annotated[UpdateDatapointMessagesDatasetsSystemMessage, Tag("system")],
+        Annotated[UpdateDatapointMessagesDatasetsUserMessage, Tag("user")],
+        Annotated[UpdateDatapointMessagesDatasetsAssistantMessage, Tag("assistant")],
+        Annotated[UpdateDatapointMessagesDatasetsToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 UpdateDatapointEvaluationsDatasetsResponseEvaluationType = Literal["human_review",]
@@ -1436,14 +1451,14 @@ UpdateDatapointEvaluationsTypedDict = TypeAliasType(
 )
 
 
-UpdateDatapointEvaluations = TypeAliasType(
-    "UpdateDatapointEvaluations",
+UpdateDatapointEvaluations = Annotated[
     Union[
-        UpdateDatapointEvaluations1,
-        UpdateDatapointEvaluations2,
-        UpdateDatapointEvaluations3,
+        Annotated[UpdateDatapointEvaluations1, Tag("string")],
+        Annotated[UpdateDatapointEvaluations2, Tag("number")],
+        Annotated[UpdateDatapointEvaluations3, Tag("string_array")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class UpdateDatapointResponseBodyTypedDict(TypedDict):

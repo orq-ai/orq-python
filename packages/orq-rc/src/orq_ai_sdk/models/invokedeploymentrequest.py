@@ -8,8 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -143,7 +144,13 @@ AnnotationsTypedDict = TypeAliasType(
 )
 
 
-Annotations = TypeAliasType("Annotations", Union[Annotations1, Annotations2])
+Annotations = Annotated[
+    Union[
+        Annotated[Annotations1, Tag("file_citation")],
+        Annotated[Annotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class TextContentPartTypedDict(TypedDict):
@@ -171,7 +178,13 @@ Content2TypedDict = TypeAliasType(
 )
 
 
-Content2 = TypeAliasType("Content2", Union[RefusalContentPart, TextContentPart])
+Content2 = Annotated[
+    Union[
+        Annotated[TextContentPart, Tag("text")],
+        Annotated[RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 PrefixMessagesContentTypedDict = TypeAliasType(
@@ -477,7 +490,15 @@ TwoTypedDict = TypeAliasType(
 )
 
 
-Two = TypeAliasType("Two", Union[InvokeDeploymentRequest21, Two2, Three, Four])
+Two = Annotated[
+    Union[
+        Annotated[InvokeDeploymentRequest21, Tag("text")],
+        Annotated[Two2, Tag("image_url")],
+        Annotated[Three, Tag("input_audio")],
+        Annotated[Four, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 ContentTypedDict = TypeAliasType("ContentTypedDict", Union[str, List[TwoTypedDict]])
@@ -568,10 +589,16 @@ PrefixMessagesTypedDict = TypeAliasType(
 )
 
 
-PrefixMessages = TypeAliasType(
-    "PrefixMessages",
-    Union[DeveloperMessage, SystemMessage, UserMessage, ToolMessage, AssistantMessage],
-)
+PrefixMessages = Annotated[
+    Union[
+        Annotated[DeveloperMessage, Tag("developer")],
+        Annotated[SystemMessage, Tag("system")],
+        Annotated[UserMessage, Tag("user")],
+        Annotated[AssistantMessage, Tag("assistant")],
+        Annotated[ToolMessage, Tag("tool")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 InvokeDeploymentRequestMessages5Role = Literal["tool",]
@@ -707,10 +734,13 @@ TwoAnnotationsTypedDict = TypeAliasType(
 )
 
 
-TwoAnnotations = TypeAliasType(
-    "TwoAnnotations",
-    Union[InvokeDeploymentRequestAnnotations1, InvokeDeploymentRequestAnnotations2],
-)
+TwoAnnotations = Annotated[
+    Union[
+        Annotated[InvokeDeploymentRequestAnnotations1, Tag("file_citation")],
+        Annotated[InvokeDeploymentRequestAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class TwoTextContentPartTypedDict(TypedDict):
@@ -739,10 +769,13 @@ InvokeDeploymentRequestContentMessages2TypedDict = TypeAliasType(
 )
 
 
-InvokeDeploymentRequestContentMessages2 = TypeAliasType(
-    "InvokeDeploymentRequestContentMessages2",
-    Union[TwoRefusalContentPart, TwoTextContentPart],
-)
+InvokeDeploymentRequestContentMessages2 = Annotated[
+    Union[
+        Annotated[TwoTextContentPart, Tag("text")],
+        Annotated[TwoRefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 InvokeDeploymentRequestMessagesContentTypedDict = TypeAliasType(
@@ -1050,10 +1083,15 @@ InvokeDeploymentRequestContent2TypedDict = TypeAliasType(
 )
 
 
-InvokeDeploymentRequestContent2 = TypeAliasType(
-    "InvokeDeploymentRequestContent2",
-    Union[Two1, InvokeDeploymentRequest22, Two3, Two4],
-)
+InvokeDeploymentRequestContent2 = Annotated[
+    Union[
+        Annotated[Two1, Tag("text")],
+        Annotated[InvokeDeploymentRequest22, Tag("image_url")],
+        Annotated[Two3, Tag("input_audio")],
+        Annotated[Two4, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 MessagesContentTypedDict = TypeAliasType(
@@ -1149,16 +1187,16 @@ MessagesTypedDict = TypeAliasType(
 )
 
 
-Messages = TypeAliasType(
-    "Messages",
+Messages = Annotated[
     Union[
-        MessagesDeveloperMessage,
-        MessagesSystemMessage,
-        MessagesUserMessage,
-        MessagesToolMessage,
-        MessagesAssistantMessage,
+        Annotated[MessagesDeveloperMessage, Tag("developer")],
+        Annotated[MessagesSystemMessage, Tag("system")],
+        Annotated[MessagesUserMessage, Tag("user")],
+        Annotated[MessagesAssistantMessage, Tag("assistant")],
+        Annotated[MessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 class MetadataTypedDict(TypedDict):

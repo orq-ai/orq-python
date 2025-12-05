@@ -9,9 +9,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, parse_datetime
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    get_discriminator,
+    parse_datetime,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -169,10 +174,13 @@ RetrieveDatapoint2AnnotationsTypedDict = TypeAliasType(
 )
 
 
-RetrieveDatapoint2Annotations = TypeAliasType(
-    "RetrieveDatapoint2Annotations",
-    Union[RetrieveDatapointAnnotations1, RetrieveDatapointAnnotations2],
-)
+RetrieveDatapoint2Annotations = Annotated[
+    Union[
+        Annotated[RetrieveDatapointAnnotations1, Tag("file_citation")],
+        Annotated[RetrieveDatapointAnnotations2, Tag("file_path")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class RetrieveDatapoint2TextContentPartTypedDict(TypedDict):
@@ -204,10 +212,13 @@ RetrieveDatapointContentDatasets2TypedDict = TypeAliasType(
 )
 
 
-RetrieveDatapointContentDatasets2 = TypeAliasType(
-    "RetrieveDatapointContentDatasets2",
-    Union[RetrieveDatapoint2RefusalContentPart, RetrieveDatapoint2TextContentPart],
-)
+RetrieveDatapointContentDatasets2 = Annotated[
+    Union[
+        Annotated[RetrieveDatapoint2TextContentPart, Tag("text")],
+        Annotated[RetrieveDatapoint2RefusalContentPart, Tag("refusal")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 RetrieveDatapointMessagesDatasetsContentTypedDict = TypeAliasType(
@@ -518,15 +529,15 @@ RetrieveDatapointContent2TypedDict = TypeAliasType(
 )
 
 
-RetrieveDatapointContent2 = TypeAliasType(
-    "RetrieveDatapointContent2",
+RetrieveDatapointContent2 = Annotated[
     Union[
-        RetrieveDatapoint21,
-        RetrieveDatapoint22,
-        RetrieveDatapoint23,
-        RetrieveDatapoint24,
+        Annotated[RetrieveDatapoint21, Tag("text")],
+        Annotated[RetrieveDatapoint22, Tag("image_url")],
+        Annotated[RetrieveDatapoint23, Tag("input_audio")],
+        Annotated[RetrieveDatapoint24, Tag("file")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 RetrieveDatapointMessagesContentTypedDict = TypeAliasType(
@@ -622,16 +633,16 @@ RetrieveDatapointMessagesTypedDict = TypeAliasType(
 )
 
 
-RetrieveDatapointMessages = TypeAliasType(
-    "RetrieveDatapointMessages",
+RetrieveDatapointMessages = Annotated[
     Union[
-        RetrieveDatapointMessagesDeveloperMessage,
-        RetrieveDatapointMessagesSystemMessage,
-        RetrieveDatapointMessagesUserMessage,
-        RetrieveDatapointMessagesToolMessage,
-        RetrieveDatapointMessagesAssistantMessage,
+        Annotated[RetrieveDatapointMessagesDeveloperMessage, Tag("developer")],
+        Annotated[RetrieveDatapointMessagesSystemMessage, Tag("system")],
+        Annotated[RetrieveDatapointMessagesUserMessage, Tag("user")],
+        Annotated[RetrieveDatapointMessagesAssistantMessage, Tag("assistant")],
+        Annotated[RetrieveDatapointMessagesToolMessage, Tag("tool")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "role", "role")),
+]
 
 
 RetrieveDatapointEvaluationsDatasetsResponseEvaluationType = Literal["human_review",]
@@ -800,14 +811,14 @@ RetrieveDatapointEvaluationsTypedDict = TypeAliasType(
 )
 
 
-RetrieveDatapointEvaluations = TypeAliasType(
-    "RetrieveDatapointEvaluations",
+RetrieveDatapointEvaluations = Annotated[
     Union[
-        RetrieveDatapointEvaluations1,
-        RetrieveDatapointEvaluations2,
-        RetrieveDatapointEvaluations3,
+        Annotated[RetrieveDatapointEvaluations1, Tag("string")],
+        Annotated[RetrieveDatapointEvaluations2, Tag("number")],
+        Annotated[RetrieveDatapointEvaluations3, Tag("string_array")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class RetrieveDatapointResponseBodyTypedDict(TypedDict):
