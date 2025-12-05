@@ -71,7 +71,8 @@ except ImportError as exc:
     ) from exc
 
 try:
-    from opentelemetry.context import Context, Token, attach, detach
+    from opentelemetry.context import Context, attach, detach
+    from opentelemetry.context import Token as ContextToken  # type: ignore[attr-defined]
     from opentelemetry.trace import Span as OtelSpan
     from opentelemetry.trace import (
         Status,
@@ -92,7 +93,7 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         self._tracer = tracer
         self._root_spans: dict[str, OtelSpan] = {}
         self._otel_spans: dict[str, OtelSpan] = {}
-        self._tokens: dict[str, Token[Context]] = {}
+        self._tokens: dict[str, ContextToken[Context]] = {}
         # Track agent spans and their child spans to aggregate input/output
         self._agent_spans: dict[str, str] = {}  # span_id -> agent_name
         self._span_hierarchy: dict[str, str] = {}  # child_span_id -> parent_agent_span_id
@@ -247,17 +248,19 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                 self._set_usage_attributes(otel_span, response.usage)
         
         # Also check for output directly on data (not just in data.response)
-        if hasattr(data, "output") and data.output:
+        data_output = getattr(data, "output", None)
+        if data_output:
             try:
-                formatted_output = self._format_llm_output(cast(SpanOutputData, data.output))
+                formatted_output = self._format_llm_output(cast(SpanOutputData, data_output))
                 json_output = json.dumps(formatted_output)
                 otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, json_output)
             except (TypeError, ValueError):
-                text_content = self._extract_text_from_output(cast(SpanOutputData, data.output))
+                text_content = self._extract_text_from_output(cast(SpanOutputData, data_output))
                 if text_content:
                     otel_span.set_attribute(SpanAttributes.OUTPUT_VALUE.value, text_content)
-        
-        if hasattr(data, "input") and data.input:
+
+        data_input = getattr(data, "input", None)
+        if data_input:
             # Set input for LLM spans, including system message from instructions if not already present
             try:
                 enhanced_input = self._format_llm_input(data)
@@ -265,9 +268,9 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                     input_json = json.dumps(enhanced_input)
                     otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, input_json)
                 else:
-                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
+                    otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data_input))
             except (TypeError, ValueError):
-                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data.input))
+                otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, str(data_input))
 
     def _handle_generation_span(self, otel_span: OtelSpan, data: GenerationSpanData) -> None:
         """Handle generation span."""
@@ -305,10 +308,13 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         otel_span.set_attribute(SpanAttributes.TOOL_NAME.value, data.name)
 
         # Add tool call ID if available
-        if hasattr(data, 'call_id') and data.call_id:
-            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data.call_id)
-        elif hasattr(data, 'id') and data.id:
-            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data.id)
+        call_id = getattr(data, 'call_id', None)
+        if call_id:
+            otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, call_id)
+        else:
+            data_id = getattr(data, 'id', None)
+            if data_id:
+                otel_span.set_attribute(SpanAttributes.TOOL_CALL_ID.value, data_id)
 
         if data.input:
             otel_span.set_attribute(SpanAttributes.INPUT_VALUE.value, data.input)
@@ -322,34 +328,37 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _format_llm_input(self, data: SpanData) -> Optional[SpanInputData]:
         """Format LLM input that includes system message from instructions if not already present."""
-        if not hasattr(data, "input") or not data.input:
+        data_input = getattr(data, "input", None)
+        if not data_input:
             return None
-            
+
         try:
             input_messages = []
-            
+
             # Check if system message already exists in input
             has_system_message = False
-            if isinstance(data.input, list):
+            if isinstance(data_input, list):
                 has_system_message = any(
-                    isinstance(msg, dict) and msg.get("role") == "system" 
-                    for msg in data.input
+                    isinstance(msg, dict) and msg.get("role") == "system"
+                    for msg in data_input
                 )
-                input_messages = list(data.input)
+                input_messages = list(data_input)
             else:
-                input_messages = [data.input]
-            
+                input_messages = [data_input]
+
             # Add system message FIRST only if not already present
-            if not has_system_message and hasattr(data, "response") and data.response and hasattr(data.response, "instructions") and data.response.instructions:
+            response = getattr(data, "response", None)
+            instructions = getattr(response, "instructions", None) if response else None
+            if not has_system_message and instructions:
                 system_message = {
                     "role": "system",
-                    "content": data.response.instructions
+                    "content": instructions
                 }
                 input_messages.insert(0, system_message)
-            
+
             return input_messages
         except (TypeError, ValueError):
-            return data.input
+            return data_input
 
     def _collect_agent_data(self, span_id: str, data: SpanData, *data_types: str) -> None:
         """Collect input/output data for agent spans - first LLM input and last LLM output per agent."""
@@ -357,9 +366,10 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         parent_agent_span_id = self._span_hierarchy.get(span_id)
         if not parent_agent_span_id:
             return
-            
+
         for data_type in data_types:
-            if data_type == "input" and hasattr(data, "input") and data.input:
+            data_input = getattr(data, "input", None)
+            if data_type == "input" and data_input:
                 if parent_agent_span_id in self._agent_inputs:
                     # Only capture the first LLM input for this specific agent if none exists yet
                     if self._agent_inputs[parent_agent_span_id] is None:
@@ -367,15 +377,19 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
                         enhanced_input = self._format_llm_input(data)
                         self._agent_inputs[parent_agent_span_id] = enhanced_input
             elif data_type == "output":
-                if hasattr(data, "output") and data.output:
+                data_output = getattr(data, "output", None)
+                if data_output:
                     if parent_agent_span_id in self._agent_outputs:
                         # Always capture the latest LLM output for this specific agent (last one wins)
-                        self._agent_outputs[parent_agent_span_id] = data.output
-                elif hasattr(data, "response") and data.response:
-                    if parent_agent_span_id in self._agent_outputs:
-                        # Extract output from response and always update for this specific agent (last one wins)
-                        if hasattr(data.response, "output") and data.response.output:
-                            self._agent_outputs[parent_agent_span_id] = data.response.output
+                        self._agent_outputs[parent_agent_span_id] = data_output
+                else:
+                    response = getattr(data, "response", None)
+                    if response:
+                        if parent_agent_span_id in self._agent_outputs:
+                            # Extract output from response and always update for this specific agent (last one wins)
+                            response_output = getattr(response, "output", None)
+                            if response_output:
+                                self._agent_outputs[parent_agent_span_id] = response_output
 
     def _find_parent_agent_span(self, parent_id: Optional[str]) -> Optional[str]:
         """Find the nearest parent agent span ID."""
@@ -392,19 +406,22 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
     def _get_span_name(self, span: Span[SpanData]) -> str:
         """Get span name from span data."""
         data = span.span_data
-        
+
         # Handle HandoffSpanData specifically
         if isinstance(data, HandoffSpanData):
             # Extract target agent name from to_agent attribute
-            if hasattr(data, 'to_agent') and data.to_agent:
-                if hasattr(data.to_agent, 'name'):
-                    return f"handoff to {data.to_agent.name}"
-                if isinstance(data.to_agent, str):
-                    return f"handoff to {data.to_agent}"
+            to_agent = getattr(data, 'to_agent', None)
+            if to_agent:
+                agent_name = getattr(to_agent, 'name', None)
+                if agent_name:
+                    return f"handoff to {agent_name}"
+                if isinstance(to_agent, str):
+                    return f"handoff to {to_agent}"
             return "handoff"
-        
+
         # Handle other span types with name attribute
-        if hasattr(data, "name") and isinstance(name := data.name, str):
+        name = getattr(data, "name", None)
+        if isinstance(name, str):
             return name
         return getattr(data, "type", "unknown")
 
@@ -449,12 +466,14 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
             })
         elif isinstance(output_data, list):
             for index, item in enumerate(output_data):
-                if hasattr(item, "content") and item.content:
+                item_content = getattr(item, "content", None)
+                if item_content:
                     # Extract text from content items
                     content_texts = []
-                    for content_item in item.content:
-                        if hasattr(content_item, "text"):
-                            content_texts.append(content_item.text)
+                    for content_item in item_content:
+                        text = getattr(content_item, "text", None)
+                        if text:
+                            content_texts.append(text)
                     content = " ".join(content_texts) if content_texts else ""
                     
                     # Get role from item if available, default to "assistant"
@@ -526,10 +545,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
         if isinstance(output_data, list):
             texts = []
             for item in output_data:
-                if hasattr(item, "content") and item.content:
-                    for content_item in item.content:
-                        if hasattr(content_item, "text"):
-                            texts.append(content_item.text)
+                content = getattr(item, "content", None)
+                if content:
+                    for content_item in content:
+                        text = getattr(content_item, "text", None)
+                        if text:
+                            texts.append(text)
                 elif isinstance(item, dict):
                     if "content" in item:
                         texts.append(str(item["content"]))
@@ -542,10 +563,12 @@ class EnhancedOpenAIAgentsProcessor(TracingProcessor):
 
     def _set_usage_attributes(self, otel_span: OtelSpan, usage: UsageData) -> None:
         """Set usage-related attributes on the span."""
-        if hasattr(usage, "input_tokens"):
-            otel_span.set_attribute(SpanAttributes.USAGE_INPUT_TOKENS.value, usage.input_tokens)
-        if hasattr(usage, "output_tokens"):
-            otel_span.set_attribute(SpanAttributes.USAGE_OUTPUT_TOKENS.value, usage.output_tokens)
+        input_tokens = getattr(usage, "input_tokens", None)
+        if input_tokens is not None:
+            otel_span.set_attribute(SpanAttributes.USAGE_INPUT_TOKENS.value, input_tokens)
+        output_tokens = getattr(usage, "output_tokens", None)
+        if output_tokens is not None:
+            otel_span.set_attribute(SpanAttributes.USAGE_OUTPUT_TOKENS.value, output_tokens)
 
     def _as_utc_nano(self, dt: str) -> int:
         """Convert ISO format datetime string to nanoseconds since epoch."""
