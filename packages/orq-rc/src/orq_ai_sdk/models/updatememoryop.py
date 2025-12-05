@@ -17,16 +17,16 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class UpdateMemoryRequestBodyTypedDict(TypedDict):
     entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID."""
-    metadata: NotRequired[Dict[str, str]]
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
+    metadata: Dict[str, str]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class UpdateMemoryRequestBody(BaseModel):
     entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID."""
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
 
-    metadata: Optional[Dict[str, str]] = None
+    metadata: Dict[str, str]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 

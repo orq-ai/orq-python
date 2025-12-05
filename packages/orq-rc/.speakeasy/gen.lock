@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 85e129dc-bc42-49d7-a540-14c82344db7c
 management:
-  docChecksum: 9bc61dbf050e4999f948f1b2d8c677da
+  docChecksum: 7ae535993469bc19e857d75457a2d11e
   docVersion: "2.0"
   speakeasyVersion: 1.656.1
   generationVersion: 2.753.1
-  releaseVersion: 4.1.0-rc.19
-  configChecksum: 555c42916c313b79d73f770d2bae62e3
+  releaseVersion: 4.1.0-rc.21
+  configChecksum: a97c662357bcde7d184691f836a470d3
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
@@ -165,7 +165,6 @@ generatedFiles:
   - docs/models/arguments.md
   - docs/models/assistantmessage.md
   - docs/models/audio.md
-  - docs/models/bertscore.md
   - docs/models/binaryformat.md
   - docs/models/blueprint.md
   - docs/models/boolean.md
@@ -715,7 +714,6 @@ generatedFiles:
   - docs/models/createtoolresponsebodytoolsstatus.md
   - docs/models/createtoolresponsebodytoolstype.md
   - docs/models/createtoolresponsebodytype.md
-  - docs/models/currency.md
   - docs/models/currentdatetool.md
   - docs/models/data.md
   - docs/models/data1.md
@@ -1315,9 +1313,6 @@ generatedFiles:
   - docs/models/finishreason.md
   - docs/models/five.md
   - docs/models/format_.md
-  - docs/models/formatoptions.md
-  - docs/models/formatoptions1.md
-  - docs/models/formatoptions2.md
   - docs/models/four.md
   - docs/models/fourteen.md
   - docs/models/function.md
@@ -1738,42 +1733,6 @@ generatedFiles:
   - docs/models/invokedeploymentrequestprefixmessages5role.md
   - docs/models/invokedeploymentrequestprefixmessagescontent.md
   - docs/models/invokedeploymentrequestprefixmessagesrole.md
-  - docs/models/invokeeval21.md
-  - docs/models/invokeeval22.md
-  - docs/models/invokeeval23.md
-  - docs/models/invokeeval2evalsrequesttype.md
-  - docs/models/invokeeval2evalstype.md
-  - docs/models/invokeeval2file.md
-  - docs/models/invokeeval2imageurl.md
-  - docs/models/invokeeval2type.md
-  - docs/models/invokeevalcontent.md
-  - docs/models/invokeevalcontent2.md
-  - docs/models/invokeevalevalsresponsebody.md
-  - docs/models/invokeevalevalsresponseresponsebody.md
-  - docs/models/invokeevalfunction.md
-  - docs/models/invokeevalmessages.md
-  - docs/models/invokeevalrequest.md
-  - docs/models/invokeevalrequestbody.md
-  - docs/models/invokeevalresponsebody.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson6type.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson7type.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson7value.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjson8type.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjsontype.md
-  - docs/models/invokeevalresponsebodyevalsresponse200applicationjsonvalue.md
-  - docs/models/invokeevalresponsebodyevalsresponse200type.md
-  - docs/models/invokeevalresponsebodyevalsresponse200value.md
-  - docs/models/invokeevalresponsebodyevalsresponsetype.md
-  - docs/models/invokeevalresponsebodyevalsresponsevalue.md
-  - docs/models/invokeevalresponsebodyevalstype.md
-  - docs/models/invokeevalresponsebodyevalsvalue.md
-  - docs/models/invokeevalresponsebodyhttp.md
-  - docs/models/invokeevalresponsebodyllm.md
-  - docs/models/invokeevalresponsebodytype.md
-  - docs/models/invokeevalresponsebodyvalue.md
-  - docs/models/invokeevalrole.md
-  - docs/models/invokeevaltoolcalls.md
-  - docs/models/invokeevaltype.md
   - docs/models/invokeoptions.md
   - docs/models/json.md
   - docs/models/jsonobject.md
@@ -2079,7 +2038,6 @@ generatedFiles:
   - docs/models/orexists.md
   - docs/models/orgt.md
   - docs/models/orgte.md
-  - docs/models/originalvalue.md
   - docs/models/orin.md
   - docs/models/orlt.md
   - docs/models/orlte.md
@@ -2179,7 +2137,6 @@ generatedFiles:
   - docs/models/responsebodyagenticragconfig.md
   - docs/models/responsebodyarguments.md
   - docs/models/responsebodyblueprint.md
-  - docs/models/responsebodyboolean.md
   - docs/models/responsebodycodeexecutiontool.md
   - docs/models/responsebodycodetool.md
   - docs/models/responsebodyconnectiontype.md
@@ -2200,7 +2157,6 @@ generatedFiles:
   - docs/models/responsebodymcp.md
   - docs/models/responsebodymcptool.md
   - docs/models/responsebodymethod.md
-  - docs/models/responsebodynumber.md
   - docs/models/responsebodyparameters.md
   - docs/models/responsebodypython.md
   - docs/models/responsebodyragas.md
@@ -2213,7 +2169,6 @@ generatedFiles:
   - docs/models/responsebodytools.md
   - docs/models/responsebodytype.md
   - docs/models/responsebodytypescript.md
-  - docs/models/responsebodyvalue.md
   - docs/models/responseformat.md
   - docs/models/responseformat1.md
   - docs/models/responseformat2.md
@@ -2417,10 +2372,6 @@ generatedFiles:
   - docs/models/role.md
   - docs/models/roletoolmessage.md
   - docs/models/roleusermessage.md
-  - docs/models/rouge1.md
-  - docs/models/rouge2.md
-  - docs/models/rougel.md
-  - docs/models/rougen.md
   - docs/models/runagenta2amessage.md
   - docs/models/runagenta2ataskresponse.md
   - docs/models/runagentagentsexecuteon.md
@@ -2700,9 +2651,6 @@ generatedFiles:
   - docs/models/streamrunagenttoolchoiceagentstype.md
   - docs/models/streamrunagenttoolchoicefunction.md
   - docs/models/streamrunagenttoolchoicetype.md
-  - docs/models/string.md
-  - docs/models/stringarray.md
-  - docs/models/style.md
   - docs/models/systemmessage.md
   - docs/models/taskstate.md
   - docs/models/taskstatus.md
@@ -3201,6 +3149,7 @@ generatedFiles:
   - docs/models/updatememoryrequestbody.md
   - docs/models/updatememoryresponsebody.md
   - docs/models/updatememorystoreembeddingconfig.md
+  - docs/models/updatememorystorememorystoresembeddingconfig.md
   - docs/models/updatememorystoreprovider.md
   - docs/models/updatememorystorerequest.md
   - docs/models/updatememorystorerequestbody.md
@@ -3535,7 +3484,6 @@ generatedFiles:
   - src/orq_ai_sdk/models/internal/globals.py
   - src/orq_ai_sdk/models/invokeagentop.py
   - src/orq_ai_sdk/models/invokedeploymentrequest.py
-  - src/orq_ai_sdk/models/invokeevalop.py
   - src/orq_ai_sdk/models/listagentsop.py
   - src/orq_ai_sdk/models/listbudgetsop.py
   - src/orq_ai_sdk/models/listchunksop.py
@@ -3623,7 +3571,7 @@ examples:
         "200":
           application/json: {"id": "<id>", "external_id": "<id>", "updated": "2025-06-03T12:31:41.205Z"}
         "201":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T13:35:45.391Z"}
     "":
       requestBody:
         application/json: {"external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
@@ -3697,7 +3645,7 @@ examples:
         multipart/form-data: {"file": "x-file: example.file", "purpose": "retrieval"}
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-28T12:16:13.624Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 3962.98, "file_name": "example.file", "workspace_id": "245aa340-3b5b-47ec-b7a6-1860ea087aa9", "created": "2025-11-28T13:35:48.510Z"}
   FileList:
     speakeasy-default-file-list:
       parameters:
@@ -3713,7 +3661,7 @@ examples:
           file_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-28T12:16:13.624Z"}
+          application/json: {"_id": "<id>", "object_name": "<value>", "purpose": "retrieval", "bytes": 9071.22, "file_name": "example.file", "workspace_id": "9562b954-6ece-4d52-9ebe-4d5b5601dd94", "created": "2025-11-28T13:35:48.510Z"}
   FileDelete:
     speakeasy-default-file-delete:
       parameters:
@@ -3804,7 +3752,7 @@ examples:
         application/json: {"display_name": "Neva.Raynor10", "path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "859fdd9d-80f9-4a8f-aec3-fdb35ab72f74", "display_name": "Barrett.Cruickshank94", "project_id": "9e0264eb-a840-4be9-a52b-7f0680f07fb2", "workspace_id": "25fc3844-7978-451d-b8bb-5e18641f495a", "metadata": {"total_versions": 5603.5, "datapoints_count": 4196.21}, "updated": "2025-11-28T13:35:45.391Z"}
   RetrieveDataset:
     speakeasy-default-retrieve-dataset:
       parameters:
@@ -3812,7 +3760,7 @@ examples:
           dataset_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "cec751ff-edcf-48f5-919c-5f9600880799", "display_name": "Rex_Howell20", "project_id": "6e6fed2e-625a-4a65-8b6b-b17c351fe8d6", "workspace_id": "d3c5813a-7915-46a4-bc9b-9737e47047ec", "metadata": {"total_versions": 9356, "datapoints_count": 7039.39}, "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDataset:
@@ -3824,7 +3772,7 @@ examples:
         application/json: {"path": "Default"}
       responses:
         "200":
-          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "b3d673bc-7e1b-4211-aac1-f385b70b6202", "display_name": "Noble_Hilll12", "project_id": "2a621dee-4b22-4755-aabd-0ca81c578515", "workspace_id": "eab8ac16-dbd6-4fa5-853d-4dd5b0c3a595", "metadata": {"total_versions": 2611.42, "datapoints_count": 7855.37}, "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDataset:
@@ -3868,7 +3816,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"message": "<value>"}
   UpdateDatapoint:
@@ -3879,7 +3827,7 @@ examples:
           datapoint_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "<id>", "workspace_id": "<id>", "dataset_id": "<id>", "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteDatapoint:
@@ -3962,7 +3910,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"_id": "01KB56975Z6NEQ9EGRCKEDGQFA", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
+          application/json: {"_id": "01KB5ATX1Z066A87MNRRAJCEBX", "display_name": "Savannah.Bode69", "status": "processing", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 5147.76}
   RetrieveDatasource:
     speakeasy-default-retrieve-datasource:
       parameters:
@@ -3971,7 +3919,7 @@ examples:
           datasource_id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "01KB56975YYJ91NMHWCTQC7AF1", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
+          application/json: {"_id": "01KB5ATX1Y8G18WQP9ZFAKH1C7", "display_name": "Rudolph23", "status": "queued", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 8222.73}
   DeleteDatasource:
     speakeasy-default-delete-datasource:
       parameters:
@@ -3988,7 +3936,7 @@ examples:
         application/json: {"display_name": "Tony_Roberts"}
       responses:
         "200":
-          application/json: {"_id": "01KB569762XADAVT62XVPPE4ES", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
+          application/json: {"_id": "01KB5ATX2296AX7ZGFZ9PG1EDE", "display_name": "Mathias_Pagac", "status": "completed", "created": "<value>", "updated": "<value>", "knowledge_id": "<id>", "chunks_count": 3625.25}
   CreateChunk:
     speakeasy-default-create-chunk:
       parameters:
@@ -4397,7 +4345,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"error": "<value>"}
   UpdateContact:
@@ -4418,7 +4366,7 @@ examples:
         application/json: {"display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}}
       responses:
         "200":
-          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T12:16:10.264Z"}
+          application/json: {"_id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", "external_id": "user_12345", "display_name": "Jane Smith", "email": "jane.smith@example.com", "avatar_url": "https://example.com/avatars/jane-smith.jpg", "tags": ["premium", "beta-user", "enterprise"], "metadata": {"department": "Engineering", "role": "Senior Developer", "subscription_tier": "premium", "last_login": "2024-01-15T10:30:00Z"}, "updated": "2025-11-28T13:35:45.391Z"}
         "404":
           application/json: {"message": "<value>"}
   DeleteContact:
@@ -4666,7 +4614,7 @@ examples:
         application/json: {"type": "workspace", "period": "monthly", "amount": 250}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T12:16:10.680Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T13:35:45.737Z"}
   GetBudget:
     speakeasy-default-get-budget:
       parameters:
@@ -4674,7 +4622,7 @@ examples:
           id: "01K1J1AX8PGR63QRP7423NY008"
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T12:16:10.680Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T13:35:45.737Z"}
   UpdateBudget:
     speakeasy-default-update-budget:
       parameters:
@@ -4684,7 +4632,7 @@ examples:
         application/json: {"budget": {"period": "monthly", "amount": 300}, "is_active": true}
       responses:
         "200":
-          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T12:16:10.680Z"}
+          application/json: {"_id": "01ARZ3NDEKTSV4RRFFQ69G5FAV", "workspace_id": "550e8400-e29b-41d4-a716-446655440000", "type": "contact", "contact_id": "user_123", "budget": {"period": "monthly", "amount": 250}, "is_active": true, "consumption": {"current_amount": 125.5, "remaining_amount": 124.5, "period_start": "2024-01-01T00:00:00Z", "period_end": "2024-01-31T23:59:59Z"}, "updated": "2025-11-28T13:35:45.737Z"}
   DeleteBudget:
     speakeasy-default-delete-budget:
       parameters:
@@ -5112,7 +5060,8 @@ generatedTests: {}
 releaseNotes: |
   ## Python SDK Changes Detected:
   * `orq.memory_stores.update()`:  `request` **Changed** **Breaking** :warning:
-  * `orq.memory_stores.create_memory()`:  `request.metadata` **Changed**
-  * `orq.memory_stores.update_memory()`:  `request.metadata` **Changed**
-  * `orq.memory_stores.create_document()`:  `request.metadata` **Changed**
-  * `orq.memory_stores.update_document()`:  `request.metadata` **Changed**
+  * `orq.memory_stores.create_memory()`:  `request.metadata` **Changed** **Breaking** :warning:
+  * `orq.memory_stores.update_memory()`:  `request.metadata` **Changed** **Breaking** :warning:
+  * `orq.memory_stores.create_document()`:  `request.metadata` **Changed** **Breaking** :warning:
+  * `orq.memory_stores.update_document()`:  `request.metadata` **Changed** **Breaking** :warning:
+  * `orq.evals.invoke()`: **Deleted** **Breaking** :warning:

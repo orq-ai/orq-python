@@ -1,28 +1,32 @@
 # UpdateMemoryStoreProvider
 
+The provider of the AI service
+
 
 ## Values
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `OPENAI`      | openai        |
-| `GROQ`        | groq          |
 | `COHERE`      | cohere        |
-| `AZURE`       | azure         |
-| `AWS`         | aws           |
+| `OPENAI`      | openai        |
+| `ANTHROPIC`   | anthropic     |
+| `HUGGINGFACE` | huggingface   |
+| `REPLICATE`   | replicate     |
 | `GOOGLE`      | google        |
 | `GOOGLE_AI`   | google-ai     |
-| `HUGGINGFACE` | huggingface   |
-| `TOGETHERAI`  | togetherai    |
+| `AZURE`       | azure         |
+| `AWS`         | aws           |
+| `ANYSCALE`    | anyscale      |
 | `PERPLEXITY`  | perplexity    |
-| `ANTHROPIC`   | anthropic     |
-| `LEONARDOAI`  | leonardoai    |
+| `GROQ`        | groq          |
 | `FAL`         | fal           |
+| `LEONARDOAI`  | leonardoai    |
 | `NVIDIA`      | nvidia        |
 | `JINA`        | jina          |
+| `TOGETHERAI`  | togetherai    |
 | `ELEVENLABS`  | elevenlabs    |
 | `LITELLM`     | litellm       |
-| `CEREBRAS`    | cerebras      |
 | `OPENAILIKE`  | openailike    |
+| `CEREBRAS`    | cerebras      |
 | `BYTEDANCE`   | bytedance     |
 | `MISTRAL`     | mistral       |

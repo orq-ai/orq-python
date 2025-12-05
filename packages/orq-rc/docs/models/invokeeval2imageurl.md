@@ -1,9 +1,0 @@
-# InvokeEval2ImageURL
-
-
-## Fields
-
-| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `url`                                                                                | *str*                                                                                | :heavy_check_mark:                                                                   | Either a URL of the image or the base64 encoded data URI.                            | https://picsum.photos/id/1/200/300                                                   |
-| `detail`                                                                             | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | Specifies the detail level of the image. Currently only supported with OpenAI models |                                                                                      |

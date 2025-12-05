@@ -2977,7 +2977,6 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
-    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     workspace_id: str
     project_id: str
@@ -3018,7 +3017,6 @@ class UpdateAgentResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
-    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 
