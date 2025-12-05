@@ -9,15 +9,15 @@
 value: models.CreatePrompt21 = /* values here */
 ```
 
-### `models.CreatePrompt22`
+### `models.Two2`
 
 ```python
-value: models.CreatePrompt22 = /* values here */
+value: models.Two2 = /* values here */
 ```
 
-### `models.CreatePrompt23`
+### `models.Three`
 
 ```python
-value: models.CreatePrompt23 = /* values here */
+value: models.Three = /* values here */
 ```
 

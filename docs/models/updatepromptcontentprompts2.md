@@ -1,29 +1,10 @@
 # UpdatePromptContentPrompts2
 
 
-## Supported Types
+## Fields
 
-### `models.UpdatePrompt2Prompts1`
-
-```python
-value: models.UpdatePrompt2Prompts1 = /* values here */
-```
-
-### `models.UpdatePrompt2Prompts2`
-
-```python
-value: models.UpdatePrompt2Prompts2 = /* values here */
-```
-
-### `models.UpdatePrompt2Prompts3`
-
-```python
-value: models.UpdatePrompt2Prompts3 = /* values here */
-```
-
-### `models.UpdatePrompt24`
-
-```python
-value: models.UpdatePrompt24 = /* values here */
-```
-
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.UpdatePromptContentType](../models/updatepromptcontenttype.md)                           | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `text`                                                                                           | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `cache_control`                                                                                  | [Optional[models.UpdatePromptContentCacheControl]](../models/updatepromptcontentcachecontrol.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |

@@ -8,9 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -566,9 +566,14 @@ GetAllPromptsContent2TypedDict = TypeAliasType(
 )
 
 
-GetAllPromptsContent2 = TypeAliasType(
-    "GetAllPromptsContent2", Union[GetAllPrompts21, GetAllPrompts22, GetAllPrompts23]
-)
+GetAllPromptsContent2 = Annotated[
+    Union[
+        Annotated[GetAllPrompts21, Tag("text")],
+        Annotated[GetAllPrompts22, Tag("image_url")],
+        Annotated[GetAllPrompts23, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 GetAllPromptsContentTypedDict = TypeAliasType(

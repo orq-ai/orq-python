@@ -8,9 +8,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -573,10 +578,14 @@ ListPromptVersionsContent2TypedDict = TypeAliasType(
 )
 
 
-ListPromptVersionsContent2 = TypeAliasType(
-    "ListPromptVersionsContent2",
-    Union[ListPromptVersions21, ListPromptVersions22, ListPromptVersions23],
-)
+ListPromptVersionsContent2 = Annotated[
+    Union[
+        Annotated[ListPromptVersions21, Tag("text")],
+        Annotated[ListPromptVersions22, Tag("image_url")],
+        Annotated[ListPromptVersions23, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 ListPromptVersionsContentTypedDict = TypeAliasType(

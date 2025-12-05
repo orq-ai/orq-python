@@ -1,29 +1,10 @@
 # RetrieveDatapointContent2
 
 
-## Supported Types
+## Fields
 
-### `models.RetrieveDatapoint21`
-
-```python
-value: models.RetrieveDatapoint21 = /* values here */
-```
-
-### `models.RetrieveDatapoint22`
-
-```python
-value: models.RetrieveDatapoint22 = /* values here */
-```
-
-### `models.RetrieveDatapoint23`
-
-```python
-value: models.RetrieveDatapoint23 = /* values here */
-```
-
-### `models.RetrieveDatapoint24`
-
-```python
-value: models.RetrieveDatapoint24 = /* values here */
-```
-
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.RetrieveDatapointContentType](../models/retrievedatapointcontenttype.md)                           | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `text`                                                                                                     | *str*                                                                                                      | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `cache_control`                                                                                            | [Optional[models.RetrieveDatapointContentCacheControl]](../models/retrievedatapointcontentcachecontrol.md) | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |

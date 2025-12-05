@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentStream2DeploymentsTextContentPart`
+### `models.DeploymentStream2Deployments1`
 
 ```python
-value: models.DeploymentStream2DeploymentsTextContentPart = /* values here */
+value: models.DeploymentStream2Deployments1 = /* values here */
 ```
 
-### `models.DeploymentStream2DeploymentsRefusalContentPart`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.DeploymentStream2DeploymentsRefusalContentPart = /* values here */
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

@@ -1,29 +1,10 @@
 # DeploymentCreateMetricContent2
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentCreateMetric21`
-
-```python
-value: models.DeploymentCreateMetric21 = /* values here */
-```
-
-### `models.DeploymentCreateMetric22`
-
-```python
-value: models.DeploymentCreateMetric22 = /* values here */
-```
-
-### `models.DeploymentCreateMetric23`
-
-```python
-value: models.DeploymentCreateMetric23 = /* values here */
-```
-
-### `models.DeploymentCreateMetric24`
-
-```python
-value: models.DeploymentCreateMetric24 = /* values here */
-```
-
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                               | [models.DeploymentCreateMetricContentType](../models/deploymentcreatemetriccontenttype.md)                           | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |
+| `text`                                                                                                               | *str*                                                                                                                | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |
+| `cache_control`                                                                                                      | [Optional[models.DeploymentCreateMetricContentCacheControl]](../models/deploymentcreatemetriccontentcachecontrol.md) | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |

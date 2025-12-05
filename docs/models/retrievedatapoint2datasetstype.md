@@ -1,8 +1,10 @@
 # RetrieveDatapoint2DatasetsType
 
+The type of the content part. Always `file`.
+
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `IMAGE_URL` | image_url   |
+| Name   | Value  |
+| ------ | ------ |
+| `FILE` | file   |

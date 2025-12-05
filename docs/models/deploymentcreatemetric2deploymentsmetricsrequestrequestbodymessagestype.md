@@ -1,7 +1,5 @@
 # DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType
 
-The type of the content part.
-
 
 ## Values
 

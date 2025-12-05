@@ -1,17 +1,10 @@
 # CreateDatasetItemContentDatasetsResponse2002
 
 
-## Supported Types
+## Fields
 
-### `models.CreateDatasetItem2DatasetsTextContentPart`
-
-```python
-value: models.CreateDatasetItem2DatasetsTextContentPart = /* values here */
-```
-
-### `models.CreateDatasetItem2DatasetsRefusalContentPart`
-
-```python
-value: models.CreateDatasetItem2DatasetsRefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                                            | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                                           | [models.CreateDatasetItemContentDatasetsResponse200Type](../models/createdatasetitemcontentdatasetsresponse200type.md)                           | :heavy_check_mark:                                                                                                                               | N/A                                                                                                                                              |
+| `text`                                                                                                                                           | *str*                                                                                                                                            | :heavy_check_mark:                                                                                                                               | N/A                                                                                                                                              |
+| `cache_control`                                                                                                                                  | [Optional[models.CreateDatasetItemContentDatasetsResponse200CacheControl]](../models/createdatasetitemcontentdatasetsresponse200cachecontrol.md) | :heavy_minus_sign:                                                                                                                               | N/A                                                                                                                                              |

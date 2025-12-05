@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
-from pydantic import model_serializer
+from orq_ai_sdk.utils import get_discriminator
+from pydantic import Discriminator, Tag, model_serializer
 from typing import List, Literal, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 ParseChunkingRequestChunkingRequestReturnType = Literal[
@@ -24,7 +25,7 @@ class AgenticChunkerStrategyTypedDict(TypedDict):
     r"""The text content to be chunked"""
     strategy: AgenticChunker
     model: str
-    r"""Chat model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy#chat-models]"""
+    r"""Model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy/supported-models#chat-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[ParseChunkingRequestChunkingRequestReturnType]
@@ -46,7 +47,7 @@ class AgenticChunkerStrategy(BaseModel):
     strategy: AgenticChunker
 
     model: str
-    r"""Chat model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy#chat-models]"""
+    r"""Model to use for chunking. (Available models)[https://docs.orq.ai/docs/proxy/supported-models#chat-models]"""
 
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
@@ -99,7 +100,7 @@ class SemanticChunkerStrategyTypedDict(TypedDict):
     r"""The text content to be chunked"""
     strategy: SemanticChunker
     embedding_model: str
-    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
+    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
     metadata: NotRequired[bool]
     r"""Whether to include metadata for each chunk"""
     return_type: NotRequired[ParseChunkingRequestChunkingReturnType]
@@ -127,7 +128,7 @@ class SemanticChunkerStrategy(BaseModel):
     strategy: SemanticChunker
 
     embedding_model: str
-    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy#embedding-models]"""
+    r"""Embedding model to use for semantic similarity. (Available embedding models)[https://docs.orq.ai/docs/proxy/supported-models#embedding-models]"""
 
     metadata: Optional[bool] = True
     r"""Whether to include metadata for each chunk"""
@@ -318,16 +319,16 @@ ParseChunkingRequestTypedDict = TypeAliasType(
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 
-ParseChunkingRequest = TypeAliasType(
-    "ParseChunkingRequest",
+ParseChunkingRequest = Annotated[
     Union[
-        TokenChunkerStrategy,
-        SentenceChunkerStrategy,
-        RecursiveChunkerStrategy,
-        AgenticChunkerStrategy,
-        SemanticChunkerStrategy,
+        Annotated[TokenChunkerStrategy, Tag("token")],
+        Annotated[SentenceChunkerStrategy, Tag("sentence")],
+        Annotated[RecursiveChunkerStrategy, Tag("recursive")],
+        Annotated[SemanticChunkerStrategy, Tag("semantic")],
+        Annotated[AgenticChunkerStrategy, Tag("agentic")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "strategy", "strategy")),
+]
 r"""Request payload for text chunking with strategy-specific configuration"""
 
 

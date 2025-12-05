@@ -58,8 +58,6 @@ with Orq(
         },
     ])
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -150,8 +148,6 @@ with Orq(
 
     res = orq.agents.retrieve(agent_key="<value>")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -205,8 +201,6 @@ with Orq(
             "knowledge_id": "customer-knowledge-base",
         },
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -290,8 +284,6 @@ with Orq(
         ],
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -338,8 +330,6 @@ with Orq(
 ) as orq:
 
     res = orq.agents.list(limit=10)
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -417,8 +407,6 @@ with Orq(
             "knowledge_id": "customer-knowledge-base",
         },
     ])
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -515,8 +503,6 @@ with Orq(
         },
     ])
 
-    assert res is not None
-
     with res as event_stream:
         for event in event_stream:
             # handle event
@@ -604,8 +590,6 @@ with Orq(
             "priority-high",
         ],
     })
-
-    assert res is not None
 
     with res as event_stream:
         for event in event_stream:

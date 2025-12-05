@@ -29,8 +29,6 @@ with Orq(
 
     res = orq.budgets.list(limit=10, type_="contact", entity_id="contact_01ARZ3NDEKTSV4RRFFQ69G5FAV", is_active=True)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -80,8 +78,6 @@ with Orq(
         "amount": 250,
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -121,8 +117,6 @@ with Orq(
 ) as orq:
 
     res = orq.budgets.get(id="01K1J1AX8PGR63QRP7423NY008")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -166,8 +160,6 @@ with Orq(
         "period": "monthly",
         "amount": 300,
     }, is_active=True)
-
-    assert res is not None
 
     # Handle response
     print(res)

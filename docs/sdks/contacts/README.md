@@ -45,8 +45,6 @@ with Orq(
         },
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -92,8 +90,6 @@ with Orq(
         ],
     }, include_metrics=False)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -137,8 +133,6 @@ with Orq(
 ) as orq:
 
     res = orq.contacts.retrieve(id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -189,8 +183,6 @@ with Orq(
         "subscription_tier": "premium",
         "last_login": "2024-01-15T10:30:00Z",
     })
-
-    assert res is not None
 
     # Handle response
     print(res)

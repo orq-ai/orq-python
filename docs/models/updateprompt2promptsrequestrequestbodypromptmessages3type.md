@@ -1,7 +1,5 @@
 # UpdatePrompt2PromptsRequestRequestBodyPromptMessages3Type
 
-The type of the content part.
-
 
 ## Values
 

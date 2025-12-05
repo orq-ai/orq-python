@@ -1,17 +1,10 @@
 # InvokeDeploymentRequestContentMessages2
 
 
-## Supported Types
+## Fields
 
-### `models.TwoTextContentPart`
-
-```python
-value: models.TwoTextContentPart = /* values here */
-```
-
-### `models.TwoRefusalContentPart`
-
-```python
-value: models.TwoRefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                 | [models.InvokeDeploymentRequestContentMessagesType](../models/invokedeploymentrequestcontentmessagestype.md)                           | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `text`                                                                                                                                 | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `cache_control`                                                                                                                        | [Optional[models.InvokeDeploymentRequestContentMessagesCacheControl]](../models/invokedeploymentrequestcontentmessagescachecontrol.md) | :heavy_minus_sign:                                                                                                                     | N/A                                                                                                                                    |

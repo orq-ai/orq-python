@@ -1,17 +1,10 @@
 # ListDatasetDatapointsContentDatasets2
 
 
-## Supported Types
+## Fields
 
-### `models.ListDatasetDatapoints2TextContentPart`
-
-```python
-value: models.ListDatasetDatapoints2TextContentPart = /* values here */
-```
-
-### `models.ListDatasetDatapoints2RefusalContentPart`
-
-```python
-value: models.ListDatasetDatapoints2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                             | [models.ListDatasetDatapointsContentDatasetsType](../models/listdatasetdatapointscontentdatasetstype.md)                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `text`                                                                                                                             | *str*                                                                                                                              | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `cache_control`                                                                                                                    | [Optional[models.ListDatasetDatapointsContentDatasetsCacheControl]](../models/listdatasetdatapointscontentdatasetscachecontrol.md) | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |

@@ -1,10 +1,10 @@
 # UpdateDatapointMessagesDatasetsType
 
-The type of the tool. Currently, only `function` is supported.
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
 
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `EPHEMERAL` | ephemeral   |

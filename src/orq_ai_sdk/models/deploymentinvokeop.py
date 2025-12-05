@@ -9,9 +9,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata
+from orq_ai_sdk.utils import FieldMetadata, HeaderMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -147,6 +147,24 @@ class Retrievals(BaseModel):
 
     metadata: DeploymentInvokeMetadata
     r"""Metadata of the retrieved chunk from the knowledge base"""
+
+
+class DeploymentInvokeUsageTypedDict(TypedDict):
+    r"""Usage metrics for the response"""
+
+    input_tokens: float
+    output_tokens: float
+    total_tokens: float
+
+
+class DeploymentInvokeUsage(BaseModel):
+    r"""Usage metrics for the response"""
+
+    input_tokens: float
+
+    output_tokens: float
+
+    total_tokens: float
 
 
 DeploymentInvokeMessageDeploymentsType = Literal["image",]
@@ -382,9 +400,14 @@ DeploymentInvokeMessageTypedDict = TypeAliasType(
 )
 
 
-DeploymentInvokeMessage = TypeAliasType(
-    "DeploymentInvokeMessage", Union[Message3, Message2, Message1]
-)
+DeploymentInvokeMessage = Annotated[
+    Union[
+        Annotated[Message1, Tag("tool_calls")],
+        Annotated[Message2, Tag("content")],
+        Annotated[Message3, Tag("image")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class DeploymentInvokeChoicesTypedDict(TypedDict):
@@ -458,6 +481,8 @@ class DeploymentInvokeResponseBodyTypedDict(TypedDict):
     r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
     provider_response: NotRequired[Any]
     r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
+    usage: NotRequired[Nullable[DeploymentInvokeUsageTypedDict]]
+    r"""Usage metrics for the response"""
 
 
 class DeploymentInvokeResponseBody(BaseModel):
@@ -499,6 +524,9 @@ class DeploymentInvokeResponseBody(BaseModel):
     provider_response: Optional[Any] = None
     r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
 
+    usage: OptionalNullable[DeploymentInvokeUsage] = UNSET
+    r"""Usage metrics for the response"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -507,8 +535,9 @@ class DeploymentInvokeResponseBody(BaseModel):
             "system_fingerprint",
             "retrievals",
             "provider_response",
+            "usage",
         ]
-        nullable_fields = ["system_fingerprint"]
+        nullable_fields = ["system_fingerprint", "usage"]
         null_default_fields = []
 
         serialized = handler(self)

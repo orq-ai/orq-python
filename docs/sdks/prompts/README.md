@@ -31,8 +31,6 @@ with Orq(
 
     res = orq.prompts.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -93,8 +91,6 @@ with Orq(
         "path": "Default",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -134,8 +130,6 @@ with Orq(
 ) as orq:
 
     res = orq.prompts.retrieve(id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -189,8 +183,6 @@ with Orq(
         "model": "anthropic/claude-3-5-sonnet-20241022",
         "temperature": 0.5,
     })
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -280,8 +272,6 @@ with Orq(
 
     res = orq.prompts.list_versions(prompt_id="<id>", limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -324,8 +314,6 @@ with Orq(
 ) as orq:
 
     res = orq.prompts.get_version(prompt_id="<id>", version_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)

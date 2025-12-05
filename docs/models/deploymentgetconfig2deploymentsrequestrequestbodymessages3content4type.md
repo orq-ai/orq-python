@@ -1,10 +1,10 @@
 # DeploymentGetConfig2DeploymentsRequestRequestBodyMessages3Content4Type
 
-The type of the content part. Always `file`.
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `EPHEMERAL` | ephemeral   |

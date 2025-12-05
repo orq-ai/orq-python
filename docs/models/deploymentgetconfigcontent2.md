@@ -1,29 +1,10 @@
 # DeploymentGetConfigContent2
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentGetConfig21`
-
-```python
-value: models.DeploymentGetConfig21 = /* values here */
-```
-
-### `models.DeploymentGetConfig22`
-
-```python
-value: models.DeploymentGetConfig22 = /* values here */
-```
-
-### `models.DeploymentGetConfig23`
-
-```python
-value: models.DeploymentGetConfig23 = /* values here */
-```
-
-### `models.DeploymentGetConfig24`
-
-```python
-value: models.DeploymentGetConfig24 = /* values here */
-```
-
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                         | [models.DeploymentGetConfigContentType](../models/deploymentgetconfigcontenttype.md)                           | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `text`                                                                                                         | *str*                                                                                                          | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `cache_control`                                                                                                | [Optional[models.DeploymentGetConfigContentCacheControl]](../models/deploymentgetconfigcontentcachecontrol.md) | :heavy_minus_sign:                                                                                             | N/A                                                                                                            |

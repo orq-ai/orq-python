@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics1`
+### `models.DeploymentCreateMetric21`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics1 = /* values here */
+value: models.DeploymentCreateMetric21 = /* values here */
 ```
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics2`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics2 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentCreateMetric2DeploymentsMetrics4`
+### `models.DeploymentCreateMetric24`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetrics4 = /* values here */
+value: models.DeploymentCreateMetric24 = /* values here */
 ```
 

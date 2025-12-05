@@ -1,8 +1,10 @@
 # InvokeDeploymentRequest2Messages3ContentType
 
+Create a cache control breakpoint at this content block. Accepts only the value "ephemeral".
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_AUDIO` | input_audio   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `EPHEMERAL` | ephemeral   |

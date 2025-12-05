@@ -3,11 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createdatasetitemop as models_createdatasetitemop,
-    createdatasetop as models_createdatasetop,
-    updatedatapointop as models_updatedatapointop,
-)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -25,7 +20,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasetsResponseBody]:
+    ) -> models.ListDatasetsResponseBody:
         r"""List datasets
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
@@ -70,6 +65,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -97,9 +93,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListDatasetsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListDatasetsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -119,7 +113,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasetsResponseBody]:
+    ) -> models.ListDatasetsResponseBody:
         r"""List datasets
 
         Retrieves a paginated list of datasets for the current workspace. Results can be paginated using cursor-based pagination.
@@ -164,6 +158,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -191,9 +186,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListDatasetsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListDatasetsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -208,15 +201,15 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createdatasetop.CreateDatasetRequestBody,
-                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
+                models.CreateDatasetRequestBody,
+                models.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasetResponseBody]:
+    ) -> models.CreateDatasetResponseBody:
         r"""Create a dataset
 
         Creates a new dataset in the specified project.
@@ -262,6 +255,7 @@ class Datasets(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateDatasetRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -289,9 +283,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateDatasetResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -306,15 +298,15 @@ class Datasets(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createdatasetop.CreateDatasetRequestBody,
-                models_createdatasetop.CreateDatasetRequestBodyTypedDict,
+                models.CreateDatasetRequestBody,
+                models.CreateDatasetRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasetResponseBody]:
+    ) -> models.CreateDatasetResponseBody:
         r"""Create a dataset
 
         Creates a new dataset in the specified project.
@@ -360,6 +352,7 @@ class Datasets(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateDatasetRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -387,9 +380,7 @@ class Datasets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateDatasetResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -407,7 +398,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatasetResponseBody]:
+    ) -> models.RetrieveDatasetResponseBody:
         r"""Retrieve a dataset
 
         Retrieves a specific dataset by its unique identifier
@@ -448,6 +439,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -476,9 +468,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveDatasetResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -499,7 +489,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatasetResponseBody]:
+    ) -> models.RetrieveDatasetResponseBody:
         r"""Retrieve a dataset
 
         Retrieves a specific dataset by its unique identifier
@@ -540,6 +530,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -568,9 +559,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveDatasetResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -594,7 +583,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatasetResponseBody]:
+    ) -> models.UpdateDatasetResponseBody:
         r"""Update a dataset
 
         Update a dataset
@@ -654,6 +643,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[models.UpdateDatasetRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -682,9 +672,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateDatasetResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -708,7 +696,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatasetResponseBody]:
+    ) -> models.UpdateDatasetResponseBody:
         r"""Update a dataset
 
         Update a dataset
@@ -768,6 +756,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[models.UpdateDatasetRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -796,9 +785,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateDatasetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateDatasetResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -860,6 +847,7 @@ class Datasets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -946,6 +934,7 @@ class Datasets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -994,7 +983,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasetDatapointsResponseBody]:
+    ) -> models.ListDatasetDatapointsResponseBody:
         r"""List datapoints
 
         Retrieves a paginated list of datapoints from a specific dataset.
@@ -1041,6 +1030,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1069,7 +1059,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListDatasetDatapointsResponseBody], http_res
+                models.ListDatasetDatapointsResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1091,7 +1081,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasetDatapointsResponseBody]:
+    ) -> models.ListDatasetDatapointsResponseBody:
         r"""List datapoints
 
         Retrieves a paginated list of datapoints from a specific dataset.
@@ -1138,6 +1128,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1166,7 +1157,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListDatasetDatapointsResponseBody], http_res
+                models.ListDatasetDatapointsResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1183,15 +1174,15 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models_createdatasetitemop.CreateDatasetItemRequestBody],
-                List[models_createdatasetitemop.CreateDatasetItemRequestBodyTypedDict],
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.CreateDatasetItemResponseBody]]:
+    ) -> List[models.CreateDatasetItemResponseBody]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
@@ -1243,6 +1234,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[List[models.CreateDatasetItemRequestBody]],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1271,7 +1263,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.CreateDatasetItemResponseBody]], http_res
+                List[models.CreateDatasetItemResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1288,15 +1280,15 @@ class Datasets(BaseSDK):
         dataset_id: str,
         request_body: Optional[
             Union[
-                List[models_createdatasetitemop.CreateDatasetItemRequestBody],
-                List[models_createdatasetitemop.CreateDatasetItemRequestBodyTypedDict],
+                List[models.CreateDatasetItemRequestBody],
+                List[models.CreateDatasetItemRequestBodyTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.CreateDatasetItemResponseBody]]:
+    ) -> List[models.CreateDatasetItemResponseBody]:
         r"""Create a datapoint
 
         Creates a new datapoint in the specified dataset.
@@ -1348,6 +1340,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[List[models.CreateDatasetItemRequestBody]],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1376,7 +1369,7 @@ class Datasets(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[List[models.CreateDatasetItemResponseBody]], http_res
+                List[models.CreateDatasetItemResponseBody], http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1396,7 +1389,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatapointResponseBody]:
+    ) -> models.RetrieveDatapointResponseBody:
         r"""Retrieve a datapoint
 
         Retrieves a datapoint object
@@ -1439,6 +1432,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1468,7 +1462,7 @@ class Datasets(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveDatapointResponseBody], http_res
+                models.RetrieveDatapointResponseBody, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -1491,7 +1485,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatapointResponseBody]:
+    ) -> models.RetrieveDatapointResponseBody:
         r"""Retrieve a datapoint
 
         Retrieves a datapoint object
@@ -1534,6 +1528,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1563,7 +1558,7 @@ class Datasets(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveDatapointResponseBody], http_res
+                models.RetrieveDatapointResponseBody, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
@@ -1585,8 +1580,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models_updatedatapointop.UpdateDatapointMessages],
-                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
+                List[models.UpdateDatapointMessages],
+                List[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1594,7 +1589,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatapointResponseBody]:
+    ) -> models.UpdateDatapointResponseBody:
         r"""Update a datapoint
 
         :param dataset_id: The unique identifier of the dataset
@@ -1652,6 +1647,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[models.UpdateDatapointRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1680,9 +1676,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateDatapointResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateDatapointResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -1703,8 +1697,8 @@ class Datasets(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[
-                List[models_updatedatapointop.UpdateDatapointMessages],
-                List[models_updatedatapointop.UpdateDatapointMessagesTypedDict],
+                List[models.UpdateDatapointMessages],
+                List[models.UpdateDatapointMessagesTypedDict],
             ]
         ] = None,
         expected_output: Optional[str] = None,
@@ -1712,7 +1706,7 @@ class Datasets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatapointResponseBody]:
+    ) -> models.UpdateDatapointResponseBody:
         r"""Update a datapoint
 
         :param dataset_id: The unique identifier of the dataset
@@ -1770,6 +1764,7 @@ class Datasets(BaseSDK):
                 "json",
                 Optional[models.UpdateDatapointRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1798,9 +1793,7 @@ class Datasets(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateDatapointResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateDatapointResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -1865,6 +1858,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1958,6 +1952,7 @@ class Datasets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2048,6 +2043,7 @@ class Datasets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2134,6 +2130,7 @@ class Datasets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

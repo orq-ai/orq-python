@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### `models.Two1`
+### `models.InvokeDeploymentRequest2PrefixMessages1`
 
 ```python
-value: models.Two1 = /* values here */
+value: models.InvokeDeploymentRequest2PrefixMessages1 = /* values here */
 ```
 
-### `models.InvokeDeploymentRequest22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.InvokeDeploymentRequest22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.Two3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.Two3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.Two4`
+### `models.Four`
 
 ```python
-value: models.Two4 = /* values here */
+value: models.Four = /* values here */
 ```
 

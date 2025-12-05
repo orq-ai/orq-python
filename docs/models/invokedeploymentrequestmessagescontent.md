@@ -1,6 +1,6 @@
 # InvokeDeploymentRequestMessagesContent
 
-The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified.
+The contents of the developer message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.InvokeDeploymentRequestContentMessages2]`
+### `List[models.InvokeDeploymentRequestContentMessages22]`
 
 ```python
-value: List[models.InvokeDeploymentRequestContentMessages2] = /* values here */
+value: List[models.InvokeDeploymentRequestContentMessages22] = /* values here */
 ```
 

@@ -1,7 +1,5 @@
 # InvokeDeploymentRequest2Messages4Type
 
-The type of the content part.
-
 
 ## Values
 

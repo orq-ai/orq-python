@@ -25,8 +25,6 @@ with Orq(
 
     res = orq.deployments.metrics.create(id="<id>")
 
-    assert res is not None
-
     # Handle response
     print(res)
 

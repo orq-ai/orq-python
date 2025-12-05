@@ -11,8 +11,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -155,7 +156,14 @@ ResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-ResponseFormat = TypeAliasType("ResponseFormat", Union[Text, JSONObject, JSONSchema])
+ResponseFormat = Annotated[
+    Union[
+        Annotated[Text, Tag("text")],
+        Annotated[JSONObject, Tag("json_object")],
+        Annotated[JSONSchema, Tag("json_schema")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -220,12 +228,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class ToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class ToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -656,14 +664,14 @@ FallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-FallbackModelConfigurationResponseFormat = TypeAliasType(
-    "FallbackModelConfigurationResponseFormat",
+FallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        ResponseFormatText,
-        ResponseFormatJSONObject,
-        CreateAgentRequestResponseFormatJSONSchema,
+        Annotated[ResponseFormatText, Tag("text")],
+        Annotated[ResponseFormatJSONObject, Tag("json_object")],
+        Annotated[CreateAgentRequestResponseFormatJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -732,12 +740,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1435,26 +1443,26 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-AgentToolInputCRUD = TypeAliasType(
-    "AgentToolInputCRUD",
+AgentToolInputCRUD = Annotated[
     Union[
-        GoogleSearchTool,
-        WebScraperTool,
-        CallSubAgentTool,
-        RetrieveAgentsTool,
-        QueryMemoryStoreTool,
-        WriteMemoryStoreTool,
-        RetrieveMemoryStoresTool,
-        DeleteMemoryDocumentTool,
-        RetrieveKnowledgeBasesTool,
-        QueryKnowledgeBaseTool,
-        CurrentDateTool,
-        HTTPTool,
-        CodeExecutionTool,
-        FunctionTool,
-        MCPTool,
+        Annotated[GoogleSearchTool, Tag("google_search")],
+        Annotated[WebScraperTool, Tag("web_scraper")],
+        Annotated[CallSubAgentTool, Tag("call_sub_agent")],
+        Annotated[RetrieveAgentsTool, Tag("retrieve_agents")],
+        Annotated[QueryMemoryStoreTool, Tag("query_memory_store")],
+        Annotated[WriteMemoryStoreTool, Tag("write_memory_store")],
+        Annotated[RetrieveMemoryStoresTool, Tag("retrieve_memory_stores")],
+        Annotated[DeleteMemoryDocumentTool, Tag("delete_memory_document")],
+        Annotated[RetrieveKnowledgeBasesTool, Tag("retrieve_knowledge_bases")],
+        Annotated[QueryKnowledgeBaseTool, Tag("query_knowledge_base")],
+        Annotated[CurrentDateTool, Tag("current_date")],
+        Annotated[HTTPTool, Tag("http")],
+        Annotated[CodeExecutionTool, Tag("code")],
+        Annotated[FunctionTool, Tag("function")],
+        Annotated[MCPTool, Tag("mcp")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
@@ -1991,14 +1999,17 @@ CreateAgentRequestResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-CreateAgentRequestResponseFormat = TypeAliasType(
-    "CreateAgentRequestResponseFormat",
+CreateAgentRequestResponseFormat = Annotated[
     Union[
-        CreateAgentRequestResponseFormatText,
-        CreateAgentRequestResponseFormatJSONObject,
-        CreateAgentRequestResponseFormatAgentsResponse201JSONSchema,
+        Annotated[CreateAgentRequestResponseFormatText, Tag("text")],
+        Annotated[CreateAgentRequestResponseFormatJSONObject, Tag("json_object")],
+        Annotated[
+            CreateAgentRequestResponseFormatAgentsResponse201JSONSchema,
+            Tag("json_schema"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -2065,12 +2076,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2487,14 +2498,17 @@ CreateAgentRequestFallbackModelConfigurationResponseFormatTypedDict = TypeAliasT
 r"""An object specifying the format that the model must output"""
 
 
-CreateAgentRequestFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "CreateAgentRequestFallbackModelConfigurationResponseFormat",
+CreateAgentRequestFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        CreateAgentRequestResponseFormatAgentsText,
-        CreateAgentRequestResponseFormatAgentsJSONObject,
-        CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchema,
+        Annotated[CreateAgentRequestResponseFormatAgentsText, Tag("text")],
+        Annotated[CreateAgentRequestResponseFormatAgentsJSONObject, Tag("json_object")],
+        Annotated[
+            CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyJSONSchema,
+            Tag("json_schema"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -2567,12 +2581,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceAgentsResponseFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceAgentsResponseFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 

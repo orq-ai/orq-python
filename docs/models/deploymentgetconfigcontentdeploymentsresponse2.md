@@ -9,15 +9,15 @@
 value: models.DeploymentGetConfig2DeploymentsResponse1 = /* values here */
 ```
 
-### `models.DeploymentGetConfig2DeploymentsResponse2`
+### `models.DeploymentGetConfig22`
 
 ```python
-value: models.DeploymentGetConfig2DeploymentsResponse2 = /* values here */
+value: models.DeploymentGetConfig22 = /* values here */
 ```
 
-### `models.DeploymentGetConfig2DeploymentsResponse3`
+### `models.DeploymentGetConfig23`
 
 ```python
-value: models.DeploymentGetConfig2DeploymentsResponse3 = /* values here */
+value: models.DeploymentGetConfig23 = /* values here */
 ```
 

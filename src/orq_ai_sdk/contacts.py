@@ -23,7 +23,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateContactResponseBody]:
+    ) -> models.CreateContactResponseBody:
         r"""Create a contact
 
         Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
@@ -69,6 +69,7 @@ class Contacts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateContactRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -96,9 +97,7 @@ class Contacts(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateContactResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -121,7 +120,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateContactResponseBody]:
+    ) -> models.CreateContactResponseBody:
         r"""Create a contact
 
         Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
@@ -167,6 +166,7 @@ class Contacts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateContactRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -194,9 +194,7 @@ class Contacts(BaseSDK):
         )
 
         if utils.match_response(http_res, "201", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateContactResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -220,7 +218,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListContactsResponseBody]:
+    ) -> models.ListContactsResponseBody:
         r"""List contacts
 
         Retrieves a paginated list of contacts in your workspace. Use pagination parameters to navigate through large contact lists efficiently.
@@ -271,6 +269,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -298,9 +297,7 @@ class Contacts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListContactsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListContactsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -324,7 +321,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListContactsResponseBody]:
+    ) -> models.ListContactsResponseBody:
         r"""List contacts
 
         Retrieves a paginated list of contacts in your workspace. Use pagination parameters to navigate through large contact lists efficiently.
@@ -375,6 +372,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -402,9 +400,7 @@ class Contacts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListContactsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListContactsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -422,7 +418,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveContactResponseBody]:
+    ) -> models.RetrieveContactResponseBody:
         r"""Retrieve a contact
 
         Retrieves detailed information about a specific contact using their contact ID or external ID from your system.
@@ -463,6 +459,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -491,9 +488,7 @@ class Contacts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveContactResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.RetrieveContactContactsResponseBodyData, http_res
@@ -516,7 +511,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveContactResponseBody]:
+    ) -> models.RetrieveContactResponseBody:
         r"""Retrieve a contact
 
         Retrieves detailed information about a specific contact using their contact ID or external ID from your system.
@@ -557,6 +552,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -585,9 +581,7 @@ class Contacts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveContactResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.RetrieveContactContactsResponseBodyData, http_res
@@ -615,7 +609,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateContactResponseBody]:
+    ) -> models.UpdateContactResponseBody:
         r"""Update a contact
 
         Updates specific fields of an existing contact. Only the fields provided in the request body will be updated.
@@ -675,6 +669,7 @@ class Contacts(BaseSDK):
                 "json",
                 Optional[models.UpdateContactRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -703,9 +698,7 @@ class Contacts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateContactResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateContactContactsResponseBodyData, http_res
@@ -733,7 +726,7 @@ class Contacts(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateContactResponseBody]:
+    ) -> models.UpdateContactResponseBody:
         r"""Update a contact
 
         Updates specific fields of an existing contact. Only the fields provided in the request body will be updated.
@@ -793,6 +786,7 @@ class Contacts(BaseSDK):
                 "json",
                 Optional[models.UpdateContactRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -821,9 +815,7 @@ class Contacts(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateContactResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateContactResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateContactContactsResponseBodyData, http_res
@@ -887,6 +879,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -979,6 +972,7 @@ class Contacts(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

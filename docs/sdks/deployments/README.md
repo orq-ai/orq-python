@@ -84,8 +84,6 @@ with Orq(
 
     res = orq.deployments.list(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -183,8 +181,6 @@ with Orq(
 ) as orq:
 
     res = orq.deployments.stream(key="<key>")
-
-    assert res is not None
 
     with res as event_stream:
         for event in event_stream:

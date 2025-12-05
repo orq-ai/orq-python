@@ -6,7 +6,7 @@ from typing import Literal
 from typing_extensions import TypedDict
 
 
-Type = Literal["agents.execution_started",]
+AgentExecutionStartedStreamingEventType = Literal["agents.execution_started",]
 
 
 class DataTypedDict(TypedDict):
@@ -32,7 +32,7 @@ class Data(BaseModel):
 class AgentExecutionStartedStreamingEventTypedDict(TypedDict):
     r"""Initial event emitted when an agent stream begins. Contains the task ID for tracking, workspace context, and trace ID for observability."""
 
-    type: Type
+    type: AgentExecutionStartedStreamingEventType
     timestamp: str
     r"""ISO timestamp of the event"""
     data: DataTypedDict
@@ -41,7 +41,7 @@ class AgentExecutionStartedStreamingEventTypedDict(TypedDict):
 class AgentExecutionStartedStreamingEvent(BaseModel):
     r"""Initial event emitted when an agent stream begins. Contains the task ID for tracking, workspace context, and trace ID for observability."""
 
-    type: Type
+    type: AgentExecutionStartedStreamingEventType
 
     timestamp: str
     r"""ISO timestamp of the event"""

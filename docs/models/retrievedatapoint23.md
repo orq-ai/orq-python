@@ -1,9 +1,0 @@
-# RetrieveDatapoint23
-
-
-## Fields
-
-| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `type`                                                                                               | [models.RetrieveDatapoint2DatasetsResponseType](../models/retrievedatapoint2datasetsresponsetype.md) | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
-| `input_audio`                                                                                        | [models.RetrieveDatapoint2InputAudio](../models/retrievedatapoint2inputaudio.md)                     | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

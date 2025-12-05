@@ -1,17 +1,10 @@
 # DeploymentStreamContentDeployments2
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentStream2TextContentPart`
-
-```python
-value: models.DeploymentStream2TextContentPart = /* values here */
-```
-
-### `models.DeploymentStream2RefusalContentPart`
-
-```python
-value: models.DeploymentStream2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                         | [models.DeploymentStreamContentDeploymentsRequestType](../models/deploymentstreamcontentdeploymentsrequesttype.md)             | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `text`                                                                                                                         | *str*                                                                                                                          | :heavy_check_mark:                                                                                                             | N/A                                                                                                                            |
+| `cache_control`                                                                                                                | [Optional[models.DeploymentStreamContentDeploymentsCacheControl]](../models/deploymentstreamcontentdeploymentscachecontrol.md) | :heavy_minus_sign:                                                                                                             | N/A                                                                                                                            |

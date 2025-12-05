@@ -5,11 +5,6 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.metrics import Metrics
-from orq_ai_sdk.models import (
-    deploymentgetconfigop as models_deploymentgetconfigop,
-    deploymentstreamop as models_deploymentstreamop,
-    invokedeploymentrequest as models_invokedeploymentrequest,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -37,43 +32,23 @@ class Deployments(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
-            Union[
-                List[models_invokedeploymentrequest.PrefixMessages],
-                List[models_invokedeploymentrequest.PrefixMessagesTypedDict],
-            ]
+            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
         ] = None,
         messages: Optional[
-            Union[
-                List[models_invokedeploymentrequest.Messages],
-                List[models_invokedeploymentrequest.MessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
-            Union[
-                List[models_invokedeploymentrequest.Documents],
-                List[models_invokedeploymentrequest.DocumentsTypedDict],
-            ]
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
-            Union[
-                models_invokedeploymentrequest.InvokeOptions,
-                models_invokedeploymentrequest.InvokeOptionsTypedDict,
-            ]
+            Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
-        thread: Optional[
-            Union[
-                models_invokedeploymentrequest.Thread,
-                models_invokedeploymentrequest.ThreadTypedDict,
-            ]
-        ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         knowledge_filter: Optional[
-            Union[
-                models_invokedeploymentrequest.KnowledgeFilter,
-                models_invokedeploymentrequest.KnowledgeFilterTypedDict,
-            ]
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -161,6 +136,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.InvokeDeploymentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -189,7 +165,7 @@ class Deployments(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.DeploymentInvokeResponseBody], http_res
+                models.DeploymentInvokeResponseBody, http_res
             )
         if utils.match_response(http_res, "204", "*"):
             return None
@@ -210,43 +186,23 @@ class Deployments(BaseSDK):
         inputs: Optional[Dict[str, Any]] = None,
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
-            Union[
-                List[models_invokedeploymentrequest.PrefixMessages],
-                List[models_invokedeploymentrequest.PrefixMessagesTypedDict],
-            ]
+            Union[List[models.PrefixMessages], List[models.PrefixMessagesTypedDict]]
         ] = None,
         messages: Optional[
-            Union[
-                List[models_invokedeploymentrequest.Messages],
-                List[models_invokedeploymentrequest.MessagesTypedDict],
-            ]
+            Union[List[models.Messages], List[models.MessagesTypedDict]]
         ] = None,
         file_ids: Optional[List[str]] = None,
         metadata: Optional[Dict[str, Any]] = None,
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
-            Union[
-                List[models_invokedeploymentrequest.Documents],
-                List[models_invokedeploymentrequest.DocumentsTypedDict],
-            ]
+            Union[List[models.Documents], List[models.DocumentsTypedDict]]
         ] = None,
         invoke_options: Optional[
-            Union[
-                models_invokedeploymentrequest.InvokeOptions,
-                models_invokedeploymentrequest.InvokeOptionsTypedDict,
-            ]
+            Union[models.InvokeOptions, models.InvokeOptionsTypedDict]
         ] = None,
-        thread: Optional[
-            Union[
-                models_invokedeploymentrequest.Thread,
-                models_invokedeploymentrequest.ThreadTypedDict,
-            ]
-        ] = None,
+        thread: Optional[Union[models.Thread, models.ThreadTypedDict]] = None,
         knowledge_filter: Optional[
-            Union[
-                models_invokedeploymentrequest.KnowledgeFilter,
-                models_invokedeploymentrequest.KnowledgeFilterTypedDict,
-            ]
+            Union[models.KnowledgeFilter, models.KnowledgeFilterTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -334,6 +290,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.InvokeDeploymentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -362,7 +319,7 @@ class Deployments(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.DeploymentInvokeResponseBody], http_res
+                models.DeploymentInvokeResponseBody, http_res
             )
         if utils.match_response(http_res, "204", "*"):
             return None
@@ -385,7 +342,7 @@ class Deployments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeploymentsResponseBody]:
+    ) -> models.DeploymentsResponseBody:
         r"""List all deployments
 
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
@@ -430,6 +387,7 @@ class Deployments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -458,9 +416,7 @@ class Deployments(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.DeploymentsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.DeploymentsResponseBody, http_res)
         if utils.match_response(http_res, "500", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -483,7 +439,7 @@ class Deployments(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeploymentsResponseBody]:
+    ) -> models.DeploymentsResponseBody:
         r"""List all deployments
 
         Returns a list of your deployments. The deployments are returned sorted by creation date, with the most recent deployments appearing first.
@@ -528,6 +484,7 @@ class Deployments(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -556,9 +513,7 @@ class Deployments(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.DeploymentsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.DeploymentsResponseBody, http_res)
         if utils.match_response(http_res, "500", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -579,16 +534,14 @@ class Deployments(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigPrefixMessages],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigPrefixMessagesTypedDict
-                ],
+                List[models.DeploymentGetConfigPrefixMessages],
+                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessages],
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessagesTypedDict],
+                List[models.DeploymentGetConfigMessages],
+                List[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -596,28 +549,26 @@ class Deployments(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigDocuments],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigDocumentsTypedDict
-                ],
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptions,
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptionsTypedDict,
+                models.DeploymentGetConfigInvokeOptions,
+                models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigThread,
-                models_deploymentgetconfigop.DeploymentGetConfigThreadTypedDict,
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilter,
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilterTypedDict,
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -703,6 +654,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -731,7 +683,7 @@ class Deployments(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.DeploymentGetConfigResponseBody], http_res
+                models.DeploymentGetConfigResponseBody, http_res
             )
         if utils.match_response(http_res, "204", "*"):
             return None
@@ -752,16 +704,14 @@ class Deployments(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigPrefixMessages],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigPrefixMessagesTypedDict
-                ],
+                List[models.DeploymentGetConfigPrefixMessages],
+                List[models.DeploymentGetConfigPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessages],
-                List[models_deploymentgetconfigop.DeploymentGetConfigMessagesTypedDict],
+                List[models.DeploymentGetConfigMessages],
+                List[models.DeploymentGetConfigMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -769,28 +719,26 @@ class Deployments(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentgetconfigop.DeploymentGetConfigDocuments],
-                List[
-                    models_deploymentgetconfigop.DeploymentGetConfigDocumentsTypedDict
-                ],
+                List[models.DeploymentGetConfigDocuments],
+                List[models.DeploymentGetConfigDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptions,
-                models_deploymentgetconfigop.DeploymentGetConfigInvokeOptionsTypedDict,
+                models.DeploymentGetConfigInvokeOptions,
+                models.DeploymentGetConfigInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigThread,
-                models_deploymentgetconfigop.DeploymentGetConfigThreadTypedDict,
+                models.DeploymentGetConfigThread,
+                models.DeploymentGetConfigThreadTypedDict,
             ]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilter,
-                models_deploymentgetconfigop.DeploymentGetConfigKnowledgeFilterTypedDict,
+                models.DeploymentGetConfigKnowledgeFilter,
+                models.DeploymentGetConfigKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -876,6 +824,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentGetConfigRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -904,7 +853,7 @@ class Deployments(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.DeploymentGetConfigResponseBody], http_res
+                models.DeploymentGetConfigResponseBody, http_res
             )
         if utils.match_response(http_res, "204", "*"):
             return None
@@ -925,14 +874,14 @@ class Deployments(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessages],
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessagesTypedDict],
+                List[models.DeploymentStreamPrefixMessages],
+                List[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamMessages],
-                List[models_deploymentstreamop.DeploymentStreamMessagesTypedDict],
+                List[models.DeploymentStreamMessages],
+                List[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -940,33 +889,30 @@ class Deployments(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamDocuments],
-                List[models_deploymentstreamop.DeploymentStreamDocumentsTypedDict],
+                List[models.DeploymentStreamDocuments],
+                List[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamInvokeOptions,
-                models_deploymentstreamop.DeploymentStreamInvokeOptionsTypedDict,
+                models.DeploymentStreamInvokeOptions,
+                models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
-            Union[
-                models_deploymentstreamop.DeploymentStreamThread,
-                models_deploymentstreamop.DeploymentStreamThreadTypedDict,
-            ]
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilter,
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilterTypedDict,
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStream[models.DeploymentStreamResponseBody]]:
+    ) -> eventstreaming.EventStream[models.DeploymentStreamResponseBody]:
         r"""Stream
 
         Stream deployment generation. Only supported for completions and chat completions.
@@ -1048,6 +994,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentStreamRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1102,14 +1049,14 @@ class Deployments(BaseSDK):
         context: Optional[Dict[str, Any]] = None,
         prefix_messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessages],
-                List[models_deploymentstreamop.DeploymentStreamPrefixMessagesTypedDict],
+                List[models.DeploymentStreamPrefixMessages],
+                List[models.DeploymentStreamPrefixMessagesTypedDict],
             ]
         ] = None,
         messages: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamMessages],
-                List[models_deploymentstreamop.DeploymentStreamMessagesTypedDict],
+                List[models.DeploymentStreamMessages],
+                List[models.DeploymentStreamMessagesTypedDict],
             ]
         ] = None,
         file_ids: Optional[List[str]] = None,
@@ -1117,33 +1064,30 @@ class Deployments(BaseSDK):
         extra_params: Optional[Dict[str, Any]] = None,
         documents: Optional[
             Union[
-                List[models_deploymentstreamop.DeploymentStreamDocuments],
-                List[models_deploymentstreamop.DeploymentStreamDocumentsTypedDict],
+                List[models.DeploymentStreamDocuments],
+                List[models.DeploymentStreamDocumentsTypedDict],
             ]
         ] = None,
         invoke_options: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamInvokeOptions,
-                models_deploymentstreamop.DeploymentStreamInvokeOptionsTypedDict,
+                models.DeploymentStreamInvokeOptions,
+                models.DeploymentStreamInvokeOptionsTypedDict,
             ]
         ] = None,
         thread: Optional[
-            Union[
-                models_deploymentstreamop.DeploymentStreamThread,
-                models_deploymentstreamop.DeploymentStreamThreadTypedDict,
-            ]
+            Union[models.DeploymentStreamThread, models.DeploymentStreamThreadTypedDict]
         ] = None,
         knowledge_filter: Optional[
             Union[
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilter,
-                models_deploymentstreamop.DeploymentStreamKnowledgeFilterTypedDict,
+                models.DeploymentStreamKnowledgeFilter,
+                models.DeploymentStreamKnowledgeFilterTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStreamAsync[models.DeploymentStreamResponseBody]]:
+    ) -> eventstreaming.EventStreamAsync[models.DeploymentStreamResponseBody]:
         r"""Stream
 
         Stream deployment generation. Only supported for completions and chat completions.
@@ -1225,6 +1169,7 @@ class Deployments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeploymentStreamRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

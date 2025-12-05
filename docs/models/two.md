@@ -1,29 +1,10 @@
 # Two
 
 
-## Supported Types
+## Fields
 
-### `models.InvokeDeploymentRequest21`
-
-```python
-value: models.InvokeDeploymentRequest21 = /* values here */
-```
-
-### `models.Two2`
-
-```python
-value: models.Two2 = /* values here */
-```
-
-### `models.Three`
-
-```python
-value: models.Three = /* values here */
-```
-
-### `models.Four`
-
-```python
-value: models.Four = /* values here */
-```
-
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                 | [models.InvokeDeploymentRequestContentType](../models/invokedeploymentrequestcontenttype.md)                           | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `text`                                                                                                                 | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `cache_control`                                                                                                        | [Optional[models.InvokeDeploymentRequestContentCacheControl]](../models/invokedeploymentrequestcontentcachecontrol.md) | :heavy_minus_sign:                                                                                                     | N/A                                                                                                                    |

@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.UpdatePrompt2TextContentPart`
+### `models.UpdatePrompt2Prompts1`
 
 ```python
-value: models.UpdatePrompt2TextContentPart = /* values here */
+value: models.UpdatePrompt2Prompts1 = /* values here */
 ```
 
-### `models.UpdatePrompt2RefusalContentPart`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.UpdatePrompt2RefusalContentPart = /* values here */
+value: models.ImageContentPartSchema = /* values here */
+```
+
+### `models.AudioContentPartSchema`
+
+```python
+value: models.AudioContentPartSchema = /* values here */
+```
+
+### `models.UpdatePrompt24`
+
+```python
+value: models.UpdatePrompt24 = /* values here */
 ```
 

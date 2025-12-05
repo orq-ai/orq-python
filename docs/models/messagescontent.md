@@ -1,6 +1,6 @@
 # MessagesContent
 
-The contents of the user message.
+The contents of the system message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.InvokeDeploymentRequestContent2]`
+### `List[models.InvokeDeploymentRequestContentMessages2]`
 
 ```python
-value: List[models.InvokeDeploymentRequestContent2] = /* values here */
+value: List[models.InvokeDeploymentRequestContentMessages2] = /* values here */
 ```
 

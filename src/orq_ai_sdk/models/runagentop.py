@@ -162,14 +162,14 @@ RunAgentModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentModelConfigurationResponseFormat = TypeAliasType(
-    "RunAgentModelConfigurationResponseFormat",
+RunAgentModelConfigurationResponseFormat = Annotated[
     Union[
-        RunAgentResponseFormatText,
-        RunAgentResponseFormatJSONObject,
-        RunAgentResponseFormatJSONSchema,
+        Annotated[RunAgentResponseFormatText, Tag("text")],
+        Annotated[RunAgentResponseFormatJSONObject, Tag("json_object")],
+        Annotated[RunAgentResponseFormatJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -238,12 +238,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RunAgentToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RunAgentToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -685,14 +685,14 @@ RunAgentFallbackModelConfigurationResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-RunAgentFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "RunAgentFallbackModelConfigurationResponseFormat",
+RunAgentFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        RunAgentResponseFormatAgentsText,
-        RunAgentResponseFormatAgentsJSONObject,
-        RunAgentResponseFormatAgentsRequestJSONSchema,
+        Annotated[RunAgentResponseFormatAgentsText, Tag("text")],
+        Annotated[RunAgentResponseFormatAgentsJSONObject, Tag("json_object")],
+        Annotated[RunAgentResponseFormatAgentsRequestJSONSchema, Tag("json_schema")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -761,12 +761,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RunAgentToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RunAgentToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1066,9 +1066,14 @@ RunAgentPublicMessagePartTypedDict = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-RunAgentPublicMessagePart = TypeAliasType(
-    "RunAgentPublicMessagePart", Union[TextPart, FilePart, ToolResultPart]
-)
+RunAgentPublicMessagePart = Annotated[
+    Union[
+        Annotated[TextPart, Tag("text")],
+        Annotated[FilePart, Tag("file")],
+        Annotated[ToolResultPart, Tag("tool_result")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
+]
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
@@ -1238,7 +1243,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KB53ZN6PXYX49WCX39VNPZMG"
+    id: Optional[str] = "01KBQA7AP4W527CDSHZ07E3SQK"
 
     description: Optional[str] = None
 
@@ -1918,26 +1923,32 @@ AgentToolInputRunTypedDict = TypeAliasType(
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 
-AgentToolInputRun = TypeAliasType(
-    "AgentToolInputRun",
+AgentToolInputRun = Annotated[
     Union[
-        AgentToolInputRunGoogleSearchTool,
-        AgentToolInputRunWebScraperTool,
-        AgentToolInputRunCallSubAgentTool,
-        AgentToolInputRunRetrieveAgentsTool,
-        AgentToolInputRunQueryMemoryStoreTool,
-        AgentToolInputRunWriteMemoryStoreTool,
-        AgentToolInputRunRetrieveMemoryStoresTool,
-        AgentToolInputRunDeleteMemoryDocumentTool,
-        AgentToolInputRunRetrieveKnowledgeBasesTool,
-        AgentToolInputRunQueryKnowledgeBaseTool,
-        AgentToolInputRunCurrentDateTool,
-        HTTPToolRun,
-        CodeToolRun,
-        FunctionToolRun,
-        MCPToolRun,
+        Annotated[AgentToolInputRunGoogleSearchTool, Tag("google_search")],
+        Annotated[AgentToolInputRunWebScraperTool, Tag("web_scraper")],
+        Annotated[AgentToolInputRunCallSubAgentTool, Tag("call_sub_agent")],
+        Annotated[AgentToolInputRunRetrieveAgentsTool, Tag("retrieve_agents")],
+        Annotated[AgentToolInputRunQueryMemoryStoreTool, Tag("query_memory_store")],
+        Annotated[AgentToolInputRunWriteMemoryStoreTool, Tag("write_memory_store")],
+        Annotated[
+            AgentToolInputRunRetrieveMemoryStoresTool, Tag("retrieve_memory_stores")
+        ],
+        Annotated[
+            AgentToolInputRunDeleteMemoryDocumentTool, Tag("delete_memory_document")
+        ],
+        Annotated[
+            AgentToolInputRunRetrieveKnowledgeBasesTool, Tag("retrieve_knowledge_bases")
+        ],
+        Annotated[AgentToolInputRunQueryKnowledgeBaseTool, Tag("query_knowledge_base")],
+        Annotated[AgentToolInputRunCurrentDateTool, Tag("current_date")],
+        Annotated[HTTPToolRun, Tag("http")],
+        Annotated[CodeToolRun, Tag("code")],
+        Annotated[FunctionToolRun, Tag("function")],
+        Annotated[MCPToolRun, Tag("mcp")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
 
 

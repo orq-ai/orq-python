@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -155,7 +155,7 @@ class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNKJ97QWYY5P7D8V12BG"
+        "tool_01KBQA7B3B4F7A6EJHCMNA1QQ8"
     )
 
     display_name: Optional[str] = None
@@ -229,7 +229,7 @@ class RetrieveToolResponseBodyTools(BaseModel):
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KB53ZNKH91JSA5ZTNS30M6SC"
+    id: Optional[str] = "01KBQA7B3AJR9B4WZRX81DH3HT"
 
     description: Optional[str] = None
 
@@ -328,7 +328,7 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNKFFD6V0A9987TWYKZH"
+        "tool_01KBQA7B39VRPBF290TVCSD2TZ"
     )
 
     display_name: Optional[str] = None
@@ -540,7 +540,7 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNK5GW98468RKV669F8A"
+        "tool_01KBQA7B363V0Q1S68D43JMJ79"
     )
 
     display_name: Optional[str] = None
@@ -694,7 +694,7 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNK3WKZ65SKDDK44HZHT"
+        "tool_01KBQA7B33284FH3Y5GSP5399Z"
     )
 
     display_name: Optional[str] = None
@@ -852,7 +852,7 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNK1SVZXG7FJS7FG0C42"
+        "tool_01KBQA7B3142B9TNZXJQNPQGZM"
     )
 
     display_name: Optional[str] = None
@@ -883,14 +883,14 @@ RetrieveToolResponseBodyTypedDict = TypeAliasType(
 r"""Successfully retrieved the tool."""
 
 
-RetrieveToolResponseBody = TypeAliasType(
-    "RetrieveToolResponseBody",
+RetrieveToolResponseBody = Annotated[
     Union[
-        RetrieveToolResponseBodyFunctionTool,
-        RetrieveToolResponseBodyJSONSchemaTool,
-        RetrieveToolResponseBodyHTTPTool,
-        RetrieveToolResponseBodyMCPTool,
-        RetrieveToolResponseBodyCodeExecutionTool,
+        Annotated[RetrieveToolResponseBodyFunctionTool, Tag("function")],
+        Annotated[RetrieveToolResponseBodyJSONSchemaTool, Tag("json_schema")],
+        Annotated[RetrieveToolResponseBodyHTTPTool, Tag("http")],
+        Annotated[RetrieveToolResponseBodyMCPTool, Tag("mcp")],
+        Annotated[RetrieveToolResponseBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Successfully retrieved the tool."""

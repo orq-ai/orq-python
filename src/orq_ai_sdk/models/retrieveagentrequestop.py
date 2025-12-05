@@ -11,9 +11,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -362,14 +362,16 @@ RetrieveAgentRequestResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-RetrieveAgentRequestResponseFormat = TypeAliasType(
-    "RetrieveAgentRequestResponseFormat",
+RetrieveAgentRequestResponseFormat = Annotated[
     Union[
-        RetrieveAgentRequestResponseFormatText,
-        RetrieveAgentRequestResponseFormatJSONObject,
-        RetrieveAgentRequestResponseFormatAgentsJSONSchema,
+        Annotated[RetrieveAgentRequestResponseFormatText, Tag("text")],
+        Annotated[RetrieveAgentRequestResponseFormatJSONObject, Tag("json_object")],
+        Annotated[
+            RetrieveAgentRequestResponseFormatAgentsJSONSchema, Tag("json_schema")
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -438,12 +440,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RetrieveAgentRequestToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RetrieveAgentRequestToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -841,14 +843,19 @@ RetrieveAgentRequestFallbackModelConfigurationResponseFormatTypedDict = TypeAlia
 r"""An object specifying the format that the model must output"""
 
 
-RetrieveAgentRequestFallbackModelConfigurationResponseFormat = TypeAliasType(
-    "RetrieveAgentRequestFallbackModelConfigurationResponseFormat",
+RetrieveAgentRequestFallbackModelConfigurationResponseFormat = Annotated[
     Union[
-        RetrieveAgentRequestResponseFormatAgentsText,
-        RetrieveAgentRequestResponseFormatAgentsJSONObject,
-        RetrieveAgentRequestResponseFormatAgentsResponse200JSONSchema,
+        Annotated[RetrieveAgentRequestResponseFormatAgentsText, Tag("text")],
+        Annotated[
+            RetrieveAgentRequestResponseFormatAgentsJSONObject, Tag("json_object")
+        ],
+        Annotated[
+            RetrieveAgentRequestResponseFormatAgentsResponse200JSONSchema,
+            Tag("json_schema"),
+        ],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""An object specifying the format that the model must output"""
 
 
@@ -921,12 +928,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RetrieveAgentRequestToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RetrieveAgentRequestToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 

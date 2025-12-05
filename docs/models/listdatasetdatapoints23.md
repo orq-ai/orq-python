@@ -1,9 +1,0 @@
-# ListDatasetDatapoints23
-
-
-## Fields
-
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                       | [models.ListDatasetDatapoints2DatasetsResponseType](../models/listdatasetdatapoints2datasetsresponsetype.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `input_audio`                                                                                                | [models.ListDatasetDatapoints2InputAudio](../models/listdatasetdatapoints2inputaudio.md)                     | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

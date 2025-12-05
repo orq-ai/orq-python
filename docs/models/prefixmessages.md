@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.DeveloperMessage`
-
-```python
-value: models.DeveloperMessage = /* values here */
-```
-
 ### `models.SystemMessage`
 
 ```python
 value: models.SystemMessage = /* values here */
+```
+
+### `models.DeveloperMessage`
+
+```python
+value: models.DeveloperMessage = /* values here */
 ```
 
 ### `models.UserMessage`

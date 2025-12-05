@@ -20,7 +20,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListKnowledgeBasesResponseBody]:
+    ) -> models.ListKnowledgeBasesResponseBody:
         r"""List all knowledge bases
 
         Returns a list of your knowledge bases. The knowledge bases are returned sorted by creation date, with the most recent knowledge bases appearing first
@@ -65,6 +65,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -93,7 +94,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListKnowledgeBasesResponseBody], http_res
+                models.ListKnowledgeBasesResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -114,7 +115,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListKnowledgeBasesResponseBody]:
+    ) -> models.ListKnowledgeBasesResponseBody:
         r"""List all knowledge bases
 
         Returns a list of your knowledge bases. The knowledge bases are returned sorted by creation date, with the most recent knowledge bases appearing first
@@ -159,6 +160,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -187,7 +189,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListKnowledgeBasesResponseBody], http_res
+                models.ListKnowledgeBasesResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -209,7 +211,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateKnowledgeResponseBody]:
+    ) -> models.CreateKnowledgeResponseBody:
         r"""Create a knowledge
 
         :param request: The request object to send.
@@ -251,6 +253,7 @@ class Knowledge(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateKnowledgeRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -278,9 +281,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -301,7 +302,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateKnowledgeResponseBody]:
+    ) -> models.CreateKnowledgeResponseBody:
         r"""Create a knowledge
 
         :param request: The request object to send.
@@ -343,6 +344,7 @@ class Knowledge(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateKnowledgeRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -370,9 +372,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -390,7 +390,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetOneKnowledgeResponseBody]:
+    ) -> models.GetOneKnowledgeResponseBody:
         r"""Retrieves a knowledge base
 
         Retrieve a knowledge base with the settings.
@@ -431,6 +431,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -458,9 +459,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetOneKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetOneKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -478,7 +477,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetOneKnowledgeResponseBody]:
+    ) -> models.GetOneKnowledgeResponseBody:
         r"""Retrieves a knowledge base
 
         Retrieve a knowledge base with the settings.
@@ -519,6 +518,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -546,9 +546,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetOneKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetOneKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -570,7 +568,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateKnowledgeResponseBody]:
+    ) -> models.UpdateKnowledgeResponseBody:
         r"""Updates a knowledge
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -620,6 +618,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.UpdateKnowledgeRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -647,9 +646,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -671,7 +668,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateKnowledgeResponseBody]:
+    ) -> models.UpdateKnowledgeResponseBody:
         r"""Updates a knowledge
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -721,6 +718,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.UpdateKnowledgeRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -748,9 +746,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -809,6 +805,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -895,6 +892,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -954,7 +952,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.SearchKnowledgeResponseBody]:
+    ) -> models.SearchKnowledgeResponseBody:
         r"""Search knowledge base
 
         Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores. Note that all configuration changes made in the API will override the settings in the UI.
@@ -1028,6 +1026,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.SearchKnowledgeRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1055,9 +1054,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.SearchKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.SearchKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1089,7 +1086,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.SearchKnowledgeResponseBody]:
+    ) -> models.SearchKnowledgeResponseBody:
         r"""Search knowledge base
 
         Search a Knowledge Base and return the most similar chunks, along with their search and rerank scores. Note that all configuration changes made in the API will override the settings in the UI.
@@ -1163,6 +1160,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.SearchKnowledgeRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1190,9 +1188,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.SearchKnowledgeResponseBody], http_res
-            )
+            return unmarshal_json_response(models.SearchKnowledgeResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1215,7 +1211,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasourcesResponseBody]:
+    ) -> models.ListDatasourcesResponseBody:
         r"""List all datasources
 
         :param knowledge_id: Unique identifier of the knowledge base
@@ -1264,6 +1260,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1291,9 +1288,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListDatasourcesResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListDatasourcesResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1316,7 +1311,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListDatasourcesResponseBody]:
+    ) -> models.ListDatasourcesResponseBody:
         r"""List all datasources
 
         :param knowledge_id: Unique identifier of the knowledge base
@@ -1365,6 +1360,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1392,9 +1388,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListDatasourcesResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListDatasourcesResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1417,7 +1411,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasourceResponseBody]:
+    ) -> models.CreateDatasourceResponseBody:
         r"""Create a new datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -1473,6 +1467,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.CreateDatasourceRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1501,7 +1496,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateDatasourceResponseBody], http_res
+                models.CreateDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1525,7 +1520,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateDatasourceResponseBody]:
+    ) -> models.CreateDatasourceResponseBody:
         r"""Create a new datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -1581,6 +1576,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.CreateDatasourceRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1609,7 +1605,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateDatasourceResponseBody], http_res
+                models.CreateDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1629,7 +1625,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatasourceResponseBody]:
+    ) -> models.RetrieveDatasourceResponseBody:
         r"""Retrieve a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -1670,6 +1666,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1698,7 +1695,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveDatasourceResponseBody], http_res
+                models.RetrieveDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1718,7 +1715,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveDatasourceResponseBody]:
+    ) -> models.RetrieveDatasourceResponseBody:
         r"""Retrieve a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -1759,6 +1756,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1787,7 +1785,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveDatasourceResponseBody], http_res
+                models.RetrieveDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -1850,6 +1848,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1939,6 +1938,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1986,7 +1986,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatasourceResponseBody]:
+    ) -> models.UpdateDatasourceResponseBody:
         r"""Update a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2038,6 +2038,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.UpdateDatasourceRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2066,7 +2067,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateDatasourceResponseBody], http_res
+                models.UpdateDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2087,7 +2088,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateDatasourceResponseBody]:
+    ) -> models.UpdateDatasourceResponseBody:
         r"""Update a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2139,6 +2140,7 @@ class Knowledge(BaseSDK):
                 "json",
                 models.UpdateDatasourceRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2167,7 +2169,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.UpdateDatasourceResponseBody], http_res
+                models.UpdateDatasourceResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -2190,7 +2192,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> List[models.ResponseBody]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2242,6 +2244,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[List[models.RequestBody]],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2269,9 +2272,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2293,7 +2294,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[List[models.ResponseBody]]:
+    ) -> List[models.ResponseBody]:
         r"""Create chunks for a datasource
 
         :param knowledge_id: Unique identifier of the knowledge
@@ -2345,6 +2346,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[List[models.RequestBody]],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2372,9 +2374,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[List[models.ResponseBody]], http_res
-            )
+            return unmarshal_json_response(List[models.ResponseBody], http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2400,7 +2400,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListChunksResponseBody]:
+    ) -> models.ListChunksResponseBody:
         r"""List all chunks for a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2451,6 +2451,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2478,9 +2479,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListChunksResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListChunksResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2506,7 +2505,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListChunksResponseBody]:
+    ) -> models.ListChunksResponseBody:
         r"""List all chunks for a datasource
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2557,6 +2556,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2584,9 +2584,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListChunksResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListChunksResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2606,7 +2604,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteChunksResponseBody]:
+    ) -> models.DeleteChunksResponseBody:
         r"""Delete multiple chunks
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2658,6 +2656,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.DeleteChunksRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2685,9 +2684,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.DeleteChunksResponseBody], http_res
-            )
+            return unmarshal_json_response(models.DeleteChunksResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2707,7 +2704,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.DeleteChunksResponseBody]:
+    ) -> models.DeleteChunksResponseBody:
         r"""Delete multiple chunks
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2759,6 +2756,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.DeleteChunksRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2786,9 +2784,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.DeleteChunksResponseBody], http_res
-            )
+            return unmarshal_json_response(models.DeleteChunksResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2812,7 +2808,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListChunksPaginatedResponseBody]:
+    ) -> models.ListChunksPaginatedResponseBody:
         r"""List chunks with offset-based pagination
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2872,6 +2868,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.ListChunksPaginatedRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2900,7 +2897,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListChunksPaginatedResponseBody], http_res
+                models.ListChunksPaginatedResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -2925,7 +2922,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListChunksPaginatedResponseBody]:
+    ) -> models.ListChunksPaginatedResponseBody:
         r"""List chunks with offset-based pagination
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -2985,6 +2982,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.ListChunksPaginatedRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3013,7 +3011,7 @@ class Knowledge(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.ListChunksPaginatedResponseBody], http_res
+                models.ListChunksPaginatedResponseBody, http_res
             )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -3036,7 +3034,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetChunksCountResponseBody]:
+    ) -> models.GetChunksCountResponseBody:
         r"""Get chunks total count
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -3092,6 +3090,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.GetChunksCountRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3119,9 +3118,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetChunksCountResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetChunksCountResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -3143,7 +3140,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetChunksCountResponseBody]:
+    ) -> models.GetChunksCountResponseBody:
         r"""Get chunks total count
 
         :param knowledge_id: The unique identifier of the knowledge base
@@ -3199,6 +3196,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.GetChunksCountRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3226,9 +3224,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetChunksCountResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetChunksCountResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -3256,7 +3252,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateChunkResponseBody]:
+    ) -> models.UpdateChunkResponseBody:
         r"""Update a chunk
 
         :param chunk_id: The unique identifier of the chunk
@@ -3314,6 +3310,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.UpdateChunkRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3341,9 +3338,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateChunkResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -3371,7 +3366,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateChunkResponseBody]:
+    ) -> models.UpdateChunkResponseBody:
         r"""Update a chunk
 
         :param chunk_id: The unique identifier of the chunk
@@ -3429,6 +3424,7 @@ class Knowledge(BaseSDK):
                 "json",
                 Optional[models.UpdateChunkRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3456,9 +3452,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateChunkResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -3521,6 +3515,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3611,6 +3606,7 @@ class Knowledge(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3658,7 +3654,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetOneChunkResponseBody]:
+    ) -> models.GetOneChunkResponseBody:
         r"""Retrieve a chunk
 
         :param chunk_id: The unique identifier of the chunk
@@ -3701,6 +3697,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3728,9 +3725,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetOneChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetOneChunkResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -3750,7 +3745,7 @@ class Knowledge(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetOneChunkResponseBody]:
+    ) -> models.GetOneChunkResponseBody:
         r"""Retrieve a chunk
 
         :param chunk_id: The unique identifier of the chunk
@@ -3793,6 +3788,7 @@ class Knowledge(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -3820,9 +3816,7 @@ class Knowledge(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetOneChunkResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetOneChunkResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

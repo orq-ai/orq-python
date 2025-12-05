@@ -1,17 +1,10 @@
 # RetrieveDatapointContentDatasets2
 
 
-## Supported Types
+## Fields
 
-### `models.RetrieveDatapoint2TextContentPart`
-
-```python
-value: models.RetrieveDatapoint2TextContentPart = /* values here */
-```
-
-### `models.RetrieveDatapoint2RefusalContentPart`
-
-```python
-value: models.RetrieveDatapoint2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                     | [models.RetrieveDatapointContentDatasetsType](../models/retrievedatapointcontentdatasetstype.md)                           | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |
+| `text`                                                                                                                     | *str*                                                                                                                      | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |
+| `cache_control`                                                                                                            | [Optional[models.RetrieveDatapointContentDatasetsCacheControl]](../models/retrievedatapointcontentdatasetscachecontrol.md) | :heavy_minus_sign:                                                                                                         | N/A                                                                                                                        |

@@ -1,29 +1,10 @@
 # CreatePromptContentPrompts2
 
 
-## Supported Types
+## Fields
 
-### `models.CreatePrompt2Prompts1`
-
-```python
-value: models.CreatePrompt2Prompts1 = /* values here */
-```
-
-### `models.CreatePrompt2Prompts2`
-
-```python
-value: models.CreatePrompt2Prompts2 = /* values here */
-```
-
-### `models.CreatePrompt2Prompts3`
-
-```python
-value: models.CreatePrompt2Prompts3 = /* values here */
-```
-
-### `models.CreatePrompt24`
-
-```python
-value: models.CreatePrompt24 = /* values here */
-```
-
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.CreatePromptContentType](../models/createpromptcontenttype.md)                           | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `text`                                                                                           | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `cache_control`                                                                                  | [Optional[models.CreatePromptContentCacheControl]](../models/createpromptcontentcachecontrol.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |

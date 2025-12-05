@@ -28,8 +28,6 @@ with Orq(
 
     res = orq.evals.all(limit=10)
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -89,8 +87,6 @@ with Orq(
         "key": "<key>",
     })
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -134,8 +130,6 @@ with Orq(
         "type": "llm_eval",
         "path": "Default",
     })
-
-    assert res is not None
 
     # Handle response
     print(res)

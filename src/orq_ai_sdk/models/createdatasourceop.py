@@ -8,9 +8,14 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
+from orq_ai_sdk.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    RequestMetadata,
+    get_discriminator,
+)
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -62,9 +67,13 @@ ChunkingConfigurationTypedDict = TypeAliasType(
 r"""The chunking configuration settings for the datasource. Defaults to the system's standard chunking configuration if not specified."""
 
 
-ChunkingConfiguration = TypeAliasType(
-    "ChunkingConfiguration", Union[ChunkingConfiguration1, ChunkingConfiguration2]
-)
+ChunkingConfiguration = Annotated[
+    Union[
+        Annotated[ChunkingConfiguration1, Tag("default")],
+        Annotated[ChunkingConfiguration2, Tag("advanced")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The chunking configuration settings for the datasource. Defaults to the system's standard chunking configuration if not specified."""
 
 
@@ -230,7 +239,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KB53ZNQ9K0RS8YEDMGYJDHSY"
+        "01KBQA7B6PKFM1YF6EWC9AA78X"
     )
     r"""The unique identifier of the data source"""
 

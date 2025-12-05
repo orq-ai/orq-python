@@ -24,7 +24,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllToolsResponseBody]:
+    ) -> models.GetAllToolsResponseBody:
         r"""List tools
 
         Lists all workspace tools. By default, returns all tools in a single response. Set `limit` to enable cursor-based pagination with `starting_after` and `ending_before`.
@@ -69,6 +69,7 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -97,9 +98,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetAllToolsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetAllToolsResponseBody, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -122,7 +121,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetAllToolsResponseBody]:
+    ) -> models.GetAllToolsResponseBody:
         r"""List tools
 
         Lists all workspace tools. By default, returns all tools in a single response. Set `limit` to enable cursor-based pagination with `starting_after` and `ending_before`.
@@ -167,6 +166,7 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -195,9 +195,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetAllToolsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetAllToolsResponseBody, http_res)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -223,7 +221,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateToolResponseBody]:
+    ) -> models.CreateToolResponseBody:
         r"""Create tool
 
         Creates a new tool in the workspace.
@@ -267,6 +265,7 @@ class Tools(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateToolRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -295,9 +294,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateToolResponseBody, http_res)
         if utils.match_response(http_res, ["400", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -323,7 +320,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateToolResponseBody]:
+    ) -> models.CreateToolResponseBody:
         r"""Create tool
 
         Creates a new tool in the workspace.
@@ -367,6 +364,7 @@ class Tools(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.CreateToolRequestBody]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -395,9 +393,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateToolResponseBody, http_res)
         if utils.match_response(http_res, ["400", "404"], "application/json"):
             response_data = unmarshal_json_response(models.HonoAPIErrorData, http_res)
             raise models.HonoAPIError(response_data, http_res)
@@ -424,7 +420,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateToolResponseBody]:
+    ) -> models.UpdateToolResponseBody:
         r"""Update tool
 
         Updates a tool in the workspace.
@@ -476,6 +472,7 @@ class Tools(BaseSDK):
                 "json",
                 Optional[models.UpdateToolRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -504,9 +501,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateToolResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateToolToolsResponseBodyData, http_res
@@ -535,7 +530,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateToolResponseBody]:
+    ) -> models.UpdateToolResponseBody:
         r"""Update tool
 
         Updates a tool in the workspace.
@@ -587,6 +582,7 @@ class Tools(BaseSDK):
                 "json",
                 Optional[models.UpdateToolRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -615,9 +611,7 @@ class Tools(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateToolResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateToolToolsResponseBodyData, http_res
@@ -681,6 +675,7 @@ class Tools(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -767,6 +762,7 @@ class Tools(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -812,7 +808,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveToolResponseBody]:
+    ) -> models.RetrieveToolResponseBody:
         r"""Retrieve tool
 
         Retrieves a tool by id.
@@ -853,6 +849,7 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -880,9 +877,7 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveToolResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -900,7 +895,7 @@ class Tools(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveToolResponseBody]:
+    ) -> models.RetrieveToolResponseBody:
         r"""Retrieve tool
 
         Retrieves a tool by id.
@@ -941,6 +936,7 @@ class Tools(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -968,9 +964,7 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RetrieveToolResponseBody], http_res
-            )
+            return unmarshal_json_response(models.RetrieveToolResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

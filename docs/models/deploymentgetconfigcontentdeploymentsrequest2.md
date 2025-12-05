@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig2Deployments1`
+### `models.DeploymentGetConfig21`
 
 ```python
-value: models.DeploymentGetConfig2Deployments1 = /* values here */
+value: models.DeploymentGetConfig21 = /* values here */
 ```
 
-### `models.DeploymentGetConfig2Deployments2`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig2Deployments2 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentGetConfig2Deployments3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig2Deployments3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentGetConfig2Deployments4`
+### `models.DeploymentGetConfig24`
 
 ```python
-value: models.DeploymentGetConfig2Deployments4 = /* values here */
+value: models.DeploymentGetConfig24 = /* values here */
 ```
 

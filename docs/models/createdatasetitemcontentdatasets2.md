@@ -1,17 +1,10 @@
 # CreateDatasetItemContentDatasets2
 
 
-## Supported Types
+## Fields
 
-### `models.CreateDatasetItem2TextContentPart`
-
-```python
-value: models.CreateDatasetItem2TextContentPart = /* values here */
-```
-
-### `models.CreateDatasetItem2RefusalContentPart`
-
-```python
-value: models.CreateDatasetItem2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                     | [models.CreateDatasetItemContentDatasetsRequestType](../models/createdatasetitemcontentdatasetsrequesttype.md)             | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |
+| `text`                                                                                                                     | *str*                                                                                                                      | :heavy_check_mark:                                                                                                         | N/A                                                                                                                        |
+| `cache_control`                                                                                                            | [Optional[models.CreateDatasetItemContentDatasetsCacheControl]](../models/createdatasetitemcontentdatasetscachecontrol.md) | :heavy_minus_sign:                                                                                                         | N/A                                                                                                                        |

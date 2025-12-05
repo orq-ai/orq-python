@@ -3,27 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentStream2Deployments1`
+### `models.DeploymentStream21`
 
 ```python
-value: models.DeploymentStream2Deployments1 = /* values here */
+value: models.DeploymentStream21 = /* values here */
 ```
 
-### `models.DeploymentStream2Deployments2`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.DeploymentStream2Deployments2 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentStream2Deployments3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.DeploymentStream2Deployments3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentStream2Deployments4`
+### `models.DeploymentStream24`
 
 ```python
-value: models.DeploymentStream2Deployments4 = /* values here */
+value: models.DeploymentStream24 = /* values here */
 ```
 

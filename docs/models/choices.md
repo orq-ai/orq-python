@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.ChoicesDeveloperMessage`
-
-```python
-value: models.ChoicesDeveloperMessage = /* values here */
-```
-
 ### `models.ChoicesSystemMessage`
 
 ```python
 value: models.ChoicesSystemMessage = /* values here */
+```
+
+### `models.ChoicesDeveloperMessage`
+
+```python
+value: models.ChoicesDeveloperMessage = /* values here */
 ```
 
 ### `models.ChoicesUserMessage`

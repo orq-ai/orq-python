@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.utils import get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -678,16 +679,16 @@ CreateToolRequestBodyTypedDict = TypeAliasType(
 r"""The tool to create"""
 
 
-CreateToolRequestBody = TypeAliasType(
-    "CreateToolRequestBody",
+CreateToolRequestBody = Annotated[
     Union[
-        RequestBodyFunctionTool,
-        JSONSchemaTool,
-        RequestBodyHTTPTool,
-        RequestBodyMCPTool,
-        RequestBodyCodeExecutionTool,
+        Annotated[RequestBodyFunctionTool, Tag("function")],
+        Annotated[JSONSchemaTool, Tag("json_schema")],
+        Annotated[RequestBodyHTTPTool, Tag("http")],
+        Annotated[RequestBodyMCPTool, Tag("mcp")],
+        Annotated[RequestBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""The tool to create"""
 
 
@@ -827,7 +828,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNHWTKCM02E76472B3TN"
+        "tool_01KBQA7B1F8BKHW42CEPHN7NYM"
     )
 
     display_name: Optional[str] = None
@@ -897,7 +898,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KB53ZNHW054YTGGS3A7PKVTX"
+    id: Optional[str] = "01KBQA7B1DKY8TXTM0BRPM8RCJ"
 
     description: Optional[str] = None
 
@@ -996,7 +997,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNHVZHREYZ6AG78QH9MF"
+        "tool_01KBQA7B1CQY0T0DWS0QPMWQG3"
     )
 
     display_name: Optional[str] = None
@@ -1208,7 +1209,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNHG7SC62880K5QZDHQB"
+        "tool_01KBQA7B188FQ96SQ6YPQQ2WXM"
     )
 
     display_name: Optional[str] = None
@@ -1362,7 +1363,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNHDXYZK1DMQETWTQNN6"
+        "tool_01KBQA7B16CC2EXF8RQKR2F46F"
     )
 
     display_name: Optional[str] = None
@@ -1520,7 +1521,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNHBCP4VPQB39S1BD5D9"
+        "tool_01KBQA7B13SRRMDNR8ZFT62CHS"
     )
 
     display_name: Optional[str] = None
@@ -1551,14 +1552,14 @@ CreateToolResponseBodyTypedDict = TypeAliasType(
 r"""Successfully created the tool."""
 
 
-CreateToolResponseBody = TypeAliasType(
-    "CreateToolResponseBody",
+CreateToolResponseBody = Annotated[
     Union[
-        ResponseBodyFunctionTool,
-        ResponseBodyJSONSchemaTool,
-        ResponseBodyHTTPTool,
-        ResponseBodyMCPTool,
-        ResponseBodyCodeExecutionTool,
+        Annotated[ResponseBodyFunctionTool, Tag("function")],
+        Annotated[ResponseBodyJSONSchemaTool, Tag("json_schema")],
+        Annotated[ResponseBodyHTTPTool, Tag("http")],
+        Annotated[ResponseBodyMCPTool, Tag("mcp")],
+        Annotated[ResponseBodyCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Successfully created the tool."""

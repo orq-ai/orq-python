@@ -3,9 +3,9 @@
 from __future__ import annotations
 from datetime import date, datetime
 from orq_ai_sdk.types import BaseModel, Nullable, UNSET_SENTINEL
-from orq_ai_sdk.utils import parse_datetime
+from orq_ai_sdk.utils import get_discriminator, parse_datetime
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -96,9 +96,13 @@ CreateBudgetRequestBodyTypedDict = TypeAliasType(
 r"""Create budget configuration for contact or workspace"""
 
 
-CreateBudgetRequestBody = TypeAliasType(
-    "CreateBudgetRequestBody", Union[WorkspaceBudget, ContactBudget]
-)
+CreateBudgetRequestBody = Annotated[
+    Union[
+        Annotated[ContactBudget, Tag("contact")],
+        Annotated[WorkspaceBudget, Tag("workspace")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Create budget configuration for contact or workspace"""
 
 
@@ -241,5 +245,5 @@ class CreateBudgetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-11-28T11:36:01.485Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-05T13:11:21.320Z")
     r"""The date and time the resource was last updated"""

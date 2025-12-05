@@ -3,6 +3,11 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createbudgetop as models_createbudgetop,
+    listbudgetsop as models_listbudgetsop,
+    updatebudgetop as models_updatebudgetop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -16,14 +21,14 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models.QueryParamType] = None,
+        type_: Optional[models_listbudgetsop.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListBudgetsResponseBody]:
+    ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
         Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
@@ -74,6 +79,7 @@ class Budgets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -101,9 +107,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListBudgetsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListBudgetsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -119,14 +123,14 @@ class Budgets(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
-        type_: Optional[models.QueryParamType] = None,
+        type_: Optional[models_listbudgetsop.QueryParamType] = None,
         entity_id: Optional[str] = None,
         is_active: OptionalNullable[bool] = UNSET,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListBudgetsResponseBody]:
+    ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
         Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
@@ -177,6 +181,7 @@ class Budgets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -204,9 +209,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListBudgetsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListBudgetsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -220,13 +223,14 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
+            models_createbudgetop.CreateBudgetRequestBody,
+            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateBudgetResponseBody]:
+    ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
         Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
@@ -270,6 +274,7 @@ class Budgets(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateBudgetRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -297,9 +302,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -313,13 +316,14 @@ class Budgets(BaseSDK):
         self,
         *,
         request: Union[
-            models.CreateBudgetRequestBody, models.CreateBudgetRequestBodyTypedDict
+            models_createbudgetop.CreateBudgetRequestBody,
+            models_createbudgetop.CreateBudgetRequestBodyTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateBudgetResponseBody]:
+    ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
         Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
@@ -363,6 +367,7 @@ class Budgets(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateBudgetRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -390,9 +395,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.CreateBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.CreateBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["400", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -410,7 +413,7 @@ class Budgets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetBudgetResponseBody]:
+    ) -> models.GetBudgetResponseBody:
         r"""Get budget configuration
 
         Get budget configuration by ID.
@@ -451,6 +454,7 @@ class Budgets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -478,9 +482,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -498,7 +500,7 @@ class Budgets(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.GetBudgetResponseBody]:
+    ) -> models.GetBudgetResponseBody:
         r"""Get budget configuration
 
         Get budget configuration by ID.
@@ -539,6 +541,7 @@ class Budgets(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -566,9 +569,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.GetBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.GetBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -582,13 +583,15 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
+        budget: Optional[
+            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
+        ] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateBudgetResponseBody]:
+    ) -> models.UpdateBudgetResponseBody:
         r"""Update budget configuration
 
         Update budget configuration by ID
@@ -642,6 +645,7 @@ class Budgets(BaseSDK):
                 "json",
                 models.UpdateBudgetRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -669,9 +673,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -685,13 +687,15 @@ class Budgets(BaseSDK):
         self,
         *,
         id: str,
-        budget: Optional[Union[models.Budget, models.BudgetTypedDict]] = None,
+        budget: Optional[
+            Union[models_updatebudgetop.Budget, models_updatebudgetop.BudgetTypedDict]
+        ] = None,
         is_active: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateBudgetResponseBody]:
+    ) -> models.UpdateBudgetResponseBody:
         r"""Update budget configuration
 
         Update budget configuration by ID
@@ -745,6 +749,7 @@ class Budgets(BaseSDK):
                 "json",
                 models.UpdateBudgetRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -772,9 +777,7 @@ class Budgets(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateBudgetResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateBudgetResponseBody, http_res)
         if utils.match_response(http_res, ["400", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -833,6 +836,7 @@ class Budgets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -919,6 +923,7 @@ class Budgets(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

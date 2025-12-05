@@ -31,8 +31,6 @@ with Orq(
         "content": open("example.file", "rb"),
     }, purpose="retrieval")
 
-    assert res is not None
-
     # Handle response
     print(res)
 
@@ -73,8 +71,6 @@ with Orq(
 ) as orq:
 
     res = orq.files.list(limit=10)
-
-    assert res is not None
 
     # Handle response
     print(res)
@@ -117,8 +113,6 @@ with Orq(
 ) as orq:
 
     res = orq.files.get(file_id="<id>")
-
-    assert res is not None
 
     # Handle response
     print(res)

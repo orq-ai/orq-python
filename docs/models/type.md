@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `AGENTS_EXECUTION_STARTED` | agents.execution_started   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `IMAGE_URL` | image_url   |

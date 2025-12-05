@@ -1,29 +1,10 @@
 # UpdateDatapointContentDatasetsResponse2
 
 
-## Supported Types
+## Fields
 
-### `models.UpdateDatapoint2Datasets1`
-
-```python
-value: models.UpdateDatapoint2Datasets1 = /* values here */
-```
-
-### `models.UpdateDatapoint2Datasets2`
-
-```python
-value: models.UpdateDatapoint2Datasets2 = /* values here */
-```
-
-### `models.UpdateDatapoint2Datasets3`
-
-```python
-value: models.UpdateDatapoint2Datasets3 = /* values here */
-```
-
-### `models.UpdateDatapoint2Datasets4`
-
-```python
-value: models.UpdateDatapoint2Datasets4 = /* values here */
-```
-
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                 | [models.UpdateDatapointContentDatasetsResponseType](../models/updatedatapointcontentdatasetsresponsetype.md)                           | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `text`                                                                                                                                 | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | N/A                                                                                                                                    |
+| `cache_control`                                                                                                                        | [Optional[models.UpdateDatapointContentDatasetsResponseCacheControl]](../models/updatedatapointcontentdatasetsresponsecachecontrol.md) | :heavy_minus_sign:                                                                                                                     | N/A                                                                                                                                    |

@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
-from pydantic import ConfigDict
+from pydantic import ConfigDict, Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -177,7 +177,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNGQBYFH7RYN6520J381"
+        "tool_01KBQA7B0P8RRS7DPTSTKGP7J7"
     )
 
     display_name: Optional[str] = None
@@ -247,7 +247,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KB53ZNGQ1FE7JDKGXTGTRCHY"
+    id: Optional[str] = "01KBQA7B0N55TZY0J51CJQ2RPF"
 
     description: Optional[str] = None
 
@@ -346,7 +346,7 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNGNP1S4AW4MEFS1SCJX"
+        "tool_01KBQA7B0KHR5GPRG4P09BXCKW"
     )
 
     display_name: Optional[str] = None
@@ -555,7 +555,7 @@ class DataHTTPTool(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNGKK5JSCQFGWZHRPH1A"
+        "tool_01KBQA7B08YEJH355905N2XPYQ"
     )
 
     display_name: Optional[str] = None
@@ -709,7 +709,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNGJQZ6WF9NTG6V88WCM"
+        "tool_01KBQA7B06D84SW25Y5JSV19M1"
     )
 
     display_name: Optional[str] = None
@@ -867,7 +867,7 @@ class DataFunctionTool(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KB53ZNGG7N72S1NN2590V470"
+        "tool_01KBQA7B03NDWQK752670Z6J1N"
     )
 
     display_name: Optional[str] = None
@@ -897,16 +897,16 @@ GetAllToolsDataTypedDict = TypeAliasType(
 )
 
 
-GetAllToolsData = TypeAliasType(
-    "GetAllToolsData",
+GetAllToolsData = Annotated[
     Union[
-        DataFunctionTool,
-        DataJSONSchemaTool,
-        DataHTTPTool,
-        DataMCPTool,
-        DataCodeExecutionTool,
+        Annotated[DataFunctionTool, Tag("function")],
+        Annotated[DataJSONSchemaTool, Tag("json_schema")],
+        Annotated[DataHTTPTool, Tag("http")],
+        Annotated[DataMCPTool, Tag("mcp")],
+        Annotated[DataCodeExecutionTool, Tag("code")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 class GetAllToolsResponseBodyTypedDict(TypedDict):

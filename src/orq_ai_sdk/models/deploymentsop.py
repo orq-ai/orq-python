@@ -8,9 +8,9 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
+from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata, get_discriminator
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -646,9 +646,14 @@ DeploymentsContent2TypedDict = TypeAliasType(
 )
 
 
-DeploymentsContent2 = TypeAliasType(
-    "DeploymentsContent2", Union[Deployments21, Deployments22, Deployments23]
-)
+DeploymentsContent2 = Annotated[
+    Union[
+        Annotated[Deployments21, Tag("text")],
+        Annotated[Deployments22, Tag("image_url")],
+        Annotated[Deployments23, Tag("file")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 
 
 DeploymentsContentTypedDict = TypeAliasType(

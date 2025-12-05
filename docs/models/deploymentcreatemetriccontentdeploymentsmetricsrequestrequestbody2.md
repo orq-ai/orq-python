@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetric2DeploymentsMetricsTextContentPart`
+### `models.DeploymentCreateMetric2DeploymentsMetrics1`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetricsTextContentPart = /* values here */
+value: models.DeploymentCreateMetric2DeploymentsMetrics1 = /* values here */
 ```
 
-### `models.DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetricsRefusalContentPart = /* values here */
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

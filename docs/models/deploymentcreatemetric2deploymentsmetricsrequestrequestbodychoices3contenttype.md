@@ -1,8 +1,10 @@
 # DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType
 
+The type of the content part. Always `file`.
+
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_AUDIO` | input_audio   |
+| Name   | Value  |
+| ------ | ------ |
+| `FILE` | file   |

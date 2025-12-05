@@ -1,29 +1,10 @@
 # DeploymentStreamContent2
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentStream21`
-
-```python
-value: models.DeploymentStream21 = /* values here */
-```
-
-### `models.DeploymentStream22`
-
-```python
-value: models.DeploymentStream22 = /* values here */
-```
-
-### `models.DeploymentStream23`
-
-```python
-value: models.DeploymentStream23 = /* values here */
-```
-
-### `models.DeploymentStream24`
-
-```python
-value: models.DeploymentStream24 = /* values here */
-```
-
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                   | [models.DeploymentStreamContentType](../models/deploymentstreamcontenttype.md)                           | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `text`                                                                                                   | *str*                                                                                                    | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `cache_control`                                                                                          | [Optional[models.DeploymentStreamContentCacheControl]](../models/deploymentstreamcontentcachecontrol.md) | :heavy_minus_sign:                                                                                       | N/A                                                                                                      |

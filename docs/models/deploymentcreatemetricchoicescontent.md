@@ -1,6 +1,6 @@
 # DeploymentCreateMetricChoicesContent
 
-The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified.
+The contents of the developer message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2]`
+### `List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22]`
 
 ```python
-value: List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2] = /* values here */
+value: List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22] = /* values here */
 ```
 

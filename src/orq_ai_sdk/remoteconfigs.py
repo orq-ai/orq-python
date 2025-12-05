@@ -3,6 +3,9 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    remoteconfigsgetconfigop as models_remoteconfigsgetconfigop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,15 +18,15 @@ class Remoteconfigs(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.RemoteConfigsGetConfigRequestBody,
-                models.RemoteConfigsGetConfigRequestBodyTypedDict,
+                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBody,
+                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RemoteConfigsGetConfigResponseBody]:
+    ) -> models.RemoteConfigsGetConfigResponseBody:
         r"""Retrieve a remote config
 
         :param request: The request object to send.
@@ -71,6 +74,7 @@ class Remoteconfigs(BaseSDK):
                 "json",
                 Optional[models.RemoteConfigsGetConfigRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -99,7 +103,7 @@ class Remoteconfigs(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RemoteConfigsGetConfigResponseBody], http_res
+                models.RemoteConfigsGetConfigResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -115,15 +119,15 @@ class Remoteconfigs(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.RemoteConfigsGetConfigRequestBody,
-                models.RemoteConfigsGetConfigRequestBodyTypedDict,
+                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBody,
+                models_remoteconfigsgetconfigop.RemoteConfigsGetConfigRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RemoteConfigsGetConfigResponseBody]:
+    ) -> models.RemoteConfigsGetConfigResponseBody:
         r"""Retrieve a remote config
 
         :param request: The request object to send.
@@ -171,6 +175,7 @@ class Remoteconfigs(BaseSDK):
                 "json",
                 Optional[models.RemoteConfigsGetConfigRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -199,7 +204,7 @@ class Remoteconfigs(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RemoteConfigsGetConfigResponseBody], http_res
+                models.RemoteConfigsGetConfigResponseBody, http_res
             )
         if utils.match_response(http_res, ["400", "401", "404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

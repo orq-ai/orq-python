@@ -1,17 +1,10 @@
 # UpdateDatapointContentDatasets2
 
 
-## Supported Types
+## Fields
 
-### `models.UpdateDatapoint2TextContentPart`
-
-```python
-value: models.UpdateDatapoint2TextContentPart = /* values here */
-```
-
-### `models.UpdateDatapoint2RefusalContentPart`
-
-```python
-value: models.UpdateDatapoint2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                 | [models.UpdateDatapointContentDatasetsRequestType](../models/updatedatapointcontentdatasetsrequesttype.md)             | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `text`                                                                                                                 | *str*                                                                                                                  | :heavy_check_mark:                                                                                                     | N/A                                                                                                                    |
+| `cache_control`                                                                                                        | [Optional[models.UpdateDatapointContentDatasetsCacheControl]](../models/updatedatapointcontentdatasetscachecontrol.md) | :heavy_minus_sign:                                                                                                     | N/A                                                                                                                    |

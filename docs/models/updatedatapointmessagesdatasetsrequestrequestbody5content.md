@@ -1,0 +1,19 @@
+# UpdateDatapointMessagesDatasetsRequestRequestBody5Content
+
+The contents of the tool message.
+
+
+## Supported Types
+
+### `str`
+
+```python
+value: str = /* values here */
+```
+
+### `List[models.UpdateDatapointContentDatasetsRequestRequestBodyMessages2]`
+
+```python
+value: List[models.UpdateDatapointContentDatasetsRequestRequestBodyMessages2] = /* values here */
+```
+

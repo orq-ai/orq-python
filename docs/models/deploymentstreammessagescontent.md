@@ -1,6 +1,6 @@
 # DeploymentStreamMessagesContent
 
-The contents of the user message.
+The contents of the system message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentStreamContentDeploymentsRequest2]`
+### `List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages2]`
 
 ```python
-value: List[models.DeploymentStreamContentDeploymentsRequest2] = /* values here */
+value: List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages2] = /* values here */
 ```
 

@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetricMessagesDeveloperMessage`
-
-```python
-value: models.DeploymentCreateMetricMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.DeploymentCreateMetricMessagesSystemMessage`
 
 ```python
 value: models.DeploymentCreateMetricMessagesSystemMessage = /* values here */
+```
+
+### `models.DeploymentCreateMetricMessagesDeveloperMessage`
+
+```python
+value: models.DeploymentCreateMetricMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.DeploymentCreateMetricMessagesUserMessage`

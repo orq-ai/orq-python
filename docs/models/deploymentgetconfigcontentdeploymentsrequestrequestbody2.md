@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig2DeploymentsTextContentPart`
+### `models.DeploymentGetConfig2Deployments1`
 
 ```python
-value: models.DeploymentGetConfig2DeploymentsTextContentPart = /* values here */
+value: models.DeploymentGetConfig2Deployments1 = /* values here */
 ```
 
-### `models.DeploymentGetConfig2DeploymentsRefusalContentPart`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.DeploymentGetConfig2DeploymentsRefusalContentPart = /* values here */
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

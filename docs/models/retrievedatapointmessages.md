@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.RetrieveDatapointMessagesDeveloperMessage`
-
-```python
-value: models.RetrieveDatapointMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.RetrieveDatapointMessagesSystemMessage`
 
 ```python
 value: models.RetrieveDatapointMessagesSystemMessage = /* values here */
+```
+
+### `models.RetrieveDatapointMessagesDeveloperMessage`
+
+```python
+value: models.RetrieveDatapointMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.RetrieveDatapointMessagesUserMessage`

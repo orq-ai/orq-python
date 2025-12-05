@@ -1,17 +1,10 @@
 # DeploymentCreateMetricContentDeploymentsMetrics2
 
 
-## Supported Types
+## Fields
 
-### `models.DeploymentCreateMetric2TextContentPart`
-
-```python
-value: models.DeploymentCreateMetric2TextContentPart = /* values here */
-```
-
-### `models.DeploymentCreateMetric2RefusalContentPart`
-
-```python
-value: models.DeploymentCreateMetric2RefusalContentPart = /* values here */
-```
-
+| Field                                                                                                                                                    | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                                   | [models.DeploymentCreateMetricContentDeploymentsMetricsRequestType](../models/deploymentcreatemetriccontentdeploymentsmetricsrequesttype.md)             | :heavy_check_mark:                                                                                                                                       | N/A                                                                                                                                                      |
+| `text`                                                                                                                                                   | *str*                                                                                                                                                    | :heavy_check_mark:                                                                                                                                       | N/A                                                                                                                                                      |
+| `cache_control`                                                                                                                                          | [Optional[models.DeploymentCreateMetricContentDeploymentsMetricsCacheControl]](../models/deploymentcreatemetriccontentdeploymentsmetricscachecontrol.md) | :heavy_minus_sign:                                                                                                                                       | N/A                                                                                                                                                      |

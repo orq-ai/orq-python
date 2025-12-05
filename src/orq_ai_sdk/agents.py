@@ -4,14 +4,6 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentrequestop as models_createagentrequestop,
-    invokeagentop as models_invokeagentop,
-    runagentop as models_runagentop,
-    streamagentop as models_streamagentop,
-    streamrunagentop as models_streamrunagentop,
-    updateagentop as models_updateagentop,
-)
 from orq_ai_sdk.responses import Responses
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
@@ -41,41 +33,32 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentRequestResponseBody]:
+    ) -> models.CreateAgentRequestResponseBody:
         r"""Create agent
 
         Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
@@ -155,6 +138,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateAgentRequestRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -184,7 +168,7 @@ class Agents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentRequestResponseBody], http_res
+                models.CreateAgentRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "409", "application/json"):
             response_data = unmarshal_json_response(
@@ -208,41 +192,32 @@ class Agents(BaseSDK):
         description: str,
         instructions: str,
         path: str,
-        model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
-        ],
+        model: Union[models.ModelConfiguration, models.ModelConfigurationTypedDict],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models.CreateAgentRequestSettings,
+            models.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models.FallbackModelConfiguration],
+                List[models.FallbackModelConfigurationTypedDict],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
-            Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
-            ]
+            Union[List[models.KnowledgeBases], List[models.KnowledgeBasesTypedDict]]
         ] = None,
         team_of_agents: Optional[
-            Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
-            ]
+            Union[List[models.TeamOfAgents], List[models.TeamOfAgentsTypedDict]]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.CreateAgentRequestResponseBody]:
+    ) -> models.CreateAgentRequestResponseBody:
         r"""Create agent
 
         Creates a new agent with the specified configuration, including model selection, instructions, tools, and knowledge bases. Agents are intelligent assistants that can execute tasks, interact with tools, and maintain context through memory stores. The agent can be configured with a primary model and optional fallback models for automatic failover, custom instructions for behavior control, and various settings to control execution limits and tool usage.
@@ -322,6 +297,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateAgentRequestRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -351,7 +327,7 @@ class Agents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return unmarshal_json_response(
-                Optional[models.CreateAgentRequestResponseBody], http_res
+                models.CreateAgentRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "409", "application/json"):
             response_data = unmarshal_json_response(
@@ -416,6 +392,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -508,6 +485,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -559,7 +537,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveAgentRequestResponseBody]:
+    ) -> models.RetrieveAgentRequestResponseBody:
         r"""Retrieve agent
 
         Retrieves detailed information about a specific agent identified by its unique key or identifier. Returns the complete agent manifest including configuration settings, model assignments (primary and fallback), tools, knowledge bases, memory stores, instructions, and execution parameters. Use this endpoint to fetch the current state and configuration of an individual agent.
@@ -600,6 +578,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -629,7 +608,7 @@ class Agents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveAgentRequestResponseBody], http_res
+                models.RetrieveAgentRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
@@ -653,7 +632,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RetrieveAgentRequestResponseBody]:
+    ) -> models.RetrieveAgentRequestResponseBody:
         r"""Retrieve agent
 
         Retrieves detailed information about a specific agent identified by its unique key or identifier. Returns the complete agent manifest including configuration settings, model assignments (primary and fallback), tools, knowledge bases, memory stores, instructions, and execution parameters. Use this endpoint to fetch the current state and configuration of an individual agent.
@@ -694,6 +673,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -723,7 +703,7 @@ class Agents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                Optional[models.RetrieveAgentRequestResponseBody], http_res
+                models.RetrieveAgentRequestResponseBody, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
@@ -752,36 +732,31 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
@@ -789,7 +764,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateAgentResponseBody]:
+    ) -> models.UpdateAgentResponseBody:
         r"""Update agent
 
         Modifies an existing agent's configuration with partial updates. Supports updating any aspect of the agent including model assignments (primary and fallback), instructions, tools, knowledge bases, memory stores, and execution parameters. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes take effect immediately for new agent invocations.
@@ -884,6 +859,7 @@ class Agents(BaseSDK):
                 "json",
                 models.UpdateAgentUpdateAgentRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -912,9 +888,7 @@ class Agents(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateAgentResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateAgentResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateAgentAgentsResponseBodyData, http_res
@@ -942,36 +916,31 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models.UpdateAgentModelConfiguration,
+                models.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
-                List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.UpdateAgentFallbackModelConfiguration],
+                List[models.UpdateAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         settings: Optional[
-            Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
-            ]
+            Union[models.UpdateAgentSettings, models.UpdateAgentSettingsTypedDict]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models.UpdateAgentKnowledgeBases],
+                List[models.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models.UpdateAgentTeamOfAgents],
+                List[models.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
@@ -979,7 +948,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.UpdateAgentResponseBody]:
+    ) -> models.UpdateAgentResponseBody:
         r"""Update agent
 
         Modifies an existing agent's configuration with partial updates. Supports updating any aspect of the agent including model assignments (primary and fallback), instructions, tools, knowledge bases, memory stores, and execution parameters. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes take effect immediately for new agent invocations.
@@ -1074,6 +1043,7 @@ class Agents(BaseSDK):
                 "json",
                 models.UpdateAgentUpdateAgentRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1102,9 +1072,7 @@ class Agents(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.UpdateAgentResponseBody], http_res
-            )
+            return unmarshal_json_response(models.UpdateAgentResponseBody, http_res)
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.UpdateAgentAgentsResponseBodyData, http_res
@@ -1127,35 +1095,25 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.InvokeAgentA2ATaskResponse]:
+    ) -> models.InvokeAgentA2ATaskResponse:
         r"""Execute an agent task
 
         Invokes an agent to perform a task with the provided input message. The agent will process the request using its configured model and tools, maintaining context through memory stores if configured. Supports automatic model fallback on primary model failure, tool execution, knowledge base retrieval, and continuation of previous conversations. Returns a task response that can be used to track execution status and retrieve results.
@@ -1225,6 +1183,7 @@ class Agents(BaseSDK):
                 "json",
                 Optional[models.InvokeAgentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1252,9 +1211,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.InvokeAgentA2ATaskResponse], http_res
-            )
+            return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1272,35 +1229,25 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_invokeagentop.InvokeAgentA2AMessage,
-            models_invokeagentop.InvokeAgentA2AMessageTypedDict,
+            models.InvokeAgentA2AMessage, models.InvokeAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentContact,
-                models_invokeagentop.InvokeAgentContactTypedDict,
-            ]
+            Union[models.InvokeAgentContact, models.InvokeAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentThread,
-                models_invokeagentop.InvokeAgentThreadTypedDict,
-            ]
+            Union[models.InvokeAgentThread, models.InvokeAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_invokeagentop.InvokeAgentMemory,
-                models_invokeagentop.InvokeAgentMemoryTypedDict,
-            ]
+            Union[models.InvokeAgentMemory, models.InvokeAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.InvokeAgentA2ATaskResponse]:
+    ) -> models.InvokeAgentA2ATaskResponse:
         r"""Execute an agent task
 
         Invokes an agent to perform a task with the provided input message. The agent will process the request using its configured model and tools, maintaining context through memory stores if configured. Supports automatic model fallback on primary model failure, tool execution, knowledge base retrieval, and continuation of previous conversations. Returns a task response that can be used to track execution status and retrieve results.
@@ -1370,6 +1317,7 @@ class Agents(BaseSDK):
                 "json",
                 Optional[models.InvokeAgentRequestBody],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1397,9 +1345,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.InvokeAgentA2ATaskResponse], http_res
-            )
+            return unmarshal_json_response(models.InvokeAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1419,7 +1365,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListAgentsResponseBody]:
+    ) -> models.ListAgentsResponseBody:
         r"""List agents
 
         Retrieves a comprehensive list of agents configured in your workspace. Supports pagination for large datasets and returns agents sorted by creation date (newest first). Each agent in the response includes its complete configuration: model settings with fallback options, instructions, tools, knowledge bases, memory stores, and execution parameters. Use pagination parameters to efficiently navigate through large collections of agents.
@@ -1464,6 +1410,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1491,9 +1438,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListAgentsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1513,7 +1458,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.ListAgentsResponseBody]:
+    ) -> models.ListAgentsResponseBody:
         r"""List agents
 
         Retrieves a comprehensive list of agents configured in your workspace. Supports pagination for large datasets and returns agents sorted by creation date (newest first). Each agent in the response includes its complete configuration: model settings with fallback options, instructions, tools, knowledge bases, memory stores, and execution parameters. Use pagination parameters to efficiently navigate through large collections of agents.
@@ -1558,6 +1503,7 @@ class Agents(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1585,9 +1531,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.ListAgentsResponseBody], http_res
-            )
+            return unmarshal_json_response(models.ListAgentsResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1605,59 +1549,44 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -1665,7 +1594,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RunAgentA2ATaskResponse]:
+    ) -> models.RunAgentA2ATaskResponse:
         r"""Run an agent with configuration
 
         Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
@@ -1756,6 +1685,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.RunAgentRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1783,9 +1713,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RunAgentA2ATaskResponse], http_res
-            )
+            return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1803,59 +1731,44 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_runagentop.RunAgentModelConfiguration,
-            models_runagentop.RunAgentModelConfigurationTypedDict,
+            models.RunAgentModelConfiguration,
+            models.RunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
-        message: Union[
-            models_runagentop.RunAgentA2AMessage,
-            models_runagentop.RunAgentA2AMessageTypedDict,
-        ],
+        message: Union[models.RunAgentA2AMessage, models.RunAgentA2AMessageTypedDict],
         path: str,
-        settings: Union[
-            models_runagentop.RunAgentSettings,
-            models_runagentop.RunAgentSettingsTypedDict,
-        ],
+        settings: Union[models.RunAgentSettings, models.RunAgentSettingsTypedDict],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_runagentop.RunAgentFallbackModelConfiguration],
-                List[models_runagentop.RunAgentFallbackModelConfigurationTypedDict],
+                List[models.RunAgentFallbackModelConfiguration],
+                List[models.RunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_runagentop.RunAgentContact,
-                models_runagentop.RunAgentContactTypedDict,
-            ]
+            Union[models.RunAgentContact, models.RunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_runagentop.RunAgentThread,
-                models_runagentop.RunAgentThreadTypedDict,
-            ]
+            Union[models.RunAgentThread, models.RunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_runagentop.RunAgentMemory,
-                models_runagentop.RunAgentMemoryTypedDict,
-            ]
+            Union[models.RunAgentMemory, models.RunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_runagentop.RunAgentKnowledgeBases],
-                List[models_runagentop.RunAgentKnowledgeBasesTypedDict],
+                List[models.RunAgentKnowledgeBases],
+                List[models.RunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_runagentop.RunAgentTeamOfAgents],
-                List[models_runagentop.RunAgentTeamOfAgentsTypedDict],
+                List[models.RunAgentTeamOfAgents],
+                List[models.RunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -1863,7 +1776,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[models.RunAgentA2ATaskResponse]:
+    ) -> models.RunAgentA2ATaskResponse:
         r"""Run an agent with configuration
 
         Executes an agent using inline configuration or references an existing agent. Supports dynamic agent creation where the system automatically manages agent versioning - reusing existing agents with matching configurations or creating new versions when configurations differ. Ideal for programmatic agent execution with flexible configuration management. The agent processes messages in A2A format with support for memory context, tool execution, and automatic model fallback on failure.
@@ -1954,6 +1867,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.RunAgentRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1981,9 +1895,7 @@ class Agents(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(
-                Optional[models.RunAgentA2ATaskResponse], http_res
-            )
+            return unmarshal_json_response(models.RunAgentA2ATaskResponse, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -2001,61 +1913,48 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -2064,7 +1963,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStream[models.StreamRunAgentResponseBody]]:
+    ) -> eventstreaming.EventStream[models.StreamRunAgentResponseBody]:
         r"""Run agent with streaming response
 
         Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
@@ -2165,6 +2064,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.StreamRunAgentRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2228,61 +2128,48 @@ class Agents(BaseSDK):
         *,
         key: str,
         model: Union[
-            models_streamrunagentop.StreamRunAgentModelConfiguration,
-            models_streamrunagentop.StreamRunAgentModelConfigurationTypedDict,
+            models.StreamRunAgentModelConfiguration,
+            models.StreamRunAgentModelConfigurationTypedDict,
         ],
         role: str,
         instructions: str,
         message: Union[
-            models_streamrunagentop.StreamRunAgentA2AMessage,
-            models_streamrunagentop.StreamRunAgentA2AMessageTypedDict,
+            models.StreamRunAgentA2AMessage, models.StreamRunAgentA2AMessageTypedDict
         ],
         path: str,
         settings: Union[
-            models_streamrunagentop.StreamRunAgentSettings,
-            models_streamrunagentop.StreamRunAgentSettingsTypedDict,
+            models.StreamRunAgentSettings, models.StreamRunAgentSettingsTypedDict
         ],
         task_id: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentFallbackModelConfiguration],
-                List[
-                    models_streamrunagentop.StreamRunAgentFallbackModelConfigurationTypedDict
-                ],
+                List[models.StreamRunAgentFallbackModelConfiguration],
+                List[models.StreamRunAgentFallbackModelConfigurationTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentContact,
-                models_streamrunagentop.StreamRunAgentContactTypedDict,
-            ]
+            Union[models.StreamRunAgentContact, models.StreamRunAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentThread,
-                models_streamrunagentop.StreamRunAgentThreadTypedDict,
-            ]
+            Union[models.StreamRunAgentThread, models.StreamRunAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamrunagentop.StreamRunAgentMemory,
-                models_streamrunagentop.StreamRunAgentMemoryTypedDict,
-            ]
+            Union[models.StreamRunAgentMemory, models.StreamRunAgentMemoryTypedDict]
         ] = None,
         description: Optional[str] = None,
         system_prompt: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBases],
-                List[models_streamrunagentop.StreamRunAgentKnowledgeBasesTypedDict],
+                List[models.StreamRunAgentKnowledgeBases],
+                List[models.StreamRunAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgents],
-                List[models_streamrunagentop.StreamRunAgentTeamOfAgentsTypedDict],
+                List[models.StreamRunAgentTeamOfAgents],
+                List[models.StreamRunAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -2291,7 +2178,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStreamAsync[models.StreamRunAgentResponseBody]]:
+    ) -> eventstreaming.EventStreamAsync[models.StreamRunAgentResponseBody]:
         r"""Run agent with streaming response
 
         Dynamically configures and executes an agent while streaming the interaction in real-time via Server-Sent Events (SSE). Intelligently manages agent versioning by reusing existing agents with matching configurations or creating new versions when configurations differ. Combines the flexibility of inline configuration with real-time streaming, making it ideal for dynamic agent interactions with live feedback. The stream provides continuous updates including message chunks, tool executions, and status changes until completion or timeout.
@@ -2392,6 +2279,7 @@ class Agents(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.StreamRunAgentRequestBody
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2455,28 +2343,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -2484,7 +2362,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStream[models.StreamAgentResponseBody]]:
+    ) -> eventstreaming.EventStream[models.StreamAgentResponseBody]:
         r"""Stream agent execution in real-time
 
         Executes an agent and streams the interaction in real-time using Server-Sent Events (SSE). Provides live updates as the agent processes the request, including message chunks, tool calls, and execution status. Perfect for building responsive chat interfaces and monitoring agent progress. The stream continues until the agent completes its task, encounters an error, or reaches the configured timeout (default 30 minutes, configurable 1-3600 seconds).
@@ -2556,6 +2434,7 @@ class Agents(BaseSDK):
                 "json",
                 models.StreamAgentRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -2617,28 +2496,18 @@ class Agents(BaseSDK):
         *,
         key: str,
         message: Union[
-            models_streamagentop.StreamAgentA2AMessage,
-            models_streamagentop.StreamAgentA2AMessageTypedDict,
+            models.StreamAgentA2AMessage, models.StreamAgentA2AMessageTypedDict
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
         contact: Optional[
-            Union[
-                models_streamagentop.StreamAgentContact,
-                models_streamagentop.StreamAgentContactTypedDict,
-            ]
+            Union[models.StreamAgentContact, models.StreamAgentContactTypedDict]
         ] = None,
         thread: Optional[
-            Union[
-                models_streamagentop.StreamAgentThread,
-                models_streamagentop.StreamAgentThreadTypedDict,
-            ]
+            Union[models.StreamAgentThread, models.StreamAgentThreadTypedDict]
         ] = None,
         memory: Optional[
-            Union[
-                models_streamagentop.StreamAgentMemory,
-                models_streamagentop.StreamAgentMemoryTypedDict,
-            ]
+            Union[models.StreamAgentMemory, models.StreamAgentMemoryTypedDict]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         stream_timeout_seconds: Optional[float] = None,
@@ -2646,7 +2515,7 @@ class Agents(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> Optional[eventstreaming.EventStreamAsync[models.StreamAgentResponseBody]]:
+    ) -> eventstreaming.EventStreamAsync[models.StreamAgentResponseBody]:
         r"""Stream agent execution in real-time
 
         Executes an agent and streams the interaction in real-time using Server-Sent Events (SSE). Provides live updates as the agent processes the request, including message chunks, tool calls, and execution status. Perfect for building responsive chat interfaces and monitoring agent progress. The stream continues until the agent completes its task, encounters an error, or reaches the configured timeout (default 30 minutes, configurable 1-3600 seconds).
@@ -2718,6 +2587,7 @@ class Agents(BaseSDK):
                 "json",
                 models.StreamAgentRequestBody,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

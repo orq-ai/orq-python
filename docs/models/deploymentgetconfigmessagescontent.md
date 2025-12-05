@@ -1,6 +1,6 @@
 # DeploymentGetConfigMessagesContent
 
-The contents of the user message.
+The contents of the system message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentGetConfigContentDeploymentsRequest2]`
+### `List[models.DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2]`
 
 ```python
-value: List[models.DeploymentGetConfigContentDeploymentsRequest2] = /* values here */
+value: List[models.DeploymentGetConfigContentDeploymentsRequestRequestBodyMessages2] = /* values here */
 ```
 
