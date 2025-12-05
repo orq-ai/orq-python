@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.TextContentPart`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.TextContentPart = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.RefusalContentPart`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.RefusalContentPart = /* values here */
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

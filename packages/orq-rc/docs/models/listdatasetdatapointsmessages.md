@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.ListDatasetDatapointsMessagesDeveloperMessage`
-
-```python
-value: models.ListDatasetDatapointsMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.ListDatasetDatapointsMessagesSystemMessage`
 
 ```python
 value: models.ListDatasetDatapointsMessagesSystemMessage = /* values here */
+```
+
+### `models.ListDatasetDatapointsMessagesDeveloperMessage`
+
+```python
+value: models.ListDatasetDatapointsMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.ListDatasetDatapointsMessagesUserMessage`

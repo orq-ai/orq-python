@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.CreatePrompt2Prompts1`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.CreatePrompt2Prompts1 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.CreatePrompt2Prompts2`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.CreatePrompt2Prompts2 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.CreatePrompt2Prompts3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.CreatePrompt2Prompts3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.CreatePrompt24`

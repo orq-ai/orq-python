@@ -238,12 +238,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RunAgentToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RunAgentToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -761,12 +761,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RunAgentToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RunAgentToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1243,7 +1243,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KB5ATWHDBMMFKPR5TYGCS6N2"
+    id: Optional[str] = "01KBQ9912QAYBWVEVW4STRJZHP"
 
     description: Optional[str] = None
 

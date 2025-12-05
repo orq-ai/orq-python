@@ -227,7 +227,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
-        Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
+        Create a new budget configuration for an API key, contact, or workspace. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -319,7 +319,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
-        Create a new budget configuration for a contact or workspace. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
+        Create a new budget configuration for an API key, contact, or workspace. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method

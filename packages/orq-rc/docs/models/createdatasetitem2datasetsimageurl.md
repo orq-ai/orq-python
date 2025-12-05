@@ -1,9 +1,0 @@
-# CreateDatasetItem2DatasetsImageURL
-
-
-## Fields
-
-| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `url`                                                                                              | *str*                                                                                              | :heavy_check_mark:                                                                                 | Either a URL of the image or the base64 encoded image data.                                        |
-| `detail`                                                                                           | [Optional[models.CreateDatasetItem2DatasetsDetail]](../models/createdatasetitem2datasetsdetail.md) | :heavy_minus_sign:                                                                                 | Specifies the detail level of the image.                                                           |

@@ -1,10 +1,10 @@
 # CreateBudgetRequestBodyBudgetsType
 
-Workspace budget type
+Contact budget type
 
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `WORKSPACE` | workspace   |
+| Name      | Value     |
+| --------- | --------- |
+| `CONTACT` | contact   |

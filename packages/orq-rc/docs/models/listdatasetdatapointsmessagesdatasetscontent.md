@@ -1,6 +1,6 @@
 # ListDatasetDatapointsMessagesDatasetsContent
 
-The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified.
+The contents of the developer message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.ListDatasetDatapointsContentDatasets2]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.ListDatasetDatapointsContentDatasets2] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

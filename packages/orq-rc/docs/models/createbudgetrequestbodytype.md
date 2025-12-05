@@ -1,10 +1,10 @@
 # CreateBudgetRequestBodyType
 
-Contact budget type
+API Key budget type
 
 
 ## Values
 
 | Name      | Value     |
 | --------- | --------- |
-| `CONTACT` | contact   |
+| `API_KEY` | api_key   |

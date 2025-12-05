@@ -3,27 +3,9 @@
 
 ## Supported Types
 
-### `models.DeploymentStream2Deployments1`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentStream2Deployments1 = /* values here */
-```
-
-### `models.DeploymentStream2Deployments2`
-
-```python
-value: models.DeploymentStream2Deployments2 = /* values here */
-```
-
-### `models.DeploymentStream2Deployments3`
-
-```python
-value: models.DeploymentStream2Deployments3 = /* values here */
-```
-
-### `models.DeploymentStream2Deployments4`
-
-```python
-value: models.DeploymentStream2Deployments4 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

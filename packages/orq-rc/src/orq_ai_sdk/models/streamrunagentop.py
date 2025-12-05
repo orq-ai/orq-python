@@ -303,12 +303,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class StreamRunAgentToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class StreamRunAgentToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -838,12 +838,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class StreamRunAgentToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class StreamRunAgentToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1328,7 +1328,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KB5ATWK99Z5REF88H5YJHEM5"
+    id: Optional[str] = "01KBQ9914RS14YRKDP5BQR76GG"
 
     description: Optional[str] = None
 

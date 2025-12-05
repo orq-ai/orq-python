@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.PrefixMessagesDeveloperMessage`
-
-```python
-value: models.PrefixMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.PrefixMessagesSystemMessage`
 
 ```python
 value: models.PrefixMessagesSystemMessage = /* values here */
+```
+
+### `models.PrefixMessagesDeveloperMessage`
+
+```python
+value: models.PrefixMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.PrefixMessagesUserMessage`

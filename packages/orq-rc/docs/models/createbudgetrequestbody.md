@@ -1,9 +1,15 @@
 # CreateBudgetRequestBody
 
-Create budget configuration for contact or workspace
+Create budget configuration for API key, contact, or workspace
 
 
 ## Supported Types
+
+### `models.APIKeyBudget`
+
+```python
+value: models.APIKeyBudget = /* values here */
+```
 
 ### `models.ContactBudget`
 

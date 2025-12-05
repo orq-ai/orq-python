@@ -1,8 +1,10 @@
 # Type
 
+The type of the content part.
+
 
 ## Values
 
-| Name                       | Value                      |
-| -------------------------- | -------------------------- |
-| `AGENTS_EXECUTION_STARTED` | agents.execution_started   |
+| Name   | Value  |
+| ------ | ------ |
+| `TEXT` | text   |

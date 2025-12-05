@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfigMessagesDeveloperMessage`
-
-```python
-value: models.DeploymentGetConfigMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.DeploymentGetConfigMessagesSystemMessage`
 
 ```python
 value: models.DeploymentGetConfigMessagesSystemMessage = /* values here */
+```
+
+### `models.DeploymentGetConfigMessagesDeveloperMessage`
+
+```python
+value: models.DeploymentGetConfigMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.DeploymentGetConfigMessagesUserMessage`

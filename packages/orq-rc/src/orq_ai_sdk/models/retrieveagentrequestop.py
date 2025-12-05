@@ -440,12 +440,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RetrieveAgentRequestToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RetrieveAgentRequestToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -928,12 +928,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class RetrieveAgentRequestToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class RetrieveAgentRequestToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1327,6 +1327,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     workspace_id: str
     project_id: str
@@ -1367,6 +1368,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

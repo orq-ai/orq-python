@@ -549,6 +549,7 @@ class Choice(BaseModel):
 
 class PromptTokensDetailsTypedDict(TypedDict):
     cached_tokens: NotRequired[Nullable[int]]
+    cache_creation_tokens: NotRequired[Nullable[int]]
     audio_tokens: NotRequired[Nullable[int]]
     r"""The number of audio input tokens consumed by the request."""
 
@@ -556,13 +557,15 @@ class PromptTokensDetailsTypedDict(TypedDict):
 class PromptTokensDetails(BaseModel):
     cached_tokens: OptionalNullable[int] = UNSET
 
+    cache_creation_tokens: OptionalNullable[int] = UNSET
+
     audio_tokens: OptionalNullable[int] = UNSET
     r"""The number of audio input tokens consumed by the request."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["cached_tokens", "audio_tokens"]
-        nullable_fields = ["cached_tokens", "audio_tokens"]
+        optional_fields = ["cached_tokens", "cache_creation_tokens", "audio_tokens"]
+        nullable_fields = ["cached_tokens", "cache_creation_tokens", "audio_tokens"]
         null_default_fields = []
 
         serialized = handler(self)

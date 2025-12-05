@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
+    from orq_ai_sdk.conversations import Conversations
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
@@ -43,6 +44,7 @@ class Orq(BaseSDK):
     evals: "Evals"
     deployments: "Deployments"
     agents: "Agents"
+    conversations: "Conversations"
     files: "Files"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
@@ -59,6 +61,7 @@ class Orq(BaseSDK):
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
+        "conversations": ("orq_ai_sdk.conversations", "Conversations"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),

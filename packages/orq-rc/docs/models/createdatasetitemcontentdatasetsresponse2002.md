@@ -3,15 +3,27 @@
 
 ## Supported Types
 
-### `models.CreateDatasetItem2DatasetsTextContentPart`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.CreateDatasetItem2DatasetsTextContentPart = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.CreateDatasetItem2DatasetsRefusalContentPart`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.CreateDatasetItem2DatasetsRefusalContentPart = /* values here */
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

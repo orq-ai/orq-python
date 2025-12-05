@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.ListDatasetDatapoints21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.ListDatasetDatapoints21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.ListDatasetDatapoints22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.ListDatasetDatapoints22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.ListDatasetDatapoints23`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.ListDatasetDatapoints23 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.ListDatasetDatapoints24`

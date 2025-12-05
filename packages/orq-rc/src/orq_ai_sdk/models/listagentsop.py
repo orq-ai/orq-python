@@ -429,12 +429,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class ListAgentsToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class ListAgentsToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -906,12 +906,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class ListAgentsToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class ListAgentsToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -1284,6 +1284,7 @@ class ListAgentsKnowledgeBases(BaseModel):
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     role: str
     description: str
@@ -1320,6 +1321,7 @@ class ListAgentsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

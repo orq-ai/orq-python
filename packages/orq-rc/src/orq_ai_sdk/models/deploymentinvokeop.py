@@ -43,29 +43,29 @@ r"""Indicates the type of model used to generate the response"""
 
 
 DeploymentInvokeProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "contextualai",
+    "moonshotai",
 ]
 r"""The provider used to generate the response"""
 
@@ -147,6 +147,24 @@ class Retrievals(BaseModel):
 
     metadata: DeploymentInvokeMetadata
     r"""Metadata of the retrieved chunk from the knowledge base"""
+
+
+class DeploymentInvokeUsageTypedDict(TypedDict):
+    r"""Usage metrics for the response"""
+
+    input_tokens: float
+    output_tokens: float
+    total_tokens: float
+
+
+class DeploymentInvokeUsage(BaseModel):
+    r"""Usage metrics for the response"""
+
+    input_tokens: float
+
+    output_tokens: float
+
+    total_tokens: float
 
 
 DeploymentInvokeMessageDeploymentsType = Literal["image",]
@@ -463,6 +481,8 @@ class DeploymentInvokeResponseBodyTypedDict(TypedDict):
     r"""List of documents retrieved from the knowledge base. This property is only available when the `include_retrievals` flag is set to `true` in the invoke settings. When stream is set to true, the `retrievals` property will be returned in the last streamed chunk where the property `is_final` is set to `true`."""
     provider_response: NotRequired[Any]
     r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
+    usage: NotRequired[Nullable[DeploymentInvokeUsageTypedDict]]
+    r"""Usage metrics for the response"""
 
 
 class DeploymentInvokeResponseBody(BaseModel):
@@ -504,6 +524,9 @@ class DeploymentInvokeResponseBody(BaseModel):
     provider_response: Optional[Any] = None
     r"""Response returned by the model provider. This functionality is only supported when streaming is not used. If streaming is used, the `provider_response` property will be set to `null`."""
 
+    usage: OptionalNullable[DeploymentInvokeUsage] = UNSET
+    r"""Usage metrics for the response"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -512,8 +535,9 @@ class DeploymentInvokeResponseBody(BaseModel):
             "system_fingerprint",
             "retrievals",
             "provider_response",
+            "usage",
         ]
-        nullable_fields = ["system_fingerprint"]
+        nullable_fields = ["system_fingerprint", "usage"]
         null_default_fields = []
 
         serialized = handler(self)

@@ -1,9 +1,0 @@
-# CreateDatasetItem23
-
-
-## Fields
-
-| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `type`                                                                                             | [models.CreateDatasetItem2DatasetsRequestType](../models/createdatasetitem2datasetsrequesttype.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
-| `input_audio`                                                                                      | [models.CreateDatasetItem2InputAudio](../models/createdatasetitem2inputaudio.md)                   | :heavy_check_mark:                                                                                 | N/A                                                                                                |

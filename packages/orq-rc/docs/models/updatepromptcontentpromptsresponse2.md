@@ -3,21 +3,21 @@
 
 ## Supported Types
 
-### `models.UpdatePrompt2PromptsResponse1`
+### `models.UpdatePrompt2Prompts1`
 
 ```python
-value: models.UpdatePrompt2PromptsResponse1 = /* values here */
+value: models.UpdatePrompt2Prompts1 = /* values here */
 ```
 
-### `models.UpdatePrompt2PromptsResponse2`
+### `models.UpdatePrompt2Prompts2`
 
 ```python
-value: models.UpdatePrompt2PromptsResponse2 = /* values here */
+value: models.UpdatePrompt2Prompts2 = /* values here */
 ```
 
-### `models.UpdatePrompt2PromptsResponse3`
+### `models.UpdatePrompt2Prompts3`
 
 ```python
-value: models.UpdatePrompt2PromptsResponse3 = /* values here */
+value: models.UpdatePrompt2Prompts3 = /* values here */
 ```
 

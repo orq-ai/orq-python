@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.DeploymentStream21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentStream21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentStream22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.DeploymentStream22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentStream23`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.DeploymentStream23 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.DeploymentStream24`

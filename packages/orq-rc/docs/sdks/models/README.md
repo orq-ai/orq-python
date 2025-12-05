@@ -13,7 +13,7 @@ Lists the currently available models, and provides basic information about each 
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="ListModels" method="get" path="/v2/models" -->
+<!-- UsageSnippet language="python" operationID="listModels" method="get" path="/v2/models" -->
 ```python
 from orq_ai_sdk import Orq
 import os

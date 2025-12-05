@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.CreateDatasetItem21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.CreateDatasetItem21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.CreateDatasetItem22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.CreateDatasetItem22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.CreateDatasetItem23`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.CreateDatasetItem23 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.CreateDatasetItem24`

@@ -17,16 +17,16 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class CreateMemoryRequestBodyTypedDict(TypedDict):
     entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
-    metadata: Dict[str, str]
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID."""
+    metadata: NotRequired[Dict[str, str]]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class CreateMemoryRequestBody(BaseModel):
     entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)"""
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID."""
 
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]] = None
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
@@ -59,6 +59,8 @@ class CreateMemoryResponseBodyTypedDict(TypedDict):
     metadata: Dict[str, str]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
     workspace_id: str
+    documents_count: float
+    r"""The number of memories in the entity"""
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
 
@@ -80,6 +82,9 @@ class CreateMemoryResponseBody(BaseModel):
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
     workspace_id: str
+
+    documents_count: float
+    r"""The number of memories in the entity"""
 
     created_by_id: OptionalNullable[str] = UNSET
 

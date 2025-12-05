@@ -228,12 +228,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class ToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class ToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -740,12 +740,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2076,12 +2076,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2581,12 +2581,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class CreateAgentRequestToolChoiceAgentsResponseFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class CreateAgentRequestToolChoiceAgentsResponseFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2977,6 +2977,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     project_id: str
     role: str
@@ -3016,6 +3017,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

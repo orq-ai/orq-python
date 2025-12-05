@@ -1,6 +1,6 @@
 # ChoicesContent
 
-The contents of the user message.
+The contents of the system message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentCreateMetricContentDeploymentsMetricsRequest2]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.DeploymentCreateMetricContentDeploymentsMetricsRequest2] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

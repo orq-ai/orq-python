@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.InvokeDeploymentRequest21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.InvokeDeploymentRequest21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.Two2`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.Two2 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.Three`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.Three = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.Four`

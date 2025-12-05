@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createcontactop as models_createcontactop,
+    listcontactsop as models_listcontactsop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,8 +19,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -112,8 +116,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -210,8 +214,12 @@ class Contacts(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -226,6 +234,7 @@ class Contacts(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Search contacts by display name or email address. Minimum 2 characters required.
         :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
         :param include_metrics: Include usage metrics of the last 30 days for each contact.
         :param retries: Override the default retry configuration for this method
@@ -250,6 +259,7 @@ class Contacts(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
             filter_by=utils.get_pydantic_model(
                 filter_by, Optional[models.QueryParamFilterBy]
             ),
@@ -313,8 +323,12 @@ class Contacts(BaseSDK):
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        search: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -329,6 +343,7 @@ class Contacts(BaseSDK):
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
+        :param search: Search contacts by display name or email address. Minimum 2 characters required.
         :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
         :param include_metrics: Include usage metrics of the last 30 days for each contact.
         :param retries: Override the default retry configuration for this method
@@ -353,6 +368,7 @@ class Contacts(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            search=search,
             filter_by=utils.get_pydantic_model(
                 filter_by, Optional[models.QueryParamFilterBy]
             ),

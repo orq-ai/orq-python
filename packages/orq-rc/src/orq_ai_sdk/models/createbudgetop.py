@@ -10,45 +10,8 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateBudgetRequestBodyBudgetsType = Literal["workspace",]
+CreateBudgetRequestBodyBudgetsRequestType = Literal["workspace",]
 r"""Workspace budget type"""
-
-
-RequestBodyPeriod = Literal[
-    "daily",
-    "weekly",
-    "monthly",
-    "yearly",
-]
-r"""Budget period type"""
-
-
-class WorkspaceBudgetTypedDict(TypedDict):
-    r"""Budget configuration for the entire workspace"""
-
-    type: CreateBudgetRequestBodyBudgetsType
-    r"""Workspace budget type"""
-    period: RequestBodyPeriod
-    r"""Budget period type"""
-    amount: float
-    r"""Budget amount in USD for the specified period"""
-
-
-class WorkspaceBudget(BaseModel):
-    r"""Budget configuration for the entire workspace"""
-
-    type: CreateBudgetRequestBodyBudgetsType
-    r"""Workspace budget type"""
-
-    period: RequestBodyPeriod
-    r"""Budget period type"""
-
-    amount: float
-    r"""Budget amount in USD for the specified period"""
-
-
-CreateBudgetRequestBodyType = Literal["contact",]
-r"""Contact budget type"""
 
 
 CreateBudgetRequestBodyPeriod = Literal[
@@ -60,14 +23,51 @@ CreateBudgetRequestBodyPeriod = Literal[
 r"""Budget period type"""
 
 
+class WorkspaceBudgetTypedDict(TypedDict):
+    r"""Budget configuration for the entire workspace"""
+
+    type: CreateBudgetRequestBodyBudgetsRequestType
+    r"""Workspace budget type"""
+    period: CreateBudgetRequestBodyPeriod
+    r"""Budget period type"""
+    amount: float
+    r"""Budget amount in USD for the specified period"""
+
+
+class WorkspaceBudget(BaseModel):
+    r"""Budget configuration for the entire workspace"""
+
+    type: CreateBudgetRequestBodyBudgetsRequestType
+    r"""Workspace budget type"""
+
+    period: CreateBudgetRequestBodyPeriod
+    r"""Budget period type"""
+
+    amount: float
+    r"""Budget amount in USD for the specified period"""
+
+
+CreateBudgetRequestBodyBudgetsType = Literal["contact",]
+r"""Contact budget type"""
+
+
+RequestBodyPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
+r"""Budget period type"""
+
+
 class ContactBudgetTypedDict(TypedDict):
     r"""Budget configuration for a specific contact"""
 
-    type: CreateBudgetRequestBodyType
+    type: CreateBudgetRequestBodyBudgetsType
     r"""Contact budget type"""
     entity_id: str
     r"""Contact external ID"""
-    period: CreateBudgetRequestBodyPeriod
+    period: RequestBodyPeriod
     r"""Budget period type"""
     amount: float
     r"""Budget amount in USD for the specified period"""
@@ -76,13 +76,55 @@ class ContactBudgetTypedDict(TypedDict):
 class ContactBudget(BaseModel):
     r"""Budget configuration for a specific contact"""
 
-    type: CreateBudgetRequestBodyType
+    type: CreateBudgetRequestBodyBudgetsType
     r"""Contact budget type"""
 
     entity_id: str
     r"""Contact external ID"""
 
-    period: CreateBudgetRequestBodyPeriod
+    period: RequestBodyPeriod
+    r"""Budget period type"""
+
+    amount: float
+    r"""Budget amount in USD for the specified period"""
+
+
+CreateBudgetRequestBodyType = Literal["api_key",]
+r"""API Key budget type"""
+
+
+CreateBudgetRequestBodyBudgetsPeriod = Literal[
+    "daily",
+    "weekly",
+    "monthly",
+    "yearly",
+]
+r"""Budget period type"""
+
+
+class APIKeyBudgetTypedDict(TypedDict):
+    r"""Budget configuration for a specific API key"""
+
+    type: CreateBudgetRequestBodyType
+    r"""API Key budget type"""
+    entity_id: str
+    r"""API Key token"""
+    period: CreateBudgetRequestBodyBudgetsPeriod
+    r"""Budget period type"""
+    amount: float
+    r"""Budget amount in USD for the specified period"""
+
+
+class APIKeyBudget(BaseModel):
+    r"""Budget configuration for a specific API key"""
+
+    type: CreateBudgetRequestBodyType
+    r"""API Key budget type"""
+
+    entity_id: str
+    r"""API Key token"""
+
+    period: CreateBudgetRequestBodyBudgetsPeriod
     r"""Budget period type"""
 
     amount: float
@@ -91,19 +133,20 @@ class ContactBudget(BaseModel):
 
 CreateBudgetRequestBodyTypedDict = TypeAliasType(
     "CreateBudgetRequestBodyTypedDict",
-    Union[WorkspaceBudgetTypedDict, ContactBudgetTypedDict],
+    Union[WorkspaceBudgetTypedDict, APIKeyBudgetTypedDict, ContactBudgetTypedDict],
 )
-r"""Create budget configuration for contact or workspace"""
+r"""Create budget configuration for API key, contact, or workspace"""
 
 
 CreateBudgetRequestBody = Annotated[
     Union[
+        Annotated[APIKeyBudget, Tag("api_key")],
         Annotated[ContactBudget, Tag("contact")],
         Annotated[WorkspaceBudget, Tag("workspace")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Create budget configuration for contact or workspace"""
+r"""Create budget configuration for API key, contact, or workspace"""
 
 
 CreateBudgetType = Literal[
@@ -210,6 +253,8 @@ class CreateBudgetResponseBodyTypedDict(TypedDict):
     r"""Budget configuration"""
     is_active: bool
     r"""Whether this budget configuration is currently active"""
+    api_key_id: NotRequired[str]
+    r"""API Key identifier (present when type is \"api_key\")"""
     contact_id: NotRequired[str]
     r"""Contact external identifier (present when type is \"contact\")"""
     consumption: NotRequired[ConsumptionTypedDict]
@@ -237,6 +282,9 @@ class CreateBudgetResponseBody(BaseModel):
     is_active: bool
     r"""Whether this budget configuration is currently active"""
 
+    api_key_id: Optional[str] = None
+    r"""API Key identifier (present when type is \"api_key\")"""
+
     contact_id: Optional[str] = None
     r"""Contact external identifier (present when type is \"contact\")"""
 
@@ -245,5 +293,5 @@ class CreateBudgetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-11-28T13:35:45.737Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-05T12:54:50.860Z")
     r"""The date and time the resource was last updated"""

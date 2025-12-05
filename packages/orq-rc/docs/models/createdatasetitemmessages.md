@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.CreateDatasetItemMessagesDeveloperMessage`
-
-```python
-value: models.CreateDatasetItemMessagesDeveloperMessage = /* values here */
-```
-
 ### `models.CreateDatasetItemMessagesSystemMessage`
 
 ```python
 value: models.CreateDatasetItemMessagesSystemMessage = /* values here */
+```
+
+### `models.CreateDatasetItemMessagesDeveloperMessage`
+
+```python
+value: models.CreateDatasetItemMessagesDeveloperMessage = /* values here */
 ```
 
 ### `models.CreateDatasetItemMessagesUserMessage`

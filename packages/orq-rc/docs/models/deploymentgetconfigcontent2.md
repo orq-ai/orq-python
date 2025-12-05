@@ -3,22 +3,22 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentGetConfig22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.DeploymentGetConfig23`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig23 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
 ```
 
 ### `models.DeploymentGetConfig24`

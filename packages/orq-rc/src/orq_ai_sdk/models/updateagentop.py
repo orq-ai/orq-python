@@ -241,12 +241,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class UpdateAgentToolChoiceFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class UpdateAgentToolChoiceFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -762,12 +762,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class UpdateAgentToolChoiceAgentsFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class UpdateAgentToolChoiceAgentsFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2104,12 +2104,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class UpdateAgentToolChoiceAgentsResponseFunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class UpdateAgentToolChoiceAgentsResponseFunction(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -2605,12 +2605,12 @@ r"""The type of the tool. Currently, only function is supported."""
 
 
 class UpdateAgentToolChoiceAgentsResponse200FunctionTypedDict(TypedDict):
-    name: NotRequired[str]
+    name: str
     r"""The name of the function to call."""
 
 
 class UpdateAgentToolChoiceAgentsResponse200Function(BaseModel):
-    name: Optional[str] = None
+    name: str
     r"""The name of the function to call."""
 
 
@@ -3000,6 +3000,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     workspace_id: str
     project_id: str
@@ -3040,6 +3041,7 @@ class UpdateAgentResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

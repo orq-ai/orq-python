@@ -1,6 +1,6 @@
 # DeploymentStreamPrefixMessagesContent
 
-The contents of the user message.
+The contents of the system message.
 
 
 ## Supported Types
@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentStreamContent2]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.DeploymentStreamContent2] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

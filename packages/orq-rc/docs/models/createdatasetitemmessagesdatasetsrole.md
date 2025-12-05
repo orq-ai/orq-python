@@ -1,10 +1,10 @@
 # CreateDatasetItemMessagesDatasetsRole
 
-The role of the messages author, in this case `system`.
+The role of the messages author, in this case  `developer`.
 
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `DEVELOPER` | developer   |
