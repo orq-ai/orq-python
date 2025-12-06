@@ -366,6 +366,8 @@ class DeploymentStreamPrefixMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentStreamPrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentStreamPrefixMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
@@ -376,6 +378,9 @@ class DeploymentStreamPrefixMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentStreamPrefixMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentStreamPrefixMessagesAssistantMessageTypedDict(TypedDict):
@@ -1179,6 +1184,8 @@ class DeploymentStreamMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentStreamMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentStreamMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentStreamMessagesToolCalls(BaseModel):
@@ -1189,6 +1196,9 @@ class DeploymentStreamMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentStreamMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentStreamMessagesAssistantMessageTypedDict(TypedDict):

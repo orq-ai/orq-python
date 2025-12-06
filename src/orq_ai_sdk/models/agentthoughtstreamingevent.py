@@ -113,6 +113,8 @@ class AgentThoughtStreamingEventToolCallsTypedDict(TypedDict):
     id: NotRequired[str]
     type: NotRequired[AgentThoughtStreamingEventDataType]
     function: NotRequired[AgentThoughtStreamingEventFunctionTypedDict]
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class AgentThoughtStreamingEventToolCalls(BaseModel):
@@ -121,6 +123,9 @@ class AgentThoughtStreamingEventToolCalls(BaseModel):
     type: Optional[AgentThoughtStreamingEventDataType] = None
 
     function: Optional[AgentThoughtStreamingEventFunction] = None
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 AgentThoughtStreamingEventDataRole = Literal["assistant",]

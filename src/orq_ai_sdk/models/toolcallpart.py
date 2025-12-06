@@ -16,6 +16,7 @@ class ToolCallPartTypedDict(TypedDict):
     tool_name: str
     tool_call_id: str
     arguments: Dict[str, Any]
+    thought_signature: NotRequired[str]
     metadata: NotRequired[Dict[str, Any]]
 
 
@@ -29,5 +30,7 @@ class ToolCallPart(BaseModel):
     tool_call_id: str
 
     arguments: Dict[str, Any]
+
+    thought_signature: Optional[str] = None
 
     metadata: Optional[Dict[str, Any]] = None

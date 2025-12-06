@@ -1124,6 +1124,8 @@ class UpdatePromptMessagesToolCallsTypedDict(TypedDict):
     type: UpdatePromptMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: UpdatePromptMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdatePromptMessagesToolCalls(BaseModel):
@@ -1134,6 +1136,9 @@ class UpdatePromptMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: UpdatePromptMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdatePromptMessagesAssistantMessageTypedDict(TypedDict):

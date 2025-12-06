@@ -348,6 +348,8 @@ class PrefixMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentGetConfigPrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigPrefixMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class PrefixMessagesToolCalls(BaseModel):
@@ -358,6 +360,9 @@ class PrefixMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentGetConfigPrefixMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class PrefixMessagesAssistantMessageTypedDict(TypedDict):
@@ -1172,6 +1177,8 @@ class DeploymentGetConfigMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentGetConfigMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentGetConfigMessagesToolCalls(BaseModel):
@@ -1182,6 +1189,9 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentGetConfigMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):

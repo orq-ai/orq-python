@@ -1015,6 +1015,8 @@ class CreatePromptMessagesToolCallsTypedDict(TypedDict):
     type: CreatePromptMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: CreatePromptMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreatePromptMessagesToolCalls(BaseModel):
@@ -1025,6 +1027,9 @@ class CreatePromptMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: CreatePromptMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreatePromptMessagesAssistantMessageTypedDict(TypedDict):

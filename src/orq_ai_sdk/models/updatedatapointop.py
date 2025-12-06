@@ -339,6 +339,8 @@ class UpdateDatapointMessagesToolCallsTypedDict(TypedDict):
     type: UpdateDatapointMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: UpdateDatapointMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdateDatapointMessagesToolCalls(BaseModel):
@@ -349,6 +351,9 @@ class UpdateDatapointMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: UpdateDatapointMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdateDatapointMessagesAssistantMessageTypedDict(TypedDict):
@@ -1215,6 +1220,8 @@ class UpdateDatapointMessagesDatasetsToolCallsTypedDict(TypedDict):
     type: UpdateDatapointMessagesDatasetsResponseType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: UpdateDatapointMessagesDatasetsFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdateDatapointMessagesDatasetsToolCalls(BaseModel):
@@ -1225,6 +1232,9 @@ class UpdateDatapointMessagesDatasetsToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: UpdateDatapointMessagesDatasetsFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class UpdateDatapointMessagesDatasetsAssistantMessageTypedDict(TypedDict):
@@ -1776,7 +1786,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.607Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.087Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1828,7 +1838,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.606Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.087Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1880,7 +1890,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.606Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.086Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1967,5 +1977,5 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-05T15:18:39.353Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-06T20:32:38.119Z")
     r"""The date and time the resource was last updated"""

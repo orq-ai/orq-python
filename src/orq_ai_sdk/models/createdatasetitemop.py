@@ -339,6 +339,8 @@ class CreateDatasetItemMessagesToolCallsTypedDict(TypedDict):
     type: CreateDatasetItemMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: CreateDatasetItemMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreateDatasetItemMessagesToolCalls(BaseModel):
@@ -349,6 +351,9 @@ class CreateDatasetItemMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: CreateDatasetItemMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreateDatasetItemMessagesAssistantMessageTypedDict(TypedDict):
@@ -1208,6 +1213,8 @@ class CreateDatasetItemMessagesDatasetsToolCallsTypedDict(TypedDict):
     type: CreateDatasetItemMessagesDatasetsResponseType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: CreateDatasetItemMessagesDatasetsFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
@@ -1218,6 +1225,9 @@ class CreateDatasetItemMessagesDatasetsToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: CreateDatasetItemMessagesDatasetsFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreateDatasetItemMessagesDatasetsAssistantMessageTypedDict(TypedDict):
@@ -1771,7 +1781,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.563Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.041Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1823,7 +1833,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.563Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.040Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1875,7 +1885,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T15:18:51.562Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-06T20:32:50.040Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1954,5 +1964,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-05T15:18:39.353Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-06T20:32:38.119Z")
     r"""The date and time the resource was last updated"""

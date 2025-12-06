@@ -328,6 +328,8 @@ class ToolCallsTypedDict(TypedDict):
     type: PrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: PrefixMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class ToolCalls(BaseModel):
@@ -338,6 +340,9 @@ class ToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: PrefixMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class AssistantMessageTypedDict(TypedDict):
@@ -1106,6 +1111,8 @@ class MessagesToolCallsTypedDict(TypedDict):
     type: MessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: MessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class MessagesToolCalls(BaseModel):
@@ -1116,6 +1123,9 @@ class MessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: MessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class MessagesAssistantMessageTypedDict(TypedDict):
