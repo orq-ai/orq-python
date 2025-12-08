@@ -245,7 +245,7 @@ with Orq(
 <details open>
 <summary>Available methods</summary>
 
-### [agents](docs/sdks/agents/README.md)
+### [Agents](docs/sdks/agents/README.md)
 
 * [create](docs/sdks/agents/README.md#create) - Create agent
 * [delete](docs/sdks/agents/README.md#delete) - Delete agent
@@ -257,11 +257,11 @@ with Orq(
 * [~~stream_run~~](docs/sdks/agents/README.md#stream_run) - Run agent with streaming response :warning: **Deprecated**
 * [~~stream~~](docs/sdks/agents/README.md#stream) - Stream agent execution in real-time :warning: **Deprecated**
 
-#### [agents.responses](docs/sdks/responses/README.md)
+#### [Agents.Responses](docs/sdks/responses/README.md)
 
 * [create](docs/sdks/responses/README.md#create) - Create response
 
-### [budgets](docs/sdks/budgets/README.md)
+### [Budgets](docs/sdks/budgets/README.md)
 
 * [list](docs/sdks/budgets/README.md#list) - List budget configurations
 * [create](docs/sdks/budgets/README.md#create) - Create budget configuration
@@ -269,11 +269,11 @@ with Orq(
 * [update](docs/sdks/budgets/README.md#update) - Update budget configuration
 * [delete](docs/sdks/budgets/README.md#delete) - Delete budget configuration
 
-### [chunking](docs/sdks/chunking/README.md)
+### [Chunking](docs/sdks/chunking/README.md)
 
 * [parse](docs/sdks/chunking/README.md#parse) - Parse text
 
-### [contacts](docs/sdks/contacts/README.md)
+### [Contacts](docs/sdks/contacts/README.md)
 
 * [create](docs/sdks/contacts/README.md#create) - Create a contact
 * [list](docs/sdks/contacts/README.md#list) - List contacts
@@ -281,7 +281,7 @@ with Orq(
 * [update](docs/sdks/contacts/README.md#update) - Update a contact
 * [delete](docs/sdks/contacts/README.md#delete) - Delete a contact
 
-### [conversations](docs/sdks/conversations/README.md)
+### [Conversations](docs/sdks/conversations/README.md)
 
 * [list](docs/sdks/conversations/README.md#list) - List conversations
 * [create](docs/sdks/conversations/README.md#create) - Create conversation
@@ -289,7 +289,7 @@ with Orq(
 * [update](docs/sdks/conversations/README.md#update) - Update conversation
 * [delete](docs/sdks/conversations/README.md#delete) - Delete conversation
 
-### [datasets](docs/sdks/datasets/README.md)
+### [Datasets](docs/sdks/datasets/README.md)
 
 * [list](docs/sdks/datasets/README.md#list) - List datasets
 * [create](docs/sdks/datasets/README.md#create) - Create a dataset
@@ -303,18 +303,18 @@ with Orq(
 * [delete_datapoint](docs/sdks/datasets/README.md#delete_datapoint) - Delete a datapoint
 * [clear](docs/sdks/datasets/README.md#clear) - Delete all datapoints
 
-### [deployments](docs/sdks/deployments/README.md)
+### [Deployments](docs/sdks/deployments/README.md)
 
 * [invoke](docs/sdks/deployments/README.md#invoke) - Invoke
 * [list](docs/sdks/deployments/README.md#list) - List all deployments
 * [get_config](docs/sdks/deployments/README.md#get_config) - Get config
 * [stream](docs/sdks/deployments/README.md#stream) - Stream
 
-#### [deployments.metrics](docs/sdks/metrics/README.md)
+#### [Deployments.Metrics](docs/sdks/metrics/README.md)
 
 * [create](docs/sdks/metrics/README.md#create) - Add metrics
 
-### [evals](docs/sdks/evals/README.md)
+### [Evals](docs/sdks/evals/README.md)
 
 * [all](docs/sdks/evals/README.md#all) - Get all Evaluators
 * [create](docs/sdks/evals/README.md#create) - Create an Evaluator
@@ -322,18 +322,18 @@ with Orq(
 * [delete](docs/sdks/evals/README.md#delete) - Delete an Evaluator
 * [invoke](docs/sdks/evals/README.md#invoke) - Invoke a Custom Evaluator
 
-### [feedback](docs/sdks/feedback/README.md)
+### [Feedback](docs/sdks/feedback/README.md)
 
 * [create](docs/sdks/feedback/README.md#create) - Submit feedback
 
-### [files](docs/sdks/files/README.md)
+### [Files](docs/sdks/files/README.md)
 
 * [create](docs/sdks/files/README.md#create) - Create file
 * [list](docs/sdks/files/README.md#list) - List all files
 * [get](docs/sdks/files/README.md#get) - Retrieve a file
 * [delete](docs/sdks/files/README.md#delete) - Delete file
 
-### [knowledge](docs/sdks/knowledge/README.md)
+### [Knowledge](docs/sdks/knowledge/README.md)
 
 * [list](docs/sdks/knowledge/README.md#list) - List all knowledge bases
 * [create](docs/sdks/knowledge/README.md#create) - Create a knowledge
@@ -355,7 +355,7 @@ with Orq(
 * [delete_chunk](docs/sdks/knowledge/README.md#delete_chunk) - Delete a chunk
 * [retrieve_chunk](docs/sdks/knowledge/README.md#retrieve_chunk) - Retrieve a chunk
 
-### [memory_stores](docs/sdks/memorystores/README.md)
+### [MemoryStores](docs/sdks/memorystores/README.md)
 
 * [list](docs/sdks/memorystores/README.md#list) - List memory stores
 * [create](docs/sdks/memorystores/README.md#create) - Create memory store
@@ -373,11 +373,11 @@ with Orq(
 * [update_document](docs/sdks/memorystores/README.md#update_document) - Update a specific memory document
 * [delete_document](docs/sdks/memorystores/README.md#delete_document) - Delete a specific memory document
 
-### [models](docs/sdks/models/README.md)
+### [Models](docs/sdks/models/README.md)
 
 * [list](docs/sdks/models/README.md#list) - List models
 
-### [prompts](docs/sdks/prompts/README.md)
+### [Prompts](docs/sdks/prompts/README.md)
 
 * [list](docs/sdks/prompts/README.md#list) - List all prompts
 * [create](docs/sdks/prompts/README.md#create) - Create a prompt
@@ -387,11 +387,11 @@ with Orq(
 * [list_versions](docs/sdks/prompts/README.md#list_versions) - List all prompt versions
 * [get_version](docs/sdks/prompts/README.md#get_version) - Retrieve a prompt version
 
-### [remoteconfigs](docs/sdks/remoteconfigs/README.md)
+### [Remoteconfigs](docs/sdks/remoteconfigs/README.md)
 
 * [retrieve](docs/sdks/remoteconfigs/README.md#retrieve) - Retrieve a remote config
 
-### [tools](docs/sdks/tools/README.md)
+### [Tools](docs/sdks/tools/README.md)
 
 * [list](docs/sdks/tools/README.md#list) - List tools
 * [create](docs/sdks/tools/README.md#create) - Create tool

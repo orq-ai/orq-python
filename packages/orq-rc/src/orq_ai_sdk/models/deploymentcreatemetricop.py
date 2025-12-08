@@ -254,6 +254,8 @@ class DeploymentCreateMetricMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentCreateMetricMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentCreateMetricMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentCreateMetricMessagesToolCalls(BaseModel):
@@ -264,6 +266,9 @@ class DeploymentCreateMetricMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentCreateMetricMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentCreateMetricMessagesAssistantMessageTypedDict(TypedDict):
@@ -758,6 +763,8 @@ class ChoicesToolCallsTypedDict(TypedDict):
     type: ChoicesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: ChoicesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class ChoicesToolCalls(BaseModel):
@@ -768,6 +775,9 @@ class ChoicesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: ChoicesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class ChoicesAssistantMessageTypedDict(TypedDict):

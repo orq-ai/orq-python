@@ -228,6 +228,8 @@ class RetrieveDatapointMessagesToolCallsTypedDict(TypedDict):
     type: RetrieveDatapointMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: RetrieveDatapointMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class RetrieveDatapointMessagesToolCalls(BaseModel):
@@ -238,6 +240,9 @@ class RetrieveDatapointMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: RetrieveDatapointMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class RetrieveDatapointMessagesAssistantMessageTypedDict(TypedDict):
@@ -585,7 +590,7 @@ class RetrieveDatapointEvaluations3(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T12:55:02.598Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-08T12:58:42.251Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -637,7 +642,7 @@ class RetrieveDatapointEvaluations2(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T12:55:02.598Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-08T12:58:42.250Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -689,7 +694,7 @@ class RetrieveDatapointEvaluations1(BaseModel):
 
     source: Optional[RetrieveDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-05T12:55:02.595Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-08T12:58:42.249Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -776,5 +781,5 @@ class RetrieveDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-05T12:54:50.174Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-08T12:58:30.471Z")
     r"""The date and time the resource was last updated"""

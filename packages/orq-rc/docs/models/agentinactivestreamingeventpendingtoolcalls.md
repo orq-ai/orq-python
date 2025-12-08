@@ -1,0 +1,10 @@
+# AgentInactiveStreamingEventPendingToolCalls
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `id`                                                                                           | *str*                                                                                          | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `type`                                                                                         | [models.AgentInactiveStreamingEventDataType](../models/agentinactivestreamingeventdatatype.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `function`                                                                                     | [models.AgentInactiveStreamingEventFunction](../models/agentinactivestreamingeventfunction.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |

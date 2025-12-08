@@ -205,6 +205,8 @@ class PrefixMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentGetConfigPrefixMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigPrefixMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class PrefixMessagesToolCalls(BaseModel):
@@ -215,6 +217,9 @@ class PrefixMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentGetConfigPrefixMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class PrefixMessagesAssistantMessageTypedDict(TypedDict):
@@ -701,6 +706,8 @@ class DeploymentGetConfigMessagesToolCallsTypedDict(TypedDict):
     type: DeploymentGetConfigMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: DeploymentGetConfigMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentGetConfigMessagesToolCalls(BaseModel):
@@ -711,6 +718,9 @@ class DeploymentGetConfigMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: DeploymentGetConfigMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class DeploymentGetConfigMessagesAssistantMessageTypedDict(TypedDict):
@@ -1940,7 +1950,7 @@ class DeploymentGetConfigDeploymentsMessagesTypedDict(TypedDict):
     content: Nullable[DeploymentGetConfigContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[DeploymentGetConfigToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class DeploymentGetConfigDeploymentsMessages(BaseModel):
@@ -1952,12 +1962,12 @@ class DeploymentGetConfigDeploymentsMessages(BaseModel):
 
     tool_calls: Optional[List[DeploymentGetConfigToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)

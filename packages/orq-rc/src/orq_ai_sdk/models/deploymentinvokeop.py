@@ -64,6 +64,7 @@ DeploymentInvokeProvider = Literal[
     "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
     "contextualai",
     "moonshotai",
 ]

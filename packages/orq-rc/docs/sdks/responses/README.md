@@ -1,5 +1,4 @@
-# Responses
-(*agents.responses*)
+# Agents.Responses
 
 ## Overview
 
@@ -47,10 +46,12 @@ with Orq(
             "customer-support",
             "priority-high",
         ],
-    }, background=False)
+    }, background=False, stream=False)
 
-    # Handle response
-    print(res)
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
 
 ```
 
@@ -67,11 +68,12 @@ with Orq(
 | `memory`                                                                                                                                                                                           | [Optional[models.CreateAgentResponseRequestMemory]](../../models/createagentresponserequestmemory.md)                                                                                              | :heavy_minus_sign:                                                                                                                                                                                 | Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.                                                                       |
 | `metadata`                                                                                                                                                                                         | Dict[str, *Any*]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Optional metadata for the agent invocation as key-value pairs that will be included in traces                                                                                                      |
 | `background`                                                                                                                                                                                       | *Optional[bool]*                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.                                                                 |
+| `stream`                                                                                                                                                                                           | *Optional[bool]*                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.                                                            |
 | `retries`                                                                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                                                                |
 
 ### Response
 
-**[models.CreateAgentResponseRequestResponseBody](../../models/createagentresponserequestresponsebody.md)**
+**[models.CreateAgentResponseRequestResponse](../../models/createagentresponserequestresponse.md)**
 
 ### Errors
 

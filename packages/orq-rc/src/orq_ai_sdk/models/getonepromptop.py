@@ -423,6 +423,7 @@ GetOnePromptProvider = Literal[
     "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
     "contextualai",
     "moonshotai",
 ]
@@ -606,7 +607,7 @@ class GetOnePromptMessagesTypedDict(TypedDict):
     content: Nullable[GetOnePromptContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[GetOnePromptToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class GetOnePromptMessages(BaseModel):
@@ -618,12 +619,12 @@ class GetOnePromptMessages(BaseModel):
 
     tool_calls: Optional[List[GetOnePromptToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)

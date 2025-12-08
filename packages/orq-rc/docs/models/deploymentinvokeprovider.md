@@ -28,5 +28,6 @@ The provider used to generate the response
 | `OPENAILIKE`   | openailike     |
 | `BYTEDANCE`    | bytedance      |
 | `MISTRAL`      | mistral        |
+| `DEEPSEEK`     | deepseek       |
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |

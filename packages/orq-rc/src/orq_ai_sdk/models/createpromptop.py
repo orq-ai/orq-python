@@ -291,7 +291,7 @@ class CreatePromptMessagesTypedDict(TypedDict):
     content: Nullable[CreatePromptContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class CreatePromptMessages(BaseModel):
@@ -303,12 +303,12 @@ class CreatePromptMessages(BaseModel):
 
     tool_calls: Optional[List[CreatePromptToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -888,6 +888,8 @@ class CreatePromptMessagesToolCallsTypedDict(TypedDict):
     type: CreatePromptMessagesType
     r"""The type of the tool. Currently, only `function` is supported."""
     function: CreatePromptMessagesFunctionTypedDict
+    thought_signature: NotRequired[str]
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreatePromptMessagesToolCalls(BaseModel):
@@ -898,6 +900,9 @@ class CreatePromptMessagesToolCalls(BaseModel):
     r"""The type of the tool. Currently, only `function` is supported."""
 
     function: CreatePromptMessagesFunction
+
+    thought_signature: Optional[str] = None
+    r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
 
 class CreatePromptMessagesAssistantMessageTypedDict(TypedDict):
@@ -1813,6 +1818,7 @@ CreatePromptProvider = Literal[
     "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
     "contextualai",
     "moonshotai",
 ]
@@ -2001,7 +2007,7 @@ class CreatePromptPromptsResponseMessagesTypedDict(TypedDict):
     content: Nullable[CreatePromptPromptsContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptPromptsToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class CreatePromptPromptsResponseMessages(BaseModel):
@@ -2013,12 +2019,12 @@ class CreatePromptPromptsResponseMessages(BaseModel):
 
     tool_calls: Optional[List[CreatePromptPromptsToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)

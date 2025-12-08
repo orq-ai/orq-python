@@ -3,6 +3,10 @@
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
+from .responsestreamingevent import (
+    ResponseStreamingEvent,
+    ResponseStreamingEventTypedDict,
+)
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
@@ -17,6 +21,7 @@ from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
     RequestMetadata,
+    eventstreaming,
     get_discriminator,
 )
 import pydantic
@@ -176,6 +181,8 @@ class CreateAgentResponseRequestRequestBodyTypedDict(TypedDict):
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
     background: NotRequired[bool]
     r"""If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors."""
+    stream: NotRequired[bool]
+    r"""If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response."""
 
 
 class CreateAgentResponseRequestRequestBody(BaseModel):
@@ -203,6 +210,9 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
     background: Optional[bool] = False
     r"""If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors."""
 
+    stream: Optional[bool] = False
+    r"""If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response."""
+
 
 class CreateAgentResponseRequestRequestTypedDict(TypedDict):
     agent_key: str
@@ -220,6 +230,20 @@ class CreateAgentResponseRequestRequest(BaseModel):
         CreateAgentResponseRequestRequestBody,
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ]
+
+
+class CreateAgentResponseRequestAgentsResponsesResponseBodyTypedDict(TypedDict):
+    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details. In streaming mode, returns Server-Sent Events (SSE) with real-time events."""
+
+    data: NotRequired[ResponseStreamingEventTypedDict]
+    r"""Union of all possible streaming events. Each event has a type field for discrimination."""
+
+
+class CreateAgentResponseRequestAgentsResponsesResponseBody(BaseModel):
+    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details. In streaming mode, returns Server-Sent Events (SSE) with real-time events."""
+
+    data: Optional[ResponseStreamingEvent] = None
+    r"""Union of all possible streaming events. Each event has a type field for discrimination."""
 
 
 CreateAgentResponseRequestAgentsResponsesRole = Literal[
@@ -451,7 +475,7 @@ class CreateAgentResponseRequestUsage(BaseModel):
 
 
 class CreateAgentResponseRequestResponseBodyTypedDict(TypedDict):
-    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details."""
+    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details. In streaming mode, returns Server-Sent Events (SSE) with real-time events."""
 
     id: str
     r"""The unique response ID"""
@@ -468,7 +492,7 @@ class CreateAgentResponseRequestResponseBodyTypedDict(TypedDict):
 
 
 class CreateAgentResponseRequestResponseBody(BaseModel):
-    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details."""
+    r"""Agent response successfully created and completed. Returns the full conversation including all messages, tool interactions, model used, and token usage statistics. In background mode, returns immediately with initial task details. In streaming mode, returns Server-Sent Events (SSE) with real-time events."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique response ID"""
@@ -517,3 +541,35 @@ class CreateAgentResponseRequestResponseBody(BaseModel):
                 m[k] = val
 
         return m
+
+
+CreateAgentResponseRequestResponseTypedDict = TypeAliasType(
+    "CreateAgentResponseRequestResponseTypedDict",
+    Union[
+        CreateAgentResponseRequestResponseBodyTypedDict,
+        Union[
+            eventstreaming.EventStream[
+                CreateAgentResponseRequestAgentsResponsesResponseBodyTypedDict
+            ],
+            eventstreaming.EventStreamAsync[
+                CreateAgentResponseRequestAgentsResponsesResponseBodyTypedDict
+            ],
+        ],
+    ],
+)
+
+
+CreateAgentResponseRequestResponse = TypeAliasType(
+    "CreateAgentResponseRequestResponse",
+    Union[
+        CreateAgentResponseRequestResponseBody,
+        Union[
+            eventstreaming.EventStream[
+                CreateAgentResponseRequestAgentsResponsesResponseBody
+            ],
+            eventstreaming.EventStreamAsync[
+                CreateAgentResponseRequestAgentsResponsesResponseBody
+            ],
+        ],
+    ],
+)
