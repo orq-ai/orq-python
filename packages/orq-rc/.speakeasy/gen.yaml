@@ -73,6 +73,7 @@ python:
   outputModelSuffix: output
   packageManager: poetry
   packageName: orq-ai-sdk
+  preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat

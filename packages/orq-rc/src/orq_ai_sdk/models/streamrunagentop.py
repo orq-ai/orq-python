@@ -52,6 +52,14 @@ from .executionreviewrequiredstreamingevent import (
 )
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
+from .thinkingconfigdisabledschema import (
+    ThinkingConfigDisabledSchema,
+    ThinkingConfigDisabledSchemaTypedDict,
+)
+from .thinkingconfigenabledschema import (
+    ThinkingConfigEnabledSchema,
+    ThinkingConfigEnabledSchemaTypedDict,
+)
 from .timeoutstreamingevent import TimeoutStreamingEvent, TimeoutStreamingEventTypedDict
 from .toolexecutionfailedstreamingevent import (
     ToolExecutionFailedStreamingEvent,
@@ -264,38 +272,19 @@ class StreamRunAgentModelConfigurationStreamOptions(BaseModel):
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentModelConfigurationType = Literal[
-    "enabled",
-    "disabled",
+StreamRunAgentModelConfigurationThinkingTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationThinkingTypedDict",
+    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+)
+
+
+StreamRunAgentModelConfigurationThinking = Annotated[
+    Union[
+        Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
+        Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Enables or disables the thinking mode capability"""
-
-
-StreamRunAgentModelConfigurationThinkingLevel = Literal[
-    "low",
-    "high",
-]
-r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
-
-
-class StreamRunAgentModelConfigurationThinkingTypedDict(TypedDict):
-    type: StreamRunAgentModelConfigurationType
-    r"""Enables or disables the thinking mode capability"""
-    budget_tokens: float
-    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[StreamRunAgentModelConfigurationThinkingLevel]
-    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
-
-
-class StreamRunAgentModelConfigurationThinking(BaseModel):
-    type: StreamRunAgentModelConfigurationType
-    r"""Enables or disables the thinking mode capability"""
-
-    budget_tokens: float
-    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-
-    thinking_level: Optional[StreamRunAgentModelConfigurationThinkingLevel] = None
-    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 StreamRunAgentToolChoiceType = Literal["function",]
@@ -797,40 +786,19 @@ class StreamRunAgentFallbackModelConfigurationStreamOptions(BaseModel):
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-StreamRunAgentFallbackModelConfigurationType = Literal[
-    "enabled",
-    "disabled",
+StreamRunAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationThinkingTypedDict",
+    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+)
+
+
+StreamRunAgentFallbackModelConfigurationThinking = Annotated[
+    Union[
+        Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
+        Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Enables or disables the thinking mode capability"""
-
-
-StreamRunAgentFallbackModelConfigurationThinkingLevel = Literal[
-    "low",
-    "high",
-]
-r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
-
-
-class StreamRunAgentFallbackModelConfigurationThinkingTypedDict(TypedDict):
-    type: StreamRunAgentFallbackModelConfigurationType
-    r"""Enables or disables the thinking mode capability"""
-    budget_tokens: float
-    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-    thinking_level: NotRequired[StreamRunAgentFallbackModelConfigurationThinkingLevel]
-    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
-
-
-class StreamRunAgentFallbackModelConfigurationThinking(BaseModel):
-    type: StreamRunAgentFallbackModelConfigurationType
-    r"""Enables or disables the thinking mode capability"""
-
-    budget_tokens: float
-    r"""Determines how many tokens the model can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality. Must be ≥1024 and less than `max_tokens`."""
-
-    thinking_level: Optional[StreamRunAgentFallbackModelConfigurationThinkingLevel] = (
-        None
-    )
-    r"""The level of reasoning the model should use. This setting is supported only by `gemini-3` models. If budget_tokens is specified and `thinking_level` is available, `budget_tokens` will be ignored."""
 
 
 StreamRunAgentToolChoiceAgentsType = Literal["function",]
@@ -1328,7 +1296,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KBZ0NWNMAM12ARQZ26RVD977"
+    id: Optional[str] = "01KC196HPETD1GJ3516SAW0YMD"
 
     description: Optional[str] = None
 

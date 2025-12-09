@@ -56,7 +56,7 @@ class CreateConversationResponseBody(BaseModel):
     r"""Unix timestamp (in milliseconds) when the conversation was last updated"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kbz0nwqfm8468xj983gbqwgr"
+        "conv_01kc196hr5zjxdvfvne4qef0yv"
     )
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the conversation, prefixed with \"conv_\" """
 
