@@ -6,6 +6,7 @@
 
 * [list](#list) - List conversations
 * [create](#create) - Create conversation
+* [generate_name](#generate_name) - Generate conversation name
 * [retrieve](#retrieve) - Retrieve conversation
 * [update](#update) - Update conversation
 * [delete](#delete) - Delete conversation
@@ -68,7 +69,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.conversations.create(display_name="Support Chat #1234")
+    res = orq.conversations.create(metadata={
+        "entity_id": "<id>",
+    }, display_name="Support Chat #1234")
 
     # Handle response
     print(res)
@@ -77,10 +80,11 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `display_name`                                                               | *str*                                                                        | :heavy_check_mark:                                                           | Display name for the conversation. Can be auto-generated or set by the user. | Support Chat #1234                                                           |
-| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |                                                                              |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     | Example                                                                         |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `metadata`                                                                      | [models.CreateConversationMetadata](../../models/createconversationmetadata.md) | :heavy_check_mark:                                                              | N/A                                                                             |                                                                                 |
+| `display_name`                                                                  | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Display name for the conversation. Defaults to "Untitled" if not provided.      | Support Chat #1234                                                              |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |                                                                                 |
 
 ### Response
 
@@ -91,6 +95,49 @@ with Orq(
 | Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
+
+## generate_name
+
+Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generating_title to false.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="GenerateConversationName" method="post" path="/v2/conversations/{conversation_id}/generate-name" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.conversations.generate_name(conversation_id="conv_01jj1hdhn79xas7a01wb3hysdb", context="What is the weather in San Francisco?")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           | Example                                                                                               |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `conversation_id`                                                                                     | *str*                                                                                                 | :heavy_check_mark:                                                                                    | The unique identifier of the conversation to generate a name for                                      | conv_01jj1hdhn79xas7a01wb3hysdb                                                                       |
+| `context`                                                                                             | *str*                                                                                                 | :heavy_check_mark:                                                                                    | The conversation context (e.g., user message or conversation summary) to generate a display name from | What is the weather in San Francisco?                                                                 |
+| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |                                                                                                       |
+
+### Response
+
+**[models.GenerateConversationNameResponseBody](../../models/generateconversationnameresponsebody.md)**
+
+### Errors
+
+| Error Type                                                       | Status Code                                                      | Content Type                                                     |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| models.GenerateConversationNameConversationsResponseBody         | 400                                                              | application/json                                                 |
+| models.GenerateConversationNameConversationsResponseResponseBody | 404                                                              | application/json                                                 |
+| models.APIError                                                  | 4XX, 5XX                                                         | \*/\*                                                            |
 
 ## retrieve
 
@@ -158,11 +205,12 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `conversation_id`                                                   | *str*                                                               | :heavy_check_mark:                                                  | The unique identifier of the conversation to update                 | conv_01jj1hdhn79xas7a01wb3hysdb                                     |
-| `display_name`                                                      | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Updated display name for the conversation.                          | Renamed Conversation                                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               | Example                                                                                   |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `conversation_id`                                                                         | *str*                                                                                     | :heavy_check_mark:                                                                        | The unique identifier of the conversation to update                                       | conv_01jj1hdhn79xas7a01wb3hysdb                                                           |
+| `display_name`                                                                            | *Optional[str]*                                                                           | :heavy_minus_sign:                                                                        | Updated display name for the conversation.                                                | Renamed Conversation                                                                      |
+| `metadata`                                                                                | [Optional[models.UpdateConversationMetadata]](../../models/updateconversationmetadata.md) | :heavy_minus_sign:                                                                        | Optional metadata to update for the conversation.                                         |                                                                                           |
+| `retries`                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                          | :heavy_minus_sign:                                                                        | Configuration to override the default retry behavior of the client.                       |                                                                                           |
 
 ### Response
 

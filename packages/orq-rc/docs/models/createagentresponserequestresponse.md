@@ -3,15 +3,15 @@
 
 ## Supported Types
 
-### `models.CreateAgentResponseRequestResponseBody`
+### `models.CreateAgentResponse`
 
 ```python
-value: models.CreateAgentResponseRequestResponseBody = /* values here */
+value: models.CreateAgentResponse = /* values here */
 ```
 
-### `Union[eventstreaming.EventStream[models.CreateAgentResponseRequestAgentsResponsesResponseBody], eventstreaming.EventStreamAsync[models.CreateAgentResponseRequestAgentsResponsesResponseBody]]`
+### `Union[eventstreaming.EventStream[models.CreateAgentResponseRequestResponseBody], eventstreaming.EventStreamAsync[models.CreateAgentResponseRequestResponseBody]]`
 
 ```python
-value: Union[eventstreaming.EventStream[models.CreateAgentResponseRequestAgentsResponsesResponseBody], eventstreaming.EventStreamAsync[models.CreateAgentResponseRequestAgentsResponsesResponseBody]] = /* values here */
+value: Union[eventstreaming.EventStream[models.CreateAgentResponseRequestResponseBody], eventstreaming.EventStreamAsync[models.CreateAgentResponseRequestResponseBody]] = /* values here */
 ```
 

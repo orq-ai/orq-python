@@ -1,4 +1,4 @@
-# CreateAgentResponseRequestParts
+# AgentStartedStreamingEventParts
 
 
 ## Supported Types

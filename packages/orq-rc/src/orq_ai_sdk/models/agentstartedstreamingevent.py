@@ -26,8 +26,8 @@ AgentStartedStreamingEventRole = Literal[
 r"""Extended A2A message role"""
 
 
-PartsTypedDict = TypeAliasType(
-    "PartsTypedDict",
+AgentStartedStreamingEventPartsTypedDict = TypeAliasType(
+    "AgentStartedStreamingEventPartsTypedDict",
     Union[
         TextPartTypedDict,
         DataPartTypedDict,
@@ -38,7 +38,7 @@ PartsTypedDict = TypeAliasType(
 )
 
 
-Parts = Annotated[
+AgentStartedStreamingEventParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
         Annotated[DataPart, Tag("data")],
@@ -53,7 +53,7 @@ Parts = Annotated[
 class InputMessageTypedDict(TypedDict):
     role: AgentStartedStreamingEventRole
     r"""Extended A2A message role"""
-    parts: List[PartsTypedDict]
+    parts: List[AgentStartedStreamingEventPartsTypedDict]
     message_id: NotRequired[str]
     metadata: NotRequired[Dict[str, Any]]
 
@@ -62,7 +62,7 @@ class InputMessage(BaseModel):
     role: AgentStartedStreamingEventRole
     r"""Extended A2A message role"""
 
-    parts: List[Parts]
+    parts: List[AgentStartedStreamingEventParts]
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
 
@@ -211,7 +211,7 @@ class Settings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"

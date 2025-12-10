@@ -1213,7 +1213,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KC196HMGZMS716C8SHPNGZRE"
+    id: Optional[str] = "01KC3CE23C1WG4ACM482CRY1P4"
 
     description: Optional[str] = None
 
@@ -2009,7 +2009,7 @@ class RunAgentSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     evaluators: Optional[List[RunAgentEvaluators]] = None

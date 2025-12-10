@@ -29,14 +29,14 @@ FinishReason = Literal[
 r"""The reason why the agent stopped generating"""
 
 
-class PromptTokensDetailsTypedDict(TypedDict):
+class ResponseDoneEventPromptTokensDetailsTypedDict(TypedDict):
     cached_tokens: NotRequired[Nullable[int]]
     cache_creation_tokens: NotRequired[Nullable[int]]
     audio_tokens: NotRequired[Nullable[int]]
     r"""The number of audio input tokens consumed by the request."""
 
 
-class PromptTokensDetails(BaseModel):
+class ResponseDoneEventPromptTokensDetails(BaseModel):
     cached_tokens: OptionalNullable[int] = UNSET
 
     cache_creation_tokens: OptionalNullable[int] = UNSET
@@ -75,7 +75,7 @@ class PromptTokensDetails(BaseModel):
         return m
 
 
-class CompletionTokensDetailsTypedDict(TypedDict):
+class ResponseDoneEventCompletionTokensDetailsTypedDict(TypedDict):
     reasoning_tokens: NotRequired[Nullable[float]]
     accepted_prediction_tokens: NotRequired[Nullable[float]]
     rejected_prediction_tokens: NotRequired[Nullable[float]]
@@ -83,7 +83,7 @@ class CompletionTokensDetailsTypedDict(TypedDict):
     r"""The number of audio output tokens produced by the response."""
 
 
-class CompletionTokensDetails(BaseModel):
+class ResponseDoneEventCompletionTokensDetails(BaseModel):
     reasoning_tokens: OptionalNullable[float] = UNSET
 
     accepted_prediction_tokens: OptionalNullable[float] = UNSET
@@ -134,7 +134,7 @@ class CompletionTokensDetails(BaseModel):
         return m
 
 
-class UsageTypedDict(TypedDict):
+class ResponseDoneEventUsageTypedDict(TypedDict):
     r"""Token usage statistics for the complete response"""
 
     completion_tokens: NotRequired[float]
@@ -143,11 +143,15 @@ class UsageTypedDict(TypedDict):
     r"""Number of tokens in the prompt."""
     total_tokens: NotRequired[float]
     r"""Total number of tokens used in the request (prompt + completion)."""
-    prompt_tokens_details: NotRequired[Nullable[PromptTokensDetailsTypedDict]]
-    completion_tokens_details: NotRequired[Nullable[CompletionTokensDetailsTypedDict]]
+    prompt_tokens_details: NotRequired[
+        Nullable[ResponseDoneEventPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[ResponseDoneEventCompletionTokensDetailsTypedDict]
+    ]
 
 
-class Usage(BaseModel):
+class ResponseDoneEventUsage(BaseModel):
     r"""Token usage statistics for the complete response"""
 
     completion_tokens: Optional[float] = None
@@ -159,9 +163,13 @@ class Usage(BaseModel):
     total_tokens: Optional[float] = None
     r"""Total number of tokens used in the request (prompt + completion)."""
 
-    prompt_tokens_details: OptionalNullable[PromptTokensDetails] = UNSET
+    prompt_tokens_details: OptionalNullable[ResponseDoneEventPromptTokensDetails] = (
+        UNSET
+    )
 
-    completion_tokens_details: OptionalNullable[CompletionTokensDetails] = UNSET
+    completion_tokens_details: OptionalNullable[
+        ResponseDoneEventCompletionTokensDetails
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -237,7 +245,7 @@ class PendingToolCalls(BaseModel):
 class ResponseDoneEventDataTypedDict(TypedDict):
     finish_reason: FinishReason
     r"""The reason why the agent stopped generating"""
-    usage: NotRequired[UsageTypedDict]
+    usage: NotRequired[ResponseDoneEventUsageTypedDict]
     r"""Token usage statistics for the complete response"""
     pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
     r"""Tool calls awaiting user response (when finishReason is function_call)"""
@@ -247,7 +255,7 @@ class ResponseDoneEventData(BaseModel):
     finish_reason: Annotated[FinishReason, pydantic.Field(alias="finishReason")]
     r"""The reason why the agent stopped generating"""
 
-    usage: Optional[Usage] = None
+    usage: Optional[ResponseDoneEventUsage] = None
     r"""Token usage statistics for the complete response"""
 
     pending_tool_calls: Annotated[

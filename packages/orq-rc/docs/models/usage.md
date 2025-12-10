@@ -1,6 +1,6 @@
 # Usage
 
-Token usage statistics for the complete response
+Token usage from the agent execution
 
 
 ## Fields

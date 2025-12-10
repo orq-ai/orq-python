@@ -1,4 +1,4 @@
-# CreateAgentResponseRequestPromptTokensDetails
+# ResponseDoneEventPromptTokensDetails
 
 
 ## Fields

@@ -1,4 +1,4 @@
-# CreateAgentResponseRequestCompletionTokensDetails
+# ResponseDoneEventCompletionTokensDetails
 
 
 ## Fields

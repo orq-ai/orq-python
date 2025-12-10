@@ -445,7 +445,7 @@ class DeveloperMessage(BaseModel):
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
-Role = Literal["system",]
+InvokeDeploymentRequestPrefixMessages1Role = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
@@ -462,7 +462,7 @@ r"""The contents of the system message."""
 class SystemMessageTypedDict(TypedDict):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: Role
+    role: InvokeDeploymentRequestPrefixMessages1Role
     r"""The role of the messages author, in this case `system`."""
     content: ContentTypedDict
     r"""The contents of the system message."""
@@ -473,7 +473,7 @@ class SystemMessageTypedDict(TypedDict):
 class SystemMessage(BaseModel):
     r"""Developer-provided instructions that the model should follow, regardless of messages sent by the user."""
 
-    role: Role
+    role: InvokeDeploymentRequestPrefixMessages1Role
     r"""The role of the messages author, in this case `system`."""
 
     content: Content
@@ -986,7 +986,7 @@ Messages = Annotated[
 ]
 
 
-class MetadataTypedDict(TypedDict):
+class InvokeDeploymentRequestMetadataTypedDict(TypedDict):
     r"""Metadata about the document"""
 
     file_name: NotRequired[str]
@@ -997,7 +997,7 @@ class MetadataTypedDict(TypedDict):
     r"""The page number the text is from."""
 
 
-class Metadata(BaseModel):
+class InvokeDeploymentRequestMetadata(BaseModel):
     r"""Metadata about the document"""
 
     file_name: Optional[str] = None
@@ -1013,7 +1013,7 @@ class Metadata(BaseModel):
 class DocumentsTypedDict(TypedDict):
     text: str
     r"""The text content of the document"""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[InvokeDeploymentRequestMetadataTypedDict]
     r"""Metadata about the document"""
 
 
@@ -1021,7 +1021,7 @@ class Documents(BaseModel):
     text: str
     r"""The text content of the document"""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[InvokeDeploymentRequestMetadata] = None
     r"""Metadata about the document"""
 
 

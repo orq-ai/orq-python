@@ -39,6 +39,9 @@ class Responses(BaseSDK):
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
+        conversation: Optional[
+            Union[models.Conversation, models.ConversationTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -59,6 +62,7 @@ class Responses(BaseSDK):
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
+        :param conversation:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -94,6 +98,9 @@ class Responses(BaseSDK):
                 metadata=metadata,
                 background=background,
                 stream=stream,
+                conversation=utils.get_pydantic_model(
+                    conversation, Optional[models.Conversation]
+                ),
             ),
         )
 
@@ -150,13 +157,13 @@ class Responses(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
             return unmarshal_json_response(
-                models.CreateAgentResponseRequestResponseBody, http_res, http_res_text
+                models.CreateAgentResponse, http_res, http_res_text
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStream(
                 http_res,
                 lambda raw: utils.unmarshal_json(
-                    raw, models.CreateAgentResponseRequestAgentsResponsesResponseBody
+                    raw, models.CreateAgentResponseRequestResponseBody
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
@@ -194,6 +201,9 @@ class Responses(BaseSDK):
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
+        conversation: Optional[
+            Union[models.Conversation, models.ConversationTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -214,6 +224,7 @@ class Responses(BaseSDK):
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
+        :param conversation:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -249,6 +260,9 @@ class Responses(BaseSDK):
                 metadata=metadata,
                 background=background,
                 stream=stream,
+                conversation=utils.get_pydantic_model(
+                    conversation, Optional[models.Conversation]
+                ),
             ),
         )
 
@@ -305,13 +319,13 @@ class Responses(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
             return unmarshal_json_response(
-                models.CreateAgentResponseRequestResponseBody, http_res, http_res_text
+                models.CreateAgentResponse, http_res, http_res_text
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return eventstreaming.EventStreamAsync(
                 http_res,
                 lambda raw: utils.unmarshal_json(
-                    raw, models.CreateAgentResponseRequestAgentsResponsesResponseBody
+                    raw, models.CreateAgentResponseRequestResponseBody
                 ),
                 sentinel="[DONE]",
                 client_ref=self,
