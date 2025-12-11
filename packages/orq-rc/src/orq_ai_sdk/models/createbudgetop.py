@@ -10,43 +10,6 @@ from typing import Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateBudgetRequestBodyBudgetsRequestType = Literal["workspace",]
-r"""Workspace budget type"""
-
-
-CreateBudgetRequestBodyPeriod = Literal[
-    "daily",
-    "weekly",
-    "monthly",
-    "yearly",
-]
-r"""Budget period type"""
-
-
-class WorkspaceBudgetTypedDict(TypedDict):
-    r"""Budget configuration for the entire workspace"""
-
-    type: CreateBudgetRequestBodyBudgetsRequestType
-    r"""Workspace budget type"""
-    period: CreateBudgetRequestBodyPeriod
-    r"""Budget period type"""
-    amount: float
-    r"""Budget amount in USD for the specified period"""
-
-
-class WorkspaceBudget(BaseModel):
-    r"""Budget configuration for the entire workspace"""
-
-    type: CreateBudgetRequestBodyBudgetsRequestType
-    r"""Workspace budget type"""
-
-    period: CreateBudgetRequestBodyPeriod
-    r"""Budget period type"""
-
-    amount: float
-    r"""Budget amount in USD for the specified period"""
-
-
 CreateBudgetRequestBodyBudgetsType = Literal["contact",]
 r"""Contact budget type"""
 
@@ -93,7 +56,7 @@ CreateBudgetRequestBodyType = Literal["api_key",]
 r"""API Key budget type"""
 
 
-CreateBudgetRequestBodyBudgetsPeriod = Literal[
+CreateBudgetRequestBodyPeriod = Literal[
     "daily",
     "weekly",
     "monthly",
@@ -109,7 +72,7 @@ class APIKeyBudgetTypedDict(TypedDict):
     r"""API Key budget type"""
     entity_id: str
     r"""API Key token"""
-    period: CreateBudgetRequestBodyBudgetsPeriod
+    period: CreateBudgetRequestBodyPeriod
     r"""Budget period type"""
     amount: float
     r"""Budget amount in USD for the specified period"""
@@ -124,7 +87,7 @@ class APIKeyBudget(BaseModel):
     entity_id: str
     r"""API Key token"""
 
-    period: CreateBudgetRequestBodyBudgetsPeriod
+    period: CreateBudgetRequestBodyPeriod
     r"""Budget period type"""
 
     amount: float
@@ -133,26 +96,24 @@ class APIKeyBudget(BaseModel):
 
 CreateBudgetRequestBodyTypedDict = TypeAliasType(
     "CreateBudgetRequestBodyTypedDict",
-    Union[WorkspaceBudgetTypedDict, APIKeyBudgetTypedDict, ContactBudgetTypedDict],
+    Union[APIKeyBudgetTypedDict, ContactBudgetTypedDict],
 )
-r"""Create budget configuration for API key, contact, or workspace"""
+r"""Create budget configuration for API key or contact"""
 
 
 CreateBudgetRequestBody = Annotated[
     Union[
         Annotated[APIKeyBudget, Tag("api_key")],
         Annotated[ContactBudget, Tag("contact")],
-        Annotated[WorkspaceBudget, Tag("workspace")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Create budget configuration for API key, contact, or workspace"""
+r"""Create budget configuration for API key or contact"""
 
 
 CreateBudgetType = Literal[
     "api_key",
     "contact",
-    "workspace",
 ]
 r"""Budget entity type"""
 
@@ -293,5 +254,5 @@ class CreateBudgetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-11T05:01:28.677Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-11T11:32:34.996Z")
     r"""The date and time the resource was last updated"""

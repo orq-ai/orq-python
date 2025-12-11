@@ -1,12 +1,11 @@
 # QueryParamType
 
-Filter by budget entity type (api_key, contact or workspace)
+Filter by budget entity type (contact or api_key)
 
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `API_KEY`   | api_key     |
-| `CONTACT`   | contact     |
-| `WORKSPACE` | workspace   |
+| Name      | Value     |
+| --------- | --------- |
+| `CONTACT` | contact   |
+| `API_KEY` | api_key   |

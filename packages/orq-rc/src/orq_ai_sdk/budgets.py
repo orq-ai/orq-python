@@ -26,12 +26,12 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (api_key, contact or workspace). For workspace budgets, only one budget can exist per workspace.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact).
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type (api_key, contact or workspace)
+        :param type: Filter by budget entity type (contact or api_key)
         :param entity_id: Filter by specific entity ID
         :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method
@@ -128,12 +128,12 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (api_key, contact or workspace). For workspace budgets, only one budget can exist per workspace.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact).
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type (api_key, contact or workspace)
+        :param type: Filter by budget entity type (contact or api_key)
         :param entity_id: Filter by specific entity ID
         :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method
@@ -227,7 +227,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
-        Create a new budget configuration for an API key, contact, or workspace. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
+        Create a new budget configuration for an API key or contact. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -319,7 +319,7 @@ class Budgets(BaseSDK):
     ) -> models.CreateBudgetResponseBody:
         r"""Create budget configuration
 
-        Create a new budget configuration for an API key, contact, or workspace. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field. For workspaces, only the type field is required (entity_id is not needed). Only one budget can exist per workspace.
+        Create a new budget configuration for an API key or contact. For API keys, provide the API key value (e.g., sk_live_xxx) in entity_id field. For contacts, provide the external ID in entity_id field.
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
