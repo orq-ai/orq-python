@@ -29,3 +29,4 @@
 | `DEEPSEEK`     | deepseek       |
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
+| `ZAI`          | zai            |

@@ -457,6 +457,7 @@ GetPromptVersionProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 
 

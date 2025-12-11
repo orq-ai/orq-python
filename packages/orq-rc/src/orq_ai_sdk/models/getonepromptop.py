@@ -426,6 +426,7 @@ GetOnePromptProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 
 

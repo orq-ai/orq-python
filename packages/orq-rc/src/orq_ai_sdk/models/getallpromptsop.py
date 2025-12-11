@@ -447,6 +447,7 @@ GetAllPromptsProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 
 

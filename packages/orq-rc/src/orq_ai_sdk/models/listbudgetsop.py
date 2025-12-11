@@ -17,10 +17,11 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 QueryParamType = Literal[
+    "api_key",
     "contact",
     "workspace",
 ]
-r"""Filter by budget entity type (contact or workspace)"""
+r"""Filter by budget entity type (api_key, contact or workspace)"""
 
 
 class ListBudgetsRequestTypedDict(TypedDict):
@@ -31,7 +32,7 @@ class ListBudgetsRequestTypedDict(TypedDict):
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     type: NotRequired[QueryParamType]
-    r"""Filter by budget entity type (contact or workspace)"""
+    r"""Filter by budget entity type (api_key, contact or workspace)"""
     entity_id: NotRequired[str]
     r"""Filter by specific entity ID"""
     is_active: NotRequired[Nullable[bool]]
@@ -61,7 +62,7 @@ class ListBudgetsRequest(BaseModel):
         Optional[QueryParamType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""Filter by budget entity type (contact or workspace)"""
+    r"""Filter by budget entity type (api_key, contact or workspace)"""
 
     entity_id: Annotated[
         Optional[str],
@@ -255,7 +256,7 @@ class ListBudgetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-10T08:38:35.548Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-11T05:01:28.677Z")
     r"""The date and time the resource was last updated"""
 
 

@@ -67,6 +67,7 @@ DeploymentInvokeProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 r"""The provider used to generate the response"""
 

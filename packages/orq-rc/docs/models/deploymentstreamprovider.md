@@ -31,3 +31,4 @@ The provider used to generate the response
 | `DEEPSEEK`     | deepseek       |
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
+| `ZAI`          | zai            |

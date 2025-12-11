@@ -69,6 +69,7 @@ UpdateMemoryStoreProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 
 

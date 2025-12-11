@@ -527,6 +527,7 @@ DeploymentsProvider = Literal[
     "deepseek",
     "contextualai",
     "moonshotai",
+    "zai",
 ]
 
 

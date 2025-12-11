@@ -111,7 +111,7 @@ class CreateDatasetItemMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: CreateDatasetItemMessagesDatasetsRequestRequestBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[CreateDatasetItemMessagesCacheControlTypedDict]
 
@@ -123,10 +123,40 @@ class CreateDatasetItemMessagesToolMessage(BaseModel):
     content: CreateDatasetItemMessagesDatasetsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[CreateDatasetItemMessagesCacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 CreateDatasetItemContentDatasets2TypedDict = TypeAliasType(
@@ -637,7 +667,7 @@ class CreateDatasetItemMessagesDatasetsToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[CreateDatasetItemMessagesDatasetsCacheControlTypedDict]
 
@@ -651,10 +681,40 @@ class CreateDatasetItemMessagesDatasetsToolMessage(BaseModel):
     )
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[CreateDatasetItemMessagesDatasetsCacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 CreateDatasetItemContentDatasetsResponse2002TypedDict = TypeAliasType(
@@ -1106,7 +1166,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-10T08:38:47.231Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-11T05:01:44.186Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1158,7 +1218,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-10T08:38:47.231Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-11T05:01:44.185Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1210,7 +1270,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2025-12-10T08:38:47.230Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2025-12-11T05:01:44.184Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1289,5 +1349,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2025-12-10T08:38:35.196Z")
+    updated: Optional[datetime] = parse_datetime("2025-12-11T05:01:28.270Z")
     r"""The date and time the resource was last updated"""

@@ -26,12 +26,12 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (api_key, contact or workspace). For workspace budgets, only one budget can exist per workspace.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type (contact or workspace)
+        :param type: Filter by budget entity type (api_key, contact or workspace)
         :param entity_id: Filter by specific entity ID
         :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method
@@ -128,12 +128,12 @@ class Budgets(BaseSDK):
     ) -> models.ListBudgetsResponseBody:
         r"""List budget configurations
 
-        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (contact or workspace). For workspace budgets, only one budget can exist per workspace.
+        Retrieves a paginated list of budget configurations in your workspace. Supports filtering by type (api_key, contact or workspace). For workspace budgets, only one budget can exist per workspace.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param type: Filter by budget entity type (contact or workspace)
+        :param type: Filter by budget entity type (api_key, contact or workspace)
         :param entity_id: Filter by specific entity ID
         :param is_active: Filter by active status
         :param retries: Override the default retry configuration for this method

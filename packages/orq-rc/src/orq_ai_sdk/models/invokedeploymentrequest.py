@@ -104,7 +104,7 @@ class ToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: InvokeDeploymentRequestPrefixMessages5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[PrefixMessagesCacheControlTypedDict]
 
@@ -116,10 +116,40 @@ class ToolMessage(BaseModel):
     content: InvokeDeploymentRequestPrefixMessages5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[PrefixMessagesCacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 Content2TypedDict = TypeAliasType(
@@ -580,7 +610,7 @@ class MessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: InvokeDeploymentRequestMessages5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[MessagesCacheControlTypedDict]
 
@@ -592,10 +622,40 @@ class MessagesToolMessage(BaseModel):
     content: InvokeDeploymentRequestMessages5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[MessagesCacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 InvokeDeploymentRequestContentMessages42TypedDict = TypeAliasType(
