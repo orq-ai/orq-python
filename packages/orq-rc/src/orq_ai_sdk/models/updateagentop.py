@@ -1576,6 +1576,7 @@ class UpdateAgentUpdateAgentRequestTypedDict(TypedDict):
     project_id: NotRequired[str]
     role: NotRequired[str]
     description: NotRequired[str]
+    r"""A brief description of what the agent does"""
     instructions: NotRequired[str]
     system_prompt: NotRequired[str]
     r"""A custom system prompt template for the agent. If omitted, the default template is used."""
@@ -1612,6 +1613,7 @@ class UpdateAgentUpdateAgentRequest(BaseModel):
     role: Optional[str] = None
 
     description: Optional[str] = None
+    r"""A brief description of what the agent does"""
 
     instructions: Optional[str] = None
 
