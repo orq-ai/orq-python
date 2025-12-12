@@ -186,6 +186,25 @@ ModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+ModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 ModelConfigurationStopTypedDict = TypeAliasType(
     "ModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -303,8 +322,16 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[ModelConfigurationResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[ModelConfigurationReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -361,8 +388,16 @@ class ModelConfigurationParameters(BaseModel):
     response_format: Optional[ModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[ModelConfigurationReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -686,6 +721,25 @@ UpdateAgentFallbackModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+UpdateAgentFallbackModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 UpdateAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -807,8 +861,16 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         UpdateAgentFallbackModelConfigurationResponseFormatTypedDict
     ]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[UpdateAgentFallbackModelConfigurationReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -871,8 +933,18 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     )
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[UpdateAgentFallbackModelConfigurationReasoningEffort] = (
+        None
+    )
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -1029,10 +1101,12 @@ r"""MCP tool type"""
 class AgentToolInputCRUDMCPToolTypedDict(TypedDict):
     r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
-    r"""MCP tool type"""
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
+    type: NotRequired[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ]
+    r"""MCP tool type"""
     key: NotRequired[str]
     r"""The key of the parent MCP tool"""
     id: NotRequired[str]
@@ -1044,11 +1118,13 @@ class AgentToolInputCRUDMCPToolTypedDict(TypedDict):
 class AgentToolInputCRUDMCPTool(BaseModel):
     r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
-    r"""MCP tool type"""
-
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
+
+    type: Optional[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ] = "mcp"
+    r"""MCP tool type"""
 
     key: Optional[str] = None
     r"""The key of the parent MCP tool"""
@@ -1069,7 +1145,9 @@ r"""Function tool type"""
 class AgentToolInputCRUDFunctionToolTypedDict(TypedDict):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+    type: NotRequired[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+    ]
     r"""Function tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created function tool"""
@@ -1082,7 +1160,9 @@ class AgentToolInputCRUDFunctionToolTypedDict(TypedDict):
 class AgentToolInputCRUDFunctionTool(BaseModel):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+    type: Optional[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
+    ] = "function"
     r"""Function tool type"""
 
     key: Optional[str] = None
@@ -1104,7 +1184,9 @@ r"""Code execution tool type"""
 class AgentToolInputCRUDCodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+    type: NotRequired[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+    ]
     r"""Code execution tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created code tool"""
@@ -1117,7 +1199,9 @@ class AgentToolInputCRUDCodeExecutionToolTypedDict(TypedDict):
 class AgentToolInputCRUDCodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+    type: Optional[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
+    ] = "code"
     r"""Code execution tool type"""
 
     key: Optional[str] = None
@@ -1139,7 +1223,9 @@ r"""HTTP tool type"""
 class AgentToolInputCRUDHTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    type: NotRequired[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    ]
     r"""HTTP tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created HTTP tool"""
@@ -1152,7 +1238,9 @@ class AgentToolInputCRUDHTTPToolTypedDict(TypedDict):
 class AgentToolInputCRUDHTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
-    type: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    type: Optional[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
+    ] = "http"
     r"""HTTP tool type"""
 
     key: Optional[str] = None
@@ -1422,35 +1510,26 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-UpdateAgentAgentToolInputCRUD = Annotated[
+UpdateAgentAgentToolInputCRUD = TypeAliasType(
+    "UpdateAgentAgentToolInputCRUD",
     Union[
-        Annotated[AgentToolInputCRUDGoogleSearchTool, Tag("google_search")],
-        Annotated[AgentToolInputCRUDWebScraperTool, Tag("web_scraper")],
-        Annotated[AgentToolInputCRUDCallSubAgentTool, Tag("call_sub_agent")],
-        Annotated[AgentToolInputCRUDRetrieveAgentsTool, Tag("retrieve_agents")],
-        Annotated[AgentToolInputCRUDQueryMemoryStoreTool, Tag("query_memory_store")],
-        Annotated[AgentToolInputCRUDWriteMemoryStoreTool, Tag("write_memory_store")],
-        Annotated[
-            AgentToolInputCRUDRetrieveMemoryStoresTool, Tag("retrieve_memory_stores")
-        ],
-        Annotated[
-            AgentToolInputCRUDDeleteMemoryDocumentTool, Tag("delete_memory_document")
-        ],
-        Annotated[
-            AgentToolInputCRUDRetrieveKnowledgeBasesTool,
-            Tag("retrieve_knowledge_bases"),
-        ],
-        Annotated[
-            AgentToolInputCRUDQueryKnowledgeBaseTool, Tag("query_knowledge_base")
-        ],
-        Annotated[AgentToolInputCRUDCurrentDateTool, Tag("current_date")],
-        Annotated[AgentToolInputCRUDHTTPTool, Tag("http")],
-        Annotated[AgentToolInputCRUDCodeExecutionTool, Tag("code")],
-        Annotated[AgentToolInputCRUDFunctionTool, Tag("function")],
-        Annotated[AgentToolInputCRUDMCPTool, Tag("mcp")],
+        AgentToolInputCRUDGoogleSearchTool,
+        AgentToolInputCRUDWebScraperTool,
+        AgentToolInputCRUDCallSubAgentTool,
+        AgentToolInputCRUDRetrieveAgentsTool,
+        AgentToolInputCRUDQueryMemoryStoreTool,
+        AgentToolInputCRUDWriteMemoryStoreTool,
+        AgentToolInputCRUDRetrieveMemoryStoresTool,
+        AgentToolInputCRUDDeleteMemoryDocumentTool,
+        AgentToolInputCRUDRetrieveKnowledgeBasesTool,
+        AgentToolInputCRUDQueryKnowledgeBaseTool,
+        AgentToolInputCRUDCurrentDateTool,
+        AgentToolInputCRUDHTTPTool,
+        AgentToolInputCRUDCodeExecutionTool,
+        AgentToolInputCRUDFunctionTool,
+        AgentToolInputCRUDMCPTool,
     ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
+)
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
@@ -2013,6 +2092,25 @@ UpdateAgentResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+UpdateAgentReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 UpdateAgentStopTypedDict = TypeAliasType(
     "UpdateAgentStopTypedDict", Union[str, List[str]]
 )
@@ -2133,8 +2231,16 @@ class UpdateAgentParametersTypedDict(TypedDict):
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[UpdateAgentResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[UpdateAgentReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -2191,8 +2297,16 @@ class UpdateAgentParameters(BaseModel):
     response_format: Optional[UpdateAgentResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[UpdateAgentReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -2489,6 +2603,25 @@ UpdateAgentFallbackModelConfigurationAgentsResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+UpdateAgentFallbackModelConfigurationAgentsReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 UpdateAgentFallbackModelConfigurationAgentsStopTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationAgentsStopTypedDict", Union[str, List[str]]
 )
@@ -2617,8 +2750,18 @@ class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
         UpdateAgentFallbackModelConfigurationAgentsResponseFormatTypedDict
     ]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsReasoningEffort
+    ]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -2685,8 +2828,18 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
     ] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[
+        UpdateAgentFallbackModelConfigurationAgentsReasoningEffort
+    ] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""

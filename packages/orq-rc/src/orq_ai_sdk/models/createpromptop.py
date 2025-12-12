@@ -477,7 +477,7 @@ EncodingFormat = Literal[
 r"""The format to return the embeddings"""
 
 
-ReasoningEffort = Literal[
+CreatePromptReasoningEffort = Literal[
     "none",
     "disable",
     "minimal",
@@ -543,7 +543,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[EncodingFormat]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[ReasoningEffort]
+    reasoning_effort: NotRequired[CreatePromptReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
@@ -620,7 +620,7 @@ class ModelParameters(BaseModel):
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[
-        Optional[ReasoningEffort], pydantic.Field(alias="reasoningEffort")
+        Optional[CreatePromptReasoningEffort], pydantic.Field(alias="reasoningEffort")
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -1612,7 +1612,7 @@ CreatePromptEncodingFormat = Literal[
 r"""The format to return the embeddings"""
 
 
-CreatePromptReasoningEffort = Literal[
+CreatePromptPromptsReasoningEffort = Literal[
     "none",
     "disable",
     "minimal",
@@ -1680,7 +1680,7 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[CreatePromptEncodingFormat]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[CreatePromptReasoningEffort]
+    reasoning_effort: NotRequired[CreatePromptPromptsReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
@@ -1757,7 +1757,8 @@ class CreatePromptModelParameters(BaseModel):
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[
-        Optional[CreatePromptReasoningEffort], pydantic.Field(alias="reasoningEffort")
+        Optional[CreatePromptPromptsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
