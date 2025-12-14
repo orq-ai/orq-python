@@ -44,6 +44,7 @@ python:
     - Orq
   baseErrorName: OrqError
   clientServerStatusCodesAsErrors: true
+  constFieldCasing: upper
   defaultErrorName: APIError
   description: Python Client SDK for the Orq API.
   enableCustomCodeRegions: false
