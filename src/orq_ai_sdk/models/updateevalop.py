@@ -672,9 +672,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -814,9 +814,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1457,9 +1457,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1580,9 +1580,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1710,9 +1710,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1811,9 +1811,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1911,9 +1911,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2025-12-15T18:17:01.722Z"
+    created: Optional[str] = "2025-12-15T21:15:07.362Z"
 
-    updated: Optional[str] = "2025-12-15T18:17:01.722Z"
+    updated: Optional[str] = "2025-12-15T21:15:07.363Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 

@@ -3,6 +3,9 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createagentresponserequestop as models_createagentresponserequestop,
+)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -14,20 +17,28 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
+        message: Union[
+            models_createagentresponserequestop.A2AMessage,
+            models_createagentresponserequestop.A2AMessageTypedDict,
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
+        contact: Optional[
+            Union[
+                models_createagentresponserequestop.Contact,
+                models_createagentresponserequestop.ContactTypedDict,
+            ]
+        ] = None,
         thread: Optional[
             Union[
-                models.CreateAgentResponseRequestThread,
-                models.CreateAgentResponseRequestThreadTypedDict,
+                models_createagentresponserequestop.CreateAgentResponseRequestThread,
+                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models.CreateAgentResponseRequestMemory,
-                models.CreateAgentResponseRequestMemoryTypedDict,
+                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
+                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
@@ -150,20 +161,28 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
+        message: Union[
+            models_createagentresponserequestop.A2AMessage,
+            models_createagentresponserequestop.A2AMessageTypedDict,
+        ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
+        contact: Optional[
+            Union[
+                models_createagentresponserequestop.Contact,
+                models_createagentresponserequestop.ContactTypedDict,
+            ]
+        ] = None,
         thread: Optional[
             Union[
-                models.CreateAgentResponseRequestThread,
-                models.CreateAgentResponseRequestThreadTypedDict,
+                models_createagentresponserequestop.CreateAgentResponseRequestThread,
+                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models.CreateAgentResponseRequestMemory,
-                models.CreateAgentResponseRequestMemoryTypedDict,
+                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
+                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
