@@ -63,5 +63,5 @@ class FileGetResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2025-12-12T13:23:20.740Z")
+    created: Optional[datetime] = parse_datetime("2025-12-15T06:07:23.295Z")
     r"""The date and time the resource was created"""

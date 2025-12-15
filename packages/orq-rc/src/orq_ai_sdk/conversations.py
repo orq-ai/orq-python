@@ -26,8 +26,8 @@ class Conversations(BaseSDK):
         Retrieves a paginated list of conversations in your workspace. Conversations are returned sorted by creation date (newest first). Use pagination parameters to efficiently navigate through large collections.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        :param starting_after: A cursor for use in pagination. `starting_after` is a conversation ID that defines your place in the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is a conversation ID that defines your place in the list.
+        :param starting_after: A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list.
+        :param ending_before: A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -121,8 +121,8 @@ class Conversations(BaseSDK):
         Retrieves a paginated list of conversations in your workspace. Conversations are returned sorted by creation date (newest first). Use pagination parameters to efficiently navigate through large collections.
 
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        :param starting_after: A cursor for use in pagination. `starting_after` is a conversation ID that defines your place in the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is a conversation ID that defines your place in the list.
+        :param starting_after: A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list.
+        :param ending_before: A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -412,7 +412,7 @@ class Conversations(BaseSDK):
     ) -> models.GenerateConversationNameResponseBody:
         r"""Generate conversation name
 
-        Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generating_title to false.
+        Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generatingTitle to false.
 
         :param conversation_id: The unique identifier of the conversation to generate a name for
         :param context: The conversation context (e.g., user message or conversation summary) to generate a display name from
@@ -529,7 +529,7 @@ class Conversations(BaseSDK):
     ) -> models.GenerateConversationNameResponseBody:
         r"""Generate conversation name
 
-        Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generating_title to false.
+        Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generatingTitle to false.
 
         :param conversation_id: The unique identifier of the conversation to generate a name for
         :param context: The conversation context (e.g., user message or conversation summary) to generate a display name from
