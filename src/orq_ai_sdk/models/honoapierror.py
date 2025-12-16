@@ -11,7 +11,6 @@ from typing import Optional
 class HonoAPIErrorData(BaseModel):
     message: str
     r"""Error message"""
-
     code: Optional[str] = None
     r"""HTTP status code"""
 
