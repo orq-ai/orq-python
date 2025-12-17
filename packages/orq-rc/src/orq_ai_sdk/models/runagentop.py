@@ -295,6 +295,40 @@ RunAgentModelConfigurationModalities = Literal[
 ]
 
 
+RunAgentID1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+RunAgentModelConfigurationIDTypedDict = TypeAliasType(
+    "RunAgentModelConfigurationIDTypedDict", Union[RunAgentID1, str]
+)
+
+
+RunAgentModelConfigurationID = TypeAliasType(
+    "RunAgentModelConfigurationID", Union[RunAgentID1, str]
+)
+
+
+RunAgentModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class RunAgentModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: RunAgentModelConfigurationIDTypedDict
+    execute_on: RunAgentModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class RunAgentModelConfigurationGuardrails(BaseModel):
+    id: RunAgentModelConfigurationID
+
+    execute_on: RunAgentModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -352,6 +386,8 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[RunAgentModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[RunAgentModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class RunAgentModelConfigurationParameters(BaseModel):
@@ -430,6 +466,9 @@ class RunAgentModelConfigurationParameters(BaseModel):
     modalities: OptionalNullable[List[RunAgentModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[RunAgentModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -454,6 +493,7 @@ class RunAgentModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -834,6 +874,40 @@ RunAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
+RunAgentIDAgents1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+RunAgentFallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "RunAgentFallbackModelConfigurationIDTypedDict", Union[RunAgentIDAgents1, str]
+)
+
+
+RunAgentFallbackModelConfigurationID = TypeAliasType(
+    "RunAgentFallbackModelConfigurationID", Union[RunAgentIDAgents1, str]
+)
+
+
+RunAgentFallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class RunAgentFallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: RunAgentFallbackModelConfigurationIDTypedDict
+    execute_on: RunAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class RunAgentFallbackModelConfigurationGuardrails(BaseModel):
+    id: RunAgentFallbackModelConfigurationID
+
+    execute_on: RunAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -895,6 +969,8 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         Nullable[List[RunAgentFallbackModelConfigurationModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[RunAgentFallbackModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class RunAgentFallbackModelConfigurationParameters(BaseModel):
@@ -977,6 +1053,9 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     )
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[RunAgentFallbackModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1001,6 +1080,7 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -1283,7 +1363,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KCKC7AZMKMG4R9K1QB5FSA4J"
+    id: Optional[str] = "01KCCAY58YNHV25FA85DJ4BDP0"
 
     description: Optional[str] = None
 

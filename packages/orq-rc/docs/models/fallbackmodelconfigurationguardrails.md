@@ -1,0 +1,9 @@
+# FallbackModelConfigurationGuardrails
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `id`                                                                                           | [models.FallbackModelConfigurationID](../models/fallbackmodelconfigurationid.md)               | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `execute_on`                                                                                   | [models.FallbackModelConfigurationExecuteOn](../models/fallbackmodelconfigurationexecuteon.md) | :heavy_check_mark:                                                                             | Determines whether the guardrail runs on the input (user message) or output (model response).  |

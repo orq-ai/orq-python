@@ -679,19 +679,19 @@ class ResponseBodyBoolean(BaseModel):
 InvokeEvalResponseBodyEvalsType = Literal["number",]
 
 
-Style = Literal["currency",]
+FormatOptionsStyle = Literal["currency",]
 
 
 Currency = Literal["USD",]
 
 
 class FormatOptions2TypedDict(TypedDict):
-    style: Style
+    style: FormatOptionsStyle
     currency: Currency
 
 
 class FormatOptions2(BaseModel):
-    style: Style
+    style: FormatOptionsStyle
 
     currency: Currency
 

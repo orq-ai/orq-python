@@ -281,6 +281,36 @@ Modalities = Literal[
 ]
 
 
+ID1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+IDTypedDict = TypeAliasType("IDTypedDict", Union[ID1, str])
+
+
+ID = TypeAliasType("ID", Union[ID1, str])
+
+
+CreateAgentRequestModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: IDTypedDict
+    execute_on: CreateAgentRequestModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestModelConfigurationGuardrails(BaseModel):
+    id: ID
+
+    execute_on: CreateAgentRequestModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class ParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -336,6 +366,10 @@ class ParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[Modalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[CreateAgentRequestModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class Parameters(BaseModel):
@@ -414,6 +448,9 @@ class Parameters(BaseModel):
     modalities: OptionalNullable[List[Modalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[CreateAgentRequestModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -438,6 +475,7 @@ class Parameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -813,6 +851,40 @@ FallbackModelConfigurationModalities = Literal[
 ]
 
 
+CreateAgentRequestID1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+FallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "FallbackModelConfigurationIDTypedDict", Union[CreateAgentRequestID1, str]
+)
+
+
+FallbackModelConfigurationID = TypeAliasType(
+    "FallbackModelConfigurationID", Union[CreateAgentRequestID1, str]
+)
+
+
+FallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class FallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: FallbackModelConfigurationIDTypedDict
+    execute_on: FallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class FallbackModelConfigurationGuardrails(BaseModel):
+    id: FallbackModelConfigurationID
+
+    execute_on: FallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class FallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -870,6 +942,8 @@ class FallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[FallbackModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[FallbackModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class FallbackModelConfigurationParameters(BaseModel):
@@ -948,6 +1022,9 @@ class FallbackModelConfigurationParameters(BaseModel):
     modalities: OptionalNullable[List[FallbackModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[FallbackModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -972,6 +1049,7 @@ class FallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -1506,7 +1584,7 @@ AgentToolInputCRUD = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-CreateAgentRequestAgentsExecuteOn = Literal[
+CreateAgentRequestExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1516,7 +1594,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsExecuteOn
+    execute_on: CreateAgentRequestExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1526,14 +1604,14 @@ class CreateAgentRequestEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsExecuteOn
+    execute_on: CreateAgentRequestExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-CreateAgentRequestExecuteOn = Literal[
+CreateAgentRequestAgentsExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1543,7 +1621,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestExecuteOn
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1553,7 +1631,7 @@ class CreateAgentRequestGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestExecuteOn
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -1806,7 +1884,7 @@ class CreateAgentRequestTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
+CreateAgentRequestAgentsResponseExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1816,7 +1894,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestAgentsEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1826,14 +1904,14 @@ class CreateAgentRequestAgentsEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-CreateAgentRequestAgentsResponseExecuteOn = Literal[
+CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1843,7 +1921,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestAgentsGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsResponseExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1853,7 +1931,7 @@ class CreateAgentRequestAgentsGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsResponseExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -2168,6 +2246,40 @@ CreateAgentRequestModalities = Literal[
 ]
 
 
+CreateAgentRequestIDAgents1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+CreateAgentRequestIDTypedDict = TypeAliasType(
+    "CreateAgentRequestIDTypedDict", Union[CreateAgentRequestIDAgents1, str]
+)
+
+
+CreateAgentRequestID = TypeAliasType(
+    "CreateAgentRequestID", Union[CreateAgentRequestIDAgents1, str]
+)
+
+
+CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestAgentsResponseGuardrailsTypedDict(TypedDict):
+    id: CreateAgentRequestIDTypedDict
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestAgentsResponseGuardrails(BaseModel):
+    id: CreateAgentRequestID
+
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
@@ -2223,6 +2335,8 @@ class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[CreateAgentRequestModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[CreateAgentRequestAgentsResponseGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class CreateAgentRequestParameters(BaseModel):
@@ -2301,6 +2415,9 @@ class CreateAgentRequestParameters(BaseModel):
     modalities: OptionalNullable[List[CreateAgentRequestModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[CreateAgentRequestAgentsResponseGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2325,6 +2442,7 @@ class CreateAgentRequestParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -2688,6 +2806,42 @@ CreateAgentRequestFallbackModelConfigurationModalities = Literal[
 ]
 
 
+CreateAgentRequestIDAgentsResponse1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+CreateAgentRequestFallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationIDTypedDict",
+    Union[CreateAgentRequestIDAgentsResponse1, str],
+)
+
+
+CreateAgentRequestFallbackModelConfigurationID = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationID",
+    Union[CreateAgentRequestIDAgentsResponse1, str],
+)
+
+
+CreateAgentRequestFallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestFallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: CreateAgentRequestFallbackModelConfigurationIDTypedDict
+    execute_on: CreateAgentRequestFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestFallbackModelConfigurationGuardrails(BaseModel):
+    id: CreateAgentRequestFallbackModelConfigurationID
+
+    execute_on: CreateAgentRequestFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -2757,6 +2911,10 @@ class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict)
         Nullable[List[CreateAgentRequestFallbackModelConfigurationModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[CreateAgentRequestFallbackModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
@@ -2843,6 +3001,11 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
     ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[
+        List[CreateAgentRequestFallbackModelConfigurationGuardrails]
+    ] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2867,6 +3030,7 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",

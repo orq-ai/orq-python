@@ -298,6 +298,38 @@ ModelConfigurationModalities = Literal[
 ]
 
 
+UpdateAgentID1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+ModelConfigurationIDTypedDict = TypeAliasType(
+    "ModelConfigurationIDTypedDict", Union[UpdateAgentID1, str]
+)
+
+
+ModelConfigurationID = TypeAliasType("ModelConfigurationID", Union[UpdateAgentID1, str])
+
+
+ModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class ModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: ModelConfigurationIDTypedDict
+    execute_on: ModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class ModelConfigurationGuardrails(BaseModel):
+    id: ModelConfigurationID
+
+    execute_on: ModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -353,6 +385,8 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[ModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[ModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class ModelConfigurationParameters(BaseModel):
@@ -431,6 +465,9 @@ class ModelConfigurationParameters(BaseModel):
     modalities: OptionalNullable[List[ModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[ModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -455,6 +492,7 @@ class ModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -835,6 +873,40 @@ UpdateAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
+UpdateAgentIDAgents1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+UpdateAgentFallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationIDTypedDict", Union[UpdateAgentIDAgents1, str]
+)
+
+
+UpdateAgentFallbackModelConfigurationID = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationID", Union[UpdateAgentIDAgents1, str]
+)
+
+
+UpdateAgentFallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: UpdateAgentFallbackModelConfigurationIDTypedDict
+    execute_on: UpdateAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationGuardrails(BaseModel):
+    id: UpdateAgentFallbackModelConfigurationID
+
+    execute_on: UpdateAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -896,6 +968,10 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         Nullable[List[UpdateAgentFallbackModelConfigurationModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[UpdateAgentFallbackModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
@@ -982,6 +1058,9 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[UpdateAgentFallbackModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1006,6 +1085,7 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -2207,6 +2287,38 @@ UpdateAgentModalities = Literal[
 ]
 
 
+UpdateAgentIDAgentsResponse1 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+UpdateAgentIDTypedDict = TypeAliasType(
+    "UpdateAgentIDTypedDict", Union[UpdateAgentIDAgentsResponse1, str]
+)
+
+
+UpdateAgentID = TypeAliasType("UpdateAgentID", Union[UpdateAgentIDAgentsResponse1, str])
+
+
+UpdateAgentAgentsResponse200ApplicationJSONExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentAgentsResponseGuardrailsTypedDict(TypedDict):
+    id: UpdateAgentIDTypedDict
+    execute_on: UpdateAgentAgentsResponse200ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentAgentsResponseGuardrails(BaseModel):
+    id: UpdateAgentID
+
+    execute_on: UpdateAgentAgentsResponse200ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class UpdateAgentParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
@@ -2262,6 +2374,8 @@ class UpdateAgentParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[UpdateAgentModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[UpdateAgentAgentsResponseGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class UpdateAgentParameters(BaseModel):
@@ -2340,6 +2454,9 @@ class UpdateAgentParameters(BaseModel):
     modalities: OptionalNullable[List[UpdateAgentModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[UpdateAgentAgentsResponseGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2364,6 +2481,7 @@ class UpdateAgentParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -2722,6 +2840,42 @@ UpdateAgentFallbackModelConfigurationAgentsModalities = Literal[
 ]
 
 
+UpdateAgentIDAgentsResponse2001 = Literal["orq_pii_detection",]
+r"""The key of the guardrail."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsIDTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsIDTypedDict",
+    Union[UpdateAgentIDAgentsResponse2001, str],
+)
+
+
+UpdateAgentFallbackModelConfigurationAgentsID = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsID",
+    Union[UpdateAgentIDAgentsResponse2001, str],
+)
+
+
+UpdateAgentFallbackModelConfigurationAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsGuardrailsTypedDict(TypedDict):
+    id: UpdateAgentFallbackModelConfigurationAgentsIDTypedDict
+    execute_on: UpdateAgentFallbackModelConfigurationAgentsExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsGuardrails(BaseModel):
+    id: UpdateAgentFallbackModelConfigurationAgentsID
+
+    execute_on: UpdateAgentFallbackModelConfigurationAgentsExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -2791,6 +2945,10 @@ class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
         Nullable[List[UpdateAgentFallbackModelConfigurationAgentsModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[UpdateAgentFallbackModelConfigurationAgentsGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
@@ -2877,6 +3035,11 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
     ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[
+        List[UpdateAgentFallbackModelConfigurationAgentsGuardrails]
+    ] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2901,6 +3064,7 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",

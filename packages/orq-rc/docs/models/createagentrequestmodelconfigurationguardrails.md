@@ -1,0 +1,9 @@
+# CreateAgentRequestModelConfigurationGuardrails
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                               | [models.ID](../models/id.md)                                                                                       | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `execute_on`                                                                                                       | [models.CreateAgentRequestModelConfigurationExecuteOn](../models/createagentrequestmodelconfigurationexecuteon.md) | :heavy_check_mark:                                                                                                 | Determines whether the guardrail runs on the input (user message) or output (model response).                      |

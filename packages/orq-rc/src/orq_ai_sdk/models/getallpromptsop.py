@@ -838,7 +838,7 @@ class GetAllPromptsMetadata(BaseModel):
         return m
 
 
-class PromptTypedDict(TypedDict):
+class GetAllPromptsPromptTypedDict(TypedDict):
     r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: str
@@ -858,7 +858,7 @@ class PromptTypedDict(TypedDict):
     metadata: NotRequired[GetAllPromptsMetadataTypedDict]
 
 
-class Prompt(BaseModel):
+class GetAllPromptsPrompt(BaseModel):
     r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
@@ -923,7 +923,7 @@ class GetAllPromptsResponseBodyTypedDict(TypedDict):
     r"""Prompts retrieved."""
 
     object: GetAllPromptsObject
-    data: List[PromptTypedDict]
+    data: List[GetAllPromptsPromptTypedDict]
     has_more: bool
 
 
@@ -932,6 +932,6 @@ class GetAllPromptsResponseBody(BaseModel):
 
     object: GetAllPromptsObject
 
-    data: List[Prompt]
+    data: List[GetAllPromptsPrompt]
 
     has_more: bool

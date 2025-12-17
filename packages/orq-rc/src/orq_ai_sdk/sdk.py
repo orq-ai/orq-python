@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.router import Router
     from orq_ai_sdk.tools import Tools
 
 
@@ -55,6 +56,7 @@ class Orq(BaseSDK):
     chunking: "Chunking"
     memory_stores: "MemoryStores"
     datasets: "Datasets"
+    router: "Router"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
@@ -72,6 +74,7 @@ class Orq(BaseSDK):
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "router": ("orq_ai_sdk.router", "Router"),
     }
 
     def __init__(

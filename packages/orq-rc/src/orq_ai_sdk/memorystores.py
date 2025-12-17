@@ -1199,7 +1199,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1301,7 +1301,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1585,7 +1585,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1690,7 +1690,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
