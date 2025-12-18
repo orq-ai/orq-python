@@ -470,13 +470,13 @@ class UpdatePrompt2File(BaseModel):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class Two3TypedDict(TypedDict):
+class UpdatePrompt23TypedDict(TypedDict):
     type: UpdatePrompt2PromptsRequestType
     r"""The type of the content part. Always `file`."""
     file: UpdatePrompt2FileTypedDict
 
 
-class Two3(BaseModel):
+class UpdatePrompt23(BaseModel):
     type: UpdatePrompt2PromptsRequestType
     r"""The type of the content part. Always `file`."""
 
@@ -536,7 +536,7 @@ class UpdatePrompt21(BaseModel):
 
 UpdatePromptContent2TypedDict = TypeAliasType(
     "UpdatePromptContent2TypedDict",
-    Union[UpdatePrompt21TypedDict, UpdatePrompt22TypedDict, Two3TypedDict],
+    Union[UpdatePrompt21TypedDict, UpdatePrompt22TypedDict, UpdatePrompt23TypedDict],
 )
 
 
@@ -544,7 +544,7 @@ UpdatePromptContent2 = Annotated[
     Union[
         Annotated[UpdatePrompt21, Tag("text")],
         Annotated[UpdatePrompt22, Tag("image_url")],
-        Annotated[Two3, Tag("file")],
+        Annotated[UpdatePrompt23, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2307,13 +2307,13 @@ class UpdatePrompt2PromptsFile(BaseModel):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class UpdatePrompt23TypedDict(TypedDict):
+class UpdatePrompt2Prompts3TypedDict(TypedDict):
     type: UpdatePrompt2PromptsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: UpdatePrompt2PromptsFileTypedDict
 
 
-class UpdatePrompt23(BaseModel):
+class UpdatePrompt2Prompts3(BaseModel):
     type: UpdatePrompt2PromptsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2381,7 +2381,7 @@ UpdatePromptContentPromptsResponse2TypedDict = TypeAliasType(
     Union[
         UpdatePrompt2PromptsResponse1TypedDict,
         UpdatePrompt2Prompts2TypedDict,
-        UpdatePrompt23TypedDict,
+        UpdatePrompt2Prompts3TypedDict,
     ],
 )
 
@@ -2390,7 +2390,7 @@ UpdatePromptContentPromptsResponse2 = Annotated[
     Union[
         Annotated[UpdatePrompt2PromptsResponse1, Tag("text")],
         Annotated[UpdatePrompt2Prompts2, Tag("image_url")],
-        Annotated[UpdatePrompt23, Tag("file")],
+        Annotated[UpdatePrompt2Prompts3, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]

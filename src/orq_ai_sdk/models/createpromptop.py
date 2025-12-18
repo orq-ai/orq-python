@@ -134,7 +134,7 @@ CreatePrompt2PromptsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-class TwoFileTypedDict(TypedDict):
+class CreatePrompt2FileTypedDict(TypedDict):
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -145,7 +145,7 @@ class TwoFileTypedDict(TypedDict):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class TwoFile(BaseModel):
+class CreatePrompt2File(BaseModel):
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -159,30 +159,30 @@ class TwoFile(BaseModel):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class ThreeTypedDict(TypedDict):
+class Two3TypedDict(TypedDict):
     type: CreatePrompt2PromptsRequestType
     r"""The type of the content part. Always `file`."""
-    file: TwoFileTypedDict
+    file: CreatePrompt2FileTypedDict
 
 
-class Three(BaseModel):
+class Two3(BaseModel):
     type: CreatePrompt2PromptsRequestType
     r"""The type of the content part. Always `file`."""
 
-    file: TwoFile
+    file: CreatePrompt2File
 
 
 CreatePrompt2PromptsType = Literal["image_url",]
 
 
-class TwoImageURLTypedDict(TypedDict):
+class CreatePrompt2ImageURLTypedDict(TypedDict):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
     detail: NotRequired[str]
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class TwoImageURL(BaseModel):
+class CreatePrompt2ImageURL(BaseModel):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
 
@@ -190,19 +190,19 @@ class TwoImageURL(BaseModel):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class Two2TypedDict(TypedDict):
+class CreatePrompt22TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: CreatePrompt2PromptsType
-    image_url: TwoImageURLTypedDict
+    image_url: CreatePrompt2ImageURLTypedDict
 
 
-class Two2(BaseModel):
+class CreatePrompt22(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: CreatePrompt2PromptsType
 
-    image_url: TwoImageURL
+    image_url: CreatePrompt2ImageURL
 
 
 CreatePrompt2Type = Literal["text",]
@@ -225,15 +225,15 @@ class CreatePrompt21(BaseModel):
 
 CreatePromptContent2TypedDict = TypeAliasType(
     "CreatePromptContent2TypedDict",
-    Union[CreatePrompt21TypedDict, Two2TypedDict, ThreeTypedDict],
+    Union[CreatePrompt21TypedDict, CreatePrompt22TypedDict, Two3TypedDict],
 )
 
 
 CreatePromptContent2 = Annotated[
     Union[
         Annotated[CreatePrompt21, Tag("text")],
-        Annotated[Two2, Tag("image_url")],
-        Annotated[Three, Tag("file")],
+        Annotated[CreatePrompt22, Tag("image_url")],
+        Annotated[Two3, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2090,7 +2090,7 @@ CreatePrompt2PromptsResponse200ApplicationJSONType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-class CreatePrompt2FileTypedDict(TypedDict):
+class CreatePrompt2PromptsFileTypedDict(TypedDict):
     file_data: NotRequired[str]
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
     uri: NotRequired[str]
@@ -2101,7 +2101,7 @@ class CreatePrompt2FileTypedDict(TypedDict):
     r"""The name of the file, used when passing the file to the model as a string."""
 
 
-class CreatePrompt2File(BaseModel):
+class CreatePrompt2PromptsFile(BaseModel):
     file_data: Optional[str] = None
     r"""The file data as a data URI string in the format 'data:<mime-type>;base64,<base64-encoded-data>'. Example: 'data:image/png;base64,iVBORw0KGgoAAAANS...'"""
 
@@ -2118,20 +2118,20 @@ class CreatePrompt2File(BaseModel):
 class CreatePrompt23TypedDict(TypedDict):
     type: CreatePrompt2PromptsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
-    file: CreatePrompt2FileTypedDict
+    file: CreatePrompt2PromptsFileTypedDict
 
 
 class CreatePrompt23(BaseModel):
     type: CreatePrompt2PromptsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
-    file: CreatePrompt2File
+    file: CreatePrompt2PromptsFile
 
 
 CreatePrompt2PromptsResponse200Type = Literal["image_url",]
 
 
-class CreatePrompt2ImageURLTypedDict(TypedDict):
+class CreatePrompt2PromptsImageURLTypedDict(TypedDict):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
     id: NotRequired[str]
@@ -2140,7 +2140,7 @@ class CreatePrompt2ImageURLTypedDict(TypedDict):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class CreatePrompt2ImageURL(BaseModel):
+class CreatePrompt2PromptsImageURL(BaseModel):
     url: str
     r"""Either a URL of the image or the base64 encoded data URI."""
 
@@ -2151,19 +2151,19 @@ class CreatePrompt2ImageURL(BaseModel):
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
 
 
-class CreatePrompt22TypedDict(TypedDict):
+class CreatePrompt2Prompts2TypedDict(TypedDict):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: CreatePrompt2PromptsResponse200Type
-    image_url: CreatePrompt2ImageURLTypedDict
+    image_url: CreatePrompt2PromptsImageURLTypedDict
 
 
-class CreatePrompt22(BaseModel):
+class CreatePrompt2Prompts2(BaseModel):
     r"""The image part of the prompt message. Only supported with vision models."""
 
     type: CreatePrompt2PromptsResponse200Type
 
-    image_url: CreatePrompt2ImageURL
+    image_url: CreatePrompt2PromptsImageURL
 
 
 CreatePrompt2PromptsResponseType = Literal["text",]
@@ -2188,7 +2188,7 @@ CreatePromptContentPromptsResponse2TypedDict = TypeAliasType(
     "CreatePromptContentPromptsResponse2TypedDict",
     Union[
         CreatePrompt2PromptsResponse1TypedDict,
-        CreatePrompt22TypedDict,
+        CreatePrompt2Prompts2TypedDict,
         CreatePrompt23TypedDict,
     ],
 )
@@ -2197,7 +2197,7 @@ CreatePromptContentPromptsResponse2TypedDict = TypeAliasType(
 CreatePromptContentPromptsResponse2 = Annotated[
     Union[
         Annotated[CreatePrompt2PromptsResponse1, Tag("text")],
-        Annotated[CreatePrompt22, Tag("image_url")],
+        Annotated[CreatePrompt2Prompts2, Tag("image_url")],
         Annotated[CreatePrompt23, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),

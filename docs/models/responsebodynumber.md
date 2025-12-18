@@ -1,0 +1,11 @@
+# ResponseBodyNumber
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `type`                                                                                 | [models.InvokeEvalResponseBodyEvalsType](../models/invokeevalresponsebodyevalstype.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `original_value`                                                                       | *OptionalNullable[float]*                                                              | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `value`                                                                                | *Nullable[float]*                                                                      | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `format_options`                                                                       | [Optional[models.FormatOptions]](../models/formatoptions.md)                           | :heavy_minus_sign:                                                                     | N/A                                                                                    |
