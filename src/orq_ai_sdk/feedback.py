@@ -3,7 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import createfeedbackop as models_createfeedbackop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,9 +14,7 @@ class Feedback(BaseSDK):
         self,
         *,
         field: str,
-        value: Union[
-            models_createfeedbackop.Value, models_createfeedbackop.ValueTypedDict
-        ],
+        value: Union[models.Value, models.ValueTypedDict],
         trace_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -113,9 +110,7 @@ class Feedback(BaseSDK):
         self,
         *,
         field: str,
-        value: Union[
-            models_createfeedbackop.Value, models_createfeedbackop.ValueTypedDict
-        ],
+        value: Union[models.Value, models.ValueTypedDict],
         trace_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
