@@ -41,6 +41,7 @@ class RetrieveMemoryDocumentResponseBodyTypedDict(TypedDict):
     memory_id: str
     store_id: str
     text: str
+    r"""The content of the memory document (whitespace trimmed)."""
     created: str
     updated: str
     workspace_id: str
@@ -60,6 +61,7 @@ class RetrieveMemoryDocumentResponseBody(BaseModel):
     store_id: str
 
     text: str
+    r"""The content of the memory document (whitespace trimmed)."""
 
     created: str
 

@@ -298,7 +298,11 @@ ModelConfigurationModalities = Literal[
 ]
 
 
-UpdateAgentID1 = Literal["orq_pii_detection",]
+UpdateAgentID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -873,7 +877,11 @@ UpdateAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
-UpdateAgentIDAgents1 = Literal["orq_pii_detection",]
+UpdateAgentIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -2287,7 +2295,11 @@ UpdateAgentModalities = Literal[
 ]
 
 
-UpdateAgentIDAgentsResponse1 = Literal["orq_pii_detection",]
+UpdateAgentIDAgentsResponse1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -2840,7 +2852,11 @@ UpdateAgentFallbackModelConfigurationAgentsModalities = Literal[
 ]
 
 
-UpdateAgentIDAgentsResponse2001 = Literal["orq_pii_detection",]
+UpdateAgentIDAgentsResponse2001 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 

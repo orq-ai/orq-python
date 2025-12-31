@@ -485,7 +485,11 @@ ListAgentsModalities = Literal[
 ]
 
 
-ListAgentsID1 = Literal["orq_pii_detection",]
+ListAgentsID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -1017,7 +1021,11 @@ ListAgentsFallbackModelConfigurationModalities = Literal[
 ]
 
 
-ListAgentsIDAgents1 = Literal["orq_pii_detection",]
+ListAgentsIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 

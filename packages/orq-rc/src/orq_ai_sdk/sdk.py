@@ -17,13 +17,13 @@ import weakref
 
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
-    from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.conversations import Conversations
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
+    from orq_ai_sdk.evaluators import Evaluators
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.knowledge import Knowledge
@@ -43,6 +43,7 @@ class Orq(BaseSDK):
     contacts: "Contacts"
     feedback: "Feedback"
     evals: "Evals"
+    evaluators: "Evaluators"
     deployments: "Deployments"
     agents: "Agents"
     conversations: "Conversations"
@@ -51,7 +52,6 @@ class Orq(BaseSDK):
     remoteconfigs: "Remoteconfigs"
     models: "Models"
     tools: "Tools"
-    budgets: "Budgets"
     knowledge: "Knowledge"
     chunking: "Chunking"
     memory_stores: "MemoryStores"
@@ -61,6 +61,7 @@ class Orq(BaseSDK):
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
+        "evaluators": ("orq_ai_sdk.evaluators", "Evaluators"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "conversations": ("orq_ai_sdk.conversations", "Conversations"),
@@ -69,7 +70,6 @@ class Orq(BaseSDK):
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),

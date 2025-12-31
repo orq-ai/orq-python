@@ -70,6 +70,7 @@ UpdateMemoryStoreProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

@@ -1853,6 +1853,7 @@ CreatePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

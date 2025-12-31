@@ -428,6 +428,7 @@ Provider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 
@@ -2052,6 +2053,7 @@ UpdatePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

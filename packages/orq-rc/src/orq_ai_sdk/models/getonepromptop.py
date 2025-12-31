@@ -427,6 +427,7 @@ GetOnePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

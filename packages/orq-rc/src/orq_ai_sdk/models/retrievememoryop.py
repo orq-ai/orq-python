@@ -39,6 +39,7 @@ class RetrieveMemoryResponseBodyTypedDict(TypedDict):
 
     id: str
     entity_id: str
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
     created: str
     updated: str
     store_id: str
@@ -57,6 +58,7 @@ class RetrieveMemoryResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     entity_id: str
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
 
     created: str
 

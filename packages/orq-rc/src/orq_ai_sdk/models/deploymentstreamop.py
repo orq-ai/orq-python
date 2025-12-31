@@ -1857,6 +1857,7 @@ DeploymentStreamProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 r"""The provider used to generate the response"""
 
@@ -1940,22 +1941,144 @@ class DeploymentStreamRetrievals(BaseModel):
     r"""Metadata of the retrieved chunk from the knowledge base"""
 
 
+class DeploymentStreamPromptTokensDetailsTypedDict(TypedDict):
+    cached_tokens: NotRequired[Nullable[float]]
+
+
+class DeploymentStreamPromptTokensDetails(BaseModel):
+    cached_tokens: OptionalNullable[float] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cached_tokens"]
+        nullable_fields = ["cached_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
+class DeploymentStreamCompletionTokensDetailsTypedDict(TypedDict):
+    reasoning_tokens: NotRequired[Nullable[float]]
+
+
+class DeploymentStreamCompletionTokensDetails(BaseModel):
+    reasoning_tokens: OptionalNullable[float] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["reasoning_tokens"]
+        nullable_fields = ["reasoning_tokens"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
+
+
 class DeploymentStreamUsageTypedDict(TypedDict):
     r"""Usage metrics for the response"""
 
-    input_tokens: float
-    output_tokens: float
-    total_tokens: float
+    total_tokens: NotRequired[float]
+    prompt_tokens: NotRequired[float]
+    completion_tokens: NotRequired[float]
+    prompt_tokens_details: NotRequired[DeploymentStreamPromptTokensDetailsTypedDict]
+    completion_tokens_details: NotRequired[
+        Nullable[DeploymentStreamCompletionTokensDetailsTypedDict]
+    ]
 
 
 class DeploymentStreamUsage(BaseModel):
     r"""Usage metrics for the response"""
 
-    input_tokens: float
+    total_tokens: Optional[float] = None
 
-    output_tokens: float
+    prompt_tokens: Optional[float] = None
 
-    total_tokens: float
+    completion_tokens: Optional[float] = None
+
+    prompt_tokens_details: Optional[DeploymentStreamPromptTokensDetails] = None
+
+    completion_tokens_details: OptionalNullable[
+        DeploymentStreamCompletionTokensDetails
+    ] = UNSET
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = [
+            "total_tokens",
+            "prompt_tokens",
+            "completion_tokens",
+            "prompt_tokens_details",
+            "completion_tokens_details",
+        ]
+        nullable_fields = ["completion_tokens_details"]
+        null_default_fields = []
+
+        serialized = handler(self)
+
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
+
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
+
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
+
+        return m
 
 
 DeploymentStreamMessageDeploymentsResponseType = Literal["image",]

@@ -9,6 +9,8 @@
 * [update](#update) - Update tool
 * [delete](#delete) - Delete tool
 * [retrieve](#retrieve) - Retrieve tool
+* [get_v2_tools_tool_id_versions](#get_v2_tools_tool_id_versions) - List tool versions
+* [get_v2_tools_tool_id_versions_version_id_](#get_v2_tools_tool_id_versions_version_id_) - Get tool version
 
 ## list
 
@@ -233,3 +235,89 @@ with Orq(
 | Error Type      | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
+
+## get_v2_tools_tool_id_versions
+
+Returns version history for a specific tool
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_/v2/tools/{tool_id}/versions" method="get" path="/v2/tools/{tool_id}/versions" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.tools.get_v2_tools_tool_id_versions(tool_id="<id>", limit=10)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                                               | Type                                                                                                                                                                                                                                                                                                                                    | Required                                                                                                                                                                                                                                                                                                                                | Description                                                                                                                                                                                                                                                                                                                             |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tool_id`                                                                                                                                                                                                                                                                                                                               | *str*                                                                                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                                                                     |
+| `limit`                                                                                                                                                                                                                                                                                                                                 | *Optional[float]*                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10                                                                                                                                                                                                                                |
+| `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |
+| `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |
+| `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |
+
+### Response
+
+**[models.GetV2ToolsToolIDVersionsResponseBody](../../models/getv2toolstoolidversionsresponsebody.md)**
+
+### Errors
+
+| Error Type                                       | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| models.GetV2ToolsToolIDVersionsToolsResponseBody | 404                                              | application/json                                 |
+| models.APIError                                  | 4XX, 5XX                                         | \*/\*                                            |
+
+## get_v2_tools_tool_id_versions_version_id_
+
+Returns a specific version of a tool
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="get_/v2/tools/{tool_id}/versions/{version_id}" method="get" path="/v2/tools/{tool_id}/versions/{version_id}" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.tools.get_v2_tools_tool_id_versions_version_id_(tool_id="<id>", version_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `tool_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `version_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetV2ToolsToolIDVersionsVersionIDResponseBody](../../models/getv2toolstoolidversionsversionidresponsebody.md)**
+
+### Errors
+
+| Error Type                                                | Status Code                                               | Content Type                                              |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| models.GetV2ToolsToolIDVersionsVersionIDToolsResponseBody | 404                                                       | application/json                                          |
+| models.APIError                                           | 4XX, 5XX                                                  | \*/\*                                                     |

@@ -4,6 +4,7 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import creatememorystoreop as models_creatememorystoreop
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -214,8 +215,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -315,8 +316,8 @@ class MemoryStores(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateMemoryStoreRequestBody,
-                models.CreateMemoryStoreRequestBodyTypedDict,
+                models_creatememorystoreop.CreateMemoryStoreRequestBody,
+                models_creatememorystoreop.CreateMemoryStoreRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1199,7 +1200,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1301,7 +1302,7 @@ class MemoryStores(BaseSDK):
         Creates a new memory in the specified memory store.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1585,7 +1586,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1690,7 +1691,7 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID). Must be a valid UUID or ULID.
+        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2199,8 +2200,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param text: The content of the memory document
-        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2306,8 +2307,8 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
-        :param text: The content of the memory document
-        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2605,8 +2606,8 @@ class MemoryStores(BaseSDK):
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
-        :param text: The content of the memory document
-        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2715,8 +2716,8 @@ class MemoryStores(BaseSDK):
         :param memory_store_key: The unique key identifier of the memory store
         :param memory_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
-        :param text: The content of the memory document
-        :param metadata: Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies.
+        :param text: The content of the memory document (whitespace trimmed).
+        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

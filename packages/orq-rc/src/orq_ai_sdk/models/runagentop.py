@@ -295,7 +295,11 @@ RunAgentModelConfigurationModalities = Literal[
 ]
 
 
-RunAgentID1 = Literal["orq_pii_detection",]
+RunAgentID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -874,7 +878,11 @@ RunAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
-RunAgentIDAgents1 = Literal["orq_pii_detection",]
+RunAgentIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -1363,7 +1371,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KCCAY58YNHV25FA85DJ4BDP0"
+    id: Optional[str] = "01KDSSBXNQE3RD2H4W8YYSHQE6"
 
     description: Optional[str] = None
 

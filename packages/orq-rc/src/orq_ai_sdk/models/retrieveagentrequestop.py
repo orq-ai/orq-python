@@ -497,7 +497,11 @@ RetrieveAgentRequestModalities = Literal[
 ]
 
 
-RetrieveAgentRequestID1 = Literal["orq_pii_detection",]
+RetrieveAgentRequestID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -1040,7 +1044,11 @@ RetrieveAgentRequestFallbackModelConfigurationModalities = Literal[
 ]
 
 
-RetrieveAgentRequestIDAgents1 = Literal["orq_pii_detection",]
+RetrieveAgentRequestIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 

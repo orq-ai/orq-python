@@ -448,6 +448,7 @@ GetAllPromptsProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

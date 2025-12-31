@@ -889,7 +889,11 @@ CreateChatCompletionModalities = Literal[
 ]
 
 
-CreateChatCompletionID1 = Literal["orq_pii_detection",]
+CreateChatCompletionID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 

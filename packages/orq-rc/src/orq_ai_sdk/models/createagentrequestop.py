@@ -281,7 +281,11 @@ Modalities = Literal[
 ]
 
 
-ID1 = Literal["orq_pii_detection",]
+ID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -851,7 +855,11 @@ FallbackModelConfigurationModalities = Literal[
 ]
 
 
-CreateAgentRequestID1 = Literal["orq_pii_detection",]
+CreateAgentRequestID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -2246,7 +2254,11 @@ CreateAgentRequestModalities = Literal[
 ]
 
 
-CreateAgentRequestIDAgents1 = Literal["orq_pii_detection",]
+CreateAgentRequestIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -2806,7 +2818,11 @@ CreateAgentRequestFallbackModelConfigurationModalities = Literal[
 ]
 
 
-CreateAgentRequestIDAgentsResponse1 = Literal["orq_pii_detection",]
+CreateAgentRequestIDAgentsResponse1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 

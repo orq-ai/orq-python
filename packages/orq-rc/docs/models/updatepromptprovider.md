@@ -30,3 +30,4 @@
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
+| `SLACK`        | slack          |

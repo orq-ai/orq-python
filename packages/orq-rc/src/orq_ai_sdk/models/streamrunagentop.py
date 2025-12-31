@@ -360,7 +360,11 @@ StreamRunAgentModelConfigurationModalities = Literal[
 ]
 
 
-StreamRunAgentID1 = Literal["orq_pii_detection",]
+StreamRunAgentID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -949,7 +953,11 @@ StreamRunAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
-StreamRunAgentIDAgents1 = Literal["orq_pii_detection",]
+StreamRunAgentIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
 r"""The key of the guardrail."""
 
 
@@ -1455,7 +1463,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KCCAY59DJZVJSJY3Z11Z9KE3"
+    id: Optional[str] = "01KDSSBXQMCAN5W8C6FZDWD7DX"
 
     description: Optional[str] = None
 

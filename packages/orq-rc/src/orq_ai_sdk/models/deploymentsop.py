@@ -528,6 +528,7 @@ DeploymentsProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

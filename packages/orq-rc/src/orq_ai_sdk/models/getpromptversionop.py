@@ -458,6 +458,7 @@ GetPromptVersionProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "slack",
 ]
 
 

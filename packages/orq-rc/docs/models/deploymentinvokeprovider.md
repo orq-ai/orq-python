@@ -32,3 +32,4 @@ The provider used to generate the response
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
+| `SLACK`        | slack          |
