@@ -3,10 +3,6 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createconversationop as models_createconversationop,
-    updateconversationop as models_updateconversationop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -208,8 +204,8 @@ class Conversations(BaseSDK):
         self,
         *,
         metadata: Union[
-            models_createconversationop.CreateConversationMetadata,
-            models_createconversationop.CreateConversationMetadataTypedDict,
+            models.CreateConversationMetadata,
+            models.CreateConversationMetadataTypedDict,
         ],
         display_name: Optional[str] = "Untitled",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -308,8 +304,8 @@ class Conversations(BaseSDK):
         self,
         *,
         metadata: Union[
-            models_createconversationop.CreateConversationMetadata,
-            models_createconversationop.CreateConversationMetadataTypedDict,
+            models.CreateConversationMetadata,
+            models.CreateConversationMetadataTypedDict,
         ],
         display_name: Optional[str] = "Untitled",
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -839,8 +835,8 @@ class Conversations(BaseSDK):
         display_name: Optional[str] = None,
         metadata: Optional[
             Union[
-                models_updateconversationop.UpdateConversationMetadata,
-                models_updateconversationop.UpdateConversationMetadataTypedDict,
+                models.UpdateConversationMetadata,
+                models.UpdateConversationMetadataTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -958,8 +954,8 @@ class Conversations(BaseSDK):
         display_name: Optional[str] = None,
         metadata: Optional[
             Union[
-                models_updateconversationop.UpdateConversationMetadata,
-                models_updateconversationop.UpdateConversationMetadataTypedDict,
+                models.UpdateConversationMetadata,
+                models.UpdateConversationMetadataTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
