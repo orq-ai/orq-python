@@ -4,9 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createagentresponserequestop as models_createagentresponserequestop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -23,38 +20,27 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponserequestop.A2AMessage,
-            models_createagentresponserequestop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponserequestop.Contact,
-                models_createagentresponserequestop.ContactTypedDict,
-            ]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestThread,
-                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
-                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
         conversation: Optional[
-            Union[
-                models_createagentresponserequestop.Conversation,
-                models_createagentresponserequestop.ConversationTypedDict,
-            ]
+            Union[models.Conversation, models.ConversationTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -196,38 +182,27 @@ class Responses(BaseSDK):
         self,
         *,
         agent_key: str,
-        message: Union[
-            models_createagentresponserequestop.A2AMessage,
-            models_createagentresponserequestop.A2AMessageTypedDict,
-        ],
+        message: Union[models.A2AMessage, models.A2AMessageTypedDict],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
-        contact: Optional[
-            Union[
-                models_createagentresponserequestop.Contact,
-                models_createagentresponserequestop.ContactTypedDict,
-            ]
-        ] = None,
+        contact: Optional[Union[models.Contact, models.ContactTypedDict]] = None,
         thread: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestThread,
-                models_createagentresponserequestop.CreateAgentResponseRequestThreadTypedDict,
+                models.CreateAgentResponseRequestThread,
+                models.CreateAgentResponseRequestThreadTypedDict,
             ]
         ] = None,
         memory: Optional[
             Union[
-                models_createagentresponserequestop.CreateAgentResponseRequestMemory,
-                models_createagentresponserequestop.CreateAgentResponseRequestMemoryTypedDict,
+                models.CreateAgentResponseRequestMemory,
+                models.CreateAgentResponseRequestMemoryTypedDict,
             ]
         ] = None,
         metadata: Optional[Dict[str, Any]] = None,
         background: Optional[bool] = False,
         stream: Optional[bool] = False,
         conversation: Optional[
-            Union[
-                models_createagentresponserequestop.Conversation,
-                models_createagentresponserequestop.ConversationTypedDict,
-            ]
+            Union[models.Conversation, models.ConversationTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
