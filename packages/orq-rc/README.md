@@ -430,7 +430,23 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.stream(key="<key>")
+    res = orq.deployments.stream(key="<key>", documents=[
+        {
+            "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
+            "metadata": {
+                "file_name": "refund_policy.pdf",
+                "file_type": "application/pdf",
+                "page_number": 1,
+            },
+        },
+        {
+            "text": "Premium members receive free shipping on all orders over $50.",
+            "metadata": {
+                "file_name": "membership_benefits.md",
+                "file_type": "text/markdown",
+            },
+        },
+    ])
 
     with res as event_stream:
         for event in event_stream:

@@ -1769,7 +1769,7 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     extra_params: NotRequired[Dict[str, Any]]
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
     documents: NotRequired[List[DeploymentGetConfigDocumentsTypedDict]]
-    r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
+    r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
     invoke_options: NotRequired[DeploymentGetConfigInvokeOptionsTypedDict]
     thread: NotRequired[DeploymentGetConfigThreadTypedDict]
     knowledge_filter: NotRequired[DeploymentGetConfigKnowledgeFilterTypedDict]
@@ -1802,7 +1802,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
 
     documents: Optional[List[DeploymentGetConfigDocuments]] = None
-    r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
+    r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
 
     invoke_options: Optional[DeploymentGetConfigInvokeOptions] = None
 
