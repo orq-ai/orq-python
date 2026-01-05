@@ -11,9 +11,9 @@ The contents of the system message.
 value: str = /* values here */
 ```
 
-### `List[models.Two]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.Two] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

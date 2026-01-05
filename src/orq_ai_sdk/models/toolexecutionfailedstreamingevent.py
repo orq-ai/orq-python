@@ -91,6 +91,7 @@ class ToolExecutionFailedStreamingEventDataTypedDict(TypedDict):
     )
     workflow_run_id: str
     response_id: NotRequired[str]
+    stream: NotRequired[bool]
 
 
 class ToolExecutionFailedStreamingEventData(BaseModel):
@@ -103,6 +104,8 @@ class ToolExecutionFailedStreamingEventData(BaseModel):
     workflow_run_id: Annotated[str, pydantic.Field(alias="workflowRunId")]
 
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+    stream: Optional[bool] = None
 
 
 class ToolExecutionFailedStreamingEventTypedDict(TypedDict):

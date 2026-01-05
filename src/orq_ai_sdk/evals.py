@@ -3,6 +3,11 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createevalop as models_createevalop,
+    invokeevalop as models_invokeevalop,
+    updateevalop as models_updateevalop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -208,7 +213,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -304,7 +312,10 @@ class Evals(BaseSDK):
         self,
         *,
         request: Optional[
-            Union[models.CreateEvalRequestBody, models.CreateEvalRequestBodyTypedDict]
+            Union[
+                models_createevalop.CreateEvalRequestBody,
+                models_createevalop.CreateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -401,7 +412,10 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -506,7 +520,10 @@ class Evals(BaseSDK):
         *,
         id: str,
         request_body: Optional[
-            Union[models.UpdateEvalRequestBody, models.UpdateEvalRequestBodyTypedDict]
+            Union[
+                models_updateevalop.UpdateEvalRequestBody,
+                models_updateevalop.UpdateEvalRequestBodyTypedDict,
+            ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -798,8 +815,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
+                List[models_invokeevalop.InvokeEvalMessages],
+                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -925,8 +942,8 @@ class Evals(BaseSDK):
         retrievals: Optional[List[str]] = None,
         messages: Optional[
             Union[
-                List[models.InvokeEvalMessages],
-                List[models.InvokeEvalMessagesTypedDict],
+                List[models_invokeevalop.InvokeEvalMessages],
+                List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentGetConfigContentDeploymentsRequestRequestBody2]`
+### `List[models.DeploymentGetConfigContentDeployments2]`
 
 ```python
-value: List[models.DeploymentGetConfigContentDeploymentsRequestRequestBody2] = /* values here */
+value: List[models.DeploymentGetConfigContentDeployments2] = /* values here */
 ```
 

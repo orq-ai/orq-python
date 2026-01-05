@@ -11,9 +11,9 @@ The contents of the developer message.
 value: str = /* values here */
 ```
 
-### `List[models.InvokeDeploymentRequestContentMessages22]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.InvokeDeploymentRequestContentMessages22] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

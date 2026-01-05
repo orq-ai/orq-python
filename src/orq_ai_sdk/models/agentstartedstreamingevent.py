@@ -26,8 +26,8 @@ AgentStartedStreamingEventRole = Literal[
 r"""Extended A2A message role"""
 
 
-PartsTypedDict = TypeAliasType(
-    "PartsTypedDict",
+AgentStartedStreamingEventPartsTypedDict = TypeAliasType(
+    "AgentStartedStreamingEventPartsTypedDict",
     Union[
         TextPartTypedDict,
         DataPartTypedDict,
@@ -38,7 +38,7 @@ PartsTypedDict = TypeAliasType(
 )
 
 
-Parts = Annotated[
+AgentStartedStreamingEventParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
         Annotated[DataPart, Tag("data")],
@@ -53,7 +53,7 @@ Parts = Annotated[
 class InputMessageTypedDict(TypedDict):
     role: AgentStartedStreamingEventRole
     r"""Extended A2A message role"""
-    parts: List[PartsTypedDict]
+    parts: List[AgentStartedStreamingEventPartsTypedDict]
     message_id: NotRequired[str]
     metadata: NotRequired[Dict[str, Any]]
 
@@ -62,7 +62,7 @@ class InputMessage(BaseModel):
     role: AgentStartedStreamingEventRole
     r"""Extended A2A message role"""
 
-    parts: List[Parts]
+    parts: List[AgentStartedStreamingEventParts]
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
 
@@ -146,7 +146,7 @@ ExecuteOn = Literal[
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class EvaluatorsTypedDict(TypedDict):
+class EvaluatorsModelTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
     execute_on: ExecuteOn
@@ -155,7 +155,7 @@ class EvaluatorsTypedDict(TypedDict):
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class Evaluators(BaseModel):
+class EvaluatorsModel(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
@@ -201,7 +201,7 @@ class SettingsTypedDict(TypedDict):
     tool_approval_required: NotRequired[ToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[ToolsModelTypedDict]]
-    evaluators: NotRequired[List[EvaluatorsTypedDict]]
+    evaluators: NotRequired[List[EvaluatorsModelTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[GuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
@@ -211,7 +211,7 @@ class Settings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[ToolApprovalRequired] = "respect_tool"
@@ -219,7 +219,7 @@ class Settings(BaseModel):
 
     tools: Optional[List[ToolsModel]] = None
 
-    evaluators: Optional[List[Evaluators]] = None
+    evaluators: Optional[List[EvaluatorsModel]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
     guardrails: Optional[List[Guardrails]] = None

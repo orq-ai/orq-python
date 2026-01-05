@@ -16,6 +16,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -53,100 +54,24 @@ DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Role = Literal["tool
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5Type = Literal["text",]
+DeploymentStreamContentDeploymentsRequest2TypedDict = TextContentPartSchemaTypedDict
 
 
-DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5ContentType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+DeploymentStreamContentDeploymentsRequest2 = TextContentPartSchema
 
 
-DeploymentStream2DeploymentsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyCacheControlTypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyCacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequest1TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentStream2DeploymentsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class DeploymentStream2DeploymentsRequest1(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages5Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentStream2DeploymentsRequestRequestBodyCacheControl
-    ] = None
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict = (
-    DeploymentStream2DeploymentsRequest1TypedDict
-)
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyPrefixMessages2 = (
-    DeploymentStream2DeploymentsRequest1
-)
-
-
-DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict = TypeAliasType(
-    "DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict",
-    Union[
-        str,
-        List[
-            DeploymentStreamContentDeploymentsRequestRequestBodyPrefixMessages2TypedDict
-        ],
-    ],
+DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict = (
+    TypeAliasType(
+        "DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict",
+        Union[str, List[DeploymentStreamContentDeploymentsRequest2TypedDict]],
+    )
 )
 r"""The contents of the tool message."""
 
 
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Content = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Content",
-    Union[
-        str, List[DeploymentStreamContentDeploymentsRequestRequestBodyPrefixMessages2]
-    ],
+    Union[str, List[DeploymentStreamContentDeploymentsRequest2]],
 )
 r"""The contents of the tool message."""
 
@@ -202,7 +127,7 @@ class DeploymentStreamPrefixMessagesToolMessageTypedDict(TypedDict):
         DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5ContentTypedDict
     )
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[DeploymentStreamPrefixMessagesCacheControlTypedDict]
 
@@ -214,89 +139,56 @@ class DeploymentStreamPrefixMessagesToolMessage(BaseModel):
     content: DeploymentStreamPrefixMessagesDeploymentsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[DeploymentStreamPrefixMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-DeploymentStream2DeploymentsRequestRequestBodyPrefixMessagesType = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages4Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-DeploymentStream2DeploymentsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsRequestCacheControlTypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class DeploymentStream2DeploymentsRequestCacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2Deployments1TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessagesType
-    text: str
-    cache_control: NotRequired[DeploymentStream2DeploymentsRequestCacheControlTypedDict]
-
-
-class DeploymentStream2Deployments1(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyPrefixMessagesType
-
-    text: str
-
-    cache_control: Optional[DeploymentStream2DeploymentsRequestCacheControl] = None
-
-
-DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict",
+DeploymentStreamContentDeployments2TypedDict = TypeAliasType(
+    "DeploymentStreamContentDeployments2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        DeploymentStream2Deployments1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-DeploymentStreamContentDeploymentsRequestRequestBody2 = Annotated[
+DeploymentStreamContentDeployments2 = Annotated[
     Union[
-        Annotated[DeploymentStream2Deployments1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -308,9 +200,7 @@ DeploymentStreamContentDeploymentsRequestRequestBody2 = Annotated[
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict = (
     TypeAliasType(
         "DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContentTypedDict",
-        Union[
-            str, List[DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict]
-        ],
+        Union[str, List[DeploymentStreamContentDeployments2TypedDict]],
     )
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -318,7 +208,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsRequestRequestBodyContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBody2]],
+    Union[str, List[DeploymentStreamContentDeployments2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -458,73 +348,8 @@ DeploymentStreamPrefixMessagesDeploymentsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentStream2DeploymentsRequestType = Literal["file",]
+DeploymentStream2Type = Literal["file",]
 r"""The type of the content part. Always `file`."""
-
-
-DeploymentStream2DeploymentsRequestRequestBodyType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStream2DeploymentsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsCacheControlTypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsCacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream24TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestType
-    r"""The type of the content part. Always `file`."""
-    file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[DeploymentStream2DeploymentsCacheControlTypedDict]
-
-
-class DeploymentStream24(BaseModel):
-    type: DeploymentStream2DeploymentsRequestType
-    r"""The type of the content part. Always `file`."""
-
-    file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-
-    cache_control: Optional[DeploymentStream2DeploymentsCacheControl] = None
-
-
-DeploymentStream2Type = Literal["text",]
 
 
 DeploymentStream2DeploymentsType = Literal["ephemeral",]
@@ -571,34 +396,38 @@ class DeploymentStream2CacheControl(BaseModel):
     """
 
 
-class DeploymentStream21TypedDict(TypedDict):
+class DeploymentStream24TypedDict(TypedDict):
     type: DeploymentStream2Type
-    text: str
+    r"""The type of the content part. Always `file`."""
+    file: FileContentPartSchemaTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[DeploymentStream2CacheControlTypedDict]
 
 
-class DeploymentStream21(BaseModel):
+class DeploymentStream24(BaseModel):
     type: DeploymentStream2Type
+    r"""The type of the content part. Always `file`."""
 
-    text: str
+    file: FileContentPartSchema
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[DeploymentStream2CacheControl] = None
 
 
-DeploymentStreamContentDeploymentsRequest2TypedDict = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequest2TypedDict",
+DeploymentStreamContent2TypedDict = TypeAliasType(
+    "DeploymentStreamContent2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        DeploymentStream21TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         DeploymentStream24TypedDict,
     ],
 )
 
 
-DeploymentStreamContentDeploymentsRequest2 = Annotated[
+DeploymentStreamContent2 = Annotated[
     Union[
-        Annotated[DeploymentStream21, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[DeploymentStream24, Tag("file")],
@@ -609,14 +438,14 @@ DeploymentStreamContentDeploymentsRequest2 = Annotated[
 
 DeploymentStreamPrefixMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsRequestContentTypedDict",
-    Union[str, List[DeploymentStreamContentDeploymentsRequest2TypedDict]],
+    Union[str, List[DeploymentStreamContent2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 DeploymentStreamPrefixMessagesDeploymentsRequestContent = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequest2]],
+    Union[str, List[DeploymentStreamContent2]],
 )
 r"""The contents of the user message."""
 
@@ -645,77 +474,16 @@ DeploymentStreamPrefixMessagesDeploymentsRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-DeploymentStreamContentDeploymentsRequestType = Literal["text",]
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStreamContentDeploymentsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStreamContentDeploymentsCacheControlTypedDict(TypedDict):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStreamContentDeploymentsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeploymentsCacheControl(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStreamContentDeploymentsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeployments2TypedDict(TypedDict):
-    type: DeploymentStreamContentDeploymentsRequestType
-    text: str
-    cache_control: NotRequired[DeploymentStreamContentDeploymentsCacheControlTypedDict]
-
-
-class DeploymentStreamContentDeployments2(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestType
-
-    text: str
-
-    cache_control: Optional[DeploymentStreamContentDeploymentsCacheControl] = None
-
-
 DeploymentStreamPrefixMessagesDeploymentsContentTypedDict = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsContentTypedDict",
-    Union[str, List[DeploymentStreamContentDeployments2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 DeploymentStreamPrefixMessagesDeploymentsContent = TypeAliasType(
     "DeploymentStreamPrefixMessagesDeploymentsContent",
-    Union[str, List[DeploymentStreamContentDeployments2]],
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the developer message."""
 
@@ -744,76 +512,15 @@ DeploymentStreamPrefixMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-DeploymentStreamContentType = Literal["text",]
-
-
-DeploymentStreamContentDeploymentsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStreamContentTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStreamContentCacheControlTypedDict(TypedDict):
-    type: DeploymentStreamContentDeploymentsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStreamContentTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentCacheControl(BaseModel):
-    type: DeploymentStreamContentDeploymentsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStreamContentTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContent2TypedDict(TypedDict):
-    type: DeploymentStreamContentType
-    text: str
-    cache_control: NotRequired[DeploymentStreamContentCacheControlTypedDict]
-
-
-class DeploymentStreamContent2(BaseModel):
-    type: DeploymentStreamContentType
-
-    text: str
-
-    cache_control: Optional[DeploymentStreamContentCacheControl] = None
-
-
 DeploymentStreamPrefixMessagesContentTypedDict = TypeAliasType(
     "DeploymentStreamPrefixMessagesContentTypedDict",
-    Union[str, List[DeploymentStreamContent2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 DeploymentStreamPrefixMessagesContent = TypeAliasType(
-    "DeploymentStreamPrefixMessagesContent", Union[str, List[DeploymentStreamContent2]]
+    "DeploymentStreamPrefixMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -870,83 +577,12 @@ DeploymentStreamMessagesDeploymentsRequestRequestBody5Role = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages5Type = Literal["text",]
-
-
-DeploymentStream2DeploymentsRequestRequestBodyMessages5ContentType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStream2DeploymentsRequestRequestBodyMessages5TTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages5CacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestRequestBodyMessages5TTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages5CacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsRequestRequestBodyMessages5TTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages51TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages5Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages5CacheControlTypedDict
-    ]
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages51(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages5Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages5CacheControl
-    ] = None
-
-
 DeploymentStreamContentDeploymentsRequestRequestBodyMessages52TypedDict = (
-    DeploymentStream2DeploymentsRequestRequestBodyMessages51TypedDict
+    TextContentPartSchemaTypedDict
 )
 
 
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages52 = (
-    DeploymentStream2DeploymentsRequestRequestBodyMessages51
-)
+DeploymentStreamContentDeploymentsRequestRequestBodyMessages52 = TextContentPartSchema
 
 
 DeploymentStreamMessagesDeploymentsRequestRequestBody5ContentTypedDict = TypeAliasType(
@@ -1015,7 +651,7 @@ class DeploymentStreamMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: DeploymentStreamMessagesDeploymentsRequestRequestBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[DeploymentStreamMessagesCacheControlTypedDict]
 
@@ -1027,95 +663,56 @@ class DeploymentStreamMessagesToolMessage(BaseModel):
     content: DeploymentStreamMessagesDeploymentsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[DeploymentStreamMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages4Type = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages4ContentType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages4TTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages4CacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestRequestBodyMessages4TTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class DeploymentStream2DeploymentsRequestRequestBodyMessages4CacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsRequestRequestBodyMessages4TTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages1TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages4Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages4CacheControlTypedDict
-    ]
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessages1(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages4Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages4CacheControl
-    ] = None
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages42TypedDict = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequestRequestBodyMessages42TypedDict",
+DeploymentStreamContentDeploymentsRequestRequestBodyMessages2TypedDict = TypeAliasType(
+    "DeploymentStreamContentDeploymentsRequestRequestBodyMessages2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        DeploymentStream2DeploymentsRequestRequestBodyMessages1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages42 = Annotated[
+DeploymentStreamContentDeploymentsRequestRequestBodyMessages2 = Annotated[
     Union[
-        Annotated[DeploymentStream2DeploymentsRequestRequestBodyMessages1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -1128,7 +725,7 @@ DeploymentStreamMessagesDeploymentsRequestRequestBodyContentTypedDict = TypeAlia
     "DeploymentStreamMessagesDeploymentsRequestRequestBodyContentTypedDict",
     Union[
         str,
-        List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages42TypedDict],
+        List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages2TypedDict],
     ],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1136,7 +733,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 
 DeploymentStreamMessagesDeploymentsRequestRequestBodyContent = TypeAliasType(
     "DeploymentStreamMessagesDeploymentsRequestRequestBodyContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages42]],
+    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1274,17 +871,15 @@ DeploymentStreamMessagesDeploymentsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages3ContentType = Literal["file",]
+DeploymentStream2DeploymentsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages3Content4Type = Literal[
-    "ephemeral",
-]
+DeploymentStream2DeploymentsRequestRequestBodyType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentStream2DeploymentsRequestRequestBodyMessages3TTL = Literal[
+DeploymentStream2DeploymentsTTL = Literal[
     "5m",
     "1h",
 ]
@@ -1297,12 +892,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Content4Type
+class DeploymentStream2DeploymentsCacheControlTypedDict(TypedDict):
+    type: DeploymentStream2DeploymentsRequestRequestBodyType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestRequestBodyMessages3TTL]
+    ttl: NotRequired[DeploymentStream2DeploymentsTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1312,11 +905,11 @@ class DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControlTypedDi
     """
 
 
-class DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Content4Type
+class DeploymentStream2DeploymentsCacheControl(BaseModel):
+    type: DeploymentStream2DeploymentsRequestRequestBodyType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[DeploymentStream2DeploymentsRequestRequestBodyMessages3TTL] = "5m"
+    ttl: Optional[DeploymentStream2DeploymentsTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1327,108 +920,37 @@ class DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControl(BaseMo
 
 
 class DeploymentStream2Deployments4TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3ContentType
+    type: DeploymentStream2DeploymentsRequestType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControlTypedDict
-    ]
+    cache_control: NotRequired[DeploymentStream2DeploymentsCacheControlTypedDict]
 
 
 class DeploymentStream2Deployments4(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3ContentType
+    type: DeploymentStream2DeploymentsRequestType
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
-    cache_control: Optional[
-        DeploymentStream2DeploymentsRequestRequestBodyMessages3CacheControl
-    ] = None
+    cache_control: Optional[DeploymentStream2DeploymentsCacheControl] = None
 
 
-DeploymentStream2DeploymentsRequestRequestBodyMessagesType = Literal["text",]
-
-
-DeploymentStream2DeploymentsRequestRequestBodyMessages3Type = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStream2DeploymentsRequestRequestBodyMessagesTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessagesCacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStream2DeploymentsRequestRequestBodyMessagesTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBodyMessagesCacheControl(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessages3Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStream2DeploymentsRequestRequestBodyMessagesTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStream2DeploymentsRequestRequestBody1TypedDict(TypedDict):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessagesType
-    text: str
-    cache_control: NotRequired[
-        DeploymentStream2DeploymentsRequestRequestBodyMessagesCacheControlTypedDict
-    ]
-
-
-class DeploymentStream2DeploymentsRequestRequestBody1(BaseModel):
-    type: DeploymentStream2DeploymentsRequestRequestBodyMessagesType
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentStream2DeploymentsRequestRequestBodyMessagesCacheControl
-    ] = None
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages32TypedDict = TypeAliasType(
-    "DeploymentStreamContentDeploymentsRequestRequestBodyMessages32TypedDict",
+DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict = TypeAliasType(
+    "DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        DeploymentStream2DeploymentsRequestRequestBody1TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         DeploymentStream2Deployments4TypedDict,
     ],
 )
 
 
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages32 = Annotated[
+DeploymentStreamContentDeploymentsRequestRequestBody2 = Annotated[
     Union[
-        Annotated[DeploymentStream2DeploymentsRequestRequestBody1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[DeploymentStream2Deployments4, Tag("file")],
@@ -1439,17 +961,14 @@ DeploymentStreamContentDeploymentsRequestRequestBodyMessages32 = Annotated[
 
 DeploymentStreamMessagesDeploymentsRequestContentTypedDict = TypeAliasType(
     "DeploymentStreamMessagesDeploymentsRequestContentTypedDict",
-    Union[
-        str,
-        List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages32TypedDict],
-    ],
+    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBody2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 DeploymentStreamMessagesDeploymentsRequestContent = TypeAliasType(
     "DeploymentStreamMessagesDeploymentsRequestContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages32]],
+    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBody2]],
 )
 r"""The contents of the user message."""
 
@@ -1478,90 +997,16 @@ DeploymentStreamMessagesDeploymentsRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages2Type = Literal["text",]
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages22Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyCacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages22Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStreamContentDeploymentsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyCacheControl(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages22Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStreamContentDeploymentsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyMessages22TypedDict(
-    TypedDict
-):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages2Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentStreamContentDeploymentsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyMessages22(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages2Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentStreamContentDeploymentsRequestRequestBodyCacheControl
-    ] = None
-
-
 DeploymentStreamMessagesDeploymentsContentTypedDict = TypeAliasType(
     "DeploymentStreamMessagesDeploymentsContentTypedDict",
-    Union[
-        str,
-        List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages22TypedDict],
-    ],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 DeploymentStreamMessagesDeploymentsContent = TypeAliasType(
     "DeploymentStreamMessagesDeploymentsContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages22]],
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the developer message."""
 
@@ -1590,86 +1035,15 @@ DeploymentStreamMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-DeploymentStreamContentDeploymentsRequestRequestBodyMessagesType = Literal["text",]
-
-
-DeploymentStreamContentDeploymentsRequestRequestBodyMessages1Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentStreamContentDeploymentsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentStreamContentDeploymentsRequestCacheControlTypedDict(TypedDict):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages1Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentStreamContentDeploymentsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeploymentsRequestCacheControl(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessages1Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentStreamContentDeploymentsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyMessages2TypedDict(TypedDict):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessagesType
-    text: str
-    cache_control: NotRequired[
-        DeploymentStreamContentDeploymentsRequestCacheControlTypedDict
-    ]
-
-
-class DeploymentStreamContentDeploymentsRequestRequestBodyMessages2(BaseModel):
-    type: DeploymentStreamContentDeploymentsRequestRequestBodyMessagesType
-
-    text: str
-
-    cache_control: Optional[DeploymentStreamContentDeploymentsRequestCacheControl] = (
-        None
-    )
-
-
 DeploymentStreamMessagesContentTypedDict = TypeAliasType(
     "DeploymentStreamMessagesContentTypedDict",
-    Union[
-        str,
-        List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages2TypedDict],
-    ],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 DeploymentStreamMessagesContent = TypeAliasType(
-    "DeploymentStreamMessagesContent",
-    Union[str, List[DeploymentStreamContentDeploymentsRequestRequestBodyMessages2]],
+    "DeploymentStreamMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -2458,29 +1832,32 @@ r"""Indicates the type of model used to generate the response"""
 
 
 DeploymentStreamProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
+    "contextualai",
+    "moonshotai",
+    "zai",
+    "slack",
 ]
 r"""The provider used to generate the response"""
 

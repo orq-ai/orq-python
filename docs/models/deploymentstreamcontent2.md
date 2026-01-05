@@ -1,10 +1,29 @@
 # DeploymentStreamContent2
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
-| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                   | [models.DeploymentStreamContentType](../models/deploymentstreamcontenttype.md)                           | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `text`                                                                                                   | *str*                                                                                                    | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
-| `cache_control`                                                                                          | [Optional[models.DeploymentStreamContentCacheControl]](../models/deploymentstreamcontentcachecontrol.md) | :heavy_minus_sign:                                                                                       | N/A                                                                                                      |
+### `models.TextContentPartSchema`
+
+```python
+value: models.TextContentPartSchema = /* values here */
+```
+
+### `models.ImageContentPartSchema`
+
+```python
+value: models.ImageContentPartSchema = /* values here */
+```
+
+### `models.AudioContentPartSchema`
+
+```python
+value: models.AudioContentPartSchema = /* values here */
+```
+
+### `models.DeploymentStream24`
+
+```python
+value: models.DeploymentStream24 = /* values here */
+```
+

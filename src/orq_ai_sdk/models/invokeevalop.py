@@ -114,14 +114,14 @@ class Two2(BaseModel):
 InvokeEval2EvalsType = Literal["text",]
 
 
-class InvokeEval21TypedDict(TypedDict):
+class Two1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
     type: InvokeEval2EvalsType
     text: str
 
 
-class InvokeEval21(BaseModel):
+class Two1(BaseModel):
     r"""Text content part of a prompt message"""
 
     type: InvokeEval2EvalsType
@@ -130,14 +130,13 @@ class InvokeEval21(BaseModel):
 
 
 InvokeEvalContent2TypedDict = TypeAliasType(
-    "InvokeEvalContent2TypedDict",
-    Union[InvokeEval21TypedDict, Two2TypedDict, ThreeTypedDict],
+    "InvokeEvalContent2TypedDict", Union[Two1TypedDict, Two2TypedDict, ThreeTypedDict]
 )
 
 
 InvokeEvalContent2 = Annotated[
     Union[
-        Annotated[InvokeEval21, Tag("text")],
+        Annotated[Two1, Tag("text")],
         Annotated[Two2, Tag("image_url")],
         Annotated[Three, Tag("file")],
     ],
@@ -196,7 +195,7 @@ class InvokeEvalMessagesTypedDict(TypedDict):
     content: Nullable[InvokeEvalContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[InvokeEvalToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class InvokeEvalMessages(BaseModel):
@@ -208,12 +207,12 @@ class InvokeEvalMessages(BaseModel):
 
     tool_calls: Optional[List[InvokeEvalToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -680,19 +679,19 @@ class ResponseBodyBoolean(BaseModel):
 InvokeEvalResponseBodyEvalsType = Literal["number",]
 
 
-Style = Literal["currency",]
+FormatOptionsStyle = Literal["currency",]
 
 
 Currency = Literal["USD",]
 
 
 class FormatOptions2TypedDict(TypedDict):
-    style: Style
+    style: FormatOptionsStyle
     currency: Currency
 
 
 class FormatOptions2(BaseModel):
-    style: Style
+    style: FormatOptionsStyle
 
     currency: Currency
 

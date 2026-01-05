@@ -175,6 +175,25 @@ ResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+ReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 StopTypedDict = TypeAliasType("StopTypedDict", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
@@ -262,6 +281,40 @@ Modalities = Literal[
 ]
 
 
+ID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+IDTypedDict = TypeAliasType("IDTypedDict", Union[ID1, str])
+
+
+ID = TypeAliasType("ID", Union[ID1, str])
+
+
+CreateAgentRequestModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: IDTypedDict
+    execute_on: CreateAgentRequestModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestModelConfigurationGuardrails(BaseModel):
+    id: ID
+
+    execute_on: CreateAgentRequestModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class ParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -286,8 +339,16 @@ class ParametersTypedDict(TypedDict):
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[ResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[ReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -309,6 +370,10 @@ class ParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[Modalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[CreateAgentRequestModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class Parameters(BaseModel):
@@ -344,8 +409,16 @@ class Parameters(BaseModel):
     response_format: Optional[ResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[ReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -379,6 +452,9 @@ class Parameters(BaseModel):
     modalities: OptionalNullable[List[Modalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[CreateAgentRequestModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -403,6 +479,7 @@ class Parameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -664,6 +741,25 @@ FallbackModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+FallbackModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 FallbackModelConfigurationStopTypedDict = TypeAliasType(
     "FallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -759,6 +855,44 @@ FallbackModelConfigurationModalities = Literal[
 ]
 
 
+CreateAgentRequestID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+FallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "FallbackModelConfigurationIDTypedDict", Union[CreateAgentRequestID1, str]
+)
+
+
+FallbackModelConfigurationID = TypeAliasType(
+    "FallbackModelConfigurationID", Union[CreateAgentRequestID1, str]
+)
+
+
+FallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class FallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: FallbackModelConfigurationIDTypedDict
+    execute_on: FallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class FallbackModelConfigurationGuardrails(BaseModel):
+    id: FallbackModelConfigurationID
+
+    execute_on: FallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class FallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -783,8 +917,16 @@ class FallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[FallbackModelConfigurationResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[FallbackModelConfigurationReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -808,6 +950,8 @@ class FallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[FallbackModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[FallbackModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class FallbackModelConfigurationParameters(BaseModel):
@@ -843,8 +987,16 @@ class FallbackModelConfigurationParameters(BaseModel):
     response_format: Optional[FallbackModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[FallbackModelConfigurationReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -878,6 +1030,9 @@ class FallbackModelConfigurationParameters(BaseModel):
     modalities: OptionalNullable[List[FallbackModelConfigurationModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[FallbackModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -902,6 +1057,7 @@ class FallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -996,12 +1152,12 @@ r"""MCP tool type"""
 class MCPToolTypedDict(TypedDict):
     r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
-    type: (
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
-    )
-    r"""MCP tool type"""
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
+    type: NotRequired[
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ]
+    r"""MCP tool type"""
     key: NotRequired[str]
     r"""The key of the parent MCP tool"""
     id: NotRequired[str]
@@ -1013,13 +1169,13 @@ class MCPToolTypedDict(TypedDict):
 class MCPTool(BaseModel):
     r"""Executes tools from Model Context Protocol (MCP) servers. Specify the parent MCP tool using \"key\" or \"id\", and the specific nested tool using \"tool_id\"."""
 
-    type: (
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
-    )
-    r"""MCP tool type"""
-
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
+
+    type: Optional[
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ] = "mcp"
+    r"""MCP tool type"""
 
     key: Optional[str] = None
     r"""The key of the parent MCP tool"""
@@ -1040,9 +1196,9 @@ r"""Function tool type"""
 class FunctionToolTypedDict(TypedDict):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
-    type: (
+    type: NotRequired[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
-    )
+    ]
     r"""Function tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created function tool"""
@@ -1055,9 +1211,9 @@ class FunctionToolTypedDict(TypedDict):
 class FunctionTool(BaseModel):
     r"""Calls custom function tools defined in the agent configuration. Must reference a pre-created function tool by key or id."""
 
-    type: (
+    type: Optional[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type
-    )
+    ] = "function"
     r"""Function tool type"""
 
     key: Optional[str] = None
@@ -1079,9 +1235,9 @@ r"""Code execution tool type"""
 class CodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
-    type: (
+    type: NotRequired[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
-    )
+    ]
     r"""Code execution tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created code tool"""
@@ -1094,9 +1250,9 @@ class CodeExecutionToolTypedDict(TypedDict):
 class CodeExecutionTool(BaseModel):
     r"""Executes code snippets in a sandboxed environment. Must reference a pre-created code tool by key or id."""
 
-    type: (
+    type: Optional[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type
-    )
+    ] = "code"
     r"""Code execution tool type"""
 
     key: Optional[str] = None
@@ -1118,9 +1274,9 @@ r"""HTTP tool type"""
 class HTTPToolTypedDict(TypedDict):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
-    type: (
+    type: NotRequired[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
-    )
+    ]
     r"""HTTP tool type"""
     key: NotRequired[str]
     r"""The key of the pre-created HTTP tool"""
@@ -1133,9 +1289,9 @@ class HTTPToolTypedDict(TypedDict):
 class HTTPTool(BaseModel):
     r"""Executes HTTP requests to interact with external APIs and web services. Must reference a pre-created HTTP tool by key or id."""
 
-    type: (
+    type: Optional[
         CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type
-    )
+    ] = "http"
     r"""HTTP tool type"""
 
     key: Optional[str] = None
@@ -1413,54 +1569,27 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
 
 
-AgentToolInputCRUD = Annotated[
+AgentToolInputCRUD = TypeAliasType(
+    "AgentToolInputCRUD",
     Union[
-        Annotated[GoogleSearchTool, Tag("google_search")],
-        Annotated[WebScraperTool, Tag("web_scraper")],
-        Annotated[CallSubAgentTool, Tag("call_sub_agent")],
-        Annotated[RetrieveAgentsTool, Tag("retrieve_agents")],
-        Annotated[QueryMemoryStoreTool, Tag("query_memory_store")],
-        Annotated[WriteMemoryStoreTool, Tag("write_memory_store")],
-        Annotated[RetrieveMemoryStoresTool, Tag("retrieve_memory_stores")],
-        Annotated[DeleteMemoryDocumentTool, Tag("delete_memory_document")],
-        Annotated[RetrieveKnowledgeBasesTool, Tag("retrieve_knowledge_bases")],
-        Annotated[QueryKnowledgeBaseTool, Tag("query_knowledge_base")],
-        Annotated[CurrentDateTool, Tag("current_date")],
-        Annotated[HTTPTool, Tag("http")],
-        Annotated[CodeExecutionTool, Tag("code")],
-        Annotated[FunctionTool, Tag("function")],
-        Annotated[MCPTool, Tag("mcp")],
+        GoogleSearchTool,
+        WebScraperTool,
+        CallSubAgentTool,
+        RetrieveAgentsTool,
+        QueryMemoryStoreTool,
+        WriteMemoryStoreTool,
+        RetrieveMemoryStoresTool,
+        DeleteMemoryDocumentTool,
+        RetrieveKnowledgeBasesTool,
+        QueryKnowledgeBaseTool,
+        CurrentDateTool,
+        HTTPTool,
+        CodeExecutionTool,
+        FunctionTool,
+        MCPTool,
     ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
+)
 r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
-
-
-CreateAgentRequestAgentsExecuteOn = Literal[
-    "input",
-    "output",
-]
-r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
-
-
-class CreateAgentRequestEvaluatorsTypedDict(TypedDict):
-    id: str
-    r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsExecuteOn
-    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
-    sample_rate: NotRequired[float]
-    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
-
-
-class CreateAgentRequestEvaluators(BaseModel):
-    id: str
-    r"""Unique key or identifier of the evaluator"""
-
-    execute_on: CreateAgentRequestAgentsExecuteOn
-    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
-
-    sample_rate: Optional[float] = 50
-    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
 CreateAgentRequestExecuteOn = Literal[
@@ -1470,10 +1599,37 @@ CreateAgentRequestExecuteOn = Literal[
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class CreateAgentRequestGuardrailsTypedDict(TypedDict):
+class CreateAgentRequestEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
     execute_on: CreateAgentRequestExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+    sample_rate: NotRequired[float]
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+class CreateAgentRequestEvaluators(BaseModel):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+
+    execute_on: CreateAgentRequestExecuteOn
+    r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+    sample_rate: Optional[float] = 50
+    r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+
+CreateAgentRequestAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
+
+
+class CreateAgentRequestGuardrailsTypedDict(TypedDict):
+    id: str
+    r"""Unique key or identifier of the evaluator"""
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1483,7 +1639,7 @@ class CreateAgentRequestGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestExecuteOn
+    execute_on: CreateAgentRequestAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -1513,7 +1669,7 @@ class CreateAgentRequestSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[CreateAgentRequestToolApprovalRequired] = (
@@ -1736,7 +1892,7 @@ class CreateAgentRequestTools(BaseModel):
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
+CreateAgentRequestAgentsResponseExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1746,7 +1902,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestAgentsEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1756,14 +1912,14 @@ class CreateAgentRequestAgentsEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-CreateAgentRequestAgentsResponseExecuteOn = Literal[
+CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
     "input",
     "output",
 ]
@@ -1773,7 +1929,7 @@ r"""Determines whether the evaluator runs on the agent input (user message) or o
 class CreateAgentRequestAgentsGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestAgentsResponseExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
@@ -1783,7 +1939,7 @@ class CreateAgentRequestAgentsGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestAgentsResponseExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -1808,7 +1964,7 @@ class CreateAgentRequestAgentsSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     tool_approval_required: Optional[CreateAgentRequestAgentsToolApprovalRequired] = (
@@ -1983,6 +2139,25 @@ CreateAgentRequestResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+CreateAgentRequestReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 CreateAgentRequestStopTypedDict = TypeAliasType(
     "CreateAgentRequestStopTypedDict", Union[str, List[str]]
 )
@@ -2079,6 +2254,44 @@ CreateAgentRequestModalities = Literal[
 ]
 
 
+CreateAgentRequestIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+CreateAgentRequestIDTypedDict = TypeAliasType(
+    "CreateAgentRequestIDTypedDict", Union[CreateAgentRequestIDAgents1, str]
+)
+
+
+CreateAgentRequestID = TypeAliasType(
+    "CreateAgentRequestID", Union[CreateAgentRequestIDAgents1, str]
+)
+
+
+CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestAgentsResponseGuardrailsTypedDict(TypedDict):
+    id: CreateAgentRequestIDTypedDict
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestAgentsResponseGuardrails(BaseModel):
+    id: CreateAgentRequestID
+
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
@@ -2103,8 +2316,16 @@ class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[CreateAgentRequestResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[CreateAgentRequestReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -2126,6 +2347,8 @@ class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[CreateAgentRequestModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[CreateAgentRequestAgentsResponseGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class CreateAgentRequestParameters(BaseModel):
@@ -2161,8 +2384,16 @@ class CreateAgentRequestParameters(BaseModel):
     response_format: Optional[CreateAgentRequestResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[CreateAgentRequestReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -2196,6 +2427,9 @@ class CreateAgentRequestParameters(BaseModel):
     modalities: OptionalNullable[List[CreateAgentRequestModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[CreateAgentRequestAgentsResponseGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2220,6 +2454,7 @@ class CreateAgentRequestParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -2463,6 +2698,25 @@ CreateAgentRequestFallbackModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+CreateAgentRequestFallbackModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 CreateAgentRequestFallbackModelConfigurationStopTypedDict = TypeAliasType(
     "CreateAgentRequestFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -2564,6 +2818,46 @@ CreateAgentRequestFallbackModelConfigurationModalities = Literal[
 ]
 
 
+CreateAgentRequestIDAgentsResponse1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+CreateAgentRequestFallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationIDTypedDict",
+    Union[CreateAgentRequestIDAgentsResponse1, str],
+)
+
+
+CreateAgentRequestFallbackModelConfigurationID = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationID",
+    Union[CreateAgentRequestIDAgentsResponse1, str],
+)
+
+
+CreateAgentRequestFallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestFallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: CreateAgentRequestFallbackModelConfigurationIDTypedDict
+    execute_on: CreateAgentRequestFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class CreateAgentRequestFallbackModelConfigurationGuardrails(BaseModel):
+    id: CreateAgentRequestFallbackModelConfigurationID
+
+    execute_on: CreateAgentRequestFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -2592,8 +2886,18 @@ class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict)
         CreateAgentRequestFallbackModelConfigurationResponseFormatTypedDict
     ]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[
+        CreateAgentRequestFallbackModelConfigurationReasoningEffort
+    ]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -2623,6 +2927,10 @@ class CreateAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict)
         Nullable[List[CreateAgentRequestFallbackModelConfigurationModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[CreateAgentRequestFallbackModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
@@ -2660,8 +2968,18 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
     ] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[
+        CreateAgentRequestFallbackModelConfigurationReasoningEffort
+    ] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -2699,6 +3017,11 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
     ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[
+        List[CreateAgentRequestFallbackModelConfigurationGuardrails]
+    ] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -2723,6 +3046,7 @@ class CreateAgentRequestFallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -2905,6 +3229,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
 
     id: str
     key: str
+    r"""Unique identifier for the agent within the workspace"""
     display_name: str
     project_id: str
     role: str
@@ -2944,6 +3269,7 @@ class CreateAgentRequestResponseBody(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
+    r"""Unique identifier for the agent within the workspace"""
 
     display_name: str
 

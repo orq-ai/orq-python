@@ -11,9 +11,9 @@ The contents of the developer message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentGetConfigContentDeployments2]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.DeploymentGetConfigContentDeployments2] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

@@ -30,6 +30,7 @@ class CreateEvalGuardrailConfigEvalsNumberTypedDict(TypedDict):
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody42Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
@@ -41,6 +42,8 @@ class CreateEvalGuardrailConfigEvalsNumber(BaseModel):
 
     operator: CreateEvalGuardrailConfigEvalsOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsRequestRequestBody4Type = Literal["boolean",]
 
@@ -49,6 +52,7 @@ class CreateEvalGuardrailConfigEvalsBooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody4Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
@@ -57,6 +61,8 @@ class CreateEvalGuardrailConfigEvalsBoolean(BaseModel):
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody4Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalRequestBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
@@ -142,6 +148,7 @@ class CreateEvalGuardrailConfigNumberTypedDict(TypedDict):
     type: CreateEvalGuardrailConfigEvalsRequestRequestBody3Type
     value: float
     operator: CreateEvalGuardrailConfigOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigNumber(BaseModel):
@@ -153,6 +160,8 @@ class CreateEvalGuardrailConfigNumber(BaseModel):
 
     operator: CreateEvalGuardrailConfigOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["boolean",]
 
@@ -161,6 +170,7 @@ class CreateEvalGuardrailConfigBooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigBoolean(BaseModel):
@@ -169,6 +179,8 @@ class CreateEvalGuardrailConfigBoolean(BaseModel):
     type: CreateEvalGuardrailConfigEvalsRequestRequestBodyType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalRequestBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -274,6 +286,7 @@ class GuardrailConfigNumberTypedDict(TypedDict):
     type: CreateEvalGuardrailConfigEvalsRequestType
     value: float
     operator: GuardrailConfigOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GuardrailConfigNumber(BaseModel):
@@ -285,6 +298,8 @@ class GuardrailConfigNumber(BaseModel):
 
     operator: GuardrailConfigOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsType = Literal["boolean",]
 
@@ -293,6 +308,7 @@ class GuardrailConfigBooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GuardrailConfigBoolean(BaseModel):
@@ -301,6 +317,8 @@ class GuardrailConfigBoolean(BaseModel):
     type: CreateEvalGuardrailConfigEvalsType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 RequestBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -380,6 +398,7 @@ class NumberTypedDict(TypedDict):
     type: GuardrailConfigType
     value: float
     operator: Operator
+    alert_on_failure: NotRequired[bool]
 
 
 class Number(BaseModel):
@@ -391,6 +410,8 @@ class Number(BaseModel):
 
     operator: Operator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigType = Literal["boolean",]
 
@@ -399,6 +420,7 @@ class BooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class Boolean(BaseModel):
@@ -407,6 +429,8 @@ class Boolean(BaseModel):
     type: CreateEvalGuardrailConfigType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GuardrailConfigTypedDict = TypeAliasType(
@@ -540,6 +564,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Numbe
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
     )
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Number(
@@ -555,6 +580,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Operator
     )
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type = Literal[
     "boolean",
@@ -567,6 +594,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boole
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boolean(
@@ -577,6 +605,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boole
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict = TypeAliasType(
@@ -630,9 +660,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -663,6 +693,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Numbe
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
     )
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Number(
@@ -678,6 +709,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Operator
     )
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type = Literal[
     "boolean",
@@ -690,6 +723,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boole
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boolean(
@@ -700,6 +734,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boole
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasType(
@@ -772,9 +808,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -805,6 +841,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Numbe
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Operator
     )
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Number(
@@ -820,6 +857,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Numbe
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Operator
     )
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type = Literal[
     "boolean",
@@ -832,6 +871,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boole
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boolean(
@@ -842,6 +882,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boole
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
@@ -1413,9 +1455,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1446,6 +1488,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
     operator: (
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
     )
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber(
@@ -1461,6 +1504,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
         CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
     )
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type = Literal[
     "boolean",
@@ -1473,6 +1518,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolea
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean(
@@ -1483,6 +1529,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolea
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
@@ -1536,9 +1584,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -1567,6 +1615,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict(
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody32Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
@@ -1577,6 +1626,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
     value: float
 
     operator: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONOperator
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type = Literal[
@@ -1590,6 +1641,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBooleanTypedDict(
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel):
@@ -1598,6 +1650,8 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel)
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
@@ -1664,9 +1718,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -1691,6 +1745,7 @@ class CreateEvalGuardrailConfigEvalsResponse200NumberTypedDict(TypedDict):
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponse200Operator
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
@@ -1702,6 +1757,8 @@ class CreateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
 
     operator: CreateEvalGuardrailConfigEvalsResponse200Operator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean",]
 
@@ -1710,6 +1767,7 @@ class CreateEvalGuardrailConfigEvalsResponse200BooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
@@ -1718,6 +1776,8 @@ class CreateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
     type: CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 CreateEvalResponseBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -1763,9 +1823,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -1788,6 +1848,7 @@ class CreateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
     type: CreateEvalGuardrailConfigEvalsResponse200Type
     value: float
     operator: CreateEvalGuardrailConfigEvalsResponseOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
@@ -1799,6 +1860,8 @@ class CreateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
 
     operator: CreateEvalGuardrailConfigEvalsResponseOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 CreateEvalGuardrailConfigEvalsResponseType = Literal["boolean",]
 
@@ -1807,6 +1870,7 @@ class CreateEvalGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
     enabled: bool
     type: CreateEvalGuardrailConfigEvalsResponseType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class CreateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
@@ -1815,6 +1879,8 @@ class CreateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
     type: CreateEvalGuardrailConfigEvalsResponseType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 ResponseBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -1863,9 +1929,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 

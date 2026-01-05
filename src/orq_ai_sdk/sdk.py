@@ -17,12 +17,13 @@ import weakref
 
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
-    from orq_ai_sdk.budgets import Budgets
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
+    from orq_ai_sdk.conversations import Conversations
     from orq_ai_sdk.datasets import Datasets
     from orq_ai_sdk.deployments import Deployments
     from orq_ai_sdk.evals import Evals
+    from orq_ai_sdk.evaluators import Evaluators
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
     from orq_ai_sdk.knowledge import Knowledge
@@ -30,6 +31,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.models_ import Models
     from orq_ai_sdk.prompts import Prompts
     from orq_ai_sdk.remoteconfigs import Remoteconfigs
+    from orq_ai_sdk.router import Router
     from orq_ai_sdk.tools import Tools
 
 
@@ -41,34 +43,38 @@ class Orq(BaseSDK):
     contacts: "Contacts"
     feedback: "Feedback"
     evals: "Evals"
+    evaluators: "Evaluators"
     deployments: "Deployments"
     agents: "Agents"
+    conversations: "Conversations"
     files: "Files"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
     models: "Models"
     tools: "Tools"
-    budgets: "Budgets"
     knowledge: "Knowledge"
     chunking: "Chunking"
     memory_stores: "MemoryStores"
     datasets: "Datasets"
+    router: "Router"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
+        "evaluators": ("orq_ai_sdk.evaluators", "Evaluators"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
+        "conversations": ("orq_ai_sdk.conversations", "Conversations"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),
         "models": ("orq_ai_sdk.models_", "Models"),
         "tools": ("orq_ai_sdk.tools", "Tools"),
-        "budgets": ("orq_ai_sdk.budgets", "Budgets"),
         "knowledge": ("orq_ai_sdk.knowledge", "Knowledge"),
         "chunking": ("orq_ai_sdk.chunking", "Chunking"),
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
+        "router": ("orq_ai_sdk.router", "Router"),
     }
 
     def __init__(

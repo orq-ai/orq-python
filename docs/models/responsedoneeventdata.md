@@ -1,0 +1,10 @@
+# ResponseDoneEventData
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `finish_reason`                                                                | [models.FinishReason](../models/finishreason.md)                               | :heavy_check_mark:                                                             | The reason why the agent stopped generating                                    |
+| `usage`                                                                        | [Optional[models.ResponseDoneEventUsage]](../models/responsedoneeventusage.md) | :heavy_minus_sign:                                                             | Token usage statistics for the complete response                               |
+| `pending_tool_calls`                                                           | List[[models.PendingToolCalls](../models/pendingtoolcalls.md)]                 | :heavy_minus_sign:                                                             | Tool calls awaiting user response (when finishReason is function_call)         |

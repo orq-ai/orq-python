@@ -11,9 +11,9 @@ The contents of the system message.
 value: str = /* values here */
 ```
 
-### `List[models.UpdatePromptContentPrompts2]`
+### `List[models.TextContentPartSchema]`
 
 ```python
-value: List[models.UpdatePromptContentPrompts2] = /* values here */
+value: List[models.TextContentPartSchema] = /* values here */
 ```
 

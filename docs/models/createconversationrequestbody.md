@@ -1,0 +1,9 @@
+# CreateConversationRequestBody
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  | Example                                                                      |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `display_name`                                                               | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | Display name for the conversation. Defaults to "Untitled" if not provided.   | Support Chat #1234                                                           |
+| `metadata`                                                                   | [models.CreateConversationMetadata](../models/createconversationmetadata.md) | :heavy_check_mark:                                                           | N/A                                                                          |                                                                              |

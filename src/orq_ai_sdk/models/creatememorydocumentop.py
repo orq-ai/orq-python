@@ -10,17 +10,17 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class CreateMemoryDocumentRequestBodyTypedDict(TypedDict):
     text: str
-    r"""The content of the memory document"""
-    metadata: Dict[str, str]
-    r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
+    r"""The content of the memory document (whitespace trimmed)."""
+    metadata: NotRequired[Dict[str, str]]
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
 
 class CreateMemoryDocumentRequestBody(BaseModel):
     text: str
-    r"""The content of the memory document"""
+    r"""The content of the memory document (whitespace trimmed)."""
 
-    metadata: Dict[str, str]
-    r"""Flexible key-value pairs for custom filtering and categorization of documents within a memory collection. Clients can add arbitrary string metadata to enable future filtering based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy). This enables powerful querying and retrieval strategies."""
+    metadata: Optional[Dict[str, str]] = None
+    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
 
 class CreateMemoryDocumentRequestTypedDict(TypedDict):
@@ -55,6 +55,7 @@ class CreateMemoryDocumentResponseBodyTypedDict(TypedDict):
     memory_id: str
     store_id: str
     text: str
+    r"""The content of the memory document (whitespace trimmed)."""
     created: str
     updated: str
     workspace_id: str
@@ -74,6 +75,7 @@ class CreateMemoryDocumentResponseBody(BaseModel):
     store_id: str
 
     text: str
+    r"""The content of the memory document (whitespace trimmed)."""
 
     created: str
 

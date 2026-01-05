@@ -35,6 +35,8 @@ class ListContactsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    search: NotRequired[str]
+    r"""Search contacts by display name or email address. Minimum 2 characters required."""
     filter_by: NotRequired[QueryParamFilterByTypedDict]
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
     include_metrics: NotRequired[Nullable[bool]]
@@ -60,6 +62,12 @@ class ListContactsRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
+    search: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Search contacts by display name or email address. Minimum 2 characters required."""
+
     filter_by: Annotated[
         Optional[QueryParamFilterBy],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -78,6 +86,7 @@ class ListContactsRequest(BaseModel):
             "limit",
             "starting_after",
             "ending_before",
+            "search",
             "filter_by",
             "include_metrics",
         ]
@@ -186,7 +195,7 @@ class ListContactsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-01T17:40:02.381Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-05T09:23:01.968Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

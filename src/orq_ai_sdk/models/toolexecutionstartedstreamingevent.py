@@ -81,6 +81,7 @@ class ToolExecutionStartedStreamingEventDataTypedDict(TypedDict):
     tool_key: NotRequired[str]
     tool_display_name: NotRequired[str]
     response_id: NotRequired[str]
+    stream: NotRequired[bool]
 
 
 class ToolExecutionStartedStreamingEventData(BaseModel):
@@ -99,6 +100,8 @@ class ToolExecutionStartedStreamingEventData(BaseModel):
     tool_display_name: Optional[str] = None
 
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+    stream: Optional[bool] = None
 
 
 class ToolExecutionStartedStreamingEventTypedDict(TypedDict):

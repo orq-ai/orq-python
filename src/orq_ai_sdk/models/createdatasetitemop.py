@@ -16,6 +16,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from datetime import datetime
 from orq_ai_sdk.types import (
     BaseModel,
@@ -41,93 +42,22 @@ CreateDatasetItemMessagesDatasetsRequestRequestBody5Role = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-CreateDatasetItem2DatasetsRequestRequestBodyMessages5Type = Literal["text",]
+CreateDatasetItemContentDatasetsRequest2TypedDict = TextContentPartSchemaTypedDict
 
 
-CreateDatasetItem2DatasetsRequestRequestBodyMessages5ContentType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItem2DatasetsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsRequestRequestBodyCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsRequestRequestBodyCacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItem2DatasetsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsRequest1TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages5Type
-    text: str
-    cache_control: NotRequired[
-        CreateDatasetItem2DatasetsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class CreateDatasetItem2DatasetsRequest1(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages5Type
-
-    text: str
-
-    cache_control: Optional[
-        CreateDatasetItem2DatasetsRequestRequestBodyCacheControl
-    ] = None
-
-
-CreateDatasetItemContentDatasetsRequestRequestBodyMessages2TypedDict = (
-    CreateDatasetItem2DatasetsRequest1TypedDict
-)
-
-
-CreateDatasetItemContentDatasetsRequestRequestBodyMessages2 = (
-    CreateDatasetItem2DatasetsRequest1
-)
+CreateDatasetItemContentDatasetsRequest2 = TextContentPartSchema
 
 
 CreateDatasetItemMessagesDatasetsRequestRequestBody5ContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestRequestBody5ContentTypedDict",
-    Union[
-        str, List[CreateDatasetItemContentDatasetsRequestRequestBodyMessages2TypedDict]
-    ],
+    Union[str, List[CreateDatasetItemContentDatasetsRequest2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
 CreateDatasetItemMessagesDatasetsRequestRequestBody5Content = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestRequestBody5Content",
-    Union[str, List[CreateDatasetItemContentDatasetsRequestRequestBodyMessages2]],
+    Union[str, List[CreateDatasetItemContentDatasetsRequest2]],
 )
 r"""The contents of the tool message."""
 
@@ -181,7 +111,7 @@ class CreateDatasetItemMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: CreateDatasetItemMessagesDatasetsRequestRequestBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[CreateDatasetItemMessagesCacheControlTypedDict]
 
@@ -193,87 +123,56 @@ class CreateDatasetItemMessagesToolMessage(BaseModel):
     content: CreateDatasetItemMessagesDatasetsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[CreateDatasetItemMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-CreateDatasetItem2DatasetsRequestRequestBodyMessagesType = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-CreateDatasetItem2DatasetsRequestRequestBodyMessages4Type = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-CreateDatasetItem2DatasetsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsRequestCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class CreateDatasetItem2DatasetsRequestCacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItem2DatasetsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2Datasets1TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessagesType
-    text: str
-    cache_control: NotRequired[CreateDatasetItem2DatasetsRequestCacheControlTypedDict]
-
-
-class CreateDatasetItem2Datasets1(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyMessagesType
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItem2DatasetsRequestCacheControl] = None
-
-
-CreateDatasetItemContentDatasetsRequestRequestBody2TypedDict = TypeAliasType(
-    "CreateDatasetItemContentDatasetsRequestRequestBody2TypedDict",
+CreateDatasetItemContentDatasets2TypedDict = TypeAliasType(
+    "CreateDatasetItemContentDatasets2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        CreateDatasetItem2Datasets1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-CreateDatasetItemContentDatasetsRequestRequestBody2 = Annotated[
+CreateDatasetItemContentDatasets2 = Annotated[
     Union[
-        Annotated[CreateDatasetItem2Datasets1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -284,14 +183,14 @@ CreateDatasetItemContentDatasetsRequestRequestBody2 = Annotated[
 
 CreateDatasetItemMessagesDatasetsRequestRequestBodyContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestRequestBodyContentTypedDict",
-    Union[str, List[CreateDatasetItemContentDatasetsRequestRequestBody2TypedDict]],
+    Union[str, List[CreateDatasetItemContentDatasets2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 CreateDatasetItemMessagesDatasetsRequestRequestBodyContent = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestRequestBodyContent",
-    Union[str, List[CreateDatasetItemContentDatasetsRequestRequestBody2]],
+    Union[str, List[CreateDatasetItemContentDatasets2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -429,73 +328,8 @@ CreateDatasetItemMessagesDatasetsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-CreateDatasetItem2DatasetsRequestType = Literal["file",]
+CreateDatasetItem2Type = Literal["file",]
 r"""The type of the content part. Always `file`."""
-
-
-CreateDatasetItem2DatasetsRequestRequestBodyType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItem2DatasetsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsCacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItem2DatasetsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem24TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsRequestType
-    r"""The type of the content part. Always `file`."""
-    file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[CreateDatasetItem2DatasetsCacheControlTypedDict]
-
-
-class CreateDatasetItem24(BaseModel):
-    type: CreateDatasetItem2DatasetsRequestType
-    r"""The type of the content part. Always `file`."""
-
-    file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-
-    cache_control: Optional[CreateDatasetItem2DatasetsCacheControl] = None
-
-
-CreateDatasetItem2Type = Literal["text",]
 
 
 CreateDatasetItem2DatasetsType = Literal["ephemeral",]
@@ -542,34 +376,38 @@ class CreateDatasetItem2CacheControl(BaseModel):
     """
 
 
-class CreateDatasetItem21TypedDict(TypedDict):
+class CreateDatasetItem24TypedDict(TypedDict):
     type: CreateDatasetItem2Type
-    text: str
+    r"""The type of the content part. Always `file`."""
+    file: FileContentPartSchemaTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[CreateDatasetItem2CacheControlTypedDict]
 
 
-class CreateDatasetItem21(BaseModel):
+class CreateDatasetItem24(BaseModel):
     type: CreateDatasetItem2Type
+    r"""The type of the content part. Always `file`."""
 
-    text: str
+    file: FileContentPartSchema
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[CreateDatasetItem2CacheControl] = None
 
 
-CreateDatasetItemContentDatasetsRequest2TypedDict = TypeAliasType(
-    "CreateDatasetItemContentDatasetsRequest2TypedDict",
+CreateDatasetItemContent2TypedDict = TypeAliasType(
+    "CreateDatasetItemContent2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        CreateDatasetItem21TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         CreateDatasetItem24TypedDict,
     ],
 )
 
 
-CreateDatasetItemContentDatasetsRequest2 = Annotated[
+CreateDatasetItemContent2 = Annotated[
     Union[
-        Annotated[CreateDatasetItem21, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[CreateDatasetItem24, Tag("file")],
@@ -580,14 +418,14 @@ CreateDatasetItemContentDatasetsRequest2 = Annotated[
 
 CreateDatasetItemMessagesDatasetsRequestContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestContentTypedDict",
-    Union[str, List[CreateDatasetItemContentDatasetsRequest2TypedDict]],
+    Union[str, List[CreateDatasetItemContent2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 CreateDatasetItemMessagesDatasetsRequestContent = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsRequestContent",
-    Union[str, List[CreateDatasetItemContentDatasetsRequest2]],
+    Union[str, List[CreateDatasetItemContent2]],
 )
 r"""The contents of the user message."""
 
@@ -616,77 +454,15 @@ CreateDatasetItemMessagesDatasetsRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-CreateDatasetItemContentDatasetsRequestType = Literal["text",]
-
-
-CreateDatasetItemContentDatasetsRequestRequestBodyType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItemContentDatasetsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItemContentDatasetsCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItemContentDatasetsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasetsCacheControl(BaseModel):
-    type: CreateDatasetItemContentDatasetsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItemContentDatasetsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasets2TypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsRequestType
-    text: str
-    cache_control: NotRequired[CreateDatasetItemContentDatasetsCacheControlTypedDict]
-
-
-class CreateDatasetItemContentDatasets2(BaseModel):
-    type: CreateDatasetItemContentDatasetsRequestType
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItemContentDatasetsCacheControl] = None
-
-
 CreateDatasetItemMessagesDatasetsContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsContentTypedDict",
-    Union[str, List[CreateDatasetItemContentDatasets2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 CreateDatasetItemMessagesDatasetsContent = TypeAliasType(
-    "CreateDatasetItemMessagesDatasetsContent",
-    Union[str, List[CreateDatasetItemContentDatasets2]],
+    "CreateDatasetItemMessagesDatasetsContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the developer message."""
 
@@ -715,76 +491,15 @@ CreateDatasetItemMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-CreateDatasetItemContentType = Literal["text",]
-
-
-CreateDatasetItemContentDatasetsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItemContentTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItemContentCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItemContentTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentCacheControl(BaseModel):
-    type: CreateDatasetItemContentDatasetsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItemContentTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContent2TypedDict(TypedDict):
-    type: CreateDatasetItemContentType
-    text: str
-    cache_control: NotRequired[CreateDatasetItemContentCacheControlTypedDict]
-
-
-class CreateDatasetItemContent2(BaseModel):
-    type: CreateDatasetItemContentType
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItemContentCacheControl] = None
-
-
 CreateDatasetItemMessagesContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesContentTypedDict",
-    Union[str, List[CreateDatasetItemContent2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 CreateDatasetItemMessagesContent = TypeAliasType(
-    "CreateDatasetItemMessagesContent", Union[str, List[CreateDatasetItemContent2]]
+    "CreateDatasetItemMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -879,96 +594,18 @@ CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5Role = L
 r"""The role of the messages author, in this case tool."""
 
 
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyType = Literal["text",]
-
-
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages5Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyCacheControlTypedDict(
-    TypedDict
-):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages5Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyTTL
-    ]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyCacheControl(
-    BaseModel
-):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages5Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyTTL
-    ] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsResponse200ApplicationJSON1TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyType
-    text: str
-    cache_control: NotRequired[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyCacheControlTypedDict
-    ]
-
-
-class CreateDatasetItem2DatasetsResponse200ApplicationJSON1(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyType
-
-    text: str
-
-    cache_control: Optional[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyCacheControl
-    ] = None
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyMessages2TypedDict = CreateDatasetItem2DatasetsResponse200ApplicationJSON1TypedDict
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyMessages2 = (
-    CreateDatasetItem2DatasetsResponse200ApplicationJSON1
+CreateDatasetItemContentDatasetsResponse200ApplicationJSON2TypedDict = (
+    TextContentPartSchemaTypedDict
 )
+
+
+CreateDatasetItemContentDatasetsResponse200ApplicationJSON2 = TextContentPartSchema
 
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5ContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5ContentTypedDict",
     Union[
-        str,
-        List[
-            CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyMessages2TypedDict
-        ],
+        str, List[CreateDatasetItemContentDatasetsResponse200ApplicationJSON2TypedDict]
     ],
 )
 r"""The contents of the tool message."""
@@ -976,12 +613,7 @@ r"""The contents of the tool message."""
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5Content = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5Content",
-    Union[
-        str,
-        List[
-            CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyMessages2
-        ],
-    ],
+    Union[str, List[CreateDatasetItemContentDatasetsResponse200ApplicationJSON2]],
 )
 r"""The contents of the tool message."""
 
@@ -1035,7 +667,7 @@ class CreateDatasetItemMessagesDatasetsToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[CreateDatasetItemMessagesDatasetsCacheControlTypedDict]
 
@@ -1049,95 +681,56 @@ class CreateDatasetItemMessagesDatasetsToolMessage(BaseModel):
     )
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[CreateDatasetItemMessagesDatasetsCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-CreateDatasetItem2DatasetsResponse200ApplicationJSONType = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages4Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-CreateDatasetItem2DatasetsResponse200ApplicationJSONTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsResponse200ApplicationJSONCacheControlTypedDict(
-    TypedDict
-):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsResponse200ApplicationJSONTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class CreateDatasetItem2DatasetsResponse200ApplicationJSONCacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItem2DatasetsResponse200ApplicationJSONTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsResponse2001TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONType
-    text: str
-    cache_control: NotRequired[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONCacheControlTypedDict
-    ]
-
-
-class CreateDatasetItem2DatasetsResponse2001(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONType
-
-    text: str
-
-    cache_control: Optional[
-        CreateDatasetItem2DatasetsResponse200ApplicationJSONCacheControl
-    ] = None
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2TypedDict = TypeAliasType(
-    "CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2TypedDict",
+CreateDatasetItemContentDatasetsResponse2002TypedDict = TypeAliasType(
+    "CreateDatasetItemContentDatasetsResponse2002TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        CreateDatasetItem2DatasetsResponse2001TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2 = Annotated[
+CreateDatasetItemContentDatasetsResponse2002 = Annotated[
     Union[
-        Annotated[CreateDatasetItem2DatasetsResponse2001, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -1148,22 +741,14 @@ CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2 = Annota
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContentTypedDict",
-    Union[
-        str,
-        List[
-            CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2TypedDict
-        ],
-    ],
+    Union[str, List[CreateDatasetItemContentDatasetsResponse2002TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContent = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyContent",
-    Union[
-        str,
-        List[CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBody2],
-    ],
+    Union[str, List[CreateDatasetItemContentDatasetsResponse2002]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1305,17 +890,15 @@ CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONRole = Literal["user"
 r"""The role of the messages author, in this case `user`."""
 
 
-CreateDatasetItem2DatasetsResponse200Type = Literal["file",]
+CreateDatasetItem2DatasetsResponseType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages3Type = Literal[
-    "ephemeral",
-]
+CreateDatasetItem2DatasetsResponse200Type = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-CreateDatasetItem2DatasetsResponse200TTL = Literal[
+CreateDatasetItem2DatasetsTTL = Literal[
     "5m",
     "1h",
 ]
@@ -1328,10 +911,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class CreateDatasetItem2DatasetsResponse200CacheControlTypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages3Type
+class CreateDatasetItem2DatasetsCacheControlTypedDict(TypedDict):
+    type: CreateDatasetItem2DatasetsResponse200Type
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsResponse200TTL]
+    ttl: NotRequired[CreateDatasetItem2DatasetsTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1341,11 +924,11 @@ class CreateDatasetItem2DatasetsResponse200CacheControlTypedDict(TypedDict):
     """
 
 
-class CreateDatasetItem2DatasetsResponse200CacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessages3Type
+class CreateDatasetItem2DatasetsCacheControl(BaseModel):
+    type: CreateDatasetItem2DatasetsResponse200Type
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[CreateDatasetItem2DatasetsResponse200TTL] = "5m"
+    ttl: Optional[CreateDatasetItem2DatasetsTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1356,102 +939,37 @@ class CreateDatasetItem2DatasetsResponse200CacheControl(BaseModel):
 
 
 class CreateDatasetItem2Datasets4TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponse200Type
+    type: CreateDatasetItem2DatasetsResponseType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[
-        CreateDatasetItem2DatasetsResponse200CacheControlTypedDict
-    ]
+    cache_control: NotRequired[CreateDatasetItem2DatasetsCacheControlTypedDict]
 
 
 class CreateDatasetItem2Datasets4(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200Type
+    type: CreateDatasetItem2DatasetsResponseType
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
-    cache_control: Optional[CreateDatasetItem2DatasetsResponse200CacheControl] = None
+    cache_control: Optional[CreateDatasetItem2DatasetsCacheControl] = None
 
 
-CreateDatasetItem2DatasetsResponseType = Literal["text",]
-
-
-CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessagesType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItem2DatasetsResponseTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItem2DatasetsResponseCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessagesType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItem2DatasetsResponseTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsResponseCacheControl(BaseModel):
-    type: CreateDatasetItem2DatasetsResponse200ApplicationJSONResponseBodyMessagesType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItem2DatasetsResponseTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItem2DatasetsResponse1TypedDict(TypedDict):
-    type: CreateDatasetItem2DatasetsResponseType
-    text: str
-    cache_control: NotRequired[CreateDatasetItem2DatasetsResponseCacheControlTypedDict]
-
-
-class CreateDatasetItem2DatasetsResponse1(BaseModel):
-    type: CreateDatasetItem2DatasetsResponseType
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItem2DatasetsResponseCacheControl] = None
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSON2TypedDict = TypeAliasType(
-    "CreateDatasetItemContentDatasetsResponse200ApplicationJSON2TypedDict",
+CreateDatasetItemContentDatasetsResponse2TypedDict = TypeAliasType(
+    "CreateDatasetItemContentDatasetsResponse2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        CreateDatasetItem2DatasetsResponse1TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         CreateDatasetItem2Datasets4TypedDict,
     ],
 )
 
 
-CreateDatasetItemContentDatasetsResponse200ApplicationJSON2 = Annotated[
+CreateDatasetItemContentDatasetsResponse2 = Annotated[
     Union[
-        Annotated[CreateDatasetItem2DatasetsResponse1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[CreateDatasetItem2Datasets4, Tag("file")],
@@ -1463,10 +981,7 @@ CreateDatasetItemContentDatasetsResponse200ApplicationJSON2 = Annotated[
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONContentTypedDict = (
     TypeAliasType(
         "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONContentTypedDict",
-        Union[
-            str,
-            List[CreateDatasetItemContentDatasetsResponse200ApplicationJSON2TypedDict],
-        ],
+        Union[str, List[CreateDatasetItemContentDatasetsResponse2TypedDict]],
     )
 )
 r"""The contents of the user message."""
@@ -1474,7 +989,7 @@ r"""The contents of the user message."""
 
 CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONContent = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONContent",
-    Union[str, List[CreateDatasetItemContentDatasetsResponse200ApplicationJSON2]],
+    Union[str, List[CreateDatasetItemContentDatasetsResponse2]],
 )
 r"""The contents of the user message."""
 
@@ -1503,83 +1018,16 @@ CreateDatasetItemMessagesDatasetsResponse200Role = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-CreateDatasetItemContentDatasetsResponse200Type = Literal["text",]
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItemContentDatasetsResponse200TTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItemContentDatasetsResponse200CacheControlTypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItemContentDatasetsResponse200TTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasetsResponse200CacheControl(BaseModel):
-    type: CreateDatasetItemContentDatasetsResponse200ApplicationJSONResponseBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItemContentDatasetsResponse200TTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasetsResponse2002TypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsResponse200Type
-    text: str
-    cache_control: NotRequired[
-        CreateDatasetItemContentDatasetsResponse200CacheControlTypedDict
-    ]
-
-
-class CreateDatasetItemContentDatasetsResponse2002(BaseModel):
-    type: CreateDatasetItemContentDatasetsResponse200Type
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItemContentDatasetsResponse200CacheControl] = (
-        None
-    )
-
-
 CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200ContentTypedDict",
-    Union[str, List[CreateDatasetItemContentDatasetsResponse2002TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 CreateDatasetItemMessagesDatasetsResponse200Content = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponse200Content",
-    Union[str, List[CreateDatasetItemContentDatasetsResponse2002]],
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the developer message."""
 
@@ -1608,79 +1056,16 @@ CreateDatasetItemMessagesDatasetsResponseRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-CreateDatasetItemContentDatasetsResponseType = Literal["text",]
-
-
-CreateDatasetItemContentDatasetsResponse200ApplicationJSONType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreateDatasetItemContentDatasetsResponseTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreateDatasetItemContentDatasetsResponseCacheControlTypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsResponse200ApplicationJSONType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreateDatasetItemContentDatasetsResponseTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasetsResponseCacheControl(BaseModel):
-    type: CreateDatasetItemContentDatasetsResponse200ApplicationJSONType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreateDatasetItemContentDatasetsResponseTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreateDatasetItemContentDatasetsResponse2TypedDict(TypedDict):
-    type: CreateDatasetItemContentDatasetsResponseType
-    text: str
-    cache_control: NotRequired[
-        CreateDatasetItemContentDatasetsResponseCacheControlTypedDict
-    ]
-
-
-class CreateDatasetItemContentDatasetsResponse2(BaseModel):
-    type: CreateDatasetItemContentDatasetsResponseType
-
-    text: str
-
-    cache_control: Optional[CreateDatasetItemContentDatasetsResponseCacheControl] = None
-
-
 CreateDatasetItemMessagesDatasetsResponseContentTypedDict = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponseContentTypedDict",
-    Union[str, List[CreateDatasetItemContentDatasetsResponse2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 CreateDatasetItemMessagesDatasetsResponseContent = TypeAliasType(
     "CreateDatasetItemMessagesDatasetsResponseContent",
-    Union[str, List[CreateDatasetItemContentDatasetsResponse2]],
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the system message."""
 
@@ -1781,7 +1166,7 @@ class Evaluations3(BaseModel):
 
     source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-01T17:40:14.243Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-05T09:23:15.210Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1833,7 +1218,7 @@ class Evaluations2(BaseModel):
 
     source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-01T17:40:14.243Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-05T09:23:15.209Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1885,7 +1270,7 @@ class Evaluations1(BaseModel):
 
     source: Optional[Source] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-01T17:40:14.242Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-05T09:23:15.208Z")
     r"""The date and time the item was reviewed"""
 
 
@@ -1964,5 +1349,5 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-01T17:40:02.381Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-05T09:23:01.968Z")
     r"""The date and time the resource was last updated"""

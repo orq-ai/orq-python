@@ -1,0 +1,9 @@
+# CreateChatCompletionToolChoice2
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [Optional[models.CreateChatCompletionToolChoiceType]](../models/createchatcompletiontoolchoicetype.md) | :heavy_minus_sign:                                                                                     | The type of the tool. Currently, only function is supported.                                           |
+| `function`                                                                                             | [models.CreateChatCompletionToolChoiceFunction](../models/createchatcompletiontoolchoicefunction.md)   | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

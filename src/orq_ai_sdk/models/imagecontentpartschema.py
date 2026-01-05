@@ -6,7 +6,7 @@ from typing import Literal, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-Type = Literal["image_url",]
+ImageContentPartSchemaType = Literal["image_url",]
 
 
 Detail = Literal[
@@ -32,11 +32,11 @@ class ImageURL(BaseModel):
     r"""Specifies the detail level of the image."""
 
 
-ImageContentPartSchemaType = Literal["ephemeral",]
+ImageContentPartSchemaCacheControlType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-TTL = Literal[
+ImageContentPartSchemaTTL = Literal[
     "5m",
     "1h",
 ]
@@ -49,10 +49,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class CacheControlTypedDict(TypedDict):
-    type: ImageContentPartSchemaType
+class ImageContentPartSchemaCacheControlTypedDict(TypedDict):
+    type: ImageContentPartSchemaCacheControlType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[TTL]
+    ttl: NotRequired[ImageContentPartSchemaTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -62,11 +62,11 @@ class CacheControlTypedDict(TypedDict):
     """
 
 
-class CacheControl(BaseModel):
-    type: ImageContentPartSchemaType
+class ImageContentPartSchemaCacheControl(BaseModel):
+    type: ImageContentPartSchemaCacheControlType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[TTL] = "5m"
+    ttl: Optional[ImageContentPartSchemaTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -79,16 +79,16 @@ class CacheControl(BaseModel):
 class ImageContentPartSchemaTypedDict(TypedDict):
     r"""An image content part"""
 
-    type: Type
+    type: ImageContentPartSchemaType
     image_url: ImageURLTypedDict
-    cache_control: NotRequired[CacheControlTypedDict]
+    cache_control: NotRequired[ImageContentPartSchemaCacheControlTypedDict]
 
 
 class ImageContentPartSchema(BaseModel):
     r"""An image content part"""
 
-    type: Type
+    type: ImageContentPartSchemaType
 
     image_url: ImageURL
 
-    cache_control: Optional[CacheControl] = None
+    cache_control: Optional[ImageContentPartSchemaCacheControl] = None

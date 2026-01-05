@@ -1,0 +1,9 @@
+# StreamRunAgentModelConfigurationGuardrails
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                       | [models.StreamRunAgentModelConfigurationID](../models/streamrunagentmodelconfigurationid.md)               | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `execute_on`                                                                                               | [models.StreamRunAgentModelConfigurationExecuteOn](../models/streamrunagentmodelconfigurationexecuteon.md) | :heavy_check_mark:                                                                                         | Determines whether the guardrail runs on the input (user message) or output (model response).              |

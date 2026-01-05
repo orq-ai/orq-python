@@ -11,9 +11,9 @@ The contents of the tool message.
 value: str = /* values here */
 ```
 
-### `List[models.ListDatasetDatapointsContentDatasetsResponse200ApplicationJSON2]`
+### `List[models.ListDatasetDatapointsContentDatasetsResponse2]`
 
 ```python
-value: List[models.ListDatasetDatapointsContentDatasetsResponse200ApplicationJSON2] = /* values here */
+value: List[models.ListDatasetDatapointsContentDatasetsResponse2] = /* values here */
 ```
 

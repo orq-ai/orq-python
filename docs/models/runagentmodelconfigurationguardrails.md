@@ -1,0 +1,9 @@
+# RunAgentModelConfigurationGuardrails
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `id`                                                                                           | [models.RunAgentModelConfigurationID](../models/runagentmodelconfigurationid.md)               | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `execute_on`                                                                                   | [models.RunAgentModelConfigurationExecuteOn](../models/runagentmodelconfigurationexecuteon.md) | :heavy_check_mark:                                                                             | Determines whether the guardrail runs on the input (user message) or output (model response).  |

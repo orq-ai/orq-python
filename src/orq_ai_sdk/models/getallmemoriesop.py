@@ -24,6 +24,8 @@ class GetAllMemoriesRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
     ending_before: NotRequired[str]
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
+    q: NotRequired[str]
+    r"""Search query to filter memories by entity_id"""
 
 
 class GetAllMemoriesRequest(BaseModel):
@@ -50,6 +52,12 @@ class GetAllMemoriesRequest(BaseModel):
     ] = None
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
 
+    q: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Search query to filter memories by entity_id"""
+
 
 GetAllMemoriesObject = Literal["list",]
 
@@ -57,12 +65,15 @@ GetAllMemoriesObject = Literal["list",]
 class GetAllMemoriesDataTypedDict(TypedDict):
     id: str
     entity_id: str
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
     created: str
     updated: str
     store_id: str
     metadata: Dict[str, str]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
     workspace_id: str
+    documents_count: float
+    r"""The number of memories in the entity"""
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
 
@@ -71,6 +82,7 @@ class GetAllMemoriesData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     entity_id: str
+    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
 
     created: str
 
@@ -82,6 +94,9 @@ class GetAllMemoriesData(BaseModel):
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
     workspace_id: str
+
+    documents_count: float
+    r"""The number of memories in the entity"""
 
     created_by_id: OptionalNullable[str] = UNSET
 

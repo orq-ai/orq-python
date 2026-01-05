@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.CreateDatasetItemContentDatasetsResponse200ApplicationJSON2]`
+### `List[models.CreateDatasetItemContentDatasetsResponse2]`
 
 ```python
-value: List[models.CreateDatasetItemContentDatasetsResponse200ApplicationJSON2] = /* values here */
+value: List[models.CreateDatasetItemContentDatasetsResponse2] = /* values here */
 ```
 

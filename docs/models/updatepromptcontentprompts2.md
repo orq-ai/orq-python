@@ -1,10 +1,29 @@
 # UpdatePromptContentPrompts2
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `type`                                                                                           | [models.UpdatePromptContentType](../models/updatepromptcontenttype.md)                           | :heavy_check_mark:                                                                               | N/A                                                                                              |
-| `text`                                                                                           | *str*                                                                                            | :heavy_check_mark:                                                                               | N/A                                                                                              |
-| `cache_control`                                                                                  | [Optional[models.UpdatePromptContentCacheControl]](../models/updatepromptcontentcachecontrol.md) | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+### `models.TextContentPartSchema`
+
+```python
+value: models.TextContentPartSchema = /* values here */
+```
+
+### `models.ImageContentPartSchema`
+
+```python
+value: models.ImageContentPartSchema = /* values here */
+```
+
+### `models.AudioContentPartSchema`
+
+```python
+value: models.AudioContentPartSchema = /* values here */
+```
+
+### `models.UpdatePrompt24`
+
+```python
+value: models.UpdatePrompt24 = /* values here */
+```
+

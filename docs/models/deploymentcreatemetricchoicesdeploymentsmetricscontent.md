@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32]`
+### `List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2]`
 
 ```python
-value: List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32] = /* values here */
+value: List[models.DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2] = /* values here */
 ```
 

@@ -79,7 +79,7 @@ class LastMessageFull(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
 
 
-FinishReason = Literal[
+AgentInactiveStreamingEventFinishReason = Literal[
     "stop",
     "length",
     "tool_calls",
@@ -94,29 +94,29 @@ r"""The reason why the agent execution became inactive"""
 AgentInactiveStreamingEventDataType = Literal["function",]
 
 
-class FunctionTypedDict(TypedDict):
+class AgentInactiveStreamingEventFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     arguments: NotRequired[str]
 
 
-class Function(BaseModel):
+class AgentInactiveStreamingEventFunction(BaseModel):
     name: Optional[str] = None
 
     arguments: Optional[str] = None
 
 
-class PendingToolCallsTypedDict(TypedDict):
+class AgentInactiveStreamingEventPendingToolCallsTypedDict(TypedDict):
     id: str
     type: AgentInactiveStreamingEventDataType
-    function: FunctionTypedDict
+    function: AgentInactiveStreamingEventFunctionTypedDict
 
 
-class PendingToolCalls(BaseModel):
+class AgentInactiveStreamingEventPendingToolCalls(BaseModel):
     id: str
 
     type: AgentInactiveStreamingEventDataType
 
-    function: Function
+    function: AgentInactiveStreamingEventFunction
 
 
 class AgentInactiveStreamingEventPromptTokensDetailsTypedDict(TypedDict):
@@ -300,12 +300,14 @@ class AgentInactiveStreamingEventUsage(BaseModel):
 
 class AgentInactiveStreamingEventDataTypedDict(TypedDict):
     last_message: str
-    finish_reason: FinishReason
+    finish_reason: AgentInactiveStreamingEventFinishReason
     r"""The reason why the agent execution became inactive"""
     workflow_run_id: str
     last_message_full: NotRequired[LastMessageFullTypedDict]
     r"""Full last message in A2A format (for backwards compatibility)"""
-    pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
+    pending_tool_calls: NotRequired[
+        List[AgentInactiveStreamingEventPendingToolCallsTypedDict]
+    ]
     r"""Tool calls that are pending user response (for function_call finish reason)"""
     usage: NotRequired[AgentInactiveStreamingEventUsageTypedDict]
     r"""Token usage from the last agent message"""
@@ -316,7 +318,7 @@ class AgentInactiveStreamingEventDataTypedDict(TypedDict):
 class AgentInactiveStreamingEventData(BaseModel):
     last_message: str
 
-    finish_reason: FinishReason
+    finish_reason: AgentInactiveStreamingEventFinishReason
     r"""The reason why the agent execution became inactive"""
 
     workflow_run_id: Annotated[str, pydantic.Field(alias="workflowRunId")]
@@ -324,7 +326,9 @@ class AgentInactiveStreamingEventData(BaseModel):
     last_message_full: Optional[LastMessageFull] = None
     r"""Full last message in A2A format (for backwards compatibility)"""
 
-    pending_tool_calls: Optional[List[PendingToolCalls]] = None
+    pending_tool_calls: Optional[List[AgentInactiveStreamingEventPendingToolCalls]] = (
+        None
+    )
     r"""Tool calls that are pending user response (for function_call finish reason)"""
 
     usage: Optional[AgentInactiveStreamingEventUsage] = None

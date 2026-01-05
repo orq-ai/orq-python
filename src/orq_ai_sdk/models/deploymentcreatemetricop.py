@@ -16,6 +16,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -79,113 +80,26 @@ DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Role = Litera
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5Type = Literal[
-    "text",
-]
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5ContentType = (
-    Literal["ephemeral",]
-)
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyCacheControlTypedDict(
-    TypedDict
-):
-    type: (
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5ContentType
-    )
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyCacheControl(
-    BaseModel
-):
-    type: (
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5ContentType
-    )
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequest1TypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequest1(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages5Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyCacheControl
-    ] = None
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyMessages2TypedDict = (
-    DeploymentCreateMetric2DeploymentsMetricsRequest1TypedDict
+DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict = (
+    TextContentPartSchemaTypedDict
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyMessages2 = (
-    DeploymentCreateMetric2DeploymentsMetricsRequest1
-)
+DeploymentCreateMetricContentDeploymentsMetricsRequest2 = TextContentPartSchema
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5ContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5ContentTypedDict",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyMessages2TypedDict
-        ],
-    ],
+    Union[str, List[DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
-DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Content = TypeAliasType(
-    "DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Content",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyMessages2
-        ],
-    ],
+DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Content = (
+    TypeAliasType(
+        "DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Content",
+        Union[str, List[DeploymentCreateMetricContentDeploymentsMetricsRequest2]],
+    )
 )
 r"""The contents of the tool message."""
 
@@ -239,7 +153,7 @@ class DeploymentCreateMetricMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5ContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[DeploymentCreateMetricMessagesCacheControlTypedDict]
 
@@ -251,97 +165,56 @@ class DeploymentCreateMetricMessagesToolMessage(BaseModel):
     content: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[DeploymentCreateMetricMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType = Literal[
-    "text",
-]
+        serialized = handler(self)
 
+        m = {}
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages4Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-DeploymentCreateMetric2DeploymentsMetricsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestCacheControlTypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetric2DeploymentsMetricsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class DeploymentCreateMetric2DeploymentsMetricsRequestCacheControl(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessages4Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetric2DeploymentsMetricsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetrics1TypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric2DeploymentsMetrics1(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyMessagesType
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestCacheControl
-    ] = None
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict = (
-    TypeAliasType(
-        "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict",
-        Union[
-            RefusalPartSchemaTypedDict,
-            RedactedReasoningPartSchemaTypedDict,
-            DeploymentCreateMetric2DeploymentsMetrics1TypedDict,
-            ReasoningPartSchemaTypedDict,
-        ],
-    )
+DeploymentCreateMetricContentDeploymentsMetrics2TypedDict = TypeAliasType(
+    "DeploymentCreateMetricContentDeploymentsMetrics2TypedDict",
+    Union[
+        RefusalPartSchemaTypedDict,
+        RedactedReasoningPartSchemaTypedDict,
+        TextContentPartSchemaTypedDict,
+        ReasoningPartSchemaTypedDict,
+    ],
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = Annotated[
+DeploymentCreateMetricContentDeploymentsMetrics2 = Annotated[
     Union[
-        Annotated[DeploymentCreateMetric2DeploymentsMetrics1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -352,12 +225,7 @@ DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = Annotated[
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyContentTypedDict",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict
-        ],
-    ],
+    Union[str, List[DeploymentCreateMetricContentDeploymentsMetrics2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -365,10 +233,7 @@ r"""The contents of the assistant message. Required unless `tool_calls` or `func
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyContent = (
     TypeAliasType(
         "DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBodyContent",
-        Union[
-            str,
-            List[DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2],
-        ],
+        Union[str, List[DeploymentCreateMetricContentDeploymentsMetrics2]],
     )
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -511,77 +376,8 @@ DeploymentCreateMetricMessagesDeploymentsMetricsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["file",]
+DeploymentCreateMetric2Type = Literal["file",]
 r"""The type of the content part. Always `file`."""
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetric2DeploymentsMetricsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsCacheControlTypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetric2DeploymentsMetricsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsCacheControl(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetric2DeploymentsMetricsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric24TypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestType
-    r"""The type of the content part. Always `file`."""
-    file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric24(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestType
-    r"""The type of the content part. Always `file`."""
-
-    file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-
-    cache_control: Optional[DeploymentCreateMetric2DeploymentsMetricsCacheControl] = (
-        None
-    )
-
-
-DeploymentCreateMetric2Type = Literal["text",]
 
 
 DeploymentCreateMetric2DeploymentsMetricsType = Literal["ephemeral",]
@@ -628,34 +424,38 @@ class DeploymentCreateMetric2CacheControl(BaseModel):
     """
 
 
-class DeploymentCreateMetric21TypedDict(TypedDict):
+class DeploymentCreateMetric24TypedDict(TypedDict):
     type: DeploymentCreateMetric2Type
-    text: str
+    r"""The type of the content part. Always `file`."""
+    file: FileContentPartSchemaTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[DeploymentCreateMetric2CacheControlTypedDict]
 
 
-class DeploymentCreateMetric21(BaseModel):
+class DeploymentCreateMetric24(BaseModel):
     type: DeploymentCreateMetric2Type
+    r"""The type of the content part. Always `file`."""
 
-    text: str
+    file: FileContentPartSchema
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[DeploymentCreateMetric2CacheControl] = None
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict",
+DeploymentCreateMetricContent2TypedDict = TypeAliasType(
+    "DeploymentCreateMetricContent2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        DeploymentCreateMetric21TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         DeploymentCreateMetric24TypedDict,
     ],
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequest2 = Annotated[
+DeploymentCreateMetricContent2 = Annotated[
     Union[
-        Annotated[DeploymentCreateMetric21, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[DeploymentCreateMetric24, Tag("file")],
@@ -666,14 +466,14 @@ DeploymentCreateMetricContentDeploymentsMetricsRequest2 = Annotated[
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsRequestContentTypedDict",
-    Union[str, List[DeploymentCreateMetricContentDeploymentsMetricsRequest2TypedDict]],
+    Union[str, List[DeploymentCreateMetricContent2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsRequestContent = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsRequestContent",
-    Union[str, List[DeploymentCreateMetricContentDeploymentsMetricsRequest2]],
+    Union[str, List[DeploymentCreateMetricContent2]],
 )
 r"""The contents of the user message."""
 
@@ -702,83 +502,16 @@ DeploymentCreateMetricMessagesDeploymentsMetricsRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestType = Literal["text",]
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyType = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetricContentDeploymentsMetricsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsCacheControlTypedDict(TypedDict):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetricContentDeploymentsMetricsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsCacheControl(BaseModel):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetricContentDeploymentsMetricsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetrics2TypedDict(TypedDict):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestType
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetricContentDeploymentsMetricsCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetricContentDeploymentsMetrics2(BaseModel):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestType
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetricContentDeploymentsMetricsCacheControl
-    ] = None
-
-
 DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsContentTypedDict",
-    Union[str, List[DeploymentCreateMetricContentDeploymentsMetrics2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 DeploymentCreateMetricMessagesDeploymentsMetricsContent = TypeAliasType(
     "DeploymentCreateMetricMessagesDeploymentsMetricsContent",
-    Union[str, List[DeploymentCreateMetricContentDeploymentsMetrics2]],
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the developer message."""
 
@@ -807,77 +540,15 @@ DeploymentCreateMetricMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-DeploymentCreateMetricContentType = Literal["text",]
-
-
-DeploymentCreateMetricContentDeploymentsMetricsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetricContentTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetricContentCacheControlTypedDict(TypedDict):
-    type: DeploymentCreateMetricContentDeploymentsMetricsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetricContentTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentCacheControl(BaseModel):
-    type: DeploymentCreateMetricContentDeploymentsMetricsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetricContentTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContent2TypedDict(TypedDict):
-    type: DeploymentCreateMetricContentType
-    text: str
-    cache_control: NotRequired[DeploymentCreateMetricContentCacheControlTypedDict]
-
-
-class DeploymentCreateMetricContent2(BaseModel):
-    type: DeploymentCreateMetricContentType
-
-    text: str
-
-    cache_control: Optional[DeploymentCreateMetricContentCacheControl] = None
-
-
 DeploymentCreateMetricMessagesContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricMessagesContentTypedDict",
-    Union[str, List[DeploymentCreateMetricContent2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 DeploymentCreateMetricMessagesContent = TypeAliasType(
-    "DeploymentCreateMetricMessagesContent",
-    Union[str, List[DeploymentCreateMetricContent2]],
+    "DeploymentCreateMetricMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -934,92 +605,13 @@ DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyRole = Literal[
 r"""The role of the messages author, in this case tool."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5Type = Literal[
-    "text",
-]
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5ContentType = (
-    Literal["ephemeral",]
-)
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5TTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5CacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5TTL
-    ]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5CacheControl(
-    BaseModel
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5TTL
-    ] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51TypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5CacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices5CacheControl
-    ] = None
-
-
 DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices52TypedDict = (
-    DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51TypedDict
+    TextContentPartSchemaTypedDict
 )
 
 
 DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices52 = (
-    DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51
+    TextContentPartSchema
 )
 
 
@@ -1096,7 +688,7 @@ class ChoicesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[ChoicesCacheControlTypedDict]
 
@@ -1108,108 +700,56 @@ class ChoicesToolMessage(BaseModel):
     content: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRequestBodyContent
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[ChoicesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type = Literal[
-    "text",
-]
+        serialized = handler(self)
 
+        m = {}
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4ContentType = (
-    Literal["ephemeral",]
-)
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4TTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4CacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4TTL
-    ]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4CacheControl(
-    BaseModel
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4TTL
-    ] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices1TypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4CacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices1(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices4CacheControl
-    ] = None
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices42TypedDict = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices42TypedDict",
+DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2TypedDict = TypeAliasType(
+    "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices42 = Annotated[
+DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2 = Annotated[
     Union[
-        Annotated[
-            DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices1,
-            Tag("text"),
-        ],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -1223,7 +763,7 @@ DeploymentCreateMetricChoicesDeploymentsMetricsRequestContentTypedDict = TypeAli
     Union[
         str,
         List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices42TypedDict
+            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2TypedDict
         ],
     ],
 )
@@ -1234,9 +774,7 @@ DeploymentCreateMetricChoicesDeploymentsMetricsRequestContent = TypeAliasType(
     "DeploymentCreateMetricChoicesDeploymentsMetricsRequestContent",
     Union[
         str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices42
-        ],
+        List[DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2],
     ],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
@@ -1375,19 +913,15 @@ DeploymentCreateMetricChoicesDeploymentsMetricsRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType = (
-    Literal["file",]
-)
+DeploymentCreateMetric2DeploymentsMetricsRequestType = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Content4Type = (
-    Literal["ephemeral",]
-)
+DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3TTL = Literal[
+DeploymentCreateMetric2DeploymentsMetricsTTL = Literal[
     "5m",
     "1h",
 ]
@@ -1400,16 +934,10 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 """
 
 
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheControlTypedDict(
-    TypedDict
-):
-    type: (
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Content4Type
-    )
+class DeploymentCreateMetric2DeploymentsMetricsCacheControlTypedDict(TypedDict):
+    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3TTL
-    ]
+    ttl: NotRequired[DeploymentCreateMetric2DeploymentsMetricsTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1419,17 +947,11 @@ class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheCo
     """
 
 
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheControl(
-    BaseModel
-):
-    type: (
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Content4Type
-    )
+class DeploymentCreateMetric2DeploymentsMetricsCacheControl(BaseModel):
+    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
-    ttl: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3TTL
-    ] = "5m"
+    ttl: Optional[DeploymentCreateMetric2DeploymentsMetricsTTL] = "5m"
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
 
     - `5m`: 5 minutes
@@ -1440,120 +962,43 @@ class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheCo
 
 
 class DeploymentCreateMetric2DeploymentsMetrics4TypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType
+    type: DeploymentCreateMetric2DeploymentsMetricsRequestType
     r"""The type of the content part. Always `file`."""
     file: FileContentPartSchemaTypedDict
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheControlTypedDict
+        DeploymentCreateMetric2DeploymentsMetricsCacheControlTypedDict
     ]
 
 
 class DeploymentCreateMetric2DeploymentsMetrics4(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3ContentType
+    type: DeploymentCreateMetric2DeploymentsMetricsRequestType
     r"""The type of the content part. Always `file`."""
 
     file: FileContentPartSchema
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3CacheControl
-    ] = None
+    cache_control: Optional[DeploymentCreateMetric2DeploymentsMetricsCacheControl] = (
+        None
+    )
 
 
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesType = Literal[
-    "text",
-]
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesCacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesTTL
-    ]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesCacheControl(
-    BaseModel
-):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices3Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesTTL
-    ] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBody1TypedDict(TypedDict):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesType
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetric2DeploymentsMetricsRequestRequestBody1(BaseModel):
-    type: DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesType
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoicesCacheControl
-    ] = None
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32TypedDict = TypeAliasType(
-    "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32TypedDict",
-    Union[
-        AudioContentPartSchemaTypedDict,
-        DeploymentCreateMetric2DeploymentsMetricsRequestRequestBody1TypedDict,
-        ImageContentPartSchemaTypedDict,
-        DeploymentCreateMetric2DeploymentsMetrics4TypedDict,
-    ],
+DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict = (
+    TypeAliasType(
+        "DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict",
+        Union[
+            AudioContentPartSchemaTypedDict,
+            TextContentPartSchemaTypedDict,
+            ImageContentPartSchemaTypedDict,
+            DeploymentCreateMetric2DeploymentsMetrics4TypedDict,
+        ],
+    )
 )
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32 = Annotated[
+DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2 = Annotated[
     Union[
-        Annotated[
-            DeploymentCreateMetric2DeploymentsMetricsRequestRequestBody1, Tag("text")
-        ],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[DeploymentCreateMetric2DeploymentsMetrics4, Tag("file")],
@@ -1567,7 +1012,7 @@ DeploymentCreateMetricChoicesDeploymentsMetricsContentTypedDict = TypeAliasType(
     Union[
         str,
         List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32TypedDict
+            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2TypedDict
         ],
     ],
 )
@@ -1577,10 +1022,7 @@ r"""The contents of the user message."""
 DeploymentCreateMetricChoicesDeploymentsMetricsContent = TypeAliasType(
     "DeploymentCreateMetricChoicesDeploymentsMetricsContent",
     Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices32
-        ],
+        str, List[DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBody2]
     ],
 )
 r"""The contents of the user message."""
@@ -1610,107 +1052,15 @@ DeploymentCreateMetricChoicesRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2Type = Literal[
-    "text",
-]
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22Type = (
-    Literal["ephemeral",]
-)
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyCacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyTTL
-    ]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyCacheControl(
-    BaseModel
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyTTL
-    ] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22TypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2Type
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22(
-    BaseModel
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2Type
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyCacheControl
-    ] = None
-
-
 DeploymentCreateMetricChoicesContentTypedDict = TypeAliasType(
     "DeploymentCreateMetricChoicesContentTypedDict",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22TypedDict
-        ],
-    ],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
 DeploymentCreateMetricChoicesContent = TypeAliasType(
-    "DeploymentCreateMetricChoicesContent",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices22
-        ],
-    ],
+    "DeploymentCreateMetricChoicesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the developer message."""
 
@@ -1739,99 +1089,14 @@ ChoicesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoicesType = Literal[
-    "text",
-]
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices1Type = Literal[
-    "ephemeral",
-]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-DeploymentCreateMetricContentDeploymentsMetricsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestCacheControlTypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices1Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[DeploymentCreateMetricContentDeploymentsMetricsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestCacheControl(BaseModel):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices1Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[DeploymentCreateMetricContentDeploymentsMetricsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2TypedDict(
-    TypedDict
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoicesType
-    text: str
-    cache_control: NotRequired[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestCacheControlTypedDict
-    ]
-
-
-class DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2(
-    BaseModel
-):
-    type: DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoicesType
-
-    text: str
-
-    cache_control: Optional[
-        DeploymentCreateMetricContentDeploymentsMetricsRequestCacheControl
-    ] = None
-
-
 ChoicesContentTypedDict = TypeAliasType(
-    "ChoicesContentTypedDict",
-    Union[
-        str,
-        List[
-            DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2TypedDict
-        ],
-    ],
+    "ChoicesContentTypedDict", Union[str, List[TextContentPartSchemaTypedDict]]
 )
 r"""The contents of the system message."""
 
 
 ChoicesContent = TypeAliasType(
-    "ChoicesContent",
-    Union[
-        str,
-        List[DeploymentCreateMetricContentDeploymentsMetricsRequestRequestBodyChoices2],
-    ],
+    "ChoicesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 

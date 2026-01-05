@@ -3,9 +3,9 @@
 
 ## Supported Types
 
-### `models.InvokeDeploymentRequest2Messages51`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.InvokeDeploymentRequest2Messages51 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

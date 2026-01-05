@@ -9,7 +9,7 @@ from typing_extensions import TypedDict
 AgentExecutionStartedStreamingEventType = Literal["agents.execution_started",]
 
 
-class DataTypedDict(TypedDict):
+class AgentExecutionStartedStreamingEventDataTypedDict(TypedDict):
     agent_task_id: str
     r"""Agent execution task ID (ULID)"""
     workspace_id: str
@@ -18,7 +18,7 @@ class DataTypedDict(TypedDict):
     r"""Trace ID for the workflow run"""
 
 
-class Data(BaseModel):
+class AgentExecutionStartedStreamingEventData(BaseModel):
     agent_task_id: str
     r"""Agent execution task ID (ULID)"""
 
@@ -35,7 +35,7 @@ class AgentExecutionStartedStreamingEventTypedDict(TypedDict):
     type: AgentExecutionStartedStreamingEventType
     timestamp: str
     r"""ISO timestamp of the event"""
-    data: DataTypedDict
+    data: AgentExecutionStartedStreamingEventDataTypedDict
 
 
 class AgentExecutionStartedStreamingEvent(BaseModel):
@@ -46,4 +46,4 @@ class AgentExecutionStartedStreamingEvent(BaseModel):
     timestamp: str
     r"""ISO timestamp of the event"""
 
-    data: Data
+    data: AgentExecutionStartedStreamingEventData

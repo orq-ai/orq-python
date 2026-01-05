@@ -3,9 +3,9 @@
 
 ## Supported Types
 
-### `models.DeploymentGetConfig2DeploymentsRequestRequestBodyMessages51`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentGetConfig2DeploymentsRequestRequestBodyMessages51 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

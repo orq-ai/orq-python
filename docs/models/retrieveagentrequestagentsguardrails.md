@@ -1,0 +1,9 @@
+# RetrieveAgentRequestAgentsGuardrails
+
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                           | [models.RetrieveAgentRequestID](../models/retrieveagentrequestid.md)                                           | :heavy_check_mark:                                                                                             | N/A                                                                                                            |
+| `execute_on`                                                                                                   | [models.RetrieveAgentRequestAgentsResponseExecuteOn](../models/retrieveagentrequestagentsresponseexecuteon.md) | :heavy_check_mark:                                                                                             | Determines whether the guardrail runs on the input (user message) or output (model response).                  |

@@ -805,7 +805,7 @@ class Agents(BaseSDK):
         :param display_name:
         :param project_id:
         :param role:
-        :param description:
+        :param description: A brief description of what the agent does
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.
@@ -994,7 +994,7 @@ class Agents(BaseSDK):
         :param display_name:
         :param project_id:
         :param role:
-        :param description:
+        :param description: A brief description of what the agent does
         :param instructions:
         :param system_prompt: A custom system prompt template for the agent. If omitted, the default template is used.
         :param model: Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings.

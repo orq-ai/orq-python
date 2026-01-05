@@ -3,9 +3,9 @@
 
 ## Supported Types
 
-### `models.DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentCreateMetric2DeploymentsMetricsRequestRequestBodyChoices51 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

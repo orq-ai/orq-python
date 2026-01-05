@@ -246,6 +246,25 @@ StreamRunAgentModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+StreamRunAgentModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 StreamRunAgentModelConfigurationStopTypedDict = TypeAliasType(
     "StreamRunAgentModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -341,6 +360,44 @@ StreamRunAgentModelConfigurationModalities = Literal[
 ]
 
 
+StreamRunAgentID1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+StreamRunAgentModelConfigurationIDTypedDict = TypeAliasType(
+    "StreamRunAgentModelConfigurationIDTypedDict", Union[StreamRunAgentID1, str]
+)
+
+
+StreamRunAgentModelConfigurationID = TypeAliasType(
+    "StreamRunAgentModelConfigurationID", Union[StreamRunAgentID1, str]
+)
+
+
+StreamRunAgentModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class StreamRunAgentModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: StreamRunAgentModelConfigurationIDTypedDict
+    execute_on: StreamRunAgentModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class StreamRunAgentModelConfigurationGuardrails(BaseModel):
+    id: StreamRunAgentModelConfigurationID
+
+    execute_on: StreamRunAgentModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -367,8 +424,16 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
         StreamRunAgentModelConfigurationResponseFormatTypedDict
     ]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[StreamRunAgentModelConfigurationReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -392,6 +457,8 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     modalities: NotRequired[Nullable[List[StreamRunAgentModelConfigurationModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[StreamRunAgentModelConfigurationGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
 
 
 class StreamRunAgentModelConfigurationParameters(BaseModel):
@@ -427,8 +494,16 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     response_format: Optional[StreamRunAgentModelConfigurationResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[StreamRunAgentModelConfigurationReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -466,6 +541,9 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     )
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[StreamRunAgentModelConfigurationGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -490,6 +568,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -760,6 +839,25 @@ StreamRunAgentFallbackModelConfigurationResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
+StreamRunAgentFallbackModelConfigurationReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
 StreamRunAgentFallbackModelConfigurationStopTypedDict = TypeAliasType(
     "StreamRunAgentFallbackModelConfigurationStopTypedDict", Union[str, List[str]]
 )
@@ -855,6 +953,45 @@ StreamRunAgentFallbackModelConfigurationModalities = Literal[
 ]
 
 
+StreamRunAgentIDAgents1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+StreamRunAgentFallbackModelConfigurationIDTypedDict = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationIDTypedDict",
+    Union[StreamRunAgentIDAgents1, str],
+)
+
+
+StreamRunAgentFallbackModelConfigurationID = TypeAliasType(
+    "StreamRunAgentFallbackModelConfigurationID", Union[StreamRunAgentIDAgents1, str]
+)
+
+
+StreamRunAgentFallbackModelConfigurationExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class StreamRunAgentFallbackModelConfigurationGuardrailsTypedDict(TypedDict):
+    id: StreamRunAgentFallbackModelConfigurationIDTypedDict
+    execute_on: StreamRunAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
+    id: StreamRunAgentFallbackModelConfigurationID
+
+    execute_on: StreamRunAgentFallbackModelConfigurationExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
 class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -881,8 +1018,18 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         StreamRunAgentFallbackModelConfigurationResponseFormatTypedDict
     ]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[str]
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: NotRequired[
+        StreamRunAgentFallbackModelConfigurationReasoningEffort
+    ]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
     verbosity: NotRequired[str]
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
@@ -910,6 +1057,10 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         Nullable[List[StreamRunAgentFallbackModelConfigurationModalities]]
     ]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[StreamRunAgentFallbackModelConfigurationGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
 
 
 class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
@@ -947,8 +1098,18 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     ] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[str] = None
-    r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
+    reasoning_effort: Optional[
+        StreamRunAgentFallbackModelConfigurationReasoningEffort
+    ] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
 
     verbosity: Optional[str] = None
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
@@ -986,6 +1147,11 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     ] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
+    guardrails: Optional[List[StreamRunAgentFallbackModelConfigurationGuardrails]] = (
+        None
+    )
+    r"""A list of guardrails to apply to the request."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1010,6 +1176,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
             "tool_choice",
             "parallel_tool_calls",
             "modalities",
+            "guardrails",
         ]
         nullable_fields = [
             "audio",
@@ -1296,7 +1463,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KDXAAMQPYSSEDMTJGFVCHVME"
+    id: Optional[str] = "01KE6QFGE9NNFSRGNPTESA8XMH"
 
     description: Optional[str] = None
 
@@ -2131,7 +2298,7 @@ class StreamRunAgentSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
-    max_execution_time: Optional[int] = 300
+    max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
     evaluators: Optional[List[StreamRunAgentEvaluators]] = None

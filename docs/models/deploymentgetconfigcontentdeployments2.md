@@ -1,10 +1,29 @@
 # DeploymentGetConfigContentDeployments2
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                                | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
-| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                                               | [models.DeploymentGetConfigContentDeploymentsRequestType](../models/deploymentgetconfigcontentdeploymentsrequesttype.md)             | :heavy_check_mark:                                                                                                                   | N/A                                                                                                                                  |
-| `text`                                                                                                                               | *str*                                                                                                                                | :heavy_check_mark:                                                                                                                   | N/A                                                                                                                                  |
-| `cache_control`                                                                                                                      | [Optional[models.DeploymentGetConfigContentDeploymentsCacheControl]](../models/deploymentgetconfigcontentdeploymentscachecontrol.md) | :heavy_minus_sign:                                                                                                                   | N/A                                                                                                                                  |
+### `models.TextContentPartSchema`
+
+```python
+value: models.TextContentPartSchema = /* values here */
+```
+
+### `models.RefusalPartSchema`
+
+```python
+value: models.RefusalPartSchema = /* values here */
+```
+
+### `models.ReasoningPartSchema`
+
+```python
+value: models.ReasoningPartSchema = /* values here */
+```
+
+### `models.RedactedReasoningPartSchema`
+
+```python
+value: models.RedactedReasoningPartSchema = /* values here */
+```
+

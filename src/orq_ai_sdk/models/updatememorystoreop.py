@@ -8,47 +8,22 @@ from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class UpdateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
-    model: str
-    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
-
-
-class UpdateMemoryStoreEmbeddingConfig(BaseModel):
-    model: str
-    r"""The embeddings model to use for the knowledge base in the format \"provider/model\" for public models or \"workspaceKey@provider/model\" for private workspace models. This model will be used to embed the chunks when they are added to the knowledge base. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
-
-
 class UpdateMemoryStoreRequestBodyTypedDict(TypedDict):
-    embedding_config: UpdateMemoryStoreEmbeddingConfigTypedDict
-    description: str
+    description: NotRequired[str]
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
     ttl: NotRequired[float]
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
+    path: NotRequired[str]
 
 
 class UpdateMemoryStoreRequestBody(BaseModel):
-    embedding_config: UpdateMemoryStoreEmbeddingConfig
-
-    description: str
+    description: Optional[str] = None
     r"""The description of the memory store. Be as precise as possible to help the AI to understand the purpose of the memory store."""
-
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
 
     ttl: Optional[float] = None
     r"""The default time to live of every memory document created within the memory store. Useful to control if the documents in the memory should be store for short or long term."""
+
+    path: Optional[str] = None
 
 
 class UpdateMemoryStoreRequestTypedDict(TypedDict):
@@ -70,47 +45,47 @@ class UpdateMemoryStoreRequest(BaseModel):
 
 
 UpdateMemoryStoreProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
+    "contextualai",
+    "moonshotai",
+    "zai",
+    "slack",
 ]
-r"""The provider of the AI service"""
 
 
-class UpdateMemoryStoreMemoryStoresEmbeddingConfigTypedDict(TypedDict):
+class UpdateMemoryStoreEmbeddingConfigTypedDict(TypedDict):
     model_id: str
     provider: UpdateMemoryStoreProvider
-    r"""The provider of the AI service"""
     integration_id: NotRequired[str]
     top_k: NotRequired[float]
     r"""Number of results to return"""
 
 
-class UpdateMemoryStoreMemoryStoresEmbeddingConfig(BaseModel):
+class UpdateMemoryStoreEmbeddingConfig(BaseModel):
     model_id: str
 
     provider: UpdateMemoryStoreProvider
-    r"""The provider of the AI service"""
 
     integration_id: Optional[str] = None
 
@@ -133,7 +108,7 @@ class UpdateMemoryStoreResponseBodyTypedDict(TypedDict):
     r"""The creation date of the memory store"""
     updated: str
     r"""The last update date of the memory store"""
-    embedding_config: UpdateMemoryStoreMemoryStoresEmbeddingConfigTypedDict
+    embedding_config: UpdateMemoryStoreEmbeddingConfigTypedDict
     created_by_id: NotRequired[str]
     r"""The user ID of the creator"""
     updated_by_id: NotRequired[str]
@@ -163,7 +138,7 @@ class UpdateMemoryStoreResponseBody(BaseModel):
     updated: str
     r"""The last update date of the memory store"""
 
-    embedding_config: UpdateMemoryStoreMemoryStoresEmbeddingConfig
+    embedding_config: UpdateMemoryStoreEmbeddingConfig
 
     created_by_id: Optional[str] = None
     r"""The user ID of the creator"""

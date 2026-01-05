@@ -16,6 +16,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -290,7 +291,7 @@ class CreatePromptMessagesTypedDict(TypedDict):
     content: Nullable[CreatePromptContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class CreatePromptMessages(BaseModel):
@@ -302,12 +303,12 @@ class CreatePromptMessages(BaseModel):
 
     tool_calls: Optional[List[CreatePromptToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -476,7 +477,7 @@ EncodingFormat = Literal[
 r"""The format to return the embeddings"""
 
 
-ReasoningEffort = Literal[
+CreatePromptReasoningEffort = Literal[
     "none",
     "disable",
     "minimal",
@@ -542,7 +543,7 @@ class ModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[EncodingFormat]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[ReasoningEffort]
+    reasoning_effort: NotRequired[CreatePromptReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
@@ -619,7 +620,7 @@ class ModelParameters(BaseModel):
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[
-        Optional[ReasoningEffort], pydantic.Field(alias="reasoningEffort")
+        Optional[CreatePromptReasoningEffort], pydantic.Field(alias="reasoningEffort")
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -721,89 +722,22 @@ CreatePromptMessagesPromptsRequestRequestBodyRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-CreatePrompt2PromptsRequestRequestBodyPromptMessages4Type = Literal["text",]
+CreatePromptContentPromptsRequestRequestBody2TypedDict = TextContentPartSchemaTypedDict
 
 
-CreatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreatePrompt2PromptsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreatePrompt2PromptsRequestRequestBodyCacheControlTypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreatePrompt2PromptsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePrompt2PromptsRequestRequestBodyCacheControl(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreatePrompt2PromptsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePrompt2PromptsRequestRequestBody1TypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages4Type
-    text: str
-    cache_control: NotRequired[
-        CreatePrompt2PromptsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class CreatePrompt2PromptsRequestRequestBody1(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages4Type
-
-    text: str
-
-    cache_control: Optional[CreatePrompt2PromptsRequestRequestBodyCacheControl] = None
-
-
-CreatePromptContentPromptsRequestRequestBodyPrompt2TypedDict = (
-    CreatePrompt2PromptsRequestRequestBody1TypedDict
-)
-
-
-CreatePromptContentPromptsRequestRequestBodyPrompt2 = (
-    CreatePrompt2PromptsRequestRequestBody1
-)
+CreatePromptContentPromptsRequestRequestBody2 = TextContentPartSchema
 
 
 CreatePromptMessagesPromptsRequestRequestBodyContentTypedDict = TypeAliasType(
     "CreatePromptMessagesPromptsRequestRequestBodyContentTypedDict",
-    Union[str, List[CreatePromptContentPromptsRequestRequestBodyPrompt2TypedDict]],
+    Union[str, List[CreatePromptContentPromptsRequestRequestBody2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
 CreatePromptMessagesPromptsRequestRequestBodyContent = TypeAliasType(
     "CreatePromptMessagesPromptsRequestRequestBodyContent",
-    Union[str, List[CreatePromptContentPromptsRequestRequestBodyPrompt2]],
+    Union[str, List[CreatePromptContentPromptsRequestRequestBody2]],
 )
 r"""The contents of the tool message."""
 
@@ -857,7 +791,7 @@ class CreatePromptMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: CreatePromptMessagesPromptsRequestRequestBodyContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[CreatePromptMessagesCacheControlTypedDict]
 
@@ -869,87 +803,56 @@ class CreatePromptMessagesToolMessage(BaseModel):
     content: CreatePromptMessagesPromptsRequestRequestBodyContent
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[CreatePromptMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-CreatePrompt2PromptsRequestRequestBodyPromptMessages3Type = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-CreatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-CreatePrompt2PromptsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreatePrompt2PromptsRequestCacheControlTypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreatePrompt2PromptsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class CreatePrompt2PromptsRequestCacheControl(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreatePrompt2PromptsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePrompt2PromptsRequest1TypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages3Type
-    text: str
-    cache_control: NotRequired[CreatePrompt2PromptsRequestCacheControlTypedDict]
-
-
-class CreatePrompt2PromptsRequest1(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages3Type
-
-    text: str
-
-    cache_control: Optional[CreatePrompt2PromptsRequestCacheControl] = None
-
-
-CreatePromptContentPromptsRequestRequestBody2TypedDict = TypeAliasType(
-    "CreatePromptContentPromptsRequestRequestBody2TypedDict",
+CreatePromptContentPromptsRequest2TypedDict = TypeAliasType(
+    "CreatePromptContentPromptsRequest2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        CreatePrompt2PromptsRequest1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-CreatePromptContentPromptsRequestRequestBody2 = Annotated[
+CreatePromptContentPromptsRequest2 = Annotated[
     Union[
-        Annotated[CreatePrompt2PromptsRequest1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -960,14 +863,14 @@ CreatePromptContentPromptsRequestRequestBody2 = Annotated[
 
 CreatePromptMessagesPromptsRequestContentTypedDict = TypeAliasType(
     "CreatePromptMessagesPromptsRequestContentTypedDict",
-    Union[str, List[CreatePromptContentPromptsRequestRequestBody2TypedDict]],
+    Union[str, List[CreatePromptContentPromptsRequest2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 CreatePromptMessagesPromptsRequestContent = TypeAliasType(
     "CreatePromptMessagesPromptsRequestContent",
-    Union[str, List[CreatePromptContentPromptsRequestRequestBody2]],
+    Union[str, List[CreatePromptContentPromptsRequest2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1101,73 +1004,8 @@ CreatePromptMessagesPromptsRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-CreatePrompt2PromptsRequestRequestBodyPromptMessagesType = Literal["file",]
+CreatePrompt2PromptsRequestRequestBodyType = Literal["file",]
 r"""The type of the content part. Always `file`."""
-
-
-CreatePrompt2PromptsRequestRequestBodyPromptMessages2Type = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreatePrompt2PromptsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreatePrompt2PromptsCacheControlTypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages2Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreatePrompt2PromptsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePrompt2PromptsCacheControl(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessages2Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreatePrompt2PromptsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePrompt24TypedDict(TypedDict):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessagesType
-    r"""The type of the content part. Always `file`."""
-    file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[CreatePrompt2PromptsCacheControlTypedDict]
-
-
-class CreatePrompt24(BaseModel):
-    type: CreatePrompt2PromptsRequestRequestBodyPromptMessagesType
-    r"""The type of the content part. Always `file`."""
-
-    file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-
-    cache_control: Optional[CreatePrompt2PromptsCacheControl] = None
-
-
-CreatePrompt2PromptsRequestRequestBodyType = Literal["text",]
 
 
 CreatePrompt2PromptsRequestRequestBodyPromptType = Literal["ephemeral",]
@@ -1214,34 +1052,38 @@ class CreatePrompt2CacheControl(BaseModel):
     """
 
 
-class CreatePrompt2Prompts1TypedDict(TypedDict):
+class CreatePrompt24TypedDict(TypedDict):
     type: CreatePrompt2PromptsRequestRequestBodyType
-    text: str
+    r"""The type of the content part. Always `file`."""
+    file: FileContentPartSchemaTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[CreatePrompt2CacheControlTypedDict]
 
 
-class CreatePrompt2Prompts1(BaseModel):
+class CreatePrompt24(BaseModel):
     type: CreatePrompt2PromptsRequestRequestBodyType
+    r"""The type of the content part. Always `file`."""
 
-    text: str
+    file: FileContentPartSchema
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[CreatePrompt2CacheControl] = None
 
 
-CreatePromptContentPromptsRequest2TypedDict = TypeAliasType(
-    "CreatePromptContentPromptsRequest2TypedDict",
+CreatePromptContentPrompts2TypedDict = TypeAliasType(
+    "CreatePromptContentPrompts2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        CreatePrompt2Prompts1TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         CreatePrompt24TypedDict,
     ],
 )
 
 
-CreatePromptContentPromptsRequest2 = Annotated[
+CreatePromptContentPrompts2 = Annotated[
     Union[
-        Annotated[CreatePrompt2Prompts1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[CreatePrompt24, Tag("file")],
@@ -1252,14 +1094,13 @@ CreatePromptContentPromptsRequest2 = Annotated[
 
 CreatePromptMessagesPromptsContentTypedDict = TypeAliasType(
     "CreatePromptMessagesPromptsContentTypedDict",
-    Union[str, List[CreatePromptContentPromptsRequest2TypedDict]],
+    Union[str, List[CreatePromptContentPrompts2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 CreatePromptMessagesPromptsContent = TypeAliasType(
-    "CreatePromptMessagesPromptsContent",
-    Union[str, List[CreatePromptContentPromptsRequest2]],
+    "CreatePromptMessagesPromptsContent", Union[str, List[CreatePromptContentPrompts2]]
 )
 r"""The contents of the user message."""
 
@@ -1288,76 +1129,15 @@ CreatePromptMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-CreatePromptContentType = Literal["text",]
-
-
-CreatePromptContentPromptsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-CreatePromptContentTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class CreatePromptContentCacheControlTypedDict(TypedDict):
-    type: CreatePromptContentPromptsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[CreatePromptContentTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePromptContentCacheControl(BaseModel):
-    type: CreatePromptContentPromptsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[CreatePromptContentTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class CreatePromptContentPrompts2TypedDict(TypedDict):
-    type: CreatePromptContentType
-    text: str
-    cache_control: NotRequired[CreatePromptContentCacheControlTypedDict]
-
-
-class CreatePromptContentPrompts2(BaseModel):
-    type: CreatePromptContentType
-
-    text: str
-
-    cache_control: Optional[CreatePromptContentCacheControl] = None
-
-
 CreatePromptMessagesContentTypedDict = TypeAliasType(
     "CreatePromptMessagesContentTypedDict",
-    Union[str, List[CreatePromptContentPrompts2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 CreatePromptMessagesContent = TypeAliasType(
-    "CreatePromptMessagesContent", Union[str, List[CreatePromptContentPrompts2]]
+    "CreatePromptMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -1832,7 +1612,7 @@ CreatePromptEncodingFormat = Literal[
 r"""The format to return the embeddings"""
 
 
-CreatePromptReasoningEffort = Literal[
+CreatePromptPromptsReasoningEffort = Literal[
     "none",
     "disable",
     "minimal",
@@ -1900,7 +1680,7 @@ class CreatePromptModelParametersTypedDict(TypedDict):
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
     encoding_format: NotRequired[CreatePromptEncodingFormat]
     r"""The format to return the embeddings"""
-    reasoning_effort: NotRequired[CreatePromptReasoningEffort]
+    reasoning_effort: NotRequired[CreatePromptPromptsReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
@@ -1977,7 +1757,8 @@ class CreatePromptModelParameters(BaseModel):
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[
-        Optional[CreatePromptReasoningEffort], pydantic.Field(alias="reasoningEffort")
+        Optional[CreatePromptPromptsReasoningEffort],
+        pydantic.Field(alias="reasoningEffort"),
     ] = None
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
@@ -2047,29 +1828,32 @@ class CreatePromptModelParameters(BaseModel):
 
 
 CreatePromptProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
+    "contextualai",
+    "moonshotai",
+    "zai",
+    "slack",
 ]
 
 
@@ -2169,14 +1953,14 @@ class CreatePrompt2Prompts2(BaseModel):
 CreatePrompt2PromptsResponseType = Literal["text",]
 
 
-class CreatePrompt2PromptsResponse1TypedDict(TypedDict):
+class CreatePrompt2Prompts1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
     type: CreatePrompt2PromptsResponseType
     text: str
 
 
-class CreatePrompt2PromptsResponse1(BaseModel):
+class CreatePrompt2Prompts1(BaseModel):
     r"""Text content part of a prompt message"""
 
     type: CreatePrompt2PromptsResponseType
@@ -2187,7 +1971,7 @@ class CreatePrompt2PromptsResponse1(BaseModel):
 CreatePromptContentPromptsResponse2TypedDict = TypeAliasType(
     "CreatePromptContentPromptsResponse2TypedDict",
     Union[
-        CreatePrompt2PromptsResponse1TypedDict,
+        CreatePrompt2Prompts1TypedDict,
         CreatePrompt2Prompts2TypedDict,
         CreatePrompt23TypedDict,
     ],
@@ -2196,7 +1980,7 @@ CreatePromptContentPromptsResponse2TypedDict = TypeAliasType(
 
 CreatePromptContentPromptsResponse2 = Annotated[
     Union[
-        Annotated[CreatePrompt2PromptsResponse1, Tag("text")],
+        Annotated[CreatePrompt2Prompts1, Tag("text")],
         Annotated[CreatePrompt2Prompts2, Tag("image_url")],
         Annotated[CreatePrompt23, Tag("file")],
     ],
@@ -2256,7 +2040,7 @@ class CreatePromptPromptsResponseMessagesTypedDict(TypedDict):
     content: Nullable[CreatePromptPromptsContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[CreatePromptPromptsToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class CreatePromptPromptsResponseMessages(BaseModel):
@@ -2268,12 +2052,12 @@ class CreatePromptPromptsResponseMessages(BaseModel):
 
     tool_calls: Optional[List[CreatePromptPromptsToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)

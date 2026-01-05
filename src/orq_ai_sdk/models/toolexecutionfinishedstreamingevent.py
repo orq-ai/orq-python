@@ -80,6 +80,7 @@ class ToolExecutionFinishedStreamingEventDataTypedDict(TypedDict):
     workflow_run_id: str
     result: NotRequired[Any]
     response_id: NotRequired[str]
+    stream: NotRequired[bool]
 
 
 class ToolExecutionFinishedStreamingEventData(BaseModel):
@@ -92,6 +93,8 @@ class ToolExecutionFinishedStreamingEventData(BaseModel):
     result: Optional[Any] = None
 
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
+
+    stream: Optional[bool] = None
 
 
 class ToolExecutionFinishedStreamingEventTypedDict(TypedDict):

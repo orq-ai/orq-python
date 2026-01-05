@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.CreatePromptContentPromptsRequestRequestBody2]`
+### `List[models.CreatePromptContentPromptsRequest2]`
 
 ```python
-value: List[models.CreatePromptContentPromptsRequestRequestBody2] = /* values here */
+value: List[models.CreatePromptContentPromptsRequest2] = /* values here */
 ```
 

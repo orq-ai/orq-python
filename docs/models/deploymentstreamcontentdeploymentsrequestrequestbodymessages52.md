@@ -3,9 +3,9 @@
 
 ## Supported Types
 
-### `models.DeploymentStream2DeploymentsRequestRequestBodyMessages51`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.DeploymentStream2DeploymentsRequestRequestBodyMessages51 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

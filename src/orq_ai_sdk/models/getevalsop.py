@@ -86,6 +86,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumberTypedDict(Type
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData72Type
     value: float
     operator: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
@@ -97,6 +98,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
 
     operator: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData7Type = Literal[
     "boolean",
@@ -107,6 +110,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONBooleanTypedDict(Typ
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData7Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel):
@@ -115,6 +119,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData7Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasType(
@@ -167,9 +173,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -196,6 +202,7 @@ class GetEvalsGuardrailConfigEvalsResponse200NumberTypedDict(TypedDict):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData62Type
     value: float
     operator: GetEvalsGuardrailConfigEvalsResponse200Operator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200Number(BaseModel):
@@ -207,6 +214,8 @@ class GetEvalsGuardrailConfigEvalsResponse200Number(BaseModel):
 
     operator: GetEvalsGuardrailConfigEvalsResponse200Operator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData6Type = Literal[
     "boolean",
@@ -217,6 +226,7 @@ class GetEvalsGuardrailConfigEvalsResponse200BooleanTypedDict(TypedDict):
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData6Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200Boolean(BaseModel):
@@ -225,6 +235,8 @@ class GetEvalsGuardrailConfigEvalsResponse200Boolean(BaseModel):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData6Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
@@ -289,9 +301,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -316,6 +328,7 @@ class GetEvalsGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData52Type
     value: float
     operator: GetEvalsGuardrailConfigEvalsResponseOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponseNumber(BaseModel):
@@ -327,6 +340,8 @@ class GetEvalsGuardrailConfigEvalsResponseNumber(BaseModel):
 
     operator: GetEvalsGuardrailConfigEvalsResponseOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData5Type = Literal[
     "boolean",
@@ -337,6 +352,7 @@ class GetEvalsGuardrailConfigEvalsResponseBooleanTypedDict(TypedDict):
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData5Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponseBoolean(BaseModel):
@@ -345,6 +361,8 @@ class GetEvalsGuardrailConfigEvalsResponseBoolean(BaseModel):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData5Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
@@ -910,9 +928,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -937,6 +955,7 @@ class GetEvalsGuardrailConfigEvalsNumberTypedDict(TypedDict):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataType
     value: float
     operator: GetEvalsGuardrailConfigEvalsOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsNumber(BaseModel):
@@ -948,6 +967,8 @@ class GetEvalsGuardrailConfigEvalsNumber(BaseModel):
 
     operator: GetEvalsGuardrailConfigEvalsOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
     "boolean",
@@ -958,6 +979,7 @@ class GetEvalsGuardrailConfigEvalsBooleanTypedDict(TypedDict):
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsBoolean(BaseModel):
@@ -966,6 +988,8 @@ class GetEvalsGuardrailConfigEvalsBoolean(BaseModel):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataEvalsGuardrailConfigTypedDict = TypeAliasType(
@@ -1011,9 +1035,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -1036,6 +1060,7 @@ class GetEvalsGuardrailConfigNumberTypedDict(TypedDict):
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONType
     value: float
     operator: GetEvalsGuardrailConfigOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigNumber(BaseModel):
@@ -1047,6 +1072,8 @@ class GetEvalsGuardrailConfigNumber(BaseModel):
 
     operator: GetEvalsGuardrailConfigOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsResponse200Type = Literal["boolean",]
 
@@ -1055,6 +1082,7 @@ class GetEvalsGuardrailConfigBooleanTypedDict(TypedDict):
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsResponse200Type
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigBoolean(BaseModel):
@@ -1063,6 +1091,8 @@ class GetEvalsGuardrailConfigBoolean(BaseModel):
     type: GetEvalsGuardrailConfigEvalsResponse200Type
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataGuardrailConfigTypedDict = TypeAliasType(
@@ -1122,9 +1152,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1153,6 +1183,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumb
     operator: (
         GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataOperator
     )
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumber(
@@ -1168,6 +1199,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataNumb
         GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataOperator
     )
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigEvalsType = Literal["boolean",]
 
@@ -1178,6 +1211,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBool
     enabled: bool
     type: GetEvalsGuardrailConfigEvalsType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBoolean(
@@ -1188,6 +1222,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyDataBool
     type: GetEvalsGuardrailConfigEvalsType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 DataGuardrailConfigTypedDict = TypeAliasType(
@@ -1239,9 +1275,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1268,6 +1304,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumberTy
     type: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData1Type
     value: float
     operator: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber(
@@ -1281,6 +1318,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber(
 
     operator: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyOperator
 
+    alert_on_failure: Optional[bool] = False
+
 
 GetEvalsGuardrailConfigType = Literal["boolean",]
 
@@ -1291,6 +1330,7 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBooleanT
     enabled: bool
     type: GetEvalsGuardrailConfigType
     value: bool
+    alert_on_failure: NotRequired[bool]
 
 
 class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean(
@@ -1301,6 +1341,8 @@ class GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolean(
     type: GetEvalsGuardrailConfigType
 
     value: bool
+
+    alert_on_failure: Optional[bool] = False
 
 
 GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -1357,9 +1399,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-01T17:40:04.650Z"
+    created: Optional[str] = "2026-01-05T09:23:04.518Z"
 
-    updated: Optional[str] = "2026-01-01T17:40:04.650Z"
+    updated: Optional[str] = "2026-01-05T09:23:04.518Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig

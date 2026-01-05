@@ -11,9 +11,9 @@ The contents of the assistant message. Required unless `tool_calls` or `function
 value: str = /* values here */
 ```
 
-### `List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages42]`
+### `List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages2]`
 
 ```python
-value: List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages42] = /* values here */
+value: List[models.DeploymentStreamContentDeploymentsRequestRequestBodyMessages2] = /* values here */
 ```
 

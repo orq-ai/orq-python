@@ -3,27 +3,9 @@
 
 ## Supported Types
 
-### `models.RetrieveDatapoint21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.RetrieveDatapoint21 = /* values here */
-```
-
-### `models.ImageContentPartSchema`
-
-```python
-value: models.ImageContentPartSchema = /* values here */
-```
-
-### `models.AudioContentPartSchema`
-
-```python
-value: models.AudioContentPartSchema = /* values here */
-```
-
-### `models.RetrieveDatapoint24`
-
-```python
-value: models.RetrieveDatapoint24 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 

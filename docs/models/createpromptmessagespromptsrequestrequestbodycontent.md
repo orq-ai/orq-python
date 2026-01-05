@@ -11,9 +11,9 @@ The contents of the tool message.
 value: str = /* values here */
 ```
 
-### `List[models.CreatePromptContentPromptsRequestRequestBodyPrompt2]`
+### `List[models.CreatePromptContentPromptsRequestRequestBody2]`
 
 ```python
-value: List[models.CreatePromptContentPromptsRequestRequestBodyPrompt2] = /* values here */
+value: List[models.CreatePromptContentPromptsRequestRequestBody2] = /* values here */
 ```
 

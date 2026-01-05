@@ -16,6 +16,7 @@ from .redactedreasoningpartschema import (
     RedactedReasoningPartSchemaTypedDict,
 )
 from .refusalpartschema import RefusalPartSchema, RefusalPartSchemaTypedDict
+from .textcontentpartschema import TextContentPartSchema, TextContentPartSchemaTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
@@ -402,29 +403,32 @@ class UpdatePromptModelParameters(BaseModel):
 
 
 Provider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
+    "contextualai",
+    "moonshotai",
+    "zai",
+    "slack",
 ]
 
 
@@ -601,7 +605,7 @@ class UpdatePromptMessagesTypedDict(TypedDict):
     content: Nullable[UpdatePromptContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[UpdatePromptToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class UpdatePromptMessages(BaseModel):
@@ -613,12 +617,12 @@ class UpdatePromptMessages(BaseModel):
 
     tool_calls: Optional[List[UpdatePromptToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -672,6 +676,8 @@ class PromptConfigTypedDict(TypedDict):
     model_parameters: NotRequired[UpdatePromptModelParametersTypedDict]
     r"""Model Parameters: Not all parameters apply to every model"""
     provider: NotRequired[Provider]
+    integration_id: NotRequired[Nullable[str]]
+    r"""The ID of the integration to use"""
     version: NotRequired[str]
     model_db_id: NotRequired[Nullable[str]]
     model_type: NotRequired[Nullable[ModelType]]
@@ -696,6 +702,9 @@ class PromptConfig(BaseModel):
 
     provider: Optional[Provider] = None
 
+    integration_id: OptionalNullable[str] = UNSET
+    r"""The ID of the integration to use"""
+
     version: Optional[str] = None
 
     model_db_id: OptionalNullable[str] = UNSET
@@ -712,12 +721,13 @@ class PromptConfig(BaseModel):
             "model",
             "model_parameters",
             "provider",
+            "integration_id",
             "version",
             "model_db_id",
             "model_type",
             "is_private",
         ]
-        nullable_fields = ["model_db_id", "model_type"]
+        nullable_fields = ["integration_id", "model_db_id", "model_type"]
         null_default_fields = []
 
         serialized = handler(self)
@@ -830,89 +840,22 @@ UpdatePromptMessagesPromptsRequestRequestBodyRole = Literal["tool",]
 r"""The role of the messages author, in this case tool."""
 
 
-UpdatePrompt2PromptsRequestRequestBodyPromptMessages4Type = Literal["text",]
+UpdatePromptContentPromptsRequestRequestBody2TypedDict = TextContentPartSchemaTypedDict
 
 
-UpdatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-UpdatePrompt2PromptsRequestRequestBodyTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class UpdatePrompt2PromptsRequestRequestBodyCacheControlTypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[UpdatePrompt2PromptsRequestRequestBodyTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePrompt2PromptsRequestRequestBodyCacheControl(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages4ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[UpdatePrompt2PromptsRequestRequestBodyTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePrompt2PromptsRequestRequestBody1TypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages4Type
-    text: str
-    cache_control: NotRequired[
-        UpdatePrompt2PromptsRequestRequestBodyCacheControlTypedDict
-    ]
-
-
-class UpdatePrompt2PromptsRequestRequestBody1(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages4Type
-
-    text: str
-
-    cache_control: Optional[UpdatePrompt2PromptsRequestRequestBodyCacheControl] = None
-
-
-UpdatePromptContentPromptsRequestRequestBodyPrompt2TypedDict = (
-    UpdatePrompt2PromptsRequestRequestBody1TypedDict
-)
-
-
-UpdatePromptContentPromptsRequestRequestBodyPrompt2 = (
-    UpdatePrompt2PromptsRequestRequestBody1
-)
+UpdatePromptContentPromptsRequestRequestBody2 = TextContentPartSchema
 
 
 UpdatePromptMessagesPromptsRequestRequestBodyContentTypedDict = TypeAliasType(
     "UpdatePromptMessagesPromptsRequestRequestBodyContentTypedDict",
-    Union[str, List[UpdatePromptContentPromptsRequestRequestBodyPrompt2TypedDict]],
+    Union[str, List[UpdatePromptContentPromptsRequestRequestBody2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
 UpdatePromptMessagesPromptsRequestRequestBodyContent = TypeAliasType(
     "UpdatePromptMessagesPromptsRequestRequestBodyContent",
-    Union[str, List[UpdatePromptContentPromptsRequestRequestBodyPrompt2]],
+    Union[str, List[UpdatePromptContentPromptsRequestRequestBody2]],
 )
 r"""The contents of the tool message."""
 
@@ -966,7 +909,7 @@ class UpdatePromptMessagesToolMessageTypedDict(TypedDict):
     r"""The role of the messages author, in this case tool."""
     content: UpdatePromptMessagesPromptsRequestRequestBodyContentTypedDict
     r"""The contents of the tool message."""
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
     cache_control: NotRequired[UpdatePromptMessagesCacheControlTypedDict]
 
@@ -978,87 +921,56 @@ class UpdatePromptMessagesToolMessage(BaseModel):
     content: UpdatePromptMessagesPromptsRequestRequestBodyContent
     r"""The contents of the tool message."""
 
-    tool_call_id: str
+    tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
 
     cache_control: Optional[UpdatePromptMessagesCacheControl] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = ["cache_control"]
+        nullable_fields = ["tool_call_id"]
+        null_default_fields = []
 
-UpdatePrompt2PromptsRequestRequestBodyPromptMessages3Type = Literal["text",]
+        serialized = handler(self)
 
+        m = {}
 
-UpdatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            serialized.pop(k, None)
 
+            optional_nullable = k in optional_fields and k in nullable_fields
+            is_set = (
+                self.__pydantic_fields_set__.intersection({n})
+                or k in null_default_fields
+            )  # pylint: disable=no-member
 
-UpdatePrompt2PromptsRequestTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
+            if val is not None and val != UNSET_SENTINEL:
+                m[k] = val
+            elif val != UNSET_SENTINEL and (
+                not k in optional_fields or (optional_nullable and is_set)
+            ):
+                m[k] = val
 
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class UpdatePrompt2PromptsRequestCacheControlTypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[UpdatePrompt2PromptsRequestTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
+        return m
 
 
-class UpdatePrompt2PromptsRequestCacheControl(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages3ContentType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[UpdatePrompt2PromptsRequestTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePrompt2PromptsRequest1TypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages3Type
-    text: str
-    cache_control: NotRequired[UpdatePrompt2PromptsRequestCacheControlTypedDict]
-
-
-class UpdatePrompt2PromptsRequest1(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages3Type
-
-    text: str
-
-    cache_control: Optional[UpdatePrompt2PromptsRequestCacheControl] = None
-
-
-UpdatePromptContentPromptsRequestRequestBody2TypedDict = TypeAliasType(
-    "UpdatePromptContentPromptsRequestRequestBody2TypedDict",
+UpdatePromptContentPromptsRequest2TypedDict = TypeAliasType(
+    "UpdatePromptContentPromptsRequest2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
-        UpdatePrompt2PromptsRequest1TypedDict,
+        TextContentPartSchemaTypedDict,
         ReasoningPartSchemaTypedDict,
     ],
 )
 
 
-UpdatePromptContentPromptsRequestRequestBody2 = Annotated[
+UpdatePromptContentPromptsRequest2 = Annotated[
     Union[
-        Annotated[UpdatePrompt2PromptsRequest1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
         Annotated[ReasoningPartSchema, Tag("reasoning")],
         Annotated[RedactedReasoningPartSchema, Tag("redacted_reasoning")],
@@ -1069,14 +981,14 @@ UpdatePromptContentPromptsRequestRequestBody2 = Annotated[
 
 UpdatePromptMessagesPromptsRequestContentTypedDict = TypeAliasType(
     "UpdatePromptMessagesPromptsRequestContentTypedDict",
-    Union[str, List[UpdatePromptContentPromptsRequestRequestBody2TypedDict]],
+    Union[str, List[UpdatePromptContentPromptsRequest2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
 UpdatePromptMessagesPromptsRequestContent = TypeAliasType(
     "UpdatePromptMessagesPromptsRequestContent",
-    Union[str, List[UpdatePromptContentPromptsRequestRequestBody2]],
+    Union[str, List[UpdatePromptContentPromptsRequest2]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -1210,73 +1122,8 @@ UpdatePromptMessagesPromptsRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
-UpdatePrompt2PromptsRequestRequestBodyPromptMessagesType = Literal["file",]
+UpdatePrompt2PromptsRequestRequestBodyType = Literal["file",]
 r"""The type of the content part. Always `file`."""
-
-
-UpdatePrompt2PromptsRequestRequestBodyPromptMessages2Type = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-UpdatePrompt2PromptsTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class UpdatePrompt2PromptsCacheControlTypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages2Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[UpdatePrompt2PromptsTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePrompt2PromptsCacheControl(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessages2Type
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[UpdatePrompt2PromptsTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePrompt24TypedDict(TypedDict):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessagesType
-    r"""The type of the content part. Always `file`."""
-    file: FileContentPartSchemaTypedDict
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-    cache_control: NotRequired[UpdatePrompt2PromptsCacheControlTypedDict]
-
-
-class UpdatePrompt24(BaseModel):
-    type: UpdatePrompt2PromptsRequestRequestBodyPromptMessagesType
-    r"""The type of the content part. Always `file`."""
-
-    file: FileContentPartSchema
-    r"""File data for the content part. Must contain either file_data or uri, but not both."""
-
-    cache_control: Optional[UpdatePrompt2PromptsCacheControl] = None
-
-
-UpdatePrompt2PromptsRequestRequestBodyType = Literal["text",]
 
 
 UpdatePrompt2PromptsRequestRequestBodyPromptType = Literal["ephemeral",]
@@ -1323,34 +1170,38 @@ class UpdatePrompt2CacheControl(BaseModel):
     """
 
 
-class UpdatePrompt2Prompts1TypedDict(TypedDict):
+class UpdatePrompt24TypedDict(TypedDict):
     type: UpdatePrompt2PromptsRequestRequestBodyType
-    text: str
+    r"""The type of the content part. Always `file`."""
+    file: FileContentPartSchemaTypedDict
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
     cache_control: NotRequired[UpdatePrompt2CacheControlTypedDict]
 
 
-class UpdatePrompt2Prompts1(BaseModel):
+class UpdatePrompt24(BaseModel):
     type: UpdatePrompt2PromptsRequestRequestBodyType
+    r"""The type of the content part. Always `file`."""
 
-    text: str
+    file: FileContentPartSchema
+    r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[UpdatePrompt2CacheControl] = None
 
 
-UpdatePromptContentPromptsRequest2TypedDict = TypeAliasType(
-    "UpdatePromptContentPromptsRequest2TypedDict",
+UpdatePromptContentPrompts2TypedDict = TypeAliasType(
+    "UpdatePromptContentPrompts2TypedDict",
     Union[
         AudioContentPartSchemaTypedDict,
-        UpdatePrompt2Prompts1TypedDict,
+        TextContentPartSchemaTypedDict,
         ImageContentPartSchemaTypedDict,
         UpdatePrompt24TypedDict,
     ],
 )
 
 
-UpdatePromptContentPromptsRequest2 = Annotated[
+UpdatePromptContentPrompts2 = Annotated[
     Union[
-        Annotated[UpdatePrompt2Prompts1, Tag("text")],
+        Annotated[TextContentPartSchema, Tag("text")],
         Annotated[ImageContentPartSchema, Tag("image_url")],
         Annotated[AudioContentPartSchema, Tag("input_audio")],
         Annotated[UpdatePrompt24, Tag("file")],
@@ -1361,14 +1212,13 @@ UpdatePromptContentPromptsRequest2 = Annotated[
 
 UpdatePromptMessagesPromptsContentTypedDict = TypeAliasType(
     "UpdatePromptMessagesPromptsContentTypedDict",
-    Union[str, List[UpdatePromptContentPromptsRequest2TypedDict]],
+    Union[str, List[UpdatePromptContentPrompts2TypedDict]],
 )
 r"""The contents of the user message."""
 
 
 UpdatePromptMessagesPromptsContent = TypeAliasType(
-    "UpdatePromptMessagesPromptsContent",
-    Union[str, List[UpdatePromptContentPromptsRequest2]],
+    "UpdatePromptMessagesPromptsContent", Union[str, List[UpdatePromptContentPrompts2]]
 )
 r"""The contents of the user message."""
 
@@ -1397,76 +1247,15 @@ UpdatePromptMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
 
 
-UpdatePromptContentType = Literal["text",]
-
-
-UpdatePromptContentPromptsType = Literal["ephemeral",]
-r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-
-UpdatePromptContentTTL = Literal[
-    "5m",
-    "1h",
-]
-r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-- `5m`: 5 minutes
-- `1h`: 1 hour
-
-Defaults to `5m`. Only supported by `Anthropic` Claude models.
-"""
-
-
-class UpdatePromptContentCacheControlTypedDict(TypedDict):
-    type: UpdatePromptContentPromptsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-    ttl: NotRequired[UpdatePromptContentTTL]
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePromptContentCacheControl(BaseModel):
-    type: UpdatePromptContentPromptsType
-    r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
-
-    ttl: Optional[UpdatePromptContentTTL] = "5m"
-    r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. Only supported by `Anthropic` Claude models.
-    """
-
-
-class UpdatePromptContentPrompts2TypedDict(TypedDict):
-    type: UpdatePromptContentType
-    text: str
-    cache_control: NotRequired[UpdatePromptContentCacheControlTypedDict]
-
-
-class UpdatePromptContentPrompts2(BaseModel):
-    type: UpdatePromptContentType
-
-    text: str
-
-    cache_control: Optional[UpdatePromptContentCacheControl] = None
-
-
 UpdatePromptMessagesContentTypedDict = TypeAliasType(
     "UpdatePromptMessagesContentTypedDict",
-    Union[str, List[UpdatePromptContentPrompts2TypedDict]],
+    Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the system message."""
 
 
 UpdatePromptMessagesContent = TypeAliasType(
-    "UpdatePromptMessagesContent", Union[str, List[UpdatePromptContentPrompts2]]
+    "UpdatePromptMessagesContent", Union[str, List[TextContentPartSchema]]
 )
 r"""The contents of the system message."""
 
@@ -2239,29 +2028,32 @@ class UpdatePromptPromptsModelParameters(BaseModel):
 
 
 UpdatePromptProvider = Literal[
-    "cohere",
     "openai",
-    "anthropic",
-    "huggingface",
-    "replicate",
-    "google",
-    "google-ai",
+    "groq",
+    "cohere",
     "azure",
     "aws",
-    "anyscale",
+    "google",
+    "google-ai",
+    "huggingface",
+    "togetherai",
     "perplexity",
-    "groq",
-    "fal",
+    "anthropic",
     "leonardoai",
+    "fal",
     "nvidia",
     "jina",
-    "togetherai",
     "elevenlabs",
     "litellm",
-    "openailike",
     "cerebras",
+    "openailike",
     "bytedance",
     "mistral",
+    "deepseek",
+    "contextualai",
+    "moonshotai",
+    "zai",
+    "slack",
 ]
 
 
@@ -2361,14 +2153,14 @@ class UpdatePrompt2Prompts2(BaseModel):
 UpdatePrompt2PromptsResponseType = Literal["text",]
 
 
-class UpdatePrompt2PromptsResponse1TypedDict(TypedDict):
+class UpdatePrompt2Prompts1TypedDict(TypedDict):
     r"""Text content part of a prompt message"""
 
     type: UpdatePrompt2PromptsResponseType
     text: str
 
 
-class UpdatePrompt2PromptsResponse1(BaseModel):
+class UpdatePrompt2Prompts1(BaseModel):
     r"""Text content part of a prompt message"""
 
     type: UpdatePrompt2PromptsResponseType
@@ -2379,7 +2171,7 @@ class UpdatePrompt2PromptsResponse1(BaseModel):
 UpdatePromptContentPromptsResponse2TypedDict = TypeAliasType(
     "UpdatePromptContentPromptsResponse2TypedDict",
     Union[
-        UpdatePrompt2PromptsResponse1TypedDict,
+        UpdatePrompt2Prompts1TypedDict,
         UpdatePrompt2Prompts2TypedDict,
         UpdatePrompt2Prompts3TypedDict,
     ],
@@ -2388,7 +2180,7 @@ UpdatePromptContentPromptsResponse2TypedDict = TypeAliasType(
 
 UpdatePromptContentPromptsResponse2 = Annotated[
     Union[
-        Annotated[UpdatePrompt2PromptsResponse1, Tag("text")],
+        Annotated[UpdatePrompt2Prompts1, Tag("text")],
         Annotated[UpdatePrompt2Prompts2, Tag("image_url")],
         Annotated[UpdatePrompt2Prompts3, Tag("file")],
     ],
@@ -2448,7 +2240,7 @@ class UpdatePromptPromptsResponseMessagesTypedDict(TypedDict):
     content: Nullable[UpdatePromptPromptsContentTypedDict]
     r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
     tool_calls: NotRequired[List[UpdatePromptPromptsToolCallsTypedDict]]
-    tool_call_id: NotRequired[str]
+    tool_call_id: NotRequired[Nullable[str]]
 
 
 class UpdatePromptPromptsResponseMessages(BaseModel):
@@ -2460,12 +2252,12 @@ class UpdatePromptPromptsResponseMessages(BaseModel):
 
     tool_calls: Optional[List[UpdatePromptPromptsToolCalls]] = None
 
-    tool_call_id: Optional[str] = None
+    tool_call_id: OptionalNullable[str] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content"]
+        nullable_fields = ["content", "tool_call_id"]
         null_default_fields = []
 
         serialized = handler(self)

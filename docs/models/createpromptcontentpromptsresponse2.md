@@ -3,10 +3,10 @@
 
 ## Supported Types
 
-### `models.CreatePrompt2PromptsResponse1`
+### `models.CreatePrompt2Prompts1`
 
 ```python
-value: models.CreatePrompt2PromptsResponse1 = /* values here */
+value: models.CreatePrompt2Prompts1 = /* values here */
 ```
 
 ### `models.CreatePrompt2Prompts2`

@@ -110,6 +110,7 @@ class AgentThoughtStreamingEventFunction(BaseModel):
 
 
 class AgentThoughtStreamingEventToolCallsTypedDict(TypedDict):
+    index: NotRequired[float]
     id: NotRequired[str]
     type: NotRequired[AgentThoughtStreamingEventDataType]
     function: NotRequired[AgentThoughtStreamingEventFunctionTypedDict]
@@ -118,6 +119,8 @@ class AgentThoughtStreamingEventToolCallsTypedDict(TypedDict):
 
 
 class AgentThoughtStreamingEventToolCalls(BaseModel):
+    index: Optional[float] = None
+
     id: Optional[str] = None
 
     type: Optional[AgentThoughtStreamingEventDataType] = None
@@ -552,14 +555,14 @@ class Choice(BaseModel):
         return m
 
 
-class PromptTokensDetailsTypedDict(TypedDict):
+class AgentThoughtStreamingEventPromptTokensDetailsTypedDict(TypedDict):
     cached_tokens: NotRequired[Nullable[int]]
     cache_creation_tokens: NotRequired[Nullable[int]]
     audio_tokens: NotRequired[Nullable[int]]
     r"""The number of audio input tokens consumed by the request."""
 
 
-class PromptTokensDetails(BaseModel):
+class AgentThoughtStreamingEventPromptTokensDetails(BaseModel):
     cached_tokens: OptionalNullable[int] = UNSET
 
     cache_creation_tokens: OptionalNullable[int] = UNSET
@@ -598,7 +601,7 @@ class PromptTokensDetails(BaseModel):
         return m
 
 
-class CompletionTokensDetailsTypedDict(TypedDict):
+class AgentThoughtStreamingEventCompletionTokensDetailsTypedDict(TypedDict):
     reasoning_tokens: NotRequired[Nullable[float]]
     accepted_prediction_tokens: NotRequired[Nullable[float]]
     rejected_prediction_tokens: NotRequired[Nullable[float]]
@@ -606,7 +609,7 @@ class CompletionTokensDetailsTypedDict(TypedDict):
     r"""The number of audio output tokens produced by the response."""
 
 
-class CompletionTokensDetails(BaseModel):
+class AgentThoughtStreamingEventCompletionTokensDetails(BaseModel):
     reasoning_tokens: OptionalNullable[float] = UNSET
 
     accepted_prediction_tokens: OptionalNullable[float] = UNSET
@@ -657,7 +660,7 @@ class CompletionTokensDetails(BaseModel):
         return m
 
 
-class UsageTypedDict(TypedDict):
+class AgentThoughtStreamingEventUsageTypedDict(TypedDict):
     r"""Usage statistics for the completion request."""
 
     completion_tokens: NotRequired[float]
@@ -666,11 +669,15 @@ class UsageTypedDict(TypedDict):
     r"""Number of tokens in the prompt."""
     total_tokens: NotRequired[float]
     r"""Total number of tokens used in the request (prompt + completion)."""
-    prompt_tokens_details: NotRequired[Nullable[PromptTokensDetailsTypedDict]]
-    completion_tokens_details: NotRequired[Nullable[CompletionTokensDetailsTypedDict]]
+    prompt_tokens_details: NotRequired[
+        Nullable[AgentThoughtStreamingEventPromptTokensDetailsTypedDict]
+    ]
+    completion_tokens_details: NotRequired[
+        Nullable[AgentThoughtStreamingEventCompletionTokensDetailsTypedDict]
+    ]
 
 
-class Usage(BaseModel):
+class AgentThoughtStreamingEventUsage(BaseModel):
     r"""Usage statistics for the completion request."""
 
     completion_tokens: Optional[float] = None
@@ -682,9 +689,13 @@ class Usage(BaseModel):
     total_tokens: Optional[float] = None
     r"""Total number of tokens used in the request (prompt + completion)."""
 
-    prompt_tokens_details: OptionalNullable[PromptTokensDetails] = UNSET
+    prompt_tokens_details: OptionalNullable[
+        AgentThoughtStreamingEventPromptTokensDetails
+    ] = UNSET
 
-    completion_tokens_details: OptionalNullable[CompletionTokensDetails] = UNSET
+    completion_tokens_details: OptionalNullable[
+        AgentThoughtStreamingEventCompletionTokensDetails
+    ] = UNSET
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -731,7 +742,7 @@ class AgentThoughtStreamingEventDataTypedDict(TypedDict):
     choice: NotRequired[ChoiceTypedDict]
     choice_index: NotRequired[float]
     response_id: NotRequired[str]
-    usage: NotRequired[UsageTypedDict]
+    usage: NotRequired[AgentThoughtStreamingEventUsageTypedDict]
     r"""Usage statistics for the completion request."""
 
 
@@ -750,7 +761,7 @@ class AgentThoughtStreamingEventData(BaseModel):
 
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
 
-    usage: Optional[Usage] = None
+    usage: Optional[AgentThoughtStreamingEventUsage] = None
     r"""Usage statistics for the completion request."""
 
 
