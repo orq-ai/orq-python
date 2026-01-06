@@ -4,10 +4,6 @@ from .basesdk import BaseSDK
 from enum import Enum
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createchatcompletionop as models_createchatcompletionop,
-    createimageop as models_createimageop,
-)
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -24,15 +20,15 @@ class Router(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models_createchatcompletionop.CreateChatCompletionMessages],
-            List[models_createchatcompletionop.CreateChatCompletionMessagesTypedDict],
+            List[models.CreateChatCompletionMessages],
+            List[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
         audio: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionAudio,
-                models_createchatcompletionop.CreateChatCompletionAudioTypedDict,
+                models.CreateChatCompletionAudio,
+                models.CreateChatCompletionAudioTypedDict,
             ]
         ] = UNSET,
         frequency_penalty: OptionalNullable[float] = UNSET,
@@ -44,31 +40,29 @@ class Router(BaseSDK):
         presence_penalty: OptionalNullable[float] = UNSET,
         response_format: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionResponseFormat,
-                models_createchatcompletionop.CreateChatCompletionResponseFormatTypedDict,
+                models.CreateChatCompletionResponseFormat,
+                models.CreateChatCompletionResponseFormatTypedDict,
             ]
         ] = None,
-        reasoning_effort: Optional[
-            models_createchatcompletionop.CreateChatCompletionReasoningEffort
-        ] = None,
+        reasoning_effort: Optional[models.CreateChatCompletionReasoningEffort] = None,
         verbosity: Optional[str] = None,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStop,
-                models_createchatcompletionop.CreateChatCompletionStopTypedDict,
+                models.CreateChatCompletionStop,
+                models.CreateChatCompletionStopTypedDict,
             ]
         ] = UNSET,
         stream_options: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStreamOptions,
-                models_createchatcompletionop.CreateChatCompletionStreamOptionsTypedDict,
+                models.CreateChatCompletionStreamOptions,
+                models.CreateChatCompletionStreamOptionsTypedDict,
             ]
         ] = UNSET,
         thinking: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionThinking,
-                models_createchatcompletionop.CreateChatCompletionThinkingTypedDict,
+                models.CreateChatCompletionThinking,
+                models.CreateChatCompletionThinkingTypedDict,
             ]
         ] = None,
         temperature: OptionalNullable[float] = UNSET,
@@ -76,32 +70,29 @@ class Router(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionTools],
-                List[models_createchatcompletionop.CreateChatCompletionToolsTypedDict],
+                List[models.CreateChatCompletionTools],
+                List[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionToolChoice,
-                models_createchatcompletionop.CreateChatCompletionToolChoiceTypedDict,
+                models.CreateChatCompletionToolChoice,
+                models.CreateChatCompletionToolChoiceTypedDict,
             ]
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models_createchatcompletionop.CreateChatCompletionModalities]
+            List[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionGuardrails],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionGuardrailsTypedDict
-                ],
+                List[models.CreateChatCompletionGuardrails],
+                List[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         orq: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionOrq,
-                models_createchatcompletionop.CreateChatCompletionOrqTypedDict,
+                models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -293,15 +284,15 @@ class Router(BaseSDK):
         self,
         *,
         messages: Union[
-            List[models_createchatcompletionop.CreateChatCompletionMessages],
-            List[models_createchatcompletionop.CreateChatCompletionMessagesTypedDict],
+            List[models.CreateChatCompletionMessages],
+            List[models.CreateChatCompletionMessagesTypedDict],
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
         audio: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionAudio,
-                models_createchatcompletionop.CreateChatCompletionAudioTypedDict,
+                models.CreateChatCompletionAudio,
+                models.CreateChatCompletionAudioTypedDict,
             ]
         ] = UNSET,
         frequency_penalty: OptionalNullable[float] = UNSET,
@@ -313,31 +304,29 @@ class Router(BaseSDK):
         presence_penalty: OptionalNullable[float] = UNSET,
         response_format: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionResponseFormat,
-                models_createchatcompletionop.CreateChatCompletionResponseFormatTypedDict,
+                models.CreateChatCompletionResponseFormat,
+                models.CreateChatCompletionResponseFormatTypedDict,
             ]
         ] = None,
-        reasoning_effort: Optional[
-            models_createchatcompletionop.CreateChatCompletionReasoningEffort
-        ] = None,
+        reasoning_effort: Optional[models.CreateChatCompletionReasoningEffort] = None,
         verbosity: Optional[str] = None,
         seed: OptionalNullable[float] = UNSET,
         stop: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStop,
-                models_createchatcompletionop.CreateChatCompletionStopTypedDict,
+                models.CreateChatCompletionStop,
+                models.CreateChatCompletionStopTypedDict,
             ]
         ] = UNSET,
         stream_options: OptionalNullable[
             Union[
-                models_createchatcompletionop.CreateChatCompletionStreamOptions,
-                models_createchatcompletionop.CreateChatCompletionStreamOptionsTypedDict,
+                models.CreateChatCompletionStreamOptions,
+                models.CreateChatCompletionStreamOptionsTypedDict,
             ]
         ] = UNSET,
         thinking: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionThinking,
-                models_createchatcompletionop.CreateChatCompletionThinkingTypedDict,
+                models.CreateChatCompletionThinking,
+                models.CreateChatCompletionThinkingTypedDict,
             ]
         ] = None,
         temperature: OptionalNullable[float] = UNSET,
@@ -345,32 +334,29 @@ class Router(BaseSDK):
         top_k: OptionalNullable[float] = UNSET,
         tools: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionTools],
-                List[models_createchatcompletionop.CreateChatCompletionToolsTypedDict],
+                List[models.CreateChatCompletionTools],
+                List[models.CreateChatCompletionToolsTypedDict],
             ]
         ] = None,
         tool_choice: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionToolChoice,
-                models_createchatcompletionop.CreateChatCompletionToolChoiceTypedDict,
+                models.CreateChatCompletionToolChoice,
+                models.CreateChatCompletionToolChoiceTypedDict,
             ]
         ] = None,
         parallel_tool_calls: Optional[bool] = None,
         modalities: OptionalNullable[
-            List[models_createchatcompletionop.CreateChatCompletionModalities]
+            List[models.CreateChatCompletionModalities]
         ] = UNSET,
         guardrails: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionGuardrails],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionGuardrailsTypedDict
-                ],
+                List[models.CreateChatCompletionGuardrails],
+                List[models.CreateChatCompletionGuardrailsTypedDict],
             ]
         ] = None,
         orq: Optional[
             Union[
-                models_createchatcompletionop.CreateChatCompletionOrq,
-                models_createchatcompletionop.CreateChatCompletionOrqTypedDict,
+                models.CreateChatCompletionOrq, models.CreateChatCompletionOrqTypedDict
             ]
         ] = None,
         stream: Optional[bool] = False,
@@ -563,22 +549,17 @@ class Router(BaseSDK):
         *,
         prompt: str,
         model: str,
-        background: OptionalNullable[models_createimageop.Background] = UNSET,
-        moderation: OptionalNullable[models_createimageop.Moderation] = UNSET,
+        background: OptionalNullable[models.Background] = UNSET,
+        moderation: OptionalNullable[models.Moderation] = UNSET,
         n: OptionalNullable[int] = 1,
         output_compression: OptionalNullable[int] = UNSET,
-        output_format: OptionalNullable[models_createimageop.OutputFormat] = UNSET,
-        quality: OptionalNullable[models_createimageop.Quality] = UNSET,
-        response_format: OptionalNullable[
-            models_createimageop.CreateImageResponseFormat
-        ] = UNSET,
+        output_format: OptionalNullable[models.OutputFormat] = UNSET,
+        quality: OptionalNullable[models.Quality] = UNSET,
+        response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
-        style: OptionalNullable[models_createimageop.Style] = UNSET,
+        style: OptionalNullable[models.Style] = UNSET,
         orq: Optional[
-            Union[
-                models_createimageop.CreateImageOrq,
-                models_createimageop.CreateImageOrqTypedDict,
-            ]
+            Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -693,22 +674,17 @@ class Router(BaseSDK):
         *,
         prompt: str,
         model: str,
-        background: OptionalNullable[models_createimageop.Background] = UNSET,
-        moderation: OptionalNullable[models_createimageop.Moderation] = UNSET,
+        background: OptionalNullable[models.Background] = UNSET,
+        moderation: OptionalNullable[models.Moderation] = UNSET,
         n: OptionalNullable[int] = 1,
         output_compression: OptionalNullable[int] = UNSET,
-        output_format: OptionalNullable[models_createimageop.OutputFormat] = UNSET,
-        quality: OptionalNullable[models_createimageop.Quality] = UNSET,
-        response_format: OptionalNullable[
-            models_createimageop.CreateImageResponseFormat
-        ] = UNSET,
+        output_format: OptionalNullable[models.OutputFormat] = UNSET,
+        quality: OptionalNullable[models.Quality] = UNSET,
+        response_format: OptionalNullable[models.CreateImageResponseFormat] = UNSET,
         size: OptionalNullable[str] = UNSET,
-        style: OptionalNullable[models_createimageop.Style] = UNSET,
+        style: OptionalNullable[models.Style] = UNSET,
         orq: Optional[
-            Union[
-                models_createimageop.CreateImageOrq,
-                models_createimageop.CreateImageOrqTypedDict,
-            ]
+            Union[models.CreateImageOrq, models.CreateImageOrqTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
