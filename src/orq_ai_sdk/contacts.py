@@ -3,6 +3,10 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
+from orq_ai_sdk.models import (
+    createcontactop as models_createcontactop,
+    listcontactsop as models_listcontactsop,
+)
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
@@ -15,8 +19,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -112,8 +116,8 @@ class Contacts(BaseSDK):
         *,
         request: Optional[
             Union[
-                models.CreateContactRequestBody,
-                models.CreateContactRequestBodyTypedDict,
+                models_createcontactop.CreateContactRequestBody,
+                models_createcontactop.CreateContactRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -212,7 +216,10 @@ class Contacts(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -318,7 +325,10 @@ class Contacts(BaseSDK):
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
         filter_by: Optional[
-            Union[models.QueryParamFilterBy, models.QueryParamFilterByTypedDict]
+            Union[
+                models_listcontactsop.QueryParamFilterBy,
+                models_listcontactsop.QueryParamFilterByTypedDict,
+            ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
