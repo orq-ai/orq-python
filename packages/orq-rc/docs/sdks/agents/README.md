@@ -51,7 +51,21 @@ with Orq(
                 "requires_approval": False,
             },
         ],
-    }, knowledge_bases=[
+    }, fallback_models=[
+        {
+            "id": "<id>",
+            "retry": {
+                "count": 3,
+                "on_codes": [
+                    429,
+                    500,
+                    502,
+                    503,
+                    504,
+                ],
+            },
+        },
+    ], knowledge_bases=[
         {
             "knowledge_id": "customer-knowledge-base",
         },
@@ -186,7 +200,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.agents.update(agent_key="<value>", model="El Camino", settings={
+    res = orq.agents.update(agent_key="<value>", model="El Camino", fallback_models=[
+        "<value>",
+    ], settings={
         "tools": [
             {
                 "type": "mcp",
@@ -382,7 +398,9 @@ with Orq(
                 },
             },
         ],
-    }, path="Default", settings={}, contact={
+    }, path="Default", settings={}, fallback_models=[
+        "<value>",
+    ], contact={
         "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
         "display_name": "Jane Doe",
         "email": "jane.doe@example.com",
@@ -477,7 +495,9 @@ with Orq(
                 },
             },
         ],
-    }, path="Default", settings={}, contact={
+    }, path="Default", settings={}, fallback_models=[
+        "<value>",
+    ], contact={
         "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
         "display_name": "Jane Doe",
         "email": "jane.doe@example.com",

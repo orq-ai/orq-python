@@ -1322,8 +1322,27 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class RetrieveAgentRequestFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class RetrieveAgentRequestFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 class RetrieveAgentRequestFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1331,10 +1350,12 @@ class RetrieveAgentRequestFallbackModelConfiguration2TypedDict(TypedDict):
         RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict
     ]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[RetrieveAgentRequestFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class RetrieveAgentRequestFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1343,6 +1364,9 @@ class RetrieveAgentRequestFallbackModelConfiguration2(BaseModel):
         None
     )
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    retry: Optional[RetrieveAgentRequestFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 RetrieveAgentRequestFallbackModelConfigurationTypedDict = TypeAliasType(

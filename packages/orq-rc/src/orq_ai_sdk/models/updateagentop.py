@@ -1139,23 +1139,47 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class UpdateAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 class UpdateAgentFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[UpdateAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class UpdateAgentFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
 
     parameters: Optional[UpdateAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    retry: Optional[UpdateAgentFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 UpdateAgentFallbackModelConfigurationTypedDict = TypeAliasType(
@@ -3126,8 +3150,27 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
         return m
 
 
+class UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 class UpdateAgentFallbackModelConfigurationAgents2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -3135,16 +3178,21 @@ class UpdateAgentFallbackModelConfigurationAgents2TypedDict(TypedDict):
         UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict
     ]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
 
     parameters: Optional[UpdateAgentFallbackModelConfigurationAgentsParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    retry: Optional[UpdateAgentFallbackModelConfigurationAgentsRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 UpdateAgentAgentsFallbackModelConfigurationTypedDict = TypeAliasType(

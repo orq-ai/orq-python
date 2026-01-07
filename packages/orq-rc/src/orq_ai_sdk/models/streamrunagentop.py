@@ -1222,23 +1222,47 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+
 class StreamRunAgentFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[StreamRunAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[StreamRunAgentFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class StreamRunAgentFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
 
     parameters: Optional[StreamRunAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    retry: Optional[StreamRunAgentFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 StreamRunAgentFallbackModelConfigurationTypedDict = TypeAliasType(
@@ -1463,7 +1487,7 @@ class AgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KE9HJVCAHE5SNMANP659GJ74"
+    id: Optional[str] = "01KEBD76NBWT9KWM55NJ5A29JA"
 
     description: Optional[str] = None
 
