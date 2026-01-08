@@ -26,8 +26,8 @@ class CreateMemoryDocumentRequestBody(BaseModel):
 class CreateMemoryDocumentRequestTypedDict(TypedDict):
     memory_store_key: str
     r"""The unique key identifier of the memory store"""
-    memory_id: str
-    r"""The unique identifier of the memory"""
+    memory_entity_id: str
+    r"""The unique entity_id provided during the memory store creation"""
     request_body: NotRequired[CreateMemoryDocumentRequestBodyTypedDict]
 
 
@@ -37,10 +37,10 @@ class CreateMemoryDocumentRequest(BaseModel):
     ]
     r"""The unique key identifier of the memory store"""
 
-    memory_id: Annotated[
+    memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
-    r"""The unique identifier of the memory"""
+    r"""The unique entity_id provided during the memory store creation"""
 
     request_body: Annotated[
         Optional[CreateMemoryDocumentRequestBody],

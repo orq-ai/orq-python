@@ -9,7 +9,7 @@ from typing_extensions import Annotated, TypedDict
 class DeleteMemoryRequestTypedDict(TypedDict):
     memory_store_key: str
     r"""The unique key identifier of the memory store"""
-    memory_id: str
+    memory_entity_id: str
     r"""The unique identifier of the memory"""
 
 
@@ -19,7 +19,7 @@ class DeleteMemoryRequest(BaseModel):
     ]
     r"""The unique key identifier of the memory store"""
 
-    memory_id: Annotated[
+    memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The unique identifier of the memory"""

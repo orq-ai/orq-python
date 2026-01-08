@@ -16,24 +16,17 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class UpdateMemoryRequestBodyTypedDict(TypedDict):
-    entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
     metadata: NotRequired[Dict[str, str]]
-    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class UpdateMemoryRequestBody(BaseModel):
-    entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
-
     metadata: Optional[Dict[str, str]] = None
-    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
 
 class UpdateMemoryRequestTypedDict(TypedDict):
     memory_store_key: str
     r"""The unique key identifier of the memory store"""
-    memory_id: str
+    memory_entity_id: str
     r"""The unique identifier of the memory"""
     request_body: NotRequired[UpdateMemoryRequestBodyTypedDict]
 
@@ -44,7 +37,7 @@ class UpdateMemoryRequest(BaseModel):
     ]
     r"""The unique key identifier of the memory store"""
 
-    memory_id: Annotated[
+    memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The unique identifier of the memory"""
@@ -60,12 +53,10 @@ class UpdateMemoryResponseBodyTypedDict(TypedDict):
 
     id: str
     entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
+    r"""This property have been deprecated and moved to `_id`. Please refer to `_id` for future operations"""
     created: str
     updated: str
     store_id: str
-    metadata: Dict[str, str]
-    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
     workspace_id: str
     documents_count: float
     r"""The number of memories in the entity"""
@@ -78,17 +69,19 @@ class UpdateMemoryResponseBody(BaseModel):
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    entity_id: str
-    r"""Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID)."""
+    entity_id: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""This property have been deprecated and moved to `_id`. Please refer to `_id` for future operations"""
 
     created: str
 
     updated: str
 
     store_id: str
-
-    metadata: Dict[str, str]
-    r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy)."""
 
     workspace_id: str
 
