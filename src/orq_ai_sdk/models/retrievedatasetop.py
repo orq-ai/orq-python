@@ -80,5 +80,5 @@ class RetrieveDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-08T19:47:58.040Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-09T11:20:41.257Z")
     r"""The date and time the resource was last updated"""
