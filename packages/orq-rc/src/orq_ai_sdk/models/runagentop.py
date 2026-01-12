@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigdisabledschema import (
@@ -25,7 +26,13 @@ from orq_ai_sdk.utils import get_discriminator
 import pydantic
 from pydantic import ConfigDict, Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
 
 
 RunAgentModelConfigurationVoice = Literal[
@@ -1213,7 +1220,12 @@ r"""Message role (user or tool for continuing executions)"""
 
 RunAgentPublicMessagePartTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+    Union[
+        TextPartTypedDict,
+        FilePartTypedDict,
+        ErrorPartTypedDict,
+        ToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -1223,6 +1235,7 @@ RunAgentPublicMessagePart = Annotated[
         Annotated[TextPart, Tag("text")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolResultPart, Tag("tool_result")],
+        Annotated[ErrorPart, Tag("error")],
     ],
     Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
 ]
@@ -1253,8 +1266,8 @@ class RunAgentA2AMessage(BaseModel):
     r"""Optional A2A message ID in ULID format"""
 
 
-class RunAgentContactTypedDict(TypedDict):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+class RunAgentIdentityTypedDict(TypedDict):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -1270,8 +1283,53 @@ class RunAgentContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
+class RunAgentIdentity(BaseModel):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class RunAgentContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class RunAgentContact(BaseModel):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -1395,7 +1453,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[Schema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEBD76JYEN07DCRE7P14A8MW"
+    id: Optional[str] = "01KERGT7V1BHWWB7TCQZN7RVWZ"
 
     description: Optional[str] = None
 
@@ -2226,8 +2284,10 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
+    identity: NotRequired[RunAgentIdentityTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[RunAgentContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[RunAgentThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[RunAgentMemoryTypedDict]
@@ -2281,8 +2341,16 @@ class RunAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[RunAgentContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[RunAgentIdentity] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Annotated[
+        Optional[RunAgentContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     thread: Optional[RunAgentThread] = None
     r"""Thread information to group related requests"""
@@ -2342,6 +2410,7 @@ RunAgentPartsTypedDict = TypeAliasType(
     "RunAgentPartsTypedDict",
     Union[
         TextPartTypedDict,
+        ErrorPartTypedDict,
         DataPartTypedDict,
         FilePartTypedDict,
         ToolResultPartTypedDict,
@@ -2353,6 +2422,7 @@ RunAgentPartsTypedDict = TypeAliasType(
 RunAgentParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
+        Annotated[ErrorPart, Tag("error")],
         Annotated[DataPart, Tag("data")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolCallPart, Tag("tool_call")],

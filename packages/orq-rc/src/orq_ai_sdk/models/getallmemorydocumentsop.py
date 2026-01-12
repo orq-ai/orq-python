@@ -12,7 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class GetAllMemoryDocumentsRequestTypedDict(TypedDict):
     memory_store_key: str
     r"""The unique key identifier of the memory store"""
-    memory_id: str
+    memory_entity_id: str
     r"""The unique identifier of the memory"""
     limit: NotRequired[float]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
@@ -32,7 +32,7 @@ class GetAllMemoryDocumentsRequest(BaseModel):
     ]
     r"""The unique key identifier of the memory store"""
 
-    memory_id: Annotated[
+    memory_entity_id: Annotated[
         str, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
     ]
     r"""The unique identifier of the memory"""

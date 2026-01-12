@@ -6,9 +6,10 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.models import (
     createconversationop as models_createconversationop,
     updateconversationop as models_updateconversationop,
+    usermessagerequest as models_usermessagerequest,
 )
 from orq_ai_sdk.types import OptionalNullable, UNSET
-from orq_ai_sdk.utils import get_security_from_env
+from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union
 
@@ -20,6 +21,7 @@ class Conversations(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        entity_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -29,9 +31,10 @@ class Conversations(BaseSDK):
 
         Retrieves a paginated list of conversations in your workspace. Conversations are returned sorted by creation date (newest first). Use pagination parameters to efficiently navigate through large collections.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        :param starting_after: A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list.
-        :param ending_before: A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list.
+        :param limit: Maximum number of conversations to return. Range: 1-100. Default: 10.
+        :param starting_after: Pagination cursor. Returns conversations created after the specified conversation ID.
+        :param ending_before: Pagination cursor. Returns conversations created before the specified conversation ID.
+        :param entity_id: Filter by parent entity. When specified, returns only conversations associated with this entity. When omitted, returns standalone conversations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -54,11 +57,12 @@ class Conversations(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            entity_id=entity_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/conversations",
+            path="/v2/conversations/",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -115,6 +119,7 @@ class Conversations(BaseSDK):
         limit: Optional[int] = None,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
+        entity_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -124,9 +129,10 @@ class Conversations(BaseSDK):
 
         Retrieves a paginated list of conversations in your workspace. Conversations are returned sorted by creation date (newest first). Use pagination parameters to efficiently navigate through large collections.
 
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        :param starting_after: A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list.
-        :param ending_before: A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list.
+        :param limit: Maximum number of conversations to return. Range: 1-100. Default: 10.
+        :param starting_after: Pagination cursor. Returns conversations created after the specified conversation ID.
+        :param ending_before: Pagination cursor. Returns conversations created before the specified conversation ID.
+        :param entity_id: Filter by parent entity. When specified, returns only conversations associated with this entity. When omitted, returns standalone conversations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -149,11 +155,12 @@ class Conversations(BaseSDK):
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
+            entity_id=entity_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/conversations",
+            path="/v2/conversations/",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -207,11 +214,14 @@ class Conversations(BaseSDK):
     def create(
         self,
         *,
-        metadata: Union[
-            models_createconversationop.CreateConversationMetadata,
-            models_createconversationop.CreateConversationMetadataTypedDict,
-        ],
+        project_id: str,
         display_name: Optional[str] = "Untitled",
+        metadata: Optional[
+            Union[
+                models_createconversationop.CreateConversationMetadata,
+                models_createconversationop.CreateConversationMetadataTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -221,8 +231,9 @@ class Conversations(BaseSDK):
 
         Creates a new conversation in the workspace. Conversations serve as containers for organizing related messages and interactions. Each conversation is assigned a unique identifier and timestamps for tracking.
 
-        :param metadata:
-        :param display_name: Display name for the conversation. Defaults to \"Untitled\" if not provided.
+        :param project_id: Project identifier to associate the conversation with.
+        :param display_name: Human-readable name for the conversation. Defaults to \"Untitled\" if omitted.
+        :param metadata: Optional metadata to attach to the conversation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -243,8 +254,9 @@ class Conversations(BaseSDK):
 
         request = models.CreateConversationRequestBody(
             display_name=display_name,
+            project_id=project_id,
             metadata=utils.get_pydantic_model(
-                metadata, models.CreateConversationMetadata
+                metadata, Optional[models.CreateConversationMetadata]
             ),
         )
 
@@ -307,11 +319,14 @@ class Conversations(BaseSDK):
     async def create_async(
         self,
         *,
-        metadata: Union[
-            models_createconversationop.CreateConversationMetadata,
-            models_createconversationop.CreateConversationMetadataTypedDict,
-        ],
+        project_id: str,
         display_name: Optional[str] = "Untitled",
+        metadata: Optional[
+            Union[
+                models_createconversationop.CreateConversationMetadata,
+                models_createconversationop.CreateConversationMetadataTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -321,8 +336,9 @@ class Conversations(BaseSDK):
 
         Creates a new conversation in the workspace. Conversations serve as containers for organizing related messages and interactions. Each conversation is assigned a unique identifier and timestamps for tracking.
 
-        :param metadata:
-        :param display_name: Display name for the conversation. Defaults to \"Untitled\" if not provided.
+        :param project_id: Project identifier to associate the conversation with.
+        :param display_name: Human-readable name for the conversation. Defaults to \"Untitled\" if omitted.
+        :param metadata: Optional metadata to attach to the conversation.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -343,8 +359,9 @@ class Conversations(BaseSDK):
 
         request = models.CreateConversationRequestBody(
             display_name=display_name,
+            project_id=project_id,
             metadata=utils.get_pydantic_model(
-                metadata, models.CreateConversationMetadata
+                metadata, Optional[models.CreateConversationMetadata]
             ),
         )
 
@@ -419,7 +436,7 @@ class Conversations(BaseSDK):
         Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generatingTitle to false.
 
         :param conversation_id: The unique identifier of the conversation to generate a name for
-        :param context: The conversation context (e.g., user message or conversation summary) to generate a display name from
+        :param context: Conversation context used to generate a meaningful display name. Typically the first user message or a conversation summary.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -536,7 +553,7 @@ class Conversations(BaseSDK):
         Generates a display name for a conversation using AI based on the provided context. Updates the conversation with the generated name and sets generatingTitle to false.
 
         :param conversation_id: The unique identifier of the conversation to generate a name for
-        :param context: The conversation context (e.g., user message or conversation summary) to generate a display name from
+        :param context: Conversation context used to generate a meaningful display name. Typically the first user message or a conversation summary.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -646,7 +663,7 @@ class Conversations(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveConversationResponseBody:
+    ) -> models.ConversationWithMessagesResponse:
         r"""Retrieve conversation
 
         Retrieves detailed information about a specific conversation identified by its unique ID. Returns the complete conversation object including metadata and timestamps.
@@ -717,15 +734,13 @@ class Conversations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.RetrieveConversationResponseBody, http_res
+                models.ConversationWithMessagesResponse, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
-                models.RetrieveConversationConversationsResponseBodyData, http_res
+                models.RetrieveConversationResponseBodyData, http_res
             )
-            raise models.RetrieveConversationConversationsResponseBody(
-                response_data, http_res
-            )
+            raise models.RetrieveConversationResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -743,7 +758,7 @@ class Conversations(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveConversationResponseBody:
+    ) -> models.ConversationWithMessagesResponse:
         r"""Retrieve conversation
 
         Retrieves detailed information about a specific conversation identified by its unique ID. Returns the complete conversation object including metadata and timestamps.
@@ -814,15 +829,13 @@ class Conversations(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(
-                models.RetrieveConversationResponseBody, http_res
+                models.ConversationWithMessagesResponse, http_res
             )
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
-                models.RetrieveConversationConversationsResponseBodyData, http_res
+                models.RetrieveConversationResponseBodyData, http_res
             )
-            raise models.RetrieveConversationConversationsResponseBody(
-                response_data, http_res
-            )
+            raise models.RetrieveConversationResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -853,8 +866,8 @@ class Conversations(BaseSDK):
         Modifies an existing conversation's properties. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes are applied immediately.
 
         :param conversation_id: The unique identifier of the conversation to update
-        :param display_name: Updated display name for the conversation.
-        :param metadata: Optional metadata to update for the conversation.
+        :param display_name: New display name for the conversation. Maximum 100 characters.
+        :param metadata: Metadata fields to update. Only provided fields are modified.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -972,8 +985,8 @@ class Conversations(BaseSDK):
         Modifies an existing conversation's properties. Only the fields provided in the request body will be updated; all other fields remain unchanged. Changes are applied immediately.
 
         :param conversation_id: The unique identifier of the conversation to update
-        :param display_name: Updated display name for the conversation.
-        :param metadata: Optional metadata to update for the conversation.
+        :param display_name: New display name for the conversation. Maximum 100 characters.
+        :param metadata: Metadata fields to update. Only provided fields are modified.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1255,3 +1268,243 @@ class Conversations(BaseSDK):
             raise models.APIError("API error occurred", http_res, http_res_text)
 
         raise models.APIError("Unexpected response received", http_res)
+
+    def create_conversation_response(
+        self,
+        *,
+        conversation_id: str,
+        message: Union[
+            models_usermessagerequest.UserMessageRequest,
+            models_usermessagerequest.UserMessageRequestTypedDict,
+        ],
+        model: str,
+        task_id: Optional[str] = None,
+        stream: Optional[bool] = True,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> eventstreaming.EventStream[models.CreateConversationResponseResponseBody]:
+        r"""Create internal response
+
+        Creates a response for a freeform conversation without an agent. Uses a default model for generation.
+
+        :param conversation_id: The unique identifier of the conversation
+        :param message: The user message to send to the model
+        :param model: The model to use for generation in format provider/model_id (e.g., openai/gpt-4o).
+        :param task_id: Task ID for continuing a previous conversation turn
+        :param stream: Whether to stream the response (default: true)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateConversationResponseRequest(
+            conversation_id=conversation_id,
+            request_body=models.CreateConversationResponseRequestBody(
+                message=utils.get_pydantic_model(message, models.UserMessageRequest),
+                model=model,
+                task_id=task_id,
+                stream=stream,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/v2/conversations/{conversation_id}/responses",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="text/event-stream",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.CreateConversationResponseRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateConversationResponse",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            stream=True,
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "text/event-stream"):
+            return eventstreaming.EventStream(
+                http_res,
+                lambda raw: utils.unmarshal_json(
+                    raw, models.CreateConversationResponseResponseBody
+                ),
+                sentinel="[DONE]",
+                client_ref=self,
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        http_res_text = utils.stream_to_text(http_res)
+        raise models.APIError("Unexpected response received", http_res, http_res_text)
+
+    async def create_conversation_response_async(
+        self,
+        *,
+        conversation_id: str,
+        message: Union[
+            models_usermessagerequest.UserMessageRequest,
+            models_usermessagerequest.UserMessageRequestTypedDict,
+        ],
+        model: str,
+        task_id: Optional[str] = None,
+        stream: Optional[bool] = True,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> eventstreaming.EventStreamAsync[models.CreateConversationResponseResponseBody]:
+        r"""Create internal response
+
+        Creates a response for a freeform conversation without an agent. Uses a default model for generation.
+
+        :param conversation_id: The unique identifier of the conversation
+        :param message: The user message to send to the model
+        :param model: The model to use for generation in format provider/model_id (e.g., openai/gpt-4o).
+        :param task_id: Task ID for continuing a previous conversation turn
+        :param stream: Whether to stream the response (default: true)
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if timeout_ms is None:
+            timeout_ms = 600000
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.CreateConversationResponseRequest(
+            conversation_id=conversation_id,
+            request_body=models.CreateConversationResponseRequestBody(
+                message=utils.get_pydantic_model(message, models.UserMessageRequest),
+                model=model,
+                task_id=task_id,
+                stream=stream,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/v2/conversations/{conversation_id}/responses",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="text/event-stream",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.request_body,
+                False,
+                False,
+                "json",
+                models.CreateConversationResponseRequestBody,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="CreateConversationResponse",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["4XX", "5XX"],
+            stream=True,
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "text/event-stream"):
+            return eventstreaming.EventStreamAsync(
+                http_res,
+                lambda raw: utils.unmarshal_json(
+                    raw, models.CreateConversationResponseResponseBody
+                ),
+                sentinel="[DONE]",
+                client_ref=self,
+            )
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise models.APIError("API error occurred", http_res, http_res_text)
+
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise models.APIError("Unexpected response received", http_res, http_res_text)

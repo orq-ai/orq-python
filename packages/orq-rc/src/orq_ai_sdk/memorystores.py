@@ -1189,7 +1189,6 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1201,7 +1200,6 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1224,7 +1222,6 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             request_body=models.CreateMemoryRequestBody(
                 entity_id=entity_id,
-                metadata=metadata,
             ),
         )
 
@@ -1291,7 +1288,6 @@ class MemoryStores(BaseSDK):
         *,
         memory_store_key: str,
         entity_id: str,
-        metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1303,7 +1299,6 @@ class MemoryStores(BaseSDK):
 
         :param memory_store_key: The unique key identifier of the memory store
         :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1326,7 +1321,6 @@ class MemoryStores(BaseSDK):
             memory_store_key=memory_store_key,
             request_body=models.CreateMemoryRequestBody(
                 entity_id=entity_id,
-                metadata=metadata,
             ),
         )
 
@@ -1392,7 +1386,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1403,7 +1397,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory by its ID
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1424,12 +1418,12 @@ class MemoryStores(BaseSDK):
 
         request = models.RetrieveMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1482,7 +1476,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1493,7 +1487,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory by its ID
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1514,12 +1508,12 @@ class MemoryStores(BaseSDK):
 
         request = models.RetrieveMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1572,8 +1566,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
-        entity_id: str,
+        memory_entity_id: str,
         metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1585,9 +1578,8 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
+        :param memory_entity_id: The unique identifier of the memory
+        :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1608,16 +1600,15 @@ class MemoryStores(BaseSDK):
 
         request = models.UpdateMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             request_body=models.UpdateMemoryRequestBody(
-                entity_id=entity_id,
                 metadata=metadata,
             ),
         )
 
         req = self._build_request(
             method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1677,8 +1668,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
-        entity_id: str,
+        memory_entity_id: str,
         metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1690,9 +1680,8 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
-        :param entity_id: Unique identifier for the entity this memory is associated with (e.g., user ID, session ID, conversation ID).
-        :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory access based on their specific needs (e.g., user segments, topics, contexts, or any custom taxonomy).
+        :param memory_entity_id: The unique identifier of the memory
+        :param metadata:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1713,16 +1702,15 @@ class MemoryStores(BaseSDK):
 
         request = models.UpdateMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             request_body=models.UpdateMemoryRequestBody(
-                entity_id=entity_id,
                 metadata=metadata,
             ),
         )
 
         req = self._build_request_async(
             method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1782,7 +1770,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1798,7 +1786,7 @@ class MemoryStores(BaseSDK):
         - Manage memory storage space
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1819,12 +1807,12 @@ class MemoryStores(BaseSDK):
 
         request = models.DeleteMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
         )
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1877,7 +1865,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1893,7 +1881,7 @@ class MemoryStores(BaseSDK):
         - Manage memory storage space
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1914,12 +1902,12 @@ class MemoryStores(BaseSDK):
 
         request = models.DeleteMemoryRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
         )
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -1972,7 +1960,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -1988,7 +1976,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -2014,7 +2002,7 @@ class MemoryStores(BaseSDK):
 
         request = models.GetAllMemoryDocumentsRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -2024,7 +2012,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2079,7 +2067,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         limit: Optional[float] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
@@ -2095,7 +2083,7 @@ class MemoryStores(BaseSDK):
         Retrieves a paginated list of documents associated with a specific memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
         :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
         :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
@@ -2121,7 +2109,7 @@ class MemoryStores(BaseSDK):
 
         request = models.GetAllMemoryDocumentsRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             limit=limit,
             starting_after=starting_after,
             ending_before=ending_before,
@@ -2131,7 +2119,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2186,7 +2174,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         text: str,
         metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2199,7 +2187,7 @@ class MemoryStores(BaseSDK):
         Creates a new document in the specified memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique entity_id provided during the memory store creation
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
@@ -2222,7 +2210,7 @@ class MemoryStores(BaseSDK):
 
         request = models.CreateMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
                 metadata=metadata,
@@ -2231,7 +2219,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2293,7 +2281,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         text: str,
         metadata: Optional[Dict[str, str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2306,7 +2294,7 @@ class MemoryStores(BaseSDK):
         Creates a new document in the specified memory.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique entity_id provided during the memory store creation
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
         :param retries: Override the default retry configuration for this method
@@ -2329,7 +2317,7 @@ class MemoryStores(BaseSDK):
 
         request = models.CreateMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             request_body=models.CreateMemoryDocumentRequestBody(
                 text=text,
                 metadata=metadata,
@@ -2338,7 +2326,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2400,7 +2388,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2412,7 +2400,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory document by its ID.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2434,13 +2422,13 @@ class MemoryStores(BaseSDK):
 
         request = models.RetrieveMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2495,7 +2483,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2507,7 +2495,7 @@ class MemoryStores(BaseSDK):
         Retrieves details of a specific memory document by its ID.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2529,13 +2517,13 @@ class MemoryStores(BaseSDK):
 
         request = models.RetrieveMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2590,7 +2578,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         text: str,
         metadata: Optional[Dict[str, str]] = None,
@@ -2604,7 +2592,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory document.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
@@ -2628,7 +2616,7 @@ class MemoryStores(BaseSDK):
 
         request = models.UpdateMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
@@ -2638,7 +2626,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request(
             method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2700,7 +2688,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         text: str,
         metadata: Optional[Dict[str, str]] = None,
@@ -2714,7 +2702,7 @@ class MemoryStores(BaseSDK):
         Updates the details of a specific memory document.
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param text: The content of the memory document (whitespace trimmed).
         :param metadata: Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy).
@@ -2738,7 +2726,7 @@ class MemoryStores(BaseSDK):
 
         request = models.UpdateMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
             request_body=models.UpdateMemoryDocumentRequestBody(
                 text=text,
@@ -2748,7 +2736,7 @@ class MemoryStores(BaseSDK):
 
         req = self._build_request_async(
             method="PATCH",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2810,7 +2798,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2827,7 +2815,7 @@ class MemoryStores(BaseSDK):
         - Manage document storage space
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2849,13 +2837,13 @@ class MemoryStores(BaseSDK):
 
         request = models.DeleteMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
         )
 
         req = self._build_request(
             method="DELETE",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -2908,7 +2896,7 @@ class MemoryStores(BaseSDK):
         self,
         *,
         memory_store_key: str,
-        memory_id: str,
+        memory_entity_id: str,
         document_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2925,7 +2913,7 @@ class MemoryStores(BaseSDK):
         - Manage document storage space
 
         :param memory_store_key: The unique key identifier of the memory store
-        :param memory_id: The unique identifier of the memory
+        :param memory_entity_id: The unique identifier of the memory
         :param document_id: The unique identifier of the document
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2947,13 +2935,13 @@ class MemoryStores(BaseSDK):
 
         request = models.DeleteMemoryDocumentRequest(
             memory_store_key=memory_store_key,
-            memory_id=memory_id,
+            memory_entity_id=memory_entity_id,
             document_id=document_id,
         )
 
         req = self._build_request_async(
             method="DELETE",
-            path="/v2/memory-stores/{memory_store_key}/memories/{memory_id}/documents/{document_id}",
+            path="/v2/memory-stores/{memory_store_key}/memories/{memory_entity_id}/documents/{document_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

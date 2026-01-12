@@ -1480,6 +1480,13 @@ class RetrieveAgentRequestKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+RetrieveAgentRequestSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Agent successfully retrieved. Returns the complete agent manifest with all configuration details, including models, tools, knowledge bases, and execution settings."""
 
@@ -1518,6 +1525,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[RetrieveAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[RetrieveAgentRequestSource]
 
 
 class RetrieveAgentRequestResponseBody(BaseModel):
@@ -1581,6 +1589,8 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     knowledge_bases: Optional[List[RetrieveAgentRequestKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[RetrieveAgentRequestSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1594,6 +1604,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
+            "source",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

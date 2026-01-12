@@ -10,8 +10,8 @@ from orq_ai_sdk.types import (
     UNSET_SENTINEL,
 )
 from pydantic import model_serializer
-from typing import List, Literal, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import Any, Dict, List, Literal, Optional
+from typing_extensions import NotRequired, TypedDict, deprecated
 
 
 Background = Literal[
@@ -91,6 +91,51 @@ class CreateImageFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class CreateImageContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class CreateImageContact(BaseModel):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+
 CreateImageType = Literal["exact_match",]
 
 
@@ -159,8 +204,9 @@ class CreateImageOrqTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    contact: NotRequired[PublicContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: NotRequired[PublicContactTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+    contact: NotRequired[CreateImageContactTypedDict]
     cache: NotRequired[CreateImageCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[List[CreateImageLoadBalancerTypedDict]]
@@ -179,8 +225,10 @@ class CreateImageOrq(BaseModel):
     fallbacks: Optional[List[CreateImageFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    contact: Optional[PublicContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[PublicContact] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Optional[CreateImageContact] = None
 
     cache: Optional[CreateImageCache] = None
     r"""Cache configuration for the request."""

@@ -29,6 +29,7 @@ Product = Literal[
     "generic",
     "evaluators",
     "otel",
+    "ai-chat",
 ]
 r"""Orquesta product"""
 

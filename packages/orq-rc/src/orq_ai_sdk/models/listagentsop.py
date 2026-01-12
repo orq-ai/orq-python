@@ -1435,6 +1435,13 @@ class ListAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+ListAgentsSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
@@ -1469,6 +1476,7 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[ListAgentsSource]
 
 
 class ListAgentsData(BaseModel):
@@ -1526,6 +1534,8 @@ class ListAgentsData(BaseModel):
     knowledge_bases: Optional[List[ListAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[ListAgentsSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -1539,6 +1549,7 @@ class ListAgentsData(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
+            "source",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

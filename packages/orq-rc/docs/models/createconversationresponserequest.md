@@ -1,0 +1,9 @@
+# CreateConversationResponseRequest
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `conversation_id`                                                                                  | *str*                                                                                              | :heavy_check_mark:                                                                                 | The unique identifier of the conversation                                                          |
+| `request_body`                                                                                     | [models.CreateConversationResponseRequestBody](../models/createconversationresponserequestbody.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

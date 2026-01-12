@@ -1,6 +1,6 @@
-# RetrieveConversationKind
+# ConversationWithMessagesResponseKind
 
-Type discriminator indicating this is a conversation
+Resource type discriminator.
 
 
 ## Values

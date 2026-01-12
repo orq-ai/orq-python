@@ -150,7 +150,7 @@ class Router(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
-        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
+        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -419,7 +419,7 @@ class Router(BaseSDK):
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param modalities: Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"].
         :param guardrails: A list of guardrails to apply to the request.
-        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
+        :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

@@ -1736,6 +1736,13 @@ class TeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
+Source = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     key: str
     r"""Unique identifier for the agent within the workspace"""
@@ -1767,6 +1774,7 @@ class CreateAgentRequestRequestBodyTypedDict(TypedDict):
     team_of_agents: NotRequired[List[TeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
     variables: NotRequired[Dict[str, Any]]
+    source: NotRequired[Source]
 
 
 class CreateAgentRequestRequestBody(BaseModel):
@@ -1813,6 +1821,8 @@ class CreateAgentRequestRequestBody(BaseModel):
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
     variables: Optional[Dict[str, Any]] = None
+
+    source: Optional[Source] = None
 
 
 class CreateAgentRequestAgentsResponseBodyData(BaseModel):
@@ -3272,6 +3282,13 @@ class CreateAgentRequestKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+CreateAgentRequestSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
 
@@ -3309,6 +3326,7 @@ class CreateAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[CreateAgentRequestSource]
 
 
 class CreateAgentRequestResponseBody(BaseModel):
@@ -3370,6 +3388,8 @@ class CreateAgentRequestResponseBody(BaseModel):
     knowledge_bases: Optional[List[CreateAgentRequestKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[CreateAgentRequestSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -3383,6 +3403,7 @@ class CreateAgentRequestResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
+            "source",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

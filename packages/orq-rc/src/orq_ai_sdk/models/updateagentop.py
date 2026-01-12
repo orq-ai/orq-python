@@ -3306,6 +3306,13 @@ class UpdateAgentAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+UpdateAgentSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent configuration successfully updated. Returns the complete updated agent manifest reflecting all changes made."""
 
@@ -3344,6 +3351,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[UpdateAgentSource]
 
 
 class UpdateAgentResponseBody(BaseModel):
@@ -3407,6 +3415,8 @@ class UpdateAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[UpdateAgentAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[UpdateAgentSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = [
@@ -3420,6 +3430,7 @@ class UpdateAgentResponseBody(BaseModel):
             "metrics",
             "variables",
             "knowledge_bases",
+            "source",
         ]
         nullable_fields = ["created_by_id", "updated_by_id"]
         null_default_fields = []

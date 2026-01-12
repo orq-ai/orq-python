@@ -71,6 +71,7 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        source: Optional[models_createagentrequestop.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -96,6 +97,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
+        :param source:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -137,6 +139,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
             variables=variables,
+            source=source,
         )
 
         req = self._build_request(
@@ -239,6 +242,7 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        source: Optional[models_createagentrequestop.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -264,6 +268,7 @@ class Agents(BaseSDK):
         :param knowledge_bases: Optional array of knowledge base configurations for the agent to access
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables:
+        :param source:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -305,6 +310,7 @@ class Agents(BaseSDK):
                 team_of_agents, Optional[List[models.TeamOfAgents]]
             ),
             variables=variables,
+            source=source,
         )
 
         req = self._build_request_async(
@@ -1136,6 +1142,12 @@ class Agents(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentIdentity,
+                models_invokeagentop.InvokeAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_invokeagentop.InvokeAgentContact,
@@ -1168,7 +1180,8 @@ class Agents(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
@@ -1196,6 +1209,9 @@ class Agents(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.InvokeAgentIdentity]
+                ),
                 contact=utils.get_pydantic_model(
                     contact, Optional[models.InvokeAgentContact]
                 ),
@@ -1280,6 +1296,12 @@ class Agents(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_invokeagentop.InvokeAgentIdentity,
+                models_invokeagentop.InvokeAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_invokeagentop.InvokeAgentContact,
@@ -1312,7 +1334,8 @@ class Agents(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
@@ -1340,6 +1363,9 @@ class Agents(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.InvokeAgentA2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.InvokeAgentIdentity]
+                ),
                 contact=utils.get_pydantic_model(
                     contact, Optional[models.InvokeAgentContact]
                 ),
@@ -1627,6 +1653,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_runagentop.RunAgentIdentity,
+                models_runagentop.RunAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_runagentop.RunAgentContact,
@@ -1684,7 +1716,8 @@ class Agents(BaseSDK):
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param description: A brief summary of the agent's purpose.
@@ -1723,6 +1756,9 @@ class Agents(BaseSDK):
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
             variables=variables,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.RunAgentIdentity]
+            ),
             contact=utils.get_pydantic_model(contact, Optional[models.RunAgentContact]),
             thread=utils.get_pydantic_model(thread, Optional[models.RunAgentThread]),
             memory=utils.get_pydantic_model(memory, Optional[models.RunAgentMemory]),
@@ -1824,6 +1860,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_runagentop.RunAgentIdentity,
+                models_runagentop.RunAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_runagentop.RunAgentContact,
@@ -1881,7 +1923,8 @@ class Agents(BaseSDK):
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param description: A brief summary of the agent's purpose.
@@ -1920,6 +1963,9 @@ class Agents(BaseSDK):
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.RunAgentA2AMessage),
             variables=variables,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.RunAgentIdentity]
+            ),
             contact=utils.get_pydantic_model(contact, Optional[models.RunAgentContact]),
             thread=utils.get_pydantic_model(thread, Optional[models.RunAgentThread]),
             memory=utils.get_pydantic_model(memory, Optional[models.RunAgentMemory]),
@@ -2023,6 +2069,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_streamrunagentop.StreamRunAgentIdentity,
+                models_streamrunagentop.StreamRunAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_streamrunagentop.StreamRunAgentContact,
@@ -2081,7 +2133,8 @@ class Agents(BaseSDK):
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param description: A brief summary of the agent's purpose.
@@ -2123,6 +2176,9 @@ class Agents(BaseSDK):
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
             variables=variables,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.StreamRunAgentIdentity]
+            ),
             contact=utils.get_pydantic_model(
                 contact, Optional[models.StreamRunAgentContact]
             ),
@@ -2251,6 +2307,12 @@ class Agents(BaseSDK):
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_streamrunagentop.StreamRunAgentIdentity,
+                models_streamrunagentop.StreamRunAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_streamrunagentop.StreamRunAgentContact,
@@ -2309,7 +2371,8 @@ class Agents(BaseSDK):
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param fallback_models: Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param description: A brief summary of the agent's purpose.
@@ -2351,6 +2414,9 @@ class Agents(BaseSDK):
             instructions=instructions,
             message=utils.get_pydantic_model(message, models.StreamRunAgentA2AMessage),
             variables=variables,
+            identity=utils.get_pydantic_model(
+                identity, Optional[models.StreamRunAgentIdentity]
+            ),
             contact=utils.get_pydantic_model(
                 contact, Optional[models.StreamRunAgentContact]
             ),
@@ -2460,6 +2526,12 @@ class Agents(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_streamagentop.StreamAgentIdentity,
+                models_streamagentop.StreamAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_streamagentop.StreamAgentContact,
@@ -2493,7 +2565,8 @@ class Agents(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
@@ -2522,6 +2595,9 @@ class Agents(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.StreamAgentIdentity]
+                ),
                 contact=utils.get_pydantic_model(
                     contact, Optional[models.StreamAgentContact]
                 ),
@@ -2623,6 +2699,12 @@ class Agents(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_streamagentop.StreamAgentIdentity,
+                models_streamagentop.StreamAgentIdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_streamagentop.StreamAgentContact,
@@ -2656,7 +2738,8 @@ class Agents(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
@@ -2685,6 +2768,9 @@ class Agents(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.StreamAgentA2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(
+                    identity, Optional[models.StreamAgentIdentity]
+                ),
                 contact=utils.get_pydantic_model(
                     contact, Optional[models.StreamAgentContact]
                 ),

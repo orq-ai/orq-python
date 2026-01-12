@@ -5,7 +5,6 @@
 ### Available Operations
 
 * [get_v2_evaluators_id_versions](#get_v2_evaluators_id_versions) - List evaluator versions
-* [get_v2_evaluators_id_versions_version_id_](#get_v2_evaluators_id_versions_version_id_) - Get evaluator version
 
 ## get_v2_evaluators_id_versions
 
@@ -50,45 +49,3 @@ with Orq(
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | models.GetV2EvaluatorsIDVersionsEvaluatorsResponseBody | 404                                                    | application/json                                       |
 | models.APIError                                        | 4XX, 5XX                                               | \*/\*                                                  |
-
-## get_v2_evaluators_id_versions_version_id_
-
-Returns a specific version of an evaluator
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="get_/v2/evaluators/{id}/versions/{version_id}" method="get" path="/v2/evaluators/{id}/versions/{version_id}" -->
-```python
-from orq_ai_sdk import Orq
-import os
-
-
-with Orq(
-    api_key=os.getenv("ORQ_API_KEY", ""),
-) as orq:
-
-    res = orq.evaluators.get_v2_evaluators_id_versions_version_id_(id="<id>", version_id="<id>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `version_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | N/A                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.GetV2EvaluatorsIDVersionsVersionIDResponseBody](../../models/getv2evaluatorsidversionsversionidresponsebody.md)**
-
-### Errors
-
-| Error Type                                                      | Status Code                                                     | Content Type                                                    |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| models.GetV2EvaluatorsIDVersionsVersionIDEvaluatorsResponseBody | 404                                                             | application/json                                                |
-| models.APIError                                                 | 4XX, 5XX                                                        | \*/\*                                                           |

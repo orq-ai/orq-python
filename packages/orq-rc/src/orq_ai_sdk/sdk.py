@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.evaluators import Evaluators
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
+    from orq_ai_sdk.internal import Internal
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
     from orq_ai_sdk.models_ import Models
@@ -47,6 +48,7 @@ class Orq(BaseSDK):
     deployments: "Deployments"
     agents: "Agents"
     conversations: "Conversations"
+    internal: "Internal"
     files: "Files"
     prompts: "Prompts"
     remoteconfigs: "Remoteconfigs"
@@ -65,6 +67,7 @@ class Orq(BaseSDK):
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "conversations": ("orq_ai_sdk.conversations", "Conversations"),
+        "internal": ("orq_ai_sdk.internal", "Internal"),
         "files": ("orq_ai_sdk.files", "Files"),
         "prompts": ("orq_ai_sdk.prompts", "Prompts"),
         "remoteconfigs": ("orq_ai_sdk.remoteconfigs", "Remoteconfigs"),

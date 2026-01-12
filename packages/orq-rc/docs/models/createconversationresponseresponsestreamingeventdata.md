@@ -1,0 +1,9 @@
+# CreateConversationResponseResponseStreamingEventData
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 | Example                                                                     |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `part_id`                                                                   | *str*                                                                       | :heavy_check_mark:                                                          | Unique identifier for this part. Matches the partId from part.delta events. | text_01hxyz123abc                                                           |
+| `part`                                                                      | *Any*                                                                       | :heavy_check_mark:                                                          | N/A                                                                         |                                                                             |

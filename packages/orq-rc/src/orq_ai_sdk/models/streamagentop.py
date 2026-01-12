@@ -37,6 +37,7 @@ from .agentthoughtstreamingevent import (
     AgentThoughtStreamingEvent,
     AgentThoughtStreamingEventTypedDict,
 )
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .errorstreamingevent import ErrorStreamingEvent, ErrorStreamingEventTypedDict
 from .executionnamedstreamingevent import (
     ExecutionNamedStreamingEvent,
@@ -79,7 +80,13 @@ from orq_ai_sdk.utils import (
 import pydantic
 from pydantic import Discriminator, Tag
 from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
 
 
 StreamAgentRoleToolMessage = Literal["tool",]
@@ -105,7 +112,12 @@ r"""Message role (user or tool for continuing executions)"""
 
 StreamAgentPublicMessagePartTypedDict = TypeAliasType(
     "StreamAgentPublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+    Union[
+        TextPartTypedDict,
+        FilePartTypedDict,
+        ErrorPartTypedDict,
+        ToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -115,6 +127,7 @@ StreamAgentPublicMessagePart = Annotated[
         Annotated[TextPart, Tag("text")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolResultPart, Tag("tool_result")],
+        Annotated[ErrorPart, Tag("error")],
     ],
     Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
 ]
@@ -145,8 +158,8 @@ class StreamAgentA2AMessage(BaseModel):
     r"""Optional A2A message ID in ULID format"""
 
 
-class StreamAgentContactTypedDict(TypedDict):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+class StreamAgentIdentityTypedDict(TypedDict):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -162,8 +175,53 @@ class StreamAgentContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
+class StreamAgentIdentity(BaseModel):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class StreamAgentContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class StreamAgentContact(BaseModel):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -224,8 +282,10 @@ class StreamAgentRequestBodyTypedDict(TypedDict):
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
+    identity: NotRequired[StreamAgentIdentityTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[StreamAgentContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[StreamAgentThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[StreamAgentMemoryTypedDict]
@@ -246,8 +306,16 @@ class StreamAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[StreamAgentContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[StreamAgentIdentity] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Annotated[
+        Optional[StreamAgentContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     thread: Optional[StreamAgentThread] = None
     r"""Thread information to group related requests"""

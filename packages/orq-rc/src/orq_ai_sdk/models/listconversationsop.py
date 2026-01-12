@@ -11,11 +11,13 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ListConversationsRequestTypedDict(TypedDict):
     limit: NotRequired[int]
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10."""
+    r"""Maximum number of conversations to return. Range: 1-100. Default: 10."""
     starting_after: NotRequired[str]
-    r"""A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list."""
+    r"""Pagination cursor. Returns conversations created after the specified conversation ID."""
     ending_before: NotRequired[str]
-    r"""A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list."""
+    r"""Pagination cursor. Returns conversations created before the specified conversation ID."""
+    entity_id: NotRequired[str]
+    r"""Filter by parent entity. When specified, returns only conversations associated with this entity. When omitted, returns standalone conversations."""
 
 
 class ListConversationsRequest(BaseModel):
@@ -23,21 +25,28 @@ class ListConversationsRequest(BaseModel):
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10."""
+    r"""Maximum number of conversations to return. Range: 1-100. Default: 10."""
 
     starting_after: Annotated[
         Optional[str],
         pydantic.Field(alias="startingAfter"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `startingAfter` is a conversation ID that defines your place in the list."""
+    r"""Pagination cursor. Returns conversations created after the specified conversation ID."""
 
     ending_before: Annotated[
         Optional[str],
         pydantic.Field(alias="endingBefore"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""A cursor for use in pagination. `endingBefore` is a conversation ID that defines your place in the list."""
+    r"""Pagination cursor. Returns conversations created before the specified conversation ID."""
+
+    entity_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="entityId"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Filter by parent entity. When specified, returns only conversations associated with this entity. When omitted, returns standalone conversations."""
 
 
 ListConversationsObject = Literal["list",]

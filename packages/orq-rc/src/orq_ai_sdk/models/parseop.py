@@ -8,6 +8,75 @@ from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
+ParseChunkingRequestChunkingRequestRequestBodyReturnType = Literal[
+    "chunks",
+    "texts",
+]
+r"""Return format: chunks (with metadata) or texts (plain strings)"""
+
+
+FastChunker = Literal["fast",]
+
+
+class FastChunkerStrategyTypedDict(TypedDict):
+    r"""High-performance SIMD-optimized byte-level chunking. Best for large files (>1MB) where speed and memory efficiency are critical. 2x faster and 3x less memory than token-based chunking."""
+
+    text: str
+    r"""The text content to be chunked"""
+    strategy: FastChunker
+    metadata: NotRequired[bool]
+    r"""Whether to include metadata for each chunk"""
+    return_type: NotRequired[ParseChunkingRequestChunkingRequestRequestBodyReturnType]
+    r"""Return format: chunks (with metadata) or texts (plain strings)"""
+    target_size: NotRequired[int]
+    r"""Target chunk size in bytes"""
+    delimiters: NotRequired[str]
+    r"""Single-byte delimiter characters. Each character is treated as a separate delimiter (e.g., \".?!\" splits on period, question mark, or exclamation). Use escaped sequences for special chars."""
+    pattern: NotRequired[str]
+    r"""Multi-byte pattern for splitting (e.g., \"▁\" for SentencePiece tokenizers). Takes precedence over delimiters if set."""
+    prefix: NotRequired[bool]
+    r"""Attach delimiter to start of next chunk instead of end of current chunk"""
+    consecutive: NotRequired[bool]
+    r"""When true, splits at the START of consecutive delimiter runs, keeping the run with the following chunk (e.g., splits before \"\n\n\n\" not in the middle)"""
+    forward_fallback: NotRequired[bool]
+    r"""Search forward if no delimiter found in backward search window"""
+
+
+class FastChunkerStrategy(BaseModel):
+    r"""High-performance SIMD-optimized byte-level chunking. Best for large files (>1MB) where speed and memory efficiency are critical. 2x faster and 3x less memory than token-based chunking."""
+
+    text: str
+    r"""The text content to be chunked"""
+
+    strategy: FastChunker
+
+    metadata: Optional[bool] = True
+    r"""Whether to include metadata for each chunk"""
+
+    return_type: Optional[ParseChunkingRequestChunkingRequestRequestBodyReturnType] = (
+        "chunks"
+    )
+    r"""Return format: chunks (with metadata) or texts (plain strings)"""
+
+    target_size: Optional[int] = 4096
+    r"""Target chunk size in bytes"""
+
+    delimiters: Optional[str] = "\n.?"
+    r"""Single-byte delimiter characters. Each character is treated as a separate delimiter (e.g., \".?!\" splits on period, question mark, or exclamation). Use escaped sequences for special chars."""
+
+    pattern: Optional[str] = None
+    r"""Multi-byte pattern for splitting (e.g., \"▁\" for SentencePiece tokenizers). Takes precedence over delimiters if set."""
+
+    prefix: Optional[bool] = False
+    r"""Attach delimiter to start of next chunk instead of end of current chunk"""
+
+    consecutive: Optional[bool] = False
+    r"""When true, splits at the START of consecutive delimiter runs, keeping the run with the following chunk (e.g., splits before \"\n\n\n\" not in the middle)"""
+
+    forward_fallback: Optional[bool] = False
+    r"""Search forward if no delimiter found in backward search window"""
+
+
 ParseChunkingRequestChunkingRequestReturnType = Literal[
     "chunks",
     "texts",
@@ -313,6 +382,7 @@ ParseChunkingRequestTypedDict = TypeAliasType(
         SentenceChunkerStrategyTypedDict,
         RecursiveChunkerStrategyTypedDict,
         AgenticChunkerStrategyTypedDict,
+        FastChunkerStrategyTypedDict,
         SemanticChunkerStrategyTypedDict,
     ],
 )
@@ -326,6 +396,7 @@ ParseChunkingRequest = Annotated[
         Annotated[RecursiveChunkerStrategy, Tag("recursive")],
         Annotated[SemanticChunkerStrategy, Tag("semantic")],
         Annotated[AgenticChunkerStrategy, Tag("agentic")],
+        Annotated[FastChunkerStrategy, Tag("fast")],
     ],
     Discriminator(lambda m: get_discriminator(m, "strategy", "strategy")),
 ]

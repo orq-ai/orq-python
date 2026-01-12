@@ -3,8 +3,8 @@
 from __future__ import annotations
 from orq_ai_sdk.types import BaseModel
 import pydantic
-from typing import Literal
-from typing_extensions import Annotated, TypedDict
+from typing import Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 ResponseStartedEventType = Literal["response.started",]
@@ -19,6 +19,10 @@ class DataTypedDict(TypedDict):
     r"""The model ID being used for this response in provider/model format"""
     workflow_run_id: str
     r"""Trace ID for this turn of the conversation (new for each continuation)"""
+    user_message_id: NotRequired[str]
+    r"""Server-generated ID for the user message. Use this ID for frontend state consistency."""
+    assistant_message_id: NotRequired[str]
+    r"""Server-generated ID for the assistant message. Use this ID for frontend state consistency."""
 
 
 class Data(BaseModel):
@@ -39,6 +43,16 @@ class Data(BaseModel):
 
     workflow_run_id: Annotated[str, pydantic.Field(alias="workflowRunId")]
     r"""Trace ID for this turn of the conversation (new for each continuation)"""
+
+    user_message_id: Annotated[Optional[str], pydantic.Field(alias="userMessageId")] = (
+        None
+    )
+    r"""Server-generated ID for the user message. Use this ID for frontend state consistency."""
+
+    assistant_message_id: Annotated[
+        Optional[str], pydantic.Field(alias="assistantMessageId")
+    ] = None
+    r"""Server-generated ID for the assistant message. Use this ID for frontend state consistency."""
 
 
 class ResponseStartedEventTypedDict(TypedDict):
