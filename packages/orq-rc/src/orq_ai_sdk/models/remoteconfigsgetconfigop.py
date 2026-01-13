@@ -35,12 +35,14 @@ RemoteConfigsGetConfigType = Literal[
     "json",
     "deployment",
 ]
+r"""The return type of the rule"""
 
 
 class RemoteConfigsGetConfigResponseBodyTypedDict(TypedDict):
     r"""An individual remote config"""
 
     type: RemoteConfigsGetConfigType
+    r"""The return type of the rule"""
     value: NotRequired[Any]
 
 
@@ -48,5 +50,6 @@ class RemoteConfigsGetConfigResponseBody(BaseModel):
     r"""An individual remote config"""
 
     type: RemoteConfigsGetConfigType
+    r"""The return type of the rule"""
 
     value: Optional[Any] = None
