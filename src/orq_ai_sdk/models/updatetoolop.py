@@ -193,7 +193,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEVG1ZR54YNFFR37R4E6C5N9"
+    id: Optional[str] = "01KEWGPY6DJE1YPY6BW4K6TN2A"
 
     description: Optional[str] = None
 
@@ -916,7 +916,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEVG1ZQP23DBHM2S7FQK34KD"
+        "tool_01KEWGPY68M11JXFDPTZK8V6DE"
     )
 
     display_name: Optional[str] = None
@@ -990,7 +990,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KEVG1ZQK4VKW9AXPTFTX2289"
+    id: Optional[str] = "01KEWGPY677VX0Z5773YGS84EA"
 
     description: Optional[str] = None
 
@@ -1089,7 +1089,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEVG1ZQF6FWKVYJY3A7FFWDW"
+        "tool_01KEWGPY66BHYD02X19H6T1P1G"
     )
 
     display_name: Optional[str] = None
@@ -1301,7 +1301,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEVG1ZQCHK47TJPR56VJJTW9"
+        "tool_01KEWGPY64R1601109RMV4SGMX"
     )
 
     display_name: Optional[str] = None
@@ -1455,7 +1455,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEVG1ZQ9B5M2MV54S3D433JG"
+        "tool_01KEWGPY62M47A2PK0TRSAMTW3"
     )
 
     display_name: Optional[str] = None
@@ -1613,7 +1613,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEVG1ZQ7VQQ6QZB6MSMH0S01"
+        "tool_01KEWGPY6032ZGC1FPGE47WWXP"
     )
 
     display_name: Optional[str] = None
