@@ -9,9 +9,6 @@ from .thinkingconfigenabledschema import (
     ThinkingConfigEnabledSchema,
     ThinkingConfigEnabledSchemaTypedDict,
 )
-from dataclasses import dataclass, field
-import httpx
-from orq_ai_sdk.models import OrqError
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -1823,28 +1820,6 @@ class CreateAgentRequestRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
 
     source: Optional[Source] = None
-
-
-class CreateAgentRequestAgentsResponseBodyData(BaseModel):
-    message: str
-
-
-@dataclass(unsafe_hash=True)
-class CreateAgentRequestAgentsResponseBody(OrqError):
-    r"""Conflict - An agent with the specified key already exists in this workspace. Each agent must have a unique key within a workspace to ensure proper identification and management."""
-
-    data: CreateAgentRequestAgentsResponseBodyData = field(hash=False)
-
-    def __init__(
-        self,
-        data: CreateAgentRequestAgentsResponseBodyData,
-        raw_response: httpx.Response,
-        body: Optional[str] = None,
-    ):
-        fallback = body or raw_response.text
-        message = str(data.message) or fallback
-        super().__init__(message, raw_response, body)
-        object.__setattr__(self, "data", data)
 
 
 CreateAgentRequestStatus = Literal[

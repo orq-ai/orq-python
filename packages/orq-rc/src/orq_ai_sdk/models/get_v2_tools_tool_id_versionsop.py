@@ -74,7 +74,6 @@ class GetV2ToolsToolIDVersionsDataTypedDict(TypedDict):
     id: str
     created_at: str
     updated_at: str
-    updated_by_id: str
     version: str
     checksum: str
     entity_type: str
@@ -82,6 +81,7 @@ class GetV2ToolsToolIDVersionsDataTypedDict(TypedDict):
     data: Dict[str, Any]
     workspace_id: str
     created_by_id: NotRequired[str]
+    updated_by_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -91,8 +91,6 @@ class GetV2ToolsToolIDVersionsData(BaseModel):
     created_at: str
 
     updated_at: str
-
-    updated_by_id: str
 
     version: str
 
@@ -107,6 +105,8 @@ class GetV2ToolsToolIDVersionsData(BaseModel):
     workspace_id: str
 
     created_by_id: Optional[str] = None
+
+    updated_by_id: Optional[str] = None
 
     description: Optional[str] = None
 
