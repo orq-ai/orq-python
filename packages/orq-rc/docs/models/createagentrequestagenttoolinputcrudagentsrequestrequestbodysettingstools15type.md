@@ -1,10 +1,10 @@
 # CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
 
-MCP tool type
+JSON Schema tool type
 
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `JSON_SCHEMA` | json_schema   |

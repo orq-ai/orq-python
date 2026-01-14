@@ -1164,7 +1164,7 @@ CreateAgentRequestToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = (
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = (
     Literal["mcp",]
 )
 r"""MCP tool type"""
@@ -1176,7 +1176,7 @@ class MCPToolTypedDict(TypedDict):
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
     type: NotRequired[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ]
     r"""MCP tool type"""
     key: NotRequired[str]
@@ -1194,7 +1194,7 @@ class MCPTool(BaseModel):
     r"""The ID of the specific nested tool within the MCP server"""
 
     type: Optional[
-        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ] = "mcp"
     r"""MCP tool type"""
 
@@ -1203,6 +1203,45 @@ class MCPTool(BaseModel):
 
     id: Optional[str] = None
     r"""The ID of the parent MCP tool"""
+
+    requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
+
+
+CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = (
+    Literal["json_schema",]
+)
+r"""JSON Schema tool type"""
+
+
+class JSONSchemaToolTypedDict(TypedDict):
+    r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
+
+    type: NotRequired[
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ]
+    r"""JSON Schema tool type"""
+    key: NotRequired[str]
+    r"""The key of the pre-created JSON Schema tool"""
+    id: NotRequired[str]
+    r"""The ID of the pre-created JSON Schema tool"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class JSONSchemaTool(BaseModel):
+    r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
+
+    type: Optional[
+        CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ] = "json_schema"
+    r"""JSON Schema tool type"""
+
+    key: Optional[str] = None
+    r"""The key of the pre-created JSON Schema tool"""
+
+    id: Optional[str] = None
+    r"""The ID of the pre-created JSON Schema tool"""
 
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
@@ -1584,10 +1623,11 @@ AgentToolInputCRUDTypedDict = TypeAliasType(
         HTTPToolTypedDict,
         CodeExecutionToolTypedDict,
         FunctionToolTypedDict,
+        JSONSchemaToolTypedDict,
         MCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
 
 
 AgentToolInputCRUD = TypeAliasType(
@@ -1607,10 +1647,11 @@ AgentToolInputCRUD = TypeAliasType(
         HTTPTool,
         CodeExecutionTool,
         FunctionTool,
+        JSONSchemaTool,
         MCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
 
 
 CreateAgentRequestExecuteOn = Literal[

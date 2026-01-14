@@ -1,6 +1,6 @@
 # AgentToolInputRun
 
-Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation.
+Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation.
 
 
 ## Supported Types
@@ -87,6 +87,12 @@ value: models.CodeToolRun = /* values here */
 
 ```python
 value: models.FunctionToolRun = /* values here */
+```
+
+### `models.JSONSchemaToolRun`
+
+```python
+value: models.JSONSchemaToolRun = /* values here */
 ```
 
 ### `models.MCPToolRun`

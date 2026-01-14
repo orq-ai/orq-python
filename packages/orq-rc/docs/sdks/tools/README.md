@@ -72,7 +72,7 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.tools.create(request=orq_ai_sdk.JSONSchemaTool(
+    res = orq.tools.create(request=orq_ai_sdk.RequestBodyJSONSchemaTool(
         path="Default",
         key="<key>",
         description="runway border pro mortally recount accredit promptly",

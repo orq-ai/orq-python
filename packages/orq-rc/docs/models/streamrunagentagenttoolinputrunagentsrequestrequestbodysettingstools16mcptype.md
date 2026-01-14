@@ -1,4 +1,4 @@
-# StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+# StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
 
 
 ## Values

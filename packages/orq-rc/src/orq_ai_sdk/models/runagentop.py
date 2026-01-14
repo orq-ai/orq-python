@@ -1408,7 +1408,7 @@ class RunAgentTeamOfAgents(BaseModel):
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -1422,19 +1422,19 @@ class AgentToolInputRunHeaders(BaseModel):
     encrypted: Optional[bool] = False
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
     "object",
 ]
 
 
-class SchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+class AgentToolInputRunSchemaTypedDict(TypedDict):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
-class Schema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+class AgentToolInputRunSchema(BaseModel):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -1443,7 +1443,7 @@ class Schema(BaseModel):
 
 class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
     name: str
-    schema_: SchemaTypedDict
+    schema_: AgentToolInputRunSchemaTypedDict
     id: NotRequired[str]
     description: NotRequired[str]
 
@@ -1451,9 +1451,9 @@ class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
 class RunAgentAgentToolInputRunTools(BaseModel):
     name: str
 
-    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+    schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEXRJ7JQPSGV86505JAYS00Q"
+    id: Optional[str] = "01KEYB6F3GH4FMYVD3Y08AGCJP"
 
     description: Optional[str] = None
 
@@ -1493,7 +1493,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -1507,7 +1507,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1516,6 +1516,107 @@ class MCPToolRun(BaseModel):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
     mcp: Mcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "json_schema",
+]
+
+
+class SchemaTypedDict(TypedDict):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: str
+    r"""The JSON Schema type"""
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+    required: List[str]
+    r"""Array of required property names"""
+
+
+class Schema(BaseModel):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: str
+    r"""The JSON Schema type"""
+
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+
+    required: List[str]
+    r"""Array of required property names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
+class AgentToolInputRunJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: str
+    r"""A description of what the response format is for. This will be shown to the user."""
+    schema_: SchemaTypedDict
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
+
+
+class AgentToolInputRunJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: str
+    r"""A description of what the response format is for. This will be shown to the user."""
+
+    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
+
+
+class JSONSchemaToolRunTypedDict(TypedDict):
+    r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    json_schema: AgentToolInputRunJSONSchemaTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class JSONSchemaToolRun(BaseModel):
+    r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    json_schema: AgentToolInputRunJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
 
@@ -2127,10 +2228,11 @@ AgentToolInputRunTypedDict = TypeAliasType(
         HTTPToolRunTypedDict,
         CodeToolRunTypedDict,
         FunctionToolRunTypedDict,
+        JSONSchemaToolRunTypedDict,
         MCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
 
 
 AgentToolInputRun = Annotated[
@@ -2155,11 +2257,12 @@ AgentToolInputRun = Annotated[
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],
+        Annotated[JSONSchemaToolRun, Tag("json_schema")],
         Annotated[MCPToolRun, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
 
 
 RunAgentToolApprovalRequired = Literal[

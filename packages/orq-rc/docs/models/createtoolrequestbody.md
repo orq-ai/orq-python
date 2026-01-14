@@ -11,10 +11,10 @@ The tool to create
 value: models.RequestBodyFunctionTool = /* values here */
 ```
 
-### `models.JSONSchemaTool`
+### `models.RequestBodyJSONSchemaTool`
 
 ```python
-value: models.JSONSchemaTool = /* values here */
+value: models.RequestBodyJSONSchemaTool = /* values here */
 ```
 
 ### `models.RequestBodyHTTPTool`

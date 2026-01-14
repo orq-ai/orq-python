@@ -488,7 +488,7 @@ class RequestBodyJSONSchema(BaseModel):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
 
-class JSONSchemaToolTypedDict(TypedDict):
+class RequestBodyJSONSchemaToolTypedDict(TypedDict):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -510,7 +510,7 @@ class JSONSchemaToolTypedDict(TypedDict):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class JSONSchemaTool(BaseModel):
+class RequestBodyJSONSchemaTool(BaseModel):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
 
     path: str
@@ -670,7 +670,7 @@ CreateToolRequestBodyTypedDict = TypeAliasType(
     "CreateToolRequestBodyTypedDict",
     Union[
         RequestBodyFunctionToolTypedDict,
-        JSONSchemaToolTypedDict,
+        RequestBodyJSONSchemaToolTypedDict,
         RequestBodyHTTPToolTypedDict,
         RequestBodyMCPToolTypedDict,
         RequestBodyCodeExecutionToolTypedDict,
@@ -682,7 +682,7 @@ r"""The tool to create"""
 CreateToolRequestBody = Annotated[
     Union[
         Annotated[RequestBodyFunctionTool, Tag("function")],
-        Annotated[JSONSchemaTool, Tag("json_schema")],
+        Annotated[RequestBodyJSONSchemaTool, Tag("json_schema")],
         Annotated[RequestBodyHTTPTool, Tag("http")],
         Annotated[RequestBodyMCPTool, Tag("mcp")],
         Annotated[RequestBodyCodeExecutionTool, Tag("code")],
@@ -828,7 +828,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEXRJ82MPKJCZY9CV6WTF0KV"
+        "tool_01KEYB6FGNRJR4TWEZE1R92H2A"
     )
 
     display_name: Optional[str] = None
@@ -898,7 +898,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEXRJ82KG7E5VX7G4K85H7YA"
+    id: Optional[str] = "01KEYB6FGMQMM6H7MCX4T5HRDC"
 
     description: Optional[str] = None
 
@@ -997,7 +997,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEXRJ82HHHNEFECBJSPC0D6X"
+        "tool_01KEYB6FGA4RMX3SE4SZ3RH74X"
     )
 
     display_name: Optional[str] = None
@@ -1209,7 +1209,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEXRJ82E38G044W55JFZP3WJ"
+        "tool_01KEYB6FG81QQJ7R7EH3VVEB2B"
     )
 
     display_name: Optional[str] = None
@@ -1363,7 +1363,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEXRJ82BM2WDN6N2S72RJ7EX"
+        "tool_01KEYB6FG7WN4F8YGYSFSRG4G8"
     )
 
     display_name: Optional[str] = None
@@ -1521,7 +1521,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEXRJ829JFGRMSXDSH78Y1PB"
+        "tool_01KEYB6FG6D0BW3PGZ7A5C63VV"
     )
 
     display_name: Optional[str] = None
