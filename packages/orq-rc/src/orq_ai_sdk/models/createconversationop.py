@@ -199,7 +199,7 @@ class CreateConversationResponseBody(BaseModel):
     r"""Unix timestamp in milliseconds when the conversation was last modified."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kf0t8p1hnsf31gtpetc4jbc7"
+        "conv_01kf0v8bpgqeqarbjbq7f3etww"
     )
     r"""Unique conversation identifier with `conv_` prefix."""
 
