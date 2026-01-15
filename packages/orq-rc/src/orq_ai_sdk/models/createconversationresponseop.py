@@ -15,7 +15,7 @@ from .toolreviewrequestedevent import (
 )
 from .toolstartedevent import ToolStartedEvent, ToolStartedEventTypedDict
 from .usermessagerequest import UserMessageRequest, UserMessageRequestTypedDict
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -23,7 +23,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -51,6 +51,22 @@ class CreateConversationResponseRequestBody(BaseModel):
 
     stream: Optional[bool] = True
     r"""Whether to stream the response (default: true)"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["task_id", "stream"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateConversationResponseRequestTypedDict(TypedDict):
@@ -103,7 +119,7 @@ class CreateConversationResponsePartReasoningPart(BaseModel):
     r"""The reasoning or thought process behind the response. Used for chain-of-thought or extended thinking."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "reasoning_01keyb6f90ywd3v4z9cnjy470w"
+        "reasoning_01kezxqgbzrp6wwpv7s4gys90p"
     )
     r"""Unique identifier for the part. Format: reasoning_{ulid} (e.g., reasoning_01hxyz...)"""
 
@@ -112,6 +128,22 @@ class CreateConversationResponsePartReasoningPart(BaseModel):
 
     signature: Optional[str] = None
     r"""Optional cryptographic signature to verify the authenticity and integrity of the reasoning content"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "metadata", "signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateConversationResponseResponseStreamingEventDataTypedDict(TypedDict):
@@ -179,7 +211,7 @@ class DeltaReasoningPart(BaseModel):
     r"""The reasoning or thought process behind the response. Used for chain-of-thought or extended thinking."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "reasoning_01keyb6f8w7mnyenkngdj0wy4x"
+        "reasoning_01kezxqgbva58jpqg7btdv9g5j"
     )
     r"""Unique identifier for the part. Format: reasoning_{ulid} (e.g., reasoning_01hxyz...)"""
 
@@ -188,6 +220,22 @@ class DeltaReasoningPart(BaseModel):
 
     signature: Optional[str] = None
     r"""Optional cryptographic signature to verify the authenticity and integrity of the reasoning content"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "metadata", "signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ResponseStreamingEventDataTypedDict(TypedDict):
@@ -279,3 +327,19 @@ class CreateConversationResponseResponseBody(BaseModel):
     r"""Response successfully created."""
 
     data: Optional[CreateConversationResponseResponseStreamingEvent] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["data"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

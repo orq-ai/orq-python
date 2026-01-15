@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, parse_datetime
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -80,5 +81,21 @@ class RetrieveDatasetResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-14T13:30:08.520Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-15T04:13:15.987Z")
     r"""The date and time the resource was last updated"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created_by_id", "updated_by_id", "created", "updated"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

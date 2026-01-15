@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from orq_ai_sdk.evaluators import Evaluators
     from orq_ai_sdk.feedback import Feedback
     from orq_ai_sdk.files import Files
+    from orq_ai_sdk.identities import Identities
     from orq_ai_sdk.internal import Internal
     from orq_ai_sdk.knowledge import Knowledge
     from orq_ai_sdk.memorystores import MemoryStores
@@ -45,6 +46,7 @@ class Orq(BaseSDK):
     feedback: "Feedback"
     evals: "Evals"
     evaluators: "Evaluators"
+    identities: "Identities"
     deployments: "Deployments"
     agents: "Agents"
     conversations: "Conversations"
@@ -64,6 +66,7 @@ class Orq(BaseSDK):
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
         "evals": ("orq_ai_sdk.evals", "Evals"),
         "evaluators": ("orq_ai_sdk.evaluators", "Evaluators"),
+        "identities": ("orq_ai_sdk.identities", "Identities"),
         "deployments": ("orq_ai_sdk.deployments", "Deployments"),
         "agents": ("orq_ai_sdk.agents", "Agents"),
         "conversations": ("orq_ai_sdk.conversations", "Conversations"),

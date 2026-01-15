@@ -102,6 +102,22 @@ class RunAgentResponseFormatAgentsJSONSchema(BaseModel):
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RunAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""
@@ -232,6 +248,22 @@ class RunAgentModelConfigurationStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentModelConfigurationThinkingTypedDict",
@@ -273,6 +305,22 @@ class RunAgentToolChoice2(BaseModel):
 
     type: Optional[RunAgentToolChoiceType] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentToolChoice1 = Literal[
@@ -482,70 +530,69 @@ class RunAgentModelConfigurationParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -567,6 +614,22 @@ class RunAgentModelConfigurationRetry(BaseModel):
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentModelConfiguration2TypedDict(TypedDict):
@@ -597,6 +660,22 @@ class RunAgentModelConfiguration2(BaseModel):
 
     retry: Optional[RunAgentModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters", "retry"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentModelConfigurationTypedDict = TypeAliasType(
@@ -682,6 +761,22 @@ class RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
 
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
@@ -815,6 +910,22 @@ class RunAgentFallbackModelConfigurationStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "RunAgentFallbackModelConfigurationThinkingTypedDict",
@@ -856,6 +967,22 @@ class RunAgentToolChoiceAgents2(BaseModel):
 
     type: Optional[RunAgentToolChoiceAgentsType] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentToolChoiceAgents1 = Literal[
@@ -1073,70 +1200,69 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1158,6 +1284,22 @@ class RunAgentFallbackModelConfigurationRetry(BaseModel):
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentFallbackModelConfiguration2TypedDict(TypedDict):
@@ -1182,6 +1324,22 @@ class RunAgentFallbackModelConfiguration2(BaseModel):
 
     retry: Optional[RunAgentFallbackModelConfigurationRetry] = None
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters", "retry"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentFallbackModelConfigurationTypedDict = TypeAliasType(
@@ -1265,6 +1423,22 @@ class RunAgentA2AMessage(BaseModel):
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["messageId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RunAgentIdentityTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
@@ -1303,6 +1477,22 @@ class RunAgentIdentity(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 @deprecated(
@@ -1349,6 +1539,22 @@ class RunAgentContact(BaseModel):
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RunAgentThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
@@ -1367,6 +1573,22 @@ class RunAgentThread(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""Optional tags to differentiate or categorize threads"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentMemoryTypedDict(TypedDict):
@@ -1407,6 +1629,22 @@ class RunAgentTeamOfAgents(BaseModel):
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
 
@@ -1420,6 +1658,22 @@ class AgentToolInputRunHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
@@ -1440,6 +1694,22 @@ class AgentToolInputRunSchema(BaseModel):
 
     required: Optional[List[str]] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["properties", "required"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
     name: str
@@ -1453,9 +1723,25 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEYB6F3GH4FMYVD3Y08AGCJP"
+    id: Optional[str] = "01KEZXQG5059VXKDNM4QGXCES2"
 
     description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 ConnectionType = Literal[
@@ -1488,6 +1774,22 @@ class Mcp(BaseModel):
 
     headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["headers"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class MCPToolRunTypedDict(TypedDict):
@@ -1522,6 +1824,22 @@ class MCPToolRun(BaseModel):
     display_name: Optional[str] = None
 
     requires_approval: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
@@ -1590,6 +1908,22 @@ class AgentToolInputRunJSONSchema(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class JSONSchemaToolRunTypedDict(TypedDict):
     r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
@@ -1623,6 +1957,22 @@ class JSONSchemaToolRun(BaseModel):
     display_name: Optional[str] = None
 
     requires_approval: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools14Type = Literal[
@@ -1697,6 +2047,22 @@ class AgentToolInputRunFunction(BaseModel):
     parameters: Optional[RunAgentAgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "strict", "parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class FunctionToolRunTypedDict(TypedDict):
     r"""Function tool with inline definition for on-the-fly creation in run endpoint"""
@@ -1728,6 +2094,24 @@ class FunctionToolRun(BaseModel):
     description: Optional[str] = None
 
     requires_approval: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["_id", "display_name", "description", "requires_approval"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = Literal["code",]
@@ -1796,6 +2180,22 @@ class CodeTool(BaseModel):
     parameters: Optional[AgentToolInputRunParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class CodeToolRunTypedDict(TypedDict):
     r"""Code execution tool with inline definition for on-the-fly creation in run endpoint"""
@@ -1830,6 +2230,22 @@ class CodeToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12Type = Literal["http",]
 
@@ -1852,6 +2268,22 @@ class Headers2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
@@ -1887,6 +2319,22 @@ class Blueprint(BaseModel):
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["headers", "body"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType = Literal[
@@ -1929,6 +2377,22 @@ class Arguments(BaseModel):
     default_value: Optional[DefaultValue] = None
     r"""The default value of the argument."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["send_to_model", "default_value"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class HTTPTypedDict(TypedDict):
     blueprint: BlueprintTypedDict
@@ -1943,6 +2407,22 @@ class HTTP(BaseModel):
 
     arguments: Optional[Dict[str, Arguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["arguments"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class HTTPToolRunTypedDict(TypedDict):
@@ -1978,6 +2458,22 @@ class HTTPToolRun(BaseModel):
 
     requires_approval: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools11Type = Literal[
     "current_date",
@@ -1999,6 +2495,22 @@ class AgentToolInputRunCurrentDateTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools10Type = Literal[
@@ -2022,6 +2534,22 @@ class AgentToolInputRunQueryKnowledgeBaseTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools9Type = Literal[
     "retrieve_knowledge_bases",
@@ -2043,6 +2571,22 @@ class AgentToolInputRunRetrieveKnowledgeBasesTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type = Literal[
@@ -2066,6 +2610,22 @@ class AgentToolInputRunDeleteMemoryDocumentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsToolsType = Literal[
     "retrieve_memory_stores",
@@ -2087,6 +2647,22 @@ class AgentToolInputRunRetrieveMemoryStoresTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsType = Literal[
@@ -2110,6 +2686,22 @@ class AgentToolInputRunWriteMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsRequestRequestBodyType = Literal["query_memory_store",]
 
@@ -2129,6 +2721,22 @@ class AgentToolInputRunQueryMemoryStoreTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunAgentsRequestType = Literal["retrieve_agents",]
@@ -2150,6 +2758,22 @@ class AgentToolInputRunRetrieveAgentsTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentToolInputRunAgentsType = Literal["call_sub_agent",]
 
@@ -2169,6 +2793,22 @@ class AgentToolInputRunCallSubAgentTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 RunAgentAgentToolInputRunType = Literal["web_scraper",]
@@ -2190,6 +2830,22 @@ class AgentToolInputRunWebScraperTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 AgentToolInputRunType = Literal["google_search",]
 
@@ -2209,6 +2865,22 @@ class AgentToolInputRunGoogleSearchTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 AgentToolInputRunTypedDict = TypeAliasType(
@@ -2299,6 +2971,22 @@ class RunAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentAgentsExecuteOn = Literal[
     "input",
@@ -2325,6 +3013,22 @@ class RunAgentGuardrails(BaseModel):
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentSettingsTypedDict(TypedDict):
@@ -2360,6 +3064,31 @@ class RunAgentSettings(BaseModel):
 
     guardrails: Optional[List[RunAgentGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "tools",
+                "tool_approval_required",
+                "max_iterations",
+                "max_execution_time",
+                "evaluators",
+                "guardrails",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RunAgentRequestBodyTypedDict(TypedDict):
@@ -2479,6 +3208,38 @@ class RunAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent run as key-value pairs that will be included in traces"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "task_id",
+                "fallback_models",
+                "variables",
+                "identity",
+                "contact",
+                "thread",
+                "memory",
+                "description",
+                "system_prompt",
+                "memory_stores",
+                "knowledge_bases",
+                "team_of_agents",
+                "metadata",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 RunAgentKind = Literal["task",]
 r"""A2A entity type identifier"""
@@ -2581,6 +3342,22 @@ class RunAgentTaskStatus(BaseModel):
     message: Optional[RunAgentTaskStatusMessage] = None
     r"""Optional A2A message providing additional context about the current status"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["timestamp", "message"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RunAgentA2ATaskResponseTypedDict(TypedDict):
     r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
@@ -2614,3 +3391,19 @@ class RunAgentA2ATaskResponse(BaseModel):
 
     metadata: Optional[Dict[str, Any]] = None
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

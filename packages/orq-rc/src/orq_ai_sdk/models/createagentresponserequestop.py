@@ -10,7 +10,7 @@ from .responsestreamingevent import (
 )
 from .textpart import TextPart, TextPartTypedDict
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -19,7 +19,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import (
     Annotated,
@@ -97,6 +97,22 @@ class A2AMessage(BaseModel):
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["messageId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class IdentityTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
@@ -135,6 +151,22 @@ class Identity(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 @deprecated(
@@ -181,6 +213,22 @@ class Contact(BaseModel):
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class CreateAgentResponseRequestThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
@@ -199,6 +247,22 @@ class CreateAgentResponseRequestThread(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""Optional tags to differentiate or categorize threads"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateAgentResponseRequestMemoryTypedDict(TypedDict):
@@ -293,6 +357,35 @@ class CreateAgentResponseRequestRequestBody(BaseModel):
     conversation: Optional[Conversation] = None
     r"""Conversation context for chat studio integration"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "task_id",
+                "variables",
+                "identity",
+                "contact",
+                "thread",
+                "memory",
+                "metadata",
+                "background",
+                "stream",
+                "conversation",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class CreateAgentResponseRequestRequestTypedDict(TypedDict):
     agent_key: str
@@ -324,6 +417,22 @@ class CreateAgentResponseRequestResponseBody(BaseModel):
 
     data: Optional[ResponseStreamingEvent] = None
     r"""Union of all possible streaming events. Each event has a type field for discrimination."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["data"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 CreateAgentResponseRequestResponseTypedDict = TypeAliasType(

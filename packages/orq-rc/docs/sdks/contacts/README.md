@@ -1,18 +1,23 @@
-# Contacts
+# ~~Contacts~~
+
+> [!WARNING]
+> This SDK is **DEPRECATED**
 
 ## Overview
 
 ### Available Operations
 
-* [create](#create) - Create a contact
-* [list](#list) - List contacts
-* [retrieve](#retrieve) - Retrieve a contact
-* [update](#update) - Update a contact
-* [delete](#delete) - Delete a contact
+* [~~create~~](#create) - Create a contact :warning: **Deprecated**
+* [~~list~~](#list) - List contacts :warning: **Deprecated**
+* [~~retrieve~~](#retrieve) - Retrieve a contact :warning: **Deprecated**
+* [~~update~~](#update) - Update a contact :warning: **Deprecated**
+* [~~delete~~](#delete) - Delete a contact :warning: **Deprecated**
 
-## create
+## ~~create~~
 
 Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -66,9 +71,11 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## list
+## ~~list~~
 
 Retrieves a paginated list of contacts in your workspace. Use pagination parameters to navigate through large contact lists efficiently.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -102,7 +109,7 @@ with Orq(
 | `starting_after`                                                                                                                                                                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.       |                                                                                                                                                                                                                                                                                                                                         |
 | `ending_before`                                                                                                                                                                                                                                                                                                                         | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list. |                                                                                                                                                                                                                                                                                                                                         |
 | `search`                                                                                                                                                                                                                                                                                                                                | *Optional[str]*                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Search contacts by display name or email address. Minimum 2 characters required.                                                                                                                                                                                                                                                        | john                                                                                                                                                                                                                                                                                                                                    |
-| `filter_by`                                                                                                                                                                                                                                                                                                                             | [Optional[models.QueryParamFilterBy]](../../models/queryparamfilterby.md)                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter contacts by tags. Can be provided as JSON object {"tags": ["premium", "beta-user"]} or as query format "tags=premium,beta-user"                                                                                                                                                                                                  | {<br/>"tags": [<br/>"premium",<br/>"beta-user"<br/>]<br/>}                                                                                                                                                                                                                                                                              |
+| `filter_by`                                                                                                                                                                                                                                                                                                                             | [Optional[models.ListContactsQueryParamFilterBy]](../../models/listcontactsqueryparamfilterby.md)                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Filter contacts by tags. Can be provided as JSON object {"tags": ["premium", "beta-user"]} or as query format "tags=premium,beta-user"                                                                                                                                                                                                  | {<br/>"tags": [<br/>"premium",<br/>"beta-user"<br/>]<br/>}                                                                                                                                                                                                                                                                              |
 | `include_metrics`                                                                                                                                                                                                                                                                                                                       | *OptionalNullable[bool]*                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Include usage metrics of the last 30 days for each contact.                                                                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                         |
 | `retries`                                                                                                                                                                                                                                                                                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                                                         |
 
@@ -116,9 +123,11 @@ with Orq(
 | --------------- | --------------- | --------------- |
 | models.APIError | 4XX, 5XX        | \*/\*           |
 
-## retrieve
+## ~~retrieve~~
 
 Retrieves detailed information about a specific contact using their contact ID or external ID from your system.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -157,9 +166,11 @@ with Orq(
 | models.RetrieveContactContactsResponseBody | 404                                        | application/json                           |
 | models.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
 
-## update
+## ~~update~~
 
 Updates specific fields of an existing contact. Only the fields provided in the request body will be updated.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -212,9 +223,11 @@ with Orq(
 | models.UpdateContactContactsResponseBody | 404                                      | application/json                         |
 | models.APIError                          | 4XX, 5XX                                 | \*/\*                                    |
 
-## delete
+## ~~delete~~
 
 Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

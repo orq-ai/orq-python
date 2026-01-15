@@ -120,6 +120,22 @@ class UpdatePromptResponseFormatJSONSchema(BaseModel):
 
     strict: Optional[bool] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptResponseFormat1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatType
@@ -133,6 +149,22 @@ class UpdatePromptResponseFormat1(BaseModel):
     json_schema: UpdatePromptResponseFormatJSONSchema
 
     display_name: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdatePromptResponseFormatTypedDict = TypeAliasType(
@@ -353,51 +385,48 @@ class UpdatePromptModelParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-            "reasoningEffort",
-            "budgetTokens",
-            "verbosity",
-            "thinkingLevel",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "temperature",
+                "maxTokens",
+                "topK",
+                "topP",
+                "frequencyPenalty",
+                "presencePenalty",
+                "numImages",
+                "seed",
+                "format",
+                "dimensions",
+                "quality",
+                "style",
+                "responseFormat",
+                "photoRealVersion",
+                "encoding_format",
+                "reasoningEffort",
+                "budgetTokens",
+                "verbosity",
+                "thinkingLevel",
+            ]
+        )
+        nullable_fields = set(["responseFormat"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -473,6 +502,22 @@ class UpdatePrompt2File(BaseModel):
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["file_data", "uri", "mimeType", "filename"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePrompt23TypedDict(TypedDict):
     type: UpdatePrompt2PromptsRequestType
@@ -503,6 +548,22 @@ class UpdatePrompt2ImageURL(BaseModel):
 
     detail: Optional[str] = None
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["detail"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdatePrompt22TypedDict(TypedDict):
@@ -598,6 +659,22 @@ class UpdatePromptToolCalls(BaseModel):
 
     index: Optional[float] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "index"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptMessagesTypedDict(TypedDict):
     role: UpdatePromptRole
@@ -621,31 +698,26 @@ class UpdatePromptMessages(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content", "tool_call_id"]
-        null_default_fields = []
-
+        optional_fields = set(["tool_calls", "tool_call_id"])
+        nullable_fields = set(["content", "tool_call_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -716,41 +788,38 @@ class PromptConfig(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-            "model_db_id",
-            "model_type",
-            "is_private",
-        ]
-        nullable_fields = ["integration_id", "model_db_id", "model_type"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "stream",
+                "model",
+                "model_parameters",
+                "provider",
+                "integration_id",
+                "version",
+                "model_db_id",
+                "model_type",
+                "is_private",
+            ]
+        )
+        nullable_fields = set(["integration_id", "model_db_id", "model_type"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -807,31 +876,26 @@ class UpdatePromptMetadata(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["use_cases", "language"]
-        nullable_fields = ["language"]
-        null_default_fields = []
-
+        optional_fields = set(["use_cases", "language"])
+        nullable_fields = set(["language"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -903,6 +967,22 @@ class UpdatePromptMessagesCacheControl(BaseModel):
     Defaults to `5m`. Only supported by `Anthropic` Claude models.
     """
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptMessagesToolMessageTypedDict(TypedDict):
     role: UpdatePromptMessagesPromptsRequestRequestBodyRole
@@ -928,31 +1008,26 @@ class UpdatePromptMessagesToolMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["cache_control"]
-        nullable_fields = ["tool_call_id"]
-        null_default_fields = []
-
+        optional_fields = set(["cache_control"])
+        nullable_fields = set(["tool_call_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1029,6 +1104,22 @@ class UpdatePromptMessagesFunction(BaseModel):
     arguments: Optional[str] = None
     r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name", "arguments"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptMessagesToolCallsTypedDict(TypedDict):
     id: str
@@ -1051,6 +1142,22 @@ class UpdatePromptMessagesToolCalls(BaseModel):
 
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["thought_signature"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdatePromptMessagesAssistantMessageTypedDict(TypedDict):
@@ -1089,31 +1196,26 @@ class UpdatePromptMessagesAssistantMessage(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["content", "refusal", "name", "audio", "tool_calls"]
-        nullable_fields = ["content", "refusal", "audio"]
-        null_default_fields = []
-
+        optional_fields = set(["content", "refusal", "name", "audio", "tool_calls"])
+        nullable_fields = set(["content", "refusal", "audio"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1169,6 +1271,22 @@ class UpdatePrompt2CacheControl(BaseModel):
     Defaults to `5m`. Only supported by `Anthropic` Claude models.
     """
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePrompt24TypedDict(TypedDict):
     type: UpdatePrompt2PromptsRequestRequestBodyType
@@ -1186,6 +1304,22 @@ class UpdatePrompt24(BaseModel):
     r"""File data for the content part. Must contain either file_data or uri, but not both."""
 
     cache_control: Optional[UpdatePrompt2CacheControl] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["cache_control"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdatePromptContentPrompts2TypedDict = TypeAliasType(
@@ -1242,6 +1376,22 @@ class UpdatePromptMessagesUserMessage(BaseModel):
     name: Optional[str] = None
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdatePromptMessagesRole = Literal["system",]
 r"""The role of the messages author, in this case `system`."""
@@ -1282,6 +1432,22 @@ class UpdatePromptMessagesSystemMessage(BaseModel):
 
     name: Optional[str] = None
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdatePromptPromptsMessagesTypedDict = TypeAliasType(
@@ -1332,6 +1498,22 @@ class UpdatePromptResponseFormatPromptsRequestJSONSchema(BaseModel):
 
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdatePromptResponseFormatPromptsJSONSchemaTypedDict(TypedDict):
@@ -1463,38 +1645,35 @@ class UpdatePromptPromptInput(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "messages",
-            "model",
-            "is_private",
-            "temperature",
-            "max_tokens",
-            "response_format",
-        ]
-        nullable_fields = ["temperature", "max_tokens"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "messages",
+                "model",
+                "is_private",
+                "temperature",
+                "max_tokens",
+                "response_format",
+            ]
+        )
+        nullable_fields = set(["temperature", "max_tokens"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1566,44 +1745,41 @@ class UpdatePromptRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "owner",
-            "domain_id",
-            "created",
-            "updated",
-            "created_by_id",
-            "updated_by_id",
-            "display_name",
-            "description",
-            "prompt_config",
-            "metadata",
-            "path",
-            "prompt",
-        ]
-        nullable_fields = ["created_by_id", "updated_by_id", "description"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "owner",
+                "domain_id",
+                "created",
+                "updated",
+                "created_by_id",
+                "updated_by_id",
+                "display_name",
+                "description",
+                "prompt_config",
+                "metadata",
+                "path",
+                "prompt",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id", "description"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1624,6 +1800,22 @@ class UpdatePromptRequest(BaseModel):
         Optional[UpdatePromptRequestBody],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["RequestBody"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdatePromptResponseBodyData(BaseModel):
@@ -1740,6 +1932,22 @@ class UpdatePromptResponseFormatPromptsResponseJSONSchema(BaseModel):
 
     strict: Optional[bool] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptResponseFormatPrompts1TypedDict(TypedDict):
     type: UpdatePromptResponseFormatPromptsResponseType
@@ -1753,6 +1961,22 @@ class UpdatePromptResponseFormatPrompts1(BaseModel):
     json_schema: UpdatePromptResponseFormatPromptsResponseJSONSchema
 
     display_name: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdatePromptPromptsResponseResponseFormatTypedDict = TypeAliasType(
@@ -1978,51 +2202,48 @@ class UpdatePromptPromptsModelParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "temperature",
-            "maxTokens",
-            "topK",
-            "topP",
-            "frequencyPenalty",
-            "presencePenalty",
-            "numImages",
-            "seed",
-            "format",
-            "dimensions",
-            "quality",
-            "style",
-            "responseFormat",
-            "photoRealVersion",
-            "encoding_format",
-            "reasoningEffort",
-            "budgetTokens",
-            "verbosity",
-            "thinkingLevel",
-        ]
-        nullable_fields = ["responseFormat"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "temperature",
+                "maxTokens",
+                "topK",
+                "topP",
+                "frequencyPenalty",
+                "presencePenalty",
+                "numImages",
+                "seed",
+                "format",
+                "dimensions",
+                "quality",
+                "style",
+                "responseFormat",
+                "photoRealVersion",
+                "encoding_format",
+                "reasoningEffort",
+                "budgetTokens",
+                "verbosity",
+                "thinkingLevel",
+            ]
+        )
+        nullable_fields = set(["responseFormat"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2098,6 +2319,22 @@ class UpdatePrompt2PromptsFile(BaseModel):
     filename: Optional[str] = None
     r"""The name of the file, used when passing the file to the model as a string."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["file_data", "uri", "mimeType", "filename"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePrompt2Prompts3TypedDict(TypedDict):
     type: UpdatePrompt2PromptsResponse200ApplicationJSONType
@@ -2133,6 +2370,22 @@ class UpdatePrompt2PromptsImageURL(BaseModel):
 
     detail: Optional[str] = None
     r"""Specifies the detail level of the image. Currently only supported with OpenAI models"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "detail"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdatePrompt2Prompts2TypedDict(TypedDict):
@@ -2233,6 +2486,22 @@ class UpdatePromptPromptsToolCalls(BaseModel):
 
     index: Optional[float] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "index"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdatePromptPromptsResponseMessagesTypedDict(TypedDict):
     role: UpdatePromptPromptsRole
@@ -2256,31 +2525,26 @@ class UpdatePromptPromptsResponseMessages(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["tool_calls", "tool_call_id"]
-        nullable_fields = ["content", "tool_call_id"]
-        null_default_fields = []
-
+        optional_fields = set(["tool_calls", "tool_call_id"])
+        nullable_fields = set(["content", "tool_call_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2330,40 +2594,37 @@ class UpdatePromptPromptConfig(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "stream",
-            "model",
-            "model_db_id",
-            "model_type",
-            "model_parameters",
-            "provider",
-            "integration_id",
-            "version",
-        ]
-        nullable_fields = ["model_db_id", "model_type", "integration_id"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "stream",
+                "model",
+                "model_db_id",
+                "model_type",
+                "model_parameters",
+                "provider",
+                "integration_id",
+                "version",
+            ]
+        )
+        nullable_fields = set(["model_db_id", "model_type", "integration_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2420,31 +2681,26 @@ class UpdatePromptPromptsMetadata(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["use_cases", "language"]
-        nullable_fields = ["language"]
-        null_default_fields = []
-
+        optional_fields = set(["use_cases", "language"])
+        nullable_fields = set(["language"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2501,30 +2757,27 @@ class UpdatePromptPrompt(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["created_by_id", "updated_by_id", "description", "metadata"]
-        nullable_fields = ["created_by_id", "updated_by_id", "description"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["created_by_id", "updated_by_id", "description", "metadata"]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id", "description"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

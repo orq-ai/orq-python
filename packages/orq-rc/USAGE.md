@@ -9,23 +9,9 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.contacts.create(request={
-        "external_id": "user_12345",
-        "display_name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "avatar_url": "https://example.com/avatars/jane-smith.jpg",
-        "tags": [
-            "premium",
-            "beta-user",
-            "enterprise",
-        ],
-        "metadata": {
-            "department": "Engineering",
-            "role": "Senior Developer",
-            "subscription_tier": "premium",
-            "last_login": "2024-01-15T10:30:00Z",
-        },
-    })
+    res = orq.feedback.create(field="rating", value=[
+        "good",
+    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
 
     # Handle response
     print(res)
@@ -47,23 +33,9 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.contacts.create_async(request={
-            "external_id": "user_12345",
-            "display_name": "Jane Smith",
-            "email": "jane.smith@example.com",
-            "avatar_url": "https://example.com/avatars/jane-smith.jpg",
-            "tags": [
-                "premium",
-                "beta-user",
-                "enterprise",
-            ],
-            "metadata": {
-                "department": "Engineering",
-                "role": "Senior Developer",
-                "subscription_tier": "premium",
-                "last_login": "2024-01-15T10:30:00Z",
-            },
-        })
+        res = await orq.feedback.create_async(field="rating", value=[
+            "good",
+        ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
 
         # Handle response
         print(res)

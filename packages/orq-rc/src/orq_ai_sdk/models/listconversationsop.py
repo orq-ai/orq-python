@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from .conversationresponse import ConversationResponse, ConversationResponseTypedDict
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, QueryParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -47,6 +48,22 @@ class ListConversationsRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter by parent entity. When specified, returns only conversations associated with this entity. When omitted, returns standalone conversations."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["limit", "startingAfter", "endingBefore", "entityId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 ListConversationsObject = Literal["list",]

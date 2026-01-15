@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from datetime import datetime
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -67,6 +68,30 @@ class GetAllMemoryDocumentsRequest(BaseModel):
     ] = None
     r"""Filter documents updated before this ISO datetime"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "updated_after",
+                "updated_before",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 GetAllMemoryDocumentsObject = Literal["list",]
 
@@ -108,6 +133,22 @@ class GetAllMemoryDocumentsData(BaseModel):
 
     metadata: Optional[Dict[str, str]] = None
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created_by_id", "updated_by_id", "metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class GetAllMemoryDocumentsResponseBodyTypedDict(TypedDict):

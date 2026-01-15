@@ -3,9 +3,10 @@
 from __future__ import annotations
 from datetime import datetime
 import io
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, MultipartFormMetadata, parse_datetime
 import pydantic
+from pydantic import model_serializer
 from typing import IO, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -33,6 +34,22 @@ class FileUploadFile(BaseModel):
         FieldMetadata(multipart=True),
     ] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["contentType"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 Purpose = Literal[
     "retrieval",
@@ -57,6 +74,22 @@ class FileUploadRequestBody(BaseModel):
 
     purpose: Annotated[Optional[Purpose], FieldMetadata(multipart=True)] = "retrieval"
     r"""The intended purpose of the uploaded file."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["purpose"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 FileUploadPurpose = Literal[
@@ -101,5 +134,21 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2026-01-14T13:30:12.726Z")
+    created: Optional[datetime] = parse_datetime("2026-01-15T04:13:19.498Z")
     r"""The date and time the resource was created"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

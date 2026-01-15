@@ -16,16 +16,32 @@ from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class QueryParamFilterByTypedDict(TypedDict):
+class ListContactsQueryParamFilterByTypedDict(TypedDict):
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: NotRequired[List[str]]
 
 
-class QueryParamFilterBy(BaseModel):
+class ListContactsQueryParamFilterBy(BaseModel):
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: Annotated[Optional[List[str]], FieldMetadata(query=True)] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ListContactsRequestTypedDict(TypedDict):
@@ -37,7 +53,7 @@ class ListContactsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     search: NotRequired[str]
     r"""Search contacts by display name or email address. Minimum 2 characters required."""
-    filter_by: NotRequired[QueryParamFilterByTypedDict]
+    filter_by: NotRequired[ListContactsQueryParamFilterByTypedDict]
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
     include_metrics: NotRequired[Nullable[bool]]
     r"""Include usage metrics of the last 30 days for each contact."""
@@ -69,7 +85,7 @@ class ListContactsRequest(BaseModel):
     r"""Search contacts by display name or email address. Minimum 2 characters required."""
 
     filter_by: Annotated[
-        Optional[QueryParamFilterBy],
+        Optional[ListContactsQueryParamFilterBy],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
@@ -82,38 +98,35 @@ class ListContactsRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "limit",
-            "starting_after",
-            "ending_before",
-            "search",
-            "filter_by",
-            "include_metrics",
-        ]
-        nullable_fields = ["include_metrics"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "limit",
+                "starting_after",
+                "ending_before",
+                "search",
+                "filter_by",
+                "include_metrics",
+            ]
+        )
+        nullable_fields = set(["include_metrics"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -195,44 +208,41 @@ class ListContactsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-14T13:30:08.520Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-15T04:13:15.987Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "display_name",
-            "email",
-            "avatar_url",
-            "tags",
-            "metadata",
-            "created",
-            "updated",
-        ]
-        nullable_fields = ["display_name", "email", "avatar_url"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "display_name",
+                "email",
+                "avatar_url",
+                "tags",
+                "metadata",
+                "created",
+                "updated",
+            ]
+        )
+        nullable_fields = set(["display_name", "email", "avatar_url"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 

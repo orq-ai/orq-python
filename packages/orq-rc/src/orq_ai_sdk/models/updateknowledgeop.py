@@ -46,6 +46,22 @@ class UpdateKnowledgeRequestBodyRerankConfig(BaseModel):
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["top_k", "rerank_threshold"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateKnowledgeRequestBodyAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
@@ -102,37 +118,34 @@ class UpdateKnowledgeRequestBodyRetrievalSettings(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "retrieval_type",
-            "top_k",
-            "threshold",
-            "rerank_config",
-            "agentic_rag_config",
-        ]
-        nullable_fields = ["rerank_config", "agentic_rag_config"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "retrieval_type",
+                "top_k",
+                "threshold",
+                "rerank_config",
+                "agentic_rag_config",
+            ]
+        )
+        nullable_fields = set(["rerank_config", "agentic_rag_config"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -181,37 +194,28 @@ class UpdateKnowledgeRequestBody2(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "embedding_model",
-            "path",
-            "retrieval_settings",
-            "type",
-        ]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["description", "embedding_model", "path", "retrieval_settings", "type"]
+        )
+        nullable_fields = set(["description"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -238,6 +242,22 @@ class RequestBodyRerankConfig(BaseModel):
 
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["top_k", "rerank_threshold"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class RequestBodyAgenticRagConfigTypedDict(TypedDict):
@@ -284,31 +304,28 @@ class RequestBodyRetrievalSettings(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
-        nullable_fields = ["rerank_config", "agentic_rag_config"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
+        )
+        nullable_fields = set(["rerank_config", "agentic_rag_config"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -335,6 +352,22 @@ class RequestBodyExternalConfig(BaseModel):
 
     api_key: Optional[str] = None
     r"""The API key for the external knowledge base."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name", "api_url", "api_key"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateKnowledgeRequestBodyType = Literal["external",]
@@ -379,37 +412,28 @@ class UpdateKnowledgeRequestBody1(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "path",
-            "retrieval_settings",
-            "external_config",
-            "type",
-        ]
-        nullable_fields = ["description"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["description", "path", "retrieval_settings", "external_config", "type"]
+        )
+        nullable_fields = set(["description"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -470,6 +494,22 @@ class UpdateKnowledgeResponseBodyKnowledgeRerankConfig(BaseModel):
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["top_k", "rerank_threshold"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateKnowledgeResponseBodyKnowledgeAgenticRagConfigTypedDict(TypedDict):
     r"""The Agentic RAG configuration for the knowledge base. If `null` is provided, Agentic RAG will be disabled."""
@@ -523,31 +563,28 @@ class UpdateKnowledgeResponseBodyKnowledgeRetrievalSettings(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
-        nullable_fields = ["rerank_config", "agentic_rag_config"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["top_k", "threshold", "rerank_config", "agentic_rag_config"]
+        )
+        nullable_fields = set(["rerank_config", "agentic_rag_config"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -639,38 +676,35 @@ class UpdateKnowledgeResponseBody2(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "path",
-            "created_by_id",
-            "updated_by_id",
-            "type",
-            "retrieval_settings",
-        ]
-        nullable_fields = ["created_by_id", "updated_by_id"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "description",
+                "path",
+                "created_by_id",
+                "updated_by_id",
+                "type",
+                "retrieval_settings",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -708,6 +742,22 @@ class UpdateKnowledgeResponseBodyRerankConfig(BaseModel):
 
     rerank_threshold: Optional[float] = 0.5
     r"""The threshold value used to filter the rerank results, only documents with a relevance score greater than the threshold will be returned"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["top_k", "rerank_threshold"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateKnowledgeResponseBodyAgenticRagConfigTypedDict(TypedDict):
@@ -765,37 +815,34 @@ class UpdateKnowledgeResponseBodyRetrievalSettings(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "retrieval_type",
-            "top_k",
-            "threshold",
-            "rerank_config",
-            "agentic_rag_config",
-        ]
-        nullable_fields = ["rerank_config", "agentic_rag_config"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "retrieval_type",
+                "top_k",
+                "threshold",
+                "rerank_config",
+                "agentic_rag_config",
+            ]
+        )
+        nullable_fields = set(["rerank_config", "agentic_rag_config"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -872,38 +919,35 @@ class UpdateKnowledgeResponseBody1(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "description",
-            "path",
-            "created_by_id",
-            "updated_by_id",
-            "type",
-            "retrieval_settings",
-        ]
-        nullable_fields = ["created_by_id", "updated_by_id"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "description",
+                "path",
+                "created_by_id",
+                "updated_by_id",
+                "type",
+                "retrieval_settings",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
