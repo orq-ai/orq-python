@@ -113,7 +113,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-16T11:29:28.506Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-17T09:50:54.473Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
