@@ -272,6 +272,7 @@ class AgentInactiveStreamingEventUsageTypedDict(TypedDict):
     completion_tokens_details: NotRequired[
         Nullable[AgentInactiveStreamingEventCompletionTokensDetailsTypedDict]
     ]
+    time_to_first_token: NotRequired[float]
 
 
 class AgentInactiveStreamingEventUsage(BaseModel):
@@ -294,6 +295,8 @@ class AgentInactiveStreamingEventUsage(BaseModel):
         AgentInactiveStreamingEventCompletionTokensDetails
     ] = UNSET
 
+    time_to_first_token: Optional[float] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -303,6 +306,7 @@ class AgentInactiveStreamingEventUsage(BaseModel):
                 "total_tokens",
                 "prompt_tokens_details",
                 "completion_tokens_details",
+                "time_to_first_token",
             ]
         )
         nullable_fields = set(["prompt_tokens_details", "completion_tokens_details"])

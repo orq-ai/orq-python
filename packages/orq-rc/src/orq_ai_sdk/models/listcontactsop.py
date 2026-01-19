@@ -208,7 +208,7 @@ class ListContactsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-19T13:14:11.941Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-19T14:53:40.441Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
