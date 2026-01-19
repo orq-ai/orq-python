@@ -100,6 +100,22 @@ class UpdateAgentResponseFormatAgentsJSONSchema(BaseModel):
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateAgentResponseFormatJSONSchemaTypedDict(TypedDict):
     r"""
@@ -228,6 +244,22 @@ class ModelConfigurationStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ModelConfigurationThinkingTypedDict = TypeAliasType(
     "ModelConfigurationThinkingTypedDict",
@@ -269,6 +301,22 @@ class UpdateAgentToolChoice2(BaseModel):
 
     type: Optional[UpdateAgentToolChoiceType] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentToolChoice1 = Literal[
@@ -474,70 +522,69 @@ class ModelConfigurationParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -559,6 +606,22 @@ class ModelConfigurationRetry(BaseModel):
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentModelConfiguration2TypedDict(TypedDict):
@@ -589,6 +652,22 @@ class UpdateAgentModelConfiguration2(BaseModel):
 
     retry: Optional[ModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters", "retry"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentModelConfigurationTypedDict = TypeAliasType(
@@ -674,6 +753,22 @@ class UpdateAgentResponseFormatAgentsRequestRequestBodyJSONSchema(BaseModel):
 
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentResponseFormatAgentsRequestJSONSchemaTypedDict(TypedDict):
@@ -807,6 +902,22 @@ class UpdateAgentFallbackModelConfigurationStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationThinkingTypedDict",
@@ -848,6 +959,22 @@ class UpdateAgentToolChoiceAgents2(BaseModel):
 
     type: Optional[UpdateAgentToolChoiceAgentsType] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentToolChoiceAgents1 = Literal[
@@ -1071,70 +1198,69 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -1156,6 +1282,22 @@ class UpdateAgentFallbackModelConfiguration2(BaseModel):
 
     parameters: Optional[UpdateAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentFallbackModelConfigurationTypedDict = TypeAliasType(
@@ -1223,6 +1365,22 @@ class AgentToolInputCRUDMCPTool(BaseModel):
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type = Literal[
     "function",
@@ -1261,6 +1419,22 @@ class AgentToolInputCRUDFunctionTool(BaseModel):
 
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools13Type = Literal[
@@ -1301,6 +1475,22 @@ class AgentToolInputCRUDCodeExecutionTool(BaseModel):
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type = Literal[
     "http",
@@ -1340,6 +1530,22 @@ class AgentToolInputCRUDHTTPTool(BaseModel):
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools11Type = Literal[
     "current_date",
@@ -1361,6 +1567,22 @@ class AgentToolInputCRUDCurrentDateTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools10Type = Literal[
@@ -1384,6 +1606,22 @@ class AgentToolInputCRUDQueryKnowledgeBaseTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools9Type = Literal[
     "retrieve_knowledge_bases",
@@ -1405,6 +1643,22 @@ class AgentToolInputCRUDRetrieveKnowledgeBasesTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools8Type = Literal[
@@ -1428,6 +1682,22 @@ class AgentToolInputCRUDDeleteMemoryDocumentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools7Type = Literal[
     "retrieve_memory_stores",
@@ -1449,6 +1719,22 @@ class AgentToolInputCRUDRetrieveMemoryStoresTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsToolsType = Literal[
@@ -1472,6 +1758,22 @@ class AgentToolInputCRUDWriteMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsType = Literal[
     "query_memory_store",
@@ -1494,6 +1796,22 @@ class AgentToolInputCRUDQueryMemoryStoreTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodyType = Literal["retrieve_agents",]
 
@@ -1513,6 +1831,22 @@ class AgentToolInputCRUDRetrieveAgentsTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDAgentsRequestType = Literal["call_sub_agent",]
@@ -1534,6 +1868,22 @@ class AgentToolInputCRUDCallSubAgentTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDAgentsType = Literal["web_scraper",]
 
@@ -1554,6 +1904,22 @@ class AgentToolInputCRUDWebScraperTool(BaseModel):
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentToolInputCRUDType = Literal["google_search",]
 
@@ -1573,6 +1939,22 @@ class AgentToolInputCRUDGoogleSearchTool(BaseModel):
 
     requires_approval: Optional[bool] = None
     r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
@@ -1647,6 +2029,22 @@ class UpdateAgentEvaluators(BaseModel):
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentsExecuteOn = Literal[
     "input",
@@ -1673,6 +2071,22 @@ class UpdateAgentGuardrails(BaseModel):
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentSettingsTypedDict(TypedDict):
@@ -1709,6 +2123,31 @@ class UpdateAgentSettings(BaseModel):
     guardrails: Optional[List[UpdateAgentGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "max_iterations",
+                "max_execution_time",
+                "tool_approval_required",
+                "tools",
+                "evaluators",
+                "guardrails",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateAgentKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
@@ -1733,6 +2172,22 @@ class UpdateAgentTeamOfAgents(BaseModel):
 
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentUpdateAgentRequestTypedDict(TypedDict):
@@ -1813,6 +2268,40 @@ class UpdateAgentUpdateAgentRequest(BaseModel):
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "key",
+                "display_name",
+                "project_id",
+                "role",
+                "description",
+                "instructions",
+                "system_prompt",
+                "model",
+                "fallback_models",
+                "settings",
+                "path",
+                "memory_stores",
+                "knowledge_bases",
+                "team_of_agents",
+                "variables",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentRequestTypedDict(TypedDict):
@@ -1933,6 +2422,32 @@ class UpdateAgentTools(BaseModel):
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "key",
+                "display_name",
+                "description",
+                "requires_approval",
+                "tool_id",
+                "conditions",
+                "timeout",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentsResponseExecuteOn = Literal[
     "input",
@@ -1960,6 +2475,22 @@ class UpdateAgentAgentsEvaluators(BaseModel):
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentAgentsResponse200ExecuteOn = Literal[
     "input",
@@ -1986,6 +2517,22 @@ class UpdateAgentAgentsGuardrails(BaseModel):
 
     sample_rate: Optional[float] = 50
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["sample_rate"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentAgentsSettingsTypedDict(TypedDict):
@@ -2021,6 +2568,31 @@ class UpdateAgentAgentsSettings(BaseModel):
 
     guardrails: Optional[List[UpdateAgentAgentsGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "max_iterations",
+                "max_execution_time",
+                "tool_approval_required",
+                "tools",
+                "evaluators",
+                "guardrails",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentVoice = Literal[
@@ -2089,6 +2661,22 @@ class UpdateAgentResponseFormatAgentsResponseJSONSchema(BaseModel):
 
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentResponseFormatAgentsResponse200JSONSchemaTypedDict(TypedDict):
@@ -2222,6 +2810,22 @@ class UpdateAgentStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentThinkingTypedDict = TypeAliasType(
     "UpdateAgentThinkingTypedDict",
@@ -2263,6 +2867,22 @@ class UpdateAgentToolChoiceAgentsResponse2(BaseModel):
 
     type: Optional[UpdateAgentToolChoiceAgentsResponseType] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentToolChoiceAgentsResponse1 = Literal[
@@ -2471,70 +3091,69 @@ class UpdateAgentParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -2556,6 +3175,22 @@ class UpdateAgentRetry(BaseModel):
 
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentFallbackModelConfigurationAgentsVoice = Literal[
@@ -2631,6 +3266,22 @@ class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema(BaseMo
 
     strict: Optional[bool] = False
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict(
@@ -2777,6 +3428,22 @@ class UpdateAgentFallbackModelConfigurationAgentsStreamOptions(BaseModel):
     include_usage: Optional[bool] = None
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["include_usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict",
@@ -2818,6 +3485,22 @@ class UpdateAgentToolChoiceAgentsResponse2002(BaseModel):
 
     type: Optional[UpdateAgentToolChoiceAgentsResponse200Type] = None
     r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentToolChoiceAgentsResponse2001 = Literal[
@@ -3058,70 +3741,69 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "response_format",
-            "reasoning_effort",
-            "verbosity",
-            "seed",
-            "stop",
-            "stream_options",
-            "thinking",
-            "temperature",
-            "top_p",
-            "top_k",
-            "tool_choice",
-            "parallel_tool_calls",
-            "modalities",
-            "guardrails",
-        ]
-        nullable_fields = [
-            "audio",
-            "frequency_penalty",
-            "max_tokens",
-            "max_completion_tokens",
-            "logprobs",
-            "top_logprobs",
-            "n",
-            "presence_penalty",
-            "seed",
-            "stop",
-            "stream_options",
-            "temperature",
-            "top_p",
-            "top_k",
-            "modalities",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "stream_options",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "audio",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "logprobs",
+                "top_logprobs",
+                "n",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "stream_options",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -3145,6 +3827,22 @@ class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
 
     parameters: Optional[UpdateAgentFallbackModelConfigurationAgentsParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateAgentAgentsFallbackModelConfigurationTypedDict = TypeAliasType(
@@ -3196,31 +3894,28 @@ class UpdateAgentModel(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["integration_id", "parameters", "retry", "fallback_models"]
-        nullable_fields = ["integration_id", "fallback_models"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["integration_id", "parameters", "retry", "fallback_models"]
+        )
+        nullable_fields = set(["integration_id", "fallback_models"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -3239,6 +3934,22 @@ class UpdateAgentAgentsTeamOfAgents(BaseModel):
     role: Optional[str] = None
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateAgentMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
@@ -3246,6 +3957,22 @@ class UpdateAgentMetricsTypedDict(TypedDict):
 
 class UpdateAgentMetrics(BaseModel):
     total_cost: Optional[float] = 0
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateAgentAgentsKnowledgeBasesTypedDict(TypedDict):
@@ -3361,41 +4088,38 @@ class UpdateAgentResponseBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "created_by_id",
-            "updated_by_id",
-            "created",
-            "updated",
-            "system_prompt",
-            "settings",
-            "version_hash",
-            "metrics",
-            "variables",
-            "knowledge_bases",
-        ]
-        nullable_fields = ["created_by_id", "updated_by_id"]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "created_by_id",
+                "updated_by_id",
+                "created",
+                "updated",
+                "system_prompt",
+                "settings",
+                "version_hash",
+                "metrics",
+                "variables",
+                "knowledge_bases",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

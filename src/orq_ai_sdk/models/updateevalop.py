@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -12,7 +12,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -49,6 +49,22 @@ class UpdateEvalGuardrailConfigEvalsRequestRequestBodyNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsRequestRequestBody4Type = Literal["boolean",]
 
@@ -68,6 +84,22 @@ class UpdateEvalGuardrailConfigEvalsRequestRequestBodyBoolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalRequestBodyEvalsRequest4GuardrailConfigTypedDict = TypeAliasType(
@@ -140,6 +172,24 @@ class RequestBodyPython(BaseModel):
 
     key: Optional[str] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["guardrail_config", "output_type", "code", "description", "key"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsRequestRequestBody32Type = Literal["number",]
 
@@ -173,6 +223,22 @@ class UpdateEvalGuardrailConfigEvalsRequestNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsRequestRequestBody3Type = Literal["boolean",]
 
@@ -192,6 +258,22 @@ class UpdateEvalGuardrailConfigEvalsRequestBoolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalRequestBodyEvalsRequestGuardrailConfigTypedDict = TypeAliasType(
@@ -280,6 +362,33 @@ class RequestBodyHTTP(BaseModel):
 
     key: Optional[str] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "guardrail_config",
+                "output_type",
+                "url",
+                "method",
+                "headers",
+                "payload",
+                "description",
+                "key",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsRequestRequestBodyType = Literal["number",]
 
@@ -313,6 +422,22 @@ class UpdateEvalGuardrailConfigEvalsNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsRequestType = Literal["boolean",]
 
@@ -332,6 +457,22 @@ class UpdateEvalGuardrailConfigEvalsBoolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalRequestBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
@@ -395,6 +536,24 @@ class RequestBodyJSON(BaseModel):
 
     key: Optional[str] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["guardrail_config", "output_type", "schema", "description", "key"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsType = Literal["number",]
 
@@ -428,6 +587,22 @@ class UpdateEvalGuardrailConfigNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigType = Literal["boolean",]
 
@@ -447,6 +622,22 @@ class UpdateEvalGuardrailConfigBoolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalRequestBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -521,6 +712,24 @@ class RequestBodyLLM(BaseModel):
 
     key: Optional[str] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["guardrail_config", "output_type", "prompt", "description", "model", "key"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalRequestBodyTypedDict = TypeAliasType(
     "UpdateEvalRequestBodyTypedDict",
@@ -558,6 +767,22 @@ class UpdateEvalRequest(BaseModel):
         Optional[UpdateEvalRequestBody],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["RequestBody"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateEvalEvalsResponseBodyData(BaseModel):
@@ -624,6 +849,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Numbe
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Type = Literal[
     "boolean",
@@ -649,6 +890,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody7Boole
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfigTypedDict = TypeAliasType(
@@ -702,13 +959,29 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody62Type = Literal[
@@ -753,6 +1026,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Numbe
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Type = Literal[
     "boolean",
@@ -778,6 +1067,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Boole
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfigTypedDict = TypeAliasType(
@@ -850,13 +1155,29 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody52Type = Literal[
@@ -901,6 +1222,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Numbe
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Type = Literal[
     "boolean",
@@ -926,6 +1263,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody5Boole
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfigTypedDict = TypeAliasType(
@@ -1499,13 +1852,29 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody42Type = Literal[
@@ -1550,6 +1919,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyNumber
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody4Type = Literal[
     "boolean",
@@ -1575,6 +1960,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyBoolea
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsResponse200GuardrailConfigTypedDict = TypeAliasType(
@@ -1628,13 +2029,29 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody32Type = Literal[
@@ -1673,6 +2090,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody3Type = Literal[
     "boolean",
@@ -1696,6 +2129,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel)
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsResponseGuardrailConfigTypedDict = TypeAliasType(
@@ -1764,13 +2213,29 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
     )
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyType = Literal[
@@ -1807,6 +2272,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONType = Literal["boolean",]
 
@@ -1826,6 +2307,22 @@ class UpdateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
@@ -1871,11 +2368,27 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
@@ -1910,6 +2423,22 @@ class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
 
     alert_on_failure: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateEvalGuardrailConfigEvalsResponseType = Literal["boolean",]
 
@@ -1929,6 +2458,22 @@ class UpdateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
     value: bool
 
     alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyGuardrailConfigTypedDict = TypeAliasType(
@@ -1977,11 +2522,27 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-13T20:28:04.210Z"
+    created: Optional[str] = "2026-01-19T14:27:12.297Z"
 
-    updated: Optional[str] = "2026-01-13T20:28:04.210Z"
+    updated: Optional[str] = "2026-01-19T14:27:12.297Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["created", "updated", "guardrail_config"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateEvalResponseBodyTypedDict = TypeAliasType(

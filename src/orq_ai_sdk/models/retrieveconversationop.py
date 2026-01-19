@@ -4,9 +4,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -69,6 +70,22 @@ class RetrieveConversationMetadata(BaseModel):
     entity_id: Annotated[Optional[str], pydantic.Field(alias="entityId")] = None
     r"""Identifier of the parent entity (agent, deployment, etc.) this conversation belongs to. Used for filtering conversations by entity."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["generatingTitle", "entityId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RetrieveConversationResponseBodyTypedDict(TypedDict):
     r"""Conversation successfully retrieved. Returns the complete conversation object with all metadata."""
@@ -112,7 +129,7 @@ class RetrieveConversationResponseBody(BaseModel):
     r"""Unix timestamp (in milliseconds) when the conversation was last updated"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kewgpxxpx5frj8rqyz9khkzc"
+        "conv_01kfbaee7wh4qcr7gr0k0h9v5r"
     )
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the conversation, prefixed with \"conv_\" """
 
@@ -124,3 +141,19 @@ class RetrieveConversationResponseBody(BaseModel):
 
     metadata: Optional[RetrieveConversationMetadata] = None
     r"""Optional metadata associated with the conversation."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "createdById", "updatedById", "metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -64,6 +64,30 @@ class AgenticChunkerStrategy(BaseModel):
     min_characters_per_chunk: Optional[int] = 24
     r"""Minimum characters allowed per chunk"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "metadata",
+                "return_type",
+                "chunk_size",
+                "candidate_size",
+                "min_characters_per_chunk",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ParseChunkingRequestChunkingReturnType = Literal[
     "chunks",
@@ -154,6 +178,33 @@ class SemanticChunkerStrategy(BaseModel):
     similarity_window: Optional[int] = 1
     r"""Window size for similarity comparison"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "metadata",
+                "return_type",
+                "chunk_size",
+                "threshold",
+                "dimensions",
+                "max_tokens",
+                "mode",
+                "similarity_window",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ParseChunkingRequestReturnType = Literal[
     "chunks",
@@ -205,6 +256,30 @@ class RecursiveChunkerStrategy(BaseModel):
 
     min_characters_per_chunk: Optional[int] = 24
     r"""Minimum characters allowed per chunk"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "metadata",
+                "return_type",
+                "chunk_size",
+                "separators",
+                "min_characters_per_chunk",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 ChunkingRequestReturnType = Literal[
@@ -258,6 +333,30 @@ class SentenceChunkerStrategy(BaseModel):
     min_sentences_per_chunk: Optional[int] = 1
     r"""Minimum number of sentences per chunk"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "metadata",
+                "return_type",
+                "chunk_size",
+                "chunk_overlap",
+                "min_sentences_per_chunk",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ReturnType = Literal[
     "chunks",
@@ -305,6 +404,24 @@ class TokenChunkerStrategy(BaseModel):
     chunk_overlap: Optional[int] = 0
     r"""Number of tokens to overlap between chunks"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["metadata", "return_type", "chunk_size", "chunk_overlap"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ParseChunkingRequestTypedDict = TypeAliasType(
     "ParseChunkingRequestTypedDict",
@@ -347,30 +464,14 @@ class ParseMetadata(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = []
-        nullable_fields = ["start_index", "end_index", "token_count"]
-        null_default_fields = []
-
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
+            if val != UNSET_SENTINEL:
                 m[k] = val
 
         return m
@@ -392,6 +493,22 @@ class Chunks(BaseModel):
     r"""The position index of this chunk in the sequence"""
 
     metadata: Optional[ParseMetadata] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ParseResponseBodyTypedDict(TypedDict):

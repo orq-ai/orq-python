@@ -4,9 +4,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import FieldMetadata, PathParamMetadata, RequestMetadata
 import pydantic
+from pydantic import model_serializer
 from typing import Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -27,6 +28,22 @@ class UpdateConversationMetadata(BaseModel):
 
     entity_id: Annotated[Optional[str], pydantic.Field(alias="entityId")] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["generatingTitle", "entityId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateConversationRequestBodyTypedDict(TypedDict):
     display_name: NotRequired[str]
@@ -41,6 +58,22 @@ class UpdateConversationRequestBody(BaseModel):
 
     metadata: Optional[UpdateConversationMetadata] = None
     r"""Optional metadata to update for the conversation."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["displayName", "metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateConversationRequestTypedDict(TypedDict):
@@ -107,6 +140,22 @@ class UpdateConversationConversationsMetadata(BaseModel):
     entity_id: Annotated[Optional[str], pydantic.Field(alias="entityId")] = None
     r"""Identifier of the parent entity (agent, deployment, etc.) this conversation belongs to. Used for filtering conversations by entity."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["generatingTitle", "entityId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateConversationResponseBodyTypedDict(TypedDict):
     r"""Conversation successfully updated. Returns the complete updated conversation object."""
@@ -150,7 +199,7 @@ class UpdateConversationResponseBody(BaseModel):
     r"""Unix timestamp (in milliseconds) when the conversation was last updated"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kewgpxxrxa12j6dtjndsj9mr"
+        "conv_01kfbaee7yxpavcax1mxw76z5w"
     )
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the conversation, prefixed with \"conv_\" """
 
@@ -162,3 +211,19 @@ class UpdateConversationResponseBody(BaseModel):
 
     metadata: Optional[UpdateConversationConversationsMetadata] = None
     r"""Optional metadata associated with the conversation."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "createdById", "updatedById", "metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

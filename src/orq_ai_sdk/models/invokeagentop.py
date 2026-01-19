@@ -6,7 +6,7 @@ from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
 from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -14,7 +14,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -81,6 +81,22 @@ class InvokeAgentA2AMessage(BaseModel):
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["messageId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class InvokeAgentContactTypedDict(TypedDict):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
@@ -120,6 +136,22 @@ class InvokeAgentContact(BaseModel):
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class InvokeAgentThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
@@ -138,6 +170,22 @@ class InvokeAgentThread(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""Optional tags to differentiate or categorize threads"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class InvokeAgentMemoryTypedDict(TypedDict):
@@ -193,6 +241,24 @@ class InvokeAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["task_id", "variables", "contact", "thread", "memory", "metadata"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class InvokeAgentRequestTypedDict(TypedDict):
     key: str
@@ -210,6 +276,22 @@ class InvokeAgentRequest(BaseModel):
         Optional[InvokeAgentRequestBody],
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["RequestBody"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 InvokeAgentKind = Literal["task",]
@@ -311,6 +393,22 @@ class TaskStatus(BaseModel):
     message: Optional[TaskStatusMessage] = None
     r"""Optional A2A message providing additional context about the current status"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["timestamp", "message"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class InvokeAgentA2ATaskResponseTypedDict(TypedDict):
     r"""Response format following the Agent-to-Agent (A2A) protocol. Returned when starting or continuing an agent task execution."""
@@ -344,3 +442,19 @@ class InvokeAgentA2ATaskResponse(BaseModel):
 
     metadata: Optional[Dict[str, Any]] = None
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["metadata"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

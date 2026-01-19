@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -12,7 +12,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import ConfigDict, Discriminator, Tag
+from pydantic import ConfigDict, Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -90,6 +90,22 @@ class UpdateToolRequestBodyCodeTool(BaseModel):
     parameters: Optional[UpdateToolRequestBodyToolsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateCodeExecutionToolTypedDict(TypedDict):
     r"""Updates an existing code execution tool configuration."""
@@ -140,6 +156,24 @@ class UpdateCodeExecutionTool(BaseModel):
 
     code_tool: Optional[UpdateToolRequestBodyCodeTool] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["path", "key", "display_name", "description", "status", "code_tool"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateToolRequestBodyToolsRequest4Status = Literal[
     "live",
@@ -163,6 +197,22 @@ class UpdateToolRequestBodyHeaders(BaseModel):
 
     encrypted: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateToolRequestBodyToolsRequest4McpType = Literal["object",]
 
@@ -180,6 +230,22 @@ class UpdateToolRequestBodyToolsSchema(BaseModel):
 
     required: Optional[List[str]] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["properties", "required"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class RequestBodyToolsTypedDict(TypedDict):
     name: str
@@ -193,9 +259,25 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KEWGPY6DJE1YPY6BW4K6TN2A"
+    id: Optional[str] = "01KFBAEEGYSBPPH6DHDXER15VP"
 
     description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolRequestBodyConnectionType = Literal[
@@ -228,6 +310,22 @@ class UpdateToolRequestBodyMcp(BaseModel):
 
     connection_type: Optional[UpdateToolRequestBodyConnectionType] = None
     r"""The connection type used by the MCP server"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["server_url", "headers", "tools", "connection_type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateMCPToolTypedDict(TypedDict):
@@ -279,6 +377,24 @@ class UpdateMCPTool(BaseModel):
 
     mcp: Optional[UpdateToolRequestBodyMcp] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["path", "key", "display_name", "description", "status", "mcp"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateToolRequestBodyToolsRequestStatus = Literal[
     "live",
@@ -310,6 +426,22 @@ class UpdateToolHeaders2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolRequestBodyToolsHeadersTypedDict = TypeAliasType(
@@ -350,6 +482,22 @@ class UpdateToolRequestBodyBlueprint(BaseModel):
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["headers", "body"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolRequestBodyToolsRequest3Type = Literal[
@@ -396,6 +544,22 @@ class UpdateToolRequestBodyArguments(BaseModel):
     default_value: Optional[UpdateToolRequestBodyDefaultValue] = None
     r"""The default value of the argument."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["send_to_model", "default_value"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolRequestBodyHTTPTypedDict(TypedDict):
     blueprint: UpdateToolRequestBodyBlueprintTypedDict
@@ -410,6 +574,22 @@ class UpdateToolRequestBodyHTTP(BaseModel):
 
     arguments: Optional[Dict[str, UpdateToolRequestBodyArguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["arguments"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateHTTPToolTypedDict(TypedDict):
@@ -460,6 +640,24 @@ class UpdateHTTPTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     http: Optional[UpdateToolRequestBodyHTTP] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["path", "key", "display_name", "description", "status", "http"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolRequestBodyToolsStatus = Literal[
@@ -535,6 +733,22 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateJSONSchemaToolTypedDict(TypedDict):
     r"""Updates an existing JSON Schema tool configuration."""
@@ -584,6 +798,24 @@ class UpdateJSONSchemaTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     json_schema: Optional[UpdateToolRequestBodyJSONSchema] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["path", "key", "display_name", "description", "status", "json_schema"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolRequestBodyStatus = Literal[
@@ -663,6 +895,22 @@ class UpdateToolRequestBodyFunction(BaseModel):
     parameters: Optional[UpdateToolRequestBodyParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "strict", "parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateFunctionToolTypedDict(TypedDict):
     r"""Updates an existing function tool configuration."""
@@ -713,6 +961,24 @@ class UpdateFunctionTool(BaseModel):
 
     function: Optional[UpdateToolRequestBodyFunction] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["path", "key", "display_name", "description", "status", "function"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateToolRequestBodyTypedDict = TypeAliasType(
     "UpdateToolRequestBodyTypedDict",
@@ -756,6 +1022,22 @@ class UpdateToolRequest(BaseModel):
         FieldMetadata(request=RequestMetadata(media_type="application/json")),
     ] = None
     r"""The tool to update"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["RequestBody"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateToolToolsResponseBodyData(BaseModel):
@@ -853,6 +1135,22 @@ class UpdateToolResponseBodyCodeTool(BaseModel):
     parameters: Optional[UpdateToolResponseBodyToolsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolResponseBodyCodeExecutionToolTypedDict(TypedDict):
     r"""Executes code snippets in a sandboxed environment, currently supporting Python."""
@@ -916,7 +1214,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEWGPY68M11JXFDPTZK8V6DE"
+        "tool_01KFBAEEGNE6QBJGY2TDF526AH"
     )
 
     display_name: Optional[str] = None
@@ -934,6 +1232,31 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "_id",
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "status",
+                "version_hash",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyToolsResponse200Status = Literal[
@@ -958,6 +1281,22 @@ class UpdateToolResponseBodyHeaders(BaseModel):
 
     encrypted: Optional[bool] = False
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 UpdateToolResponseBodyToolsResponse200ApplicationJSON4Type = Literal["object",]
 
@@ -975,6 +1314,22 @@ class UpdateToolResponseBodyToolsSchema(BaseModel):
 
     required: Optional[List[str]] = None
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["properties", "required"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolResponseBodyToolsTypedDict(TypedDict):
     name: str
@@ -990,9 +1345,25 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KEWGPY677VX0Z5773YGS84EA"
+    id: Optional[str] = "01KFBAEEGMCQYWSV1DRFW8KVYX"
 
     description: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["id", "description"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyConnectionType = Literal[
@@ -1025,6 +1396,22 @@ class UpdateToolResponseBodyMcp(BaseModel):
 
     headers: Optional[Dict[str, UpdateToolResponseBodyHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["headers"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateToolResponseBodyMCPToolTypedDict(TypedDict):
@@ -1089,7 +1476,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEWGPY66BHYD02X19H6T1P1G"
+        "tool_01KFBAEEGKJY746JEP97AFZBAF"
     )
 
     display_name: Optional[str] = None
@@ -1105,6 +1492,31 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "_id",
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "status",
+                "version_hash",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyToolsResponseStatus = Literal[
@@ -1137,6 +1549,22 @@ class UpdateToolHeadersTools2(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyToolsHeadersTypedDict = TypeAliasType(
@@ -1177,6 +1605,22 @@ class UpdateToolResponseBodyBlueprint(BaseModel):
 
     body: Optional[Dict[str, Any]] = None
     r"""The body to send with the request."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["headers", "body"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyToolsResponse200ApplicationJSON3Type = Literal[
@@ -1223,6 +1667,22 @@ class UpdateToolResponseBodyArguments(BaseModel):
     default_value: Optional[UpdateToolResponseBodyDefaultValue] = None
     r"""The default value of the argument."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["send_to_model", "default_value"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolResponseBodyHTTPTypedDict(TypedDict):
     blueprint: UpdateToolResponseBodyBlueprintTypedDict
@@ -1237,6 +1697,22 @@ class UpdateToolResponseBodyHTTP(BaseModel):
 
     arguments: Optional[Dict[str, UpdateToolResponseBodyArguments]] = None
     r"""The arguments to send with the request. The keys will be used to replace the placeholders in the `blueprint` field."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["arguments"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class UpdateToolResponseBodyHTTPToolTypedDict(TypedDict):
@@ -1301,7 +1777,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEWGPY64R1601109RMV4SGMX"
+        "tool_01KFBAEEGH6H6T7RVJNKXVWR88"
     )
 
     display_name: Optional[str] = None
@@ -1317,6 +1793,31 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "_id",
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "status",
+                "version_hash",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyToolsStatus = Literal[
@@ -1392,6 +1893,22 @@ class UpdateToolResponseBodyJSONSchema(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolResponseBodyJSONSchemaToolTypedDict(TypedDict):
     r"""A tool that enforces structured output format using JSON Schema for consistent response formatting."""
@@ -1455,7 +1972,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEWGPY62M47A2PK0TRSAMTW3"
+        "tool_01KFBAEEGGFN7DBVXEVZX0215Q"
     )
 
     display_name: Optional[str] = None
@@ -1471,6 +1988,31 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "_id",
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "status",
+                "version_hash",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyStatus = Literal[
@@ -1550,6 +2092,22 @@ class UpdateToolResponseBodyFunction(BaseModel):
     parameters: Optional[UpdateToolResponseBodyParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "strict", "parameters"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class UpdateToolResponseBodyFunctionToolTypedDict(TypedDict):
     r"""A custom function tool that allows the model to call predefined functions with structured parameters."""
@@ -1613,7 +2171,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KEWGPY6032ZGC1FPGE47WWXP"
+        "tool_01KFBAEEG687GYZW1MAYADMJ64"
     )
 
     display_name: Optional[str] = None
@@ -1629,6 +2187,31 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "_id",
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "status",
+                "version_hash",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 UpdateToolResponseBodyTypedDict = TypeAliasType(

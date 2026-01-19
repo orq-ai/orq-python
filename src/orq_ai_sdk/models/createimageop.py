@@ -80,6 +80,22 @@ class CreateImageRetry(BaseModel):
     on_codes: Optional[List[float]] = None
     r"""HTTP status codes that trigger retry logic"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class CreateImageFallbacksTypedDict(TypedDict):
     model: str
@@ -110,6 +126,22 @@ class CreateImageCache(BaseModel):
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 CreateImageLoadBalancerType = Literal["weight_based",]
 
@@ -130,6 +162,22 @@ class CreateImageLoadBalancer1(BaseModel):
 
     weight: Optional[float] = 0.5
     r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 CreateImageLoadBalancerTypedDict = CreateImageLoadBalancer1TypedDict
@@ -190,6 +238,32 @@ class CreateImageOrq(BaseModel):
 
     timeout: Optional[CreateImageTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "name",
+                "retry",
+                "fallbacks",
+                "contact",
+                "cache",
+                "load_balancer",
+                "timeout",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateImageRequestBodyTypedDict(TypedDict):
@@ -260,52 +334,51 @@ class CreateImageRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "background",
-            "moderation",
-            "n",
-            "output_compression",
-            "output_format",
-            "quality",
-            "response_format",
-            "size",
-            "style",
-            "orq",
-        ]
-        nullable_fields = [
-            "background",
-            "moderation",
-            "n",
-            "output_compression",
-            "output_format",
-            "quality",
-            "response_format",
-            "size",
-            "style",
-        ]
-        null_default_fields = []
-
+        optional_fields = set(
+            [
+                "background",
+                "moderation",
+                "n",
+                "output_compression",
+                "output_format",
+                "quality",
+                "response_format",
+                "size",
+                "style",
+                "orq",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "background",
+                "moderation",
+                "n",
+                "output_compression",
+                "output_format",
+                "quality",
+                "response_format",
+                "size",
+                "style",
+            ]
+        )
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -331,31 +404,26 @@ class CreateImageData(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = ["revised_prompt", "b64_json", "url"]
-        nullable_fields = ["revised_prompt"]
-        null_default_fields = []
-
+        optional_fields = set(["revised_prompt", "b64_json", "url"])
+        nullable_fields = set(["revised_prompt"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m
 
@@ -369,6 +437,22 @@ class InputTokensDetails(BaseModel):
     image_tokens: Optional[float] = None
 
     text_tokens: Optional[float] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["image_tokens", "text_tokens"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateImageUsageTypedDict(TypedDict):
@@ -386,6 +470,22 @@ class CreateImageUsage(BaseModel):
     output_tokens: Optional[float] = None
 
     total_tokens: Optional[float] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["input_tokens", "output_tokens", "total_tokens"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateImageResponseBodyTypedDict(TypedDict):
@@ -408,3 +508,19 @@ class CreateImageResponseBody(BaseModel):
     r"""Represents the url or the content of an image generated."""
 
     usage: Optional[CreateImageUsage] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["usage"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

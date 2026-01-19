@@ -44,6 +44,22 @@ class ChunkingConfiguration2(BaseModel):
     chunk_overlap: Optional[float] = 0
     r"""Specifies the number of characters to overlap between consecutive chunks. This overlap helps maintain semantic continuity when splitting large text elements."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["chunk_max_characters", "chunk_overlap"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 ChunkingConfigurationType = Literal["default",]
 
@@ -125,6 +141,33 @@ class ChunkingCleanupOptions(BaseModel):
     clean_whitespaces: Optional[bool] = None
     r"""Trims and normalizes excessive whitespace throughout the text."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "delete_emails",
+                "delete_credit_cards",
+                "delete_phone_numbers",
+                "clean_bullet_points",
+                "clean_numbered_list",
+                "clean_unicode",
+                "clean_dashes",
+                "clean_whitespaces",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class ChunkingOptionsTypedDict(TypedDict):
     r"""Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted."""
@@ -143,6 +186,22 @@ class ChunkingOptions(BaseModel):
 
     chunking_cleanup_options: Optional[ChunkingCleanupOptions] = None
     r"""The cleanup options applied to the datasource content. All options are enabled by default to ensure enhanced security and optimal chunk quality. Defaults to system-standard cleanup options if not specified."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["chunking_configuration", "chunking_cleanup_options"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateDatasourceRequestBodyTypedDict(TypedDict):
@@ -163,6 +222,22 @@ class CreateDatasourceRequestBody(BaseModel):
 
     chunking_options: Optional[ChunkingOptions] = None
     r"""Configuration options specifying how the datasource file is chunked. Required if `file_id` is specified. Defaults to standard chunking options if omitted."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "file_id", "chunking_options"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class CreateDatasourceRequestTypedDict(TypedDict):
@@ -239,7 +314,7 @@ class CreateDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KEWGPYAQPQYNG9KKT0JYKTBH"
+        "01KFBAEENSC4248D5892WD0418"
     )
     r"""The unique identifier of the data source"""
 
@@ -257,36 +332,27 @@ class CreateDatasourceResponseBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = [
-            "_id",
-            "description",
-            "file_id",
-            "created_by_id",
-            "update_by_id",
-        ]
-        nullable_fields = ["file_id", "created_by_id", "update_by_id"]
-        null_default_fields = []
-
+        optional_fields = set(
+            ["_id", "description", "file_id", "created_by_id", "update_by_id"]
+        )
+        nullable_fields = set(["file_id", "created_by_id", "update_by_id"])
         serialized = handler(self)
-
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k)
-            serialized.pop(k, None)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
-            optional_nullable = k in optional_fields and k in nullable_fields
-            is_set = (
-                self.__pydantic_fields_set__.intersection({n})
-                or k in null_default_fields
-            )  # pylint: disable=no-member
-
-            if val is not None and val != UNSET_SENTINEL:
-                m[k] = val
-            elif val != UNSET_SENTINEL and (
-                not k in optional_fields or (optional_nullable and is_set)
-            ):
-                m[k] = val
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
 
         return m

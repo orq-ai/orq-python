@@ -69,7 +69,7 @@ from .toolresultpart import ToolResultPart, ToolResultPartTypedDict
 from dataclasses import dataclass, field
 import httpx
 from orq_ai_sdk.models import OrqError
-from orq_ai_sdk.types import BaseModel
+from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
 from orq_ai_sdk.utils import (
     FieldMetadata,
     PathParamMetadata,
@@ -77,7 +77,7 @@ from orq_ai_sdk.utils import (
     get_discriminator,
 )
 import pydantic
-from pydantic import Discriminator, Tag
+from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -144,6 +144,22 @@ class StreamAgentA2AMessage(BaseModel):
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["messageId"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class StreamAgentContactTypedDict(TypedDict):
     r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
@@ -183,6 +199,22 @@ class StreamAgentContact(BaseModel):
     tags: Optional[List[str]] = None
     r"""A list of tags associated with the contact"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class StreamAgentThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
@@ -201,6 +233,22 @@ class StreamAgentThread(BaseModel):
 
     tags: Optional[List[str]] = None
     r"""Optional tags to differentiate or categorize threads"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class StreamAgentMemoryTypedDict(TypedDict):
@@ -260,6 +308,32 @@ class StreamAgentRequestBody(BaseModel):
 
     stream_timeout_seconds: Optional[float] = None
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "task_id",
+                "variables",
+                "contact",
+                "thread",
+                "memory",
+                "metadata",
+                "stream_timeout_seconds",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class StreamAgentRequestTypedDict(TypedDict):
