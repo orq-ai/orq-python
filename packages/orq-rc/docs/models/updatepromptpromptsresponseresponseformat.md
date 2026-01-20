@@ -11,28 +11,28 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 ## Supported Types
 
-### `models.UpdatePromptResponseFormatPrompts1`
+### `models.UpdatePromptResponseFormat1`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts1 = /* values here */
+value: models.UpdatePromptResponseFormat1 = /* values here */
 ```
 
-### `models.UpdatePromptResponseFormatPrompts2`
+### `models.UpdatePromptResponseFormat2`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts2 = /* values here */
+value: models.UpdatePromptResponseFormat2 = /* values here */
 ```
 
-### `models.UpdatePromptResponseFormatPrompts3`
+### `models.UpdatePromptResponseFormat3`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts3 = /* values here */
+value: models.UpdatePromptResponseFormat3 = /* values here */
 ```
 
-### `models.UpdatePromptResponseFormatPrompts4`
+### `models.UpdatePromptResponseFormat4`
 
 ```python
-value: models.UpdatePromptResponseFormatPrompts4 = /* values here */
+value: models.UpdatePromptResponseFormat4 = /* values here */
 ```
 
 ### `models.UpdatePromptResponseFormat5`

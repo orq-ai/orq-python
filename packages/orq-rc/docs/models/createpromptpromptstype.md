@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PROMPT` | prompt   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `FUNCTION` | function   |

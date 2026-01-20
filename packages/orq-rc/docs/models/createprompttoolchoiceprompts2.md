@@ -1,0 +1,9 @@
+# CreatePromptToolChoicePrompts2
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [Optional[models.CreatePromptToolChoicePromptsType]](../models/createprompttoolchoicepromptstype.md) | :heavy_minus_sign:                                                                                   | The type of the tool. Currently, only function is supported.                                         |
+| `function`                                                                                           | [models.CreatePromptToolChoicePromptsFunction](../models/createprompttoolchoicepromptsfunction.md)   | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

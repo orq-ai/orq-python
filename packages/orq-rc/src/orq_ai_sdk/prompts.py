@@ -572,10 +572,10 @@ class Prompts(BaseSDK):
         updated_by_id: OptionalNullable[str] = UNSET,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
-        prompt_config: Optional[
+        prompt: Optional[
             Union[
-                models_updatepromptop.PromptConfig,
-                models_updatepromptop.PromptConfigTypedDict,
+                models_updatepromptop.UpdatePromptPromptInput,
+                models_updatepromptop.UpdatePromptPromptInputTypedDict,
             ]
         ] = None,
         metadata: Optional[
@@ -585,12 +585,6 @@ class Prompts(BaseSDK):
             ]
         ] = None,
         path: Optional[str] = None,
-        prompt: Optional[
-            Union[
-                models_updatepromptop.UpdatePromptPromptInput,
-                models_updatepromptop.UpdatePromptPromptInputTypedDict,
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -607,14 +601,13 @@ class Prompts(BaseSDK):
         :param updated_by_id:
         :param display_name: The prompt’s name, meant to be displayable in the UI.
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
-        :param prompt_config: [DEPRECATED]. Please use the `prompt` property instead.
+        :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param metadata:
         :param path: Entity storage path in the format: `project/folder/subfolder/...`
 
             The first element identifies the project, followed by nested folders (auto-created as needed).
 
             With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-        :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -644,16 +637,13 @@ class Prompts(BaseSDK):
                 updated_by_id=updated_by_id,
                 display_name=display_name,
                 description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, Optional[models.PromptConfig]
+                prompt=utils.get_pydantic_model(
+                    prompt, Optional[models.UpdatePromptPromptInput]
                 ),
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdatePromptMetadata]
                 ),
                 path=path,
-                prompt=utils.get_pydantic_model(
-                    prompt, Optional[models.UpdatePromptPromptInput]
-                ),
             ),
         )
 
@@ -733,10 +723,10 @@ class Prompts(BaseSDK):
         updated_by_id: OptionalNullable[str] = UNSET,
         display_name: Optional[str] = None,
         description: OptionalNullable[str] = UNSET,
-        prompt_config: Optional[
+        prompt: Optional[
             Union[
-                models_updatepromptop.PromptConfig,
-                models_updatepromptop.PromptConfigTypedDict,
+                models_updatepromptop.UpdatePromptPromptInput,
+                models_updatepromptop.UpdatePromptPromptInputTypedDict,
             ]
         ] = None,
         metadata: Optional[
@@ -746,12 +736,6 @@ class Prompts(BaseSDK):
             ]
         ] = None,
         path: Optional[str] = None,
-        prompt: Optional[
-            Union[
-                models_updatepromptop.UpdatePromptPromptInput,
-                models_updatepromptop.UpdatePromptPromptInputTypedDict,
-            ]
-        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -768,14 +752,13 @@ class Prompts(BaseSDK):
         :param updated_by_id:
         :param display_name: The prompt’s name, meant to be displayable in the UI.
         :param description: The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose
-        :param prompt_config: [DEPRECATED]. Please use the `prompt` property instead.
+        :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param metadata:
         :param path: Entity storage path in the format: `project/folder/subfolder/...`
 
             The first element identifies the project, followed by nested folders (auto-created as needed).
 
             With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-        :param prompt: Prompt configuration with model and messages. Use this to update the prompt.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -805,16 +788,13 @@ class Prompts(BaseSDK):
                 updated_by_id=updated_by_id,
                 display_name=display_name,
                 description=description,
-                prompt_config=utils.get_pydantic_model(
-                    prompt_config, Optional[models.PromptConfig]
+                prompt=utils.get_pydantic_model(
+                    prompt, Optional[models.UpdatePromptPromptInput]
                 ),
                 metadata=utils.get_pydantic_model(
                     metadata, Optional[models.UpdatePromptMetadata]
                 ),
                 path=path,
-                prompt=utils.get_pydantic_model(
-                    prompt, Optional[models.UpdatePromptPromptInput]
-                ),
             ),
         )
 
@@ -926,7 +906,7 @@ class Prompts(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -952,12 +932,18 @@ class Prompts(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            error_status_codes=["404", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeletePromptResponseBodyData, http_res
+            )
+            raise models.DeletePromptResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -1011,7 +997,7 @@ class Prompts(BaseSDK):
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
-            accept_header_value="*/*",
+            accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             allow_empty_value=None,
@@ -1037,12 +1023,18 @@ class Prompts(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["4XX", "5XX"],
+            error_status_codes=["404", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(
+                models.DeletePromptResponseBodyData, http_res
+            )
+            raise models.DeletePromptResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

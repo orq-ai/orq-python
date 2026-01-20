@@ -58,7 +58,7 @@ DeploymentInvokeObject = Literal[
 r"""Indicates the type of model used to generate the response"""
 
 
-DeploymentInvokeProvider = Literal[
+Provider = Literal[
     "openai",
     "groq",
     "cohere",
@@ -588,7 +588,7 @@ class DeploymentInvokeResponseBodyTypedDict(TypedDict):
     r"""Indicates the type of model used to generate the response"""
     model: str
     r"""The model used to generate the response"""
-    provider: DeploymentInvokeProvider
+    provider: Provider
     r"""The provider used to generate the response"""
     is_final: bool
     r"""Indicates if the response is the final response"""
@@ -623,7 +623,7 @@ class DeploymentInvokeResponseBody(BaseModel):
     model: str
     r"""The model used to generate the response"""
 
-    provider: DeploymentInvokeProvider
+    provider: Provider
     r"""The provider used to generate the response"""
 
     is_final: bool

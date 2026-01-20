@@ -9,21 +9,21 @@
 value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.ImageContentPartSchema`
+### `models.RefusalPartSchema`
 
 ```python
-value: models.ImageContentPartSchema = /* values here */
+value: models.RefusalPartSchema = /* values here */
 ```
 
-### `models.AudioContentPartSchema`
+### `models.ReasoningPartSchema`
 
 ```python
-value: models.AudioContentPartSchema = /* values here */
+value: models.ReasoningPartSchema = /* values here */
 ```
 
-### `models.UpdatePrompt24`
+### `models.RedactedReasoningPartSchema`
 
 ```python
-value: models.UpdatePrompt24 = /* values here */
+value: models.RedactedReasoningPartSchema = /* values here */
 ```
 

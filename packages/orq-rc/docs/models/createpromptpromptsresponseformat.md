@@ -5,21 +5,21 @@ An object specifying the format that the model must output
 
 ## Supported Types
 
-### `models.CreatePromptResponseFormatText`
+### `models.CreatePromptResponseFormatPromptsText`
 
 ```python
-value: models.CreatePromptResponseFormatText = /* values here */
+value: models.CreatePromptResponseFormatPromptsText = /* values here */
 ```
 
-### `models.CreatePromptResponseFormatJSONObject`
+### `models.CreatePromptResponseFormatPromptsJSONObject`
 
 ```python
-value: models.CreatePromptResponseFormatJSONObject = /* values here */
+value: models.CreatePromptResponseFormatPromptsJSONObject = /* values here */
 ```
 
-### `models.CreatePromptResponseFormatPromptsJSONSchema`
+### `models.CreatePromptResponseFormatPromptsResponse200JSONSchema`
 
 ```python
-value: models.CreatePromptResponseFormatPromptsJSONSchema = /* values here */
+value: models.CreatePromptResponseFormatPromptsResponse200JSONSchema = /* values here */
 ```
 

@@ -1,0 +1,13 @@
+# UpdatePromptResponseFormatPromptsResponse200JSONSchema
+
+
+
+JSON Schema response format. Used to generate structured JSON responses
+
+
+## Fields
+
+| Field                                                                                                                                                  | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                                                 | [models.UpdatePromptResponseFormatPromptsResponse200ApplicationJSONType](../models/updatepromptresponseformatpromptsresponse200applicationjsontype.md) | :heavy_check_mark:                                                                                                                                     | N/A                                                                                                                                                    |
+| `json_schema`                                                                                                                                          | [models.UpdatePromptResponseFormatPromptsResponseJSONSchema](../models/updatepromptresponseformatpromptsresponsejsonschema.md)                         | :heavy_check_mark:                                                                                                                                     | N/A                                                                                                                                                    |

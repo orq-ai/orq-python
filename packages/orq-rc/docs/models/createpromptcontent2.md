@@ -3,21 +3,27 @@
 
 ## Supported Types
 
-### `models.CreatePrompt21`
+### `models.TextContentPartSchema`
 
 ```python
-value: models.CreatePrompt21 = /* values here */
+value: models.TextContentPartSchema = /* values here */
 ```
 
-### `models.CreatePrompt22`
+### `models.ImageContentPartSchema`
 
 ```python
-value: models.CreatePrompt22 = /* values here */
+value: models.ImageContentPartSchema = /* values here */
 ```
 
-### `models.Two3`
+### `models.AudioContentPartSchema`
 
 ```python
-value: models.Two3 = /* values here */
+value: models.AudioContentPartSchema = /* values here */
+```
+
+### `models.CreatePrompt24`
+
+```python
+value: models.CreatePrompt24 = /* values here */
 ```
 

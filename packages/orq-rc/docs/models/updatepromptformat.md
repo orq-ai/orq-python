@@ -1,13 +1,14 @@
 # UpdatePromptFormat
 
-Only supported on `image` models.
+Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16.
 
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `URL`         | url           |
-| `B64_JSON`    | b64_json      |
-| `TEXT`        | text          |
-| `JSON_OBJECT` | json_object   |
+| Name    | Value   |
+| ------- | ------- |
+| `WAV`   | wav     |
+| `MP3`   | mp3     |
+| `FLAC`  | flac    |
+| `OPUS`  | opus    |
+| `PCM16` | pcm16   |

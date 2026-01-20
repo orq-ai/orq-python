@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### `models.CreatePrompt2Prompts1`
+### `models.CreatePrompt21`
 
 ```python
-value: models.CreatePrompt2Prompts1 = /* values here */
+value: models.CreatePrompt21 = /* values here */
 ```
 
-### `models.CreatePrompt2Prompts2`
+### `models.CreatePrompt22`
 
 ```python
-value: models.CreatePrompt2Prompts2 = /* values here */
+value: models.CreatePrompt22 = /* values here */
 ```
 
 ### `models.CreatePrompt23`
