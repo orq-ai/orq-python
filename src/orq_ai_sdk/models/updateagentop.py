@@ -1265,17 +1265,54 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class UpdateAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class UpdateAgentFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[UpdateAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class UpdateAgentFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1283,9 +1320,12 @@ class UpdateAgentFallbackModelConfiguration2(BaseModel):
     parameters: Optional[UpdateAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    retry: Optional[UpdateAgentFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["parameters"])
+        optional_fields = set(["parameters", "retry"])
         serialized = handler(self)
         m = {}
 
@@ -1322,7 +1362,7 @@ UpdateAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = Literal[
     "mcp",
 ]
 r"""MCP tool type"""
@@ -1334,7 +1374,7 @@ class AgentToolInputCRUDMCPToolTypedDict(TypedDict):
     tool_id: str
     r"""The ID of the specific nested tool within the MCP server"""
     type: NotRequired[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ]
     r"""MCP tool type"""
     key: NotRequired[str]
@@ -1352,7 +1392,7 @@ class AgentToolInputCRUDMCPTool(BaseModel):
     r"""The ID of the specific nested tool within the MCP server"""
 
     type: Optional[
-        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type
     ] = "mcp"
     r"""MCP tool type"""
 
@@ -1361,6 +1401,61 @@ class AgentToolInputCRUDMCPTool(BaseModel):
 
     id: Optional[str] = None
     r"""The ID of the parent MCP tool"""
+
+    requires_approval: Optional[bool] = False
+    r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type", "key", "id", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "json_schema",
+]
+r"""JSON Schema tool type"""
+
+
+class AgentToolInputCRUDJSONSchemaToolTypedDict(TypedDict):
+    r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
+
+    type: NotRequired[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ]
+    r"""JSON Schema tool type"""
+    key: NotRequired[str]
+    r"""The key of the pre-created JSON Schema tool"""
+    id: NotRequired[str]
+    r"""The ID of the pre-created JSON Schema tool"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class AgentToolInputCRUDJSONSchemaTool(BaseModel):
+    r"""Enforces structured output format using JSON Schema. Must reference a pre-created JSON Schema tool by key or id."""
+
+    type: Optional[
+        UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools15Type
+    ] = "json_schema"
+    r"""JSON Schema tool type"""
+
+    key: Optional[str] = None
+    r"""The key of the pre-created JSON Schema tool"""
+
+    id: Optional[str] = None
+    r"""The ID of the pre-created JSON Schema tool"""
 
     requires_approval: Optional[bool] = False
     r"""Whether this tool requires approval before execution"""
@@ -1974,10 +2069,11 @@ UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
         AgentToolInputCRUDHTTPToolTypedDict,
         AgentToolInputCRUDCodeExecutionToolTypedDict,
         AgentToolInputCRUDFunctionToolTypedDict,
+        AgentToolInputCRUDJSONSchemaToolTypedDict,
         AgentToolInputCRUDMCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
 
 
 UpdateAgentAgentToolInputCRUD = TypeAliasType(
@@ -1997,10 +2093,11 @@ UpdateAgentAgentToolInputCRUD = TypeAliasType(
         AgentToolInputCRUDHTTPTool,
         AgentToolInputCRUDCodeExecutionTool,
         AgentToolInputCRUDFunctionTool,
+        AgentToolInputCRUDJSONSchemaTool,
         AgentToolInputCRUDMCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
 
 
 UpdateAgentExecuteOn = Literal[
@@ -3808,8 +3905,43 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
         return m
 
 
+class UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class UpdateAgentFallbackModelConfigurationAgents2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -3817,10 +3949,12 @@ class UpdateAgentFallbackModelConfigurationAgents2TypedDict(TypedDict):
         UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict
     ]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -3828,9 +3962,12 @@ class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
     parameters: Optional[UpdateAgentFallbackModelConfigurationAgentsParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    retry: Optional[UpdateAgentFallbackModelConfigurationAgentsRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["parameters"])
+        optional_fields = set(["parameters", "retry"])
         serialized = handler(self)
         m = {}
 
@@ -3985,6 +4122,13 @@ class UpdateAgentAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+UpdateAgentSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Agent configuration successfully updated. Returns the complete updated agent manifest reflecting all changes made."""
 
@@ -4023,6 +4167,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[UpdateAgentSource]
 
 
 class UpdateAgentResponseBody(BaseModel):
@@ -4086,6 +4231,8 @@ class UpdateAgentResponseBody(BaseModel):
     knowledge_bases: Optional[List[UpdateAgentAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[UpdateAgentSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -4100,6 +4247,7 @@ class UpdateAgentResponseBody(BaseModel):
                 "metrics",
                 "variables",
                 "knowledge_bases",
+                "source",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])

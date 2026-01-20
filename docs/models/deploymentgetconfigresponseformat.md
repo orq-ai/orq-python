@@ -11,39 +11,39 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 
 ## Supported Types
 
-### `models.DeploymentGetConfigResponseFormat1`
+### `models.ResponseFormat1`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat1 = /* values here */
+value: models.ResponseFormat1 = /* values here */
 ```
 
-### `models.DeploymentGetConfigResponseFormat2`
+### `models.ResponseFormat2`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat2 = /* values here */
+value: models.ResponseFormat2 = /* values here */
 ```
 
-### `models.DeploymentGetConfigResponseFormat3`
+### `models.ResponseFormat3`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat3 = /* values here */
+value: models.ResponseFormat3 = /* values here */
 ```
 
-### `models.DeploymentGetConfigResponseFormat4`
+### `models.ResponseFormat4`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat4 = /* values here */
+value: models.ResponseFormat4 = /* values here */
 ```
 
-### `models.DeploymentGetConfigResponseFormat5`
+### `models.ResponseFormat5`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat5 = /* values here */
+value: models.ResponseFormat5 = /* values here */
 ```
 
-### `models.DeploymentGetConfigResponseFormat6`
+### `models.ResponseFormat6`
 
 ```python
-value: models.DeploymentGetConfigResponseFormat6 = /* values here */
+value: models.ResponseFormat6 = /* values here */
 ```
 

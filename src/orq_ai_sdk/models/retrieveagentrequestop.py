@@ -1515,8 +1515,43 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class RetrieveAgentRequestFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class RetrieveAgentRequestFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class RetrieveAgentRequestFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1524,10 +1559,12 @@ class RetrieveAgentRequestFallbackModelConfiguration2TypedDict(TypedDict):
         RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict
     ]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[RetrieveAgentRequestFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class RetrieveAgentRequestFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1537,9 +1574,12 @@ class RetrieveAgentRequestFallbackModelConfiguration2(BaseModel):
     )
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    retry: Optional[RetrieveAgentRequestFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["parameters"])
+        optional_fields = set(["parameters", "retry"])
         serialized = handler(self)
         m = {}
 
@@ -1694,6 +1734,13 @@ class RetrieveAgentRequestKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+RetrieveAgentRequestSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Agent successfully retrieved. Returns the complete agent manifest with all configuration details, including models, tools, knowledge bases, and execution settings."""
 
@@ -1732,6 +1779,7 @@ class RetrieveAgentRequestResponseBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[RetrieveAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[RetrieveAgentRequestSource]
 
 
 class RetrieveAgentRequestResponseBody(BaseModel):
@@ -1795,6 +1843,8 @@ class RetrieveAgentRequestResponseBody(BaseModel):
     knowledge_bases: Optional[List[RetrieveAgentRequestKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[RetrieveAgentRequestSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1809,6 +1859,7 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                 "metrics",
                 "variables",
                 "knowledge_bases",
+                "source",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])

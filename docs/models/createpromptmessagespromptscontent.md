@@ -11,9 +11,9 @@ The contents of the user message.
 value: str = /* values here */
 ```
 
-### `List[models.CreatePromptContentPrompts2]`
+### `List[models.CreatePromptContent2]`
 
 ```python
-value: List[models.CreatePromptContentPrompts2] = /* values here */
+value: List[models.CreatePromptContent2] = /* values here */
 ```
 

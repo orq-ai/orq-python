@@ -1,7 +1,6 @@
-
 [project]
 name = "orq-ai-sdk"
-version = "4.1.14"
+version = "4.1.15"
 description = "Python Client SDK for the Orq API."
 authors = [{ name = "Orq" },]
 readme = "README-PYPI.md"
@@ -12,33 +11,29 @@ dependencies = [
     "pydantic >=2.11.2",
     "requests ==2.32.4",
 ]
+urls.repository = "https://github.com/orq-ai/orq-python.git"
 
-[tool.poetry]
-repository = "https://github.com/orq-ai/orq-python.git"
-packages = [
-    { include = "orq_ai_sdk", from = "src" }
+[dependency-groups]
+dev = [
+    "mypy ==1.15.0",
+    "openai-agents ==0.4.0",
+    "opentelemetry-api (>=1.20.0,<2.0.0)",
+    "opentelemetry-instrumentation ==0.59b0",
+    "opentelemetry-sdk (>=1.20.0,<2.0.0)",
+    "pylint ==3.2.3",
+    "pyright ==1.1.398",
+    "types-requests (>=2.32.4,<3.0.0)",
 ]
-include = ["py.typed", "src/orq_ai_sdk/py.typed"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.package-data]
-"*" = ["py.typed", "src/orq_ai_sdk/py.typed"]
-
-[virtualenvs]
-in-project = true
-
-[tool.poetry.group.dev.dependencies]
-mypy = "==1.15.0"
-openai-agents = "==0.4.0"
-opentelemetry-api = "^1.20.0"
-opentelemetry-instrumentation = "==0.59b0"
-opentelemetry-sdk = "^1.20.0"
-pylint = "==3.2.3"
-pyright = "==1.1.398"
-types-requests = "^2.32.4.20250809"
+"*" = ["py.typed"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"

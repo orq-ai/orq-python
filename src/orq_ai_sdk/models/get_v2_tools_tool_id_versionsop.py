@@ -91,7 +91,6 @@ class GetV2ToolsToolIDVersionsDataTypedDict(TypedDict):
     id: str
     created_at: str
     updated_at: str
-    updated_by_id: str
     version: str
     checksum: str
     entity_type: str
@@ -99,6 +98,7 @@ class GetV2ToolsToolIDVersionsDataTypedDict(TypedDict):
     data: Dict[str, Any]
     workspace_id: str
     created_by_id: NotRequired[str]
+    updated_by_id: NotRequired[str]
     description: NotRequired[str]
 
 
@@ -108,8 +108,6 @@ class GetV2ToolsToolIDVersionsData(BaseModel):
     created_at: str
 
     updated_at: str
-
-    updated_by_id: str
 
     version: str
 
@@ -125,11 +123,13 @@ class GetV2ToolsToolIDVersionsData(BaseModel):
 
     created_by_id: Optional[str] = None
 
+    updated_by_id: Optional[str] = None
+
     description: Optional[str] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["created_by_id", "description"])
+        optional_fields = set(["created_by_id", "updated_by_id", "description"])
         serialized = handler(self)
         m = {}
 

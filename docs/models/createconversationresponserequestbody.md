@@ -1,0 +1,11 @@
+# CreateConversationResponseRequestBody
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `message`                                                                          | [models.UserMessageRequest](../models/usermessagerequest.md)                       | :heavy_check_mark:                                                                 | The user message to send to the model                                              |
+| `model`                                                                            | *str*                                                                              | :heavy_check_mark:                                                                 | The model to use for generation in format provider/model_id (e.g., openai/gpt-4o). |
+| `task_id`                                                                          | *Optional[str]*                                                                    | :heavy_minus_sign:                                                                 | Task ID for continuing a previous conversation turn                                |
+| `stream`                                                                           | *Optional[bool]*                                                                   | :heavy_minus_sign:                                                                 | Whether to stream the response (default: true)                                     |

@@ -9,6 +9,12 @@
 value: models.TextPart = /* values here */
 ```
 
+### `models.ErrorPart`
+
+```python
+value: models.ErrorPart = /* values here */
+```
+
 ### `models.DataPart`
 
 ```python

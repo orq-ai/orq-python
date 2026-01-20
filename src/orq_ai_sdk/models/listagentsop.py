@@ -1490,17 +1490,54 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class ListAgentsFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class ListAgentsFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class ListAgentsFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[ListAgentsFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[ListAgentsFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class ListAgentsFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1508,9 +1545,12 @@ class ListAgentsFallbackModelConfiguration2(BaseModel):
     parameters: Optional[ListAgentsFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    retry: Optional[ListAgentsFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["parameters"])
+        optional_fields = set(["parameters", "retry"])
         serialized = handler(self)
         m = {}
 
@@ -1665,6 +1705,13 @@ class ListAgentsKnowledgeBases(BaseModel):
     r"""Unique identifier of the knowledge base to search"""
 
 
+ListAgentsSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
@@ -1699,6 +1746,7 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
+    source: NotRequired[ListAgentsSource]
 
 
 class ListAgentsData(BaseModel):
@@ -1756,6 +1804,8 @@ class ListAgentsData(BaseModel):
     knowledge_bases: Optional[List[ListAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
+    source: Optional[ListAgentsSource] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1770,6 +1820,7 @@ class ListAgentsData(BaseModel):
                 "metrics",
                 "variables",
                 "knowledge_bases",
+                "source",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])

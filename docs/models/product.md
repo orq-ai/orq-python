@@ -23,3 +23,4 @@ Orquesta product
 | `GENERIC`         | generic           |
 | `EVALUATORS`      | evaluators        |
 | `OTEL`            | otel              |
+| `AI_CHAT`         | ai-chat           |

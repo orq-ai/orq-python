@@ -1390,7 +1390,7 @@ CreateDatasetItemEvaluationsEvaluationType = Literal["human_review",]
 r"""The type of evaluation"""
 
 
-CreateDatasetItemEvaluationsSource = Literal[
+CreateDatasetItemEvaluationsDatasetsSource = Literal[
     "orq",
     "external",
 ]
@@ -1410,7 +1410,7 @@ class Evaluations3TypedDict(TypedDict):
     r"""The unique identifier of the user who reviewed the item"""
     type: CreateDatasetItemEvaluationsDatasetsType
     values: List[str]
-    source: NotRequired[CreateDatasetItemEvaluationsSource]
+    source: NotRequired[CreateDatasetItemEvaluationsDatasetsSource]
     reviewed_at: NotRequired[datetime]
     r"""The date and time the item was reviewed"""
 
@@ -1432,9 +1432,9 @@ class Evaluations3(BaseModel):
 
     values: List[str]
 
-    source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
+    source: Optional[CreateDatasetItemEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-19T14:27:22.538Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-20T04:24:15.301Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1458,7 +1458,7 @@ EvaluationsEvaluationType = Literal["human_review",]
 r"""The type of evaluation"""
 
 
-EvaluationsSource = Literal[
+CreateDatasetItemEvaluationsSource = Literal[
     "orq",
     "external",
 ]
@@ -1478,7 +1478,7 @@ class Evaluations2TypedDict(TypedDict):
     r"""The unique identifier of the user who reviewed the item"""
     type: CreateDatasetItemEvaluationsType
     value: float
-    source: NotRequired[EvaluationsSource]
+    source: NotRequired[CreateDatasetItemEvaluationsSource]
     reviewed_at: NotRequired[datetime]
     r"""The date and time the item was reviewed"""
 
@@ -1500,9 +1500,9 @@ class Evaluations2(BaseModel):
 
     value: float
 
-    source: Optional[EvaluationsSource] = "orq"
+    source: Optional[CreateDatasetItemEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-19T14:27:22.537Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-20T04:24:15.300Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1526,7 +1526,7 @@ EvaluationType = Literal["human_review",]
 r"""The type of evaluation"""
 
 
-Source = Literal[
+EvaluationsSource = Literal[
     "orq",
     "external",
 ]
@@ -1546,7 +1546,7 @@ class Evaluations1TypedDict(TypedDict):
     r"""The unique identifier of the user who reviewed the item"""
     type: EvaluationsType
     value: str
-    source: NotRequired[Source]
+    source: NotRequired[EvaluationsSource]
     reviewed_at: NotRequired[datetime]
     r"""The date and time the item was reviewed"""
 
@@ -1568,9 +1568,9 @@ class Evaluations1(BaseModel):
 
     value: str
 
-    source: Optional[Source] = "orq"
+    source: Optional[EvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-01-19T14:27:22.537Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-01-20T04:24:15.299Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1665,7 +1665,7 @@ class CreateDatasetItemResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-19T14:27:09.825Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-20T04:24:01.381Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

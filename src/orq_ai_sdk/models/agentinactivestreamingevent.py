@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
@@ -36,6 +37,7 @@ AgentInactiveStreamingEventPartsTypedDict = TypeAliasType(
     "AgentInactiveStreamingEventPartsTypedDict",
     Union[
         TextPartTypedDict,
+        ErrorPartTypedDict,
         DataPartTypedDict,
         FilePartTypedDict,
         ToolResultPartTypedDict,
@@ -47,6 +49,7 @@ AgentInactiveStreamingEventPartsTypedDict = TypeAliasType(
 AgentInactiveStreamingEventParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
+        Annotated[ErrorPart, Tag("error")],
         Annotated[DataPart, Tag("data")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolCallPart, Tag("tool_call")],
@@ -269,6 +272,7 @@ class AgentInactiveStreamingEventUsageTypedDict(TypedDict):
     completion_tokens_details: NotRequired[
         Nullable[AgentInactiveStreamingEventCompletionTokensDetailsTypedDict]
     ]
+    time_to_first_token: NotRequired[float]
 
 
 class AgentInactiveStreamingEventUsage(BaseModel):
@@ -291,6 +295,8 @@ class AgentInactiveStreamingEventUsage(BaseModel):
         AgentInactiveStreamingEventCompletionTokensDetails
     ] = UNSET
 
+    time_to_first_token: Optional[float] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -300,6 +306,7 @@ class AgentInactiveStreamingEventUsage(BaseModel):
                 "total_tokens",
                 "prompt_tokens_details",
                 "completion_tokens_details",
+                "time_to_first_token",
             ]
         )
         nullable_fields = set(["prompt_tokens_details", "completion_tokens_details"])

@@ -23,3 +23,9 @@ value: models.FilePart = /* values here */
 value: models.ToolResultPart = /* values here */
 ```
 
+### `models.ErrorPart`
+
+```python
+value: models.ErrorPart = /* values here */
+```
+

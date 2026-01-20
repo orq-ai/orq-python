@@ -1,6 +1,6 @@
 # StreamRunAgentFallbackModelConfiguration2
 
-Fallback model configuration with optional parameters.
+Fallback model configuration with optional parameters and retry settings.
 
 
 ## Fields
@@ -9,3 +9,4 @@ Fallback model configuration with optional parameters.
 | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                                                   | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | A fallback model ID string. Must support tool calling.                                                                                 |
 | `parameters`                                                                                                                           | [Optional[models.StreamRunAgentFallbackModelConfigurationParameters]](../models/streamrunagentfallbackmodelconfigurationparameters.md) | :heavy_minus_sign:                                                                                                                     | Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used.                |
+| `retry`                                                                                                                                | [Optional[models.StreamRunAgentFallbackModelConfigurationRetry]](../models/streamrunagentfallbackmodelconfigurationretry.md)           | :heavy_minus_sign:                                                                                                                     | Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries.          |

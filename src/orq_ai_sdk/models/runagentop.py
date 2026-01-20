@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigdisabledschema import (
@@ -25,7 +26,13 @@ from orq_ai_sdk.utils import get_discriminator
 import pydantic
 from pydantic import ConfigDict, Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
 
 
 RunAgentModelConfigurationVoice = Literal[
@@ -1260,17 +1267,54 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
+class RunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class RunAgentFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class RunAgentFallbackModelConfiguration2TypedDict(TypedDict):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[RunAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[RunAgentFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
 class RunAgentFallbackModelConfiguration2(BaseModel):
-    r"""Fallback model configuration with optional parameters."""
+    r"""Fallback model configuration with optional parameters and retry settings."""
 
     id: str
     r"""A fallback model ID string. Must support tool calling."""
@@ -1278,9 +1322,12 @@ class RunAgentFallbackModelConfiguration2(BaseModel):
     parameters: Optional[RunAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    retry: Optional[RunAgentFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["parameters"])
+        optional_fields = set(["parameters", "retry"])
         serialized = handler(self)
         m = {}
 
@@ -1331,7 +1378,12 @@ r"""Message role (user or tool for continuing executions)"""
 
 RunAgentPublicMessagePartTypedDict = TypeAliasType(
     "RunAgentPublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+    Union[
+        TextPartTypedDict,
+        FilePartTypedDict,
+        ErrorPartTypedDict,
+        ToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -1341,6 +1393,7 @@ RunAgentPublicMessagePart = Annotated[
         Annotated[TextPart, Tag("text")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolResultPart, Tag("tool_result")],
+        Annotated[ErrorPart, Tag("error")],
     ],
     Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
 ]
@@ -1387,8 +1440,8 @@ class RunAgentA2AMessage(BaseModel):
         return m
 
 
-class RunAgentContactTypedDict(TypedDict):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+class RunAgentIdentityTypedDict(TypedDict):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -1404,8 +1457,69 @@ class RunAgentContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
+class RunAgentIdentity(BaseModel):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class RunAgentContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class RunAgentContact(BaseModel):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -1532,7 +1646,7 @@ class RunAgentTeamOfAgents(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal["mcp",]
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
 
 
 class AgentToolInputRunHeadersTypedDict(TypedDict):
@@ -1562,19 +1676,19 @@ class AgentToolInputRunHeaders(BaseModel):
         return m
 
 
-RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType = Literal[
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType = Literal[
     "object",
 ]
 
 
-class SchemaTypedDict(TypedDict):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+class AgentToolInputRunSchemaTypedDict(TypedDict):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
     properties: NotRequired[Dict[str, Any]]
     required: NotRequired[List[str]]
 
 
-class Schema(BaseModel):
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15McpType
+class AgentToolInputRunSchema(BaseModel):
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16McpType
 
     properties: Optional[Dict[str, Any]] = None
 
@@ -1599,7 +1713,7 @@ class Schema(BaseModel):
 
 class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
     name: str
-    schema_: SchemaTypedDict
+    schema_: AgentToolInputRunSchemaTypedDict
     id: NotRequired[str]
     description: NotRequired[str]
 
@@ -1607,9 +1721,9 @@ class RunAgentAgentToolInputRunToolsTypedDict(TypedDict):
 class RunAgentAgentToolInputRunTools(BaseModel):
     name: str
 
-    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+    schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KFBAEE3XH5A45WYBW1VKKH5X"
+    id: Optional[str] = "01KFCTASKM73VPRE5RPZC0YZ5H"
 
     description: Optional[str] = None
 
@@ -1681,7 +1795,7 @@ class Mcp(BaseModel):
 class MCPToolRunTypedDict(TypedDict):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
     description: str
@@ -1695,7 +1809,7 @@ class MCPToolRunTypedDict(TypedDict):
 class MCPToolRun(BaseModel):
     r"""MCP tool with inline definition for on-the-fly creation in run endpoint"""
 
-    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type
 
     key: str
     r"""Unique key of the tool as it will be displayed in the UI"""
@@ -1704,6 +1818,139 @@ class MCPToolRun(BaseModel):
     r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
 
     mcp: Mcp
+
+    id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
+
+    display_name: Optional[str] = None
+
+    requires_approval: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["_id", "display_name", "requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type = Literal[
+    "json_schema",
+]
+
+
+class SchemaTypedDict(TypedDict):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    type: str
+    r"""The JSON Schema type"""
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+    required: List[str]
+    r"""Array of required property names"""
+
+
+class Schema(BaseModel):
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    model_config = ConfigDict(
+        populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
+    )
+    __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
+
+    type: str
+    r"""The JSON Schema type"""
+
+    properties: Dict[str, Any]
+    r"""The properties of the JSON Schema object"""
+
+    required: List[str]
+    r"""Array of required property names"""
+
+    @property
+    def additional_properties(self):
+        return self.__pydantic_extra__
+
+    @additional_properties.setter
+    def additional_properties(self, value):
+        self.__pydantic_extra__ = value  # pyright: ignore[reportIncompatibleVariableOverride]
+
+
+class AgentToolInputRunJSONSchemaTypedDict(TypedDict):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: str
+    r"""A description of what the response format is for. This will be shown to the user."""
+    schema_: SchemaTypedDict
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
+
+
+class AgentToolInputRunJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: str
+    r"""A description of what the response format is for. This will be shown to the user."""
+
+    schema_: Annotated[Schema, pydantic.Field(alias="schema")]
+    r"""The schema for the response format, described as a JSON Schema object. See the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
+
+    strict: Optional[bool] = None
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`. Only compatible with `OpenAI` models."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class JSONSchemaToolRunTypedDict(TypedDict):
+    r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+    json_schema: AgentToolInputRunJSONSchemaTypedDict
+    id: NotRequired[str]
+    display_name: NotRequired[str]
+    requires_approval: NotRequired[bool]
+
+
+class JSONSchemaToolRun(BaseModel):
+    r"""JSON Schema tool with inline definition for on-the-fly creation in run endpoint"""
+
+    type: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools15Type
+
+    key: str
+    r"""Unique key of the tool as it will be displayed in the UI"""
+
+    description: str
+    r"""A description of the tool, used by the model to choose when and how to call the tool. We do recommend using the `description` field as accurate as possible to give enough context to the model to make the right decision."""
+
+    json_schema: AgentToolInputRunJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = None
 
@@ -2653,10 +2900,11 @@ AgentToolInputRunTypedDict = TypeAliasType(
         HTTPToolRunTypedDict,
         CodeToolRunTypedDict,
         FunctionToolRunTypedDict,
+        JSONSchemaToolRunTypedDict,
         MCPToolRunTypedDict,
     ],
 )
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
 
 
 AgentToolInputRun = Annotated[
@@ -2681,11 +2929,12 @@ AgentToolInputRun = Annotated[
         Annotated[HTTPToolRun, Tag("http")],
         Annotated[CodeToolRun, Tag("code")],
         Annotated[FunctionToolRun, Tag("function")],
+        Annotated[JSONSchemaToolRun, Tag("json_schema")],
         Annotated[MCPToolRun, Tag("mcp")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
-r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, MCP) support full inline definitions for on-the-fly creation."""
+r"""Tool configuration for agent run operations. Built-in tools only require a type and requires_approval, while custom tools (HTTP, Code, Function, JSON Schema, MCP) support full inline definitions for on-the-fly creation."""
 
 
 RunAgentToolApprovalRequired = Literal[
@@ -2867,8 +3116,10 @@ class RunAgentRequestBodyTypedDict(TypedDict):
     r"""Optional array of fallback models used when the primary model fails. Fallbacks are attempted in order. All models must support tool calling."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
+    identity: NotRequired[RunAgentIdentityTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[RunAgentContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[RunAgentThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[RunAgentMemoryTypedDict]
@@ -2922,8 +3173,16 @@ class RunAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[RunAgentContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[RunAgentIdentity] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Annotated[
+        Optional[RunAgentContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     thread: Optional[RunAgentThread] = None
     r"""Thread information to group related requests"""
@@ -2956,6 +3215,7 @@ class RunAgentRequestBody(BaseModel):
                 "task_id",
                 "fallback_models",
                 "variables",
+                "identity",
                 "contact",
                 "thread",
                 "memory",
@@ -3014,6 +3274,7 @@ RunAgentPartsTypedDict = TypeAliasType(
     "RunAgentPartsTypedDict",
     Union[
         TextPartTypedDict,
+        ErrorPartTypedDict,
         DataPartTypedDict,
         FilePartTypedDict,
         ToolResultPartTypedDict,
@@ -3025,6 +3286,7 @@ RunAgentPartsTypedDict = TypeAliasType(
 RunAgentParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
+        Annotated[ErrorPart, Tag("error")],
         Annotated[DataPart, Tag("data")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolCallPart, Tag("tool_call")],

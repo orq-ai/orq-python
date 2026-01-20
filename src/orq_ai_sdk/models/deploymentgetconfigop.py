@@ -2069,7 +2069,7 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     extra_params: NotRequired[Dict[str, Any]]
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
     documents: NotRequired[List[DeploymentGetConfigDocumentsTypedDict]]
-    r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
+    r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
     invoke_options: NotRequired[DeploymentGetConfigInvokeOptionsTypedDict]
     thread: NotRequired[DeploymentGetConfigThreadTypedDict]
     knowledge_filter: NotRequired[DeploymentGetConfigKnowledgeFilterTypedDict]
@@ -2102,7 +2102,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
     r"""Utilized for passing additional parameters to the model provider. Exercise caution when using this feature, as the included parameters will overwrite any parameters specified in the deployment prompt configuration."""
 
     documents: Optional[List[DeploymentGetConfigDocuments]] = None
-    r"""A list of relevant documents that evaluators and guardrails can cite to evaluate the user input or the model response based on your deployment settings."""
+    r"""A list of documents from your external knowledge base (e.g., chunks retrieved from your own vector database or RAG pipeline) that provide context for the model response. These documents can be used by evaluators and guardrails to assess the relevance and accuracy of the model output against the provided context."""
 
     invoke_options: Optional[DeploymentGetConfigInvokeOptions] = None
 
@@ -2214,13 +2214,13 @@ class DeploymentGetConfig2File(BaseModel):
         return m
 
 
-class DeploymentGetConfig23TypedDict(TypedDict):
+class Two3TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
 
 
-class DeploymentGetConfig23(BaseModel):
+class Two3(BaseModel):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2302,9 +2302,7 @@ class DeploymentGetConfig21(BaseModel):
 DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsResponse2TypedDict",
     Union[
-        DeploymentGetConfig21TypedDict,
-        DeploymentGetConfig22TypedDict,
-        DeploymentGetConfig23TypedDict,
+        DeploymentGetConfig21TypedDict, DeploymentGetConfig22TypedDict, Two3TypedDict
     ],
 )
 
@@ -2313,7 +2311,7 @@ DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
         Annotated[DeploymentGetConfig21, Tag("text")],
         Annotated[DeploymentGetConfig22, Tag("image_url")],
-        Annotated[DeploymentGetConfig23, Tag("file")],
+        Annotated[Two3, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2437,7 +2435,7 @@ DeploymentGetConfigFormat = Literal[
 r"""Only supported on `image` models."""
 
 
-DeploymentGetConfigResponseFormat6 = Literal[
+ResponseFormat6 = Literal[
     "json",
     "text",
     "srt",
@@ -2446,13 +2444,13 @@ DeploymentGetConfigResponseFormat6 = Literal[
 ]
 
 
-DeploymentGetConfigResponseFormat5 = Literal[
+ResponseFormat5 = Literal[
     "url",
     "base64_json",
 ]
 
 
-DeploymentGetConfigResponseFormat4 = Literal[
+ResponseFormat4 = Literal[
     "mp3",
     "opus",
     "aac",
@@ -2465,22 +2463,22 @@ DeploymentGetConfigResponseFormat4 = Literal[
 DeploymentGetConfigResponseFormatDeploymentsType = Literal["text",]
 
 
-class DeploymentGetConfigResponseFormat3TypedDict(TypedDict):
+class ResponseFormat3TypedDict(TypedDict):
     type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
-class DeploymentGetConfigResponseFormat3(BaseModel):
+class ResponseFormat3(BaseModel):
     type: DeploymentGetConfigResponseFormatDeploymentsType
 
 
 DeploymentGetConfigResponseFormatType = Literal["json_object",]
 
 
-class DeploymentGetConfigResponseFormat2TypedDict(TypedDict):
+class ResponseFormat2TypedDict(TypedDict):
     type: DeploymentGetConfigResponseFormatType
 
 
-class DeploymentGetConfigResponseFormat2(BaseModel):
+class ResponseFormat2(BaseModel):
     type: DeploymentGetConfigResponseFormatType
 
 
@@ -2520,13 +2518,13 @@ class DeploymentGetConfigResponseFormatJSONSchema(BaseModel):
         return m
 
 
-class DeploymentGetConfigResponseFormat1TypedDict(TypedDict):
+class ResponseFormat1TypedDict(TypedDict):
     type: DeploymentGetConfigResponseFormatDeploymentsResponseType
     json_schema: DeploymentGetConfigResponseFormatJSONSchemaTypedDict
     display_name: NotRequired[str]
 
 
-class DeploymentGetConfigResponseFormat1(BaseModel):
+class ResponseFormat1(BaseModel):
     type: DeploymentGetConfigResponseFormatDeploymentsResponseType
 
     json_schema: DeploymentGetConfigResponseFormatJSONSchema
@@ -2553,12 +2551,12 @@ class DeploymentGetConfigResponseFormat1(BaseModel):
 DeploymentGetConfigResponseFormatTypedDict = TypeAliasType(
     "DeploymentGetConfigResponseFormatTypedDict",
     Union[
-        DeploymentGetConfigResponseFormat2TypedDict,
-        DeploymentGetConfigResponseFormat3TypedDict,
-        DeploymentGetConfigResponseFormat1TypedDict,
-        DeploymentGetConfigResponseFormat4,
-        DeploymentGetConfigResponseFormat5,
-        DeploymentGetConfigResponseFormat6,
+        ResponseFormat2TypedDict,
+        ResponseFormat3TypedDict,
+        ResponseFormat1TypedDict,
+        ResponseFormat4,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2574,12 +2572,12 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 DeploymentGetConfigResponseFormat = TypeAliasType(
     "DeploymentGetConfigResponseFormat",
     Union[
-        DeploymentGetConfigResponseFormat2,
-        DeploymentGetConfigResponseFormat3,
-        DeploymentGetConfigResponseFormat1,
-        DeploymentGetConfigResponseFormat4,
-        DeploymentGetConfigResponseFormat5,
-        DeploymentGetConfigResponseFormat6,
+        ResponseFormat2,
+        ResponseFormat3,
+        ResponseFormat1,
+        ResponseFormat4,
+        ResponseFormat5,
+        ResponseFormat6,
     ],
 )
 r"""An object specifying the format that the model must output.
@@ -2592,14 +2590,14 @@ Important: when using JSON mode, you must also instruct the model to produce JSO
 """
 
 
-DeploymentGetConfigPhotoRealVersion = Literal[
+PhotoRealVersion = Literal[
     "v1",
     "v2",
 ]
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
 
-DeploymentGetConfigEncodingFormat = Literal[
+EncodingFormat = Literal[
     "float",
     "base64",
 ]
@@ -2617,7 +2615,7 @@ DeploymentGetConfigReasoningEffort = Literal[
 r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
 
 
-DeploymentGetConfigVerbosity = Literal[
+Verbosity = Literal[
     "low",
     "medium",
     "high",
@@ -2668,15 +2666,15 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
 
     Important: when using JSON mode, you must also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly \"stuck\" request. Also note that the message content may be partially cut off if finish_reason=\"length\", which indicates the generation exceeded max_tokens or the conversation exceeded the max context length.
     """
-    photo_real_version: NotRequired[DeploymentGetConfigPhotoRealVersion]
+    photo_real_version: NotRequired[PhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[DeploymentGetConfigEncodingFormat]
+    encoding_format: NotRequired[EncodingFormat]
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[DeploymentGetConfigReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
     budget_tokens: NotRequired[float]
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
-    verbosity: NotRequired[DeploymentGetConfigVerbosity]
+    verbosity: NotRequired[Verbosity]
     r"""Controls the verbosity of the model output."""
     thinking_level: NotRequired[DeploymentGetConfigThinkingLevel]
     r"""The level of thinking to use for the model. Only supported by `Google AI`"""
@@ -2741,12 +2739,11 @@ class DeploymentGetConfigParameters(BaseModel):
     """
 
     photo_real_version: Annotated[
-        Optional[DeploymentGetConfigPhotoRealVersion],
-        pydantic.Field(alias="photoRealVersion"),
+        Optional[PhotoRealVersion], pydantic.Field(alias="photoRealVersion")
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[DeploymentGetConfigEncodingFormat] = None
+    encoding_format: Optional[EncodingFormat] = None
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[
@@ -2760,7 +2757,7 @@ class DeploymentGetConfigParameters(BaseModel):
     )
     r"""Gives the model enhanced reasoning capabilities for complex tasks. A value of 0 disables thinking. The minimum budget tokens for thinking are 1024. The Budget Tokens should never exceed the Max Tokens parameter. Only supported by `Anthropic`"""
 
-    verbosity: Optional[DeploymentGetConfigVerbosity] = None
+    verbosity: Optional[Verbosity] = None
     r"""Controls the verbosity of the model output."""
 
     thinking_level: Annotated[

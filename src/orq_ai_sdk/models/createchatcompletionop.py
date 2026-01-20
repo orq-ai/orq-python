@@ -37,7 +37,13 @@ from orq_ai_sdk.utils import eventstreaming, get_discriminator
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
 
 
 CreateChatCompletionMessagesRouterRequestRequestBody5Role = Literal["tool",]
@@ -1209,6 +1215,67 @@ class Prompt(BaseModel):
     r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class CreateChatCompletionContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class CreateChatCompletionContact(BaseModel):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class CreateChatCompletionThreadTypedDict(TypedDict):
     r"""Thread information to group related requests"""
 
@@ -2149,7 +2216,7 @@ class Timeout(BaseModel):
 
 
 class CreateChatCompletionOrqTypedDict(TypedDict):
-    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
+    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2159,8 +2226,9 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[PromptTypedDict]
     r"""Prompt configuration for the request"""
-    contact: NotRequired[PublicContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: NotRequired[PublicContactTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+    contact: NotRequired[CreateChatCompletionContactTypedDict]
     thread: NotRequired[CreateChatCompletionThreadTypedDict]
     r"""Thread information to group related requests"""
     inputs: NotRequired[InputsTypedDict]
@@ -2175,7 +2243,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
 
 
 class CreateChatCompletionOrq(BaseModel):
-    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
+    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -2189,8 +2257,10 @@ class CreateChatCompletionOrq(BaseModel):
     prompt: Optional[Prompt] = None
     r"""Prompt configuration for the request"""
 
-    contact: Optional[PublicContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[PublicContact] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Optional[CreateChatCompletionContact] = None
 
     thread: Optional[CreateChatCompletionThread] = None
     r"""Thread information to group related requests"""
@@ -2217,6 +2287,7 @@ class CreateChatCompletionOrq(BaseModel):
                 "retry",
                 "fallbacks",
                 "prompt",
+                "identity",
                 "contact",
                 "thread",
                 "inputs",
@@ -2304,7 +2375,7 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     guardrails: NotRequired[List[CreateChatCompletionGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
     orq: NotRequired[CreateChatCompletionOrqTypedDict]
-    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
+    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
 
 
@@ -2398,7 +2469,7 @@ class CreateChatCompletionRequestBody(BaseModel):
     r"""A list of guardrails to apply to the request."""
 
     orq: Optional[CreateChatCompletionOrq] = None
-    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, contact-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
+    r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     stream: Optional[bool] = False
 

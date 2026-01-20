@@ -3,7 +3,8 @@
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ORQ`      | orq        |
-| `EXTERNAL` | external   |
+| Name         | Value        |
+| ------------ | ------------ |
+| `INTERNAL`   | internal     |
+| `EXTERNAL`   | external     |
+| `EXPERIMENT` | experiment   |

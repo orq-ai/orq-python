@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `JSON_SCHEMA` | json_schema   |

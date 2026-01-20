@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
@@ -16,7 +17,13 @@ from orq_ai_sdk.utils import (
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
 from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+from typing_extensions import (
+    Annotated,
+    NotRequired,
+    TypeAliasType,
+    TypedDict,
+    deprecated,
+)
 
 
 InvokeAgentRoleToolMessage = Literal["tool",]
@@ -42,7 +49,12 @@ r"""Message role (user or tool for continuing executions)"""
 
 InvokeAgentPublicMessagePartTypedDict = TypeAliasType(
     "InvokeAgentPublicMessagePartTypedDict",
-    Union[TextPartTypedDict, FilePartTypedDict, ToolResultPartTypedDict],
+    Union[
+        TextPartTypedDict,
+        FilePartTypedDict,
+        ErrorPartTypedDict,
+        ToolResultPartTypedDict,
+    ],
 )
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
@@ -52,6 +64,7 @@ InvokeAgentPublicMessagePart = Annotated[
         Annotated[TextPart, Tag("text")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolResultPart, Tag("tool_result")],
+        Annotated[ErrorPart, Tag("error")],
     ],
     Discriminator(lambda m: get_discriminator(m, "kind", "kind")),
 ]
@@ -98,8 +111,8 @@ class InvokeAgentA2AMessage(BaseModel):
         return m
 
 
-class InvokeAgentContactTypedDict(TypedDict):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+class InvokeAgentIdentityTypedDict(TypedDict):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -115,8 +128,69 @@ class InvokeAgentContactTypedDict(TypedDict):
     r"""A list of tags associated with the contact"""
 
 
+class InvokeAgentIdentity(BaseModel):
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+
+    display_name: Optional[str] = None
+    r"""Display name of the contact"""
+
+    email: Optional[str] = None
+    r"""Email address of the contact"""
+
+    metadata: Optional[List[Dict[str, Any]]] = None
+    r"""A hash of key/value pairs containing any other data about the contact"""
+
+    logo_url: Optional[str] = None
+    r"""URL to the contact's avatar or logo"""
+
+    tags: Optional[List[str]] = None
+    r"""A list of tags associated with the contact"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
+class InvokeAgentContactTypedDict(TypedDict):
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
+
+    id: str
+    r"""Unique identifier for the contact"""
+    display_name: NotRequired[str]
+    r"""Display name of the contact"""
+    email: NotRequired[str]
+    r"""Email address of the contact"""
+    metadata: NotRequired[List[Dict[str, Any]]]
+    r"""A hash of key/value pairs containing any other data about the contact"""
+    logo_url: NotRequired[str]
+    r"""URL to the contact's avatar or logo"""
+    tags: NotRequired[List[str]]
+    r"""A list of tags associated with the contact"""
+
+
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class InvokeAgentContact(BaseModel):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -209,8 +283,10 @@ class InvokeAgentRequestBodyTypedDict(TypedDict):
     r"""Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue."""
     variables: NotRequired[Dict[str, Any]]
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
+    identity: NotRequired[InvokeAgentIdentityTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[InvokeAgentContactTypedDict]
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[InvokeAgentThreadTypedDict]
     r"""Thread information to group related requests"""
     memory: NotRequired[InvokeAgentMemoryTypedDict]
@@ -229,8 +305,16 @@ class InvokeAgentRequestBody(BaseModel):
     variables: Optional[Dict[str, Any]] = None
     r"""Optional variables for template replacement in system prompt, instructions, and messages"""
 
-    contact: Optional[InvokeAgentContact] = None
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    identity: Optional[InvokeAgentIdentity] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
+    contact: Annotated[
+        Optional[InvokeAgentContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     thread: Optional[InvokeAgentThread] = None
     r"""Thread information to group related requests"""
@@ -244,7 +328,15 @@ class InvokeAgentRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["task_id", "variables", "contact", "thread", "memory", "metadata"]
+            [
+                "task_id",
+                "variables",
+                "identity",
+                "contact",
+                "thread",
+                "memory",
+                "metadata",
+            ]
         )
         serialized = handler(self)
         m = {}
@@ -327,6 +419,7 @@ InvokeAgentPartsTypedDict = TypeAliasType(
     "InvokeAgentPartsTypedDict",
     Union[
         TextPartTypedDict,
+        ErrorPartTypedDict,
         DataPartTypedDict,
         FilePartTypedDict,
         ToolResultPartTypedDict,
@@ -338,6 +431,7 @@ InvokeAgentPartsTypedDict = TypeAliasType(
 InvokeAgentParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
+        Annotated[ErrorPart, Tag("error")],
         Annotated[DataPart, Tag("data")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolCallPart, Tag("tool_call")],

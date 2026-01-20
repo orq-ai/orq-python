@@ -1,0 +1,9 @@
+# ListPromptVersionsToolChoice2
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [Optional[models.ListPromptVersionsToolChoiceType]](../models/listpromptversionstoolchoicetype.md) | :heavy_minus_sign:                                                                                 | The type of the tool. Currently, only function is supported.                                       |
+| `function`                                                                                         | [models.ListPromptVersionsToolChoiceFunction](../models/listpromptversionstoolchoicefunction.md)   | :heavy_check_mark:                                                                                 | N/A                                                                                                |

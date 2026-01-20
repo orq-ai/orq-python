@@ -11,9 +11,13 @@ from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing_extensions import deprecated
 
 
 class Contacts(BaseSDK):
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def create(
         self,
         *,
@@ -111,6 +115,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def create_async(
         self,
         *,
@@ -208,6 +215,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def list(
         self,
         *,
@@ -217,8 +227,8 @@ class Contacts(BaseSDK):
         search: Optional[str] = None,
         filter_by: Optional[
             Union[
-                models_listcontactsop.QueryParamFilterBy,
-                models_listcontactsop.QueryParamFilterByTypedDict,
+                models_listcontactsop.ListContactsQueryParamFilterBy,
+                models_listcontactsop.ListContactsQueryParamFilterByTypedDict,
             ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
@@ -261,7 +271,7 @@ class Contacts(BaseSDK):
             ending_before=ending_before,
             search=search,
             filter_by=utils.get_pydantic_model(
-                filter_by, Optional[models.QueryParamFilterBy]
+                filter_by, Optional[models.ListContactsQueryParamFilterBy]
             ),
             include_metrics=include_metrics,
         )
@@ -317,6 +327,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def list_async(
         self,
         *,
@@ -326,8 +339,8 @@ class Contacts(BaseSDK):
         search: Optional[str] = None,
         filter_by: Optional[
             Union[
-                models_listcontactsop.QueryParamFilterBy,
-                models_listcontactsop.QueryParamFilterByTypedDict,
+                models_listcontactsop.ListContactsQueryParamFilterBy,
+                models_listcontactsop.ListContactsQueryParamFilterByTypedDict,
             ]
         ] = None,
         include_metrics: OptionalNullable[bool] = False,
@@ -370,7 +383,7 @@ class Contacts(BaseSDK):
             ending_before=ending_before,
             search=search,
             filter_by=utils.get_pydantic_model(
-                filter_by, Optional[models.QueryParamFilterBy]
+                filter_by, Optional[models.ListContactsQueryParamFilterBy]
             ),
             include_metrics=include_metrics,
         )
@@ -426,6 +439,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def retrieve(
         self,
         *,
@@ -519,6 +535,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def retrieve_async(
         self,
         *,
@@ -612,6 +631,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def update(
         self,
         *,
@@ -729,6 +751,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def update_async(
         self,
         *,
@@ -846,6 +871,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def delete(
         self,
         *,
@@ -939,6 +967,9 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def delete_async(
         self,
         *,

@@ -1,0 +1,10 @@
+# GetOnePrompt24
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `type`                                                                                         | [models.GetOnePrompt2PromptsResponse200Type](../models/getoneprompt2promptsresponse200type.md) | :heavy_check_mark:                                                                             | The type of the content part. Always `file`.                                                   |
+| `cache_control`                                                                                | [Optional[models.GetOnePrompt2CacheControl]](../models/getoneprompt2cachecontrol.md)           | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `file`                                                                                         | [models.FileContentPartSchema](../models/filecontentpartschema.md)                             | :heavy_check_mark:                                                                             | File data for the content part. Must contain either file_data or uri, but not both.            |

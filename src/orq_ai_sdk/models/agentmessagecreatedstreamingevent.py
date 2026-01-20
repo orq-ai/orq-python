@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
+from .errorpart import ErrorPart, ErrorPartTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .toolcallpart import ToolCallPart, ToolCallPartTypedDict
@@ -27,6 +28,7 @@ AgentMessageCreatedStreamingEventPartsTypedDict = TypeAliasType(
     "AgentMessageCreatedStreamingEventPartsTypedDict",
     Union[
         TextPartTypedDict,
+        ErrorPartTypedDict,
         DataPartTypedDict,
         FilePartTypedDict,
         ToolResultPartTypedDict,
@@ -38,6 +40,7 @@ AgentMessageCreatedStreamingEventPartsTypedDict = TypeAliasType(
 AgentMessageCreatedStreamingEventParts = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
+        Annotated[ErrorPart, Tag("error")],
         Annotated[DataPart, Tag("data")],
         Annotated[FilePart, Tag("file")],
         Annotated[ToolCallPart, Tag("tool_call")],

@@ -1,0 +1,13 @@
+# CreatePromptResponseFormatPromptsResponse200JSONSchema
+
+
+
+JSON Schema response format. Used to generate structured JSON responses
+
+
+## Fields
+
+| Field                                                                                                                                                  | Type                                                                                                                                                   | Required                                                                                                                                               | Description                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                                                 | [models.CreatePromptResponseFormatPromptsResponse200ApplicationJSONType](../models/createpromptresponseformatpromptsresponse200applicationjsontype.md) | :heavy_check_mark:                                                                                                                                     | N/A                                                                                                                                                    |
+| `json_schema`                                                                                                                                          | [models.CreatePromptResponseFormatPromptsResponseJSONSchema](../models/createpromptresponseformatpromptsresponsejsonschema.md)                         | :heavy_check_mark:                                                                                                                                     | N/A                                                                                                                                                    |

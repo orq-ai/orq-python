@@ -16,13 +16,13 @@ from typing import Any, Dict, List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class QueryParamFilterByTypedDict(TypedDict):
+class ListContactsQueryParamFilterByTypedDict(TypedDict):
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: NotRequired[List[str]]
 
 
-class QueryParamFilterBy(BaseModel):
+class ListContactsQueryParamFilterBy(BaseModel):
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
 
     tags: Annotated[Optional[List[str]], FieldMetadata(query=True)] = None
@@ -53,7 +53,7 @@ class ListContactsRequestTypedDict(TypedDict):
     r"""A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list."""
     search: NotRequired[str]
     r"""Search contacts by display name or email address. Minimum 2 characters required."""
-    filter_by: NotRequired[QueryParamFilterByTypedDict]
+    filter_by: NotRequired[ListContactsQueryParamFilterByTypedDict]
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
     include_metrics: NotRequired[Nullable[bool]]
     r"""Include usage metrics of the last 30 days for each contact."""
@@ -85,7 +85,7 @@ class ListContactsRequest(BaseModel):
     r"""Search contacts by display name or email address. Minimum 2 characters required."""
 
     filter_by: Annotated[
-        Optional[QueryParamFilterBy],
+        Optional[ListContactsQueryParamFilterBy],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\" """
@@ -208,7 +208,7 @@ class ListContactsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-19T14:27:09.825Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-20T04:24:01.381Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

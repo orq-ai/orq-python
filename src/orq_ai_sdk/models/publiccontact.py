@@ -8,7 +8,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PublicContactTypedDict(TypedDict):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""
@@ -25,7 +25,7 @@ class PublicContactTypedDict(TypedDict):
 
 
 class PublicContact(BaseModel):
-    r"""Information about the contact making the request. If the contact does not exist, it will be created automatically."""
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
     id: str
     r"""Unique identifier for the contact"""

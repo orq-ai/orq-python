@@ -29,6 +29,12 @@ class Responses(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_createagentresponserequestop.Identity,
+                models_createagentresponserequestop.IdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_createagentresponserequestop.Contact,
@@ -70,13 +76,14 @@ class Responses(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
-        :param conversation:
+        :param conversation: Conversation context for chat studio integration
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -102,6 +109,7 @@ class Responses(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.CreateAgentResponseRequestThread]
@@ -202,6 +210,12 @@ class Responses(BaseSDK):
         ],
         task_id: Optional[str] = None,
         variables: Optional[Dict[str, Any]] = None,
+        identity: Optional[
+            Union[
+                models_createagentresponserequestop.Identity,
+                models_createagentresponserequestop.IdentityTypedDict,
+            ]
+        ] = None,
         contact: Optional[
             Union[
                 models_createagentresponserequestop.Contact,
@@ -243,13 +257,14 @@ class Responses(BaseSDK):
         :param message: The A2A message to send to the agent (user input or tool results)
         :param task_id: Optional task ID to continue an existing agent execution. When provided, the agent will continue the conversation from the existing task state. The task must be in an inactive state to continue.
         :param variables: Optional variables for template replacement in system prompt, instructions, and messages
-        :param contact: Information about the contact making the request. If the contact does not exist, it will be created automatically.
+        :param identity: Information about the identity making the request. If the identity does not exist, it will be created automatically.
+        :param contact: @deprecated Use identity instead. Information about the contact making the request.
         :param thread: Thread information to group related requests
         :param memory: Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions.
         :param metadata: Optional metadata for the agent invocation as key-value pairs that will be included in traces
         :param background: If true, returns immediately without waiting for completion. If false (default), waits until the agent becomes inactive or errors.
         :param stream: If true, returns Server-Sent Events (SSE) streaming response with real-time events. If false (default), returns standard JSON response.
-        :param conversation:
+        :param conversation: Conversation context for chat studio integration
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -275,6 +290,7 @@ class Responses(BaseSDK):
                 task_id=task_id,
                 message=utils.get_pydantic_model(message, models.A2AMessage),
                 variables=variables,
+                identity=utils.get_pydantic_model(identity, Optional[models.Identity]),
                 contact=utils.get_pydantic_model(contact, Optional[models.Contact]),
                 thread=utils.get_pydantic_model(
                     thread, Optional[models.CreateAgentResponseRequestThread]
