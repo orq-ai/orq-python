@@ -332,6 +332,44 @@ class AgentInactiveStreamingEventUsage(BaseModel):
         return m
 
 
+class BillingTypedDict(TypedDict):
+    r"""Billing information for the agent execution"""
+
+    total_cost: float
+    input_cost: float
+    output_cost: float
+    billable: bool
+    integration_id: Nullable[str]
+
+
+class Billing(BaseModel):
+    r"""Billing information for the agent execution"""
+
+    total_cost: float
+
+    input_cost: float
+
+    output_cost: float
+
+    billable: bool
+
+    integration_id: Nullable[str]
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                m[k] = val
+
+        return m
+
+
 class AgentInactiveStreamingEventDataTypedDict(TypedDict):
     last_message: str
     finish_reason: AgentInactiveStreamingEventFinishReason
@@ -345,6 +383,8 @@ class AgentInactiveStreamingEventDataTypedDict(TypedDict):
     r"""Tool calls that are pending user response (for function_call finish reason)"""
     usage: NotRequired[AgentInactiveStreamingEventUsageTypedDict]
     r"""Token usage from the last agent message"""
+    billing: NotRequired[BillingTypedDict]
+    r"""Billing information for the agent execution"""
     response_id: NotRequired[str]
     r"""ID of the response tracking this execution"""
 
@@ -368,13 +408,22 @@ class AgentInactiveStreamingEventData(BaseModel):
     usage: Optional[AgentInactiveStreamingEventUsage] = None
     r"""Token usage from the last agent message"""
 
+    billing: Optional[Billing] = None
+    r"""Billing information for the agent execution"""
+
     response_id: Annotated[Optional[str], pydantic.Field(alias="responseId")] = None
     r"""ID of the response tracking this execution"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["last_message_full", "pending_tool_calls", "usage", "responseId"]
+            [
+                "last_message_full",
+                "pending_tool_calls",
+                "usage",
+                "billing",
+                "responseId",
+            ]
         )
         serialized = handler(self)
         m = {}
