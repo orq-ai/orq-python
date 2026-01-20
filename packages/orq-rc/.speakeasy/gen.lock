@@ -5,16 +5,16 @@ management:
   docVersion: "2.0"
   speakeasyVersion: 1.689.0
   generationVersion: 2.796.4
-  releaseVersion: 4.2.0-rc.45
-  configChecksum: 830c58d24665c4e68208d8110dfdad1d
+  releaseVersion: 4.2.0-rc.46
+  configChecksum: eca6799fb00261d60440c4b26b35b62c
   repoURL: https://github.com/orq-ai/orq-python.git
   repoSubDirectory: packages/orq-rc
   installationURL: https://github.com/orq-ai/orq-python.git#subdirectory=packages/orq-rc
   published: true
 persistentEdits:
-  generation_id: 75030796-b37d-46a9-ba23-54db785bb76c
-  pristine_commit_hash: 154fa252487f87d2fbfaeefd7a80cef581afc3d7
-  pristine_tree_hash: 290019c61b8c0d13f6668893bc143f51ec9c5c26
+  generation_id: 090cc53a-edab-4318-aafd-ff769eda5e2d
+  pristine_commit_hash: cf2114613139a0450122756534530250c862da49
+  pristine_tree_hash: 0a47f1f8af9464157426b55c4ed14d00b9a08b0e
 features:
   python:
     acceptHeaders: 3.0.0
@@ -15526,10 +15526,6 @@ trackedFiles:
     id: 044286549bac
     last_write_checksum: sha1:45b6ef584698c524115ff538c27e9808d0e313b1
     pristine_git_object: d8f0ce54c5699fe281dd738c132d0320f270a2f8
-  poetry.toml:
-    id: a81ade82122a
-    last_write_checksum: sha1:2242305e29dc6921bdf5b200aea5d4bf67830230
-    pristine_git_object: cd3492ac9dc870fdcf23dbd94fd1d40cc753cc8e
   py.typed:
     id: 258c3ed47ae4
     last_write_checksum: sha1:8efc425ffe830805ffcc0f3055871bdcdc542c60
@@ -15540,16 +15536,16 @@ trackedFiles:
     pristine_git_object: ae7d9b4f0c1532b90cc48d42b12afb5671a2c7a4
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:a9d7c1e45e7ce16d1f9543aae8e4659e001188f7
-    pristine_git_object: f6b0ebab3b65c131bcf85938e3f0d8cc29204457
+    last_write_checksum: sha1:e410e6773aa05b0d65511f34277e0eb6bbca0260
+    pristine_git_object: 04249a4417faf99114ca98cd8a4b9356b7f989cc
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:30f41b7d73fd74c428cb4ad396f9aa5c05bc3834
     pristine_git_object: fb3c38f94aa5f943f077978ac541b0f70b96dd47
   scripts/publish.sh:
     id: fe273b08f514
-    last_write_checksum: sha1:b31bafc19c15ab5ea925fdf8d5d4adce2b115a63
-    pristine_git_object: 2a3ead70ccc6228cbae1c5c8a319b1399f3804ea
+    last_write_checksum: sha1:b290b25b36dca3d5eb1a2e66a2e1bcf2e7326cf3
+    pristine_git_object: c35748f360329c2bc370e9b189f49b1a360b2c48
   src/orq_ai_sdk/__init__.py:
     id: 95d247dca0fd
     last_write_checksum: sha1:36306d1d404b6aeb912d27f1d9c52f098ff7bf9b
@@ -15568,8 +15564,8 @@ trackedFiles:
     pristine_git_object: 926d24b0d4a20482c2ef5fa62b38269ae2524b64
   src/orq_ai_sdk/_version.py:
     id: e5532addd656
-    last_write_checksum: sha1:19259c3a2df17d5a692592dbac321d31e1ddf021
-    pristine_git_object: 06dba8c87af975910f4c561a2cb02532d664b95f
+    last_write_checksum: sha1:efc167acdfbc693cf4241bf4d9ca2ea380002cff
+    pristine_git_object: 46c4fa5f7d2a7e718021d58fea396c0b572ce1c6
   src/orq_ai_sdk/agents.py:
     id: bdc67401db3c
     last_write_checksum: sha1:7d126862307cb4ed567e828e2fec1ab47bcca6fa
@@ -18121,7 +18117,6 @@ examples:
           application/json: {"error": "<value>"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Python SDK Changes:\n* `orq.prompts.list()`:  `response.data.[]` **Changed** **Breaking** :warning:\n* `orq.prompts.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `orq.prompts.retrieve()`:  `response` **Changed** **Breaking** :warning:\n* `orq.prompts.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `orq.prompts.list_versions()`:  `response.data.[]` **Changed** **Breaking** :warning:\n* `orq.prompts.get_version()`:  `response` **Changed** **Breaking** :warning:\n* `orq.prompts.delete()`:  `error.status[404]` **Added**\n"
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
