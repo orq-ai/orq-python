@@ -495,7 +495,9 @@ OriginalValue = TypeAliasType("OriginalValue", Union[float, bool, str])
 
 class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
     workflow_run_id: str
-    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
+    value: Nullable[
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueTypedDict
+    ]
     explanation: NotRequired[Nullable[str]]
     original_value: NotRequired[Nullable[OriginalValueTypedDict]]
     original_explanation: NotRequired[Nullable[str]]
@@ -504,7 +506,7 @@ class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
 class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
     workflow_run_id: str
 
-    value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value
+    value: Nullable[InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7Value]
 
     explanation: OptionalNullable[str] = UNSET
 
@@ -515,7 +517,9 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["explanation", "original_value", "original_explanation"])
-        nullable_fields = set(["explanation", "original_value", "original_explanation"])
+        nullable_fields = set(
+            ["value", "explanation", "original_value", "original_explanation"]
+        )
         serialized = handler(self)
         m = {}
 
