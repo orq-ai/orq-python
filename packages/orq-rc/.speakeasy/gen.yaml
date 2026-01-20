@@ -73,7 +73,7 @@ python:
   moduleName: ""
   multipartArrayFormat: legacy
   outputModelSuffix: output
-  packageManager: poetry
+  packageManager: uv
   packageName: orq-ai-sdk
   preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
