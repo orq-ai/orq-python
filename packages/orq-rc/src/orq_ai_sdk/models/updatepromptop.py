@@ -973,6 +973,144 @@ class UpdatePromptGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class UpdatePromptFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdatePromptFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdatePromptRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdatePromptRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptType = Literal["exact_match",]
+
+
+class UpdatePromptCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: UpdatePromptType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class UpdatePromptCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: UpdatePromptType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptLoadBalancerType = Literal["weight_based",]
+
+
+class UpdatePromptLoadBalancer1TypedDict(TypedDict):
+    type: UpdatePromptLoadBalancerType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class UpdatePromptLoadBalancer1(BaseModel):
+    type: UpdatePromptLoadBalancerType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptLoadBalancerTypedDict = UpdatePromptLoadBalancer1TypedDict
+
+
+UpdatePromptLoadBalancer = UpdatePromptLoadBalancer1
+
+
+class UpdatePromptTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdatePromptTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Prompt configuration with model and messages. Use this to update the prompt."""
 
@@ -1034,6 +1172,16 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[UpdatePromptGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[UpdatePromptFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[UpdatePromptRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[UpdatePromptCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[List[UpdatePromptLoadBalancerTypedDict]]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[UpdatePromptTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class UpdatePromptPromptInput(BaseModel):
@@ -1121,6 +1269,21 @@ class UpdatePromptPromptInput(BaseModel):
     guardrails: Optional[List[UpdatePromptGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[UpdatePromptFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[UpdatePromptRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[UpdatePromptCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[UpdatePromptLoadBalancer]] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[UpdatePromptTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1149,6 +1312,11 @@ class UpdatePromptPromptInput(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
             ]
         )
         nullable_fields = set(
@@ -1420,7 +1588,7 @@ class UpdatePromptResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-UpdatePromptType = Literal["prompt",]
+UpdatePromptPromptsType = Literal["prompt",]
 
 
 UpdatePromptModelType = Literal[
@@ -2038,7 +2206,7 @@ UpdatePromptContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-UpdatePromptPromptsType = Literal["function",]
+UpdatePromptPromptsResponse200Type = Literal["function",]
 
 
 class UpdatePromptFunctionTypedDict(TypedDict):
@@ -2055,14 +2223,14 @@ class UpdatePromptFunction(BaseModel):
 
 
 class UpdatePromptToolCallsTypedDict(TypedDict):
-    type: UpdatePromptPromptsType
+    type: UpdatePromptPromptsResponse200Type
     function: UpdatePromptFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class UpdatePromptToolCalls(BaseModel):
-    type: UpdatePromptPromptsType
+    type: UpdatePromptPromptsResponse200Type
 
     function: UpdatePromptFunction
 
@@ -2578,6 +2746,144 @@ class UpdatePromptPromptsGuardrails(BaseModel):
 
     execute_on: UpdatePromptPromptsExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdatePromptPromptsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdatePromptPromptsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdatePromptPromptsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdatePromptPromptsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptPromptsResponseType = Literal["exact_match",]
+
+
+class UpdatePromptPromptsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: UpdatePromptPromptsResponseType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class UpdatePromptPromptsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: UpdatePromptPromptsResponseType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptLoadBalancerPromptsType = Literal["weight_based",]
+
+
+class UpdatePromptLoadBalancerPrompts1TypedDict(TypedDict):
+    type: UpdatePromptLoadBalancerPromptsType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class UpdatePromptLoadBalancerPrompts1(BaseModel):
+    type: UpdatePromptLoadBalancerPromptsType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdatePromptPromptsLoadBalancerTypedDict = UpdatePromptLoadBalancerPrompts1TypedDict
+
+
+UpdatePromptPromptsLoadBalancer = UpdatePromptLoadBalancerPrompts1
+
+
+class UpdatePromptPromptsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdatePromptPromptsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
 
 
 UpdatePromptMessagesPromptsResponse200ApplicationJSONResponseBodyRole = Literal["tool",]
@@ -3230,6 +3536,16 @@ class UpdatePromptPromptFieldTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[UpdatePromptPromptsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[UpdatePromptPromptsFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[UpdatePromptPromptsRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[UpdatePromptPromptsCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[List[UpdatePromptPromptsLoadBalancerTypedDict]]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[UpdatePromptPromptsTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[UpdatePromptPromptsResponseMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
@@ -3316,6 +3632,21 @@ class UpdatePromptPromptField(BaseModel):
     guardrails: Optional[List[UpdatePromptPromptsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[UpdatePromptPromptsFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[UpdatePromptPromptsRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[UpdatePromptPromptsCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[UpdatePromptPromptsLoadBalancer]] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[UpdatePromptPromptsTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     messages: Optional[List[UpdatePromptPromptsResponseMessages]] = None
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
@@ -3350,6 +3681,11 @@ class UpdatePromptPromptField(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "messages",
                 "model",
                 "version",
@@ -3477,7 +3813,7 @@ class UpdatePromptPromptTypedDict(TypedDict):
     r"""A prompt entity with configuration, metadata, and versioning."""
 
     id: str
-    type: UpdatePromptType
+    type: UpdatePromptPromptsType
     owner: str
     domain_id: str
     created: str
@@ -3500,7 +3836,7 @@ class UpdatePromptPrompt(BaseModel):
 
     id: Annotated[str, pydantic.Field(alias="_id")]
 
-    type: UpdatePromptType
+    type: UpdatePromptPromptsType
 
     owner: str
 

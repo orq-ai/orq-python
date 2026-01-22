@@ -1,11 +1,11 @@
 # EncodingFormat
 
-The format to return the embeddings
+Type of the document element
 
 
 ## Values
 
 | Name     | Value    |
 | -------- | -------- |
-| `FLOAT`  | float    |
 | `BASE64` | base64   |
+| `FLOAT`  | float    |

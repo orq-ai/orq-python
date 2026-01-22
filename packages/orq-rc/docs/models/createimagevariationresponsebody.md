@@ -1,0 +1,15 @@
+# CreateImageVariationResponseBody
+
+Represents an image variation response from the API.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `created`                                                                            | *float*                                                                              | :heavy_check_mark:                                                                   | The Unix timestamp (in seconds) of when the image was created.                       |
+| `output_format`                                                                      | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | The output format of the image generation                                            |
+| `size`                                                                               | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | The size of the image generated                                                      |
+| `quality`                                                                            | *Optional[str]*                                                                      | :heavy_minus_sign:                                                                   | The quality of the image generated                                                   |
+| `data`                                                                               | List[[models.CreateImageVariationData](../models/createimagevariationdata.md)]       | :heavy_check_mark:                                                                   | The list of generated images.                                                        |
+| `usage`                                                                              | [Optional[models.CreateImageVariationUsage]](../models/createimagevariationusage.md) | :heavy_minus_sign:                                                                   | The token usage information for the image generation.                                |

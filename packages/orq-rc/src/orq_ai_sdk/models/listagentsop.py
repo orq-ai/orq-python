@@ -668,6 +668,144 @@ class ListAgentsAgentsGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class ListAgentsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListAgentsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListAgentsAgentsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class ListAgentsAgentsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsType = Literal["exact_match",]
+
+
+class ListAgentsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: ListAgentsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class ListAgentsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: ListAgentsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsLoadBalancerType = Literal["weight_based",]
+
+
+class ListAgentsLoadBalancer1TypedDict(TypedDict):
+    type: ListAgentsLoadBalancerType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class ListAgentsLoadBalancer1(BaseModel):
+    type: ListAgentsLoadBalancerType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsLoadBalancerTypedDict = ListAgentsLoadBalancer1TypedDict
+
+
+ListAgentsLoadBalancer = ListAgentsLoadBalancer1
+
+
+class ListAgentsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class ListAgentsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class ListAgentsParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
@@ -725,6 +863,16 @@ class ListAgentsParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[ListAgentsAgentsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[ListAgentsFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[ListAgentsAgentsRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[ListAgentsCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[List[ListAgentsLoadBalancerTypedDict]]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[ListAgentsTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class ListAgentsParameters(BaseModel):
@@ -806,6 +954,21 @@ class ListAgentsParameters(BaseModel):
     guardrails: Optional[List[ListAgentsAgentsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[ListAgentsFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[ListAgentsAgentsRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[ListAgentsCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[ListAgentsLoadBalancer]] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[ListAgentsTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -832,6 +995,11 @@ class ListAgentsParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
             ]
         )
         nullable_fields = set(
@@ -1269,6 +1437,146 @@ class ListAgentsFallbackModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class ListAgentsFallbackModelConfigurationFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListAgentsFallbackModelConfigurationFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListAgentsFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class ListAgentsFallbackModelConfigurationAgentsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsFallbackModelConfigurationType = Literal["exact_match",]
+
+
+class ListAgentsFallbackModelConfigurationCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: ListAgentsFallbackModelConfigurationType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class ListAgentsFallbackModelConfigurationCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: ListAgentsFallbackModelConfigurationType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsLoadBalancerAgentsType = Literal["weight_based",]
+
+
+class ListAgentsLoadBalancerAgents1TypedDict(TypedDict):
+    type: ListAgentsLoadBalancerAgentsType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class ListAgentsLoadBalancerAgents1(BaseModel):
+    type: ListAgentsLoadBalancerAgentsType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListAgentsFallbackModelConfigurationLoadBalancerTypedDict = (
+    ListAgentsLoadBalancerAgents1TypedDict
+)
+
+
+ListAgentsFallbackModelConfigurationLoadBalancer = ListAgentsLoadBalancerAgents1
+
+
+class ListAgentsFallbackModelConfigurationTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class ListAgentsFallbackModelConfigurationTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -1334,6 +1642,18 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
         List[ListAgentsFallbackModelConfigurationGuardrailsTypedDict]
     ]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[ListAgentsFallbackModelConfigurationFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[ListAgentsFallbackModelConfigurationAgentsRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[ListAgentsFallbackModelConfigurationCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[
+        List[ListAgentsFallbackModelConfigurationLoadBalancerTypedDict]
+    ]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[ListAgentsFallbackModelConfigurationTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class ListAgentsFallbackModelConfigurationParameters(BaseModel):
@@ -1421,6 +1741,23 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[ListAgentsFallbackModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[ListAgentsFallbackModelConfigurationFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[ListAgentsFallbackModelConfigurationAgentsRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[ListAgentsFallbackModelConfigurationCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[ListAgentsFallbackModelConfigurationLoadBalancer]] = (
+        None
+    )
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[ListAgentsFallbackModelConfigurationTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1447,6 +1784,11 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
             ]
         )
         nullable_fields = set(

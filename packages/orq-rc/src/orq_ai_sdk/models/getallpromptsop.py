@@ -703,7 +703,7 @@ GetAllPromptsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-GetAllPromptsPromptsType = Literal["function",]
+GetAllPromptsPromptsResponseType = Literal["function",]
 
 
 class GetAllPromptsFunctionTypedDict(TypedDict):
@@ -720,14 +720,14 @@ class GetAllPromptsFunction(BaseModel):
 
 
 class GetAllPromptsToolCallsTypedDict(TypedDict):
-    type: GetAllPromptsPromptsType
+    type: GetAllPromptsPromptsResponseType
     function: GetAllPromptsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class GetAllPromptsToolCalls(BaseModel):
-    type: GetAllPromptsPromptsType
+    type: GetAllPromptsPromptsResponseType
 
     function: GetAllPromptsFunction
 
@@ -1232,6 +1232,144 @@ class GetAllPromptsGuardrails(BaseModel):
 
     execute_on: GetAllPromptsExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class GetAllPromptsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class GetAllPromptsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class GetAllPromptsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class GetAllPromptsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GetAllPromptsPromptsType = Literal["exact_match",]
+
+
+class GetAllPromptsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: GetAllPromptsPromptsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class GetAllPromptsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: GetAllPromptsPromptsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GetAllPromptsLoadBalancerType = Literal["weight_based",]
+
+
+class GetAllPromptsLoadBalancer1TypedDict(TypedDict):
+    type: GetAllPromptsLoadBalancerType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class GetAllPromptsLoadBalancer1(BaseModel):
+    type: GetAllPromptsLoadBalancerType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+GetAllPromptsLoadBalancerTypedDict = GetAllPromptsLoadBalancer1TypedDict
+
+
+GetAllPromptsLoadBalancer = GetAllPromptsLoadBalancer1
+
+
+class GetAllPromptsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class GetAllPromptsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
 
 
 GetAllPromptsMessagesPromptsResponse200Role = Literal["tool",]
@@ -1864,6 +2002,16 @@ class GetAllPromptsPromptFieldTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[GetAllPromptsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[GetAllPromptsFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[GetAllPromptsRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[GetAllPromptsCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[List[GetAllPromptsLoadBalancerTypedDict]]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[GetAllPromptsTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[GetAllPromptsPromptsMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
@@ -1950,6 +2098,21 @@ class GetAllPromptsPromptField(BaseModel):
     guardrails: Optional[List[GetAllPromptsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[GetAllPromptsFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[GetAllPromptsRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[GetAllPromptsCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[GetAllPromptsLoadBalancer]] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[GetAllPromptsTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     messages: Optional[List[GetAllPromptsPromptsMessages]] = None
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
@@ -1984,6 +2147,11 @@ class GetAllPromptsPromptField(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "messages",
                 "model",
                 "version",

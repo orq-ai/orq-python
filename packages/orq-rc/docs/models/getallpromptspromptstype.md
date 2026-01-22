@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `EXACT_MATCH` | exact_match   |

@@ -1,0 +1,16 @@
+# CreateCompletionResponseBody
+
+Represents a completion response from the API.
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `id`                                                                            | *str*                                                                           | :heavy_check_mark:                                                              | A unique identifier for the completion.                                         |
+| `choices`                                                                       | List[[models.CreateCompletionChoices](../models/createcompletionchoices.md)]    | :heavy_check_mark:                                                              | The list of completion choices the model generated for the input prompt.        |
+| `created`                                                                       | [Optional[models.Created]](../models/created.md)                                | :heavy_minus_sign:                                                              | The Unix timestamp (in seconds) of when the chat completion was created.        |
+| `model`                                                                         | *str*                                                                           | :heavy_check_mark:                                                              | The model used for the chat completion.                                         |
+| `system_fingerprint`                                                            | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | This fingerprint represents the backend configuration that the model runs with. |
+| `object`                                                                        | *str*                                                                           | :heavy_check_mark:                                                              | The object type                                                                 |
+| `usage`                                                                         | [Optional[models.CreateCompletionUsage]](../models/createcompletionusage.md)    | :heavy_minus_sign:                                                              | Usage statistics for the completion request.                                    |

@@ -9,9 +9,9 @@
 value: models.CreateChatCompletionResponseBody = /* values here */
 ```
 
-### `Union[eventstreaming.EventStream[models.CreateChatCompletionRouterResponseBody], eventstreaming.EventStreamAsync[models.CreateChatCompletionRouterResponseBody]]`
+### `Union[eventstreaming.EventStream[models.CreateChatCompletionRouterChatCompletionsResponseBody], eventstreaming.EventStreamAsync[models.CreateChatCompletionRouterChatCompletionsResponseBody]]`
 
 ```python
-value: Union[eventstreaming.EventStream[models.CreateChatCompletionRouterResponseBody], eventstreaming.EventStreamAsync[models.CreateChatCompletionRouterResponseBody]] = /* values here */
+value: Union[eventstreaming.EventStream[models.CreateChatCompletionRouterChatCompletionsResponseBody], eventstreaming.EventStreamAsync[models.CreateChatCompletionRouterChatCompletionsResponseBody]] = /* values here */
 ```
 

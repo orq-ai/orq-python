@@ -453,6 +453,146 @@ class StreamRunAgentModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class StreamRunAgentModelConfigurationFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class StreamRunAgentModelConfigurationFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class StreamRunAgentModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentModelConfigurationType = Literal["exact_match",]
+
+
+class StreamRunAgentModelConfigurationCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: StreamRunAgentModelConfigurationType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class StreamRunAgentModelConfigurationCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: StreamRunAgentModelConfigurationType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentLoadBalancerType = Literal["weight_based",]
+
+
+class StreamRunAgentLoadBalancer1TypedDict(TypedDict):
+    type: StreamRunAgentLoadBalancerType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class StreamRunAgentLoadBalancer1(BaseModel):
+    type: StreamRunAgentLoadBalancerType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentModelConfigurationLoadBalancerTypedDict = (
+    StreamRunAgentLoadBalancer1TypedDict
+)
+
+
+StreamRunAgentModelConfigurationLoadBalancer = StreamRunAgentLoadBalancer1
+
+
+class StreamRunAgentModelConfigurationTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class StreamRunAgentModelConfigurationTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
@@ -514,6 +654,18 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[StreamRunAgentModelConfigurationGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[StreamRunAgentModelConfigurationFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[
+        List[StreamRunAgentModelConfigurationLoadBalancerTypedDict]
+    ]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[StreamRunAgentModelConfigurationTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class StreamRunAgentModelConfigurationParameters(BaseModel):
@@ -599,6 +751,21 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     guardrails: Optional[List[StreamRunAgentModelConfigurationGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[StreamRunAgentModelConfigurationFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[StreamRunAgentModelConfigurationRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[StreamRunAgentModelConfigurationCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[List[StreamRunAgentModelConfigurationLoadBalancer]] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[StreamRunAgentModelConfigurationTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -625,6 +792,11 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
             ]
         )
         nullable_fields = set(
@@ -668,7 +840,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
         return m
 
 
-class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
+class StreamRunAgentModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -677,7 +849,7 @@ class StreamRunAgentModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class StreamRunAgentModelConfigurationRetry(BaseModel):
+class StreamRunAgentModelConfigurationAgentsRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -713,7 +885,7 @@ class StreamRunAgentModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[StreamRunAgentModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[StreamRunAgentModelConfigurationRetryTypedDict]
+    retry: NotRequired[StreamRunAgentModelConfigurationAgentsRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -729,7 +901,7 @@ class StreamRunAgentModelConfiguration2(BaseModel):
     parameters: Optional[StreamRunAgentModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[StreamRunAgentModelConfigurationRetry] = None
+    retry: Optional[StreamRunAgentModelConfigurationAgentsRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -1126,6 +1298,146 @@ class StreamRunAgentFallbackModelConfigurationGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class StreamRunAgentFallbackModelConfigurationFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class StreamRunAgentFallbackModelConfigurationFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentFallbackModelConfigurationType = Literal["exact_match",]
+
+
+class StreamRunAgentFallbackModelConfigurationCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: StreamRunAgentFallbackModelConfigurationType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class StreamRunAgentFallbackModelConfigurationCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: StreamRunAgentFallbackModelConfigurationType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentLoadBalancerAgentsType = Literal["weight_based",]
+
+
+class StreamRunAgentLoadBalancerAgents1TypedDict(TypedDict):
+    type: StreamRunAgentLoadBalancerAgentsType
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class StreamRunAgentLoadBalancerAgents1(BaseModel):
+    type: StreamRunAgentLoadBalancerAgentsType
+
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+StreamRunAgentFallbackModelConfigurationLoadBalancerTypedDict = (
+    StreamRunAgentLoadBalancerAgents1TypedDict
+)
+
+
+StreamRunAgentFallbackModelConfigurationLoadBalancer = StreamRunAgentLoadBalancerAgents1
+
+
+class StreamRunAgentFallbackModelConfigurationTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class StreamRunAgentFallbackModelConfigurationTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
@@ -1195,6 +1507,20 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         List[StreamRunAgentFallbackModelConfigurationGuardrailsTypedDict]
     ]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[
+        List[StreamRunAgentFallbackModelConfigurationFallbacksTypedDict]
+    ]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[StreamRunAgentFallbackModelConfigurationRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[StreamRunAgentFallbackModelConfigurationCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[
+        List[StreamRunAgentFallbackModelConfigurationLoadBalancerTypedDict]
+    ]
+    r"""Array of models with weights for load balancing requests"""
+    timeout: NotRequired[StreamRunAgentFallbackModelConfigurationTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
@@ -1286,6 +1612,23 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     )
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[StreamRunAgentFallbackModelConfigurationFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[StreamRunAgentFallbackModelConfigurationRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[StreamRunAgentFallbackModelConfigurationCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[
+        List[StreamRunAgentFallbackModelConfigurationLoadBalancer]
+    ] = None
+    r"""Array of models with weights for load balancing requests"""
+
+    timeout: Optional[StreamRunAgentFallbackModelConfigurationTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -1312,6 +1655,11 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
             ]
         )
         nullable_fields = set(
@@ -1355,7 +1703,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
-class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
+class StreamRunAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: NotRequired[float]
@@ -1364,7 +1712,7 @@ class StreamRunAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class StreamRunAgentFallbackModelConfigurationRetry(BaseModel):
+class StreamRunAgentFallbackModelConfigurationAgentsRetry(BaseModel):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: Optional[float] = 3
@@ -1397,7 +1745,7 @@ class StreamRunAgentFallbackModelConfiguration2TypedDict(TypedDict):
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[StreamRunAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
-    retry: NotRequired[StreamRunAgentFallbackModelConfigurationRetryTypedDict]
+    retry: NotRequired[StreamRunAgentFallbackModelConfigurationAgentsRetryTypedDict]
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
@@ -1410,7 +1758,7 @@ class StreamRunAgentFallbackModelConfiguration2(BaseModel):
     parameters: Optional[StreamRunAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    retry: Optional[StreamRunAgentFallbackModelConfigurationRetry] = None
+    retry: Optional[StreamRunAgentFallbackModelConfigurationAgentsRetry] = None
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     @model_serializer(mode="wrap")
@@ -1817,7 +2165,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KFJAN6FPBTNAMFZ6M4FTR3CS"
+    id: Optional[str] = "01KFJP466X2KRH44WFAAC3XB7H"
 
     description: Optional[str] = None
 
