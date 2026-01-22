@@ -12,7 +12,7 @@ Create transcription
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createTranscription" method="post" path="/v2/gateway/audio/transcriptions" -->
+<!-- UsageSnippet language="python" operationID="createTranscription" method="post" path="/v2/router/audio/transcriptions" -->
 ```python
 from orq_ai_sdk import Orq
 import os

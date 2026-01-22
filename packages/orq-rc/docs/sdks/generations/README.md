@@ -12,7 +12,7 @@ Create an Image
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createImage" method="post" path="/v2/gateway/images/generations" -->
+<!-- UsageSnippet language="python" operationID="createImage" method="post" path="/v2/router/images/generations" -->
 ```python
 from orq_ai_sdk import Orq
 import os

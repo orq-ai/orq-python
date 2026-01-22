@@ -12,7 +12,7 @@ Generates audio from the input text.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createSpeech" method="post" path="/v2/gateway/audio/speech" -->
+<!-- UsageSnippet language="python" operationID="createSpeech" method="post" path="/v2/router/audio/speech" -->
 ```python
 from orq_ai_sdk import Orq
 import os

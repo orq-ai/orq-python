@@ -12,7 +12,7 @@ Create moderation
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createModeration" method="post" path="/v2/gateway/moderations" -->
+<!-- UsageSnippet language="python" operationID="createModeration" method="post" path="/v2/router/moderations" -->
 ```python
 from orq_ai_sdk import Orq
 import os

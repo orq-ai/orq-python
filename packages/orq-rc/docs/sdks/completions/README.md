@@ -12,7 +12,7 @@ For sending requests to legacy completion models
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createCompletion" method="post" path="/v2/gateway/completions" -->
+<!-- UsageSnippet language="python" operationID="createCompletion" method="post" path="/v2/router/completions" -->
 ```python
 from orq_ai_sdk import Orq
 import os

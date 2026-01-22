@@ -12,7 +12,7 @@ Creates a model response for the given chat conversation with support for retrie
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createChatCompletion" method="post" path="/v2/gateway/chat/completions" -->
+<!-- UsageSnippet language="python" operationID="createChatCompletion" method="post" path="/v2/router/chat/completions" -->
 ```python
 from orq_ai_sdk import Orq
 import os

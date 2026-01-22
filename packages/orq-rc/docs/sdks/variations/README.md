@@ -12,7 +12,7 @@ Create an Image Variation
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createImageVariation" method="post" path="/v2/gateway/images/variations" -->
+<!-- UsageSnippet language="python" operationID="createImageVariation" method="post" path="/v2/router/images/variations" -->
 ```python
 from orq_ai_sdk import Orq
 import os

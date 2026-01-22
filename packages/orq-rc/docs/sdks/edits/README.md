@@ -12,7 +12,7 @@ Edit an Image
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createImageEdit" method="post" path="/v2/gateway/images/edits" -->
+<!-- UsageSnippet language="python" operationID="createImageEdit" method="post" path="/v2/router/images/edits" -->
 ```python
 from orq_ai_sdk import Orq
 import os

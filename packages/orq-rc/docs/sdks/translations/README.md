@@ -12,7 +12,7 @@ Create translation
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createTranslation" method="post" path="/v2/gateway/audio/translations" -->
+<!-- UsageSnippet language="python" operationID="createTranslation" method="post" path="/v2/router/audio/translations" -->
 ```python
 from orq_ai_sdk import Orq
 import os

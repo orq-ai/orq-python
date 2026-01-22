@@ -12,7 +12,7 @@ Creates a model response for the given input.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createResponse" method="post" path="/v2/gateway/responses" -->
+<!-- UsageSnippet language="python" operationID="createResponse" method="post" path="/v2/router/responses" -->
 ```python
 from orq_ai_sdk import Orq
 import os

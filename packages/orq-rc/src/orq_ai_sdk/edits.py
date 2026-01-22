@@ -82,7 +82,7 @@ class Edits(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/gateway/images/edits",
+            path="/v2/router/images/edits",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -205,7 +205,7 @@ class Edits(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/gateway/images/edits",
+            path="/v2/router/images/edits",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

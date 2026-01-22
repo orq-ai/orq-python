@@ -14,5 +14,6 @@ The type of the model. Current `chat`,`completion` and `image` are supported
 | `TTS`        | tts          |
 | `STT`        | stt          |
 | `RERANK`     | rerank       |
+| `OCR`        | ocr          |
 | `MODERATION` | moderation   |
 | `VISION`     | vision       |

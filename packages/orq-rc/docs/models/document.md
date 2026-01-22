@@ -1,10 +1,19 @@
 # Document
 
-If return_documents is set as false this will return none, if true it will return the documents passed in
+Document to run OCR on. Can be a DocumentURLChunk or ImageURLChunk.
 
 
-## Fields
+## Supported Types
 
-| Field                              | Type                               | Required                           | Description                        |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| `text`                             | *str*                              | :heavy_check_mark:                 | The text of the document to rerank |
+### `models.Document1`
+
+```python
+value: models.Document1 = /* values here */
+```
+
+### `models.Document2`
+
+```python
+value: models.Document2 = /* values here */
+```
+

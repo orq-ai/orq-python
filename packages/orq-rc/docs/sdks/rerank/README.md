@@ -12,7 +12,7 @@ Rerank a list of documents based on their relevance to a query.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createRerank" method="post" path="/v2/gateway/rerank" -->
+<!-- UsageSnippet language="python" operationID="createRerank" method="post" path="/v2/router/rerank" -->
 ```python
 from orq_ai_sdk import Orq
 import os

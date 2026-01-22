@@ -89,7 +89,7 @@ class Generations(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/gateway/images/generations",
+            path="/v2/router/images/generations",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -219,7 +219,7 @@ class Generations(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/gateway/images/generations",
+            path="/v2/router/images/generations",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

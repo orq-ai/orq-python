@@ -352,14 +352,14 @@ CreateRerankRouterRerankObject = Literal["rerank",]
 r"""The object type, which is always `rerank`."""
 
 
-class DocumentTypedDict(TypedDict):
+class CreateRerankDocumentTypedDict(TypedDict):
     r"""If return_documents is set as false this will return none, if true it will return the documents passed in"""
 
     text: str
     r"""The text of the document to rerank"""
 
 
-class Document(BaseModel):
+class CreateRerankDocument(BaseModel):
     r"""If return_documents is set as false this will return none, if true it will return the documents passed in"""
 
     text: str
@@ -373,7 +373,7 @@ class CreateRerankResultsTypedDict(TypedDict):
     r"""Corresponds to the index in the original list of documents to which the ranked document belongs."""
     relevance_score: float
     r"""Relevance scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance."""
-    document: NotRequired[DocumentTypedDict]
+    document: NotRequired[CreateRerankDocumentTypedDict]
     r"""If return_documents is set as false this will return none, if true it will return the documents passed in"""
 
 
@@ -387,7 +387,7 @@ class CreateRerankResults(BaseModel):
     relevance_score: float
     r"""Relevance scores are normalized to be in the range [0, 1]. Scores close to 1 indicate a high relevance to the query, and scores closer to 0 indicate low relevance."""
 
-    document: Optional[Document] = None
+    document: Optional[CreateRerankDocument] = None
     r"""If return_documents is set as false this will return none, if true it will return the documents passed in"""
 
     @model_serializer(mode="wrap")

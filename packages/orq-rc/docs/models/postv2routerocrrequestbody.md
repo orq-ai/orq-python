@@ -1,0 +1,13 @@
+# PostV2RouterOcrRequestBody
+
+input
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `model`                                                                                               | *str*                                                                                                 | :heavy_check_mark:                                                                                    | ID of the model to use for OCR.                                                                       |
+| `document`                                                                                            | [models.Document](../models/document.md)                                                              | :heavy_check_mark:                                                                                    | Document to run OCR on. Can be a DocumentURLChunk or ImageURLChunk.                                   |
+| `pages`                                                                                               | List[*int*]                                                                                           | :heavy_minus_sign:                                                                                    | Specific pages to process. Can be a single number, range, or list. Starts from 0. Null for all pages. |
+| `ocr_settings`                                                                                        | [Optional[models.OcrSettings]](../models/ocrsettings.md)                                              | :heavy_minus_sign:                                                                                    | Optional settings for the OCR run                                                                     |

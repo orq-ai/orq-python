@@ -74,7 +74,7 @@ class Variations(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/v2/gateway/images/variations",
+            path="/v2/router/images/variations",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -195,7 +195,7 @@ class Variations(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/v2/gateway/images/variations",
+            path="/v2/router/images/variations",
             base_url=base_url,
             url_variables=url_variables,
             request=request,

@@ -12,7 +12,7 @@ Get a vector representation of a given input that can be easily consumed by mach
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="createEmbedding" method="post" path="/v2/gateway/embeddings" -->
+<!-- UsageSnippet language="python" operationID="createEmbedding" method="post" path="/v2/router/embeddings" -->
 ```python
 from orq_ai_sdk import Orq
 import os
