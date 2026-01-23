@@ -117,10 +117,8 @@ class OrqCompletions(BaseSDK):
         ] = None,
         load_balancer: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionLoadBalancer],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict
-                ],
+                models_createchatcompletionop.CreateChatCompletionLoadBalancer,
+                models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
@@ -184,7 +182,7 @@ class OrqCompletions(BaseSDK):
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
-        :param load_balancer: Array of models with weights for load balancing requests
+        :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
@@ -261,7 +259,7 @@ class OrqCompletions(BaseSDK):
                 cache, Optional[models.CreateChatCompletionCache]
             ),
             load_balancer=utils.get_pydantic_model(
-                load_balancer, Optional[List[models.CreateChatCompletionLoadBalancer]]
+                load_balancer, Optional[models.CreateChatCompletionLoadBalancer]
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]
@@ -440,10 +438,8 @@ class OrqCompletions(BaseSDK):
         ] = None,
         load_balancer: Optional[
             Union[
-                List[models_createchatcompletionop.CreateChatCompletionLoadBalancer],
-                List[
-                    models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict
-                ],
+                models_createchatcompletionop.CreateChatCompletionLoadBalancer,
+                models_createchatcompletionop.CreateChatCompletionLoadBalancerTypedDict,
             ]
         ] = None,
         timeout: Optional[
@@ -507,7 +503,7 @@ class OrqCompletions(BaseSDK):
         :param fallbacks: Array of fallback models to use if primary model fails
         :param retry: Retry configuration for the request
         :param cache: Cache configuration for the request.
-        :param load_balancer: Array of models with weights for load balancing requests
+        :param load_balancer: Load balancer configuration for the request.
         :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
@@ -584,7 +580,7 @@ class OrqCompletions(BaseSDK):
                 cache, Optional[models.CreateChatCompletionCache]
             ),
             load_balancer=utils.get_pydantic_model(
-                load_balancer, Optional[List[models.CreateChatCompletionLoadBalancer]]
+                load_balancer, Optional[models.CreateChatCompletionLoadBalancer]
             ),
             timeout=utils.get_pydantic_model(
                 timeout, Optional[models.CreateChatCompletionTimeout]

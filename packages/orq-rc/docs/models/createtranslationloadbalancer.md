@@ -1,5 +1,7 @@
 # CreateTranslationLoadBalancer
 
+Array of models with weights for load balancing requests
+
 
 ## Supported Types
 

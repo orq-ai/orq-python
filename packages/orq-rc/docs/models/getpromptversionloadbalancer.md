@@ -1,5 +1,7 @@
 # GetPromptVersionLoadBalancer
 
+Load balancer configuration for the request.
+
 
 ## Supported Types
 

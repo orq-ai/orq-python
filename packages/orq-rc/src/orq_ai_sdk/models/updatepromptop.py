@@ -1057,17 +1057,14 @@ class UpdatePromptCache(BaseModel):
 UpdatePromptLoadBalancerType = Literal["weight_based",]
 
 
-class UpdatePromptLoadBalancer1TypedDict(TypedDict):
-    type: UpdatePromptLoadBalancerType
+class UpdatePromptLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdatePromptLoadBalancer1(BaseModel):
-    type: UpdatePromptLoadBalancerType
-
+class UpdatePromptLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1091,10 +1088,23 @@ class UpdatePromptLoadBalancer1(BaseModel):
         return m
 
 
+class UpdatePromptLoadBalancer1TypedDict(TypedDict):
+    type: UpdatePromptLoadBalancerType
+    models: List[UpdatePromptLoadBalancerModelsTypedDict]
+
+
+class UpdatePromptLoadBalancer1(BaseModel):
+    type: UpdatePromptLoadBalancerType
+
+    models: List[UpdatePromptLoadBalancerModels]
+
+
 UpdatePromptLoadBalancerTypedDict = UpdatePromptLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 UpdatePromptLoadBalancer = UpdatePromptLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class UpdatePromptTimeoutTypedDict(TypedDict):
@@ -1178,8 +1188,8 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[UpdatePromptCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[UpdatePromptLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[UpdatePromptLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[UpdatePromptTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1278,8 +1288,8 @@ class UpdatePromptPromptInput(BaseModel):
     cache: Optional[UpdatePromptCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[UpdatePromptLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[UpdatePromptLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[UpdatePromptTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -2833,17 +2843,14 @@ class UpdatePromptPromptsCache(BaseModel):
 UpdatePromptLoadBalancerPromptsType = Literal["weight_based",]
 
 
-class UpdatePromptLoadBalancerPrompts1TypedDict(TypedDict):
-    type: UpdatePromptLoadBalancerPromptsType
+class UpdatePromptLoadBalancerPromptsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdatePromptLoadBalancerPrompts1(BaseModel):
-    type: UpdatePromptLoadBalancerPromptsType
-
+class UpdatePromptLoadBalancerPromptsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -2867,10 +2874,23 @@ class UpdatePromptLoadBalancerPrompts1(BaseModel):
         return m
 
 
+class UpdatePromptLoadBalancerPrompts1TypedDict(TypedDict):
+    type: UpdatePromptLoadBalancerPromptsType
+    models: List[UpdatePromptLoadBalancerPromptsModelsTypedDict]
+
+
+class UpdatePromptLoadBalancerPrompts1(BaseModel):
+    type: UpdatePromptLoadBalancerPromptsType
+
+    models: List[UpdatePromptLoadBalancerPromptsModels]
+
+
 UpdatePromptPromptsLoadBalancerTypedDict = UpdatePromptLoadBalancerPrompts1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 UpdatePromptPromptsLoadBalancer = UpdatePromptLoadBalancerPrompts1
+r"""Load balancer configuration for the request."""
 
 
 class UpdatePromptPromptsTimeoutTypedDict(TypedDict):
@@ -3543,8 +3563,8 @@ class UpdatePromptPromptFieldTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[UpdatePromptPromptsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[UpdatePromptPromptsLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[UpdatePromptPromptsLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[UpdatePromptPromptsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[UpdatePromptPromptsResponseMessagesTypedDict]]
@@ -3642,8 +3662,8 @@ class UpdatePromptPromptField(BaseModel):
     cache: Optional[UpdatePromptPromptsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[UpdatePromptPromptsLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[UpdatePromptPromptsLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[UpdatePromptPromptsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

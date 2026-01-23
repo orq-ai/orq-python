@@ -1338,17 +1338,14 @@ class ListPromptVersionsCache(BaseModel):
 ListPromptVersionsLoadBalancerType = Literal["weight_based",]
 
 
-class ListPromptVersionsLoadBalancer1TypedDict(TypedDict):
-    type: ListPromptVersionsLoadBalancerType
+class ListPromptVersionsLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class ListPromptVersionsLoadBalancer1(BaseModel):
-    type: ListPromptVersionsLoadBalancerType
-
+class ListPromptVersionsLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1372,10 +1369,23 @@ class ListPromptVersionsLoadBalancer1(BaseModel):
         return m
 
 
+class ListPromptVersionsLoadBalancer1TypedDict(TypedDict):
+    type: ListPromptVersionsLoadBalancerType
+    models: List[ListPromptVersionsLoadBalancerModelsTypedDict]
+
+
+class ListPromptVersionsLoadBalancer1(BaseModel):
+    type: ListPromptVersionsLoadBalancerType
+
+    models: List[ListPromptVersionsLoadBalancerModels]
+
+
 ListPromptVersionsLoadBalancerTypedDict = ListPromptVersionsLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 ListPromptVersionsLoadBalancer = ListPromptVersionsLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class ListPromptVersionsTimeoutTypedDict(TypedDict):
@@ -2030,8 +2040,8 @@ class ListPromptVersionsPromptFieldTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[ListPromptVersionsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[ListPromptVersionsLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[ListPromptVersionsLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[ListPromptVersionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[ListPromptVersionsPromptsMessagesTypedDict]]
@@ -2129,8 +2139,8 @@ class ListPromptVersionsPromptField(BaseModel):
     cache: Optional[ListPromptVersionsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[ListPromptVersionsLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[ListPromptVersionsLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[ListPromptVersionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

@@ -537,17 +537,14 @@ class StreamRunAgentModelConfigurationCache(BaseModel):
 StreamRunAgentLoadBalancerType = Literal["weight_based",]
 
 
-class StreamRunAgentLoadBalancer1TypedDict(TypedDict):
-    type: StreamRunAgentLoadBalancerType
+class StreamRunAgentLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class StreamRunAgentLoadBalancer1(BaseModel):
-    type: StreamRunAgentLoadBalancerType
-
+class StreamRunAgentLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -571,12 +568,25 @@ class StreamRunAgentLoadBalancer1(BaseModel):
         return m
 
 
+class StreamRunAgentLoadBalancer1TypedDict(TypedDict):
+    type: StreamRunAgentLoadBalancerType
+    models: List[StreamRunAgentLoadBalancerModelsTypedDict]
+
+
+class StreamRunAgentLoadBalancer1(BaseModel):
+    type: StreamRunAgentLoadBalancerType
+
+    models: List[StreamRunAgentLoadBalancerModels]
+
+
 StreamRunAgentModelConfigurationLoadBalancerTypedDict = (
     StreamRunAgentLoadBalancer1TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 StreamRunAgentModelConfigurationLoadBalancer = StreamRunAgentLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class StreamRunAgentModelConfigurationTimeoutTypedDict(TypedDict):
@@ -660,10 +670,8 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[StreamRunAgentModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[
-        List[StreamRunAgentModelConfigurationLoadBalancerTypedDict]
-    ]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[StreamRunAgentModelConfigurationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[StreamRunAgentModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -760,8 +768,8 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     cache: Optional[StreamRunAgentModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[StreamRunAgentModelConfigurationLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[StreamRunAgentModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[StreamRunAgentModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1382,17 +1390,14 @@ class StreamRunAgentFallbackModelConfigurationCache(BaseModel):
 StreamRunAgentLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class StreamRunAgentLoadBalancerAgents1TypedDict(TypedDict):
-    type: StreamRunAgentLoadBalancerAgentsType
+class StreamRunAgentLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class StreamRunAgentLoadBalancerAgents1(BaseModel):
-    type: StreamRunAgentLoadBalancerAgentsType
-
+class StreamRunAgentLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1416,12 +1421,25 @@ class StreamRunAgentLoadBalancerAgents1(BaseModel):
         return m
 
 
+class StreamRunAgentLoadBalancerAgents1TypedDict(TypedDict):
+    type: StreamRunAgentLoadBalancerAgentsType
+    models: List[StreamRunAgentLoadBalancerAgentsModelsTypedDict]
+
+
+class StreamRunAgentLoadBalancerAgents1(BaseModel):
+    type: StreamRunAgentLoadBalancerAgentsType
+
+    models: List[StreamRunAgentLoadBalancerAgentsModels]
+
+
 StreamRunAgentFallbackModelConfigurationLoadBalancerTypedDict = (
     StreamRunAgentLoadBalancerAgents1TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 StreamRunAgentFallbackModelConfigurationLoadBalancer = StreamRunAgentLoadBalancerAgents1
+r"""Load balancer configuration for the request."""
 
 
 class StreamRunAgentFallbackModelConfigurationTimeoutTypedDict(TypedDict):
@@ -1516,9 +1534,9 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     cache: NotRequired[StreamRunAgentFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
-        List[StreamRunAgentFallbackModelConfigurationLoadBalancerTypedDict]
+        StreamRunAgentFallbackModelConfigurationLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[StreamRunAgentFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1621,10 +1639,8 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     cache: Optional[StreamRunAgentFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[
-        List[StreamRunAgentFallbackModelConfigurationLoadBalancer]
-    ] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[StreamRunAgentFallbackModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[StreamRunAgentFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -2165,7 +2181,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KFJYQG8SEBC963WGPHDB9BZ7"
+    id: Optional[str] = "01KFMNRKHFFXSFCB8QFVCQVCC5"
 
     description: Optional[str] = None
 

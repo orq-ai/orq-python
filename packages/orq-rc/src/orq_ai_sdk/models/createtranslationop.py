@@ -147,17 +147,14 @@ class CreateTranslationContact(BaseModel):
 CreateTranslationLoadBalancerType = Literal["weight_based",]
 
 
-class CreateTranslationLoadBalancer1TypedDict(TypedDict):
-    type: CreateTranslationLoadBalancerType
+class CreateTranslationLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateTranslationLoadBalancer1(BaseModel):
-    type: CreateTranslationLoadBalancerType
-
+class CreateTranslationLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -181,10 +178,23 @@ class CreateTranslationLoadBalancer1(BaseModel):
         return m
 
 
+class CreateTranslationLoadBalancer1TypedDict(TypedDict):
+    type: CreateTranslationLoadBalancerType
+    models: List[CreateTranslationLoadBalancerModelsTypedDict]
+
+
+class CreateTranslationLoadBalancer1(BaseModel):
+    type: CreateTranslationLoadBalancerType
+
+    models: List[CreateTranslationLoadBalancerModels]
+
+
 CreateTranslationLoadBalancerTypedDict = CreateTranslationLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateTranslationLoadBalancer = CreateTranslationLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateTranslationTimeoutTypedDict(TypedDict):
@@ -202,6 +212,8 @@ class CreateTranslationTimeout(BaseModel):
 
 
 class CreateTranslationOrqTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     fallbacks: NotRequired[List[CreateTranslationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     retry: NotRequired[CreateTranslationRetryTypedDict]
@@ -209,13 +221,16 @@ class CreateTranslationOrqTypedDict(TypedDict):
     identity: NotRequired[PublicContactTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[CreateTranslationContactTypedDict]
-    load_balancer: NotRequired[List[CreateTranslationLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateTranslationLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateTranslationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class CreateTranslationOrq(BaseModel):
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
     fallbacks: Optional[List[CreateTranslationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
@@ -227,7 +242,7 @@ class CreateTranslationOrq(BaseModel):
 
     contact: Optional[CreateTranslationContact] = None
 
-    load_balancer: Optional[List[CreateTranslationLoadBalancer]] = None
+    load_balancer: Optional[CreateTranslationLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateTranslationTimeout] = None
@@ -236,7 +251,15 @@ class CreateTranslationOrq(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["fallbacks", "retry", "identity", "contact", "load_balancer", "timeout"]
+            [
+                "name",
+                "fallbacks",
+                "retry",
+                "identity",
+                "contact",
+                "load_balancer",
+                "timeout",
+            ]
         )
         serialized = handler(self)
         m = {}

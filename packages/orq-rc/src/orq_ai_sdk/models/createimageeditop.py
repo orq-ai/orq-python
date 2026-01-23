@@ -200,17 +200,14 @@ class CreateImageEditCache(BaseModel):
 CreateImageEditLoadBalancerType = Literal["weight_based",]
 
 
-class CreateImageEditLoadBalancer1TypedDict(TypedDict):
-    type: CreateImageEditLoadBalancerType
+class CreateImageEditLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateImageEditLoadBalancer1(BaseModel):
-    type: CreateImageEditLoadBalancerType
-
+class CreateImageEditLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -234,10 +231,23 @@ class CreateImageEditLoadBalancer1(BaseModel):
         return m
 
 
+class CreateImageEditLoadBalancer1TypedDict(TypedDict):
+    type: CreateImageEditLoadBalancerType
+    models: List[CreateImageEditLoadBalancerModelsTypedDict]
+
+
+class CreateImageEditLoadBalancer1(BaseModel):
+    type: CreateImageEditLoadBalancerType
+
+    models: List[CreateImageEditLoadBalancerModels]
+
+
 CreateImageEditLoadBalancerTypedDict = CreateImageEditLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateImageEditLoadBalancer = CreateImageEditLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateImageEditTimeoutTypedDict(TypedDict):
@@ -268,7 +278,7 @@ class CreateImageEditOrqTypedDict(TypedDict):
     contact: NotRequired[CreateImageEditContactTypedDict]
     cache: NotRequired[CreateImageEditCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[CreateImageEditLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateImageEditLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateImageEditTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -295,7 +305,7 @@ class CreateImageEditOrq(BaseModel):
     cache: Optional[CreateImageEditCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[CreateImageEditLoadBalancer]] = None
+    load_balancer: Optional[CreateImageEditLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateImageEditTimeout] = None

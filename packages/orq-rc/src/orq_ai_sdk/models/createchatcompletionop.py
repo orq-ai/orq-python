@@ -1252,17 +1252,14 @@ class CreateChatCompletionCache(BaseModel):
 CreateChatCompletionLoadBalancerType = Literal["weight_based",]
 
 
-class CreateChatCompletionLoadBalancer1TypedDict(TypedDict):
-    type: CreateChatCompletionLoadBalancerType
+class CreateChatCompletionLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateChatCompletionLoadBalancer1(BaseModel):
-    type: CreateChatCompletionLoadBalancerType
-
+class CreateChatCompletionLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1286,10 +1283,23 @@ class CreateChatCompletionLoadBalancer1(BaseModel):
         return m
 
 
+class CreateChatCompletionLoadBalancer1TypedDict(TypedDict):
+    type: CreateChatCompletionLoadBalancerType
+    models: List[CreateChatCompletionLoadBalancerModelsTypedDict]
+
+
+class CreateChatCompletionLoadBalancer1(BaseModel):
+    type: CreateChatCompletionLoadBalancerType
+
+    models: List[CreateChatCompletionLoadBalancerModels]
+
+
 CreateChatCompletionLoadBalancerTypedDict = CreateChatCompletionLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 CreateChatCompletionLoadBalancer = CreateChatCompletionLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class CreateChatCompletionTimeoutTypedDict(TypedDict):
@@ -2328,17 +2338,14 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
 CreateChatCompletionLoadBalancerRouterChatCompletionsType = Literal["weight_based",]
 
 
-class CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict(TypedDict):
-    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
+class CreateChatCompletionLoadBalancerRouterChatCompletionsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
-    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
-
+class CreateChatCompletionLoadBalancerRouterChatCompletionsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -2362,14 +2369,27 @@ class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
         return m
 
 
+class CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict(TypedDict):
+    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
+    models: List[CreateChatCompletionLoadBalancerRouterChatCompletionsModelsTypedDict]
+
+
+class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
+    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
+
+    models: List[CreateChatCompletionLoadBalancerRouterChatCompletionsModels]
+
+
 CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict
 )
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateChatCompletionRouterChatCompletionsLoadBalancer = (
     CreateChatCompletionLoadBalancerRouterChatCompletions1
 )
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateChatCompletionRouterChatCompletionsTimeoutTypedDict(TypedDict):
@@ -2413,7 +2433,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateChatCompletionKnowledgeBasesTypedDict]]
     load_balancer: NotRequired[
-        List[CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict]
+        CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict
     ]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateChatCompletionRouterChatCompletionsTimeoutTypedDict]
@@ -2454,9 +2474,9 @@ class CreateChatCompletionOrq(BaseModel):
 
     knowledge_bases: Optional[List[CreateChatCompletionKnowledgeBases]] = None
 
-    load_balancer: Optional[
-        List[CreateChatCompletionRouterChatCompletionsLoadBalancer]
-    ] = None
+    load_balancer: Optional[CreateChatCompletionRouterChatCompletionsLoadBalancer] = (
+        None
+    )
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateChatCompletionRouterChatCompletionsTimeout] = None
@@ -2563,8 +2583,8 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[CreateChatCompletionCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[CreateChatCompletionLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[CreateChatCompletionLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateChatCompletionTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateChatCompletionOrqTypedDict]
@@ -2670,8 +2690,8 @@ class CreateChatCompletionRequestBody(BaseModel):
     cache: Optional[CreateChatCompletionCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[CreateChatCompletionLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[CreateChatCompletionLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[CreateChatCompletionTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

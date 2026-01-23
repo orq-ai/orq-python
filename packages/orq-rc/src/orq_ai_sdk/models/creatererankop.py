@@ -159,17 +159,14 @@ class CreateRerankContact(BaseModel):
 CreateRerankLoadBalancerType = Literal["weight_based",]
 
 
-class CreateRerankLoadBalancer1TypedDict(TypedDict):
-    type: CreateRerankLoadBalancerType
+class CreateRerankLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateRerankLoadBalancer1(BaseModel):
-    type: CreateRerankLoadBalancerType
-
+class CreateRerankLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -193,10 +190,23 @@ class CreateRerankLoadBalancer1(BaseModel):
         return m
 
 
+class CreateRerankLoadBalancer1TypedDict(TypedDict):
+    type: CreateRerankLoadBalancerType
+    models: List[CreateRerankLoadBalancerModelsTypedDict]
+
+
+class CreateRerankLoadBalancer1(BaseModel):
+    type: CreateRerankLoadBalancerType
+
+    models: List[CreateRerankLoadBalancerModels]
+
+
 CreateRerankLoadBalancerTypedDict = CreateRerankLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateRerankLoadBalancer = CreateRerankLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateRerankTimeoutTypedDict(TypedDict):
@@ -225,7 +235,7 @@ class CreateRerankOrqTypedDict(TypedDict):
     identity: NotRequired[PublicContactTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[CreateRerankContactTypedDict]
-    load_balancer: NotRequired[List[CreateRerankLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateRerankLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateRerankTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -249,7 +259,7 @@ class CreateRerankOrq(BaseModel):
 
     contact: Optional[CreateRerankContact] = None
 
-    load_balancer: Optional[List[CreateRerankLoadBalancer]] = None
+    load_balancer: Optional[CreateRerankLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateRerankTimeout] = None

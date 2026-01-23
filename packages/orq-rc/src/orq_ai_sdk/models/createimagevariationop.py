@@ -192,17 +192,14 @@ class CreateImageVariationCache(BaseModel):
 CreateImageVariationLoadBalancerType = Literal["weight_based",]
 
 
-class CreateImageVariationLoadBalancer1TypedDict(TypedDict):
-    type: CreateImageVariationLoadBalancerType
+class CreateImageVariationLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateImageVariationLoadBalancer1(BaseModel):
-    type: CreateImageVariationLoadBalancerType
-
+class CreateImageVariationLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -226,10 +223,23 @@ class CreateImageVariationLoadBalancer1(BaseModel):
         return m
 
 
+class CreateImageVariationLoadBalancer1TypedDict(TypedDict):
+    type: CreateImageVariationLoadBalancerType
+    models: List[CreateImageVariationLoadBalancerModelsTypedDict]
+
+
+class CreateImageVariationLoadBalancer1(BaseModel):
+    type: CreateImageVariationLoadBalancerType
+
+    models: List[CreateImageVariationLoadBalancerModels]
+
+
 CreateImageVariationLoadBalancerTypedDict = CreateImageVariationLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateImageVariationLoadBalancer = CreateImageVariationLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateImageVariationTimeoutTypedDict(TypedDict):
@@ -260,7 +270,7 @@ class CreateImageVariationOrqTypedDict(TypedDict):
     contact: NotRequired[CreateImageVariationContactTypedDict]
     cache: NotRequired[CreateImageVariationCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[CreateImageVariationLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateImageVariationLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateImageVariationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -287,7 +297,7 @@ class CreateImageVariationOrq(BaseModel):
     cache: Optional[CreateImageVariationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[CreateImageVariationLoadBalancer]] = None
+    load_balancer: Optional[CreateImageVariationLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateImageVariationTimeout] = None

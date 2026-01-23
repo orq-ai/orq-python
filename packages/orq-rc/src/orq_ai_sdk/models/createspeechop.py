@@ -163,17 +163,14 @@ class CreateSpeechThread(BaseModel):
 CreateSpeechLoadBalancerType = Literal["weight_based",]
 
 
-class CreateSpeechLoadBalancer1TypedDict(TypedDict):
-    type: CreateSpeechLoadBalancerType
+class CreateSpeechLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateSpeechLoadBalancer1(BaseModel):
-    type: CreateSpeechLoadBalancerType
-
+class CreateSpeechLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -197,10 +194,23 @@ class CreateSpeechLoadBalancer1(BaseModel):
         return m
 
 
+class CreateSpeechLoadBalancer1TypedDict(TypedDict):
+    type: CreateSpeechLoadBalancerType
+    models: List[CreateSpeechLoadBalancerModelsTypedDict]
+
+
+class CreateSpeechLoadBalancer1(BaseModel):
+    type: CreateSpeechLoadBalancerType
+
+    models: List[CreateSpeechLoadBalancerModels]
+
+
 CreateSpeechLoadBalancerTypedDict = CreateSpeechLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateSpeechLoadBalancer = CreateSpeechLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateSpeechTimeoutTypedDict(TypedDict):
@@ -229,7 +239,7 @@ class CreateSpeechOrqTypedDict(TypedDict):
     contact: NotRequired[CreateSpeechContactTypedDict]
     thread: NotRequired[CreateSpeechThreadTypedDict]
     r"""Thread information to group related requests"""
-    load_balancer: NotRequired[List[CreateSpeechLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateSpeechLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateSpeechTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -253,7 +263,7 @@ class CreateSpeechOrq(BaseModel):
     thread: Optional[CreateSpeechThread] = None
     r"""Thread information to group related requests"""
 
-    load_balancer: Optional[List[CreateSpeechLoadBalancer]] = None
+    load_balancer: Optional[CreateSpeechLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateSpeechTimeout] = None

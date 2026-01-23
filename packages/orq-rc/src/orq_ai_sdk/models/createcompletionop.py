@@ -1055,17 +1055,14 @@ class CreateCompletionKnowledgeBases(BaseModel):
 CreateCompletionLoadBalancerType = Literal["weight_based",]
 
 
-class CreateCompletionLoadBalancer1TypedDict(TypedDict):
-    type: CreateCompletionLoadBalancerType
+class CreateCompletionLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateCompletionLoadBalancer1(BaseModel):
-    type: CreateCompletionLoadBalancerType
-
+class CreateCompletionLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1089,10 +1086,23 @@ class CreateCompletionLoadBalancer1(BaseModel):
         return m
 
 
+class CreateCompletionLoadBalancer1TypedDict(TypedDict):
+    type: CreateCompletionLoadBalancerType
+    models: List[CreateCompletionLoadBalancerModelsTypedDict]
+
+
+class CreateCompletionLoadBalancer1(BaseModel):
+    type: CreateCompletionLoadBalancerType
+
+    models: List[CreateCompletionLoadBalancerModels]
+
+
 CreateCompletionLoadBalancerTypedDict = CreateCompletionLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateCompletionLoadBalancer = CreateCompletionLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateCompletionTimeoutTypedDict(TypedDict):
@@ -1133,7 +1143,7 @@ class CreateCompletionOrqTypedDict(TypedDict):
     cache: NotRequired[CreateCompletionCacheTypedDict]
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateCompletionKnowledgeBasesTypedDict]]
-    load_balancer: NotRequired[List[CreateCompletionLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateCompletionLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateCompletionTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1173,7 +1183,7 @@ class CreateCompletionOrq(BaseModel):
 
     knowledge_bases: Optional[List[CreateCompletionKnowledgeBases]] = None
 
-    load_balancer: Optional[List[CreateCompletionLoadBalancer]] = None
+    load_balancer: Optional[CreateCompletionLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateCompletionTimeout] = None

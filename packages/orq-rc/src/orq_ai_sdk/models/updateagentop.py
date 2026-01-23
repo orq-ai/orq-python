@@ -466,17 +466,14 @@ class ModelConfigurationCache(BaseModel):
 UpdateAgentLoadBalancerType = Literal["weight_based",]
 
 
-class UpdateAgentLoadBalancer1TypedDict(TypedDict):
-    type: UpdateAgentLoadBalancerType
+class UpdateAgentLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdateAgentLoadBalancer1(BaseModel):
-    type: UpdateAgentLoadBalancerType
-
+class UpdateAgentLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -500,10 +497,23 @@ class UpdateAgentLoadBalancer1(BaseModel):
         return m
 
 
+class UpdateAgentLoadBalancer1TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerType
+    models: List[UpdateAgentLoadBalancerModelsTypedDict]
+
+
+class UpdateAgentLoadBalancer1(BaseModel):
+    type: UpdateAgentLoadBalancerType
+
+    models: List[UpdateAgentLoadBalancerModels]
+
+
 ModelConfigurationLoadBalancerTypedDict = UpdateAgentLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 ModelConfigurationLoadBalancer = UpdateAgentLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class ModelConfigurationTimeoutTypedDict(TypedDict):
@@ -583,8 +593,8 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[ModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[ModelConfigurationLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[ModelConfigurationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[ModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -677,8 +687,8 @@ class ModelConfigurationParameters(BaseModel):
     cache: Optional[ModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[ModelConfigurationLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[ModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[ModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1294,17 +1304,14 @@ class UpdateAgentFallbackModelConfigurationCache(BaseModel):
 UpdateAgentLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class UpdateAgentLoadBalancerAgents1TypedDict(TypedDict):
-    type: UpdateAgentLoadBalancerAgentsType
+class UpdateAgentLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdateAgentLoadBalancerAgents1(BaseModel):
-    type: UpdateAgentLoadBalancerAgentsType
-
+class UpdateAgentLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1328,12 +1335,25 @@ class UpdateAgentLoadBalancerAgents1(BaseModel):
         return m
 
 
+class UpdateAgentLoadBalancerAgents1TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerAgentsType
+    models: List[UpdateAgentLoadBalancerAgentsModelsTypedDict]
+
+
+class UpdateAgentLoadBalancerAgents1(BaseModel):
+    type: UpdateAgentLoadBalancerAgentsType
+
+    models: List[UpdateAgentLoadBalancerAgentsModels]
+
+
 UpdateAgentFallbackModelConfigurationLoadBalancerTypedDict = (
     UpdateAgentLoadBalancerAgents1TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 UpdateAgentFallbackModelConfigurationLoadBalancer = UpdateAgentLoadBalancerAgents1
+r"""Load balancer configuration for the request."""
 
 
 class UpdateAgentFallbackModelConfigurationTimeoutTypedDict(TypedDict):
@@ -1424,9 +1444,9 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     cache: NotRequired[UpdateAgentFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
-        List[UpdateAgentFallbackModelConfigurationLoadBalancerTypedDict]
+        UpdateAgentFallbackModelConfigurationLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[UpdateAgentFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1527,10 +1547,8 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     cache: Optional[UpdateAgentFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[UpdateAgentFallbackModelConfigurationLoadBalancer]] = (
-        None
-    )
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[UpdateAgentFallbackModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[UpdateAgentFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -3476,17 +3494,14 @@ class UpdateAgentCache(BaseModel):
 UpdateAgentLoadBalancerAgentsResponseType = Literal["weight_based",]
 
 
-class UpdateAgentLoadBalancerAgentsResponse1TypedDict(TypedDict):
-    type: UpdateAgentLoadBalancerAgentsResponseType
+class UpdateAgentLoadBalancerAgentsResponseModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdateAgentLoadBalancerAgentsResponse1(BaseModel):
-    type: UpdateAgentLoadBalancerAgentsResponseType
-
+class UpdateAgentLoadBalancerAgentsResponseModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -3510,10 +3525,23 @@ class UpdateAgentLoadBalancerAgentsResponse1(BaseModel):
         return m
 
 
+class UpdateAgentLoadBalancerAgentsResponse1TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerAgentsResponseType
+    models: List[UpdateAgentLoadBalancerAgentsResponseModelsTypedDict]
+
+
+class UpdateAgentLoadBalancerAgentsResponse1(BaseModel):
+    type: UpdateAgentLoadBalancerAgentsResponseType
+
+    models: List[UpdateAgentLoadBalancerAgentsResponseModels]
+
+
 UpdateAgentLoadBalancerTypedDict = UpdateAgentLoadBalancerAgentsResponse1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 UpdateAgentLoadBalancer = UpdateAgentLoadBalancerAgentsResponse1
+r"""Load balancer configuration for the request."""
 
 
 class UpdateAgentTimeoutTypedDict(TypedDict):
@@ -3593,8 +3621,8 @@ class UpdateAgentParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[UpdateAgentCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[UpdateAgentLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[UpdateAgentLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[UpdateAgentTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -3687,8 +3715,8 @@ class UpdateAgentParameters(BaseModel):
     cache: Optional[UpdateAgentCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[UpdateAgentLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[UpdateAgentLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[UpdateAgentTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -4268,17 +4296,14 @@ class UpdateAgentFallbackModelConfigurationAgentsCache(BaseModel):
 UpdateAgentLoadBalancerAgentsResponse200Type = Literal["weight_based",]
 
 
-class UpdateAgentLoadBalancerAgentsResponse2001TypedDict(TypedDict):
-    type: UpdateAgentLoadBalancerAgentsResponse200Type
+class UpdateAgentLoadBalancerAgentsResponse200ModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class UpdateAgentLoadBalancerAgentsResponse2001(BaseModel):
-    type: UpdateAgentLoadBalancerAgentsResponse200Type
-
+class UpdateAgentLoadBalancerAgentsResponse200Models(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -4302,14 +4327,27 @@ class UpdateAgentLoadBalancerAgentsResponse2001(BaseModel):
         return m
 
 
+class UpdateAgentLoadBalancerAgentsResponse2001TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerAgentsResponse200Type
+    models: List[UpdateAgentLoadBalancerAgentsResponse200ModelsTypedDict]
+
+
+class UpdateAgentLoadBalancerAgentsResponse2001(BaseModel):
+    type: UpdateAgentLoadBalancerAgentsResponse200Type
+
+    models: List[UpdateAgentLoadBalancerAgentsResponse200Models]
+
+
 UpdateAgentFallbackModelConfigurationAgentsLoadBalancerTypedDict = (
     UpdateAgentLoadBalancerAgentsResponse2001TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 UpdateAgentFallbackModelConfigurationAgentsLoadBalancer = (
     UpdateAgentLoadBalancerAgentsResponse2001
 )
+r"""Load balancer configuration for the request."""
 
 
 class UpdateAgentFallbackModelConfigurationAgentsTimeoutTypedDict(TypedDict):
@@ -4410,9 +4448,9 @@ class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
     cache: NotRequired[UpdateAgentFallbackModelConfigurationAgentsCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
-        List[UpdateAgentFallbackModelConfigurationAgentsLoadBalancerTypedDict]
+        UpdateAgentFallbackModelConfigurationAgentsLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[UpdateAgentFallbackModelConfigurationAgentsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -4517,10 +4555,10 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
     cache: Optional[UpdateAgentFallbackModelConfigurationAgentsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[
-        List[UpdateAgentFallbackModelConfigurationAgentsLoadBalancer]
-    ] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[UpdateAgentFallbackModelConfigurationAgentsLoadBalancer] = (
+        None
+    )
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[UpdateAgentFallbackModelConfigurationAgentsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

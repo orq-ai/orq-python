@@ -750,17 +750,14 @@ class RetrieveAgentRequestCache(BaseModel):
 RetrieveAgentRequestLoadBalancerType = Literal["weight_based",]
 
 
-class RetrieveAgentRequestLoadBalancer1TypedDict(TypedDict):
-    type: RetrieveAgentRequestLoadBalancerType
+class RetrieveAgentRequestLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class RetrieveAgentRequestLoadBalancer1(BaseModel):
-    type: RetrieveAgentRequestLoadBalancerType
-
+class RetrieveAgentRequestLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -784,10 +781,23 @@ class RetrieveAgentRequestLoadBalancer1(BaseModel):
         return m
 
 
+class RetrieveAgentRequestLoadBalancer1TypedDict(TypedDict):
+    type: RetrieveAgentRequestLoadBalancerType
+    models: List[RetrieveAgentRequestLoadBalancerModelsTypedDict]
+
+
+class RetrieveAgentRequestLoadBalancer1(BaseModel):
+    type: RetrieveAgentRequestLoadBalancerType
+
+    models: List[RetrieveAgentRequestLoadBalancerModels]
+
+
 RetrieveAgentRequestLoadBalancerTypedDict = RetrieveAgentRequestLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 RetrieveAgentRequestLoadBalancer = RetrieveAgentRequestLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class RetrieveAgentRequestTimeoutTypedDict(TypedDict):
@@ -867,8 +877,8 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[RetrieveAgentRequestCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[RetrieveAgentRequestLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[RetrieveAgentRequestLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[RetrieveAgentRequestTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -961,8 +971,8 @@ class RetrieveAgentRequestParameters(BaseModel):
     cache: Optional[RetrieveAgentRequestCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[RetrieveAgentRequestLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[RetrieveAgentRequestLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[RetrieveAgentRequestTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1530,17 +1540,14 @@ class RetrieveAgentRequestFallbackModelConfigurationCache(BaseModel):
 RetrieveAgentRequestLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class RetrieveAgentRequestLoadBalancerAgents1TypedDict(TypedDict):
-    type: RetrieveAgentRequestLoadBalancerAgentsType
+class RetrieveAgentRequestLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class RetrieveAgentRequestLoadBalancerAgents1(BaseModel):
-    type: RetrieveAgentRequestLoadBalancerAgentsType
-
+class RetrieveAgentRequestLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1564,14 +1571,27 @@ class RetrieveAgentRequestLoadBalancerAgents1(BaseModel):
         return m
 
 
+class RetrieveAgentRequestLoadBalancerAgents1TypedDict(TypedDict):
+    type: RetrieveAgentRequestLoadBalancerAgentsType
+    models: List[RetrieveAgentRequestLoadBalancerAgentsModelsTypedDict]
+
+
+class RetrieveAgentRequestLoadBalancerAgents1(BaseModel):
+    type: RetrieveAgentRequestLoadBalancerAgentsType
+
+    models: List[RetrieveAgentRequestLoadBalancerAgentsModels]
+
+
 RetrieveAgentRequestFallbackModelConfigurationLoadBalancerTypedDict = (
     RetrieveAgentRequestLoadBalancerAgents1TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 RetrieveAgentRequestFallbackModelConfigurationLoadBalancer = (
     RetrieveAgentRequestLoadBalancerAgents1
 )
+r"""Load balancer configuration for the request."""
 
 
 class RetrieveAgentRequestFallbackModelConfigurationTimeoutTypedDict(TypedDict):
@@ -1674,9 +1694,9 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
     cache: NotRequired[RetrieveAgentRequestFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
-        List[RetrieveAgentRequestFallbackModelConfigurationLoadBalancerTypedDict]
+        RetrieveAgentRequestFallbackModelConfigurationLoadBalancerTypedDict
     ]
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[RetrieveAgentRequestFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1784,9 +1804,9 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     r"""Cache configuration for the request."""
 
     load_balancer: Optional[
-        List[RetrieveAgentRequestFallbackModelConfigurationLoadBalancer]
+        RetrieveAgentRequestFallbackModelConfigurationLoadBalancer
     ] = None
-    r"""Array of models with weights for load balancing requests"""
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[RetrieveAgentRequestFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

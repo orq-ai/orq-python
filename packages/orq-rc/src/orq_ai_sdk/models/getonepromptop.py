@@ -1282,17 +1282,14 @@ class GetOnePromptCache(BaseModel):
 GetOnePromptLoadBalancerType = Literal["weight_based",]
 
 
-class GetOnePromptLoadBalancer1TypedDict(TypedDict):
-    type: GetOnePromptLoadBalancerType
+class GetOnePromptLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class GetOnePromptLoadBalancer1(BaseModel):
-    type: GetOnePromptLoadBalancerType
-
+class GetOnePromptLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1316,10 +1313,23 @@ class GetOnePromptLoadBalancer1(BaseModel):
         return m
 
 
+class GetOnePromptLoadBalancer1TypedDict(TypedDict):
+    type: GetOnePromptLoadBalancerType
+    models: List[GetOnePromptLoadBalancerModelsTypedDict]
+
+
+class GetOnePromptLoadBalancer1(BaseModel):
+    type: GetOnePromptLoadBalancerType
+
+    models: List[GetOnePromptLoadBalancerModels]
+
+
 GetOnePromptLoadBalancerTypedDict = GetOnePromptLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 GetOnePromptLoadBalancer = GetOnePromptLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class GetOnePromptTimeoutTypedDict(TypedDict):
@@ -1971,8 +1981,8 @@ class GetOnePromptPromptFieldTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[GetOnePromptCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[GetOnePromptLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[GetOnePromptLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[GetOnePromptTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[GetOnePromptPromptsMessagesTypedDict]]
@@ -2070,8 +2080,8 @@ class GetOnePromptPromptField(BaseModel):
     cache: Optional[GetOnePromptCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[GetOnePromptLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[GetOnePromptLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[GetOnePromptTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""

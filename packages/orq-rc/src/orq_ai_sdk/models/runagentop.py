@@ -472,17 +472,14 @@ class RunAgentModelConfigurationCache(BaseModel):
 RunAgentLoadBalancerType = Literal["weight_based",]
 
 
-class RunAgentLoadBalancer1TypedDict(TypedDict):
-    type: RunAgentLoadBalancerType
+class RunAgentLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class RunAgentLoadBalancer1(BaseModel):
-    type: RunAgentLoadBalancerType
-
+class RunAgentLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -506,10 +503,23 @@ class RunAgentLoadBalancer1(BaseModel):
         return m
 
 
+class RunAgentLoadBalancer1TypedDict(TypedDict):
+    type: RunAgentLoadBalancerType
+    models: List[RunAgentLoadBalancerModelsTypedDict]
+
+
+class RunAgentLoadBalancer1(BaseModel):
+    type: RunAgentLoadBalancerType
+
+    models: List[RunAgentLoadBalancerModels]
+
+
 RunAgentModelConfigurationLoadBalancerTypedDict = RunAgentLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
 
 
 RunAgentModelConfigurationLoadBalancer = RunAgentLoadBalancer1
+r"""Load balancer configuration for the request."""
 
 
 class RunAgentModelConfigurationTimeoutTypedDict(TypedDict):
@@ -591,8 +601,8 @@ class RunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[RunAgentModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[RunAgentModelConfigurationLoadBalancerTypedDict]]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[RunAgentModelConfigurationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[RunAgentModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -685,8 +695,8 @@ class RunAgentModelConfigurationParameters(BaseModel):
     cache: Optional[RunAgentModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[RunAgentModelConfigurationLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[RunAgentModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[RunAgentModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -1302,17 +1312,14 @@ class RunAgentFallbackModelConfigurationCache(BaseModel):
 RunAgentLoadBalancerAgentsType = Literal["weight_based",]
 
 
-class RunAgentLoadBalancerAgents1TypedDict(TypedDict):
-    type: RunAgentLoadBalancerAgentsType
+class RunAgentLoadBalancerAgentsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class RunAgentLoadBalancerAgents1(BaseModel):
-    type: RunAgentLoadBalancerAgentsType
-
+class RunAgentLoadBalancerAgentsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1336,12 +1343,25 @@ class RunAgentLoadBalancerAgents1(BaseModel):
         return m
 
 
+class RunAgentLoadBalancerAgents1TypedDict(TypedDict):
+    type: RunAgentLoadBalancerAgentsType
+    models: List[RunAgentLoadBalancerAgentsModelsTypedDict]
+
+
+class RunAgentLoadBalancerAgents1(BaseModel):
+    type: RunAgentLoadBalancerAgentsType
+
+    models: List[RunAgentLoadBalancerAgentsModels]
+
+
 RunAgentFallbackModelConfigurationLoadBalancerTypedDict = (
     RunAgentLoadBalancerAgents1TypedDict
 )
+r"""Load balancer configuration for the request."""
 
 
 RunAgentFallbackModelConfigurationLoadBalancer = RunAgentLoadBalancerAgents1
+r"""Load balancer configuration for the request."""
 
 
 class RunAgentFallbackModelConfigurationTimeoutTypedDict(TypedDict):
@@ -1427,10 +1447,8 @@ class RunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     cache: NotRequired[RunAgentFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[
-        List[RunAgentFallbackModelConfigurationLoadBalancerTypedDict]
-    ]
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: NotRequired[RunAgentFallbackModelConfigurationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
     timeout: NotRequired[RunAgentFallbackModelConfigurationTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
@@ -1527,8 +1545,8 @@ class RunAgentFallbackModelConfigurationParameters(BaseModel):
     cache: Optional[RunAgentFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[RunAgentFallbackModelConfigurationLoadBalancer]] = None
-    r"""Array of models with weights for load balancing requests"""
+    load_balancer: Optional[RunAgentFallbackModelConfigurationLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
 
     timeout: Optional[RunAgentFallbackModelConfigurationTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -2063,7 +2081,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KFJYQG6JN3DK6NJGQ05VTSC5"
+    id: Optional[str] = "01KFMNRKE3ZJWC8EQYXDJC06T7"
 
     description: Optional[str] = None
 

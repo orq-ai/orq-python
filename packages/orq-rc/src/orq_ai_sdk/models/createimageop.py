@@ -207,17 +207,14 @@ class CreateImageCache(BaseModel):
 CreateImageLoadBalancerType = Literal["weight_based",]
 
 
-class CreateImageLoadBalancer1TypedDict(TypedDict):
-    type: CreateImageLoadBalancerType
+class CreateImageLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateImageLoadBalancer1(BaseModel):
-    type: CreateImageLoadBalancerType
-
+class CreateImageLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -241,10 +238,23 @@ class CreateImageLoadBalancer1(BaseModel):
         return m
 
 
+class CreateImageLoadBalancer1TypedDict(TypedDict):
+    type: CreateImageLoadBalancerType
+    models: List[CreateImageLoadBalancerModelsTypedDict]
+
+
+class CreateImageLoadBalancer1(BaseModel):
+    type: CreateImageLoadBalancerType
+
+    models: List[CreateImageLoadBalancerModels]
+
+
 CreateImageLoadBalancerTypedDict = CreateImageLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateImageLoadBalancer = CreateImageLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateImageTimeoutTypedDict(TypedDict):
@@ -273,7 +283,7 @@ class CreateImageOrqTypedDict(TypedDict):
     contact: NotRequired[CreateImageContactTypedDict]
     cache: NotRequired[CreateImageCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[List[CreateImageLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateImageLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateImageTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -297,7 +307,7 @@ class CreateImageOrq(BaseModel):
     cache: Optional[CreateImageCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[List[CreateImageLoadBalancer]] = None
+    load_balancer: Optional[CreateImageLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateImageTimeout] = None

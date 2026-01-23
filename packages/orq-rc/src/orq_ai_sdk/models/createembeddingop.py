@@ -170,17 +170,14 @@ class CreateEmbeddingContact(BaseModel):
 CreateEmbeddingLoadBalancerType = Literal["weight_based",]
 
 
-class CreateEmbeddingLoadBalancer1TypedDict(TypedDict):
-    type: CreateEmbeddingLoadBalancerType
+class CreateEmbeddingLoadBalancerModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateEmbeddingLoadBalancer1(BaseModel):
-    type: CreateEmbeddingLoadBalancerType
-
+class CreateEmbeddingLoadBalancerModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -204,10 +201,23 @@ class CreateEmbeddingLoadBalancer1(BaseModel):
         return m
 
 
+class CreateEmbeddingLoadBalancer1TypedDict(TypedDict):
+    type: CreateEmbeddingLoadBalancerType
+    models: List[CreateEmbeddingLoadBalancerModelsTypedDict]
+
+
+class CreateEmbeddingLoadBalancer1(BaseModel):
+    type: CreateEmbeddingLoadBalancerType
+
+    models: List[CreateEmbeddingLoadBalancerModels]
+
+
 CreateEmbeddingLoadBalancerTypedDict = CreateEmbeddingLoadBalancer1TypedDict
+r"""Array of models with weights for load balancing requests"""
 
 
 CreateEmbeddingLoadBalancer = CreateEmbeddingLoadBalancer1
+r"""Array of models with weights for load balancing requests"""
 
 
 class CreateEmbeddingTimeoutTypedDict(TypedDict):
@@ -236,7 +246,7 @@ class CreateEmbeddingOrqTypedDict(TypedDict):
     identity: NotRequired[PublicContactTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[CreateEmbeddingContactTypedDict]
-    load_balancer: NotRequired[List[CreateEmbeddingLoadBalancerTypedDict]]
+    load_balancer: NotRequired[CreateEmbeddingLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateEmbeddingTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
@@ -260,7 +270,7 @@ class CreateEmbeddingOrq(BaseModel):
 
     contact: Optional[CreateEmbeddingContact] = None
 
-    load_balancer: Optional[List[CreateEmbeddingLoadBalancer]] = None
+    load_balancer: Optional[CreateEmbeddingLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
     timeout: Optional[CreateEmbeddingTimeout] = None
