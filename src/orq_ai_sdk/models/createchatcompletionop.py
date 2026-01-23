@@ -46,31 +46,37 @@ from typing_extensions import (
 )
 
 
-CreateChatCompletionMessagesRouterRequestRequestBody5Role = Literal["tool",]
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Role = Literal[
+    "tool",
+]
 r"""The role of the messages author, in this case tool."""
 
 
-CreateChatCompletionContentRouterRequest2TypedDict = TextContentPartSchemaTypedDict
+CreateChatCompletionContentRouterChatCompletionsRequest2TypedDict = (
+    TextContentPartSchemaTypedDict
+)
 
 
-CreateChatCompletionContentRouterRequest2 = TextContentPartSchema
+CreateChatCompletionContentRouterChatCompletionsRequest2 = TextContentPartSchema
 
 
-CreateChatCompletionMessagesRouterRequestRequestBody5ContentTypedDict = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestRequestBody5ContentTypedDict",
-    Union[str, List[CreateChatCompletionContentRouterRequest2TypedDict]],
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5ContentTypedDict = TypeAliasType(
+    "CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5ContentTypedDict",
+    Union[str, List[CreateChatCompletionContentRouterChatCompletionsRequest2TypedDict]],
 )
 r"""The contents of the tool message."""
 
 
-CreateChatCompletionMessagesRouterRequestRequestBody5Content = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestRequestBody5Content",
-    Union[str, List[CreateChatCompletionContentRouterRequest2]],
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Content = (
+    TypeAliasType(
+        "CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Content",
+        Union[str, List[CreateChatCompletionContentRouterChatCompletionsRequest2]],
+    )
 )
 r"""The contents of the tool message."""
 
 
-CreateChatCompletionMessagesRouterType = Literal["ephemeral",]
+CreateChatCompletionMessagesRouterChatCompletionsType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
@@ -88,7 +94,7 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 
 
 class CreateChatCompletionMessagesCacheControlTypedDict(TypedDict):
-    type: CreateChatCompletionMessagesRouterType
+    type: CreateChatCompletionMessagesRouterChatCompletionsType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
     ttl: NotRequired[CreateChatCompletionMessagesTTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
@@ -101,7 +107,7 @@ class CreateChatCompletionMessagesCacheControlTypedDict(TypedDict):
 
 
 class CreateChatCompletionMessagesCacheControl(BaseModel):
-    type: CreateChatCompletionMessagesRouterType
+    type: CreateChatCompletionMessagesRouterChatCompletionsType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
     ttl: Optional[CreateChatCompletionMessagesTTL] = "5m"
@@ -131,9 +137,9 @@ class CreateChatCompletionMessagesCacheControl(BaseModel):
 
 
 class CreateChatCompletionMessagesToolMessageTypedDict(TypedDict):
-    role: CreateChatCompletionMessagesRouterRequestRequestBody5Role
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Role
     r"""The role of the messages author, in this case tool."""
-    content: CreateChatCompletionMessagesRouterRequestRequestBody5ContentTypedDict
+    content: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5ContentTypedDict
     r"""The contents of the tool message."""
     tool_call_id: Nullable[str]
     r"""Tool call that this message is responding to."""
@@ -141,10 +147,10 @@ class CreateChatCompletionMessagesToolMessageTypedDict(TypedDict):
 
 
 class CreateChatCompletionMessagesToolMessage(BaseModel):
-    role: CreateChatCompletionMessagesRouterRequestRequestBody5Role
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Role
     r"""The role of the messages author, in this case tool."""
 
-    content: CreateChatCompletionMessagesRouterRequestRequestBody5Content
+    content: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBody5Content
     r"""The contents of the tool message."""
 
     tool_call_id: Nullable[str]
@@ -178,8 +184,8 @@ class CreateChatCompletionMessagesToolMessage(BaseModel):
         return m
 
 
-CreateChatCompletionContentRouter2TypedDict = TypeAliasType(
-    "CreateChatCompletionContentRouter2TypedDict",
+CreateChatCompletionContentRouterChatCompletions2TypedDict = TypeAliasType(
+    "CreateChatCompletionContentRouterChatCompletions2TypedDict",
     Union[
         RefusalPartSchemaTypedDict,
         RedactedReasoningPartSchemaTypedDict,
@@ -189,7 +195,7 @@ CreateChatCompletionContentRouter2TypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionContentRouter2 = Annotated[
+CreateChatCompletionContentRouterChatCompletions2 = Annotated[
     Union[
         Annotated[TextContentPartSchema, Tag("text")],
         Annotated[RefusalPartSchema, Tag("refusal")],
@@ -200,21 +206,25 @@ CreateChatCompletionContentRouter2 = Annotated[
 ]
 
 
-CreateChatCompletionMessagesRouterRequestRequestBodyContentTypedDict = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestRequestBodyContentTypedDict",
-    Union[str, List[CreateChatCompletionContentRouter2TypedDict]],
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContentTypedDict = TypeAliasType(
+    "CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContentTypedDict",
+    Union[str, List[CreateChatCompletionContentRouterChatCompletions2TypedDict]],
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-CreateChatCompletionMessagesRouterRequestRequestBodyContent = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestRequestBodyContent",
-    Union[str, List[CreateChatCompletionContentRouter2]],
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContent = (
+    TypeAliasType(
+        "CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContent",
+        Union[str, List[CreateChatCompletionContentRouterChatCompletions2]],
+    )
 )
 r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
 
-CreateChatCompletionMessagesRouterRequestRequestBodyRole = Literal["assistant",]
+CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyRole = Literal[
+    "assistant",
+]
 r"""The role of the messages author, in this case `assistant`."""
 
 
@@ -307,10 +317,12 @@ class CreateChatCompletionMessagesToolCalls(BaseModel):
 
 
 class CreateChatCompletionMessagesAssistantMessageTypedDict(TypedDict):
-    role: CreateChatCompletionMessagesRouterRequestRequestBodyRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
     content: NotRequired[
-        Nullable[CreateChatCompletionMessagesRouterRequestRequestBodyContentTypedDict]
+        Nullable[
+            CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContentTypedDict
+        ]
     ]
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
     refusal: NotRequired[Nullable[str]]
@@ -324,11 +336,11 @@ class CreateChatCompletionMessagesAssistantMessageTypedDict(TypedDict):
 
 
 class CreateChatCompletionMessagesAssistantMessage(BaseModel):
-    role: CreateChatCompletionMessagesRouterRequestRequestBodyRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyRole
     r"""The role of the messages author, in this case `assistant`."""
 
     content: OptionalNullable[
-        CreateChatCompletionMessagesRouterRequestRequestBodyContent
+        CreateChatCompletionMessagesRouterChatCompletionsRequestRequestBodyContent
     ] = UNSET
     r"""The contents of the assistant message. Required unless `tool_calls` or `function_call` is specified."""
 
@@ -370,7 +382,7 @@ class CreateChatCompletionMessagesAssistantMessage(BaseModel):
         return m
 
 
-CreateChatCompletionMessagesRouterRequestRole = Literal["user",]
+CreateChatCompletionMessagesRouterChatCompletionsRequestRole = Literal["user",]
 r"""The role of the messages author, in this case `user`."""
 
 
@@ -378,7 +390,7 @@ CreateChatCompletion2Type = Literal["file",]
 r"""The type of the content part. Always `file`."""
 
 
-CreateChatCompletion2RouterType = Literal["ephemeral",]
+CreateChatCompletion2RouterChatCompletionsType = Literal["ephemeral",]
 r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
 
@@ -396,7 +408,7 @@ Defaults to `5m`. Only supported by `Anthropic` Claude models.
 
 
 class CreateChatCompletion2CacheControlTypedDict(TypedDict):
-    type: CreateChatCompletion2RouterType
+    type: CreateChatCompletion2RouterChatCompletionsType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
     ttl: NotRequired[CreateChatCompletion2TTL]
     r"""The time-to-live for the cache control breakpoint. This may be one of the following values:
@@ -409,7 +421,7 @@ class CreateChatCompletion2CacheControlTypedDict(TypedDict):
 
 
 class CreateChatCompletion2CacheControl(BaseModel):
-    type: CreateChatCompletion2RouterType
+    type: CreateChatCompletion2RouterChatCompletionsType
     r"""Create a cache control breakpoint at this content block. Accepts only the value \"ephemeral\"."""
 
     ttl: Optional[CreateChatCompletion2TTL] = "5m"
@@ -494,34 +506,36 @@ CreateChatCompletionContent2 = Annotated[
 ]
 
 
-CreateChatCompletionMessagesRouterRequestContentTypedDict = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestContentTypedDict",
-    Union[str, List[CreateChatCompletionContent2TypedDict]],
+CreateChatCompletionMessagesRouterChatCompletionsRequestContentTypedDict = (
+    TypeAliasType(
+        "CreateChatCompletionMessagesRouterChatCompletionsRequestContentTypedDict",
+        Union[str, List[CreateChatCompletionContent2TypedDict]],
+    )
 )
 r"""The contents of the user message."""
 
 
-CreateChatCompletionMessagesRouterRequestContent = TypeAliasType(
-    "CreateChatCompletionMessagesRouterRequestContent",
+CreateChatCompletionMessagesRouterChatCompletionsRequestContent = TypeAliasType(
+    "CreateChatCompletionMessagesRouterChatCompletionsRequestContent",
     Union[str, List[CreateChatCompletionContent2]],
 )
 r"""The contents of the user message."""
 
 
 class CreateChatCompletionMessagesUserMessageTypedDict(TypedDict):
-    role: CreateChatCompletionMessagesRouterRequestRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRole
     r"""The role of the messages author, in this case `user`."""
-    content: CreateChatCompletionMessagesRouterRequestContentTypedDict
+    content: CreateChatCompletionMessagesRouterChatCompletionsRequestContentTypedDict
     r"""The contents of the user message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
 class CreateChatCompletionMessagesUserMessage(BaseModel):
-    role: CreateChatCompletionMessagesRouterRequestRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRequestRole
     r"""The role of the messages author, in this case `user`."""
 
-    content: CreateChatCompletionMessagesRouterRequestContent
+    content: CreateChatCompletionMessagesRouterChatCompletionsRequestContent
     r"""The contents of the user message."""
 
     name: Optional[str] = None
@@ -544,37 +558,38 @@ class CreateChatCompletionMessagesUserMessage(BaseModel):
         return m
 
 
-CreateChatCompletionMessagesRouterRole = Literal["developer",]
+CreateChatCompletionMessagesRouterChatCompletionsRole = Literal["developer",]
 r"""The role of the messages author, in this case  `developer`."""
 
 
-CreateChatCompletionMessagesRouterContentTypedDict = TypeAliasType(
-    "CreateChatCompletionMessagesRouterContentTypedDict",
+CreateChatCompletionMessagesRouterChatCompletionsContentTypedDict = TypeAliasType(
+    "CreateChatCompletionMessagesRouterChatCompletionsContentTypedDict",
     Union[str, List[TextContentPartSchemaTypedDict]],
 )
 r"""The contents of the developer message."""
 
 
-CreateChatCompletionMessagesRouterContent = TypeAliasType(
-    "CreateChatCompletionMessagesRouterContent", Union[str, List[TextContentPartSchema]]
+CreateChatCompletionMessagesRouterChatCompletionsContent = TypeAliasType(
+    "CreateChatCompletionMessagesRouterChatCompletionsContent",
+    Union[str, List[TextContentPartSchema]],
 )
 r"""The contents of the developer message."""
 
 
 class CreateChatCompletionMessagesDeveloperMessageTypedDict(TypedDict):
-    role: CreateChatCompletionMessagesRouterRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRole
     r"""The role of the messages author, in this case  `developer`."""
-    content: CreateChatCompletionMessagesRouterContentTypedDict
+    content: CreateChatCompletionMessagesRouterChatCompletionsContentTypedDict
     r"""The contents of the developer message."""
     name: NotRequired[str]
     r"""An optional name for the participant. Provides the model information to differentiate between participants of the same role."""
 
 
 class CreateChatCompletionMessagesDeveloperMessage(BaseModel):
-    role: CreateChatCompletionMessagesRouterRole
+    role: CreateChatCompletionMessagesRouterChatCompletionsRole
     r"""The role of the messages author, in this case  `developer`."""
 
-    content: CreateChatCompletionMessagesRouterContent
+    content: CreateChatCompletionMessagesRouterChatCompletionsContent
     r"""The contents of the developer message."""
 
     name: Optional[str] = None
@@ -718,10 +733,14 @@ class CreateChatCompletionAudio(BaseModel):
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
-CreateChatCompletionResponseFormatRouterRequestType = Literal["json_schema",]
+CreateChatCompletionResponseFormatRouterChatCompletionsRequestType = Literal[
+    "json_schema",
+]
 
 
-class CreateChatCompletionResponseFormatRouterJSONSchemaTypedDict(TypedDict):
+class CreateChatCompletionResponseFormatRouterChatCompletionsJSONSchemaTypedDict(
+    TypedDict
+):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     description: NotRequired[str]
@@ -732,7 +751,7 @@ class CreateChatCompletionResponseFormatRouterJSONSchemaTypedDict(TypedDict):
     r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
 
 
-class CreateChatCompletionResponseFormatRouterJSONSchema(BaseModel):
+class CreateChatCompletionResponseFormatRouterChatCompletionsJSONSchema(BaseModel):
     name: str
     r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -768,8 +787,10 @@ class CreateChatCompletionResponseFormatJSONSchemaTypedDict(TypedDict):
     JSON Schema response format. Used to generate structured JSON responses
     """
 
-    type: CreateChatCompletionResponseFormatRouterRequestType
-    json_schema: CreateChatCompletionResponseFormatRouterJSONSchemaTypedDict
+    type: CreateChatCompletionResponseFormatRouterChatCompletionsRequestType
+    json_schema: (
+        CreateChatCompletionResponseFormatRouterChatCompletionsJSONSchemaTypedDict
+    )
 
 
 class CreateChatCompletionResponseFormatJSONSchema(BaseModel):
@@ -778,12 +799,12 @@ class CreateChatCompletionResponseFormatJSONSchema(BaseModel):
     JSON Schema response format. Used to generate structured JSON responses
     """
 
-    type: CreateChatCompletionResponseFormatRouterRequestType
+    type: CreateChatCompletionResponseFormatRouterChatCompletionsRequestType
 
-    json_schema: CreateChatCompletionResponseFormatRouterJSONSchema
+    json_schema: CreateChatCompletionResponseFormatRouterChatCompletionsJSONSchema
 
 
-CreateChatCompletionResponseFormatRouterType = Literal["json_object",]
+CreateChatCompletionResponseFormatRouterChatCompletionsType = Literal["json_object",]
 
 
 class CreateChatCompletionResponseFormatJSONObjectTypedDict(TypedDict):
@@ -792,7 +813,7 @@ class CreateChatCompletionResponseFormatJSONObjectTypedDict(TypedDict):
     JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
     """
 
-    type: CreateChatCompletionResponseFormatRouterType
+    type: CreateChatCompletionResponseFormatRouterChatCompletionsType
 
 
 class CreateChatCompletionResponseFormatJSONObject(BaseModel):
@@ -801,7 +822,7 @@ class CreateChatCompletionResponseFormatJSONObject(BaseModel):
     JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
     """
 
-    type: CreateChatCompletionResponseFormatRouterType
+    type: CreateChatCompletionResponseFormatRouterChatCompletionsType
 
 
 CreateChatCompletionResponseFormatType = Literal["text",]
@@ -927,13 +948,13 @@ CreateChatCompletionType = Literal["function",]
 r"""The type of the tool. Currently, only function is supported."""
 
 
-CreateChatCompletionRouterType = Literal["object",]
+CreateChatCompletionRouterChatCompletionsType = Literal["object",]
 
 
 class CreateChatCompletionParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object"""
 
-    type: CreateChatCompletionRouterType
+    type: CreateChatCompletionRouterChatCompletionsType
     properties: Dict[str, Any]
     required: NotRequired[List[str]]
     additional_properties: NotRequired[bool]
@@ -942,7 +963,7 @@ class CreateChatCompletionParametersTypedDict(TypedDict):
 class CreateChatCompletionParameters(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object"""
 
-    type: CreateChatCompletionRouterType
+    type: CreateChatCompletionRouterChatCompletionsType
 
     properties: Dict[str, Any]
 
@@ -1147,6 +1168,16 @@ class CreateChatCompletionGuardrails(BaseModel):
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
+class CreateChatCompletionFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateChatCompletionFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateChatCompletionRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -1182,12 +1213,150 @@ class CreateChatCompletionRetry(BaseModel):
         return m
 
 
-class FallbacksTypedDict(TypedDict):
+CreateChatCompletionRouterChatCompletionsRequestType = Literal["exact_match",]
+
+
+class CreateChatCompletionCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateChatCompletionRouterChatCompletionsRequestType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateChatCompletionCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateChatCompletionRouterChatCompletionsRequestType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateChatCompletionLoadBalancerType = Literal["weight_based",]
+
+
+class CreateChatCompletionLoadBalancerModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateChatCompletionLoadBalancerModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionLoadBalancer1TypedDict(TypedDict):
+    type: CreateChatCompletionLoadBalancerType
+    models: List[CreateChatCompletionLoadBalancerModelsTypedDict]
+
+
+class CreateChatCompletionLoadBalancer1(BaseModel):
+    type: CreateChatCompletionLoadBalancerType
+
+    models: List[CreateChatCompletionLoadBalancerModels]
+
+
+CreateChatCompletionLoadBalancerTypedDict = CreateChatCompletionLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
+
+
+CreateChatCompletionLoadBalancer = CreateChatCompletionLoadBalancer1
+r"""Load balancer configuration for the request."""
+
+
+class CreateChatCompletionTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateChatCompletionTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateChatCompletionRouterChatCompletionsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateChatCompletionRouterChatCompletionsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateChatCompletionRouterChatCompletionsFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class Fallbacks(BaseModel):
+class CreateChatCompletionRouterChatCompletionsFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -1351,21 +1520,23 @@ Inputs = TypeAliasType("Inputs", Union[Dict[str, Any], List[Inputs2]])
 r"""Values to replace in the prompt messages using {{variableName}} syntax"""
 
 
-CreateChatCompletionRouterRequestType = Literal["exact_match",]
+CreateChatCompletionRouterChatCompletionsRequestRequestBodyType = Literal[
+    "exact_match",
+]
 
 
-class CacheTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: CreateChatCompletionRouterRequestType
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
 
-class Cache(BaseModel):
+class CreateChatCompletionRouterChatCompletionsCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: CreateChatCompletionRouterRequestType
+    type: CreateChatCompletionRouterChatCompletionsRequestRequestBodyType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -1407,48 +1578,50 @@ class CreateChatCompletionOrExists(BaseModel):
     exists: bool
 
 
-CreateChatCompletionOrRouterNinTypedDict = TypeAliasType(
-    "CreateChatCompletionOrRouterNinTypedDict", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsNinTypedDict = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsNinTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionOrRouterNin = TypeAliasType(
-    "CreateChatCompletionOrRouterNin", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsNin = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsNin", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionOrNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[CreateChatCompletionOrRouterNinTypedDict]
+    nin: List[CreateChatCompletionOrRouterChatCompletionsNinTypedDict]
 
 
 class CreateChatCompletionOrNin(BaseModel):
     r"""Not in"""
 
-    nin: List[CreateChatCompletionOrRouterNin]
+    nin: List[CreateChatCompletionOrRouterChatCompletionsNin]
 
 
-CreateChatCompletionOrRouterInTypedDict = TypeAliasType(
-    "CreateChatCompletionOrRouterInTypedDict", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsInTypedDict = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsInTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionOrRouterIn = TypeAliasType(
-    "CreateChatCompletionOrRouterIn", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsIn = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsIn", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionOrInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[CreateChatCompletionOrRouterInTypedDict]
+    in_: List[CreateChatCompletionOrRouterChatCompletionsInTypedDict]
 
 
 class CreateChatCompletionOrIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[CreateChatCompletionOrRouterIn], pydantic.Field(alias="in")]
+    in_: Annotated[
+        List[CreateChatCompletionOrRouterChatCompletionsIn], pydantic.Field(alias="in")
+    ]
 
 
 class CreateChatCompletionOrLteTypedDict(TypedDict):
@@ -1499,52 +1672,52 @@ class CreateChatCompletionOrGt(BaseModel):
     gt: float
 
 
-CreateChatCompletionOrRouterNeTypedDict = TypeAliasType(
-    "CreateChatCompletionOrRouterNeTypedDict", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsNeTypedDict = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsNeTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionOrRouterNe = TypeAliasType(
-    "CreateChatCompletionOrRouterNe", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsNe = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsNe", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionOrNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: CreateChatCompletionOrRouterNeTypedDict
+    ne: CreateChatCompletionOrRouterChatCompletionsNeTypedDict
 
 
 class CreateChatCompletionOrNe(BaseModel):
     r"""Not equal to"""
 
-    ne: CreateChatCompletionOrRouterNe
+    ne: CreateChatCompletionOrRouterChatCompletionsNe
 
 
-CreateChatCompletionOrRouterEqTypedDict = TypeAliasType(
-    "CreateChatCompletionOrRouterEqTypedDict", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsEqTypedDict = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsEqTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionOrRouterEq = TypeAliasType(
-    "CreateChatCompletionOrRouterEq", Union[str, float, bool]
+CreateChatCompletionOrRouterChatCompletionsEq = TypeAliasType(
+    "CreateChatCompletionOrRouterChatCompletionsEq", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionOrEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: CreateChatCompletionOrRouterEqTypedDict
+    eq: CreateChatCompletionOrRouterChatCompletionsEqTypedDict
 
 
 class CreateChatCompletionOrEq(BaseModel):
     r"""Equal to"""
 
-    eq: CreateChatCompletionOrRouterEq
+    eq: CreateChatCompletionOrRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterOrTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterOrTypedDict",
+CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict",
     Union[
         CreateChatCompletionOrEqTypedDict,
         CreateChatCompletionOrNeTypedDict,
@@ -1559,8 +1732,8 @@ CreateChatCompletionFilterByRouterOrTypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionFilterByRouterOr = TypeAliasType(
-    "CreateChatCompletionFilterByRouterOr",
+CreateChatCompletionFilterByRouterChatCompletionsOr = TypeAliasType(
+    "CreateChatCompletionFilterByRouterChatCompletionsOr",
     Union[
         CreateChatCompletionOrEq,
         CreateChatCompletionOrNe,
@@ -1578,14 +1751,14 @@ CreateChatCompletionFilterByRouterOr = TypeAliasType(
 class CreateChatCompletionFilterByOrTypedDict(TypedDict):
     r"""Or"""
 
-    or_: List[Dict[str, CreateChatCompletionFilterByRouterOrTypedDict]]
+    or_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOrTypedDict]]
 
 
 class CreateChatCompletionFilterByOr(BaseModel):
     r"""Or"""
 
     or_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterOr]],
+        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsOr]],
         pydantic.Field(alias="or"),
     ]
 
@@ -1602,48 +1775,50 @@ class CreateChatCompletionAndExists(BaseModel):
     exists: bool
 
 
-CreateChatCompletionAndRouterNinTypedDict = TypeAliasType(
-    "CreateChatCompletionAndRouterNinTypedDict", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsNinTypedDict = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsNinTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionAndRouterNin = TypeAliasType(
-    "CreateChatCompletionAndRouterNin", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsNin = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsNin", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionAndNinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[CreateChatCompletionAndRouterNinTypedDict]
+    nin: List[CreateChatCompletionAndRouterChatCompletionsNinTypedDict]
 
 
 class CreateChatCompletionAndNin(BaseModel):
     r"""Not in"""
 
-    nin: List[CreateChatCompletionAndRouterNin]
+    nin: List[CreateChatCompletionAndRouterChatCompletionsNin]
 
 
-CreateChatCompletionAndRouterInTypedDict = TypeAliasType(
-    "CreateChatCompletionAndRouterInTypedDict", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsInTypedDict = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsInTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionAndRouterIn = TypeAliasType(
-    "CreateChatCompletionAndRouterIn", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsIn = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsIn", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionAndInTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[CreateChatCompletionAndRouterInTypedDict]
+    in_: List[CreateChatCompletionAndRouterChatCompletionsInTypedDict]
 
 
 class CreateChatCompletionAndIn(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[CreateChatCompletionAndRouterIn], pydantic.Field(alias="in")]
+    in_: Annotated[
+        List[CreateChatCompletionAndRouterChatCompletionsIn], pydantic.Field(alias="in")
+    ]
 
 
 class CreateChatCompletionAndLteTypedDict(TypedDict):
@@ -1694,52 +1869,52 @@ class CreateChatCompletionAndGt(BaseModel):
     gt: float
 
 
-CreateChatCompletionAndRouterNeTypedDict = TypeAliasType(
-    "CreateChatCompletionAndRouterNeTypedDict", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsNeTypedDict = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsNeTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionAndRouterNe = TypeAliasType(
-    "CreateChatCompletionAndRouterNe", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsNe = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsNe", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionAndNeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: CreateChatCompletionAndRouterNeTypedDict
+    ne: CreateChatCompletionAndRouterChatCompletionsNeTypedDict
 
 
 class CreateChatCompletionAndNe(BaseModel):
     r"""Not equal to"""
 
-    ne: CreateChatCompletionAndRouterNe
+    ne: CreateChatCompletionAndRouterChatCompletionsNe
 
 
-CreateChatCompletionAndRouterEqTypedDict = TypeAliasType(
-    "CreateChatCompletionAndRouterEqTypedDict", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsEqTypedDict = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsEqTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletionAndRouterEq = TypeAliasType(
-    "CreateChatCompletionAndRouterEq", Union[str, float, bool]
+CreateChatCompletionAndRouterChatCompletionsEq = TypeAliasType(
+    "CreateChatCompletionAndRouterChatCompletionsEq", Union[str, float, bool]
 )
 
 
 class CreateChatCompletionAndEqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: CreateChatCompletionAndRouterEqTypedDict
+    eq: CreateChatCompletionAndRouterChatCompletionsEqTypedDict
 
 
 class CreateChatCompletionAndEq(BaseModel):
     r"""Equal to"""
 
-    eq: CreateChatCompletionAndRouterEq
+    eq: CreateChatCompletionAndRouterChatCompletionsEq
 
 
-CreateChatCompletionFilterByRouterAndTypedDict = TypeAliasType(
-    "CreateChatCompletionFilterByRouterAndTypedDict",
+CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict = TypeAliasType(
+    "CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict",
     Union[
         CreateChatCompletionAndEqTypedDict,
         CreateChatCompletionAndNeTypedDict,
@@ -1754,8 +1929,8 @@ CreateChatCompletionFilterByRouterAndTypedDict = TypeAliasType(
 )
 
 
-CreateChatCompletionFilterByRouterAnd = TypeAliasType(
-    "CreateChatCompletionFilterByRouterAnd",
+CreateChatCompletionFilterByRouterChatCompletionsAnd = TypeAliasType(
+    "CreateChatCompletionFilterByRouterChatCompletionsAnd",
     Union[
         CreateChatCompletionAndEq,
         CreateChatCompletionAndNe,
@@ -1773,14 +1948,14 @@ CreateChatCompletionFilterByRouterAnd = TypeAliasType(
 class CreateChatCompletionFilterByAndTypedDict(TypedDict):
     r"""And"""
 
-    and_: List[Dict[str, CreateChatCompletionFilterByRouterAndTypedDict]]
+    and_: List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAndTypedDict]]
 
 
 class CreateChatCompletionFilterByAnd(BaseModel):
     r"""And"""
 
     and_: Annotated[
-        List[Dict[str, CreateChatCompletionFilterByRouterAnd]],
+        List[Dict[str, CreateChatCompletionFilterByRouterChatCompletionsAnd]],
         pydantic.Field(alias="and"),
     ]
 
@@ -1797,48 +1972,50 @@ class CreateChatCompletion1Exists(BaseModel):
     exists: bool
 
 
-CreateChatCompletion1RouterNinTypedDict = TypeAliasType(
-    "CreateChatCompletion1RouterNinTypedDict", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsNinTypedDict = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsNinTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletion1RouterNin = TypeAliasType(
-    "CreateChatCompletion1RouterNin", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsNin = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsNin", Union[str, float, bool]
 )
 
 
 class CreateChatCompletion1NinTypedDict(TypedDict):
     r"""Not in"""
 
-    nin: List[CreateChatCompletion1RouterNinTypedDict]
+    nin: List[CreateChatCompletion1RouterChatCompletionsNinTypedDict]
 
 
 class CreateChatCompletion1Nin(BaseModel):
     r"""Not in"""
 
-    nin: List[CreateChatCompletion1RouterNin]
+    nin: List[CreateChatCompletion1RouterChatCompletionsNin]
 
 
-CreateChatCompletion1RouterInTypedDict = TypeAliasType(
-    "CreateChatCompletion1RouterInTypedDict", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsInTypedDict = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsInTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletion1RouterIn = TypeAliasType(
-    "CreateChatCompletion1RouterIn", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsIn = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsIn", Union[str, float, bool]
 )
 
 
 class CreateChatCompletion1InTypedDict(TypedDict):
     r"""In"""
 
-    in_: List[CreateChatCompletion1RouterInTypedDict]
+    in_: List[CreateChatCompletion1RouterChatCompletionsInTypedDict]
 
 
 class CreateChatCompletion1In(BaseModel):
     r"""In"""
 
-    in_: Annotated[List[CreateChatCompletion1RouterIn], pydantic.Field(alias="in")]
+    in_: Annotated[
+        List[CreateChatCompletion1RouterChatCompletionsIn], pydantic.Field(alias="in")
+    ]
 
 
 class CreateChatCompletion1LteTypedDict(TypedDict):
@@ -1889,48 +2066,48 @@ class CreateChatCompletion1Gt(BaseModel):
     gt: float
 
 
-CreateChatCompletion1RouterNeTypedDict = TypeAliasType(
-    "CreateChatCompletion1RouterNeTypedDict", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsNeTypedDict = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsNeTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletion1RouterNe = TypeAliasType(
-    "CreateChatCompletion1RouterNe", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsNe = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsNe", Union[str, float, bool]
 )
 
 
 class CreateChatCompletion1NeTypedDict(TypedDict):
     r"""Not equal to"""
 
-    ne: CreateChatCompletion1RouterNeTypedDict
+    ne: CreateChatCompletion1RouterChatCompletionsNeTypedDict
 
 
 class CreateChatCompletion1Ne(BaseModel):
     r"""Not equal to"""
 
-    ne: CreateChatCompletion1RouterNe
+    ne: CreateChatCompletion1RouterChatCompletionsNe
 
 
-CreateChatCompletion1RouterEqTypedDict = TypeAliasType(
-    "CreateChatCompletion1RouterEqTypedDict", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsEqTypedDict = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsEqTypedDict", Union[str, float, bool]
 )
 
 
-CreateChatCompletion1RouterEq = TypeAliasType(
-    "CreateChatCompletion1RouterEq", Union[str, float, bool]
+CreateChatCompletion1RouterChatCompletionsEq = TypeAliasType(
+    "CreateChatCompletion1RouterChatCompletionsEq", Union[str, float, bool]
 )
 
 
 class CreateChatCompletion1EqTypedDict(TypedDict):
     r"""Equal to"""
 
-    eq: CreateChatCompletion1RouterEqTypedDict
+    eq: CreateChatCompletion1RouterChatCompletionsEqTypedDict
 
 
 class CreateChatCompletion1Eq(BaseModel):
     r"""Equal to"""
 
-    eq: CreateChatCompletion1RouterEq
+    eq: CreateChatCompletion1RouterChatCompletionsEq
 
 
 CreateChatCompletionFilterBy1TypedDict = TypeAliasType(
@@ -2158,20 +2335,17 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
         return m
 
 
-LoadBalancerType = Literal["weight_based",]
+CreateChatCompletionLoadBalancerRouterChatCompletionsType = Literal["weight_based",]
 
 
-class LoadBalancer1TypedDict(TypedDict):
-    type: LoadBalancerType
+class CreateChatCompletionLoadBalancerRouterChatCompletionsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class LoadBalancer1(BaseModel):
-    type: LoadBalancerType
-
+class CreateChatCompletionLoadBalancerRouterChatCompletionsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -2195,34 +2369,56 @@ class LoadBalancer1(BaseModel):
         return m
 
 
-LoadBalancerTypedDict = LoadBalancer1TypedDict
+class CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict(TypedDict):
+    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
+    models: List[CreateChatCompletionLoadBalancerRouterChatCompletionsModelsTypedDict]
 
 
-LoadBalancer = LoadBalancer1
+class CreateChatCompletionLoadBalancerRouterChatCompletions1(BaseModel):
+    type: CreateChatCompletionLoadBalancerRouterChatCompletionsType
+
+    models: List[CreateChatCompletionLoadBalancerRouterChatCompletionsModels]
 
 
-class TimeoutTypedDict(TypedDict):
+CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict = (
+    CreateChatCompletionLoadBalancerRouterChatCompletions1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateChatCompletionRouterChatCompletionsLoadBalancer = (
+    CreateChatCompletionLoadBalancerRouterChatCompletions1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateChatCompletionRouterChatCompletionsTimeoutTypedDict(TypedDict):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class Timeout(BaseModel):
+class CreateChatCompletionRouterChatCompletionsTimeout(BaseModel):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    retry: NotRequired[CreateChatCompletionRetryTypedDict]
+    retry: NotRequired[CreateChatCompletionRouterChatCompletionsRetryTypedDict]
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[FallbacksTypedDict]]
+    fallbacks: NotRequired[
+        List[CreateChatCompletionRouterChatCompletionsFallbacksTypedDict]
+    ]
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[PromptTypedDict]
     r"""Prompt configuration for the request"""
@@ -2233,25 +2429,30 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     r"""Thread information to group related requests"""
     inputs: NotRequired[InputsTypedDict]
     r"""Values to replace in the prompt messages using {{variableName}} syntax"""
-    cache: NotRequired[CacheTypedDict]
+    cache: NotRequired[CreateChatCompletionRouterChatCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateChatCompletionKnowledgeBasesTypedDict]]
-    load_balancer: NotRequired[List[LoadBalancerTypedDict]]
+    load_balancer: NotRequired[
+        CreateChatCompletionRouterChatCompletionsLoadBalancerTypedDict
+    ]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[TimeoutTypedDict]
+    timeout: NotRequired[CreateChatCompletionRouterChatCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
+@deprecated(
+    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+)
 class CreateChatCompletionOrq(BaseModel):
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    retry: Optional[CreateChatCompletionRetry] = None
+    retry: Optional[CreateChatCompletionRouterChatCompletionsRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[Fallbacks]] = None
+    fallbacks: Optional[List[CreateChatCompletionRouterChatCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     prompt: Optional[Prompt] = None
@@ -2268,15 +2469,17 @@ class CreateChatCompletionOrq(BaseModel):
     inputs: Optional[Inputs] = None
     r"""Values to replace in the prompt messages using {{variableName}} syntax"""
 
-    cache: Optional[Cache] = None
+    cache: Optional[CreateChatCompletionRouterChatCompletionsCache] = None
     r"""Cache configuration for the request."""
 
     knowledge_bases: Optional[List[CreateChatCompletionKnowledgeBases]] = None
 
-    load_balancer: Optional[List[LoadBalancer]] = None
+    load_balancer: Optional[CreateChatCompletionRouterChatCompletionsLoadBalancer] = (
+        None
+    )
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[Timeout] = None
+    timeout: Optional[CreateChatCompletionRouterChatCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -2374,6 +2577,16 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[CreateChatCompletionGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[CreateChatCompletionFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateChatCompletionRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateChatCompletionCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateChatCompletionLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateChatCompletionTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateChatCompletionOrqTypedDict]
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
@@ -2468,7 +2681,27 @@ class CreateChatCompletionRequestBody(BaseModel):
     guardrails: Optional[List[CreateChatCompletionGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
-    orq: Optional[CreateChatCompletionOrq] = None
+    fallbacks: Optional[List[CreateChatCompletionFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateChatCompletionRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[CreateChatCompletionCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[CreateChatCompletionLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateChatCompletionTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    orq: Annotated[
+        Optional[CreateChatCompletionOrq],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
 
     stream: Optional[bool] = False
@@ -2501,6 +2734,11 @@ class CreateChatCompletionRequestBody(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "orq",
                 "stream",
             ]
@@ -2546,7 +2784,7 @@ class CreateChatCompletionRequestBody(BaseModel):
         return m
 
 
-CreateChatCompletionRouterFinishReason = Literal[
+CreateChatCompletionRouterChatCompletionsFinishReason = Literal[
     "stop",
     "length",
     "tool_calls",
@@ -2556,7 +2794,7 @@ CreateChatCompletionRouterFinishReason = Literal[
 r"""The reason the model stopped generating tokens."""
 
 
-class CreateChatCompletionRouterResponseTopLogprobsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsResponseTopLogprobsTypedDict(TypedDict):
     token: str
     r"""The token."""
     logprob: float
@@ -2565,7 +2803,7 @@ class CreateChatCompletionRouterResponseTopLogprobsTypedDict(TypedDict):
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
 
-class CreateChatCompletionRouterResponseTopLogprobs(BaseModel):
+class CreateChatCompletionRouterChatCompletionsResponseTopLogprobs(BaseModel):
     token: str
     r"""The token."""
 
@@ -2590,18 +2828,20 @@ class CreateChatCompletionRouterResponseTopLogprobs(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterContentTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsContentTypedDict(TypedDict):
     token: str
     r"""The token."""
     logprob: float
     r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
     bytes_: Nullable[List[float]]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
-    top_logprobs: List[CreateChatCompletionRouterResponseTopLogprobsTypedDict]
+    top_logprobs: List[
+        CreateChatCompletionRouterChatCompletionsResponseTopLogprobsTypedDict
+    ]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
 
-class CreateChatCompletionRouterContent(BaseModel):
+class CreateChatCompletionRouterChatCompletionsContent(BaseModel):
     token: str
     r"""The token."""
 
@@ -2611,7 +2851,7 @@ class CreateChatCompletionRouterContent(BaseModel):
     bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
-    top_logprobs: List[CreateChatCompletionRouterResponseTopLogprobs]
+    top_logprobs: List[CreateChatCompletionRouterChatCompletionsResponseTopLogprobs]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
     @model_serializer(mode="wrap")
@@ -2629,7 +2869,9 @@ class CreateChatCompletionRouterContent(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterResponse200TopLogprobsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsResponse200TopLogprobsTypedDict(
+    TypedDict
+):
     token: str
     r"""The token."""
     logprob: float
@@ -2638,7 +2880,7 @@ class CreateChatCompletionRouterResponse200TopLogprobsTypedDict(TypedDict):
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
 
-class CreateChatCompletionRouterResponse200TopLogprobs(BaseModel):
+class CreateChatCompletionRouterChatCompletionsResponse200TopLogprobs(BaseModel):
     token: str
     r"""The token."""
 
@@ -2663,18 +2905,20 @@ class CreateChatCompletionRouterResponse200TopLogprobs(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterRefusalTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsRefusalTypedDict(TypedDict):
     token: str
     r"""The token."""
     logprob: float
     r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
     bytes_: Nullable[List[float]]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
-    top_logprobs: List[CreateChatCompletionRouterResponse200TopLogprobsTypedDict]
+    top_logprobs: List[
+        CreateChatCompletionRouterChatCompletionsResponse200TopLogprobsTypedDict
+    ]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
 
-class CreateChatCompletionRouterRefusal(BaseModel):
+class CreateChatCompletionRouterChatCompletionsRefusal(BaseModel):
     token: str
     r"""The token."""
 
@@ -2684,7 +2928,7 @@ class CreateChatCompletionRouterRefusal(BaseModel):
     bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
-    top_logprobs: List[CreateChatCompletionRouterResponse200TopLogprobs]
+    top_logprobs: List[CreateChatCompletionRouterChatCompletionsResponse200TopLogprobs]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
     @model_serializer(mode="wrap")
@@ -2702,22 +2946,22 @@ class CreateChatCompletionRouterRefusal(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterLogprobsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsLogprobsTypedDict(TypedDict):
     r"""Log probability information for the choice."""
 
-    content: Nullable[List[CreateChatCompletionRouterContentTypedDict]]
+    content: Nullable[List[CreateChatCompletionRouterChatCompletionsContentTypedDict]]
     r"""A list of message content tokens with log probability information."""
-    refusal: Nullable[List[CreateChatCompletionRouterRefusalTypedDict]]
+    refusal: Nullable[List[CreateChatCompletionRouterChatCompletionsRefusalTypedDict]]
     r"""A list of message refusal tokens with log probability information."""
 
 
-class CreateChatCompletionRouterLogprobs(BaseModel):
+class CreateChatCompletionRouterChatCompletionsLogprobs(BaseModel):
     r"""Log probability information for the choice."""
 
-    content: Nullable[List[CreateChatCompletionRouterContent]]
+    content: Nullable[List[CreateChatCompletionRouterChatCompletionsContent]]
     r"""A list of message content tokens with log probability information."""
 
-    refusal: Nullable[List[CreateChatCompletionRouterRefusal]]
+    refusal: Nullable[List[CreateChatCompletionRouterChatCompletionsRefusal]]
     r"""A list of message refusal tokens with log probability information."""
 
     @model_serializer(mode="wrap")
@@ -2735,18 +2979,18 @@ class CreateChatCompletionRouterLogprobs(BaseModel):
         return m
 
 
-CreateChatCompletionRouterResponse200Type = Literal["function",]
+CreateChatCompletionRouterChatCompletionsResponse200Type = Literal["function",]
 r"""The type of the tool. Currently, only `function` is supported."""
 
 
-class CreateChatCompletionRouterResponseFunctionTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsResponseFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name of the function."""
     arguments: NotRequired[str]
     r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
 
 
-class CreateChatCompletionRouterResponseFunction(BaseModel):
+class CreateChatCompletionRouterChatCompletionsResponseFunction(BaseModel):
     name: Optional[str] = None
     r"""The name of the function."""
 
@@ -2770,29 +3014,31 @@ class CreateChatCompletionRouterResponseFunction(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterToolCallsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     r"""The index of the tool call."""
     id: NotRequired[str]
     r"""The ID of the tool call."""
-    type: NotRequired[CreateChatCompletionRouterResponse200Type]
+    type: NotRequired[CreateChatCompletionRouterChatCompletionsResponse200Type]
     r"""The type of the tool. Currently, only `function` is supported."""
-    function: NotRequired[CreateChatCompletionRouterResponseFunctionTypedDict]
+    function: NotRequired[
+        CreateChatCompletionRouterChatCompletionsResponseFunctionTypedDict
+    ]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
 
 
-class CreateChatCompletionRouterToolCalls(BaseModel):
+class CreateChatCompletionRouterChatCompletionsToolCalls(BaseModel):
     index: Optional[float] = None
     r"""The index of the tool call."""
 
     id: Optional[str] = None
     r"""The ID of the tool call."""
 
-    type: Optional[CreateChatCompletionRouterResponse200Type] = None
+    type: Optional[CreateChatCompletionRouterChatCompletionsResponse200Type] = None
     r"""The type of the tool. Currently, only `function` is supported."""
 
-    function: Optional[CreateChatCompletionRouterResponseFunction] = None
+    function: Optional[CreateChatCompletionRouterChatCompletionsResponseFunction] = None
 
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models."""
@@ -2814,10 +3060,10 @@ class CreateChatCompletionRouterToolCalls(BaseModel):
         return m
 
 
-CreateChatCompletionRouterRole = Literal["assistant",]
+CreateChatCompletionRouterChatCompletionsRole = Literal["assistant",]
 
 
-class CreateChatCompletionRouterResponseAudioTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsResponseAudioTypedDict(TypedDict):
     r"""Audio response data in streaming mode."""
 
     id: NotRequired[str]
@@ -2826,7 +3072,7 @@ class CreateChatCompletionRouterResponseAudioTypedDict(TypedDict):
     expires_at: NotRequired[int]
 
 
-class CreateChatCompletionRouterResponseAudio(BaseModel):
+class CreateChatCompletionRouterChatCompletionsResponseAudio(BaseModel):
     r"""Audio response data in streaming mode."""
 
     id: Optional[str] = None
@@ -2860,15 +3106,19 @@ class DeltaTypedDict(TypedDict):
     content: NotRequired[Nullable[str]]
     r"""The contents of the chunk message."""
     refusal: NotRequired[Nullable[str]]
-    tool_calls: NotRequired[List[CreateChatCompletionRouterToolCallsTypedDict]]
-    role: NotRequired[CreateChatCompletionRouterRole]
+    tool_calls: NotRequired[
+        List[CreateChatCompletionRouterChatCompletionsToolCallsTypedDict]
+    ]
+    role: NotRequired[CreateChatCompletionRouterChatCompletionsRole]
     reasoning: NotRequired[str]
     r"""Internal thought process of the model"""
     reasoning_signature: NotRequired[str]
     r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
     redacted_reasoning: NotRequired[str]
     r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
-    audio: NotRequired[Nullable[CreateChatCompletionRouterResponseAudioTypedDict]]
+    audio: NotRequired[
+        Nullable[CreateChatCompletionRouterChatCompletionsResponseAudioTypedDict]
+    ]
     r"""Audio response data in streaming mode."""
 
 
@@ -2880,9 +3130,11 @@ class Delta(BaseModel):
 
     refusal: OptionalNullable[str] = UNSET
 
-    tool_calls: Optional[List[CreateChatCompletionRouterToolCalls]] = None
+    tool_calls: Optional[List[CreateChatCompletionRouterChatCompletionsToolCalls]] = (
+        None
+    )
 
-    role: Optional[CreateChatCompletionRouterRole] = None
+    role: Optional[CreateChatCompletionRouterChatCompletionsRole] = None
 
     reasoning: Optional[str] = None
     r"""Internal thought process of the model"""
@@ -2893,7 +3145,9 @@ class Delta(BaseModel):
     redacted_reasoning: Optional[str] = None
     r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
 
-    audio: OptionalNullable[CreateChatCompletionRouterResponseAudio] = UNSET
+    audio: OptionalNullable[CreateChatCompletionRouterChatCompletionsResponseAudio] = (
+        UNSET
+    )
     r"""Audio response data in streaming mode."""
 
     @model_serializer(mode="wrap")
@@ -2933,19 +3187,21 @@ class Delta(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterChoicesTypedDict(TypedDict):
-    finish_reason: Nullable[CreateChatCompletionRouterFinishReason]
+class CreateChatCompletionRouterChatCompletionsChoicesTypedDict(TypedDict):
+    finish_reason: Nullable[CreateChatCompletionRouterChatCompletionsFinishReason]
     r"""The reason the model stopped generating tokens."""
     delta: DeltaTypedDict
     r"""A chat completion delta generated by streamed model responses."""
     index: NotRequired[float]
     r"""The index of the choice in the list of choices."""
-    logprobs: NotRequired[Nullable[CreateChatCompletionRouterLogprobsTypedDict]]
+    logprobs: NotRequired[
+        Nullable[CreateChatCompletionRouterChatCompletionsLogprobsTypedDict]
+    ]
     r"""Log probability information for the choice."""
 
 
-class CreateChatCompletionRouterChoices(BaseModel):
-    finish_reason: Nullable[CreateChatCompletionRouterFinishReason]
+class CreateChatCompletionRouterChatCompletionsChoices(BaseModel):
+    finish_reason: Nullable[CreateChatCompletionRouterChatCompletionsFinishReason]
     r"""The reason the model stopped generating tokens."""
 
     delta: Delta
@@ -2954,7 +3210,9 @@ class CreateChatCompletionRouterChoices(BaseModel):
     index: Optional[float] = 0
     r"""The index of the choice in the list of choices."""
 
-    logprobs: OptionalNullable[CreateChatCompletionRouterLogprobs] = UNSET
+    logprobs: OptionalNullable[CreateChatCompletionRouterChatCompletionsLogprobs] = (
+        UNSET
+    )
     r"""Log probability information for the choice."""
 
     @model_serializer(mode="wrap")
@@ -2983,14 +3241,14 @@ class CreateChatCompletionRouterChoices(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterPromptTokensDetailsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsPromptTokensDetailsTypedDict(TypedDict):
     cached_tokens: NotRequired[Nullable[int]]
     cache_creation_tokens: NotRequired[Nullable[int]]
     audio_tokens: NotRequired[Nullable[int]]
     r"""The number of audio input tokens consumed by the request."""
 
 
-class CreateChatCompletionRouterPromptTokensDetails(BaseModel):
+class CreateChatCompletionRouterChatCompletionsPromptTokensDetails(BaseModel):
     cached_tokens: OptionalNullable[int] = UNSET
 
     cache_creation_tokens: OptionalNullable[int] = UNSET
@@ -3028,7 +3286,9 @@ class CreateChatCompletionRouterPromptTokensDetails(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterCompletionTokensDetailsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsCompletionTokensDetailsTypedDict(
+    TypedDict
+):
     reasoning_tokens: NotRequired[Nullable[float]]
     accepted_prediction_tokens: NotRequired[Nullable[float]]
     rejected_prediction_tokens: NotRequired[Nullable[float]]
@@ -3036,7 +3296,7 @@ class CreateChatCompletionRouterCompletionTokensDetailsTypedDict(TypedDict):
     r"""The number of audio output tokens produced by the response."""
 
 
-class CreateChatCompletionRouterCompletionTokensDetails(BaseModel):
+class CreateChatCompletionRouterChatCompletionsCompletionTokensDetails(BaseModel):
     reasoning_tokens: OptionalNullable[float] = UNSET
 
     accepted_prediction_tokens: OptionalNullable[float] = UNSET
@@ -3086,7 +3346,7 @@ class CreateChatCompletionRouterCompletionTokensDetails(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterUsageTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsUsageTypedDict(TypedDict):
     r"""Usage statistics for the completion request."""
 
     completion_tokens: NotRequired[float]
@@ -3096,14 +3356,16 @@ class CreateChatCompletionRouterUsageTypedDict(TypedDict):
     total_tokens: NotRequired[float]
     r"""Total number of tokens used in the request (prompt + completion)."""
     prompt_tokens_details: NotRequired[
-        Nullable[CreateChatCompletionRouterPromptTokensDetailsTypedDict]
+        Nullable[CreateChatCompletionRouterChatCompletionsPromptTokensDetailsTypedDict]
     ]
     completion_tokens_details: NotRequired[
-        Nullable[CreateChatCompletionRouterCompletionTokensDetailsTypedDict]
+        Nullable[
+            CreateChatCompletionRouterChatCompletionsCompletionTokensDetailsTypedDict
+        ]
     ]
 
 
-class CreateChatCompletionRouterUsage(BaseModel):
+class CreateChatCompletionRouterChatCompletionsUsage(BaseModel):
     r"""Usage statistics for the completion request."""
 
     completion_tokens: Optional[float] = None
@@ -3116,11 +3378,11 @@ class CreateChatCompletionRouterUsage(BaseModel):
     r"""Total number of tokens used in the request (prompt + completion)."""
 
     prompt_tokens_details: OptionalNullable[
-        CreateChatCompletionRouterPromptTokensDetails
+        CreateChatCompletionRouterChatCompletionsPromptTokensDetails
     ] = UNSET
 
     completion_tokens_details: OptionalNullable[
-        CreateChatCompletionRouterCompletionTokensDetails
+        CreateChatCompletionRouterChatCompletionsCompletionTokensDetails
     ] = UNSET
 
     @model_serializer(mode="wrap")
@@ -3157,7 +3419,7 @@ class CreateChatCompletionRouterUsage(BaseModel):
         return m
 
 
-CreateChatCompletionRouterObject = Literal["chat.completion.chunk",]
+CreateChatCompletionRouterChatCompletionsObject = Literal["chat.completion.chunk",]
 
 
 class CreateChatCompletionDataTypedDict(TypedDict):
@@ -3165,16 +3427,18 @@ class CreateChatCompletionDataTypedDict(TypedDict):
 
     id: str
     r"""A unique identifier for the chat completion."""
-    choices: List[CreateChatCompletionRouterChoicesTypedDict]
+    choices: List[CreateChatCompletionRouterChatCompletionsChoicesTypedDict]
     r"""A list of chat completion choices. Can contain more than one elements if n is greater than 1. Can also be empty for the last chunk if you set stream_options: {\"include_usage\": true}."""
     created: float
     r"""The Unix timestamp (in seconds) of when the chat completion was created."""
     model: str
     r"""The model used for the chat completion."""
-    object: CreateChatCompletionRouterObject
+    object: CreateChatCompletionRouterChatCompletionsObject
     system_fingerprint: NotRequired[Nullable[str]]
     r"""This fingerprint represents the backend configuration that the model runs with."""
-    usage: NotRequired[Nullable[CreateChatCompletionRouterUsageTypedDict]]
+    usage: NotRequired[
+        Nullable[CreateChatCompletionRouterChatCompletionsUsageTypedDict]
+    ]
     r"""Usage statistics for the completion request."""
 
 
@@ -3184,7 +3448,7 @@ class CreateChatCompletionData(BaseModel):
     id: str
     r"""A unique identifier for the chat completion."""
 
-    choices: List[CreateChatCompletionRouterChoices]
+    choices: List[CreateChatCompletionRouterChatCompletionsChoices]
     r"""A list of chat completion choices. Can contain more than one elements if n is greater than 1. Can also be empty for the last chunk if you set stream_options: {\"include_usage\": true}."""
 
     created: float
@@ -3193,12 +3457,12 @@ class CreateChatCompletionData(BaseModel):
     model: str
     r"""The model used for the chat completion."""
 
-    object: CreateChatCompletionRouterObject
+    object: CreateChatCompletionRouterChatCompletionsObject
 
     system_fingerprint: OptionalNullable[str] = UNSET
     r"""This fingerprint represents the backend configuration that the model runs with."""
 
-    usage: OptionalNullable[CreateChatCompletionRouterUsage] = UNSET
+    usage: OptionalNullable[CreateChatCompletionRouterChatCompletionsUsage] = UNSET
     r"""Usage statistics for the completion request."""
 
     @model_serializer(mode="wrap")
@@ -3227,14 +3491,14 @@ class CreateChatCompletionData(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterResponseBodyTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsResponseBodyTypedDict(TypedDict):
     r"""Represents a streamed chunk of a chat completion response returned by model, based on the provided input."""
 
     data: NotRequired[CreateChatCompletionDataTypedDict]
     r"""Represents a streamed chunk of a chat completion response returned by model, based on the provided input."""
 
 
-class CreateChatCompletionRouterResponseBody(BaseModel):
+class CreateChatCompletionRouterChatCompletionsResponseBody(BaseModel):
     r"""Represents a streamed chunk of a chat completion response returned by model, based on the provided input."""
 
     data: Optional[CreateChatCompletionData] = None
@@ -3267,17 +3531,17 @@ CreateChatCompletionFinishReason = Literal[
 r"""The reason the model stopped generating tokens."""
 
 
-CreateChatCompletionRouterResponseType = Literal["function",]
+CreateChatCompletionRouterChatCompletionsResponseType = Literal["function",]
 
 
-class CreateChatCompletionRouterFunctionTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
     arguments: NotRequired[str]
     r"""The arguments to call the function with, as generated by the model in JSON format. Note that the model does not always generate valid JSON, and may hallucinate parameters not defined by your function schema. Validate the arguments in your code before calling your function."""
 
 
-class CreateChatCompletionRouterFunction(BaseModel):
+class CreateChatCompletionRouterChatCompletionsFunction(BaseModel):
     name: Optional[str] = None
     r"""The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
 
@@ -3304,8 +3568,8 @@ class CreateChatCompletionRouterFunction(BaseModel):
 class CreateChatCompletionToolCallsTypedDict(TypedDict):
     index: NotRequired[float]
     id: NotRequired[str]
-    type: NotRequired[CreateChatCompletionRouterResponseType]
-    function: NotRequired[CreateChatCompletionRouterFunctionTypedDict]
+    type: NotRequired[CreateChatCompletionRouterChatCompletionsResponseType]
+    function: NotRequired[CreateChatCompletionRouterChatCompletionsFunctionTypedDict]
     thought_signature: NotRequired[str]
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
 
@@ -3315,9 +3579,9 @@ class CreateChatCompletionToolCalls(BaseModel):
 
     id: Optional[str] = None
 
-    type: Optional[CreateChatCompletionRouterResponseType] = None
+    type: Optional[CreateChatCompletionRouterChatCompletionsResponseType] = None
 
-    function: Optional[CreateChatCompletionRouterFunction] = None
+    function: Optional[CreateChatCompletionRouterChatCompletionsFunction] = None
 
     thought_signature: Optional[str] = None
     r"""Encrypted representation of the model internal reasoning state during function calling. Required by Gemini 3 models when continuing a conversation after a tool call."""
@@ -3342,7 +3606,7 @@ class CreateChatCompletionToolCalls(BaseModel):
 CreateChatCompletionRole = Literal["assistant",]
 
 
-class CreateChatCompletionRouterAudioTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsAudioTypedDict(TypedDict):
     r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
 
     id: str
@@ -3351,7 +3615,7 @@ class CreateChatCompletionRouterAudioTypedDict(TypedDict):
     transcript: str
 
 
-class CreateChatCompletionRouterAudio(BaseModel):
+class CreateChatCompletionRouterChatCompletionsAudio(BaseModel):
     r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
 
     id: str
@@ -3376,7 +3640,9 @@ class CreateChatCompletionMessageTypedDict(TypedDict):
     r"""The signature holds a cryptographic token which verifies that the thinking block was generated by the model, and is verified when thinking is part of a multiturn conversation. This value should not be modified and should always be sent to the API when the reasoning is redacted. Currently only supported by `Anthropic`."""
     redacted_reasoning: NotRequired[str]
     r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
-    audio: NotRequired[Nullable[CreateChatCompletionRouterAudioTypedDict]]
+    audio: NotRequired[
+        Nullable[CreateChatCompletionRouterChatCompletionsAudioTypedDict]
+    ]
     r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
 
 
@@ -3400,7 +3666,7 @@ class CreateChatCompletionMessage(BaseModel):
     redacted_reasoning: Optional[str] = None
     r"""Occasionally the model's internal reasoning will be flagged by the safety systems of the provider. When this occurs, the provider will encrypt the reasoning. These redacted reasoning is decrypted when passed back to the API, allowing the model to continue its response without losing context."""
 
-    audio: OptionalNullable[CreateChatCompletionRouterAudio] = UNSET
+    audio: OptionalNullable[CreateChatCompletionRouterChatCompletionsAudio] = UNSET
     r"""If the audio output modality is requested, this object contains data about the audio response from the model."""
 
     @model_serializer(mode="wrap")
@@ -3515,7 +3781,7 @@ class CreateChatCompletionContent(BaseModel):
         return m
 
 
-class CreateChatCompletionRouterTopLogprobsTypedDict(TypedDict):
+class CreateChatCompletionRouterChatCompletionsTopLogprobsTypedDict(TypedDict):
     token: str
     r"""The token."""
     logprob: float
@@ -3524,7 +3790,7 @@ class CreateChatCompletionRouterTopLogprobsTypedDict(TypedDict):
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
 
-class CreateChatCompletionRouterTopLogprobs(BaseModel):
+class CreateChatCompletionRouterChatCompletionsTopLogprobs(BaseModel):
     token: str
     r"""The token."""
 
@@ -3556,7 +3822,7 @@ class CreateChatCompletionRefusalTypedDict(TypedDict):
     r"""The log probability of this token, if it is within the top 20 most likely tokens. Otherwise, the value -9999.0 is used to signify that the token is very unlikely."""
     bytes_: Nullable[List[float]]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
-    top_logprobs: List[CreateChatCompletionRouterTopLogprobsTypedDict]
+    top_logprobs: List[CreateChatCompletionRouterChatCompletionsTopLogprobsTypedDict]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
 
@@ -3570,7 +3836,7 @@ class CreateChatCompletionRefusal(BaseModel):
     bytes_: Annotated[Nullable[List[float]], pydantic.Field(alias="bytes")]
     r"""A list of integers representing the UTF-8 bytes representation of the token."""
 
-    top_logprobs: List[CreateChatCompletionRouterTopLogprobs]
+    top_logprobs: List[CreateChatCompletionRouterChatCompletionsTopLogprobs]
     r"""List of the most likely tokens and their log probability, at this token position."""
 
     @model_serializer(mode="wrap")
@@ -3920,9 +4186,11 @@ CreateChatCompletionResponseTypedDict = TypeAliasType(
     Union[
         CreateChatCompletionResponseBodyTypedDict,
         Union[
-            eventstreaming.EventStream[CreateChatCompletionRouterResponseBodyTypedDict],
+            eventstreaming.EventStream[
+                CreateChatCompletionRouterChatCompletionsResponseBodyTypedDict
+            ],
             eventstreaming.EventStreamAsync[
-                CreateChatCompletionRouterResponseBodyTypedDict
+                CreateChatCompletionRouterChatCompletionsResponseBodyTypedDict
             ],
         ],
     ],
@@ -3934,8 +4202,12 @@ CreateChatCompletionResponse = TypeAliasType(
     Union[
         CreateChatCompletionResponseBody,
         Union[
-            eventstreaming.EventStream[CreateChatCompletionRouterResponseBody],
-            eventstreaming.EventStreamAsync[CreateChatCompletionRouterResponseBody],
+            eventstreaming.EventStream[
+                CreateChatCompletionRouterChatCompletionsResponseBody
+            ],
+            eventstreaming.EventStreamAsync[
+                CreateChatCompletionRouterChatCompletionsResponseBody
+            ],
         ],
     ],
 )

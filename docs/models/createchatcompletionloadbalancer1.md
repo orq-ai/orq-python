@@ -1,0 +1,9 @@
+# CreateChatCompletionLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.CreateChatCompletionLoadBalancerType](../models/createchatcompletionloadbalancertype.md)           | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `models`                                                                                                   | List[[models.CreateChatCompletionLoadBalancerModels](../models/createchatcompletionloadbalancermodels.md)] | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

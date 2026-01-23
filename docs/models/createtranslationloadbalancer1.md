@@ -1,0 +1,9 @@
+# CreateTranslationLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `type`                                                                                               | [models.CreateTranslationLoadBalancerType](../models/createtranslationloadbalancertype.md)           | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `models`                                                                                             | List[[models.CreateTranslationLoadBalancerModels](../models/createtranslationloadbalancermodels.md)] | :heavy_check_mark:                                                                                   | N/A                                                                                                  |

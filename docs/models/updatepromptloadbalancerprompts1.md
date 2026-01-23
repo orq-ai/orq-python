@@ -1,0 +1,9 @@
+# UpdatePromptLoadBalancerPrompts1
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                   | [models.UpdatePromptLoadBalancerPromptsType](../models/updatepromptloadbalancerpromptstype.md)           | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `models`                                                                                                 | List[[models.UpdatePromptLoadBalancerPromptsModels](../models/updatepromptloadbalancerpromptsmodels.md)] | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

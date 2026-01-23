@@ -203,6 +203,7 @@ DeploymentsModelType = Literal[
     "tts",
     "stt",
     "rerank",
+    "ocr",
     "moderation",
     "vision",
 ]

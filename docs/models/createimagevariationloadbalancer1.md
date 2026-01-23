@@ -1,0 +1,9 @@
+# CreateImageVariationLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.CreateImageVariationLoadBalancerType](../models/createimagevariationloadbalancertype.md)           | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `models`                                                                                                   | List[[models.CreateImageVariationLoadBalancerModels](../models/createimagevariationloadbalancermodels.md)] | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

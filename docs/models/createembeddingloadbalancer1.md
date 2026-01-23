@@ -1,0 +1,9 @@
+# CreateEmbeddingLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.CreateEmbeddingLoadBalancerType](../models/createembeddingloadbalancertype.md)           | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `models`                                                                                         | List[[models.CreateEmbeddingLoadBalancerModels](../models/createembeddingloadbalancermodels.md)] | :heavy_check_mark:                                                                               | N/A                                                                                              |

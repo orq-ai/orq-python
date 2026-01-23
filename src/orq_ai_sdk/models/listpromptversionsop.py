@@ -111,6 +111,7 @@ ListPromptVersionsModelType = Literal[
     "tts",
     "stt",
     "rerank",
+    "ocr",
     "moderation",
     "vision",
 ]
@@ -717,7 +718,7 @@ ListPromptVersionsContent = TypeAliasType(
 r"""The contents of the user message. Either the text content of the message or an array of content parts with a defined type, each can be of type `text` or `image_url` when passing in images. You can pass multiple images by adding multiple `image_url` content parts. Can be null for tool messages in certain scenarios."""
 
 
-ListPromptVersionsType = Literal["function",]
+ListPromptVersionsPromptsType = Literal["function",]
 
 
 class ListPromptVersionsFunctionTypedDict(TypedDict):
@@ -734,14 +735,14 @@ class ListPromptVersionsFunction(BaseModel):
 
 
 class ListPromptVersionsToolCallsTypedDict(TypedDict):
-    type: ListPromptVersionsType
+    type: ListPromptVersionsPromptsType
     function: ListPromptVersionsFunctionTypedDict
     id: NotRequired[str]
     index: NotRequired[float]
 
 
 class ListPromptVersionsToolCalls(BaseModel):
-    type: ListPromptVersionsType
+    type: ListPromptVersionsPromptsType
 
     function: ListPromptVersionsFunction
 
@@ -1251,6 +1252,154 @@ class ListPromptVersionsGuardrails(BaseModel):
 
     execute_on: ListPromptVersionsExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class ListPromptVersionsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListPromptVersionsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class ListPromptVersionsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class ListPromptVersionsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListPromptVersionsType = Literal["exact_match",]
+
+
+class ListPromptVersionsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: ListPromptVersionsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class ListPromptVersionsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: ListPromptVersionsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+ListPromptVersionsLoadBalancerType = Literal["weight_based",]
+
+
+class ListPromptVersionsLoadBalancerModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class ListPromptVersionsLoadBalancerModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListPromptVersionsLoadBalancer1TypedDict(TypedDict):
+    type: ListPromptVersionsLoadBalancerType
+    models: List[ListPromptVersionsLoadBalancerModelsTypedDict]
+
+
+class ListPromptVersionsLoadBalancer1(BaseModel):
+    type: ListPromptVersionsLoadBalancerType
+
+    models: List[ListPromptVersionsLoadBalancerModels]
+
+
+ListPromptVersionsLoadBalancerTypedDict = ListPromptVersionsLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
+
+
+ListPromptVersionsLoadBalancer = ListPromptVersionsLoadBalancer1
+r"""Load balancer configuration for the request."""
+
+
+class ListPromptVersionsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class ListPromptVersionsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
 
 
 ListPromptVersionsMessagesPromptsResponse200Role = Literal["tool",]
@@ -1885,6 +2034,16 @@ class ListPromptVersionsPromptFieldTypedDict(TypedDict):
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
     guardrails: NotRequired[List[ListPromptVersionsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[ListPromptVersionsFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[ListPromptVersionsRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[ListPromptVersionsCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[ListPromptVersionsLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[ListPromptVersionsTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     messages: NotRequired[List[ListPromptVersionsPromptsMessagesTypedDict]]
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
@@ -1971,6 +2130,21 @@ class ListPromptVersionsPromptField(BaseModel):
     guardrails: Optional[List[ListPromptVersionsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
+    fallbacks: Optional[List[ListPromptVersionsFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[ListPromptVersionsRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[ListPromptVersionsCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[ListPromptVersionsLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[ListPromptVersionsTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     messages: Optional[List[ListPromptVersionsPromptsMessages]] = None
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
 
@@ -2005,6 +2179,11 @@ class ListPromptVersionsPromptField(BaseModel):
                 "parallel_tool_calls",
                 "modalities",
                 "guardrails",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "messages",
                 "model",
                 "version",

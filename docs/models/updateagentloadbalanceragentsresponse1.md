@@ -1,0 +1,9 @@
+# UpdateAgentLoadBalancerAgentsResponse1
+
+
+## Fields
+
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                               | [models.UpdateAgentLoadBalancerAgentsResponseType](../models/updateagentloadbalanceragentsresponsetype.md)           | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |
+| `models`                                                                                                             | List[[models.UpdateAgentLoadBalancerAgentsResponseModels](../models/updateagentloadbalanceragentsresponsemodels.md)] | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |

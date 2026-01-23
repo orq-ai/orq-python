@@ -1,0 +1,9 @@
+# CreatePromptLoadBalancerPrompts1
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                   | [models.CreatePromptLoadBalancerPromptsType](../models/createpromptloadbalancerpromptstype.md)           | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `models`                                                                                                 | List[[models.CreatePromptLoadBalancerPromptsModels](../models/createpromptloadbalancerpromptsmodels.md)] | :heavy_check_mark:                                                                                       | N/A                                                                                                      |

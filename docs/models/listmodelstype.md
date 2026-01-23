@@ -14,5 +14,6 @@ The modality of the model
 | `TTS`        | tts          |
 | `STT`        | stt          |
 | `RERANK`     | rerank       |
+| `OCR`        | ocr          |
 | `MODERATION` | moderation   |
 | `VISION`     | vision       |

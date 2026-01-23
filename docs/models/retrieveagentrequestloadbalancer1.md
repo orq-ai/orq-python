@@ -1,0 +1,9 @@
+# RetrieveAgentRequestLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                     | [models.RetrieveAgentRequestLoadBalancerType](../models/retrieveagentrequestloadbalancertype.md)           | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `models`                                                                                                   | List[[models.RetrieveAgentRequestLoadBalancerModels](../models/retrieveagentrequestloadbalancermodels.md)] | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

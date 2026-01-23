@@ -1,0 +1,121 @@
+# Router.Audio.Translations
+
+## Overview
+
+### Available Operations
+
+* [create](#create) - Create translation
+
+## create
+
+Create translation
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="createTranslation" method="post" path="/v2/router/audio/translations" -->
+```python
+from orq_ai_sdk import Orq
+import os
+
+
+with Orq(
+    api_key=os.getenv("ORQ_API_KEY", ""),
+) as orq:
+
+    res = orq.router.audio.translations.create(model="Impala", enable_logging=True, diarize=False, tag_audio_events=True, timestamps_granularity="word", temperature=0.5, orq={
+        "fallbacks": [
+            {
+                "model": "openai/gpt-4o-mini",
+            },
+        ],
+        "retry": {
+            "on_codes": [
+                429,
+                500,
+                502,
+                503,
+                504,
+            ],
+        },
+        "identity": {
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        },
+        "contact": {
+            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+            "display_name": "Jane Doe",
+            "email": "jane.doe@example.com",
+            "metadata": [
+                {
+                    "department": "Engineering",
+                    "role": "Senior Developer",
+                },
+            ],
+            "logo_url": "https://example.com/avatars/jane-doe.jpg",
+            "tags": [
+                "hr",
+                "engineering",
+            ],
+        },
+        "load_balancer": {
+            "type": "weight_based",
+            "models": [
+                {
+                    "model": "openai/gpt-4o",
+                    "weight": 0.7,
+                },
+                {
+                    "model": "anthropic/claude-3-5-sonnet",
+                    "weight": 0.3,
+                },
+            ],
+        },
+        "timeout": {
+            "call_timeout": 30000,
+        },
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                                | Type                                                                                                                                                                                                                                                                                                     | Required                                                                                                                                                                                                                                                                                                 | Description                                                                                                                                                                                                                                                                                              | Example                                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `model`                                                                                                                                                                                                                                                                                                  | *str*                                                                                                                                                                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                                                                                                       | ID of the model to use                                                                                                                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                          |
+| `prompt`                                                                                                                                                                                                                                                                                                 | *Optional[str]*                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | An optional text to guide the model's style or continue a previous audio segment. The prompt should match the audio language.                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                          |
+| `enable_logging`                                                                                                                                                                                                                                                                                         | *Optional[bool]*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | When enable_logging is set to false, zero retention mode is used. This disables history features like request stitching and is only available to enterprise customers.                                                                                                                                   |                                                                                                                                                                                                                                                                                                          |
+| `diarize`                                                                                                                                                                                                                                                                                                | *Optional[bool]*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | Whether to annotate which speaker is currently talking in the uploaded file.                                                                                                                                                                                                                             |                                                                                                                                                                                                                                                                                                          |
+| `response_format`                                                                                                                                                                                                                                                                                        | [Optional[models.CreateTranslationResponseFormat]](../../models/createtranslationresponseformat.md)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | The format of the transcript output, in one of these options: json, text, srt, verbose_json, or vtt.                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                          |
+| `tag_audio_events`                                                                                                                                                                                                                                                                                       | *Optional[bool]*                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | Whether to tag audio events like (laughter), (footsteps), etc. in the transcription.                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                                                                          |
+| `num_speakers`                                                                                                                                                                                                                                                                                           | *Optional[float]*                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | The maximum amount of speakers talking in the uploaded file. Helps with predicting who speaks when, the maximum is 32.                                                                                                                                                                                   |                                                                                                                                                                                                                                                                                                          |
+| `timestamps_granularity`                                                                                                                                                                                                                                                                                 | [Optional[models.CreateTranslationTimestampsGranularity]](../../models/createtranslationtimestampsgranularity.md)                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word.                                                                                                                                                  |                                                                                                                                                                                                                                                                                                          |
+| `temperature`                                                                                                                                                                                                                                                                                            | *Optional[float]*                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit. | 0.5                                                                                                                                                                                                                                                                                                      |
+| `orq`                                                                                                                                                                                                                                                                                                    | [Optional[models.CreateTranslationOrq]](../../models/createtranslationorq.md)                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | N/A                                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                          |
+| `file`                                                                                                                                                                                                                                                                                                   | [Optional[models.CreateTranslationFile]](../../models/createtranslationfile.md)                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.                                                                                                                                                                        |                                                                                                                                                                                                                                                                                                          |
+| `retries`                                                                                                                                                                                                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                       | Configuration to override the default retry behavior of the client.                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                          |
+
+### Response
+
+**[models.CreateTranslationResponseBody](../../models/createtranslationresponsebody.md)**
+
+### Errors
+
+| Error Type                                                  | Status Code                                                 | Content Type                                                |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| models.CreateTranslationRouterAudioTranslationsResponseBody | 422                                                         | application/json                                            |
+| models.APIError                                             | 4XX, 5XX                                                    | \*/\*                                                       |

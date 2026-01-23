@@ -1,0 +1,9 @@
+# CreateImageEditLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `type`                                                                                           | [models.CreateImageEditLoadBalancerType](../models/createimageeditloadbalancertype.md)           | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `models`                                                                                         | List[[models.CreateImageEditLoadBalancerModels](../models/createimageeditloadbalancermodels.md)] | :heavy_check_mark:                                                                               | N/A                                                                                              |

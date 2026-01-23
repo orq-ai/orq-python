@@ -1,0 +1,9 @@
+# StreamRunAgentLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `type`                                                                                         | [models.StreamRunAgentLoadBalancerType](../models/streamrunagentloadbalancertype.md)           | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `models`                                                                                       | List[[models.StreamRunAgentLoadBalancerModels](../models/streamrunagentloadbalancermodels.md)] | :heavy_check_mark:                                                                             | N/A                                                                                            |

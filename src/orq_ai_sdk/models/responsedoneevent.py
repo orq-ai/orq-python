@@ -17,7 +17,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 ResponseDoneEventType = Literal["response.done",]
 
 
-FinishReason = Literal[
+ResponseDoneEventFinishReason = Literal[
     "stop",
     "length",
     "tool_calls",
@@ -206,14 +206,14 @@ class ResponseDoneEventUsage(BaseModel):
 ResponseDoneEventDataType = Literal["function",]
 
 
-class FunctionTypedDict(TypedDict):
+class ResponseDoneEventFunctionTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name of the function to call"""
     arguments: NotRequired[str]
     r"""The arguments to pass to the function as JSON string"""
 
 
-class Function(BaseModel):
+class ResponseDoneEventFunction(BaseModel):
     name: Optional[str] = None
     r"""The name of the function to call"""
 
@@ -237,40 +237,43 @@ class Function(BaseModel):
         return m
 
 
-class PendingToolCallsTypedDict(TypedDict):
+class ResponseDoneEventPendingToolCallsTypedDict(TypedDict):
     id: str
     r"""Unique identifier for the tool call"""
     type: ResponseDoneEventDataType
-    function: FunctionTypedDict
+    function: ResponseDoneEventFunctionTypedDict
 
 
-class PendingToolCalls(BaseModel):
+class ResponseDoneEventPendingToolCalls(BaseModel):
     id: str
     r"""Unique identifier for the tool call"""
 
     type: ResponseDoneEventDataType
 
-    function: Function
+    function: ResponseDoneEventFunction
 
 
 class ResponseDoneEventDataTypedDict(TypedDict):
-    finish_reason: FinishReason
+    finish_reason: ResponseDoneEventFinishReason
     r"""The reason why the agent stopped generating"""
     usage: NotRequired[ResponseDoneEventUsageTypedDict]
     r"""Token usage statistics for the complete response"""
-    pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
+    pending_tool_calls: NotRequired[List[ResponseDoneEventPendingToolCallsTypedDict]]
     r"""Tool calls awaiting user response (when finishReason is function_call)"""
 
 
 class ResponseDoneEventData(BaseModel):
-    finish_reason: Annotated[FinishReason, pydantic.Field(alias="finishReason")]
+    finish_reason: Annotated[
+        ResponseDoneEventFinishReason, pydantic.Field(alias="finishReason")
+    ]
     r"""The reason why the agent stopped generating"""
 
     usage: Optional[ResponseDoneEventUsage] = None
     r"""Token usage statistics for the complete response"""
 
     pending_tool_calls: Annotated[
-        Optional[List[PendingToolCalls]], pydantic.Field(alias="pendingToolCalls")
+        Optional[List[ResponseDoneEventPendingToolCalls]],
+        pydantic.Field(alias="pendingToolCalls"),
     ] = None
     r"""Tool calls awaiting user response (when finishReason is function_call)"""
 

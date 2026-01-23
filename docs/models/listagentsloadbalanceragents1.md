@@ -1,0 +1,9 @@
+# ListAgentsLoadBalancerAgents1
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.ListAgentsLoadBalancerAgentsType](../models/listagentsloadbalanceragentstype.md)           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `models`                                                                                           | List[[models.ListAgentsLoadBalancerAgentsModels](../models/listagentsloadbalanceragentsmodels.md)] | :heavy_check_mark:                                                                                 | N/A                                                                                                |

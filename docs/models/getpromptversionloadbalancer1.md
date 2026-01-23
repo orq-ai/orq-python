@@ -1,0 +1,9 @@
+# GetPromptVersionLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.GetPromptVersionLoadBalancerType](../models/getpromptversionloadbalancertype.md)           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `models`                                                                                           | List[[models.GetPromptVersionLoadBalancerModels](../models/getpromptversionloadbalancermodels.md)] | :heavy_check_mark:                                                                                 | N/A                                                                                                |

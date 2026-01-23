@@ -1,0 +1,9 @@
+# CreateAgentRequestLoadBalancerAgents1
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                             | [models.CreateAgentRequestLoadBalancerAgentsType](../models/createagentrequestloadbalanceragentstype.md)           | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `models`                                                                                                           | List[[models.CreateAgentRequestLoadBalancerAgentsModels](../models/createagentrequestloadbalanceragentsmodels.md)] | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

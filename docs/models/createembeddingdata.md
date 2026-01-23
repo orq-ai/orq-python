@@ -1,0 +1,10 @@
+# CreateEmbeddingData
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `object`                                                                                           | [models.CreateEmbeddingRouterEmbeddingsObject](../models/createembeddingrouterembeddingsobject.md) | :heavy_check_mark:                                                                                 | The object type, which is always `embedding`.                                                      |
+| `embedding`                                                                                        | [models.Embedding](../models/embedding.md)                                                         | :heavy_check_mark:                                                                                 | The embedding vector, which is a list of floats. The length of vector depends on the model.        |
+| `index`                                                                                            | *float*                                                                                            | :heavy_check_mark:                                                                                 | The index of the embedding in the list of embeddings.                                              |

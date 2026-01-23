@@ -1,0 +1,9 @@
+# ListPromptVersionsLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                 | [models.ListPromptVersionsLoadBalancerType](../models/listpromptversionsloadbalancertype.md)           | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `models`                                                                                               | List[[models.ListPromptVersionsLoadBalancerModels](../models/listpromptversionsloadbalancermodels.md)] | :heavy_check_mark:                                                                                     | N/A                                                                                                    |

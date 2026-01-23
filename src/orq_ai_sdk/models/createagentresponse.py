@@ -11,7 +11,7 @@ from orq_ai_sdk.types import (
 )
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import List, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -181,6 +181,62 @@ class Usage(BaseModel):
         return m
 
 
+FinishReason = Literal[
+    "stop",
+    "length",
+    "tool_calls",
+    "content_filter",
+    "function_call",
+    "max_iterations",
+    "max_time",
+]
+r"""The reason why the agent stopped generating"""
+
+
+CreateAgentResponseType = Literal["function",]
+
+
+class FunctionTypedDict(TypedDict):
+    name: NotRequired[str]
+    arguments: NotRequired[str]
+
+
+class Function(BaseModel):
+    name: Optional[str] = None
+
+    arguments: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["name", "arguments"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class PendingToolCallsTypedDict(TypedDict):
+    id: str
+    type: CreateAgentResponseType
+    function: FunctionTypedDict
+
+
+class PendingToolCalls(BaseModel):
+    id: str
+
+    type: CreateAgentResponseType
+
+    function: Function
+
+
 class CreateAgentResponseTypedDict(TypedDict):
     r"""Response type from the create-response endpoint."""
 
@@ -196,6 +252,10 @@ class CreateAgentResponseTypedDict(TypedDict):
     r"""Model used in provider/model format"""
     usage: NotRequired[Nullable[UsageTypedDict]]
     r"""Token usage from the agent execution"""
+    finish_reason: NotRequired[FinishReason]
+    r"""The reason why the agent stopped generating"""
+    pending_tool_calls: NotRequired[List[PendingToolCallsTypedDict]]
+    r"""Tool calls awaiting user response (when finish_reason is function_call)"""
 
 
 class CreateAgentResponse(BaseModel):
@@ -219,9 +279,15 @@ class CreateAgentResponse(BaseModel):
     usage: OptionalNullable[Usage] = UNSET
     r"""Token usage from the agent execution"""
 
+    finish_reason: Optional[FinishReason] = None
+    r"""The reason why the agent stopped generating"""
+
+    pending_tool_calls: Optional[List[PendingToolCalls]] = None
+    r"""Tool calls awaiting user response (when finish_reason is function_call)"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["usage"])
+        optional_fields = set(["usage", "finish_reason", "pending_tool_calls"])
         nullable_fields = set(["usage"])
         serialized = handler(self)
         m = {}

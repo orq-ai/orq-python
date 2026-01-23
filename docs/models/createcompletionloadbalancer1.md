@@ -1,0 +1,9 @@
+# CreateCompletionLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `type`                                                                                             | [models.CreateCompletionLoadBalancerType](../models/createcompletionloadbalancertype.md)           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `models`                                                                                           | List[[models.CreateCompletionLoadBalancerModels](../models/createcompletionloadbalancermodels.md)] | :heavy_check_mark:                                                                                 | N/A                                                                                                |

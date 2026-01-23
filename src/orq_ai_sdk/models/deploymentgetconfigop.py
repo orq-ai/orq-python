@@ -2150,6 +2150,7 @@ DeploymentGetConfigType = Literal[
     "tts",
     "stt",
     "rerank",
+    "ocr",
     "moderation",
     "vision",
 ]
@@ -2214,13 +2215,13 @@ class DeploymentGetConfig2File(BaseModel):
         return m
 
 
-class Two3TypedDict(TypedDict):
+class DeploymentGetConfig23TypedDict(TypedDict):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
     file: DeploymentGetConfig2FileTypedDict
 
 
-class Two3(BaseModel):
+class DeploymentGetConfig23(BaseModel):
     type: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType
     r"""The type of the content part. Always `file`."""
 
@@ -2302,7 +2303,9 @@ class DeploymentGetConfig21(BaseModel):
 DeploymentGetConfigContentDeploymentsResponse2TypedDict = TypeAliasType(
     "DeploymentGetConfigContentDeploymentsResponse2TypedDict",
     Union[
-        DeploymentGetConfig21TypedDict, DeploymentGetConfig22TypedDict, Two3TypedDict
+        DeploymentGetConfig21TypedDict,
+        DeploymentGetConfig22TypedDict,
+        DeploymentGetConfig23TypedDict,
     ],
 )
 
@@ -2311,7 +2314,7 @@ DeploymentGetConfigContentDeploymentsResponse2 = Annotated[
     Union[
         Annotated[DeploymentGetConfig21, Tag("text")],
         Annotated[DeploymentGetConfig22, Tag("image_url")],
-        Annotated[Two3, Tag("file")],
+        Annotated[DeploymentGetConfig23, Tag("file")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
@@ -2597,7 +2600,7 @@ PhotoRealVersion = Literal[
 r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
 
-EncodingFormat = Literal[
+DeploymentGetConfigEncodingFormat = Literal[
     "float",
     "base64",
 ]
@@ -2668,7 +2671,7 @@ class DeploymentGetConfigParametersTypedDict(TypedDict):
     """
     photo_real_version: NotRequired[PhotoRealVersion]
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
-    encoding_format: NotRequired[EncodingFormat]
+    encoding_format: NotRequired[DeploymentGetConfigEncodingFormat]
     r"""The format to return the embeddings"""
     reasoning_effort: NotRequired[DeploymentGetConfigReasoningEffort]
     r"""Constrains effort on reasoning for reasoning models. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response."""
@@ -2743,7 +2746,7 @@ class DeploymentGetConfigParameters(BaseModel):
     ] = None
     r"""The version of photoReal to use. Must be v1 or v2. Only available for `leonardoai` provider"""
 
-    encoding_format: Optional[EncodingFormat] = None
+    encoding_format: Optional[DeploymentGetConfigEncodingFormat] = None
     r"""The format to return the embeddings"""
 
     reasoning_effort: Annotated[

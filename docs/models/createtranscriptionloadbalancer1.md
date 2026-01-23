@@ -1,0 +1,9 @@
+# CreateTranscriptionLoadBalancer1
+
+
+## Fields
+
+| Field                                                                                                    | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                   | [models.CreateTranscriptionLoadBalancerType](../models/createtranscriptionloadbalancertype.md)           | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
+| `models`                                                                                                 | List[[models.CreateTranscriptionLoadBalancerModels](../models/createtranscriptionloadbalancermodels.md)] | :heavy_check_mark:                                                                                       | N/A                                                                                                      |
