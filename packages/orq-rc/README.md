@@ -131,9 +131,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.feedback.create(field="rating", value=[
-        "good",
-    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
+    res = orq.contacts.create(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+        "premium",
+        "beta-user",
+        "enterprise",
+    ], metadata={
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "subscription_tier": "premium",
+        "last_login": "2024-01-15T10:30:00Z",
+    })
 
     # Handle response
     print(res)
@@ -155,9 +162,16 @@ async def main():
         api_key=os.getenv("ORQ_API_KEY", ""),
     ) as orq:
 
-        res = await orq.feedback.create_async(field="rating", value=[
-            "good",
-        ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
+        res = await orq.contacts.create_async(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+            "premium",
+            "beta-user",
+            "enterprise",
+        ], metadata={
+            "department": "Engineering",
+            "role": "Senior Developer",
+            "subscription_tier": "premium",
+            "last_login": "2024-01-15T10:30:00Z",
+        })
 
         # Handle response
         print(res)
@@ -187,9 +201,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.feedback.create(field="rating", value=[
-        "good",
-    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
+    res = orq.contacts.create(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+        "premium",
+        "beta-user",
+        "enterprise",
+    ], metadata={
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "subscription_tier": "premium",
+        "last_login": "2024-01-15T10:30:00Z",
+    })
 
     # Handle response
     print(res)
@@ -223,13 +244,9 @@ with Orq(
 
 * [parse](docs/sdks/chunking/README.md#parse) - Parse text
 
-### [~~Contacts~~](docs/sdks/contacts/README.md)
+### [Contacts](docs/sdks/contacts/README.md)
 
-* [~~create~~](docs/sdks/contacts/README.md#create) - Create a contact :warning: **Deprecated**
-* [~~list~~](docs/sdks/contacts/README.md#list) - List contacts :warning: **Deprecated**
-* [~~retrieve~~](docs/sdks/contacts/README.md#retrieve) - Retrieve a contact :warning: **Deprecated**
-* [~~update~~](docs/sdks/contacts/README.md#update) - Update a contact :warning: **Deprecated**
-* [~~delete~~](docs/sdks/contacts/README.md#delete) - Delete a contact :warning: **Deprecated**
+* [create](docs/sdks/contacts/README.md#create) - Update user information
 
 ### [Conversations](docs/sdks/conversations/README.md)
 
@@ -447,7 +464,22 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.deployments.stream(key="<key>", documents=[
+    res = orq.deployments.stream(key="<key>", identity={
+        "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
+        "display_name": "Jane Doe",
+        "email": "jane.doe@example.com",
+        "metadata": [
+            {
+                "department": "Engineering",
+                "role": "Senior Developer",
+            },
+        ],
+        "logo_url": "https://example.com/avatars/jane-doe.jpg",
+        "tags": [
+            "hr",
+            "engineering",
+        ],
+    }, documents=[
         {
             "text": "The refund policy allows customers to return items within 30 days of purchase for a full refund.",
             "metadata": {
@@ -523,9 +555,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.feedback.create(field="rating", value=[
-        "good",
-    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH",
+    res = orq.contacts.create(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+        "premium",
+        "beta-user",
+        "enterprise",
+    ], metadata={
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "subscription_tier": "premium",
+        "last_login": "2024-01-15T10:30:00Z",
+    },
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     # Handle response
@@ -545,9 +584,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.feedback.create(field="rating", value=[
-        "good",
-    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
+    res = orq.contacts.create(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+        "premium",
+        "beta-user",
+        "enterprise",
+    ], metadata={
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "subscription_tier": "premium",
+        "last_login": "2024-01-15T10:30:00Z",
+    })
 
     # Handle response
     print(res)
@@ -604,7 +650,7 @@ with Orq(
 **Primary error:**
 * [`OrqError`](./src/orq_ai_sdk/models/orqerror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (38)</summary>
+<details><summary>Less common errors (35)</summary>
 
 <br />
 
@@ -615,39 +661,36 @@ with Orq(
 
 
 **Inherit from [`OrqError`](./src/orq_ai_sdk/models/orqerror.py)**:
-* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 9 of 119 methods.*
-* [`GenerateConversationNameConversationsResponseBody`](./src/orq_ai_sdk/models/generateconversationnameconversationsresponsebody.py): Conversation already has a display name. This endpoint only generates names for conversations with empty display names. Status code `400`. Applicable to 1 of 119 methods.*
-* [`RetrieveContactContactsResponseBody`](./src/orq_ai_sdk/models/retrievecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateContactContactsResponseBody`](./src/orq_ai_sdk/models/updatecontactcontactsresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeleteContactResponseBody`](./src/orq_ai_sdk/models/deletecontactresponsebody.py): Contact not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 119 methods.*
-* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 119 methods.*
-* [`InvokeEvalEvalsResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GetV2EvaluatorsIDVersionsEvaluatorsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevaluatorsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`RetrieveIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/retrieveidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/updateidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeleteIdentityResponseBody`](./src/orq_ai_sdk/models/deleteidentityresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 119 methods.*
-* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 119 methods.*
-* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GenerateConversationNameConversationsResponseResponseBody`](./src/orq_ai_sdk/models/generateconversationnameconversationsresponseresponsebody.py): Conversation not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`RetrieveConversationResponseBody`](./src/orq_ai_sdk/models/retrieveconversationresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateConversationConversationsResponseBody`](./src/orq_ai_sdk/models/updateconversationconversationsresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeleteConversationResponseBody`](./src/orq_ai_sdk/models/deleteconversationresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 119 methods.*
-* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 119 methods.*
-* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 119 methods.*
-* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 119 methods.*
-* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 119 methods.*
-* [`InvokeEvalEvalsResponseResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponseresponsebody.py): Error running the evaluator. Status code `500`. Applicable to 1 of 119 methods.*
+* [`HonoAPIError`](./src/orq_ai_sdk/models/honoapierror.py): Applicable to 9 of 115 methods.*
+* [`GenerateConversationNameConversationsResponseBody`](./src/orq_ai_sdk/models/generateconversationnameconversationsresponsebody.py): Conversation already has a display name. This endpoint only generates names for conversations with empty display names. Status code `400`. Applicable to 1 of 115 methods.*
+* [`GetEvalsEvalsResponseBody`](./src/orq_ai_sdk/models/getevalsevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 115 methods.*
+* [`CreateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/createevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdateEvalEvalsResponseBody`](./src/orq_ai_sdk/models/updateevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 115 methods.*
+* [`DeleteEvalResponseBody`](./src/orq_ai_sdk/models/deleteevalresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 115 methods.*
+* [`InvokeEvalEvalsResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponsebody.py): Workspace ID is not found on the request. Status code `404`. Applicable to 1 of 115 methods.*
+* [`GetV2EvaluatorsIDVersionsEvaluatorsResponseBody`](./src/orq_ai_sdk/models/getv2evaluatorsidversionsevaluatorsresponsebody.py): Evaluator not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`RetrieveIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/retrieveidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdateIdentityIdentitiesResponseBody`](./src/orq_ai_sdk/models/updateidentityidentitiesresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`DeleteIdentityResponseBody`](./src/orq_ai_sdk/models/deleteidentityresponsebody.py): Identity not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`DeleteAgentResponseBody`](./src/orq_ai_sdk/models/deleteagentresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 115 methods.*
+* [`RetrieveAgentRequestAgentsResponseBody`](./src/orq_ai_sdk/models/retrieveagentrequestagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdateAgentAgentsResponseBody`](./src/orq_ai_sdk/models/updateagentagentsresponsebody.py): Agent not found. The specified agent key does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 115 methods.*
+* [`StreamRunAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamrunagentagentsresponsebody.py): Model not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`StreamAgentAgentsResponseBody`](./src/orq_ai_sdk/models/streamagentagentsresponsebody.py): Agent not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`GenerateConversationNameConversationsResponseResponseBody`](./src/orq_ai_sdk/models/generateconversationnameconversationsresponseresponsebody.py): Conversation not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`RetrieveConversationResponseBody`](./src/orq_ai_sdk/models/retrieveconversationresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or you do not have permission to access it. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdateConversationConversationsResponseBody`](./src/orq_ai_sdk/models/updateconversationconversationsresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or you do not have permission to modify it. Status code `404`. Applicable to 1 of 115 methods.*
+* [`DeleteConversationResponseBody`](./src/orq_ai_sdk/models/deleteconversationresponsebody.py): Conversation not found. The specified conversation ID does not exist in the workspace or has already been deleted. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdatePromptResponseBody`](./src/orq_ai_sdk/models/updatepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`DeletePromptResponseBody`](./src/orq_ai_sdk/models/deletepromptresponsebody.py): Prompt not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`GetPromptVersionPromptsResponseBody`](./src/orq_ai_sdk/models/getpromptversionpromptsresponsebody.py): Not Found - The prompt or prompt version does not exist. Status code `404`. Applicable to 1 of 115 methods.*
+* [`UpdateToolToolsResponseBody`](./src/orq_ai_sdk/models/updatetooltoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`GetV2ToolsToolIDVersionsToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionstoolsresponsebody.py): Tool not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`GetV2ToolsToolIDVersionsVersionIDToolsResponseBody`](./src/orq_ai_sdk/models/getv2toolstoolidversionsversionidtoolsresponsebody.py): Tool or version not found. Status code `404`. Applicable to 1 of 115 methods.*
+* [`CreateModerationRouterModerationsResponseBody`](./src/orq_ai_sdk/models/createmoderationroutermoderationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 115 methods.*
+* [`CreateTranscriptionRouterAudioTranscriptionsResponseBody`](./src/orq_ai_sdk/models/createtranscriptionrouteraudiotranscriptionsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 115 methods.*
+* [`CreateTranslationRouterAudioTranslationsResponseBody`](./src/orq_ai_sdk/models/createtranslationrouteraudiotranslationsresponsebody.py): Returns validation error. Status code `422`. Applicable to 1 of 115 methods.*
+* [`InvokeEvalEvalsResponseResponseBody`](./src/orq_ai_sdk/models/invokeevalevalsresponseresponsebody.py): Error running the evaluator. Status code `500`. Applicable to 1 of 115 methods.*
 * [`ResponseValidationError`](./src/orq_ai_sdk/models/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
@@ -671,9 +714,16 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.feedback.create(field="rating", value=[
-        "good",
-    ], trace_id="67HTZ65Z9W91HSF51CW68KK1QH")
+    res = orq.contacts.create(external_id="user_12345", display_name="Jane Smith", email="jane.smith@example.com", avatar_url="https://example.com/avatars/jane-smith.jpg", tags=[
+        "premium",
+        "beta-user",
+        "enterprise",
+    ], metadata={
+        "department": "Engineering",
+        "role": "Senior Developer",
+        "subscription_tier": "premium",
+        "last_login": "2024-01-15T10:30:00Z",
+    })
 
     # Handle response
     print(res)

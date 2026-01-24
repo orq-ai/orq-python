@@ -79,7 +79,7 @@ class GetEvalsEvalsResponseBody(OrqError):
         object.__setattr__(self, "data", data)
 
 
-GetEvalsObject = Literal["list",]
+Object = Literal["list",]
 
 
 GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData72Type = Literal[
@@ -221,9 +221,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -397,9 +397,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -1072,9 +1072,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -1227,9 +1227,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -1392,9 +1392,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1603,9 +1603,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1735,9 +1735,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-01-23T09:49:04.371Z"
+    created: Optional[str] = "2026-01-24T23:05:33.746Z"
 
-    updated: Optional[str] = "2026-01-23T09:49:04.371Z"
+    updated: Optional[str] = "2026-01-24T23:05:33.746Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig
@@ -1791,7 +1791,7 @@ GetEvalsData = Annotated[
 class GetEvalsResponseBodyTypedDict(TypedDict):
     r"""Returns a list of evals"""
 
-    object: GetEvalsObject
+    object: Object
     data: List[GetEvalsDataTypedDict]
     has_more: bool
 
@@ -1799,7 +1799,7 @@ class GetEvalsResponseBodyTypedDict(TypedDict):
 class GetEvalsResponseBody(BaseModel):
     r"""Returns a list of evals"""
 
-    object: GetEvalsObject
+    object: Object
 
     data: List[GetEvalsData]
 

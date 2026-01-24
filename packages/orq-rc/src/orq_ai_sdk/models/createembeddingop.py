@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 from .publiccontact import PublicContact, PublicContactTypedDict
+from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from orq_ai_sdk.types import BaseModel, UNSET_SENTINEL
+import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, List, Literal, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict, deprecated
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 CreateEmbeddingInputTypedDict = TypeAliasType(
@@ -106,67 +108,6 @@ class CreateEmbeddingRetry(BaseModel):
         return m
 
 
-@deprecated(
-    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-)
-class CreateEmbeddingContactTypedDict(TypedDict):
-    r"""@deprecated Use identity instead. Information about the contact making the request."""
-
-    id: str
-    r"""Unique identifier for the contact"""
-    display_name: NotRequired[str]
-    r"""Display name of the contact"""
-    email: NotRequired[str]
-    r"""Email address of the contact"""
-    metadata: NotRequired[List[Dict[str, Any]]]
-    r"""A hash of key/value pairs containing any other data about the contact"""
-    logo_url: NotRequired[str]
-    r"""URL to the contact's avatar or logo"""
-    tags: NotRequired[List[str]]
-    r"""A list of tags associated with the contact"""
-
-
-@deprecated(
-    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-)
-class CreateEmbeddingContact(BaseModel):
-    r"""@deprecated Use identity instead. Information about the contact making the request."""
-
-    id: str
-    r"""Unique identifier for the contact"""
-
-    display_name: Optional[str] = None
-    r"""Display name of the contact"""
-
-    email: Optional[str] = None
-    r"""Email address of the contact"""
-
-    metadata: Optional[List[Dict[str, Any]]] = None
-    r"""A hash of key/value pairs containing any other data about the contact"""
-
-    logo_url: Optional[str] = None
-    r"""URL to the contact's avatar or logo"""
-
-    tags: Optional[List[str]] = None
-    r"""A list of tags associated with the contact"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 CreateEmbeddingLoadBalancerType = Literal["weight_based",]
 
 
@@ -243,9 +184,10 @@ class CreateEmbeddingOrqTypedDict(TypedDict):
     r"""Cache configuration for the request."""
     retry: NotRequired[CreateEmbeddingRetryTypedDict]
     r"""Retry configuration for the request"""
-    identity: NotRequired[PublicContactTypedDict]
+    identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
-    contact: NotRequired[CreateEmbeddingContactTypedDict]
+    contact: NotRequired[PublicContactTypedDict]
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     load_balancer: NotRequired[CreateEmbeddingLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
     timeout: NotRequired[CreateEmbeddingTimeoutTypedDict]
@@ -265,10 +207,16 @@ class CreateEmbeddingOrq(BaseModel):
     retry: Optional[CreateEmbeddingRetry] = None
     r"""Retry configuration for the request"""
 
-    identity: Optional[PublicContact] = None
+    identity: Optional[PublicIdentity] = None
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
-    contact: Optional[CreateEmbeddingContact] = None
+    contact: Annotated[
+        Optional[PublicContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     load_balancer: Optional[CreateEmbeddingLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
