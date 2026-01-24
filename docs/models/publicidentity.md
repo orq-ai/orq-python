@@ -1,8 +1,6 @@
-# ~~CreateTranslationContact~~
+# PublicIdentity
 
-@deprecated Use identity instead. Information about the contact making the request.
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+Information about the identity making the request. If the identity does not exist, it will be created automatically.
 
 
 ## Fields

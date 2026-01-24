@@ -17,7 +17,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class CreateContactRequestBodyTypedDict(TypedDict):
-    r"""Contact profile information"""
+    r"""Update user information payload"""
 
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
@@ -34,7 +34,7 @@ class CreateContactRequestBodyTypedDict(TypedDict):
 
 
 class CreateContactRequestBody(BaseModel):
-    r"""Contact profile information"""
+    r"""Update user information payload"""
 
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
@@ -83,14 +83,12 @@ class CreateContactRequestBody(BaseModel):
 
 
 class CreateContactResponseBodyTypedDict(TypedDict):
-    r"""Created Contact"""
+    r"""Successful operation"""
 
     id: str
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
     display_name: NotRequired[Nullable[str]]
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
     email: NotRequired[Nullable[str]]
@@ -108,16 +106,13 @@ class CreateContactResponseBodyTypedDict(TypedDict):
 
 
 class CreateContactResponseBody(BaseModel):
-    r"""Created Contact"""
+    r"""Successful operation"""
 
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""Unique ULID (Universally Unique Lexicographically Sortable Identifier) for the contact"""
 
     external_id: str
     r"""Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user."""
-
-    workspace_id: str
-    r"""Unique identifier for the workspace to which the contact belongs"""
 
     display_name: OptionalNullable[str] = UNSET
     r"""Display name or nickname of the contact user. This is typically shown in user interfaces."""
@@ -137,7 +132,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-01-23T11:14:01.166Z")
+    updated: Optional[datetime] = parse_datetime("2026-01-24T10:38:22.714Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

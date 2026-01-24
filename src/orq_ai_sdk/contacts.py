@@ -3,40 +3,37 @@
 from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
-from orq_ai_sdk.models import (
-    createcontactop as models_createcontactop,
-    listcontactsop as models_listcontactsop,
-)
-from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
+from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
-from typing_extensions import deprecated
+from typing import Any, Dict, List, Mapping, Optional
 
 
 class Contacts(BaseSDK):
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def create(
         self,
         *,
-        request: Optional[
-            Union[
-                models_createcontactop.CreateContactRequestBody,
-                models_createcontactop.CreateContactRequestBodyTypedDict,
-            ]
-        ] = None,
+        external_id: str,
+        display_name: OptionalNullable[str] = UNSET,
+        email: OptionalNullable[str] = UNSET,
+        avatar_url: OptionalNullable[str] = UNSET,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateContactResponseBody:
-        r"""Create a contact
+        r"""Update user information
 
-        Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
+        Update or add user information to workspace
 
-        :param request: The request object to send.
+        :param external_id: Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user.
+        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
+        :param email: Email address of the contact user
+        :param avatar_url: URL linking to the contact user's avatar image
+        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
+        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -55,11 +52,14 @@ class Contacts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateContactRequestBody]
-            )
-        request = cast(Optional[models.CreateContactRequestBody], request)
+        request = models.CreateContactRequestBody(
+            external_id=external_id,
+            display_name=display_name,
+            email=email,
+            avatar_url=avatar_url,
+            tags=tags,
+            metadata=metadata,
+        )
 
         req = self._build_request(
             method="POST",
@@ -67,7 +67,7 @@ class Contacts(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -75,7 +75,7 @@ class Contacts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateContactRequestBody]
+                request, False, False, "json", models.CreateContactRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -104,7 +104,7 @@ class Contacts(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "201", "application/json"):
+        if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateContactResponseBody, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -115,28 +115,30 @@ class Contacts(BaseSDK):
 
         raise models.APIError("Unexpected response received", http_res)
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def create_async(
         self,
         *,
-        request: Optional[
-            Union[
-                models_createcontactop.CreateContactRequestBody,
-                models_createcontactop.CreateContactRequestBodyTypedDict,
-            ]
-        ] = None,
+        external_id: str,
+        display_name: OptionalNullable[str] = UNSET,
+        email: OptionalNullable[str] = UNSET,
+        avatar_url: OptionalNullable[str] = UNSET,
+        tags: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateContactResponseBody:
-        r"""Create a contact
+        r"""Update user information
 
-        Creates a new contact with a unique external_id. If a contact with the same external_id already exists, the operation will fail. Use this endpoint to add users from your system to orq.ai for tracking their usage and engagement.
+        Update or add user information to workspace
 
-        :param request: The request object to send.
+        :param external_id: Unique string value to identify the contact user in the customer's system. This should be the same ID you use in your system to reference this user.
+        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
+        :param email: Email address of the contact user
+        :param avatar_url: URL linking to the contact user's avatar image
+        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
+        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -155,11 +157,14 @@ class Contacts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.CreateContactRequestBody]
-            )
-        request = cast(Optional[models.CreateContactRequestBody], request)
+        request = models.CreateContactRequestBody(
+            external_id=external_id,
+            display_name=display_name,
+            email=email,
+            avatar_url=avatar_url,
+            tags=tags,
+            metadata=metadata,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -167,7 +172,7 @@ class Contacts(BaseSDK):
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=False,
             request_has_query_params=True,
             user_agent_header="user-agent",
@@ -175,7 +180,7 @@ class Contacts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateContactRequestBody]
+                request, False, False, "json", models.CreateContactRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -204,856 +209,8 @@ class Contacts(BaseSDK):
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "201", "application/json"):
+        if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.CreateContactResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    def list(
-        self,
-        *,
-        limit: Optional[float] = 10,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
-        search: Optional[str] = None,
-        filter_by: Optional[
-            Union[
-                models_listcontactsop.ListContactsQueryParamFilterBy,
-                models_listcontactsop.ListContactsQueryParamFilterByTypedDict,
-            ]
-        ] = None,
-        include_metrics: OptionalNullable[bool] = False,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListContactsResponseBody:
-        r"""List contacts
-
-        Retrieves a paginated list of contacts in your workspace. Use pagination parameters to navigate through large contact lists efficiently.
-
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param search: Search contacts by display name or email address. Minimum 2 characters required.
-        :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
-        :param include_metrics: Include usage metrics of the last 30 days for each contact.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ListContactsRequest(
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
-            search=search,
-            filter_by=utils.get_pydantic_model(
-                filter_by, Optional[models.ListContactsQueryParamFilterBy]
-            ),
-            include_metrics=include_metrics,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/contacts",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ListContacts",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListContactsResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    async def list_async(
-        self,
-        *,
-        limit: Optional[float] = 10,
-        starting_after: Optional[str] = None,
-        ending_before: Optional[str] = None,
-        search: Optional[str] = None,
-        filter_by: Optional[
-            Union[
-                models_listcontactsop.ListContactsQueryParamFilterBy,
-                models_listcontactsop.ListContactsQueryParamFilterByTypedDict,
-            ]
-        ] = None,
-        include_metrics: OptionalNullable[bool] = False,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ListContactsResponseBody:
-        r"""List contacts
-
-        Retrieves a paginated list of contacts in your workspace. Use pagination parameters to navigate through large contact lists efficiently.
-
-        :param limit: A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10
-        :param starting_after: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list.
-        :param ending_before: A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, starting with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `before=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the previous page of the list.
-        :param search: Search contacts by display name or email address. Minimum 2 characters required.
-        :param filter_by: Filter contacts by tags. Can be provided as JSON object {\"tags\": [\"premium\", \"beta-user\"]} or as query format \"tags=premium,beta-user\"
-        :param include_metrics: Include usage metrics of the last 30 days for each contact.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.ListContactsRequest(
-            limit=limit,
-            starting_after=starting_after,
-            ending_before=ending_before,
-            search=search,
-            filter_by=utils.get_pydantic_model(
-                filter_by, Optional[models.ListContactsQueryParamFilterBy]
-            ),
-            include_metrics=include_metrics,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/contacts",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="ListContacts",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ListContactsResponseBody, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    def retrieve(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveContactResponseBody:
-        r"""Retrieve a contact
-
-        Retrieves detailed information about a specific contact using their contact ID or external ID from your system.
-
-        :param id: Unique contact id or external id
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.RetrieveContactRequest(
-            id=id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="RetrieveContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveContactResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.RetrieveContactContactsResponseBodyData, http_res
-            )
-            raise models.RetrieveContactContactsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    async def retrieve_async(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.RetrieveContactResponseBody:
-        r"""Retrieve a contact
-
-        Retrieves detailed information about a specific contact using their contact ID or external ID from your system.
-
-        :param id: Unique contact id or external id
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.RetrieveContactRequest(
-            id=id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="RetrieveContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.RetrieveContactResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.RetrieveContactContactsResponseBodyData, http_res
-            )
-            raise models.RetrieveContactContactsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    def update(
-        self,
-        *,
-        id: str,
-        display_name: OptionalNullable[str] = UNSET,
-        email: OptionalNullable[str] = UNSET,
-        avatar_url: OptionalNullable[str] = UNSET,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateContactResponseBody:
-        r"""Update a contact
-
-        Updates specific fields of an existing contact. Only the fields provided in the request body will be updated.
-
-        :param id: Unique contact id or external id
-        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
-        :param email: Email address of the contact user
-        :param avatar_url: URL linking to the contact user's avatar image
-        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
-        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateContactRequest(
-            id=id,
-            request_body=models.UpdateContactRequestBody(
-                display_name=display_name,
-                email=email,
-                avatar_url=avatar_url,
-                tags=tags,
-                metadata=metadata,
-            ),
-        )
-
-        req = self._build_request(
-            method="PATCH",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateContactRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateContactResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.UpdateContactContactsResponseBodyData, http_res
-            )
-            raise models.UpdateContactContactsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    async def update_async(
-        self,
-        *,
-        id: str,
-        display_name: OptionalNullable[str] = UNSET,
-        email: OptionalNullable[str] = UNSET,
-        avatar_url: OptionalNullable[str] = UNSET,
-        tags: Optional[List[str]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.UpdateContactResponseBody:
-        r"""Update a contact
-
-        Updates specific fields of an existing contact. Only the fields provided in the request body will be updated.
-
-        :param id: Unique contact id or external id
-        :param display_name: Display name or nickname of the contact user. This is typically shown in user interfaces.
-        :param email: Email address of the contact user
-        :param avatar_url: URL linking to the contact user's avatar image
-        :param tags: Array of tags associated with the contact. Useful for organizing and filtering contacts by categories, departments, or custom classifications.
-        :param metadata: Additional custom metadata associated with the contact as key-value pairs. Use this to store any extra information specific to your application.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UpdateContactRequest(
-            id=id,
-            request_body=models.UpdateContactRequestBody(
-                display_name=display_name,
-                email=email,
-                avatar_url=avatar_url,
-                tags=tags,
-                metadata=metadata,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="PATCH",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
-                False,
-                True,
-                "json",
-                Optional[models.UpdateContactRequestBody],
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="UpdateContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.UpdateContactResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.UpdateContactContactsResponseBodyData, http_res
-            )
-            raise models.UpdateContactContactsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    def delete(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete a contact
-
-        Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
-
-        :param id: Contact ID or External ID
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteContactRequest(
-            id=id,
-        )
-
-        req = self._build_request(
-            method="DELETE",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="DeleteContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteContactResponseBodyData, http_res
-            )
-            raise models.DeleteContactResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise models.APIError("API error occurred", http_res, http_res_text)
-
-        raise models.APIError("Unexpected response received", http_res)
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
-    async def delete_async(
-        self,
-        *,
-        id: str,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Delete a contact
-
-        Permanently deletes a contact from your workspace and cleans up associated budget configurations. This action cannot be undone.
-
-        :param id: Contact ID or External ID
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if timeout_ms is None:
-            timeout_ms = 600000
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.DeleteContactRequest(
-            id=id,
-        )
-
-        req = self._build_request_async(
-            method="DELETE",
-            path="/v2/contacts/{id}",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="DeleteContact",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["404", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "204", "*"):
-            return
-        if utils.match_response(http_res, "404", "application/json"):
-            response_data = unmarshal_json_response(
-                models.DeleteContactResponseBodyData, http_res
-            )
-            raise models.DeleteContactResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

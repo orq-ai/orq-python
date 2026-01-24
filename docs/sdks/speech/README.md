@@ -53,22 +53,6 @@ with Orq(
                 "engineering",
             ],
         },
-        "contact": {
-            "id": "contact_01ARZ3NDEKTSV4RRFFQ69G5FAV",
-            "display_name": "Jane Doe",
-            "email": "jane.doe@example.com",
-            "metadata": [
-                {
-                    "department": "Engineering",
-                    "role": "Senior Developer",
-                },
-            ],
-            "logo_url": "https://example.com/avatars/jane-doe.jpg",
-            "tags": [
-                "hr",
-                "engineering",
-            ],
-        },
         "thread": {
             "id": "thread_01ARZ3NDEKTSV4RRFFQ69G5FAV",
             "tags": [

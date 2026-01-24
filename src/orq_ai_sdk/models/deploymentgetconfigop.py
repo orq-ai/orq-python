@@ -10,6 +10,7 @@ from .imagecontentpartschema import (
     ImageContentPartSchema,
     ImageContentPartSchemaTypedDict,
 )
+from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from .reasoningpartschema import ReasoningPartSchema, ReasoningPartSchemaTypedDict
 from .redactedreasoningpartschema import (
     RedactedReasoningPartSchema,
@@ -2062,6 +2063,8 @@ class DeploymentGetConfigRequestBodyTypedDict(TypedDict):
     r"""A list of messages to include after the `System` message, but before the  `User` and `Assistant` pairs configured in your deployment."""
     messages: NotRequired[List[DeploymentGetConfigMessagesTypedDict]]
     r"""A list of messages to send to the deployment."""
+    identity: NotRequired[PublicIdentityTypedDict]
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     file_ids: NotRequired[List[str]]
     r"""A list of file IDs that are associated with the deployment request."""
     metadata: NotRequired[Dict[str, Any]]
@@ -2092,6 +2095,9 @@ class DeploymentGetConfigRequestBody(BaseModel):
     messages: Optional[List[DeploymentGetConfigMessages]] = None
     r"""A list of messages to send to the deployment."""
 
+    identity: Optional[PublicIdentity] = None
+    r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
+
     file_ids: Optional[List[str]] = None
     r"""A list of file IDs that are associated with the deployment request."""
 
@@ -2119,6 +2125,7 @@ class DeploymentGetConfigRequestBody(BaseModel):
                 "context",
                 "prefix_messages",
                 "messages",
+                "identity",
                 "file_ids",
                 "metadata",
                 "extra_params",

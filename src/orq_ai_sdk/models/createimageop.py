@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .publiccontact import PublicContact, PublicContactTypedDict
+from .publicidentity import PublicIdentity, PublicIdentityTypedDict
 from orq_ai_sdk.types import (
     BaseModel,
     Nullable,
@@ -9,9 +10,10 @@ from orq_ai_sdk.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+import pydantic
 from pydantic import model_serializer
-from typing import Any, Dict, List, Literal, Optional
-from typing_extensions import NotRequired, TypedDict, deprecated
+from typing import List, Literal, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 Background = Literal[
@@ -105,67 +107,6 @@ class CreateImageFallbacksTypedDict(TypedDict):
 class CreateImageFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
-
-
-@deprecated(
-    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-)
-class CreateImageContactTypedDict(TypedDict):
-    r"""@deprecated Use identity instead. Information about the contact making the request."""
-
-    id: str
-    r"""Unique identifier for the contact"""
-    display_name: NotRequired[str]
-    r"""Display name of the contact"""
-    email: NotRequired[str]
-    r"""Email address of the contact"""
-    metadata: NotRequired[List[Dict[str, Any]]]
-    r"""A hash of key/value pairs containing any other data about the contact"""
-    logo_url: NotRequired[str]
-    r"""URL to the contact's avatar or logo"""
-    tags: NotRequired[List[str]]
-    r"""A list of tags associated with the contact"""
-
-
-@deprecated(
-    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-)
-class CreateImageContact(BaseModel):
-    r"""@deprecated Use identity instead. Information about the contact making the request."""
-
-    id: str
-    r"""Unique identifier for the contact"""
-
-    display_name: Optional[str] = None
-    r"""Display name of the contact"""
-
-    email: Optional[str] = None
-    r"""Email address of the contact"""
-
-    metadata: Optional[List[Dict[str, Any]]] = None
-    r"""A hash of key/value pairs containing any other data about the contact"""
-
-    logo_url: Optional[str] = None
-    r"""URL to the contact's avatar or logo"""
-
-    tags: Optional[List[str]] = None
-    r"""A list of tags associated with the contact"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["display_name", "email", "metadata", "logo_url", "tags"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 CreateImageType = Literal["exact_match",]
@@ -278,9 +219,10 @@ class CreateImageOrqTypedDict(TypedDict):
     r"""Retry configuration for the request"""
     fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    identity: NotRequired[PublicContactTypedDict]
+    identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
-    contact: NotRequired[CreateImageContactTypedDict]
+    contact: NotRequired[PublicContactTypedDict]
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
     cache: NotRequired[CreateImageCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[CreateImageLoadBalancerTypedDict]
@@ -299,10 +241,16 @@ class CreateImageOrq(BaseModel):
     fallbacks: Optional[List[CreateImageFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    identity: Optional[PublicContact] = None
+    identity: Optional[PublicIdentity] = None
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
 
-    contact: Optional[CreateImageContact] = None
+    contact: Annotated[
+        Optional[PublicContact],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use identity instead. Information about the contact making the request."""
 
     cache: Optional[CreateImageCache] = None
     r"""Cache configuration for the request."""
