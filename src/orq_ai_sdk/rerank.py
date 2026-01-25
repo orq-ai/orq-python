@@ -19,6 +19,37 @@ class Rerank(BaseSDK):
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_creatererankop.CreateRerankFallbacks],
+                List[models_creatererankop.CreateRerankFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_creatererankop.CreateRerankRetry,
+                models_creatererankop.CreateRerankRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_creatererankop.CreateRerankCache,
+                models_creatererankop.CreateRerankCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_creatererankop.CreateRerankLoadBalancer,
+                models_creatererankop.CreateRerankLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_creatererankop.CreateRerankTimeout,
+                models_creatererankop.CreateRerankTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_creatererankop.CreateRerankOrq,
@@ -39,6 +70,12 @@ class Rerank(BaseSDK):
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
         :param filename: The filename of the document to rerank
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -64,6 +101,18 @@ class Rerank(BaseSDK):
             model=model,
             top_n=top_n,
             filename=filename,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateRerankFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateRerankRetry]),
+            cache=utils.get_pydantic_model(cache, Optional[models.CreateRerankCache]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateRerankLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateRerankTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateRerankOrq]),
         )
 
@@ -129,6 +178,37 @@ class Rerank(BaseSDK):
         model: str,
         top_n: Optional[float] = None,
         filename: OptionalNullable[str] = UNSET,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_creatererankop.CreateRerankFallbacks],
+                List[models_creatererankop.CreateRerankFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_creatererankop.CreateRerankRetry,
+                models_creatererankop.CreateRerankRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_creatererankop.CreateRerankCache,
+                models_creatererankop.CreateRerankCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_creatererankop.CreateRerankLoadBalancer,
+                models_creatererankop.CreateRerankLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_creatererankop.CreateRerankTimeout,
+                models_creatererankop.CreateRerankTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_creatererankop.CreateRerankOrq,
@@ -149,6 +229,12 @@ class Rerank(BaseSDK):
         :param model: The identifier of the model to use
         :param top_n: The number of most relevant documents or indices to return, defaults to the length of the documents
         :param filename: The filename of the document to rerank
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -174,6 +260,18 @@ class Rerank(BaseSDK):
             model=model,
             top_n=top_n,
             filename=filename,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateRerankFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateRerankRetry]),
+            cache=utils.get_pydantic_model(cache, Optional[models.CreateRerankCache]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateRerankLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateRerankTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateRerankOrq]),
         )
 

@@ -6,7 +6,7 @@ from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.models import createspeechop as models_createspeechop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
-from typing import Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union
 
 
 class Speech(BaseSDK):
@@ -20,6 +20,31 @@ class Speech(BaseSDK):
             models_createspeechop.CreateSpeechResponseFormat
         ] = "mp3",
         speed: Optional[float] = 1,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createspeechop.CreateSpeechFallbacks],
+                List[models_createspeechop.CreateSpeechFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createspeechop.CreateSpeechRetry,
+                models_createspeechop.CreateSpeechRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createspeechop.CreateSpeechLoadBalancer,
+                models_createspeechop.CreateSpeechLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createspeechop.CreateSpeechTimeout,
+                models_createspeechop.CreateSpeechTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createspeechop.CreateSpeechOrq,
@@ -48,6 +73,11 @@ class Speech(BaseSDK):
             `aria`, `roger`, `sarah`, `laura`, `charlie`, `george`, `callum`, `river`, `liam`, `charlotte`, `alice`, `matilda`, `will`, `jessica`, `eric`, `chris`, `brian`, `daniel`, `lily`, `bill`
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -73,6 +103,17 @@ class Speech(BaseSDK):
             voice=voice,
             response_format=response_format,
             speed=speed,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateSpeechFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateSpeechRetry]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateSpeechLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateSpeechTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateSpeechOrq]),
         )
 
@@ -140,6 +181,31 @@ class Speech(BaseSDK):
             models_createspeechop.CreateSpeechResponseFormat
         ] = "mp3",
         speed: Optional[float] = 1,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createspeechop.CreateSpeechFallbacks],
+                List[models_createspeechop.CreateSpeechFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createspeechop.CreateSpeechRetry,
+                models_createspeechop.CreateSpeechRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createspeechop.CreateSpeechLoadBalancer,
+                models_createspeechop.CreateSpeechLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createspeechop.CreateSpeechTimeout,
+                models_createspeechop.CreateSpeechTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createspeechop.CreateSpeechOrq,
@@ -168,6 +234,11 @@ class Speech(BaseSDK):
             `aria`, `roger`, `sarah`, `laura`, `charlie`, `george`, `callum`, `river`, `liam`, `charlotte`, `alice`, `matilda`, `will`, `jessica`, `eric`, `chris`, `brian`, `daniel`, `lily`, `bill`
         :param response_format: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format.
         :param speed: The speed of the generated audio.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -193,6 +264,17 @@ class Speech(BaseSDK):
             voice=voice,
             response_format=response_format,
             speed=speed,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateSpeechFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateSpeechRetry]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateSpeechLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateSpeechTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateSpeechOrq]),
         )
 

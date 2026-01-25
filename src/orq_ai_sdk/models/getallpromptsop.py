@@ -1959,6 +1959,8 @@ GetAllPromptsPromptsMessages = Annotated[
 class GetAllPromptsPromptFieldTypedDict(TypedDict):
     r"""Prompt configuration with model and messages. Use this instead of prompt_config."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[GetAllPromptsAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -2032,6 +2034,9 @@ class GetAllPromptsPromptFieldTypedDict(TypedDict):
 
 class GetAllPromptsPromptField(BaseModel):
     r"""Prompt configuration with model and messages. Use this instead of prompt_config."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[GetAllPromptsAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -2136,6 +2141,7 @@ class GetAllPromptsPromptField(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",

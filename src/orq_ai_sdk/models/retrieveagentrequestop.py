@@ -817,6 +817,8 @@ class RetrieveAgentRequestTimeout(BaseModel):
 class RetrieveAgentRequestParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[RetrieveAgentRequestAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -885,6 +887,9 @@ class RetrieveAgentRequestParametersTypedDict(TypedDict):
 
 class RetrieveAgentRequestParameters(BaseModel):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[RetrieveAgentRequestAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -981,6 +986,7 @@ class RetrieveAgentRequestParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -1611,6 +1617,8 @@ class RetrieveAgentRequestFallbackModelConfigurationTimeout(BaseModel):
 class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[
         Nullable[RetrieveAgentRequestFallbackModelConfigurationAudioTypedDict]
     ]
@@ -1703,6 +1711,9 @@ class RetrieveAgentRequestFallbackModelConfigurationParametersTypedDict(TypedDic
 
 class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[RetrieveAgentRequestFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1815,6 +1826,7 @@ class RetrieveAgentRequestFallbackModelConfigurationParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",

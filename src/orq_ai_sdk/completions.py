@@ -8,7 +8,7 @@ from orq_ai_sdk.models import createcompletionop as models_createcompletionop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import eventstreaming, get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union
 
 
 class CreateAcceptEnum(str, Enum):
@@ -37,6 +37,37 @@ class Completions(BaseSDK):
         top_p: OptionalNullable[float] = 1,
         n: OptionalNullable[float] = 1,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createcompletionop.CreateCompletionFallbacks],
+                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionRetry,
+                models_createcompletionop.CreateCompletionRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionCache,
+                models_createcompletionop.CreateCompletionCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionLoadBalancer,
+                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionTimeout,
+                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createcompletionop.CreateCompletionOrq,
@@ -66,6 +97,12 @@ class Completions(BaseSDK):
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
         :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -100,6 +137,22 @@ class Completions(BaseSDK):
             top_p=top_p,
             n=n,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateCompletionFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateCompletionRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateCompletionCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateCompletionLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateCompletionTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,
         )
@@ -194,6 +247,37 @@ class Completions(BaseSDK):
         top_p: OptionalNullable[float] = 1,
         n: OptionalNullable[float] = 1,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createcompletionop.CreateCompletionFallbacks],
+                List[models_createcompletionop.CreateCompletionFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionRetry,
+                models_createcompletionop.CreateCompletionRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionCache,
+                models_createcompletionop.CreateCompletionCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionLoadBalancer,
+                models_createcompletionop.CreateCompletionLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createcompletionop.CreateCompletionTimeout,
+                models_createcompletionop.CreateCompletionTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createcompletionop.CreateCompletionOrq,
@@ -223,6 +307,12 @@ class Completions(BaseSDK):
         :param top_p: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
         :param n: How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota.
         :param user: A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq: Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution.
         :param stream:
         :param retries: Override the default retry configuration for this method
@@ -257,6 +347,22 @@ class Completions(BaseSDK):
             top_p=top_p,
             n=n,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateCompletionFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateCompletionRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateCompletionCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateCompletionLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateCompletionTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateCompletionOrq]),
             stream=stream,
         )

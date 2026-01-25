@@ -7,7 +7,7 @@ from orq_ai_sdk.models import createembeddingop as models_createembeddingop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union
 
 
 class Embeddings(BaseSDK):
@@ -22,6 +22,37 @@ class Embeddings(BaseSDK):
         encoding_format: Optional[models_createembeddingop.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createembeddingop.CreateEmbeddingFallbacks],
+                List[models_createembeddingop.CreateEmbeddingFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingRetry,
+                models_createembeddingop.CreateEmbeddingRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingCache,
+                models_createembeddingop.CreateEmbeddingCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingLoadBalancer,
+                models_createembeddingop.CreateEmbeddingLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingTimeout,
+                models_createembeddingop.CreateEmbeddingTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createembeddingop.CreateEmbeddingOrq,
@@ -42,6 +73,12 @@ class Embeddings(BaseSDK):
         :param encoding_format: Type of the document element
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param user: A unique identifier representing your end-user
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -67,6 +104,22 @@ class Embeddings(BaseSDK):
             encoding_format=encoding_format,
             dimensions=dimensions,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateEmbeddingFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateEmbeddingRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateEmbeddingCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateEmbeddingLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateEmbeddingTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateEmbeddingOrq]),
         )
 
@@ -135,6 +188,37 @@ class Embeddings(BaseSDK):
         encoding_format: Optional[models_createembeddingop.EncodingFormat] = "float",
         dimensions: Optional[float] = None,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createembeddingop.CreateEmbeddingFallbacks],
+                List[models_createembeddingop.CreateEmbeddingFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingRetry,
+                models_createembeddingop.CreateEmbeddingRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingCache,
+                models_createembeddingop.CreateEmbeddingCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingLoadBalancer,
+                models_createembeddingop.CreateEmbeddingLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createembeddingop.CreateEmbeddingTimeout,
+                models_createembeddingop.CreateEmbeddingTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createembeddingop.CreateEmbeddingOrq,
@@ -155,6 +239,12 @@ class Embeddings(BaseSDK):
         :param encoding_format: Type of the document element
         :param dimensions: The number of dimensions the resulting output embeddings should have.
         :param user: A unique identifier representing your end-user
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -180,6 +270,22 @@ class Embeddings(BaseSDK):
             encoding_format=encoding_format,
             dimensions=dimensions,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateEmbeddingFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateEmbeddingRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateEmbeddingCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateEmbeddingLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateEmbeddingTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateEmbeddingOrq]),
         )
 

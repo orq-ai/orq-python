@@ -1128,6 +1128,8 @@ class UpdatePromptPromptInputTypedDict(TypedDict):
     r"""Array of messages that make up the conversation. Each message has a role (system, user, assistant, or tool) and content."""
     model: NotRequired[Nullable[str]]
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdatePromptAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -1202,6 +1204,9 @@ class UpdatePromptPromptInput(BaseModel):
 
     model: OptionalNullable[str] = UNSET
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-3-5-sonnet-20241022`. For private models, use format: `{workspaceKey}@{provider}/{model}`. The full list of models can be found at https://docs.orq.ai/docs/ai-gateway-supported-models. Only chat models are supported."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdatePromptAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1300,6 +1305,7 @@ class UpdatePromptPromptInput(BaseModel):
             [
                 "messages",
                 "model",
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -3503,6 +3509,8 @@ UpdatePromptPromptsResponseMessages = Annotated[
 class UpdatePromptPromptFieldTypedDict(TypedDict):
     r"""Prompt configuration with model and messages. Use this instead of prompt_config."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdatePromptPromptsAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -3576,6 +3584,9 @@ class UpdatePromptPromptFieldTypedDict(TypedDict):
 
 class UpdatePromptPromptField(BaseModel):
     r"""Prompt configuration with model and messages. Use this instead of prompt_config."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdatePromptPromptsAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -3680,6 +3691,7 @@ class UpdatePromptPromptField(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",

@@ -64,6 +64,16 @@ Style = Literal[
 r"""The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`."""
 
 
+class CreateImageFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateImageRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -97,16 +107,6 @@ class CreateImageRetry(BaseModel):
                     m[k] = val
 
         return m
-
-
-class CreateImageFallbacksTypedDict(TypedDict):
-    model: str
-    r"""Fallback model identifier"""
-
-
-class CreateImageFallbacks(BaseModel):
-    model: str
-    r"""Fallback model identifier"""
 
 
 CreateImageType = Literal["exact_match",]
@@ -190,12 +190,54 @@ class CreateImageLoadBalancer1(BaseModel):
     models: List[CreateImageLoadBalancerModels]
 
 
+class CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateImageLoadBalancerRouterImagesGenerationsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageLoadBalancerRouterImagesGenerations1TypedDict(TypedDict):
+    type: CreateImageLoadBalancerRouterImagesGenerationsType
+    models: List[CreateImageLoadBalancerRouterImagesGenerationsModelsTypedDict]
+
+
+class CreateImageLoadBalancerRouterImagesGenerations1(BaseModel):
+    type: CreateImageLoadBalancerRouterImagesGenerationsType
+
+    models: List[CreateImageLoadBalancerRouterImagesGenerationsModels]
+
+
 CreateImageLoadBalancerTypedDict = CreateImageLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageLoadBalancer = CreateImageLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageTimeoutTypedDict(TypedDict):
@@ -212,22 +254,132 @@ class CreateImageTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateImageRouterImagesGenerationsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateImageRouterImagesGenerationsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageRouterImagesGenerationsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageRouterImagesGenerationsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+CreateImageRouterImagesGenerationsType = Literal["exact_match",]
+
+
+class CreateImageRouterImagesGenerationsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageRouterImagesGenerationsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateImageRouterImagesGenerationsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageRouterImagesGenerationsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateImageLoadBalancerRouterImagesGenerationsType = Literal["weight_based",]
+
+
+CreateImageRouterImagesGenerationsLoadBalancerTypedDict = (
+    CreateImageLoadBalancerRouterImagesGenerations1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateImageRouterImagesGenerationsLoadBalancer = (
+    CreateImageLoadBalancerRouterImagesGenerations1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateImageRouterImagesGenerationsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateImageRouterImagesGenerationsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateImageOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    retry: NotRequired[CreateImageRetryTypedDict]
+    retry: NotRequired[CreateImageRouterImagesGenerationsRetryTypedDict]
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateImageRouterImagesGenerationsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    cache: NotRequired[CreateImageCacheTypedDict]
+    cache: NotRequired[CreateImageRouterImagesGenerationsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[CreateImageLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateImageRouterImagesGenerationsLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateImageTimeoutTypedDict]
+    timeout: NotRequired[CreateImageRouterImagesGenerationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -235,10 +387,10 @@ class CreateImageOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    retry: Optional[CreateImageRetry] = None
+    retry: Optional[CreateImageRouterImagesGenerationsRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[CreateImageFallbacks]] = None
+    fallbacks: Optional[List[CreateImageRouterImagesGenerationsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     identity: Optional[PublicIdentity] = None
@@ -252,13 +404,13 @@ class CreateImageOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    cache: Optional[CreateImageCache] = None
+    cache: Optional[CreateImageRouterImagesGenerationsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[CreateImageLoadBalancer] = None
+    load_balancer: Optional[CreateImageRouterImagesGenerationsLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateImageTimeout] = None
+    timeout: Optional[CreateImageRouterImagesGenerationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -314,6 +466,18 @@ class CreateImageRequestBodyTypedDict(TypedDict):
     r"""The size of the generated images. Must be one of the specified sizes for each model."""
     style: NotRequired[Nullable[Style]]
     r"""The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateImageFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateImageRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateImageCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateImageLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateImageTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateImageOrqTypedDict]
 
 
@@ -353,6 +517,24 @@ class CreateImageRequestBody(BaseModel):
     style: OptionalNullable[Style] = UNSET
     r"""The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`."""
 
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Optional[List[CreateImageFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateImageRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[CreateImageCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[CreateImageLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateImageTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Optional[CreateImageOrq] = None
 
     @model_serializer(mode="wrap")
@@ -368,6 +550,12 @@ class CreateImageRequestBody(BaseModel):
                 "response_format",
                 "size",
                 "style",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "orq",
             ]
         )

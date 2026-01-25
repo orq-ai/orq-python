@@ -7,7 +7,7 @@ from orq_ai_sdk.models import createtranslationop as models_createtranslationop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional, Union
 
 
 class Translations(BaseSDK):
@@ -27,6 +27,31 @@ class Translations(BaseSDK):
             models_createtranslationop.CreateTranslationTimestampsGranularity
         ] = "word",
         temperature: Optional[float] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createtranslationop.CreateTranslationFallbacks],
+                List[models_createtranslationop.CreateTranslationFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationRetry,
+                models_createtranslationop.CreateTranslationRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationLoadBalancer,
+                models_createtranslationop.CreateTranslationLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationTimeout,
+                models_createtranslationop.CreateTranslationTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createtranslationop.CreateTranslationOrq,
@@ -55,6 +80,11 @@ class Translations(BaseSDK):
         :param num_speakers: The maximum amount of speakers talking in the uploaded file. Helps with predicting who speaks when, the maximum is 32.
         :param timestamps_granularity: The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word.
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param file: The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
         :param retries: Override the default retry configuration for this method
@@ -85,6 +115,19 @@ class Translations(BaseSDK):
             num_speakers=num_speakers,
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateTranslationFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateTranslationRetry]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateTranslationLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateTranslationTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateTranslationOrq]),
             file=utils.get_pydantic_model(file, Optional[models.CreateTranslationFile]),
         )
@@ -170,6 +213,31 @@ class Translations(BaseSDK):
             models_createtranslationop.CreateTranslationTimestampsGranularity
         ] = "word",
         temperature: Optional[float] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createtranslationop.CreateTranslationFallbacks],
+                List[models_createtranslationop.CreateTranslationFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationRetry,
+                models_createtranslationop.CreateTranslationRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationLoadBalancer,
+                models_createtranslationop.CreateTranslationLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createtranslationop.CreateTranslationTimeout,
+                models_createtranslationop.CreateTranslationTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createtranslationop.CreateTranslationOrq,
@@ -198,6 +266,11 @@ class Translations(BaseSDK):
         :param num_speakers: The maximum amount of speakers talking in the uploaded file. Helps with predicting who speaks when, the maximum is 32.
         :param timestamps_granularity: The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word.
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param file: The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
         :param retries: Override the default retry configuration for this method
@@ -228,6 +301,19 @@ class Translations(BaseSDK):
             num_speakers=num_speakers,
             timestamps_granularity=timestamps_granularity,
             temperature=temperature,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateTranslationFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateTranslationRetry]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateTranslationLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateTranslationTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateTranslationOrq]),
             file=utils.get_pydantic_model(file, Optional[models.CreateTranslationFile]),
         )

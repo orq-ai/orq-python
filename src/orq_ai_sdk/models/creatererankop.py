@@ -26,6 +26,41 @@ class CreateRerankFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
+class CreateRerankRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateRerankRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateRerankType = Literal["exact_match",]
 
 
@@ -48,41 +83,6 @@ class CreateRerankCache(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class CreateRerankRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class CreateRerankRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
         serialized = handler(self)
         m = {}
 
@@ -143,11 +143,11 @@ class CreateRerankLoadBalancer1(BaseModel):
 
 
 CreateRerankLoadBalancerTypedDict = CreateRerankLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateRerankLoadBalancer = CreateRerankLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateRerankTimeoutTypedDict(TypedDict):
@@ -164,22 +164,172 @@ class CreateRerankTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateRerankRouterRerankFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateRerankRouterRerankFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+CreateRerankRouterRerankType = Literal["exact_match",]
+
+
+class CreateRerankRouterRerankCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateRerankRouterRerankType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateRerankRouterRerankCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateRerankRouterRerankType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateRerankRouterRerankRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateRerankRouterRerankRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateRerankLoadBalancerRouterRerankType = Literal["weight_based",]
+
+
+class CreateRerankLoadBalancerRouterRerankModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateRerankLoadBalancerRouterRerankModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateRerankLoadBalancerRouterRerank1TypedDict(TypedDict):
+    type: CreateRerankLoadBalancerRouterRerankType
+    models: List[CreateRerankLoadBalancerRouterRerankModelsTypedDict]
+
+
+class CreateRerankLoadBalancerRouterRerank1(BaseModel):
+    type: CreateRerankLoadBalancerRouterRerankType
+
+    models: List[CreateRerankLoadBalancerRouterRerankModels]
+
+
+CreateRerankRouterRerankLoadBalancerTypedDict = (
+    CreateRerankLoadBalancerRouterRerank1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateRerankRouterRerankLoadBalancer = CreateRerankLoadBalancerRouterRerank1
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateRerankRouterRerankTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateRerankRouterRerankTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateRerankOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    fallbacks: NotRequired[List[CreateRerankFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateRerankRouterRerankFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    cache: NotRequired[CreateRerankCacheTypedDict]
+    cache: NotRequired[CreateRerankRouterRerankCacheTypedDict]
     r"""Cache configuration for the request."""
-    retry: NotRequired[CreateRerankRetryTypedDict]
+    retry: NotRequired[CreateRerankRouterRerankRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    load_balancer: NotRequired[CreateRerankLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateRerankRouterRerankLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateRerankTimeoutTypedDict]
+    timeout: NotRequired[CreateRerankRouterRerankTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -187,13 +337,13 @@ class CreateRerankOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    fallbacks: Optional[List[CreateRerankFallbacks]] = None
+    fallbacks: Optional[List[CreateRerankRouterRerankFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    cache: Optional[CreateRerankCache] = None
+    cache: Optional[CreateRerankRouterRerankCache] = None
     r"""Cache configuration for the request."""
 
-    retry: Optional[CreateRerankRetry] = None
+    retry: Optional[CreateRerankRouterRerankRetry] = None
     r"""Retry configuration for the request"""
 
     identity: Optional[PublicIdentity] = None
@@ -207,10 +357,10 @@ class CreateRerankOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    load_balancer: Optional[CreateRerankLoadBalancer] = None
+    load_balancer: Optional[CreateRerankRouterRerankLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateRerankTimeout] = None
+    timeout: Optional[CreateRerankRouterRerankTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -254,6 +404,18 @@ class CreateRerankRequestBodyTypedDict(TypedDict):
     r"""The number of most relevant documents or indices to return, defaults to the length of the documents"""
     filename: NotRequired[Nullable[str]]
     r"""The filename of the document to rerank"""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateRerankFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateRerankRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateRerankCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateRerankLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateRerankTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateRerankOrqTypedDict]
 
 
@@ -275,11 +437,41 @@ class CreateRerankRequestBody(BaseModel):
     filename: OptionalNullable[str] = UNSET
     r"""The filename of the document to rerank"""
 
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Optional[List[CreateRerankFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateRerankRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[CreateRerankCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[CreateRerankLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateRerankTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Optional[CreateRerankOrq] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["top_n", "filename", "orq"])
+        optional_fields = set(
+            [
+                "top_n",
+                "filename",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
+                "orq",
+            ]
+        )
         nullable_fields = set(["filename"])
         serialized = handler(self)
         m = {}

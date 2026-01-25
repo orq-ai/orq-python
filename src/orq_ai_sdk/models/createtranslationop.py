@@ -124,11 +124,11 @@ class CreateTranslationLoadBalancer1(BaseModel):
 
 
 CreateTranslationLoadBalancerTypedDict = CreateTranslationLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateTranslationLoadBalancer = CreateTranslationLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateTranslationTimeoutTypedDict(TypedDict):
@@ -145,20 +145,140 @@ class CreateTranslationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateTranslationRouterAudioTranslationsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateTranslationRouterAudioTranslationsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateTranslationRouterAudioTranslationsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateTranslationRouterAudioTranslationsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateTranslationLoadBalancerRouterAudioTranslationsType = Literal["weight_based",]
+
+
+class CreateTranslationLoadBalancerRouterAudioTranslationsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateTranslationLoadBalancerRouterAudioTranslationsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateTranslationLoadBalancerRouterAudioTranslations1TypedDict(TypedDict):
+    type: CreateTranslationLoadBalancerRouterAudioTranslationsType
+    models: List[CreateTranslationLoadBalancerRouterAudioTranslationsModelsTypedDict]
+
+
+class CreateTranslationLoadBalancerRouterAudioTranslations1(BaseModel):
+    type: CreateTranslationLoadBalancerRouterAudioTranslationsType
+
+    models: List[CreateTranslationLoadBalancerRouterAudioTranslationsModels]
+
+
+CreateTranslationRouterAudioTranslationsLoadBalancerTypedDict = (
+    CreateTranslationLoadBalancerRouterAudioTranslations1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateTranslationRouterAudioTranslationsLoadBalancer = (
+    CreateTranslationLoadBalancerRouterAudioTranslations1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateTranslationRouterAudioTranslationsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateTranslationRouterAudioTranslationsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateTranslationOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    fallbacks: NotRequired[List[CreateTranslationFallbacksTypedDict]]
+    fallbacks: NotRequired[
+        List[CreateTranslationRouterAudioTranslationsFallbacksTypedDict]
+    ]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[CreateTranslationRetryTypedDict]
+    retry: NotRequired[CreateTranslationRouterAudioTranslationsRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    load_balancer: NotRequired[CreateTranslationLoadBalancerTypedDict]
+    load_balancer: NotRequired[
+        CreateTranslationRouterAudioTranslationsLoadBalancerTypedDict
+    ]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateTranslationTimeoutTypedDict]
+    timeout: NotRequired[CreateTranslationRouterAudioTranslationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -166,10 +286,10 @@ class CreateTranslationOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    fallbacks: Optional[List[CreateTranslationFallbacks]] = None
+    fallbacks: Optional[List[CreateTranslationRouterAudioTranslationsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[CreateTranslationRetry] = None
+    retry: Optional[CreateTranslationRouterAudioTranslationsRetry] = None
     r"""Retry configuration for the request"""
 
     identity: Optional[PublicIdentity] = None
@@ -183,10 +303,10 @@ class CreateTranslationOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    load_balancer: Optional[CreateTranslationLoadBalancer] = None
+    load_balancer: Optional[CreateTranslationRouterAudioTranslationsLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateTranslationTimeout] = None
+    timeout: Optional[CreateTranslationRouterAudioTranslationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -277,6 +397,16 @@ class CreateTranslationRequestBodyTypedDict(TypedDict):
     r"""The granularity of the timestamps in the transcription. Word provides word-level timestamps and character provides character-level timestamps per word."""
     temperature: NotRequired[float]
     r"""The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateTranslationFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateTranslationRetryTypedDict]
+    r"""Retry configuration for the request"""
+    load_balancer: NotRequired[CreateTranslationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateTranslationTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateTranslationOrqTypedDict]
     file: NotRequired[CreateTranslationFileTypedDict]
     r"""The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm."""
@@ -316,6 +446,33 @@ class CreateTranslationRequestBody(BaseModel):
     temperature: Annotated[Optional[float], FieldMetadata(multipart=True)] = None
     r"""The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit."""
 
+    name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Annotated[
+        Optional[List[CreateTranslationFallbacks]],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Annotated[
+        Optional[CreateTranslationRetry],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Retry configuration for the request"""
+
+    load_balancer: Annotated[
+        Optional[CreateTranslationLoadBalancer],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Annotated[
+        Optional[CreateTranslationTimeout],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Annotated[
         Optional[CreateTranslationOrq],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -339,6 +496,11 @@ class CreateTranslationRequestBody(BaseModel):
                 "num_speakers",
                 "timestamps_granularity",
                 "temperature",
+                "name",
+                "fallbacks",
+                "retry",
+                "load_balancer",
+                "timeout",
                 "orq",
                 "file",
             ]

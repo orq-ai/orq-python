@@ -26,6 +26,7 @@ class OrqCompletions(BaseSDK):
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
+        name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
                 models_createchatcompletionop.CreateChatCompletionAudio,
@@ -147,6 +148,7 @@ class OrqCompletions(BaseSDK):
         :param messages: A list of messages comprising the conversation so far.
         :param model: Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models.
         :param metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param audio: Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more.
         :param frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
         :param max_tokens: `[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
@@ -211,6 +213,7 @@ class OrqCompletions(BaseSDK):
             ),
             model=model,
             metadata=metadata,
+            name=name,
             audio=utils.get_pydantic_model(
                 audio, OptionalNullable[models.CreateChatCompletionAudio]
             ),
@@ -347,6 +350,7 @@ class OrqCompletions(BaseSDK):
         ],
         model: str,
         metadata: Optional[Dict[str, str]] = None,
+        name: Optional[str] = None,
         audio: OptionalNullable[
             Union[
                 models_createchatcompletionop.CreateChatCompletionAudio,
@@ -468,6 +472,7 @@ class OrqCompletions(BaseSDK):
         :param messages: A list of messages comprising the conversation so far.
         :param model: Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models.
         :param metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
         :param audio: Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more.
         :param frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
         :param max_tokens: `[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
@@ -532,6 +537,7 @@ class OrqCompletions(BaseSDK):
             ),
             model=model,
             metadata=metadata,
+            name=name,
             audio=utils.get_pydantic_model(
                 audio, OptionalNullable[models.CreateChatCompletionAudio]
             ),

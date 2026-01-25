@@ -606,6 +606,8 @@ class StreamRunAgentModelConfigurationTimeout(BaseModel):
 class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[StreamRunAgentModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -678,6 +680,9 @@ class StreamRunAgentModelConfigurationParametersTypedDict(TypedDict):
 
 class StreamRunAgentModelConfigurationParameters(BaseModel):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[StreamRunAgentModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -778,6 +783,7 @@ class StreamRunAgentModelConfigurationParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -1459,6 +1465,8 @@ class StreamRunAgentFallbackModelConfigurationTimeout(BaseModel):
 class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[StreamRunAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -1543,6 +1551,9 @@ class StreamRunAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
 
 class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[StreamRunAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1649,6 +1660,7 @@ class StreamRunAgentFallbackModelConfigurationParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -2181,7 +2193,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KFVJH97C7YHM7X8CSBB7AGQ1"
+    id: Optional[str] = "01KFVN6DY1BW967PKVZNJFTRTZ"
 
     description: Optional[str] = None
 
