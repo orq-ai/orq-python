@@ -533,6 +533,8 @@ class ModelConfigurationTimeout(BaseModel):
 class ModelConfigurationParametersTypedDict(TypedDict):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdateAgentModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -601,6 +603,9 @@ class ModelConfigurationParametersTypedDict(TypedDict):
 
 class ModelConfigurationParameters(BaseModel):
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdateAgentModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -697,6 +702,7 @@ class ModelConfigurationParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -1373,6 +1379,8 @@ class UpdateAgentFallbackModelConfigurationTimeout(BaseModel):
 class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdateAgentFallbackModelConfigurationAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -1453,6 +1461,9 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
 
 class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdateAgentFallbackModelConfigurationAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -1557,6 +1568,7 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -3561,6 +3573,8 @@ class UpdateAgentTimeout(BaseModel):
 class UpdateAgentParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[UpdateAgentAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -3629,6 +3643,9 @@ class UpdateAgentParametersTypedDict(TypedDict):
 
 class UpdateAgentParameters(BaseModel):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdateAgentAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -3725,6 +3742,7 @@ class UpdateAgentParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",
@@ -4367,6 +4385,8 @@ class UpdateAgentFallbackModelConfigurationAgentsTimeout(BaseModel):
 class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[
         Nullable[UpdateAgentFallbackModelConfigurationAgentsAudioTypedDict]
     ]
@@ -4457,6 +4477,9 @@ class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
 
 class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[UpdateAgentFallbackModelConfigurationAgentsAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -4567,6 +4590,7 @@ class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",

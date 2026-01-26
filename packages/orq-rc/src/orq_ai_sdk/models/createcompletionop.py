@@ -33,6 +33,16 @@ CreateCompletionStop = TypeAliasType("CreateCompletionStop", Union[str, List[str
 r"""Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence."""
 
 
+class CreateCompletionFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateCompletionFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateCompletionRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -68,12 +78,150 @@ class CreateCompletionRetry(BaseModel):
         return m
 
 
-class CreateCompletionFallbacksTypedDict(TypedDict):
+CreateCompletionType = Literal["exact_match",]
+
+
+class CreateCompletionCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateCompletionType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateCompletionCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateCompletionType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateCompletionLoadBalancerType = Literal["weight_based",]
+
+
+class CreateCompletionLoadBalancerModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateCompletionLoadBalancerModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateCompletionLoadBalancer1TypedDict(TypedDict):
+    type: CreateCompletionLoadBalancerType
+    models: List[CreateCompletionLoadBalancerModelsTypedDict]
+
+
+class CreateCompletionLoadBalancer1(BaseModel):
+    type: CreateCompletionLoadBalancerType
+
+    models: List[CreateCompletionLoadBalancerModels]
+
+
+CreateCompletionLoadBalancerTypedDict = CreateCompletionLoadBalancer1TypedDict
+r"""Load balancer configuration for the request."""
+
+
+CreateCompletionLoadBalancer = CreateCompletionLoadBalancer1
+r"""Load balancer configuration for the request."""
+
+
+class CreateCompletionTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateCompletionTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateCompletionRouterCompletionsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateCompletionRouterCompletionsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateCompletionRouterCompletionsFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class CreateCompletionFallbacks(BaseModel):
+class CreateCompletionRouterCompletionsFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
@@ -179,21 +327,21 @@ CreateCompletionInputs = TypeAliasType(
 r"""Values to replace in the prompt messages using {{variableName}} syntax"""
 
 
-CreateCompletionType = Literal["exact_match",]
+CreateCompletionRouterCompletionsType = Literal["exact_match",]
 
 
-class CreateCompletionCacheTypedDict(TypedDict):
+class CreateCompletionRouterCompletionsCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: CreateCompletionType
+    type: CreateCompletionRouterCompletionsType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
 
-class CreateCompletionCache(BaseModel):
+class CreateCompletionRouterCompletionsCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: CreateCompletionType
+    type: CreateCompletionRouterCompletionsType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -992,17 +1140,17 @@ class CreateCompletionKnowledgeBases(BaseModel):
         return m
 
 
-CreateCompletionLoadBalancerType = Literal["weight_based",]
+CreateCompletionLoadBalancerRouterCompletionsType = Literal["weight_based",]
 
 
-class CreateCompletionLoadBalancerModelsTypedDict(TypedDict):
+class CreateCompletionLoadBalancerRouterCompletionsModelsTypedDict(TypedDict):
     model: str
     r"""Model identifier for load balancing"""
     weight: NotRequired[float]
     r"""Weight assigned to this model for load balancing"""
 
 
-class CreateCompletionLoadBalancerModels(BaseModel):
+class CreateCompletionLoadBalancerRouterCompletionsModels(BaseModel):
     model: str
     r"""Model identifier for load balancing"""
 
@@ -1026,33 +1174,37 @@ class CreateCompletionLoadBalancerModels(BaseModel):
         return m
 
 
-class CreateCompletionLoadBalancer1TypedDict(TypedDict):
-    type: CreateCompletionLoadBalancerType
-    models: List[CreateCompletionLoadBalancerModelsTypedDict]
+class CreateCompletionLoadBalancerRouterCompletions1TypedDict(TypedDict):
+    type: CreateCompletionLoadBalancerRouterCompletionsType
+    models: List[CreateCompletionLoadBalancerRouterCompletionsModelsTypedDict]
 
 
-class CreateCompletionLoadBalancer1(BaseModel):
-    type: CreateCompletionLoadBalancerType
+class CreateCompletionLoadBalancerRouterCompletions1(BaseModel):
+    type: CreateCompletionLoadBalancerRouterCompletionsType
 
-    models: List[CreateCompletionLoadBalancerModels]
+    models: List[CreateCompletionLoadBalancerRouterCompletionsModels]
 
 
-CreateCompletionLoadBalancerTypedDict = CreateCompletionLoadBalancer1TypedDict
+CreateCompletionRouterCompletionsLoadBalancerTypedDict = (
+    CreateCompletionLoadBalancerRouterCompletions1TypedDict
+)
 r"""Array of models with weights for load balancing requests"""
 
 
-CreateCompletionLoadBalancer = CreateCompletionLoadBalancer1
+CreateCompletionRouterCompletionsLoadBalancer = (
+    CreateCompletionLoadBalancerRouterCompletions1
+)
 r"""Array of models with weights for load balancing requests"""
 
 
-class CreateCompletionTimeoutTypedDict(TypedDict):
+class CreateCompletionRouterCompletionsTimeoutTypedDict(TypedDict):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class CreateCompletionTimeout(BaseModel):
+class CreateCompletionRouterCompletionsTimeout(BaseModel):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
@@ -1067,9 +1219,9 @@ class CreateCompletionOrqTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    retry: NotRequired[CreateCompletionRetryTypedDict]
+    retry: NotRequired[CreateCompletionRouterCompletionsRetryTypedDict]
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[CreateCompletionFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateCompletionRouterCompletionsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[CreateCompletionPromptTypedDict]
     r"""Prompt configuration for the request"""
@@ -1081,12 +1233,12 @@ class CreateCompletionOrqTypedDict(TypedDict):
     r"""Thread information to group related requests"""
     inputs: NotRequired[CreateCompletionInputsTypedDict]
     r"""Values to replace in the prompt messages using {{variableName}} syntax"""
-    cache: NotRequired[CreateCompletionCacheTypedDict]
+    cache: NotRequired[CreateCompletionRouterCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateCompletionKnowledgeBasesTypedDict]]
-    load_balancer: NotRequired[CreateCompletionLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateCompletionRouterCompletionsLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateCompletionTimeoutTypedDict]
+    timeout: NotRequired[CreateCompletionRouterCompletionsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -1099,10 +1251,10 @@ class CreateCompletionOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    retry: Optional[CreateCompletionRetry] = None
+    retry: Optional[CreateCompletionRouterCompletionsRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[CreateCompletionFallbacks]] = None
+    fallbacks: Optional[List[CreateCompletionRouterCompletionsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     prompt: Optional[CreateCompletionPrompt] = None
@@ -1125,15 +1277,15 @@ class CreateCompletionOrq(BaseModel):
     inputs: Optional[CreateCompletionInputs] = None
     r"""Values to replace in the prompt messages using {{variableName}} syntax"""
 
-    cache: Optional[CreateCompletionCache] = None
+    cache: Optional[CreateCompletionRouterCompletionsCache] = None
     r"""Cache configuration for the request."""
 
     knowledge_bases: Optional[List[CreateCompletionKnowledgeBases]] = None
 
-    load_balancer: Optional[CreateCompletionLoadBalancer] = None
+    load_balancer: Optional[CreateCompletionRouterCompletionsLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateCompletionTimeout] = None
+    timeout: Optional[CreateCompletionRouterCompletionsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -1193,6 +1345,18 @@ class CreateCompletionRequestBodyTypedDict(TypedDict):
     r"""How many completions to generate for each prompt. Note: Because this parameter generates many completions, it can quickly consume your token quota."""
     user: NotRequired[str]
     r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateCompletionFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateCompletionRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateCompletionCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateCompletionLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateCompletionTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateCompletionOrqTypedDict]
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
@@ -1235,6 +1399,24 @@ class CreateCompletionRequestBody(BaseModel):
     user: Optional[str] = None
     r"""A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse."""
 
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Optional[List[CreateCompletionFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateCompletionRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[CreateCompletionCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[CreateCompletionLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateCompletionTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Annotated[
         Optional[CreateCompletionOrq],
         pydantic.Field(
@@ -1259,6 +1441,12 @@ class CreateCompletionRequestBody(BaseModel):
                 "top_p",
                 "n",
                 "user",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
                 "orq",
                 "stream",
             ]

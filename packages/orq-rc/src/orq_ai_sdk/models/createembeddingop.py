@@ -37,6 +37,41 @@ class CreateEmbeddingFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
+class CreateEmbeddingRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateEmbeddingRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateEmbeddingType = Literal["exact_match",]
 
 
@@ -59,41 +94,6 @@ class CreateEmbeddingCache(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["ttl"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class CreateEmbeddingRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class CreateEmbeddingRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
         serialized = handler(self)
         m = {}
 
@@ -154,11 +154,11 @@ class CreateEmbeddingLoadBalancer1(BaseModel):
 
 
 CreateEmbeddingLoadBalancerTypedDict = CreateEmbeddingLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateEmbeddingLoadBalancer = CreateEmbeddingLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateEmbeddingTimeoutTypedDict(TypedDict):
@@ -175,22 +175,174 @@ class CreateEmbeddingTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateEmbeddingRouterEmbeddingsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateEmbeddingRouterEmbeddingsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+CreateEmbeddingRouterEmbeddingsType = Literal["exact_match",]
+
+
+class CreateEmbeddingRouterEmbeddingsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateEmbeddingRouterEmbeddingsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateEmbeddingRouterEmbeddingsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateEmbeddingRouterEmbeddingsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateEmbeddingRouterEmbeddingsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateEmbeddingRouterEmbeddingsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateEmbeddingLoadBalancerRouterEmbeddingsType = Literal["weight_based",]
+
+
+class CreateEmbeddingLoadBalancerRouterEmbeddingsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateEmbeddingLoadBalancerRouterEmbeddingsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateEmbeddingLoadBalancerRouterEmbeddings1TypedDict(TypedDict):
+    type: CreateEmbeddingLoadBalancerRouterEmbeddingsType
+    models: List[CreateEmbeddingLoadBalancerRouterEmbeddingsModelsTypedDict]
+
+
+class CreateEmbeddingLoadBalancerRouterEmbeddings1(BaseModel):
+    type: CreateEmbeddingLoadBalancerRouterEmbeddingsType
+
+    models: List[CreateEmbeddingLoadBalancerRouterEmbeddingsModels]
+
+
+CreateEmbeddingRouterEmbeddingsLoadBalancerTypedDict = (
+    CreateEmbeddingLoadBalancerRouterEmbeddings1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateEmbeddingRouterEmbeddingsLoadBalancer = (
+    CreateEmbeddingLoadBalancerRouterEmbeddings1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateEmbeddingRouterEmbeddingsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateEmbeddingRouterEmbeddingsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateEmbeddingOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    fallbacks: NotRequired[List[CreateEmbeddingFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateEmbeddingRouterEmbeddingsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    cache: NotRequired[CreateEmbeddingCacheTypedDict]
+    cache: NotRequired[CreateEmbeddingRouterEmbeddingsCacheTypedDict]
     r"""Cache configuration for the request."""
-    retry: NotRequired[CreateEmbeddingRetryTypedDict]
+    retry: NotRequired[CreateEmbeddingRouterEmbeddingsRetryTypedDict]
     r"""Retry configuration for the request"""
     identity: NotRequired[PublicIdentityTypedDict]
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    load_balancer: NotRequired[CreateEmbeddingLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateEmbeddingRouterEmbeddingsLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateEmbeddingTimeoutTypedDict]
+    timeout: NotRequired[CreateEmbeddingRouterEmbeddingsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -198,13 +350,13 @@ class CreateEmbeddingOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    fallbacks: Optional[List[CreateEmbeddingFallbacks]] = None
+    fallbacks: Optional[List[CreateEmbeddingRouterEmbeddingsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    cache: Optional[CreateEmbeddingCache] = None
+    cache: Optional[CreateEmbeddingRouterEmbeddingsCache] = None
     r"""Cache configuration for the request."""
 
-    retry: Optional[CreateEmbeddingRetry] = None
+    retry: Optional[CreateEmbeddingRouterEmbeddingsRetry] = None
     r"""Retry configuration for the request"""
 
     identity: Optional[PublicIdentity] = None
@@ -218,10 +370,10 @@ class CreateEmbeddingOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    load_balancer: Optional[CreateEmbeddingLoadBalancer] = None
+    load_balancer: Optional[CreateEmbeddingRouterEmbeddingsLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateEmbeddingTimeout] = None
+    timeout: Optional[CreateEmbeddingRouterEmbeddingsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -265,6 +417,18 @@ class CreateEmbeddingRequestBodyTypedDict(TypedDict):
     r"""The number of dimensions the resulting output embeddings should have."""
     user: NotRequired[str]
     r"""A unique identifier representing your end-user"""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateEmbeddingFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateEmbeddingRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateEmbeddingCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateEmbeddingLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateEmbeddingTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateEmbeddingOrqTypedDict]
 
 
@@ -286,11 +450,42 @@ class CreateEmbeddingRequestBody(BaseModel):
     user: Optional[str] = None
     r"""A unique identifier representing your end-user"""
 
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Optional[List[CreateEmbeddingFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateEmbeddingRetry] = None
+    r"""Retry configuration for the request"""
+
+    cache: Optional[CreateEmbeddingCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[CreateEmbeddingLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateEmbeddingTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Optional[CreateEmbeddingOrq] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["encoding_format", "dimensions", "user", "orq"])
+        optional_fields = set(
+            [
+                "encoding_format",
+                "dimensions",
+                "user",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
+                "orq",
+            ]
+        )
         serialized = handler(self)
         m = {}
 

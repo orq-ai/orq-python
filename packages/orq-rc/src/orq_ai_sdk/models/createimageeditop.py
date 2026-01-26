@@ -34,6 +34,16 @@ CreateImageEditResponseFormat = Literal[
 r"""The format in which the generated images are returned. Some of the models only return the image in base64 format."""
 
 
+class CreateImageEditFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageEditFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateImageEditRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -67,39 +77,6 @@ class CreateImageEditRetry(BaseModel):
                     m[k] = val
 
         return m
-
-
-class CreateImageEditFallbacksTypedDict(TypedDict):
-    model: str
-    r"""Fallback model identifier"""
-
-
-class CreateImageEditFallbacks(BaseModel):
-    model: str
-    r"""Fallback model identifier"""
-
-
-CreateImageEditVersion = Literal["latest",]
-r"""Version of the prompt to use (currently only \"latest\" supported)"""
-
-
-class CreateImageEditPromptTypedDict(TypedDict):
-    r"""Prompt configuration for the request"""
-
-    id: str
-    r"""Unique identifier of the prompt to use"""
-    version: CreateImageEditVersion
-    r"""Version of the prompt to use (currently only \"latest\" supported)"""
-
-
-class CreateImageEditPrompt(BaseModel):
-    r"""Prompt configuration for the request"""
-
-    id: str
-    r"""Unique identifier of the prompt to use"""
-
-    version: CreateImageEditVersion
-    r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
 CreateImageEditType = Literal["exact_match",]
@@ -184,11 +161,11 @@ class CreateImageEditLoadBalancer1(BaseModel):
 
 
 CreateImageEditLoadBalancerTypedDict = CreateImageEditLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageEditLoadBalancer = CreateImageEditLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageEditTimeoutTypedDict(TypedDict):
@@ -205,12 +182,187 @@ class CreateImageEditTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateImageEditRouterImagesEditsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateImageEditRouterImagesEditsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageEditRouterImagesEditsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageEditRouterImagesEditsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+CreateImageEditVersion = Literal["latest",]
+r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+class CreateImageEditPromptTypedDict(TypedDict):
+    r"""Prompt configuration for the request"""
+
+    id: str
+    r"""Unique identifier of the prompt to use"""
+    version: CreateImageEditVersion
+    r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+class CreateImageEditPrompt(BaseModel):
+    r"""Prompt configuration for the request"""
+
+    id: str
+    r"""Unique identifier of the prompt to use"""
+
+    version: CreateImageEditVersion
+    r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+CreateImageEditRouterImagesEditsType = Literal["exact_match",]
+
+
+class CreateImageEditRouterImagesEditsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageEditRouterImagesEditsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateImageEditRouterImagesEditsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageEditRouterImagesEditsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateImageEditLoadBalancerRouterImagesEditsType = Literal["weight_based",]
+
+
+class CreateImageEditLoadBalancerRouterImagesEditsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateImageEditLoadBalancerRouterImagesEditsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageEditLoadBalancerRouterImagesEdits1TypedDict(TypedDict):
+    type: CreateImageEditLoadBalancerRouterImagesEditsType
+    models: List[CreateImageEditLoadBalancerRouterImagesEditsModelsTypedDict]
+
+
+class CreateImageEditLoadBalancerRouterImagesEdits1(BaseModel):
+    type: CreateImageEditLoadBalancerRouterImagesEditsType
+
+    models: List[CreateImageEditLoadBalancerRouterImagesEditsModels]
+
+
+CreateImageEditRouterImagesEditsLoadBalancerTypedDict = (
+    CreateImageEditLoadBalancerRouterImagesEdits1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateImageEditRouterImagesEditsLoadBalancer = (
+    CreateImageEditLoadBalancerRouterImagesEdits1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateImageEditRouterImagesEditsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateImageEditRouterImagesEditsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateImageEditOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    retry: NotRequired[CreateImageEditRetryTypedDict]
+    retry: NotRequired[CreateImageEditRouterImagesEditsRetryTypedDict]
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[CreateImageEditFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateImageEditRouterImagesEditsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[CreateImageEditPromptTypedDict]
     r"""Prompt configuration for the request"""
@@ -218,11 +370,11 @@ class CreateImageEditOrqTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    cache: NotRequired[CreateImageEditCacheTypedDict]
+    cache: NotRequired[CreateImageEditRouterImagesEditsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[CreateImageEditLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateImageEditRouterImagesEditsLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateImageEditTimeoutTypedDict]
+    timeout: NotRequired[CreateImageEditRouterImagesEditsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -230,10 +382,10 @@ class CreateImageEditOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    retry: Optional[CreateImageEditRetry] = None
+    retry: Optional[CreateImageEditRouterImagesEditsRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[CreateImageEditFallbacks]] = None
+    fallbacks: Optional[List[CreateImageEditRouterImagesEditsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     prompt: Optional[CreateImageEditPrompt] = None
@@ -250,13 +402,13 @@ class CreateImageEditOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    cache: Optional[CreateImageEditCache] = None
+    cache: Optional[CreateImageEditRouterImagesEditsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[CreateImageEditLoadBalancer] = None
+    load_balancer: Optional[CreateImageEditRouterImagesEditsLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateImageEditTimeout] = None
+    timeout: Optional[CreateImageEditRouterImagesEditsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -305,6 +457,18 @@ class CreateImageEditRequestBodyTypedDict(TypedDict):
     r"""The format in which the generated images are returned. Some of the models only return the image in base64 format."""
     user: NotRequired[str]
     r"""A unique identifier representing your end-user, which can help to monitor and detect abuse."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateImageEditFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateImageEditRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateImageEditCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateImageEditLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateImageEditTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateImageEditOrqTypedDict]
 
 
@@ -337,6 +501,39 @@ class CreateImageEditRequestBody(BaseModel):
     user: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""A unique identifier representing your end-user, which can help to monitor and detect abuse."""
 
+    name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Annotated[
+        Optional[List[CreateImageEditFallbacks]],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Annotated[
+        Optional[CreateImageEditRetry],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Retry configuration for the request"""
+
+    cache: Annotated[
+        Optional[CreateImageEditCache],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Annotated[
+        Optional[CreateImageEditLoadBalancer],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Annotated[
+        Optional[CreateImageEditTimeout],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Annotated[
         Optional[CreateImageEditOrq],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -345,7 +542,21 @@ class CreateImageEditRequestBody(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["image", "n", "size", "quality", "response_format", "user", "orq"]
+            [
+                "image",
+                "n",
+                "size",
+                "quality",
+                "response_format",
+                "user",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
+                "orq",
+            ]
         )
         nullable_fields = set(["n", "size", "quality"])
         serialized = handler(self)

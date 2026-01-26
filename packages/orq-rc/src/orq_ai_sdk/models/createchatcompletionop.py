@@ -2468,6 +2468,8 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Model ID used to generate the response, like `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`. The AI Gateway offers a wide range of models with different capabilities, performance characteristics, and price points. Refer to the (Supported models)[/docs/proxy/supported-models] to browse available models."""
     metadata: NotRequired[Dict[str, str]]
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
     audio: NotRequired[Nullable[CreateChatCompletionAudioTypedDict]]
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
@@ -2548,6 +2550,9 @@ class CreateChatCompletionRequestBody(BaseModel):
 
     metadata: Optional[Dict[str, str]] = None
     r"""Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can have a maximum length of 64 characters and values can have a maximum length of 512 characters."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
 
     audio: OptionalNullable[CreateChatCompletionAudio] = UNSET
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
@@ -2658,6 +2663,7 @@ class CreateChatCompletionRequestBody(BaseModel):
         optional_fields = set(
             [
                 "metadata",
+                "name",
                 "audio",
                 "frequency_penalty",
                 "max_tokens",

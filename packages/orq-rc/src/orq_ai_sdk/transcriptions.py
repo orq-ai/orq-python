@@ -31,6 +31,33 @@ class Transcriptions(BaseSDK):
         timestamp_granularities: Optional[
             List[models_createtranscriptionop.TimestampGranularities]
         ] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createtranscriptionop.CreateTranscriptionFallbacks],
+                List[
+                    models_createtranscriptionop.CreateTranscriptionFallbacksTypedDict
+                ],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionRetry,
+                models_createtranscriptionop.CreateTranscriptionRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionLoadBalancer,
+                models_createtranscriptionop.CreateTranscriptionLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionTimeout,
+                models_createtranscriptionop.CreateTranscriptionTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createtranscriptionop.CreateTranscriptionOrq,
@@ -61,6 +88,11 @@ class Transcriptions(BaseSDK):
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         :param language: The language of the input audio. Supplying the input language in ISO-639-1 format will improve accuracy and latency.
         :param timestamp_granularities: The timestamp granularities to populate for this transcription. response_format must be set to verbose_json to use timestamp granularities. Either or both of these options are supported: \"word\" or \"segment\". Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param file: The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
         :param retries: Override the default retry configuration for this method
@@ -93,6 +125,19 @@ class Transcriptions(BaseSDK):
             temperature=temperature,
             language=language,
             timestamp_granularities=timestamp_granularities,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateTranscriptionRetry]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateTranscriptionLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateTranscriptionTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateTranscriptionOrq]),
             file=utils.get_pydantic_model(
                 file, Optional[models.CreateTranscriptionFile]
@@ -188,6 +233,33 @@ class Transcriptions(BaseSDK):
         timestamp_granularities: Optional[
             List[models_createtranscriptionop.TimestampGranularities]
         ] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createtranscriptionop.CreateTranscriptionFallbacks],
+                List[
+                    models_createtranscriptionop.CreateTranscriptionFallbacksTypedDict
+                ],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionRetry,
+                models_createtranscriptionop.CreateTranscriptionRetryTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionLoadBalancer,
+                models_createtranscriptionop.CreateTranscriptionLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createtranscriptionop.CreateTranscriptionTimeout,
+                models_createtranscriptionop.CreateTranscriptionTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createtranscriptionop.CreateTranscriptionOrq,
@@ -218,6 +290,11 @@ class Transcriptions(BaseSDK):
         :param temperature: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use log probability to automatically increase the temperature until certain thresholds are hit.
         :param language: The language of the input audio. Supplying the input language in ISO-639-1 format will improve accuracy and latency.
         :param timestamp_granularities: The timestamp granularities to populate for this transcription. response_format must be set to verbose_json to use timestamp granularities. Either or both of these options are supported: \"word\" or \"segment\". Note: There is no additional latency for segment timestamps, but generating word timestamps incurs additional latency.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param file: The audio file object (not file name) to transcribe, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
         :param retries: Override the default retry configuration for this method
@@ -250,6 +327,19 @@ class Transcriptions(BaseSDK):
             temperature=temperature,
             language=language,
             timestamp_granularities=timestamp_granularities,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateTranscriptionFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateTranscriptionRetry]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateTranscriptionLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateTranscriptionTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateTranscriptionOrq]),
             file=utils.get_pydantic_model(
                 file, Optional[models.CreateTranscriptionFile]

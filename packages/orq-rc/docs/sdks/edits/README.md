@@ -22,7 +22,28 @@ with Orq(
     api_key=os.getenv("ORQ_API_KEY", ""),
 ) as orq:
 
-    res = orq.router.images.edits.create(model="LeBaron", prompt="<value>", n=1, orq={
+    res = orq.router.images.edits.create(model="LeBaron", prompt="<value>", n=1, retry={
+        "on_codes": [
+            429,
+            500,
+            502,
+            503,
+            504,
+        ],
+    }, cache={
+        "ttl": 3600,
+        "type": "exact_match",
+    }, load_balancer={
+        "type": "weight_based",
+        "models": [
+            {
+                "model": "openai/gpt-4o",
+                "weight": 0.7,
+            },
+        ],
+    }, timeout={
+        "call_timeout": 30000,
+    }, orq={
         "retry": {
             "on_codes": [
                 429,
@@ -96,6 +117,12 @@ with Orq(
 | `quality`                                                                                                                                                                   | [OptionalNullable[models.CreateImageEditQuality]](../../models/createimageeditquality.md)                                                                                   | :heavy_minus_sign:                                                                                                                                                          | The quality of the image that will be generated. Auto will automatically select the best quality for the given model.                                                       |
 | `response_format`                                                                                                                                                           | [Optional[models.CreateImageEditResponseFormat]](../../models/createimageeditresponseformat.md)                                                                             | :heavy_minus_sign:                                                                                                                                                          | The format in which the generated images are returned. Some of the models only return the image in base64 format.                                                           |
 | `user`                                                                                                                                                                      | *Optional[str]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                          | A unique identifier representing your end-user, which can help to monitor and detect abuse.                                                                                 |
+| `name`                                                                                                                                                                      | *Optional[str]*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                          | The name to display on the trace. If not specified, the default system name will be used.                                                                                   |
+| `fallbacks`                                                                                                                                                                 | List[[models.CreateImageEditFallbacks](../../models/createimageeditfallbacks.md)]                                                                                           | :heavy_minus_sign:                                                                                                                                                          | Array of fallback models to use if primary model fails                                                                                                                      |
+| `retry`                                                                                                                                                                     | [Optional[models.CreateImageEditRetry]](../../models/createimageeditretry.md)                                                                                               | :heavy_minus_sign:                                                                                                                                                          | Retry configuration for the request                                                                                                                                         |
+| `cache`                                                                                                                                                                     | [Optional[models.CreateImageEditCache]](../../models/createimageeditcache.md)                                                                                               | :heavy_minus_sign:                                                                                                                                                          | Cache configuration for the request.                                                                                                                                        |
+| `load_balancer`                                                                                                                                                             | [Optional[models.CreateImageEditLoadBalancer]](../../models/createimageeditloadbalancer.md)                                                                                 | :heavy_minus_sign:                                                                                                                                                          | Load balancer configuration for the request.                                                                                                                                |
+| `timeout`                                                                                                                                                                   | [Optional[models.CreateImageEditTimeout]](../../models/createimageedittimeout.md)                                                                                           | :heavy_minus_sign:                                                                                                                                                          | Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.                          |
 | `orq`                                                                                                                                                                       | [Optional[models.CreateImageEditOrq]](../../models/createimageeditorq.md)                                                                                                   | :heavy_minus_sign:                                                                                                                                                          | N/A                                                                                                                                                                         |
 | `retries`                                                                                                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                            | :heavy_minus_sign:                                                                                                                                                          | Configuration to override the default retry behavior of the client.                                                                                                         |
 

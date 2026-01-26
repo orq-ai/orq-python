@@ -26,6 +26,16 @@ Size = Literal[
 r"""The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`."""
 
 
+class CreateImageVariationFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageVariationFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateImageVariationRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -59,39 +69,6 @@ class CreateImageVariationRetry(BaseModel):
                     m[k] = val
 
         return m
-
-
-class CreateImageVariationFallbacksTypedDict(TypedDict):
-    model: str
-    r"""Fallback model identifier"""
-
-
-class CreateImageVariationFallbacks(BaseModel):
-    model: str
-    r"""Fallback model identifier"""
-
-
-CreateImageVariationVersion = Literal["latest",]
-r"""Version of the prompt to use (currently only \"latest\" supported)"""
-
-
-class CreateImageVariationPromptTypedDict(TypedDict):
-    r"""Prompt configuration for the request"""
-
-    id: str
-    r"""Unique identifier of the prompt to use"""
-    version: CreateImageVariationVersion
-    r"""Version of the prompt to use (currently only \"latest\" supported)"""
-
-
-class CreateImageVariationPrompt(BaseModel):
-    r"""Prompt configuration for the request"""
-
-    id: str
-    r"""Unique identifier of the prompt to use"""
-
-    version: CreateImageVariationVersion
-    r"""Version of the prompt to use (currently only \"latest\" supported)"""
 
 
 CreateImageVariationType = Literal["exact_match",]
@@ -176,11 +153,11 @@ class CreateImageVariationLoadBalancer1(BaseModel):
 
 
 CreateImageVariationLoadBalancerTypedDict = CreateImageVariationLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateImageVariationLoadBalancer = CreateImageVariationLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateImageVariationTimeoutTypedDict(TypedDict):
@@ -197,12 +174,189 @@ class CreateImageVariationTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
+class CreateImageVariationRouterImagesVariationsRetryTypedDict(TypedDict):
+    r"""Retry configuration for the request"""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateImageVariationRouterImagesVariationsRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageVariationRouterImagesVariationsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateImageVariationRouterImagesVariationsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+CreateImageVariationVersion = Literal["latest",]
+r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+class CreateImageVariationPromptTypedDict(TypedDict):
+    r"""Prompt configuration for the request"""
+
+    id: str
+    r"""Unique identifier of the prompt to use"""
+    version: CreateImageVariationVersion
+    r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+class CreateImageVariationPrompt(BaseModel):
+    r"""Prompt configuration for the request"""
+
+    id: str
+    r"""Unique identifier of the prompt to use"""
+
+    version: CreateImageVariationVersion
+    r"""Version of the prompt to use (currently only \"latest\" supported)"""
+
+
+CreateImageVariationRouterImagesVariationsType = Literal["exact_match",]
+
+
+class CreateImageVariationRouterImagesVariationsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageVariationRouterImagesVariationsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class CreateImageVariationRouterImagesVariationsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: CreateImageVariationRouterImagesVariationsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateImageVariationLoadBalancerRouterImagesVariationsType = Literal["weight_based",]
+
+
+class CreateImageVariationLoadBalancerRouterImagesVariationsModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateImageVariationLoadBalancerRouterImagesVariationsModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateImageVariationLoadBalancerRouterImagesVariations1TypedDict(TypedDict):
+    type: CreateImageVariationLoadBalancerRouterImagesVariationsType
+    models: List[CreateImageVariationLoadBalancerRouterImagesVariationsModelsTypedDict]
+
+
+class CreateImageVariationLoadBalancerRouterImagesVariations1(BaseModel):
+    type: CreateImageVariationLoadBalancerRouterImagesVariationsType
+
+    models: List[CreateImageVariationLoadBalancerRouterImagesVariationsModels]
+
+
+CreateImageVariationRouterImagesVariationsLoadBalancerTypedDict = (
+    CreateImageVariationLoadBalancerRouterImagesVariations1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateImageVariationRouterImagesVariationsLoadBalancer = (
+    CreateImageVariationLoadBalancerRouterImagesVariations1
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateImageVariationRouterImagesVariationsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateImageVariationRouterImagesVariationsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
 class CreateImageVariationOrqTypedDict(TypedDict):
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    retry: NotRequired[CreateImageVariationRetryTypedDict]
+    retry: NotRequired[CreateImageVariationRouterImagesVariationsRetryTypedDict]
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[CreateImageVariationFallbacksTypedDict]]
+    fallbacks: NotRequired[
+        List[CreateImageVariationRouterImagesVariationsFallbacksTypedDict]
+    ]
     r"""Array of fallback models to use if primary model fails"""
     prompt: NotRequired[CreateImageVariationPromptTypedDict]
     r"""Prompt configuration for the request"""
@@ -210,11 +364,13 @@ class CreateImageVariationOrqTypedDict(TypedDict):
     r"""Information about the identity making the request. If the identity does not exist, it will be created automatically."""
     contact: NotRequired[PublicContactTypedDict]
     r"""@deprecated Use identity instead. Information about the contact making the request."""
-    cache: NotRequired[CreateImageVariationCacheTypedDict]
+    cache: NotRequired[CreateImageVariationRouterImagesVariationsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[CreateImageVariationLoadBalancerTypedDict]
+    load_balancer: NotRequired[
+        CreateImageVariationRouterImagesVariationsLoadBalancerTypedDict
+    ]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateImageVariationTimeoutTypedDict]
+    timeout: NotRequired[CreateImageVariationRouterImagesVariationsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
@@ -222,10 +378,12 @@ class CreateImageVariationOrq(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    retry: Optional[CreateImageVariationRetry] = None
+    retry: Optional[CreateImageVariationRouterImagesVariationsRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[CreateImageVariationFallbacks]] = None
+    fallbacks: Optional[List[CreateImageVariationRouterImagesVariationsFallbacks]] = (
+        None
+    )
     r"""Array of fallback models to use if primary model fails"""
 
     prompt: Optional[CreateImageVariationPrompt] = None
@@ -242,13 +400,15 @@ class CreateImageVariationOrq(BaseModel):
     ] = None
     r"""@deprecated Use identity instead. Information about the contact making the request."""
 
-    cache: Optional[CreateImageVariationCache] = None
+    cache: Optional[CreateImageVariationRouterImagesVariationsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[CreateImageVariationLoadBalancer] = None
+    load_balancer: Optional[CreateImageVariationRouterImagesVariationsLoadBalancer] = (
+        None
+    )
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateImageVariationTimeout] = None
+    timeout: Optional[CreateImageVariationRouterImagesVariationsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -295,6 +455,18 @@ class CreateImageVariationRequestBodyTypedDict(TypedDict):
     r"""The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`."""
     user: NotRequired[str]
     r"""A unique identifier representing your end-user, which can help to monitor and detect abuse."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateImageVariationFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateImageVariationRetryTypedDict]
+    r"""Retry configuration for the request"""
+    cache: NotRequired[CreateImageVariationCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[CreateImageVariationLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateImageVariationTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateImageVariationOrqTypedDict]
 
 
@@ -321,6 +493,39 @@ class CreateImageVariationRequestBody(BaseModel):
     user: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
     r"""A unique identifier representing your end-user, which can help to monitor and detect abuse."""
 
+    name: Annotated[Optional[str], FieldMetadata(multipart=True)] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Annotated[
+        Optional[List[CreateImageVariationFallbacks]],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Annotated[
+        Optional[CreateImageVariationRetry],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Retry configuration for the request"""
+
+    cache: Annotated[
+        Optional[CreateImageVariationCache],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Annotated[
+        Optional[CreateImageVariationLoadBalancer],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Annotated[
+        Optional[CreateImageVariationTimeout],
+        FieldMetadata(multipart=MultipartFormMetadata(json=True)),
+    ] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Annotated[
         Optional[CreateImageVariationOrq],
         FieldMetadata(multipart=MultipartFormMetadata(json=True)),
@@ -328,7 +533,22 @@ class CreateImageVariationRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["image", "n", "response_format", "size", "user", "orq"])
+        optional_fields = set(
+            [
+                "image",
+                "n",
+                "response_format",
+                "size",
+                "user",
+                "name",
+                "fallbacks",
+                "retry",
+                "cache",
+                "load_balancer",
+                "timeout",
+                "orq",
+            ]
+        )
         nullable_fields = set(["n"])
         serialized = handler(self)
         m = {}

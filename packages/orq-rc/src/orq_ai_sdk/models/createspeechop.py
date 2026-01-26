@@ -21,6 +21,16 @@ CreateSpeechResponseFormat = Literal[
 r"""The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format."""
 
 
+class CreateSpeechFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateSpeechFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
 class CreateSpeechRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
 
@@ -42,51 +52,6 @@ class CreateSpeechRetry(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class CreateSpeechFallbacksTypedDict(TypedDict):
-    model: str
-    r"""Fallback model identifier"""
-
-
-class CreateSpeechFallbacks(BaseModel):
-    model: str
-    r"""Fallback model identifier"""
-
-
-class CreateSpeechThreadTypedDict(TypedDict):
-    r"""Thread information to group related requests"""
-
-    id: str
-    r"""Unique thread identifier to group related invocations."""
-    tags: NotRequired[List[str]]
-    r"""Optional tags to differentiate or categorize threads"""
-
-
-class CreateSpeechThread(BaseModel):
-    r"""Thread information to group related requests"""
-
-    id: str
-    r"""Unique thread identifier to group related invocations."""
-
-    tags: Optional[List[str]] = None
-    r"""Optional tags to differentiate or categorize threads"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["tags"])
         serialized = handler(self)
         m = {}
 
@@ -147,11 +112,11 @@ class CreateSpeechLoadBalancer1(BaseModel):
 
 
 CreateSpeechLoadBalancerTypedDict = CreateSpeechLoadBalancer1TypedDict
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 CreateSpeechLoadBalancer = CreateSpeechLoadBalancer1
-r"""Array of models with weights for load balancing requests"""
+r"""Load balancer configuration for the request."""
 
 
 class CreateSpeechTimeoutTypedDict(TypedDict):
@@ -168,10 +133,159 @@ class CreateSpeechTimeout(BaseModel):
     r"""Timeout value in milliseconds"""
 
 
-class CreateSpeechOrqTypedDict(TypedDict):
-    retry: NotRequired[CreateSpeechRetryTypedDict]
+class CreateSpeechRouterAudioSpeechRetryTypedDict(TypedDict):
     r"""Retry configuration for the request"""
-    fallbacks: NotRequired[List[CreateSpeechFallbacksTypedDict]]
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class CreateSpeechRouterAudioSpeechRetry(BaseModel):
+    r"""Retry configuration for the request"""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateSpeechRouterAudioSpeechFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateSpeechRouterAudioSpeechFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class CreateSpeechThreadTypedDict(TypedDict):
+    r"""Thread information to group related requests"""
+
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+    tags: NotRequired[List[str]]
+    r"""Optional tags to differentiate or categorize threads"""
+
+
+class CreateSpeechThread(BaseModel):
+    r"""Thread information to group related requests"""
+
+    id: str
+    r"""Unique thread identifier to group related invocations."""
+
+    tags: Optional[List[str]] = None
+    r"""Optional tags to differentiate or categorize threads"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["tags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+CreateSpeechLoadBalancerRouterAudioSpeechType = Literal["weight_based",]
+
+
+class CreateSpeechLoadBalancerRouterAudioSpeechModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class CreateSpeechLoadBalancerRouterAudioSpeechModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateSpeechLoadBalancerRouterAudioSpeech1TypedDict(TypedDict):
+    type: CreateSpeechLoadBalancerRouterAudioSpeechType
+    models: List[CreateSpeechLoadBalancerRouterAudioSpeechModelsTypedDict]
+
+
+class CreateSpeechLoadBalancerRouterAudioSpeech1(BaseModel):
+    type: CreateSpeechLoadBalancerRouterAudioSpeechType
+
+    models: List[CreateSpeechLoadBalancerRouterAudioSpeechModels]
+
+
+CreateSpeechRouterAudioSpeechLoadBalancerTypedDict = (
+    CreateSpeechLoadBalancerRouterAudioSpeech1TypedDict
+)
+r"""Array of models with weights for load balancing requests"""
+
+
+CreateSpeechRouterAudioSpeechLoadBalancer = CreateSpeechLoadBalancerRouterAudioSpeech1
+r"""Array of models with weights for load balancing requests"""
+
+
+class CreateSpeechRouterAudioSpeechTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateSpeechRouterAudioSpeechTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class CreateSpeechOrqTypedDict(TypedDict):
+    retry: NotRequired[CreateSpeechRouterAudioSpeechRetryTypedDict]
+    r"""Retry configuration for the request"""
+    fallbacks: NotRequired[List[CreateSpeechRouterAudioSpeechFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
@@ -181,17 +295,17 @@ class CreateSpeechOrqTypedDict(TypedDict):
     r"""@deprecated Use identity instead. Information about the contact making the request."""
     thread: NotRequired[CreateSpeechThreadTypedDict]
     r"""Thread information to group related requests"""
-    load_balancer: NotRequired[CreateSpeechLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateSpeechRouterAudioSpeechLoadBalancerTypedDict]
     r"""Array of models with weights for load balancing requests"""
-    timeout: NotRequired[CreateSpeechTimeoutTypedDict]
+    timeout: NotRequired[CreateSpeechRouterAudioSpeechTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
 class CreateSpeechOrq(BaseModel):
-    retry: Optional[CreateSpeechRetry] = None
+    retry: Optional[CreateSpeechRouterAudioSpeechRetry] = None
     r"""Retry configuration for the request"""
 
-    fallbacks: Optional[List[CreateSpeechFallbacks]] = None
+    fallbacks: Optional[List[CreateSpeechRouterAudioSpeechFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
     name: Optional[str] = None
@@ -211,10 +325,10 @@ class CreateSpeechOrq(BaseModel):
     thread: Optional[CreateSpeechThread] = None
     r"""Thread information to group related requests"""
 
-    load_balancer: Optional[CreateSpeechLoadBalancer] = None
+    load_balancer: Optional[CreateSpeechRouterAudioSpeechLoadBalancer] = None
     r"""Array of models with weights for load balancing requests"""
 
-    timeout: Optional[CreateSpeechTimeout] = None
+    timeout: Optional[CreateSpeechRouterAudioSpeechTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -267,6 +381,16 @@ class CreateSpeechRequestBodyTypedDict(TypedDict):
     r"""The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. If a format is provided but not supported by the provider, the response will be in the default format. When the provided format is not supported by the provider, the response will be in the default format."""
     speed: NotRequired[float]
     r"""The speed of the generated audio."""
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    fallbacks: NotRequired[List[CreateSpeechFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    retry: NotRequired[CreateSpeechRetryTypedDict]
+    r"""Retry configuration for the request"""
+    load_balancer: NotRequired[CreateSpeechLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[CreateSpeechTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
     orq: NotRequired[CreateSpeechOrqTypedDict]
 
 
@@ -297,11 +421,37 @@ class CreateSpeechRequestBody(BaseModel):
     speed: Optional[float] = 1
     r"""The speed of the generated audio."""
 
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    fallbacks: Optional[List[CreateSpeechFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    retry: Optional[CreateSpeechRetry] = None
+    r"""Retry configuration for the request"""
+
+    load_balancer: Optional[CreateSpeechLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[CreateSpeechTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
     orq: Optional[CreateSpeechOrq] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["response_format", "speed", "orq"])
+        optional_fields = set(
+            [
+                "response_format",
+                "speed",
+                "name",
+                "fallbacks",
+                "retry",
+                "load_balancer",
+                "timeout",
+                "orq",
+            ]
+        )
         serialized = handler(self)
         m = {}
 

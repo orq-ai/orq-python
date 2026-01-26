@@ -7,7 +7,7 @@ from orq_ai_sdk.models import createimagevariationop as models_createimagevariat
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional, Union
 
 
 class Variations(BaseSDK):
@@ -22,6 +22,39 @@ class Variations(BaseSDK):
         ] = "url",
         size: Optional[models_createimagevariationop.Size] = "1024x1024",
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimagevariationop.CreateImageVariationFallbacks],
+                List[
+                    models_createimagevariationop.CreateImageVariationFallbacksTypedDict
+                ],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationRetry,
+                models_createimagevariationop.CreateImageVariationRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationCache,
+                models_createimagevariationop.CreateImageVariationCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationLoadBalancer,
+                models_createimagevariationop.CreateImageVariationLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationTimeout,
+                models_createimagevariationop.CreateImageVariationTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimagevariationop.CreateImageVariationOrq,
@@ -43,6 +76,12 @@ class Variations(BaseSDK):
         :param response_format: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
         :param size: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -69,6 +108,22 @@ class Variations(BaseSDK):
             response_format=response_format,
             size=size,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageVariationFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateImageVariationRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateImageVariationCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageVariationLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageVariationTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageVariationOrq]),
         )
 
@@ -143,6 +198,39 @@ class Variations(BaseSDK):
         ] = "url",
         size: Optional[models_createimagevariationop.Size] = "1024x1024",
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimagevariationop.CreateImageVariationFallbacks],
+                List[
+                    models_createimagevariationop.CreateImageVariationFallbacksTypedDict
+                ],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationRetry,
+                models_createimagevariationop.CreateImageVariationRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationCache,
+                models_createimagevariationop.CreateImageVariationCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationLoadBalancer,
+                models_createimagevariationop.CreateImageVariationLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimagevariationop.CreateImageVariationTimeout,
+                models_createimagevariationop.CreateImageVariationTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimagevariationop.CreateImageVariationOrq,
@@ -164,6 +252,12 @@ class Variations(BaseSDK):
         :param response_format: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
         :param size: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -190,6 +284,22 @@ class Variations(BaseSDK):
             response_format=response_format,
             size=size,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageVariationFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateImageVariationRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateImageVariationCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageVariationLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageVariationTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageVariationOrq]),
         )
 

@@ -25,7 +25,32 @@ with Orq(
     res = orq.router.embeddings.create(input_=[
         "<value 1>",
         "<value 2>",
-    ], model="V90", encoding_format="float", orq={
+    ], model="V90", encoding_format="float", fallbacks=[
+        {
+            "model": "openai/text-embedding-3-small",
+        },
+    ], retry={
+        "on_codes": [
+            429,
+            500,
+            502,
+            503,
+            504,
+        ],
+    }, cache={
+        "ttl": 3600,
+        "type": "exact_match",
+    }, load_balancer={
+        "type": "weight_based",
+        "models": [
+            {
+                "model": "openai/gpt-4o",
+                "weight": 0.7,
+            },
+        ],
+    }, timeout={
+        "call_timeout": 30000,
+    }, orq={
         "fallbacks": [
             {
                 "model": "openai/gpt-4o-mini",
@@ -85,15 +110,21 @@ with Orq(
 
 ### Parameters
 
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `input`                                                                   | [models.CreateEmbeddingInput](../../models/createembeddinginput.md)       | :heavy_check_mark:                                                        | Input text to embed, encoded as a string or array of tokens.              |
-| `model`                                                                   | *str*                                                                     | :heavy_check_mark:                                                        | ID of the model to use                                                    |
-| `encoding_format`                                                         | [Optional[models.EncodingFormat]](../../models/encodingformat.md)         | :heavy_minus_sign:                                                        | Type of the document element                                              |
-| `dimensions`                                                              | *Optional[float]*                                                         | :heavy_minus_sign:                                                        | The number of dimensions the resulting output embeddings should have.     |
-| `user`                                                                    | *Optional[str]*                                                           | :heavy_minus_sign:                                                        | A unique identifier representing your end-user                            |
-| `orq`                                                                     | [Optional[models.CreateEmbeddingOrq]](../../models/createembeddingorq.md) | :heavy_minus_sign:                                                        | N/A                                                                       |
-| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
+| Parameter                                                                                                                                          | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `input`                                                                                                                                            | [models.CreateEmbeddingInput](../../models/createembeddinginput.md)                                                                                | :heavy_check_mark:                                                                                                                                 | Input text to embed, encoded as a string or array of tokens.                                                                                       |
+| `model`                                                                                                                                            | *str*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | ID of the model to use                                                                                                                             |
+| `encoding_format`                                                                                                                                  | [Optional[models.EncodingFormat]](../../models/encodingformat.md)                                                                                  | :heavy_minus_sign:                                                                                                                                 | Type of the document element                                                                                                                       |
+| `dimensions`                                                                                                                                       | *Optional[float]*                                                                                                                                  | :heavy_minus_sign:                                                                                                                                 | The number of dimensions the resulting output embeddings should have.                                                                              |
+| `user`                                                                                                                                             | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | A unique identifier representing your end-user                                                                                                     |
+| `name`                                                                                                                                             | *Optional[str]*                                                                                                                                    | :heavy_minus_sign:                                                                                                                                 | The name to display on the trace. If not specified, the default system name will be used.                                                          |
+| `fallbacks`                                                                                                                                        | List[[models.CreateEmbeddingFallbacks](../../models/createembeddingfallbacks.md)]                                                                  | :heavy_minus_sign:                                                                                                                                 | Array of fallback models to use if primary model fails                                                                                             |
+| `retry`                                                                                                                                            | [Optional[models.CreateEmbeddingRetry]](../../models/createembeddingretry.md)                                                                      | :heavy_minus_sign:                                                                                                                                 | Retry configuration for the request                                                                                                                |
+| `cache`                                                                                                                                            | [Optional[models.CreateEmbeddingCache]](../../models/createembeddingcache.md)                                                                      | :heavy_minus_sign:                                                                                                                                 | Cache configuration for the request.                                                                                                               |
+| `load_balancer`                                                                                                                                    | [Optional[models.CreateEmbeddingLoadBalancer]](../../models/createembeddingloadbalancer.md)                                                        | :heavy_minus_sign:                                                                                                                                 | Load balancer configuration for the request.                                                                                                       |
+| `timeout`                                                                                                                                          | [Optional[models.CreateEmbeddingTimeout]](../../models/createembeddingtimeout.md)                                                                  | :heavy_minus_sign:                                                                                                                                 | Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured. |
+| `orq`                                                                                                                                              | [Optional[models.CreateEmbeddingOrq]](../../models/createembeddingorq.md)                                                                          | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retries`                                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                   | :heavy_minus_sign:                                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                                |
 
 ### Response
 

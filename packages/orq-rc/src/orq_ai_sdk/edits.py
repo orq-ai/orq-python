@@ -7,7 +7,7 @@ from orq_ai_sdk.models import createimageeditop as models_createimageeditop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional, Union
 
 
 class Edits(BaseSDK):
@@ -26,6 +26,37 @@ class Edits(BaseSDK):
             models_createimageeditop.CreateImageEditResponseFormat
         ] = None,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimageeditop.CreateImageEditFallbacks],
+                List[models_createimageeditop.CreateImageEditFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditRetry,
+                models_createimageeditop.CreateImageEditRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditCache,
+                models_createimageeditop.CreateImageEditCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditLoadBalancer,
+                models_createimageeditop.CreateImageEditLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditTimeout,
+                models_createimageeditop.CreateImageEditTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimageeditop.CreateImageEditOrq,
@@ -49,6 +80,12 @@ class Edits(BaseSDK):
         :param quality: The quality of the image that will be generated. Auto will automatically select the best quality for the given model.
         :param response_format: The format in which the generated images are returned. Some of the models only return the image in base64 format.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -77,6 +114,22 @@ class Edits(BaseSDK):
             quality=quality,
             response_format=response_format,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageEditFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateImageEditRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateImageEditCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageEditLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageEditTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageEditOrq]),
         )
 
@@ -149,6 +202,37 @@ class Edits(BaseSDK):
             models_createimageeditop.CreateImageEditResponseFormat
         ] = None,
         user: Optional[str] = None,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimageeditop.CreateImageEditFallbacks],
+                List[models_createimageeditop.CreateImageEditFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditRetry,
+                models_createimageeditop.CreateImageEditRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditCache,
+                models_createimageeditop.CreateImageEditCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditLoadBalancer,
+                models_createimageeditop.CreateImageEditLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimageeditop.CreateImageEditTimeout,
+                models_createimageeditop.CreateImageEditTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimageeditop.CreateImageEditOrq,
@@ -172,6 +256,12 @@ class Edits(BaseSDK):
         :param quality: The quality of the image that will be generated. Auto will automatically select the best quality for the given model.
         :param response_format: The format in which the generated images are returned. Some of the models only return the image in base64 format.
         :param user: A unique identifier representing your end-user, which can help to monitor and detect abuse.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -200,6 +290,22 @@ class Edits(BaseSDK):
             quality=quality,
             response_format=response_format,
             user=user,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageEditFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(
+                retry, Optional[models.CreateImageEditRetry]
+            ),
+            cache=utils.get_pydantic_model(
+                cache, Optional[models.CreateImageEditCache]
+            ),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageEditLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageEditTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageEditOrq]),
         )
 

@@ -7,7 +7,7 @@ from orq_ai_sdk.models import createimageop as models_createimageop
 from orq_ai_sdk.types import OptionalNullable, UNSET
 from orq_ai_sdk.utils import get_security_from_env
 from orq_ai_sdk.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union
 
 
 class Generations(BaseSDK):
@@ -27,6 +27,37 @@ class Generations(BaseSDK):
         ] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models_createimageop.Style] = UNSET,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimageop.CreateImageFallbacks],
+                List[models_createimageop.CreateImageFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimageop.CreateImageRetry,
+                models_createimageop.CreateImageRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimageop.CreateImageCache,
+                models_createimageop.CreateImageCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimageop.CreateImageLoadBalancer,
+                models_createimageop.CreateImageLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimageop.CreateImageTimeout,
+                models_createimageop.CreateImageTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimageop.CreateImageOrq,
@@ -53,6 +84,12 @@ class Generations(BaseSDK):
         :param response_format: The format in which generated images are returned. Must be one of `url` or `b64_json`. This parameter isn't supported for `gpt-image-1` which will always return base64-encoded images.
         :param size: The size of the generated images. Must be one of the specified sizes for each model.
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -84,6 +121,18 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateImageRetry]),
+            cache=utils.get_pydantic_model(cache, Optional[models.CreateImageCache]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )
 
@@ -157,6 +206,37 @@ class Generations(BaseSDK):
         ] = UNSET,
         size: OptionalNullable[str] = UNSET,
         style: OptionalNullable[models_createimageop.Style] = UNSET,
+        name: Optional[str] = None,
+        fallbacks: Optional[
+            Union[
+                List[models_createimageop.CreateImageFallbacks],
+                List[models_createimageop.CreateImageFallbacksTypedDict],
+            ]
+        ] = None,
+        retry: Optional[
+            Union[
+                models_createimageop.CreateImageRetry,
+                models_createimageop.CreateImageRetryTypedDict,
+            ]
+        ] = None,
+        cache: Optional[
+            Union[
+                models_createimageop.CreateImageCache,
+                models_createimageop.CreateImageCacheTypedDict,
+            ]
+        ] = None,
+        load_balancer: Optional[
+            Union[
+                models_createimageop.CreateImageLoadBalancer,
+                models_createimageop.CreateImageLoadBalancerTypedDict,
+            ]
+        ] = None,
+        timeout: Optional[
+            Union[
+                models_createimageop.CreateImageTimeout,
+                models_createimageop.CreateImageTimeoutTypedDict,
+            ]
+        ] = None,
         orq: Optional[
             Union[
                 models_createimageop.CreateImageOrq,
@@ -183,6 +263,12 @@ class Generations(BaseSDK):
         :param response_format: The format in which generated images are returned. Must be one of `url` or `b64_json`. This parameter isn't supported for `gpt-image-1` which will always return base64-encoded images.
         :param size: The size of the generated images. Must be one of the specified sizes for each model.
         :param style: The style of the generated images. This parameter is only supported for `openai/dall-e-3`. Must be one of `vivid` or `natural`.
+        :param name: The name to display on the trace. If not specified, the default system name will be used.
+        :param fallbacks: Array of fallback models to use if primary model fails
+        :param retry: Retry configuration for the request
+        :param cache: Cache configuration for the request.
+        :param load_balancer: Load balancer configuration for the request.
+        :param timeout: Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured.
         :param orq:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -214,6 +300,18 @@ class Generations(BaseSDK):
             response_format=response_format,
             size=size,
             style=style,
+            name=name,
+            fallbacks=utils.get_pydantic_model(
+                fallbacks, Optional[List[models.CreateImageFallbacks]]
+            ),
+            retry=utils.get_pydantic_model(retry, Optional[models.CreateImageRetry]),
+            cache=utils.get_pydantic_model(cache, Optional[models.CreateImageCache]),
+            load_balancer=utils.get_pydantic_model(
+                load_balancer, Optional[models.CreateImageLoadBalancer]
+            ),
+            timeout=utils.get_pydantic_model(
+                timeout, Optional[models.CreateImageTimeout]
+            ),
             orq=utils.get_pydantic_model(orq, Optional[models.CreateImageOrq]),
         )
 
