@@ -119,7 +119,7 @@ class CreateConversationResponsePartReasoningPart(BaseModel):
     r"""The reasoning or thought process behind the response. Used for chain-of-thought or extended thinking."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "reasoning_01kfx4xmp8s899jkmrpvwkmq6x"
+        "reasoning_01kfzqc0mm7astnp7g3hxrtr8x"
     )
     r"""Unique identifier for the part. Format: reasoning_{ulid} (e.g., reasoning_01hxyz...)"""
 
@@ -211,7 +211,7 @@ class DeltaReasoningPart(BaseModel):
     r"""The reasoning or thought process behind the response. Used for chain-of-thought or extended thinking."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "reasoning_01kfx4xmnsp9w543tgwmxmff6x"
+        "reasoning_01kfzqc0me6k02fzwjhtjdwf8s"
     )
     r"""Unique identifier for the part. Format: reasoning_{ulid} (e.g., reasoning_01hxyz...)"""
 
