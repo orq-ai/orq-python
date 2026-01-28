@@ -27,7 +27,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 4.2.16
+  version: 4.2.17
   additionalDependencies:
     dev:
       openai-agents: ==0.4.0
