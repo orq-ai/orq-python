@@ -110,7 +110,7 @@ class ConversationWithMessagesResponse(BaseModel):
     r"""Conversation messages ordered chronologically (oldest first)."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kg2rzqd2zp2khc3k3hexrtgd"
+        "conv_01kg48571kzvqq86hy4sp3gmjr"
     )
     r"""Unique conversation identifier with `conv_` prefix."""
 
