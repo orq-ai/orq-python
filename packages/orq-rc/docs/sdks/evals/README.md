@@ -234,6 +234,7 @@ with Orq(
 | `reference`                                                             | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | The reference used to compare the output                                |
 | `retrievals`                                                            | List[*str*]                                                             | :heavy_minus_sign:                                                      | Knowledge base retrievals                                               |
 | `messages`                                                              | List[[models.InvokeEvalMessages](../../models/invokeevalmessages.md)]   | :heavy_minus_sign:                                                      | The messages used to generate the output, without the last user message |
+| `model`                                                                 | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Model to use for LLM-based evaluators (e.g. "openai/gpt-4o")            |
 | `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
 
 ### Response
@@ -242,8 +243,9 @@ with Orq(
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| models.InvokeEvalEvalsResponseBody         | 404                                        | application/json                           |
-| models.InvokeEvalEvalsResponseResponseBody | 500                                        | application/json                           |
-| models.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                                    | Status Code                                   | Content Type                                  |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| models.InvokeEvalEvalsResponseBody            | 400                                           | application/json                              |
+| models.InvokeEvalEvalsResponseResponseBody    | 404                                           | application/json                              |
+| models.InvokeEvalEvalsResponse500ResponseBody | 500                                           | application/json                              |
+| models.APIError                               | 4XX, 5XX                                      | \*/\*                                         |

@@ -1,6 +1,6 @@
-# InvokeEvalEvalsResponseResponseBody
+# InvokeEvalEvalsResponse500ResponseBody
 
-Workspace ID is not found on the request
+Error running the evaluator
 
 
 ## Fields
