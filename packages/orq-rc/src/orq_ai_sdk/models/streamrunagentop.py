@@ -2193,7 +2193,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KGED4VD9G729W7A77ZJDZVWE"
+    id: Optional[str] = "01KGETTSE067PC7PKQQY0JRN71"
 
     description: Optional[str] = None
 
@@ -3551,6 +3551,8 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_cost: NotRequired[float]
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     evaluators: NotRequired[List[StreamRunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[StreamRunAgentGuardrailsTypedDict]]
@@ -3570,6 +3572,9 @@ class StreamRunAgentSettings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
+    max_cost: Optional[float] = 0
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+
     evaluators: Optional[List[StreamRunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3584,6 +3589,7 @@ class StreamRunAgentSettings(BaseModel):
                 "tool_approval_required",
                 "max_iterations",
                 "max_execution_time",
+                "max_cost",
                 "evaluators",
                 "guardrails",
             ]
