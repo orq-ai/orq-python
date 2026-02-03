@@ -2709,3 +2709,13 @@ Based on:
 - [python v4.2.17] .
 ### Releases
 - [PyPI v4.2.17] https://pypi.org/project/orq-ai-sdk/4.2.17 - .
+
+## 2026-02-03 08:52:27
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.700.2 (2.801.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v4.2.18] .
+### Releases
+- [PyPI v4.2.18] https://pypi.org/project/orq-ai-sdk/4.2.18 - .
