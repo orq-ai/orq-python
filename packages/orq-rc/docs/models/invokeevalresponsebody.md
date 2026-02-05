@@ -53,3 +53,9 @@ value: models.InvokeEvalResponseBodyLLM = /* values here */
 value: models.InvokeEvalResponseBodyHTTP = /* values here */
 ```
 
+### `models.Structured`
+
+```python
+value: models.Structured = /* values here */
+```
+

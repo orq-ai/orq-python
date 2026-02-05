@@ -19,7 +19,7 @@ from orq_ai_sdk.utils import (
 )
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -434,6 +434,20 @@ class InvokeEvalEvalsResponseBody(OrqError):
         message = str(data.message) or fallback
         super().__init__(message, raw_response, body)
         object.__setattr__(self, "data", data)
+
+
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type = Literal["structured",]
+
+
+class StructuredTypedDict(TypedDict):
+    type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
+    value: Dict[str, Any]
+
+
+class Structured(BaseModel):
+    type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
+
+    value: Dict[str, Any]
 
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval",]
@@ -871,6 +885,7 @@ InvokeEvalResponseBodyTypedDict = TypeAliasType(
         BERTScoreTypedDict,
         InvokeEvalResponseBodyLLMTypedDict,
         InvokeEvalResponseBodyHTTPTypedDict,
+        StructuredTypedDict,
         StringTypedDict,
         ResponseBodyNumberTypedDict,
     ],
@@ -888,6 +903,7 @@ InvokeEvalResponseBody = Annotated[
         Annotated[BERTScore, Tag("bert_score")],
         Annotated[InvokeEvalResponseBodyLLM, Tag("llm_evaluator")],
         Annotated[InvokeEvalResponseBodyHTTP, Tag("http_eval")],
+        Annotated[Structured, Tag("structured")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
