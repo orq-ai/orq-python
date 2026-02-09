@@ -955,7 +955,7 @@ CreateCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 CreateCompletionFilterBy = TypeAliasType(
@@ -966,7 +966,7 @@ CreateCompletionFilterBy = TypeAliasType(
         Dict[str, CreateCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 class CreateCompletionSearchOptionsTypedDict(TypedDict):
@@ -1073,7 +1073,7 @@ class CreateCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[CreateCompletionSearchType]
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[CreateCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateCompletionRerankConfigTypedDict]
@@ -1098,7 +1098,7 @@ class CreateCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
     search_options: Optional[CreateCompletionSearchOptions] = None
     r"""Additional search options"""

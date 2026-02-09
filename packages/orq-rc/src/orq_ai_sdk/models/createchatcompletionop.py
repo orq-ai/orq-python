@@ -2090,7 +2090,7 @@ CreateChatCompletionFilterByTypedDict = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1TypedDict],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 CreateChatCompletionFilterBy = TypeAliasType(
@@ -2101,7 +2101,7 @@ CreateChatCompletionFilterBy = TypeAliasType(
         Dict[str, CreateChatCompletionFilterBy1],
     ],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 class CreateChatCompletionSearchOptionsTypedDict(TypedDict):
@@ -2208,7 +2208,7 @@ class CreateChatCompletionKnowledgeBasesTypedDict(TypedDict):
     search_type: NotRequired[CreateChatCompletionSearchType]
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[CreateChatCompletionFilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[CreateChatCompletionSearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[CreateChatCompletionRerankConfigTypedDict]
@@ -2233,7 +2233,7 @@ class CreateChatCompletionKnowledgeBases(BaseModel):
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[CreateChatCompletionFilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
     search_options: Optional[CreateChatCompletionSearchOptions] = None
     r"""Additional search options"""

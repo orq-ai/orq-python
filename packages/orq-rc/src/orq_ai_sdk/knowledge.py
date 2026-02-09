@@ -986,7 +986,7 @@ class Knowledge(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
@@ -1134,7 +1134,7 @@ class Knowledge(BaseSDK):
         :param top_k: The number of results to return. If not provided, will default to the knowledge base configured `top_k`.
         :param threshold: The threshold to apply to the search. If not provided, will default to the knowledge base configured `threshold`
         :param search_type: The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`
-        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information.
+        :param filter_by: The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information.
         :param search_options: Additional search options
         :param rerank_config: Override the rerank configuration for this search. If not provided, will use the knowledge base configured rerank settings.
         :param agentic_rag_config: Override the agentic RAG configuration for this search. If not provided, will use the knowledge base configured agentic RAG settings.
