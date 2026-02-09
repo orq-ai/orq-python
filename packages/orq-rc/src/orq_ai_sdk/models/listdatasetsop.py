@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ListDatasetsRequestTypedDict(TypedDict):
-    limit: NotRequired[float]
+    limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
@@ -21,7 +21,7 @@ class ListDatasetsRequestTypedDict(TypedDict):
 
 class ListDatasetsRequest(BaseModel):
     limit: Annotated[
-        Optional[float],
+        Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 10
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
@@ -113,7 +113,7 @@ class ListDatasetsData(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-02-08T14:08:53.489Z")
+    updated: Optional[datetime] = parse_datetime("2026-02-09T07:05:25.001Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")

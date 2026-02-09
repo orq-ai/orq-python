@@ -17,7 +17,7 @@ class Identities(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
@@ -126,7 +126,7 @@ class Identities(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         search: Optional[str] = None,
