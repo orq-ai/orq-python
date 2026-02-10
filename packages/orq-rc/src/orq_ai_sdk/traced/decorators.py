@@ -104,7 +104,7 @@ def _finalize_span_success(span: Span, result: Any, capture_output: bool, otel_s
             pass
 
 
-def _finalize_span_error(span: Span, error: Exception, otel_span: Any, config: Config) -> None:  # pylint: disable=unused-argument
+def _finalize_span_error(span: Span, error: Exception, otel_span: Any) -> None:
     """Handle failed span: record error attributes and update OTel span."""
     span.set_attribute("status", "error")
     span.set_attribute("error.message", str(error))
@@ -198,7 +198,7 @@ def traced(
                     _finalize_span_success(span, result, capture_output, otel_span, config)
                     return result
             except Exception as e:
-                _finalize_span_error(span, e, otel_span, config)
+                _finalize_span_error(span, e, otel_span)
                 raise
             finally:
                 _teardown_tracing(span, otel_span, otel_context_token, client, config)
@@ -220,7 +220,7 @@ def traced(
                     _finalize_span_success(span, result, capture_output, otel_span, config)
                     return result
             except Exception as e:
-                _finalize_span_error(span, e, otel_span, config)
+                _finalize_span_error(span, e, otel_span)
                 raise
             finally:
                 _teardown_tracing(span, otel_span, otel_context_token, client, config)
