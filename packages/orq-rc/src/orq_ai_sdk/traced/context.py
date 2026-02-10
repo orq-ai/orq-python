@@ -175,3 +175,9 @@ class SpanContextManager:
         if self.span_object:
             set_active_span(self.previous_span)
         return False
+
+    async def __aenter__(self):
+        return self.__enter__()
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        return self.__exit__(exc_type, exc_val, exc_tb)
