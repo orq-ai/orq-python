@@ -134,7 +134,7 @@ class FileUploadResponseBody(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2026-02-10T14:17:51.632Z")
+    created: Optional[datetime] = parse_datetime("2026-02-10T14:35:17.914Z")
     r"""The date and time the resource was created"""
 
     @model_serializer(mode="wrap")
