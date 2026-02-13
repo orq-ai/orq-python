@@ -2210,6 +2210,7 @@ DeploymentStreamProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 r"""The provider used to generate the response"""

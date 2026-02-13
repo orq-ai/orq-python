@@ -1736,6 +1736,41 @@ UpdateAgentToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+class AgentToolInputCRUDProviderBuiltInToolTypedDict(TypedDict):
+    r"""Provider-specific built-in tools that are passed through to the provider. Must be prefixed with the provider name (e.g., openai:web_search, anthropic:web_search_20250305, google:google_search)."""
+
+    type: str
+    r"""Provider-prefixed tool type"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class AgentToolInputCRUDProviderBuiltInTool(BaseModel):
+    r"""Provider-specific built-in tools that are passed through to the provider. Must be prefixed with the provider name (e.g., openai:web_search, anthropic:web_search_20250305, google:google_search)."""
+
+    type: str
+    r"""Provider-prefixed tool type"""
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = Literal[
     "mcp",
 ]
@@ -2429,49 +2464,51 @@ class AgentToolInputCRUDGoogleSearchTool(BaseModel):
 UpdateAgentAgentToolInputCRUDTypedDict = TypeAliasType(
     "UpdateAgentAgentToolInputCRUDTypedDict",
     Union[
-        AgentToolInputCRUDGoogleSearchToolTypedDict,
-        AgentToolInputCRUDWebScraperToolTypedDict,
+        AgentToolInputCRUDRetrieveKnowledgeBasesToolTypedDict,
+        AgentToolInputCRUDQueryKnowledgeBaseToolTypedDict,
         AgentToolInputCRUDCallSubAgentToolTypedDict,
         AgentToolInputCRUDRetrieveAgentsToolTypedDict,
         AgentToolInputCRUDQueryMemoryStoreToolTypedDict,
         AgentToolInputCRUDWriteMemoryStoreToolTypedDict,
         AgentToolInputCRUDRetrieveMemoryStoresToolTypedDict,
         AgentToolInputCRUDDeleteMemoryDocumentToolTypedDict,
-        AgentToolInputCRUDRetrieveKnowledgeBasesToolTypedDict,
-        AgentToolInputCRUDQueryKnowledgeBaseToolTypedDict,
+        AgentToolInputCRUDWebScraperToolTypedDict,
         AgentToolInputCRUDCurrentDateToolTypedDict,
-        AgentToolInputCRUDHTTPToolTypedDict,
+        AgentToolInputCRUDGoogleSearchToolTypedDict,
+        AgentToolInputCRUDProviderBuiltInToolTypedDict,
         AgentToolInputCRUDCodeExecutionToolTypedDict,
         AgentToolInputCRUDFunctionToolTypedDict,
         AgentToolInputCRUDJSONSchemaToolTypedDict,
+        AgentToolInputCRUDHTTPToolTypedDict,
         AgentToolInputCRUDMCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
 
 
 UpdateAgentAgentToolInputCRUD = TypeAliasType(
     "UpdateAgentAgentToolInputCRUD",
     Union[
-        AgentToolInputCRUDGoogleSearchTool,
-        AgentToolInputCRUDWebScraperTool,
+        AgentToolInputCRUDRetrieveKnowledgeBasesTool,
+        AgentToolInputCRUDQueryKnowledgeBaseTool,
         AgentToolInputCRUDCallSubAgentTool,
         AgentToolInputCRUDRetrieveAgentsTool,
         AgentToolInputCRUDQueryMemoryStoreTool,
         AgentToolInputCRUDWriteMemoryStoreTool,
         AgentToolInputCRUDRetrieveMemoryStoresTool,
         AgentToolInputCRUDDeleteMemoryDocumentTool,
-        AgentToolInputCRUDRetrieveKnowledgeBasesTool,
-        AgentToolInputCRUDQueryKnowledgeBaseTool,
+        AgentToolInputCRUDWebScraperTool,
         AgentToolInputCRUDCurrentDateTool,
-        AgentToolInputCRUDHTTPTool,
+        AgentToolInputCRUDGoogleSearchTool,
+        AgentToolInputCRUDProviderBuiltInTool,
         AgentToolInputCRUDCodeExecutionTool,
         AgentToolInputCRUDFunctionTool,
         AgentToolInputCRUDJSONSchemaTool,
+        AgentToolInputCRUDHTTPTool,
         AgentToolInputCRUDMCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
 
 
 UpdateAgentExecuteOn = Literal[

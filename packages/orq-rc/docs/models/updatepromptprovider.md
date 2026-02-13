@@ -30,4 +30,5 @@
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
+| `MINIMAX`      | minimax        |
 | `SLACK`        | slack          |
