@@ -161,3 +161,9 @@ class ActionReviewRequestedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: ActionReviewRequestedStreamingEventData
+
+
+try:
+    ActionReviewRequestedStreamingEventData.model_rebuild()
+except NameError:
+    pass

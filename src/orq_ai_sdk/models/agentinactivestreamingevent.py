@@ -457,3 +457,13 @@ class AgentInactiveStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: AgentInactiveStreamingEventData
+
+
+try:
+    LastMessageFull.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentInactiveStreamingEventData.model_rebuild()
+except NameError:
+    pass

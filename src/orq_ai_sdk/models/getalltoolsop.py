@@ -209,7 +209,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KP6MH5QDFMK9QYDF1BA"
+        "tool_01KHHGC799KYSM6837F1XFX000"
     )
 
     display_name: Optional[str] = None
@@ -336,7 +336,7 @@ class DataTools(BaseModel):
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KGHB3KP5SXWY8MFTDRQEPSW7"
+    id: Optional[str] = "01KHHGC799ZN8HCNM60F27XWHS"
 
     description: Optional[str] = None
 
@@ -467,7 +467,7 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KP40ZDG19YC9RNANDF9"
+        "tool_01KHHGC797CR29E5N3629QTT2X"
     )
 
     display_name: Optional[str] = None
@@ -765,7 +765,7 @@ class DataHTTPTool(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KP3CER1E8NQH7WFVHFY"
+        "tool_01KHHGC795M6WK15BMX1V228KW"
     )
 
     display_name: Optional[str] = None
@@ -960,7 +960,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KP1FQWBMK8E4FV3FTZ3"
+        "tool_01KHHGC794TJEZKP3PGXH2G8FE"
     )
 
     display_name: Optional[str] = None
@@ -1159,7 +1159,7 @@ class DataFunctionTool(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KP0NR20PMAT2NZA6442"
+        "tool_01KHHGC792HM8X0AWKCPNG32D3"
     )
 
     display_name: Optional[str] = None
@@ -1242,3 +1242,33 @@ class GetAllToolsResponseBody(BaseModel):
     data: List[GetAllToolsData]
 
     has_more: bool
+
+
+try:
+    DataCodeExecutionTool.model_rebuild()
+except NameError:
+    pass
+try:
+    DataTools.model_rebuild()
+except NameError:
+    pass
+try:
+    DataMCPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    DataHTTPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    DataJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    DataJSONSchemaTool.model_rebuild()
+except NameError:
+    pass
+try:
+    DataFunctionTool.model_rebuild()
+except NameError:
+    pass

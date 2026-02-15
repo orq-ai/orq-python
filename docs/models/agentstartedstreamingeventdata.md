@@ -14,6 +14,7 @@
 | `settings`                                         | [Optional[models.Settings]](../models/settings.md) | :heavy_minus_sign:                                 | N/A                                                |
 | `agent_manifest_id`                                | *str*                                              | :heavy_check_mark:                                 | N/A                                                |
 | `agent_key`                                        | *str*                                              | :heavy_check_mark:                                 | N/A                                                |
+| `agent_description`                                | *OptionalNullable[str]*                            | :heavy_minus_sign:                                 | N/A                                                |
 | `variables`                                        | Dict[str, *Any*]                                   | :heavy_minus_sign:                                 | N/A                                                |
 | `tool_execution_id`                                | *Optional[str]*                                    | :heavy_minus_sign:                                 | N/A                                                |
 | `is_continuation`                                  | *Optional[bool]*                                   | :heavy_minus_sign:                                 | N/A                                                |

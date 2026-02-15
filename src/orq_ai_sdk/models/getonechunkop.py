@@ -136,3 +136,9 @@ class GetOneChunkResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetOneChunkResponseBody.model_rebuild()
+except NameError:
+    pass

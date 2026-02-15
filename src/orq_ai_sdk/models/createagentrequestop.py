@@ -1692,6 +1692,41 @@ CreateAgentRequestToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
+class ProviderBuiltInToolTypedDict(TypedDict):
+    r"""Provider-specific built-in tools that are passed through to the provider. Must be prefixed with the provider name (e.g., openai:web_search, anthropic:web_search_20250305, google:google_search)."""
+
+    type: str
+    r"""Provider-prefixed tool type"""
+    requires_approval: NotRequired[bool]
+    r"""Whether this tool requires approval before execution"""
+
+
+class ProviderBuiltInTool(BaseModel):
+    r"""Provider-specific built-in tools that are passed through to the provider. Must be prefixed with the provider name (e.g., openai:web_search, anthropic:web_search_20250305, google:google_search)."""
+
+    type: str
+    r"""Provider-prefixed tool type"""
+
+    requires_approval: Optional[bool] = None
+    r"""Whether this tool requires approval before execution"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["requires_approval"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type = (
     Literal["mcp",]
 )
@@ -2393,49 +2428,51 @@ class GoogleSearchTool(BaseModel):
 AgentToolInputCRUDTypedDict = TypeAliasType(
     "AgentToolInputCRUDTypedDict",
     Union[
-        GoogleSearchToolTypedDict,
-        WebScraperToolTypedDict,
+        RetrieveKnowledgeBasesToolTypedDict,
+        QueryKnowledgeBaseToolTypedDict,
         CallSubAgentToolTypedDict,
         RetrieveAgentsToolTypedDict,
         QueryMemoryStoreToolTypedDict,
         WriteMemoryStoreToolTypedDict,
         RetrieveMemoryStoresToolTypedDict,
         DeleteMemoryDocumentToolTypedDict,
-        RetrieveKnowledgeBasesToolTypedDict,
-        QueryKnowledgeBaseToolTypedDict,
+        WebScraperToolTypedDict,
         CurrentDateToolTypedDict,
-        HTTPToolTypedDict,
+        GoogleSearchToolTypedDict,
+        ProviderBuiltInToolTypedDict,
         CodeExecutionToolTypedDict,
         FunctionToolTypedDict,
         JSONSchemaToolTypedDict,
+        HTTPToolTypedDict,
         MCPToolTypedDict,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
 
 
 AgentToolInputCRUD = TypeAliasType(
     "AgentToolInputCRUD",
     Union[
-        GoogleSearchTool,
-        WebScraperTool,
+        RetrieveKnowledgeBasesTool,
+        QueryKnowledgeBaseTool,
         CallSubAgentTool,
         RetrieveAgentsTool,
         QueryMemoryStoreTool,
         WriteMemoryStoreTool,
         RetrieveMemoryStoresTool,
         DeleteMemoryDocumentTool,
-        RetrieveKnowledgeBasesTool,
-        QueryKnowledgeBaseTool,
+        WebScraperTool,
         CurrentDateTool,
-        HTTPTool,
+        GoogleSearchTool,
+        ProviderBuiltInTool,
         CodeExecutionTool,
         FunctionTool,
         JSONSchemaTool,
+        HTTPTool,
         MCPTool,
     ],
 )
-r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id."""
+r"""Tool configuration for agent create/update operations. Built-in tools only require a type, while custom tools (HTTP, Code, Function, JSON Schema, MCP) must reference pre-created tools by key or id. Provider-prefixed tools (e.g., openai:web_search) are passed through to the provider."""
 
 
 CreateAgentRequestExecuteOn = Literal[
@@ -2531,6 +2568,8 @@ class CreateAgentRequestSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_cost: NotRequired[float]
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[CreateAgentRequestToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[AgentToolInputCRUDTypedDict]]
@@ -2549,6 +2588,9 @@ class CreateAgentRequestSettings(BaseModel):
 
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    max_cost: Optional[float] = 0
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[CreateAgentRequestToolApprovalRequired] = (
         "respect_tool"
@@ -2570,6 +2612,7 @@ class CreateAgentRequestSettings(BaseModel):
             [
                 "max_iterations",
                 "max_execution_time",
+                "max_cost",
                 "tool_approval_required",
                 "tools",
                 "evaluators",
@@ -2943,6 +2986,8 @@ class CreateAgentRequestAgentsSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_cost: NotRequired[float]
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     tool_approval_required: NotRequired[CreateAgentRequestAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
     tools: NotRequired[List[CreateAgentRequestToolsTypedDict]]
@@ -2958,6 +3003,9 @@ class CreateAgentRequestAgentsSettings(BaseModel):
 
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+
+    max_cost: Optional[float] = 0
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
     tool_approval_required: Optional[CreateAgentRequestAgentsToolApprovalRequired] = (
         "respect_tool"
@@ -2978,6 +3026,7 @@ class CreateAgentRequestAgentsSettings(BaseModel):
             [
                 "max_iterations",
                 "max_execution_time",
+                "max_cost",
                 "tool_approval_required",
                 "tools",
                 "evaluators",
@@ -4968,3 +5017,41 @@ class CreateAgentRequestResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    FallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseBody.model_rebuild()
+except NameError:
+    pass

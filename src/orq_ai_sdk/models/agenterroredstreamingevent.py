@@ -64,3 +64,9 @@ class AgentErroredStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: AgentErroredStreamingEventData
+
+
+try:
+    AgentErroredStreamingEventData.model_rebuild()
+except NameError:
+    pass

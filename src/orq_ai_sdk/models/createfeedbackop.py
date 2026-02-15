@@ -74,3 +74,9 @@ class CreateFeedbackResponseBody(BaseModel):
     r"""The id returned by the [`get_config`](https://docs.orq.ai/reference/deploymentgetconfig-1) or [`invoke`](https://docs.orq.ai/reference/deploymentinvoke-1) endpoints"""
 
     id: str
+
+
+try:
+    CreateFeedbackRequestBody.model_rebuild()
+except NameError:
+    pass

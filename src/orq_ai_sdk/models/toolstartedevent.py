@@ -70,3 +70,9 @@ class ToolStartedEvent(BaseModel):
     r"""ISO timestamp of when the event occurred"""
 
     data: ToolStartedEventData
+
+
+try:
+    ToolStartedEventData.model_rebuild()
+except NameError:
+    pass

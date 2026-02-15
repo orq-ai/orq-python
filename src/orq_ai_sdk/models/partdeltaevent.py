@@ -44,3 +44,9 @@ class PartDeltaEvent(BaseModel):
     r"""ISO timestamp of when the event occurred"""
 
     data: PartDeltaEventData
+
+
+try:
+    PartDeltaEventData.model_rebuild()
+except NameError:
+    pass

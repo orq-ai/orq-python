@@ -2047,6 +2047,7 @@ UpdatePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 
@@ -3934,3 +3935,37 @@ class UpdatePromptPrompt(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdatePromptAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptResponseFormatPromptsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptResponseFormatPromptsResponse200ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePrompt2File.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptPromptsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdatePromptPrompt.model_rebuild()
+except NameError:
+    pass

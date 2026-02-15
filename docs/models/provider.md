@@ -32,4 +32,5 @@ The provider used to generate the response
 | `CONTEXTUALAI` | contextualai   |
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
+| `MINIMAX`      | minimax        |
 | `SLACK`        | slack          |

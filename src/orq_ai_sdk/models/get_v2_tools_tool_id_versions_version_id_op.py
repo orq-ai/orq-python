@@ -108,3 +108,9 @@ class GetV2ToolsToolIDVersionsVersionIDResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetV2ToolsToolIDVersionsVersionIDResponseBody.model_rebuild()
+except NameError:
+    pass

@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FileListRequestTypedDict(TypedDict):
-    limit: NotRequired[float]
+    limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
@@ -21,7 +21,7 @@ class FileListRequestTypedDict(TypedDict):
 
 class FileListRequest(BaseModel):
     limit: Annotated[
-        Optional[float],
+        Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 10
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
@@ -96,7 +96,7 @@ class FileListData(BaseModel):
     workspace_id: str
     r"""The id of the resource"""
 
-    created: Optional[datetime] = parse_datetime("2026-02-03T08:49:54.792Z")
+    created: Optional[datetime] = parse_datetime("2026-02-15T20:37:40.674Z")
     r"""The date and time the resource was created"""
 
     @model_serializer(mode="wrap")
@@ -132,3 +132,9 @@ class FileListResponseBody(BaseModel):
     data: List[FileListData]
 
     has_more: bool
+
+
+try:
+    FileListData.model_rebuild()
+except NameError:
+    pass

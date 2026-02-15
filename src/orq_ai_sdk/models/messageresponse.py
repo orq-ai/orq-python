@@ -77,3 +77,9 @@ class MessageResponse(BaseModel):
 
     role: MessageResponseRole
     r"""Message author role. `user` for end-user messages, `assistant` for AI-generated responses."""
+
+
+try:
+    MessageResponse.model_rebuild()
+except NameError:
+    pass

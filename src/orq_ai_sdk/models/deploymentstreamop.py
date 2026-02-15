@@ -2210,6 +2210,7 @@ DeploymentStreamProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 r"""The provider used to generate the response"""
@@ -2837,3 +2838,25 @@ class DeploymentStreamResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DeploymentStreamOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentStreamKnowledgeFilterOr.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentStreamAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentStream1In.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentStreamKnowledgeFilterAnd.model_rebuild()
+except NameError:
+    pass

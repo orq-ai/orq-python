@@ -2944,3 +2944,37 @@ class DeploymentGetConfigResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DeploymentGetConfigOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfigKnowledgeFilterOr.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfigAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfigKnowledgeFilterAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfig1In.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfig2File.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfigResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentGetConfigParameters.model_rebuild()
+except NameError:
+    pass

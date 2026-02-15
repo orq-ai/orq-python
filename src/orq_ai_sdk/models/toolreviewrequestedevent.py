@@ -75,3 +75,9 @@ class ToolReviewRequestedEvent(BaseModel):
     r"""ISO timestamp of when the event occurred"""
 
     data: ToolReviewRequestedEventData
+
+
+try:
+    ToolReviewRequestedEventData.model_rebuild()
+except NameError:
+    pass

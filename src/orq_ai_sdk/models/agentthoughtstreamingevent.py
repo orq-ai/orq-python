@@ -753,3 +753,29 @@ class AgentThoughtStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: AgentThoughtStreamingEventData
+
+
+try:
+    MessageDifference.model_rebuild()
+except NameError:
+    pass
+try:
+    TopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentThoughtStreamingEventContent.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentThoughtStreamingEventTopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    Refusal.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentThoughtStreamingEventData.model_rebuild()
+except NameError:
+    pass

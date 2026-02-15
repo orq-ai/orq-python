@@ -1949,6 +1949,7 @@ CreatePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 
@@ -3836,3 +3837,37 @@ class CreatePromptPrompt(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CreatePromptAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePromptResponseFormatPromptsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePromptResponseFormatPromptsResponse200ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePrompt2File.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePromptPromptsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePromptResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreatePromptPrompt.model_rebuild()
+except NameError:
+    pass

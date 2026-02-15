@@ -1,6 +1,6 @@
 # InvokeEvalEvalsResponseBody
 
-Workspace ID is not found on the request
+Bad request
 
 
 ## Fields

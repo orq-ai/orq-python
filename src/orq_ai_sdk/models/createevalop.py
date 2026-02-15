@@ -884,9 +884,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -1080,9 +1080,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1775,9 +1775,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -1952,9 +1952,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -2134,9 +2134,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -2287,9 +2287,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -2441,9 +2441,9 @@ class ResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
@@ -2492,3 +2492,37 @@ CreateEvalResponseBody = Annotated[
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Successfully created an evaluator"""
+
+
+try:
+    JSON.model_rebuild()
+except NameError:
+    pass
+try:
+    Typescript.model_rebuild()
+except NameError:
+    pass
+try:
+    Ragas.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateEvalResponseBodyFunction.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyPython.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyHTTP.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyLLM.model_rebuild()
+except NameError:
+    pass

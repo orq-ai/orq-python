@@ -18,7 +18,7 @@ class Evals(BaseSDK):
     def all(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -115,7 +115,7 @@ class Evals(BaseSDK):
     async def all_async(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -819,6 +819,7 @@ class Evals(BaseSDK):
                 List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
+        model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -832,6 +833,7 @@ class Evals(BaseSDK):
         :param reference: The reference used to compare the output
         :param retrievals: Knowledge base retrievals
         :param messages: The messages used to generate the output, without the last user message
+        :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -860,6 +862,7 @@ class Evals(BaseSDK):
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.InvokeEvalMessages]]
                 ),
+                model=model,
             ),
         )
 
@@ -906,23 +909,28 @@ class Evals(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "500", "5XX"],
+            error_status_codes=["400", "404", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
+        if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "500", "application/json"):
+        if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.InvokeEvalEvalsResponse500ResponseBodyData, http_res
+            )
+            raise models.InvokeEvalEvalsResponse500ResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)
@@ -946,6 +954,7 @@ class Evals(BaseSDK):
                 List[models_invokeevalop.InvokeEvalMessagesTypedDict],
             ]
         ] = None,
+        model: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -959,6 +968,7 @@ class Evals(BaseSDK):
         :param reference: The reference used to compare the output
         :param retrievals: Knowledge base retrievals
         :param messages: The messages used to generate the output, without the last user message
+        :param model: Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -987,6 +997,7 @@ class Evals(BaseSDK):
                 messages=utils.get_pydantic_model(
                     messages, Optional[List[models.InvokeEvalMessages]]
                 ),
+                model=model,
             ),
         )
 
@@ -1033,23 +1044,28 @@ class Evals(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["404", "4XX", "500", "5XX"],
+            error_status_codes=["400", "404", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.InvokeEvalResponseBody, http_res)
-        if utils.match_response(http_res, "404", "application/json"):
+        if utils.match_response(http_res, "400", "application/json"):
             response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseBody(response_data, http_res)
-        if utils.match_response(http_res, "500", "application/json"):
+        if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(
                 models.InvokeEvalEvalsResponseResponseBodyData, http_res
             )
             raise models.InvokeEvalEvalsResponseResponseBody(response_data, http_res)
+        if utils.match_response(http_res, "500", "application/json"):
+            response_data = unmarshal_json_response(
+                models.InvokeEvalEvalsResponse500ResponseBodyData, http_res
+            )
+            raise models.InvokeEvalEvalsResponse500ResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise models.APIError("API error occurred", http_res, http_res_text)

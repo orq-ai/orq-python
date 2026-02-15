@@ -90,7 +90,7 @@ class RetrieveDatasourceResponseBody(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KGHB3KVK8ZDZYVPKPQC6HWH4"
+        "01KHHGC7FR3PTYMHG7KBCWQM43"
     )
     r"""The unique identifier of the data source"""
 
@@ -132,3 +132,9 @@ class RetrieveDatasourceResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RetrieveDatasourceResponseBody.model_rebuild()
+except NameError:
+    pass

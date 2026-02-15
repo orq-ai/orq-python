@@ -149,3 +149,9 @@ class ToolExecutionFinishedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: ToolExecutionFinishedStreamingEventData
+
+
+try:
+    ToolExecutionFinishedStreamingEventData.model_rebuild()
+except NameError:
+    pass

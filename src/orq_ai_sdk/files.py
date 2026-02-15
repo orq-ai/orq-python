@@ -206,7 +206,7 @@ class Files(BaseSDK):
     def list(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -299,7 +299,7 @@ class Files(BaseSDK):
     async def list_async(
         self,
         *,
-        limit: Optional[float] = 10,
+        limit: Optional[int] = 10,
         starting_after: Optional[str] = None,
         ending_before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

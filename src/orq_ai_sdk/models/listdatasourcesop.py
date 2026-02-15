@@ -148,7 +148,7 @@ class ListDatasourcesData(BaseModel):
     r"""The number of chunks in the datasource"""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "01KGHB3KVJD13CAHBRVQY42SE6"
+        "01KHHGC7FNS2EYFKT0R45N8TQ3"
     )
     r"""The unique identifier of the data source"""
 
@@ -208,3 +208,9 @@ class ListDatasourcesResponseBody(BaseModel):
     data: List[ListDatasourcesData]
 
     has_more: bool
+
+
+try:
+    ListDatasourcesData.model_rebuild()
+except NameError:
+    pass

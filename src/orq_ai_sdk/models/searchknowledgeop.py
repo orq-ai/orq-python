@@ -589,13 +589,13 @@ FilterByTypedDict = TypeAliasType(
     "FilterByTypedDict",
     Union[FilterByAndTypedDict, FilterByOrTypedDict, Dict[str, FilterBy1TypedDict]],
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 FilterBy = TypeAliasType(
     "FilterBy", Union[FilterByAnd, FilterByOr, Dict[str, FilterBy1]]
 )
-r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
 
 class SearchOptionsTypedDict(TypedDict):
@@ -704,7 +704,7 @@ class SearchKnowledgeRequestBodyTypedDict(TypedDict):
     search_type: NotRequired[SearchType]
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
     filter_by: NotRequired[FilterByTypedDict]
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
     search_options: NotRequired[SearchOptionsTypedDict]
     r"""Additional search options"""
     rerank_config: NotRequired[RerankConfigTypedDict]
@@ -729,7 +729,7 @@ class SearchKnowledgeRequestBody(BaseModel):
     r"""The type of search to perform. If not provided, will default to the knowledge base configured `retrieval_type`"""
 
     filter_by: Optional[FilterBy] = None
-    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://dash.readme.com/project/orqai/v2.0/docs/searching-a-knowledge-base) for more information."""
+    r"""The metadata filter to apply to the search. Check the [Searching a Knowledge Base](https://docs.orq.ai/docs/knowledge/api#knowledge-base-search) for more information."""
 
     search_options: Optional[SearchOptions] = None
     r"""Additional search options"""
@@ -876,3 +876,25 @@ class SearchKnowledgeResponseBody(BaseModel):
     r"""Search knowledge base"""
 
     matches: List[Matches]
+
+
+try:
+    SearchKnowledgeOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    FilterByOr.model_rebuild()
+except NameError:
+    pass
+try:
+    SearchKnowledgeAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    FilterByAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    SearchKnowledge1In.model_rebuild()
+except NameError:
+    pass

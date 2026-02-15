@@ -523,3 +523,13 @@ GetOneKnowledgeResponseBody = TypeAliasType(
     Union[GetOneKnowledgeResponseBody1, GetOneKnowledgeResponseBody2],
 )
 r"""Knowledge base retrieved"""
+
+
+try:
+    GetOneKnowledgeResponseBody2.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOneKnowledgeResponseBody1.model_rebuild()
+except NameError:
+    pass

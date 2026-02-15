@@ -92,3 +92,9 @@ class RetrieveMemoryDocumentResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RetrieveMemoryDocumentResponseBody.model_rebuild()
+except NameError:
+    pass

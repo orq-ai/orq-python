@@ -131,3 +131,13 @@ class FilePart(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FileInURIFormat.model_rebuild()
+except NameError:
+    pass
+try:
+    BinaryFormat.model_rebuild()
+except NameError:
+    pass

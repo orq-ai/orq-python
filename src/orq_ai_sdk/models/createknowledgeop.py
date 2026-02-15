@@ -757,3 +757,13 @@ CreateKnowledgeResponseBody = TypeAliasType(
     "CreateKnowledgeResponseBody", Union[ResponseBody1, ResponseBody2]
 )
 r"""Knowledge successfully created"""
+
+
+try:
+    ResponseBody2.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBody1.model_rebuild()
+except NameError:
+    pass

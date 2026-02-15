@@ -13,7 +13,7 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class GetEvalsRequestTypedDict(TypedDict):
-    limit: NotRequired[float]
+    limit: NotRequired[int]
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
     starting_after: NotRequired[str]
     r"""A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 20 objects, ending with `01JJ1HDHN79XAS7A01WB3HYSDB`, your subsequent call can include `after=01JJ1HDHN79XAS7A01WB3HYSDB` in order to fetch the next page of the list."""
@@ -23,7 +23,7 @@ class GetEvalsRequestTypedDict(TypedDict):
 
 class GetEvalsRequest(BaseModel):
     limit: Annotated[
-        Optional[float],
+        Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = 10
     r"""A limit on the number of objects to be returned. Limit can range between 1 and 50, and the default is 10"""
@@ -221,9 +221,9 @@ class DataTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONGuardrailConfig
@@ -397,9 +397,9 @@ class DataRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponse200GuardrailConfig] = None
 
@@ -1072,9 +1072,9 @@ class DataFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsResponseGuardrailConfig] = None
 
@@ -1227,9 +1227,9 @@ class DataPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[GetEvalsDataEvalsGuardrailConfig] = None
 
@@ -1392,9 +1392,9 @@ class DataHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[GetEvalsDataGuardrailConfig] = None
 
@@ -1603,9 +1603,9 @@ class DataJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[DataGuardrailConfig] = None
 
@@ -1735,9 +1735,9 @@ class DataLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         GetEvalsDataEvalsResponse200ApplicationJSONResponseBodyGuardrailConfig
@@ -1804,3 +1804,33 @@ class GetEvalsResponseBody(BaseModel):
     data: List[GetEvalsData]
 
     has_more: bool
+
+
+try:
+    DataTypescript.model_rebuild()
+except NameError:
+    pass
+try:
+    DataRagas.model_rebuild()
+except NameError:
+    pass
+try:
+    DataFunction.model_rebuild()
+except NameError:
+    pass
+try:
+    DataPython.model_rebuild()
+except NameError:
+    pass
+try:
+    DataHTTP.model_rebuild()
+except NameError:
+    pass
+try:
+    DataJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    DataLLM.model_rebuild()
+except NameError:
+    pass

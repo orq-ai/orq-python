@@ -19,7 +19,7 @@ from orq_ai_sdk.utils import (
 )
 import pydantic
 from pydantic import Discriminator, Tag, model_serializer
-from typing import List, Literal, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -294,6 +294,8 @@ class InvokeEvalRequestBodyTypedDict(TypedDict):
     r"""Knowledge base retrievals"""
     messages: NotRequired[List[InvokeEvalMessagesTypedDict]]
     r"""The messages used to generate the output, without the last user message"""
+    model: NotRequired[str]
+    r"""Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")"""
 
 
 class InvokeEvalRequestBody(BaseModel):
@@ -312,10 +314,13 @@ class InvokeEvalRequestBody(BaseModel):
     messages: Optional[List[InvokeEvalMessages]] = None
     r"""The messages used to generate the output, without the last user message"""
 
+    model: Optional[str] = None
+    r"""Model to use for LLM-based evaluators (e.g. \"openai/gpt-4o\")"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["query", "output", "reference", "retrievals", "messages"]
+            ["query", "output", "reference", "retrievals", "messages", "model"]
         )
         serialized = handler(self)
         m = {}
@@ -365,13 +370,35 @@ class InvokeEvalRequest(BaseModel):
         return m
 
 
+class InvokeEvalEvalsResponse500ResponseBodyData(BaseModel):
+    message: str
+
+
+@dataclass(unsafe_hash=True)
+class InvokeEvalEvalsResponse500ResponseBody(OrqError):
+    r"""Error running the evaluator"""
+
+    data: InvokeEvalEvalsResponse500ResponseBodyData = field(hash=False)
+
+    def __init__(
+        self,
+        data: InvokeEvalEvalsResponse500ResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.message) or fallback
+        super().__init__(message, raw_response, body)
+        object.__setattr__(self, "data", data)
+
+
 class InvokeEvalEvalsResponseResponseBodyData(BaseModel):
     message: str
 
 
 @dataclass(unsafe_hash=True)
 class InvokeEvalEvalsResponseResponseBody(OrqError):
-    r"""Error running the evaluator"""
+    r"""Workspace ID is not found on the request"""
 
     data: InvokeEvalEvalsResponseResponseBodyData = field(hash=False)
 
@@ -393,7 +420,7 @@ class InvokeEvalEvalsResponseBodyData(BaseModel):
 
 @dataclass(unsafe_hash=True)
 class InvokeEvalEvalsResponseBody(OrqError):
-    r"""Workspace ID is not found on the request"""
+    r"""Bad request"""
 
     data: InvokeEvalEvalsResponseBodyData = field(hash=False)
 
@@ -407,6 +434,20 @@ class InvokeEvalEvalsResponseBody(OrqError):
         message = str(data.message) or fallback
         super().__init__(message, raw_response, body)
         object.__setattr__(self, "data", data)
+
+
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type = Literal["structured",]
+
+
+class StructuredTypedDict(TypedDict):
+    type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
+    value: Dict[str, Any]
+
+
+class Structured(BaseModel):
+    type: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type
+
+    value: Dict[str, Any]
 
 
 InvokeEvalResponseBodyEvalsResponse200ApplicationJSON8Type = Literal["http_eval",]
@@ -844,6 +885,7 @@ InvokeEvalResponseBodyTypedDict = TypeAliasType(
         BERTScoreTypedDict,
         InvokeEvalResponseBodyLLMTypedDict,
         InvokeEvalResponseBodyHTTPTypedDict,
+        StructuredTypedDict,
         StringTypedDict,
         ResponseBodyNumberTypedDict,
     ],
@@ -861,7 +903,14 @@ InvokeEvalResponseBody = Annotated[
         Annotated[BERTScore, Tag("bert_score")],
         Annotated[InvokeEvalResponseBodyLLM, Tag("llm_evaluator")],
         Annotated[InvokeEvalResponseBodyHTTP, Tag("http_eval")],
+        Annotated[Structured, Tag("structured")],
     ],
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Returns the result of the evaluator run"""
+
+
+try:
+    TwoFile.model_rebuild()
+except NameError:
+    pass

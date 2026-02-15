@@ -2093,7 +2093,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KGHB3K8T3S6WTZYNKZNKKQXK"
+    id: Optional[str] = "01KHHGC6SJQHQZS7ZJN6F1450Y"
 
     description: Optional[str] = None
 
@@ -3410,6 +3410,8 @@ class RunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_cost: NotRequired[float]
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     evaluators: NotRequired[List[RunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[RunAgentGuardrailsTypedDict]]
@@ -3429,6 +3431,9 @@ class RunAgentSettings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
+    max_cost: Optional[float] = 0
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+
     evaluators: Optional[List[RunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3443,6 +3448,7 @@ class RunAgentSettings(BaseModel):
                 "tool_approval_required",
                 "max_iterations",
                 "max_execution_time",
+                "max_cost",
                 "evaluators",
                 "guardrails",
             ]
@@ -3777,3 +3783,61 @@ class RunAgentA2ATaskResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RunAgentModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentA2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentAgentToolInputRunTools.model_rebuild()
+except NameError:
+    pass
+try:
+    MCPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    JSONSchemaToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    FunctionToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    CodeToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    HTTPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentTaskStatusMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentA2ATaskResponse.model_rebuild()
+except NameError:
+    pass

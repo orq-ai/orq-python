@@ -90,3 +90,9 @@ class ResponseStartedEvent(BaseModel):
     r"""ISO timestamp of when the event occurred"""
 
     data: Data
+
+
+try:
+    Data.model_rebuild()
+except NameError:
+    pass

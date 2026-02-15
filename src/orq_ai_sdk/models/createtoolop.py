@@ -1068,7 +1068,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KPT0A36N2XJSRNR7XSF"
+        "tool_01KHHGC7A9JTD51DT0ZCPV42E8"
     )
 
     display_name: Optional[str] = None
@@ -1195,7 +1195,7 @@ class ResponseBodyTools(BaseModel):
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KGHB3KPSDMB0A44EZ9G5C600"
+    id: Optional[str] = "01KHHGC7A7BJKN6AP5XEX73P0N"
 
     description: Optional[str] = None
 
@@ -1326,7 +1326,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KPQ168Y5C3VNTE6M1YG"
+        "tool_01KHHGC7A511A25R2HV4GHZSDR"
     )
 
     display_name: Optional[str] = None
@@ -1627,7 +1627,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KPMSKR4EGD30SQGY2RP"
+        "tool_01KHHGC7A2H40ECM77V4ATV727"
     )
 
     display_name: Optional[str] = None
@@ -1822,7 +1822,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KPJFFQK870V8635BPDC"
+        "tool_01KHHGC7A0R2DHJ15MGVQGMH9E"
     )
 
     display_name: Optional[str] = None
@@ -2021,7 +2021,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KPGAY5325ZFRV0716HG"
+        "tool_01KHHGC79YKT3WKY0D1PJCDREA"
     )
 
     display_name: Optional[str] = None
@@ -2088,3 +2088,37 @@ CreateToolResponseBody = Annotated[
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Successfully created the tool."""
+
+
+try:
+    RequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyCodeExecutionTool.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyTools.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyMCPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyHTTPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyJSONSchemaTool.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyFunctionTool.model_rebuild()
+except NameError:
+    pass

@@ -10,14 +10,14 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class UpdateMemoryDocumentRequestBodyTypedDict(TypedDict):
-    text: str
+    text: NotRequired[str]
     r"""The content of the memory document (whitespace trimmed)."""
     metadata: NotRequired[Dict[str, str]]
     r"""Flexible key-value pairs for custom filtering and categorization. Clients can add arbitrary string metadata to enable future filtering of memory documents based on their specific needs (e.g., document type, source, topic, relevance score, or any custom taxonomy)."""
 
 
 class UpdateMemoryDocumentRequestBody(BaseModel):
-    text: str
+    text: Optional[str] = None
     r"""The content of the memory document (whitespace trimmed)."""
 
     metadata: Optional[Dict[str, str]] = None
@@ -25,7 +25,7 @@ class UpdateMemoryDocumentRequestBody(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["metadata"])
+        optional_fields = set(["text", "metadata"])
         serialized = handler(self)
         m = {}
 
@@ -145,3 +145,9 @@ class UpdateMemoryDocumentResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateMemoryDocumentResponseBody.model_rebuild()
+except NameError:
+    pass

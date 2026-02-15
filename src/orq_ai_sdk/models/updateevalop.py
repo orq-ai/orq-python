@@ -959,9 +959,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -1155,9 +1155,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON6GuardrailConfig
@@ -1852,9 +1852,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -2029,9 +2029,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -2213,9 +2213,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -2368,9 +2368,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -2522,9 +2522,9 @@ class UpdateEvalResponseBodyLLM(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-02-03T08:49:53.022Z"
+    created: Optional[str] = "2026-02-15T20:37:39.091Z"
 
-    updated: Optional[str] = "2026-02-03T08:49:53.022Z"
+    updated: Optional[str] = "2026-02-15T20:37:39.091Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
@@ -2573,3 +2573,37 @@ UpdateEvalResponseBody = Annotated[
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Successfully updated an eval"""
+
+
+try:
+    RequestBodyJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyTypescript.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyRagas.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseBodyFunction.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateEvalResponseBodyPython.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateEvalResponseBodyHTTP.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateEvalResponseBodyJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateEvalResponseBodyLLM.model_rebuild()
+except NameError:
+    pass

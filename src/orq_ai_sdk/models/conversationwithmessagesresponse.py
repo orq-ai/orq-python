@@ -110,7 +110,7 @@ class ConversationWithMessagesResponse(BaseModel):
     r"""Conversation messages ordered chronologically (oldest first)."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "conv_01kghb3kcv3qc74mjsxg5vzy01"
+        "conv_01khhgc6ywz0kmb7n6r14mck53"
     )
     r"""Unique conversation identifier with `conv_` prefix."""
 
@@ -138,3 +138,13 @@ class ConversationWithMessagesResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ConversationWithMessagesResponseMetadata.model_rebuild()
+except NameError:
+    pass
+try:
+    ConversationWithMessagesResponse.model_rebuild()
+except NameError:
+    pass

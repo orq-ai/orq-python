@@ -552,3 +552,17 @@ class InvokeAgentA2ATaskResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InvokeAgentA2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    TaskStatusMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    InvokeAgentA2ATaskResponse.model_rebuild()
+except NameError:
+    pass

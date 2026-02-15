@@ -528,6 +528,7 @@ GetPromptVersionProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 
@@ -2376,3 +2377,29 @@ class GetPromptVersionResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetPromptVersionResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetPromptVersionModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    GetPromptVersion2File.model_rebuild()
+except NameError:
+    pass
+try:
+    GetPromptVersionAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    GetPromptVersionResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetPromptVersionResponseBody.model_rebuild()
+except NameError:
+    pass

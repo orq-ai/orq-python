@@ -79,3 +79,9 @@ class UserMessageRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserMessageRequest.model_rebuild()
+except NameError:
+    pass

@@ -2193,7 +2193,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KGHB3KB85QFXB78NW6E2MH34"
+    id: Optional[str] = "01KHHGC6WBQ107KDKN4VASMK98"
 
     description: Optional[str] = None
 
@@ -3551,6 +3551,8 @@ class StreamRunAgentSettingsTypedDict(TypedDict):
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
+    max_cost: NotRequired[float]
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
     evaluators: NotRequired[List[StreamRunAgentEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
     guardrails: NotRequired[List[StreamRunAgentGuardrailsTypedDict]]
@@ -3570,6 +3572,9 @@ class StreamRunAgentSettings(BaseModel):
     max_execution_time: Optional[int] = 600
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
 
+    max_cost: Optional[float] = 0
+    r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
+
     evaluators: Optional[List[StreamRunAgentEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
@@ -3584,6 +3589,7 @@ class StreamRunAgentSettings(BaseModel):
                 "tool_approval_required",
                 "max_iterations",
                 "max_execution_time",
+                "max_cost",
                 "evaluators",
                 "guardrails",
             ]
@@ -3859,3 +3865,53 @@ class StreamRunAgentResponseBody(BaseModel):
     r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
 
     data: StreamRunAgentData
+
+
+try:
+    StreamRunAgentModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentA2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunTools.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunMCPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentAgentToolInputRunJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunJSONSchemaToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunFunctionToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunCodeToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunHTTPToolRun.model_rebuild()
+except NameError:
+    pass

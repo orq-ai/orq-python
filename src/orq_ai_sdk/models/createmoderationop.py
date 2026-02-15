@@ -519,3 +519,17 @@ class CreateModerationResponseBody(BaseModel):
 
     results: List[Results]
     r"""A list of moderation objects"""
+
+
+try:
+    Categories.model_rebuild()
+except NameError:
+    pass
+try:
+    CategoryScores.model_rebuild()
+except NameError:
+    pass
+try:
+    CategoryAppliedInputTypes.model_rebuild()
+except NameError:
+    pass

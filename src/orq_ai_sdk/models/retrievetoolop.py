@@ -171,7 +171,7 @@ class RetrieveToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: RetrieveToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KR9G5EQ42AZB6KTKSHS"
+        "tool_01KHHGC7C1CB06X0WJMQ28NQK9"
     )
 
     display_name: Optional[str] = None
@@ -302,7 +302,7 @@ class RetrieveToolResponseBodyTools(BaseModel):
         RetrieveToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KGHB3KR82P2V9PQZEKB96A4X"
+    id: Optional[str] = "01KHHGC7C06KGKNR3GCEA9NX3Z"
 
     description: Optional[str] = None
 
@@ -433,7 +433,7 @@ class RetrieveToolResponseBodyMCPTool(BaseModel):
     mcp: RetrieveToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KR73JK5XRPE4GNB9PAQ"
+        "tool_01KHHGC7BY6ZC1F7BDHS4247S7"
     )
 
     display_name: Optional[str] = None
@@ -734,7 +734,7 @@ class RetrieveToolResponseBodyHTTPTool(BaseModel):
     http: RetrieveToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KR42HY30F0MM451YHSR"
+        "tool_01KHHGC7BVTGA79J322PXM65B2"
     )
 
     display_name: Optional[str] = None
@@ -929,7 +929,7 @@ class RetrieveToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: RetrieveToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KR20EDJEC3PSYJ3JZEG"
+        "tool_01KHHGC7BSDWA3SZGEMVKANVR4"
     )
 
     display_name: Optional[str] = None
@@ -1128,7 +1128,7 @@ class RetrieveToolResponseBodyFunctionTool(BaseModel):
     function: RetrieveToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KGHB3KR0B8C6CC1RRJV2E5V2"
+        "tool_01KHHGC7BQ1R741NRV1DH12XRN"
     )
 
     display_name: Optional[str] = None
@@ -1195,3 +1195,33 @@ RetrieveToolResponseBody = Annotated[
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Successfully retrieved the tool."""
+
+
+try:
+    RetrieveToolResponseBodyCodeExecutionTool.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyTools.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyMCPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyHTTPTool.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyJSONSchemaTool.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveToolResponseBodyFunctionTool.model_rebuild()
+except NameError:
+    pass

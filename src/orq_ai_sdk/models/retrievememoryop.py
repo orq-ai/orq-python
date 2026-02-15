@@ -103,3 +103,9 @@ class RetrieveMemoryResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RetrieveMemoryResponseBody.model_rebuild()
+except NameError:
+    pass

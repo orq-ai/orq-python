@@ -212,3 +212,9 @@ class ListChunksPaginatedResponseBody(BaseModel):
     data: List[ListChunksPaginatedData]
 
     has_more: bool
+
+
+try:
+    ListChunksPaginatedData.model_rebuild()
+except NameError:
+    pass

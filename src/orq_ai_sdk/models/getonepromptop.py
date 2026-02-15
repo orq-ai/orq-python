@@ -492,6 +492,7 @@ GetOnePromptProvider = Literal[
     "contextualai",
     "moonshotai",
     "zai",
+    "minimax",
     "slack",
 ]
 
@@ -2346,3 +2347,29 @@ class GetOnePromptPrompt(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetOnePromptResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOnePromptModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOnePrompt2File.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOnePromptAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOnePromptResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetOnePromptPrompt.model_rebuild()
+except NameError:
+    pass

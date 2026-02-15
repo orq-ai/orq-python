@@ -204,3 +204,9 @@ class UpdateChunkResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateChunkResponseBody.model_rebuild()
+except NameError:
+    pass
