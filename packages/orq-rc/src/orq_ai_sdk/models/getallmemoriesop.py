@@ -162,3 +162,9 @@ class GetAllMemoriesResponseBody(BaseModel):
     data: List[GetAllMemoriesData]
 
     has_more: bool
+
+
+try:
+    GetAllMemoriesData.model_rebuild()
+except NameError:
+    pass

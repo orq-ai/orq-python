@@ -145,3 +145,9 @@ class UpdateMemoryDocumentResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateMemoryDocumentResponseBody.model_rebuild()
+except NameError:
+    pass

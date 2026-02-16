@@ -4164,3 +4164,69 @@ CreateChatCompletionResponse = TypeAliasType(
         ],
     ],
 )
+
+
+try:
+    CreateChatCompletionAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionResponseFormatRouterChatCompletionsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionFilterByOr.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionFilterByAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletion1In.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRouterChatCompletionsResponseTopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRouterChatCompletionsContent.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRouterChatCompletionsResponse200TopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRouterChatCompletionsRefusal.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionTopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionContent.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRouterChatCompletionsTopLogprobs.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateChatCompletionRefusal.model_rebuild()
+except NameError:
+    pass

@@ -84,3 +84,9 @@ class AgentResponseMessage(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentResponseMessage.model_rebuild()
+except NameError:
+    pass

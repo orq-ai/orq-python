@@ -214,3 +214,9 @@ class UpdateMemoryStoreResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateMemoryStoreResponseBody.model_rebuild()
+except NameError:
+    pass

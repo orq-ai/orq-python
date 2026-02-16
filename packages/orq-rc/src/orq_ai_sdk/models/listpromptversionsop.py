@@ -2403,3 +2403,29 @@ class ListPromptVersionsResponseBody(BaseModel):
     data: List[ListPromptVersionsData]
 
     has_more: bool
+
+
+try:
+    ListPromptVersionsResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ListPromptVersionsModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    ListPromptVersions2File.model_rebuild()
+except NameError:
+    pass
+try:
+    ListPromptVersionsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    ListPromptVersionsResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ListPromptVersionsData.model_rebuild()
+except NameError:
+    pass

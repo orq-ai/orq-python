@@ -2565,3 +2565,29 @@ CreateResponseResponse = TypeAliasType(
         ],
     ],
 )
+
+
+try:
+    Format3.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateResponseText.model_rebuild()
+except NameError:
+    pass
+try:
+    ToolsParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateResponseToolsParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateResponseFormat3.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateResponseRouterResponsesText.model_rebuild()
+except NameError:
+    pass

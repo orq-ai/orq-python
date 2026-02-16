@@ -908,3 +908,9 @@ InvokeEvalResponseBody = Annotated[
     Discriminator(lambda m: get_discriminator(m, "type", "type")),
 ]
 r"""Returns the result of the evaluator run"""
+
+
+try:
+    TwoFile.model_rebuild()
+except NameError:
+    pass

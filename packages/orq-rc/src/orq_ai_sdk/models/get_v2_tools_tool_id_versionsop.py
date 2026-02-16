@@ -160,3 +160,9 @@ class GetV2ToolsToolIDVersionsResponseBody(BaseModel):
     data: List[GetV2ToolsToolIDVersionsData]
 
     has_more: bool
+
+
+try:
+    GetV2ToolsToolIDVersionsData.model_rebuild()
+except NameError:
+    pass

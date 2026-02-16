@@ -312,3 +312,9 @@ class ResponseDoneEvent(BaseModel):
     r"""ISO timestamp of when the event occurred"""
 
     data: ResponseDoneEventData
+
+
+try:
+    ResponseDoneEventData.model_rebuild()
+except NameError:
+    pass

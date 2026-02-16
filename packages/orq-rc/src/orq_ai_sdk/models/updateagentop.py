@@ -5078,3 +5078,41 @@ class UpdateAgentResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateAgentModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseFormatAgentsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentFallbackModelConfigurationAgentsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseBody.model_rebuild()
+except NameError:
+    pass

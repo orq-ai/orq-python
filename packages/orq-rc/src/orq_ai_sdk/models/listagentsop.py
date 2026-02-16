@@ -2240,3 +2240,25 @@ class ListAgentsResponseBody(BaseModel):
     data: List[ListAgentsData]
 
     has_more: bool
+
+
+try:
+    ListAgentsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    ListAgentsResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ListAgentsFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    ListAgentsResponseFormatAgentsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    ListAgentsData.model_rebuild()
+except NameError:
+    pass

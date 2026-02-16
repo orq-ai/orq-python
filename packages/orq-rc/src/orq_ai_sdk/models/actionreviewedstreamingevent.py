@@ -80,3 +80,9 @@ class ActionReviewedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: ActionReviewedStreamingEventData
+
+
+try:
+    ActionReviewedStreamingEventData.model_rebuild()
+except NameError:
+    pass

@@ -309,3 +309,9 @@ class CreateAgentResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CreateAgentResponse.model_rebuild()
+except NameError:
+    pass

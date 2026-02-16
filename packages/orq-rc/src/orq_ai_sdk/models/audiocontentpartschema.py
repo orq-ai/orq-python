@@ -45,3 +45,9 @@ class AudioContentPartSchema(BaseModel):
     type: AudioContentPartSchemaType
 
     input_audio: InputAudio
+
+
+try:
+    InputAudio.model_rebuild()
+except NameError:
+    pass

@@ -2271,3 +2271,25 @@ class RetrieveAgentRequestResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RetrieveAgentRequestAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveAgentRequestResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveAgentRequestFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveAgentRequestResponseFormatAgentsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RetrieveAgentRequestResponseBody.model_rebuild()
+except NameError:
+    pass

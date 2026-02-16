@@ -2193,7 +2193,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KHBX710F2WMTGWCABVHMN0BS"
+    id: Optional[str] = "01KHJN2CZ8071Z5BFCNVRT2BQ2"
 
     description: Optional[str] = None
 
@@ -3865,3 +3865,53 @@ class StreamRunAgentResponseBody(BaseModel):
     r"""Server-Sent Event stream successfully established. Delivers real-time agent execution events including message fragments, tool invocations, intermediate results, and completion status. Stream terminates with [DONE] sentinel upon completion."""
 
     data: StreamRunAgentData
+
+
+try:
+    StreamRunAgentModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentA2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunTools.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunMCPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    StreamRunAgentAgentToolInputRunJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunJSONSchemaToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunFunctionToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunCodeToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunHTTPToolRun.model_rebuild()
+except NameError:
+    pass

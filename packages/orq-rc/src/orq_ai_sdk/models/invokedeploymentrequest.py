@@ -2044,3 +2044,25 @@ class InvokeDeploymentRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InvokeDeploymentRequestOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    KnowledgeFilterOr.model_rebuild()
+except NameError:
+    pass
+try:
+    InvokeDeploymentRequestAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    KnowledgeFilterAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    OneIn.model_rebuild()
+except NameError:
+    pass

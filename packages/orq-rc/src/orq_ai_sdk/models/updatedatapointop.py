@@ -1445,7 +1445,7 @@ class UpdateDatapointEvaluations3(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsResponseSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-02-13T16:26:46.398Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-02-16T07:19:07.225Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1513,7 +1513,7 @@ class UpdateDatapointEvaluations2(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsDatasetsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-02-13T16:26:46.397Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-02-16T07:19:07.224Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1581,7 +1581,7 @@ class UpdateDatapointEvaluations1(BaseModel):
 
     source: Optional[UpdateDatapointEvaluationsSource] = "orq"
 
-    reviewed_at: Optional[datetime] = parse_datetime("2026-02-13T16:26:46.397Z")
+    reviewed_at: Optional[datetime] = parse_datetime("2026-02-16T07:19:07.223Z")
     r"""The date and time the item was reviewed"""
 
     @model_serializer(mode="wrap")
@@ -1684,7 +1684,7 @@ class UpdateDatapointResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-02-13T16:26:31.863Z")
+    updated: Optional[datetime] = parse_datetime("2026-02-16T07:18:52.260Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -1714,3 +1714,9 @@ class UpdateDatapointResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateDatapointResponseBody.model_rebuild()
+except NameError:
+    pass

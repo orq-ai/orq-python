@@ -5017,3 +5017,41 @@ class CreateAgentRequestResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    ResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    FallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateAgentRequestResponseBody.model_rebuild()
+except NameError:
+    pass

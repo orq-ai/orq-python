@@ -444,3 +444,13 @@ class AgentStartedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: AgentStartedStreamingEventData
+
+
+try:
+    InputMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentStartedStreamingEventData.model_rebuild()
+except NameError:
+    pass

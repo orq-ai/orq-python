@@ -167,3 +167,9 @@ class GetAllMemoryDocumentsResponseBody(BaseModel):
     data: List[GetAllMemoryDocumentsData]
 
     has_more: bool
+
+
+try:
+    GetAllMemoryDocumentsData.model_rebuild()
+except NameError:
+    pass

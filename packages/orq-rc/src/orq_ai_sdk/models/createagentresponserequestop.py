@@ -459,3 +459,13 @@ CreateAgentResponseRequestResponse = TypeAliasType(
         ],
     ],
 )
+
+
+try:
+    A2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    Conversation.model_rebuild()
+except NameError:
+    pass

@@ -964,3 +964,13 @@ UpdateKnowledgeResponseBody = TypeAliasType(
     Union[UpdateKnowledgeResponseBody1, UpdateKnowledgeResponseBody2],
 )
 r"""Knowledge successfully updated"""
+
+
+try:
+    UpdateKnowledgeResponseBody2.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateKnowledgeResponseBody1.model_rebuild()
+except NameError:
+    pass

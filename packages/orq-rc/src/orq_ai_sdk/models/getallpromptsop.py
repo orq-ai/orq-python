@@ -2403,3 +2403,29 @@ class GetAllPromptsResponseBody(BaseModel):
     data: List[GetAllPromptsPrompt]
 
     has_more: bool
+
+
+try:
+    GetAllPromptsResponseFormatPromptsResponseJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetAllPromptsModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    GetAllPrompts2File.model_rebuild()
+except NameError:
+    pass
+try:
+    GetAllPromptsAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    GetAllPromptsResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    GetAllPromptsPrompt.model_rebuild()
+except NameError:
+    pass

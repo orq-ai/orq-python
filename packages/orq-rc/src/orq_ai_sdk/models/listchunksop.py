@@ -214,3 +214,9 @@ class ListChunksResponseBody(BaseModel):
     data: List[ListChunksData]
 
     has_more: bool
+
+
+try:
+    ListChunksData.model_rebuild()
+except NameError:
+    pass

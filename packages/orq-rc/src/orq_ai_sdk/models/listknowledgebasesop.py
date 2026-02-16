@@ -553,3 +553,13 @@ class ListKnowledgeBasesResponseBody(BaseModel):
     data: List[ListKnowledgeBasesData]
 
     has_more: bool
+
+
+try:
+    Data2.model_rebuild()
+except NameError:
+    pass
+try:
+    Data1.model_rebuild()
+except NameError:
+    pass

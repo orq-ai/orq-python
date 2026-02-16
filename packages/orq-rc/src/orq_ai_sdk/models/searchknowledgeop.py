@@ -876,3 +876,25 @@ class SearchKnowledgeResponseBody(BaseModel):
     r"""Search knowledge base"""
 
     matches: List[Matches]
+
+
+try:
+    SearchKnowledgeOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    FilterByOr.model_rebuild()
+except NameError:
+    pass
+try:
+    SearchKnowledgeAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    FilterByAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    SearchKnowledge1In.model_rebuild()
+except NameError:
+    pass

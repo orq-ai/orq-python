@@ -160,3 +160,9 @@ class GetV2EvaluatorsIDVersionsResponseBody(BaseModel):
     data: List[GetV2EvaluatorsIDVersionsData]
 
     has_more: bool
+
+
+try:
+    GetV2EvaluatorsIDVersionsData.model_rebuild()
+except NameError:
+    pass

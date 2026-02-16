@@ -182,3 +182,9 @@ class ToolExecutionStartedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: ToolExecutionStartedStreamingEventData
+
+
+try:
+    ToolExecutionStartedStreamingEventData.model_rebuild()
+except NameError:
+    pass

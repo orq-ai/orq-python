@@ -132,7 +132,7 @@ class CreateContactResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-02-13T16:26:31.863Z")
+    updated: Optional[datetime] = parse_datetime("2026-02-16T07:18:52.260Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -169,3 +169,9 @@ class CreateContactResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CreateContactResponseBody.model_rebuild()
+except NameError:
+    pass

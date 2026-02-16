@@ -974,3 +974,21 @@ class DeploymentsResponseBody(BaseModel):
     data: List[DeploymentsData]
 
     has_more: bool
+
+
+try:
+    DeploymentsParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentsResponseFormatJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    DeploymentsModelParameters.model_rebuild()
+except NameError:
+    pass
+try:
+    Deployments2File.model_rebuild()
+except NameError:
+    pass

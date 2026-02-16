@@ -2093,7 +2093,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KHBX70X9DZ9E2CPHFA3BJ4RZ"
+    id: Optional[str] = "01KHJN2CWC88X5QTQHKRDVAM9W"
 
     description: Optional[str] = None
 
@@ -3783,3 +3783,61 @@ class RunAgentA2ATaskResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RunAgentModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentResponseFormatAgentsJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentFallbackModelConfigurationAudio.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentA2AMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentAgentToolInputRunTools.model_rebuild()
+except NameError:
+    pass
+try:
+    MCPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentToolInputRunJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    JSONSchemaToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    FunctionToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    CodeToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    HTTPToolRun.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentTaskStatusMessage.model_rebuild()
+except NameError:
+    pass
+try:
+    RunAgentA2ATaskResponse.model_rebuild()
+except NameError:
+    pass

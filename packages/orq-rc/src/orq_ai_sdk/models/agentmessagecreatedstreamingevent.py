@@ -118,3 +118,13 @@ class AgentMessageCreatedStreamingEvent(BaseModel):
     r"""ISO timestamp of the event"""
 
     data: AgentMessageCreatedStreamingEventData
+
+
+try:
+    Message.model_rebuild()
+except NameError:
+    pass
+try:
+    AgentMessageCreatedStreamingEventData.model_rebuild()
+except NameError:
+    pass

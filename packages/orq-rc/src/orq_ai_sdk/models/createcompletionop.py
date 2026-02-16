@@ -2076,3 +2076,25 @@ CreateCompletionResponse = TypeAliasType(
         ],
     ],
 )
+
+
+try:
+    CreateCompletionOrIn.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateCompletionFilterByOr.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateCompletionAndIn.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateCompletionFilterByAnd.model_rebuild()
+except NameError:
+    pass
+try:
+    CreateCompletion1In.model_rebuild()
+except NameError:
+    pass

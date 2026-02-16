@@ -148,3 +148,9 @@ class CreateMemoryStoreResponseBody(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CreateMemoryStoreResponseBody.model_rebuild()
+except NameError:
+    pass
