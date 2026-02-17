@@ -1,6 +1,6 @@
-# ServiceTier
+# CreateResponseServiceTier
 
-Specifies the latency tier to use for processing the request. Defaults to "auto".
+The service tier used for processing the request
 
 
 ## Values

@@ -53,6 +53,8 @@ python:
   enumFormat: union
   envVarPrefix: ORQ
   fixFlags:
+    asyncPaginationSep2025: false
+    conflictResistantModelImportsFeb2026: false
     responseRequiredSep2024: false
   flattenGlobalSecurity: true
   flattenRequests: true

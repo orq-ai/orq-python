@@ -462,6 +462,15 @@ Include = Literal[
 ]
 
 
+ServiceTier = Literal[
+    "auto",
+    "default",
+    "flex",
+    "priority",
+]
+r"""Specifies the latency tier to use for processing the request. Defaults to \"auto\"."""
+
+
 CreateResponseToolsRouterResponsesRequestRequestBodyType = Literal["file_search",]
 r"""The type of tool"""
 
@@ -994,6 +1003,8 @@ class CreateResponseRequestBodyTypedDict(TypedDict):
     r"""Whether to enable parallel function calling during tool use."""
     store: NotRequired[Nullable[bool]]
     r"""Whether to store this response for use in distillations or evals."""
+    service_tier: NotRequired[Nullable[ServiceTier]]
+    r"""Specifies the latency tier to use for processing the request. Defaults to \"auto\"."""
     tools: NotRequired[List[CreateResponseToolsTypedDict]]
     r"""A list of tools the model may call. Use this to provide a list of functions the model may generate JSON inputs for."""
     tool_choice: NotRequired[CreateResponseToolChoiceTypedDict]
@@ -1047,6 +1058,9 @@ class CreateResponseRequestBody(BaseModel):
     store: OptionalNullable[bool] = True
     r"""Whether to store this response for use in distillations or evals."""
 
+    service_tier: OptionalNullable[ServiceTier] = UNSET
+    r"""Specifies the latency tier to use for processing the request. Defaults to \"auto\"."""
+
     tools: Optional[List[CreateResponseTools]] = None
     r"""A list of tools the model may call. Use this to provide a list of functions the model may generate JSON inputs for."""
 
@@ -1070,6 +1084,7 @@ class CreateResponseRequestBody(BaseModel):
                 "include",
                 "parallel_tool_calls",
                 "store",
+                "service_tier",
                 "tools",
                 "tool_choice",
                 "stream",
@@ -1087,6 +1102,7 @@ class CreateResponseRequestBody(BaseModel):
                 "include",
                 "parallel_tool_calls",
                 "store",
+                "service_tier",
             ]
         )
         serialized = handler(self)
@@ -2338,9 +2354,11 @@ Truncation = Literal[
 r"""Controls how the model handles inputs longer than the maximum token length"""
 
 
-ServiceTier = Literal[
+CreateResponseServiceTier = Literal[
     "auto",
     "default",
+    "flex",
+    "priority",
 ]
 r"""The service tier used for processing the request"""
 
@@ -2386,7 +2404,7 @@ class CreateResponseResponseBodyTypedDict(TypedDict):
     r"""Controls how the model handles inputs longer than the maximum token length"""
     user: NotRequired[Nullable[str]]
     r"""A unique identifier representing your end-user"""
-    service_tier: NotRequired[Nullable[ServiceTier]]
+    service_tier: NotRequired[Nullable[CreateResponseServiceTier]]
     r"""The service tier used for processing the request"""
     background: NotRequired[Nullable[bool]]
     r"""Whether the response was processed in the background"""
@@ -2461,7 +2479,7 @@ class CreateResponseResponseBody(BaseModel):
     user: OptionalNullable[str] = UNSET
     r"""A unique identifier representing your end-user"""
 
-    service_tier: OptionalNullable[ServiceTier] = UNSET
+    service_tier: OptionalNullable[CreateResponseServiceTier] = UNSET
     r"""The service tier used for processing the request"""
 
     background: OptionalNullable[bool] = UNSET
