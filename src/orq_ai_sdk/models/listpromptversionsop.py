@@ -539,6 +539,7 @@ ListPromptVersionsProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "alibaba",
     "slack",
 ]
 

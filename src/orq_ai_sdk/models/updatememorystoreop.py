@@ -104,6 +104,7 @@ UpdateMemoryStoreProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "alibaba",
     "slack",
 ]
 

@@ -2,9 +2,8 @@
 
 from .orqerror import OrqError
 from typing import TYPE_CHECKING
-from importlib import import_module
-import builtins
-import sys
+
+from orq_ai_sdk.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
     from .actionreviewedstreamingevent import (
@@ -7730,6 +7729,7 @@ if TYPE_CHECKING:
         UserMessageRequestRole,
         UserMessageRequestTypedDict,
     )
+    from . import internal
 
 __all__ = [
     "A2AMessage",
@@ -22610,40 +22610,17 @@ _dynamic_imports: dict[str, str] = {
     "UserMessageRequestTypedDict": ".usermessagerequest",
 }
 
-
-def dynamic_import(modname, retries=3):
-    for attempt in range(retries):
-        try:
-            return import_module(modname, __package__)
-        except KeyError:
-            # Clear any half-initialized module and retry
-            sys.modules.pop(modname, None)
-            if attempt == retries - 1:
-                break
-    raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
+_sub_packages = ["internal"]
 
 
 def __getattr__(attr_name: str) -> object:
-    module_name = _dynamic_imports.get(attr_name)
-    if module_name is None:
-        raise AttributeError(
-            f"No {attr_name} found in _dynamic_imports for module name -> {__name__} "
-        )
-
-    try:
-        module = dynamic_import(module_name)
-        result = getattr(module, attr_name)
-        return result
-    except ImportError as e:
-        raise ImportError(
-            f"Failed to import {attr_name} from {module_name}: {e}"
-        ) from e
-    except AttributeError as e:
-        raise AttributeError(
-            f"Failed to get {attr_name} from {module_name}: {e}"
-        ) from e
+    return lazy_getattr(
+        attr_name,
+        package=__package__,
+        dynamic_imports=_dynamic_imports,
+        sub_packages=_sub_packages,
+    )
 
 
 def __dir__():
-    lazy_attrs = builtins.list(_dynamic_imports.keys())
-    return builtins.sorted(lazy_attrs)
+    return lazy_dir(dynamic_imports=_dynamic_imports, sub_packages=_sub_packages)
