@@ -31,4 +31,5 @@
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
 | `MINIMAX`      | minimax        |
+| `ALIBABA`      | alibaba        |
 | `SLACK`        | slack          |

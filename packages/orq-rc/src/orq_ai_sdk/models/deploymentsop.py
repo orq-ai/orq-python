@@ -623,6 +623,7 @@ DeploymentsProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "alibaba",
     "slack",
 ]
 

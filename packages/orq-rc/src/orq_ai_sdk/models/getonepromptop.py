@@ -493,6 +493,7 @@ GetOnePromptProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "alibaba",
     "slack",
 ]
 

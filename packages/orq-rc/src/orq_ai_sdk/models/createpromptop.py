@@ -1950,6 +1950,7 @@ CreatePromptProvider = Literal[
     "moonshotai",
     "zai",
     "minimax",
+    "alibaba",
     "slack",
 ]
 
