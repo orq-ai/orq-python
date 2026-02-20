@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `TYPESCRIPT_EVAL` | typescript_eval   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `JSON_SCHEMA` | json_schema   |

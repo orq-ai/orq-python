@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `HTTP_EVAL` | http_eval   |
+| Name          | Value         |
+| ------------- | ------------- |
+| `PYTHON_EVAL` | python_eval   |

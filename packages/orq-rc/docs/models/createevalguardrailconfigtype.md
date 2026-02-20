@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+| Name     | Value    |
+| -------- | -------- |
+| `NUMBER` | number   |

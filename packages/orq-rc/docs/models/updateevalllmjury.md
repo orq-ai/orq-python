@@ -1,0 +1,11 @@
+# UpdateEvalLLMJury
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `judges`                                                                                   | List[[models.UpdateEvalLLMJudges](../models/updateevalllmjudges.md)]                       | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `replacement_judges`                                                                       | List[[models.UpdateEvalLLMReplacementJudges](../models/updateevalllmreplacementjudges.md)] | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `min_successful_judges`                                                                    | *Optional[int]*                                                                            | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `tie_value`                                                                                | [Optional[models.UpdateEvalLLMTieValue]](../models/updateevalllmtievalue.md)               | :heavy_minus_sign:                                                                         | N/A                                                                                        |

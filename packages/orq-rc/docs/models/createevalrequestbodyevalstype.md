@@ -5,4 +5,4 @@
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `PYTHON_EVAL` | python_eval   |
+| `JSON_SCHEMA` | json_schema   |

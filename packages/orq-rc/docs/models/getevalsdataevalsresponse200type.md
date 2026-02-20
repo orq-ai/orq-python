@@ -3,6 +3,6 @@
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+| Name              | Value             |
+| ----------------- | ----------------- |
+| `TYPESCRIPT_EVAL` | typescript_eval   |

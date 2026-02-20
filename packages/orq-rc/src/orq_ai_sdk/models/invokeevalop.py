@@ -534,6 +534,116 @@ OriginalValueTypedDict = TypeAliasType(
 OriginalValue = TypeAliasType("OriginalValue", Union[float, bool, str])
 
 
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict = (
+    TypeAliasType(
+        "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict",
+        Union[float, bool, str],
+    )
+)
+
+
+InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue = TypeAliasType(
+    "InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue",
+    Union[float, bool, str],
+)
+
+
+class VotesTypedDict(TypedDict):
+    model: str
+    replacement: bool
+    success: bool
+    value: NotRequired[
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValueTypedDict
+    ]
+    explanation: NotRequired[str]
+    error: NotRequired[str]
+
+
+class Votes(BaseModel):
+    model: str
+
+    replacement: bool
+
+    success: bool
+
+    value: Optional[
+        InvokeEvalResponseBodyEvalsResponse200ApplicationJSON7ValueValue
+    ] = None
+
+    explanation: Optional[str] = None
+
+    error: Optional[str] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["value", "explanation", "error"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class StatsTypedDict(TypedDict):
+    mean: float
+    std: float
+
+
+class Stats(BaseModel):
+    mean: float
+
+    std: float
+
+
+class ResponseBodyJuryTypedDict(TypedDict):
+    judges_configured: int
+    judges_succeeded: int
+    judges_failed: int
+    replacements_used: int
+    tie: bool
+    votes: List[VotesTypedDict]
+    stats: NotRequired[StatsTypedDict]
+
+
+class ResponseBodyJury(BaseModel):
+    judges_configured: int
+
+    judges_succeeded: int
+
+    judges_failed: int
+
+    replacements_used: int
+
+    tie: bool
+
+    votes: List[Votes]
+
+    stats: Optional[Stats] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["stats"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
     workflow_run_id: str
     value: Nullable[
@@ -542,6 +652,7 @@ class InvokeEvalResponseBodyEvalsResponseValueTypedDict(TypedDict):
     explanation: NotRequired[Nullable[str]]
     original_value: NotRequired[Nullable[OriginalValueTypedDict]]
     original_explanation: NotRequired[Nullable[str]]
+    jury: NotRequired[ResponseBodyJuryTypedDict]
 
 
 class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
@@ -555,9 +666,13 @@ class InvokeEvalResponseBodyEvalsResponseValue(BaseModel):
 
     original_explanation: OptionalNullable[str] = UNSET
 
+    jury: Optional[ResponseBodyJury] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["explanation", "original_value", "original_explanation"])
+        optional_fields = set(
+            ["explanation", "original_value", "original_explanation", "jury"]
+        )
         nullable_fields = set(
             ["value", "explanation", "original_value", "original_explanation"]
         )
