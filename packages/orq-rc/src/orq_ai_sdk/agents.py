@@ -5,12 +5,12 @@ from .sdkconfiguration import SDKConfiguration
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.models import (
-    createagentrequestop as models_createagentrequestop,
+    createagentrequest_modalities as models_createagentrequest_modalities,
     invokeagentop as models_invokeagentop,
     runagentop as models_runagentop,
     streamagentop as models_streamagentop,
     streamrunagentop as models_streamrunagentop,
-    updateagentop as models_updateagentop,
+    updateagent_tool_choice as models_updateagent_tool_choice,
 )
 from orq_ai_sdk.responses import Responses
 from orq_ai_sdk.types import OptionalNullable, UNSET
@@ -42,36 +42,38 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
+            models_createagentrequest_modalities.ModelConfiguration,
+            models_createagentrequest_modalities.ModelConfigurationTypedDict,
         ],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models_createagentrequest_modalities.CreateAgentRequestSettings,
+            models_createagentrequest_modalities.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models_createagentrequest_modalities.FallbackModelConfiguration],
+                List[
+                    models_createagentrequest_modalities.FallbackModelConfigurationTypedDict
+                ],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
+                List[models_createagentrequest_modalities.KnowledgeBases],
+                List[models_createagentrequest_modalities.KnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
+                List[models_createagentrequest_modalities.TeamOfAgents],
+                List[models_createagentrequest_modalities.TeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequestop.Source] = None,
+        source: Optional[models_createagentrequest_modalities.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -207,36 +209,38 @@ class Agents(BaseSDK):
         instructions: str,
         path: str,
         model: Union[
-            models_createagentrequestop.ModelConfiguration,
-            models_createagentrequestop.ModelConfigurationTypedDict,
+            models_createagentrequest_modalities.ModelConfiguration,
+            models_createagentrequest_modalities.ModelConfigurationTypedDict,
         ],
         settings: Union[
-            models_createagentrequestop.CreateAgentRequestSettings,
-            models_createagentrequestop.CreateAgentRequestSettingsTypedDict,
+            models_createagentrequest_modalities.CreateAgentRequestSettings,
+            models_createagentrequest_modalities.CreateAgentRequestSettingsTypedDict,
         ],
         display_name: Optional[str] = None,
         system_prompt: Optional[str] = None,
         fallback_models: Optional[
             Union[
-                List[models_createagentrequestop.FallbackModelConfiguration],
-                List[models_createagentrequestop.FallbackModelConfigurationTypedDict],
+                List[models_createagentrequest_modalities.FallbackModelConfiguration],
+                List[
+                    models_createagentrequest_modalities.FallbackModelConfigurationTypedDict
+                ],
             ]
         ] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_createagentrequestop.KnowledgeBases],
-                List[models_createagentrequestop.KnowledgeBasesTypedDict],
+                List[models_createagentrequest_modalities.KnowledgeBases],
+                List[models_createagentrequest_modalities.KnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_createagentrequestop.TeamOfAgents],
-                List[models_createagentrequestop.TeamOfAgentsTypedDict],
+                List[models_createagentrequest_modalities.TeamOfAgents],
+                List[models_createagentrequest_modalities.TeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
-        source: Optional[models_createagentrequestop.Source] = None,
+        source: Optional[models_createagentrequest_modalities.Source] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -938,36 +942,38 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models_updateagent_tool_choice.UpdateAgentModelConfiguration,
+                models_updateagent_tool_choice.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
                 List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfiguration
+                ],
+                List[
+                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
+                models_updateagent_tool_choice.UpdateAgentSettings,
+                models_updateagent_tool_choice.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBases],
+                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgents],
+                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
@@ -1127,36 +1133,38 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagentop.UpdateAgentModelConfiguration,
-                models_updateagentop.UpdateAgentModelConfigurationTypedDict,
+                models_updateagent_tool_choice.UpdateAgentModelConfiguration,
+                models_updateagent_tool_choice.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentFallbackModelConfiguration],
                 List[
-                    models_updateagentop.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfiguration
+                ],
+                List[
+                    models_updateagent_tool_choice.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagentop.UpdateAgentSettings,
-                models_updateagentop.UpdateAgentSettingsTypedDict,
+                models_updateagent_tool_choice.UpdateAgentSettings,
+                models_updateagent_tool_choice.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
         memory_stores: Optional[List[str]] = None,
         knowledge_bases: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentKnowledgeBases],
-                List[models_updateagentop.UpdateAgentKnowledgeBasesTypedDict],
+                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBases],
+                List[models_updateagent_tool_choice.UpdateAgentKnowledgeBasesTypedDict],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
-                List[models_updateagentop.UpdateAgentTeamOfAgents],
-                List[models_updateagentop.UpdateAgentTeamOfAgentsTypedDict],
+                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgents],
+                List[models_updateagent_tool_choice.UpdateAgentTeamOfAgentsTypedDict],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
