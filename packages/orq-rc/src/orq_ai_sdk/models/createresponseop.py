@@ -1475,13 +1475,13 @@ class Annotations1(BaseModel):
     r"""The title of the cited resource"""
 
 
-AnnotationsTypedDict = TypeAliasType(
-    "AnnotationsTypedDict", Union[Annotations2TypedDict, Annotations1TypedDict]
+ContentAnnotationsTypedDict = TypeAliasType(
+    "ContentAnnotationsTypedDict", Union[Annotations2TypedDict, Annotations1TypedDict]
 )
 r"""An annotation in the output text"""
 
 
-Annotations = Annotated[
+ContentAnnotations = Annotated[
     Union[
         Annotated[Annotations1, Tag("url_citation")],
         Annotated[Annotations2, Tag("file_citation")],
@@ -1498,7 +1498,7 @@ class Content1TypedDict(TypedDict):
     r"""The type of content part"""
     text: str
     r"""The text content"""
-    annotations: NotRequired[List[AnnotationsTypedDict]]
+    annotations: NotRequired[List[ContentAnnotationsTypedDict]]
     r"""Annotations in the text such as citations"""
     logprobs: NotRequired[List[Any]]
     r"""Log probabilities of the output tokens if requested"""
@@ -1513,7 +1513,7 @@ class Content1(BaseModel):
     text: str
     r"""The text content"""
 
-    annotations: Optional[List[Annotations]] = None
+    annotations: Optional[List[ContentAnnotations]] = None
     r"""Annotations in the text such as citations"""
 
     logprobs: Optional[List[Any]] = None

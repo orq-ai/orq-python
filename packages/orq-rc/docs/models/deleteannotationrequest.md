@@ -1,0 +1,10 @@
+# DeleteAnnotationRequest
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `trace_id`                                                                               | *str*                                                                                    | :heavy_check_mark:                                                                       | Unique identifier of the trace                                                           |
+| `span_id`                                                                                | *str*                                                                                    | :heavy_check_mark:                                                                       | Unique identifier of the span                                                            |
+| `request_body`                                                                           | [Optional[models.DeleteAnnotationRequestBody]](../models/deleteannotationrequestbody.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |

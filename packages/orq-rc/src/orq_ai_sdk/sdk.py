@@ -17,6 +17,7 @@ import weakref
 
 if TYPE_CHECKING:
     from orq_ai_sdk.agents import Agents
+    from orq_ai_sdk.annotations import Annotations
     from orq_ai_sdk.chunking import Chunking
     from orq_ai_sdk.contacts import Contacts
     from orq_ai_sdk.datasets import Datasets
@@ -57,6 +58,7 @@ class Orq(BaseSDK):
     memory_stores: "MemoryStores"
     datasets: "Datasets"
     router: "Router"
+    annotations: "Annotations"
     _sub_sdk_map = {
         "contacts": ("orq_ai_sdk.contacts", "Contacts"),
         "feedback": ("orq_ai_sdk.feedback", "Feedback"),
@@ -75,6 +77,7 @@ class Orq(BaseSDK):
         "memory_stores": ("orq_ai_sdk.memorystores", "MemoryStores"),
         "datasets": ("orq_ai_sdk.datasets", "Datasets"),
         "router": ("orq_ai_sdk.router", "Router"),
+        "annotations": ("orq_ai_sdk.annotations", "Annotations"),
     }
 
     def __init__(
