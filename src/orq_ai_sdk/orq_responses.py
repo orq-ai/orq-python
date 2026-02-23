@@ -46,6 +46,7 @@ class OrqResponses(BaseSDK):
         include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
+        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
         tools: Optional[
             Union[
                 List[models_createresponseop.CreateResponseTools],
@@ -88,6 +89,7 @@ class OrqResponses(BaseSDK):
             - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param store: Whether to store this response for use in distillations or evals.
+        :param service_tier: Specifies the latency tier to use for processing the request. Defaults to \"auto\".
         :param tools: A list of tools the model may call. Use this to provide a list of functions the model may generate JSON inputs for.
         :param tool_choice: How the model should select which tool (or tools) to use when generating a response. Can be a string (`none`, `auto`, `required`) or an object to force a specific tool.
         :param stream:
@@ -128,6 +130,7 @@ class OrqResponses(BaseSDK):
             include=include,
             parallel_tool_calls=parallel_tool_calls,
             store=store,
+            service_tier=service_tier,
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateResponseTools]]
             ),
@@ -236,6 +239,7 @@ class OrqResponses(BaseSDK):
         include: OptionalNullable[List[models_createresponseop.Include]] = UNSET,
         parallel_tool_calls: OptionalNullable[bool] = UNSET,
         store: OptionalNullable[bool] = True,
+        service_tier: OptionalNullable[models_createresponseop.ServiceTier] = UNSET,
         tools: Optional[
             Union[
                 List[models_createresponseop.CreateResponseTools],
@@ -278,6 +282,7 @@ class OrqResponses(BaseSDK):
             - reasoning.encrypted_content: Include encrypted reasoning content for reasoning models
         :param parallel_tool_calls: Whether to enable parallel function calling during tool use.
         :param store: Whether to store this response for use in distillations or evals.
+        :param service_tier: Specifies the latency tier to use for processing the request. Defaults to \"auto\".
         :param tools: A list of tools the model may call. Use this to provide a list of functions the model may generate JSON inputs for.
         :param tool_choice: How the model should select which tool (or tools) to use when generating a response. Can be a string (`none`, `auto`, `required`) or an object to force a specific tool.
         :param stream:
@@ -318,6 +323,7 @@ class OrqResponses(BaseSDK):
             include=include,
             parallel_tool_calls=parallel_tool_calls,
             store=store,
+            service_tier=service_tier,
             tools=utils.get_pydantic_model(
                 tools, Optional[List[models.CreateResponseTools]]
             ),

@@ -1,0 +1,11 @@
+# GetEvalsLLMJury
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `judges`                                                                               | List[[models.GetEvalsLLMJudges](../models/getevalsllmjudges.md)]                       | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `replacement_judges`                                                                   | List[[models.GetEvalsLLMReplacementJudges](../models/getevalsllmreplacementjudges.md)] | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `min_successful_judges`                                                                | *Optional[int]*                                                                        | :heavy_minus_sign:                                                                     | N/A                                                                                    |
+| `tie_value`                                                                            | [Optional[models.GetEvalsLLMTieValue]](../models/getevalsllmtievalue.md)               | :heavy_minus_sign:                                                                     | N/A                                                                                    |

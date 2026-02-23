@@ -1,11 +1,13 @@
 # ServiceTier
 
-The service tier used for processing the request
+Specifies the latency tier to use for processing the request. Defaults to "auto".
 
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `AUTO`    | auto      |
-| `DEFAULT` | default   |
+| Name       | Value      |
+| ---------- | ---------- |
+| `AUTO`     | auto       |
+| `DEFAULT`  | default    |
+| `FLEX`     | flex       |
+| `PRIORITY` | priority   |

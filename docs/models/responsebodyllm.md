@@ -1,16 +1,17 @@
 # ResponseBodyLLM
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `id`                                                                                     | *str*                                                                                    | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `description`                                                                            | *str*                                                                                    | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `created`                                                                                | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | N/A                                                                                      |
-| `updated`                                                                                | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | N/A                                                                                      |
-| `guardrail_config`                                                                       | [Optional[models.ResponseBodyGuardrailConfig]](../models/responsebodyguardrailconfig.md) | :heavy_minus_sign:                                                                       | N/A                                                                                      |
-| `type`                                                                                   | [models.ResponseBodyType](../models/responsebodytype.md)                                 | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `prompt`                                                                                 | *str*                                                                                    | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `key`                                                                                    | *str*                                                                                    | :heavy_check_mark:                                                                       | N/A                                                                                      |
-| `model`                                                                                  | *str*                                                                                    | :heavy_check_mark:                                                                       | N/A                                                                                      |
+### `models.CreateEvalLLM1`
+
+```python
+value: models.CreateEvalLLM1 = /* values here */
+```
+
+### `models.CreateEvalLLM2`
+
+```python
+value: models.CreateEvalLLM2 = /* values here */
+```
+

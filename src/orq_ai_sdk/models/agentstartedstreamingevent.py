@@ -340,6 +340,13 @@ class Settings(BaseModel):
         return m
 
 
+AgentSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
 class AgentStartedStreamingEventDataTypedDict(TypedDict):
     workflow_run_id: str
     input_message: InputMessageTypedDict
@@ -351,6 +358,7 @@ class AgentStartedStreamingEventDataTypedDict(TypedDict):
     integration_id: NotRequired[str]
     settings: NotRequired[SettingsTypedDict]
     agent_description: NotRequired[Nullable[str]]
+    agent_source: NotRequired[Nullable[AgentSource]]
     variables: NotRequired[Dict[str, Any]]
     tool_execution_id: NotRequired[str]
     is_continuation: NotRequired[bool]
@@ -379,6 +387,8 @@ class AgentStartedStreamingEventData(BaseModel):
 
     agent_description: OptionalNullable[str] = UNSET
 
+    agent_source: OptionalNullable[AgentSource] = UNSET
+
     variables: Optional[Dict[str, Any]] = None
 
     tool_execution_id: Optional[str] = None
@@ -396,6 +406,7 @@ class AgentStartedStreamingEventData(BaseModel):
                 "integration_id",
                 "settings",
                 "agent_description",
+                "agent_source",
                 "variables",
                 "tool_execution_id",
                 "is_continuation",
@@ -403,7 +414,7 @@ class AgentStartedStreamingEventData(BaseModel):
                 "responseId",
             ]
         )
-        nullable_fields = set(["agent_description"])
+        nullable_fields = set(["agent_description", "agent_source"])
         serialized = handler(self)
         m = {}
 

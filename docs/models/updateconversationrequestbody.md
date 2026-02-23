@@ -1,9 +1,0 @@
-# UpdateConversationRequestBody
-
-
-## Fields
-
-| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `display_name`                                                                         | *Optional[str]*                                                                        | :heavy_minus_sign:                                                                     | New display name for the conversation. Maximum 100 characters.                         | Updated Support Session                                                                |
-| `metadata`                                                                             | [Optional[models.UpdateConversationMetadata]](../models/updateconversationmetadata.md) | :heavy_minus_sign:                                                                     | Metadata fields to update. Only provided fields are modified.                          |                                                                                        |

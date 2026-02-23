@@ -2094,7 +2094,6 @@ class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    display_name: str
     role: str
     description: str
     instructions: str
@@ -2112,6 +2111,7 @@ class ListAgentsDataTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: List[ListAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
@@ -2132,8 +2132,6 @@ class ListAgentsData(BaseModel):
 
     key: str
     r"""Unique identifier for the agent within the workspace"""
-
-    display_name: str
 
     role: str
 
@@ -2159,6 +2157,8 @@ class ListAgentsData(BaseModel):
 
     team_of_agents: List[ListAgentsTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    display_name: Optional[str] = None
 
     created_by_id: OptionalNullable[str] = UNSET
 
@@ -2188,6 +2188,7 @@ class ListAgentsData(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "display_name",
                 "created_by_id",
                 "updated_by_id",
                 "created",

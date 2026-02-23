@@ -1,0 +1,11 @@
+# CreateEvalLLMJury
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `judges`                                                                                   | List[[models.CreateEvalLLMJudges](../models/createevalllmjudges.md)]                       | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `replacement_judges`                                                                       | List[[models.CreateEvalLLMReplacementJudges](../models/createevalllmreplacementjudges.md)] | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `min_successful_judges`                                                                    | *Optional[int]*                                                                            | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `tie_value`                                                                                | [Optional[models.CreateEvalLLMTieValue]](../models/createevalllmtievalue.md)               | :heavy_minus_sign:                                                                         | N/A                                                                                        |

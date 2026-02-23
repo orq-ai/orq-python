@@ -1,0 +1,10 @@
+# Judges
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `model`                                                                                    | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `retry`                                                                                    | [Optional[models.UpdateEvalRequestBodyRetry]](../models/updateevalrequestbodyretry.md)     | :heavy_minus_sign:                                                                         | N/A                                                                                        |
+| `fallbacks`                                                                                | List[[models.UpdateEvalRequestBodyFallbacks](../models/updateevalrequestbodyfallbacks.md)] | :heavy_minus_sign:                                                                         | N/A                                                                                        |

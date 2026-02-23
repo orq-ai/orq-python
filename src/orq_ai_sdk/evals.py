@@ -4,7 +4,7 @@ from .basesdk import BaseSDK
 from orq_ai_sdk import models, utils
 from orq_ai_sdk._hooks import HookContext
 from orq_ai_sdk.models import (
-    createevalop as models_createevalop,
+    createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type as models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type,
     invokeevalop as models_invokeevalop,
     updateevalop as models_updateevalop,
 )
@@ -214,8 +214,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createevalop.CreateEvalRequestBody,
-                models_createevalop.CreateEvalRequestBodyTypedDict,
+                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBody,
+                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -313,8 +313,8 @@ class Evals(BaseSDK):
         *,
         request: Optional[
             Union[
-                models_createevalop.CreateEvalRequestBody,
-                models_createevalop.CreateEvalRequestBodyTypedDict,
+                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBody,
+                models_createeval_guardrail_config_evals_response_200_applicationjson_responsebody_4_2_type.CreateEvalRequestBodyTypedDict,
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,

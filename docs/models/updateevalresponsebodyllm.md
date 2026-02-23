@@ -1,16 +1,17 @@
 # UpdateEvalResponseBodyLLM
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                         | *str*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `description`                                                                                                | *str*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `created`                                                                                                    | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |
-| `updated`                                                                                                    | *Optional[str]*                                                                                              | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |
-| `guardrail_config`                                                                                           | [Optional[models.UpdateEvalResponseBodyGuardrailConfig]](../models/updateevalresponsebodyguardrailconfig.md) | :heavy_minus_sign:                                                                                           | N/A                                                                                                          |
-| `type`                                                                                                       | [models.UpdateEvalResponseBodyType](../models/updateevalresponsebodytype.md)                                 | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `prompt`                                                                                                     | *str*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `key`                                                                                                        | *str*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
-| `model`                                                                                                      | *str*                                                                                                        | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+### `models.UpdateEvalLLM1`
+
+```python
+value: models.UpdateEvalLLM1 = /* values here */
+```
+
+### `models.UpdateEvalLLM2`
+
+```python
+value: models.UpdateEvalLLM2 = /* values here */
+```
+

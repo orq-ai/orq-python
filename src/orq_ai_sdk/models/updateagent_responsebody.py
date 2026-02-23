@@ -1554,7 +1554,6 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    display_name: str
     workspace_id: str
     project_id: str
     role: str
@@ -1574,6 +1573,7 @@ class UpdateAgentResponseBodyTypedDict(TypedDict):
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
     team_of_agents: List[UpdateAgentAgentsTeamOfAgentsTypedDict]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
     created: NotRequired[str]
@@ -1596,8 +1596,6 @@ class UpdateAgentResponseBody(BaseModel):
 
     key: str
     r"""Unique identifier for the agent within the workspace"""
-
-    display_name: str
 
     workspace_id: str
 
@@ -1628,6 +1626,8 @@ class UpdateAgentResponseBody(BaseModel):
     team_of_agents: List[UpdateAgentAgentsTeamOfAgents]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
+    display_name: Optional[str] = None
+
     created_by_id: OptionalNullable[str] = UNSET
 
     updated_by_id: OptionalNullable[str] = UNSET
@@ -1656,6 +1656,7 @@ class UpdateAgentResponseBody(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "display_name",
                 "created_by_id",
                 "updated_by_id",
                 "created",

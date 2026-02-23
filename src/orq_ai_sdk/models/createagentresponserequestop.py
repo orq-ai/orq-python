@@ -50,8 +50,8 @@ CreateAgentResponseRequestRole = TypeAliasType(
 r"""Message role (user or tool for continuing executions)"""
 
 
-CreateAgentResponseRequestPublicMessagePartTypedDict = TypeAliasType(
-    "CreateAgentResponseRequestPublicMessagePartTypedDict",
+PublicMessagePartTypedDict = TypeAliasType(
+    "PublicMessagePartTypedDict",
     Union[
         TextPartTypedDict,
         FilePartTypedDict,
@@ -62,7 +62,7 @@ CreateAgentResponseRequestPublicMessagePartTypedDict = TypeAliasType(
 r"""Message part that can be provided by users. Use \"text\" for regular messages, \"file\" for attachments, or \"tool_result\" when responding to tool call requests."""
 
 
-CreateAgentResponseRequestPublicMessagePart = Annotated[
+PublicMessagePart = Annotated[
     Union[
         Annotated[TextPart, Tag("text")],
         Annotated[FilePart, Tag("file")],
@@ -79,7 +79,7 @@ class A2AMessageTypedDict(TypedDict):
 
     role: CreateAgentResponseRequestRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
-    parts: List[CreateAgentResponseRequestPublicMessagePartTypedDict]
+    parts: List[PublicMessagePartTypedDict]
     r"""A2A message parts (text, file, or tool_result only)"""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
@@ -91,7 +91,7 @@ class A2AMessage(BaseModel):
     role: CreateAgentResponseRequestRole
     r"""Message role (user or tool for continuing executions)"""
 
-    parts: List[CreateAgentResponseRequestPublicMessagePart]
+    parts: List[PublicMessagePart]
     r"""A2A message parts (text, file, or tool_result only)"""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
