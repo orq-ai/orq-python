@@ -92,6 +92,7 @@ if TYPE_CHECKING:
         Role,
     )
     from .agentstartedstreamingevent import (
+        AgentSource,
         AgentStartedStreamingEvent,
         AgentStartedStreamingEventConditions,
         AgentStartedStreamingEventConditionsTypedDict,
@@ -7832,6 +7833,7 @@ __all__ = [
     "AgentMessageCreatedStreamingEventTypedDict",
     "AgentResponseMessage",
     "AgentResponseMessageTypedDict",
+    "AgentSource",
     "AgentStartedStreamingEvent",
     "AgentStartedStreamingEventConditions",
     "AgentStartedStreamingEventConditionsTypedDict",
@@ -15341,6 +15343,7 @@ _dynamic_imports: dict[str, str] = {
     "Parts": ".agentresponsemessage",
     "PartsTypedDict": ".agentresponsemessage",
     "Role": ".agentresponsemessage",
+    "AgentSource": ".agentstartedstreamingevent",
     "AgentStartedStreamingEvent": ".agentstartedstreamingevent",
     "AgentStartedStreamingEventConditions": ".agentstartedstreamingevent",
     "AgentStartedStreamingEventConditionsTypedDict": ".agentstartedstreamingevent",
