@@ -194,7 +194,7 @@ class UpdateIdentityResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-02-23T14:47:21.209Z")
+    updated: Optional[datetime] = parse_datetime("2026-02-23T15:59:52.215Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
