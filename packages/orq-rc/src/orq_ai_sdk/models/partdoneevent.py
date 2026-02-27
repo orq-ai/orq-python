@@ -40,7 +40,7 @@ class PartReasoningPart(BaseModel):
     r"""The reasoning or thought process behind the response. Used for chain-of-thought or extended thinking."""
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "reasoning_01kjf6k5zf1e1n8e7e1dj3bk0v"
+        "reasoning_01kjfcktjva4gzr5fepgyqaghr"
     )
     r"""Unique identifier for the part. Format: reasoning_{ulid} (e.g., reasoning_01hxyz...)"""
 
