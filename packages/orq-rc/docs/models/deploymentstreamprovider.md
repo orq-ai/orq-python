@@ -33,5 +33,6 @@ The provider used to generate the response
 | `MOONSHOTAI`   | moonshotai     |
 | `ZAI`          | zai            |
 | `MINIMAX`      | minimax        |
+| `XAI`          | xai            |
 | `ALIBABA`      | alibaba        |
 | `SLACK`        | slack          |
