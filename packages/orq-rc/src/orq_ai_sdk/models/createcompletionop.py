@@ -318,13 +318,13 @@ CreateCompletionInputsTypedDict = TypeAliasType(
     "CreateCompletionInputsTypedDict",
     Union[Dict[str, Any], List[CreateCompletionInputs2TypedDict]],
 )
-r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
 CreateCompletionInputs = TypeAliasType(
     "CreateCompletionInputs", Union[Dict[str, Any], List[CreateCompletionInputs2]]
 )
-r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
 CreateCompletionRouterCompletionsType = Literal["exact_match",]
@@ -1232,7 +1232,7 @@ class CreateCompletionOrqTypedDict(TypedDict):
     thread: NotRequired[CreateCompletionThreadTypedDict]
     r"""Thread information to group related requests"""
     inputs: NotRequired[CreateCompletionInputsTypedDict]
-    r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+    r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
     cache: NotRequired[CreateCompletionRouterCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateCompletionKnowledgeBasesTypedDict]]
@@ -1274,8 +1274,13 @@ class CreateCompletionOrq(BaseModel):
     thread: Optional[CreateCompletionThread] = None
     r"""Thread information to group related requests"""
 
-    inputs: Optional[CreateCompletionInputs] = None
-    r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+    inputs: Annotated[
+        Optional[CreateCompletionInputs],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
     cache: Optional[CreateCompletionRouterCompletionsCache] = None
     r"""Cache configuration for the request."""

@@ -1453,11 +1453,11 @@ class Inputs2(BaseModel):
 InputsTypedDict = TypeAliasType(
     "InputsTypedDict", Union[Dict[str, Any], List[Inputs2TypedDict]]
 )
-r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
 Inputs = TypeAliasType("Inputs", Union[Dict[str, Any], List[Inputs2]])
-r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
 
 CreateChatCompletionRouterChatCompletionsRequestRequestBodyType = Literal[
@@ -2369,7 +2369,7 @@ class CreateChatCompletionOrqTypedDict(TypedDict):
     thread: NotRequired[CreateChatCompletionThreadTypedDict]
     r"""Thread information to group related requests"""
     inputs: NotRequired[InputsTypedDict]
-    r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+    r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
     cache: NotRequired[CreateChatCompletionRouterChatCompletionsCacheTypedDict]
     r"""Cache configuration for the request."""
     knowledge_bases: NotRequired[List[CreateChatCompletionKnowledgeBasesTypedDict]]
@@ -2413,8 +2413,13 @@ class CreateChatCompletionOrq(BaseModel):
     thread: Optional[CreateChatCompletionThread] = None
     r"""Thread information to group related requests"""
 
-    inputs: Optional[Inputs] = None
-    r"""Values to replace in the prompt messages using {{variableName}} syntax"""
+    inputs: Annotated[
+        Optional[Inputs],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""@deprecated Use top-level `variables` field instead. Values to replace in the prompt messages using {{variableName}} syntax."""
 
     cache: Optional[CreateChatCompletionRouterChatCompletionsCache] = None
     r"""Cache configuration for the request."""
@@ -2536,6 +2541,8 @@ class CreateChatCompletionRequestBodyTypedDict(TypedDict):
     r"""Load balancer configuration for the request."""
     timeout: NotRequired[CreateChatCompletionTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+    variables: NotRequired[Dict[str, Any]]
+    r"""Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`."""
     orq: NotRequired[CreateChatCompletionOrqTypedDict]
     r"""Leverage Orq's intelligent routing capabilities to enhance your AI application with enterprise-grade reliability and observability. Orq provides automatic request management including retries on failures, model fallbacks for high availability, identity-level analytics tracking, conversation threading, and dynamic prompt templating with variable substitution."""
     stream: NotRequired[bool]
@@ -2648,6 +2655,9 @@ class CreateChatCompletionRequestBody(BaseModel):
     timeout: Optional[CreateChatCompletionTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
+    variables: Optional[Dict[str, Any]] = None
+    r"""Variables to substitute in message templates. Uses f-string syntax ({{variableName}}) by default. For advanced templating with Jinja or Mustache syntax, use in conjunction with `template_engine`."""
+
     orq: Annotated[
         Optional[CreateChatCompletionOrq],
         pydantic.Field(
@@ -2692,6 +2702,7 @@ class CreateChatCompletionRequestBody(BaseModel):
                 "cache",
                 "load_balancer",
                 "timeout",
+                "variables",
                 "orq",
                 "stream",
             ]
