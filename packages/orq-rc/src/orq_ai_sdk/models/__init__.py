@@ -6291,6 +6291,7 @@ if TYPE_CHECKING:
         StreamRunAgentToolChoiceFunctionTypedDict,
         StreamRunAgentToolChoiceType,
     )
+    from .telemetry import Telemetry, TelemetryTypedDict
     from .textcontentpartschema import (
         CacheControl,
         CacheControlTypedDict,
@@ -13759,6 +13760,8 @@ __all__ = [
     "TaskStatusTypedDict",
     "TeamOfAgents",
     "TeamOfAgentsTypedDict",
+    "Telemetry",
+    "TelemetryTypedDict",
     "Ten",
     "TenTypedDict",
     "Text",
@@ -21116,6 +21119,8 @@ _dynamic_imports: dict[str, str] = {
     "StreamRunAgentToolChoiceFunction": ".streamrunagentop",
     "StreamRunAgentToolChoiceFunctionTypedDict": ".streamrunagentop",
     "StreamRunAgentToolChoiceType": ".streamrunagentop",
+    "Telemetry": ".telemetry",
+    "TelemetryTypedDict": ".telemetry",
     "CacheControl": ".textcontentpartschema",
     "CacheControlTypedDict": ".textcontentpartschema",
     "TTL": ".textcontentpartschema",
