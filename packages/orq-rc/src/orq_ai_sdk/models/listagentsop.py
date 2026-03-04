@@ -326,46 +326,6 @@ class ListAgentsSettings(BaseModel):
         return m
 
 
-ListAgentsVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-ListAgentsFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ListAgentsFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[ListAgentsFormat, pydantic.Field(alias="format")]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
 ListAgentsResponseFormatAgentsResponseType = Literal["json_schema",]
 
 
@@ -524,36 +484,6 @@ ListAgentsStop = TypeAliasType("ListAgentsStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ListAgentsStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class ListAgentsStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsThinkingTypedDict = TypeAliasType(
     "ListAgentsThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -684,41 +614,6 @@ class ListAgentsFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class ListAgentsAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class ListAgentsAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsType = Literal["exact_match",]
 
 
@@ -827,8 +722,6 @@ class ListAgentsParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[ListAgentsAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -838,12 +731,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[ListAgentsResponseFormatTypedDict]
@@ -864,8 +751,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[ListAgentsStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[ListAgentsStreamOptionsTypedDict]]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[ListAgentsThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -883,8 +768,6 @@ class ListAgentsParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[ListAgentsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[ListAgentsAgentsRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[ListAgentsCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[ListAgentsLoadBalancerTypedDict]
@@ -899,9 +782,6 @@ class ListAgentsParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[ListAgentsAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -913,15 +793,6 @@ class ListAgentsParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -949,9 +820,6 @@ class ListAgentsParameters(BaseModel):
     stop: OptionalNullable[ListAgentsStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[ListAgentsStreamOptions] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[ListAgentsThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -978,9 +846,6 @@ class ListAgentsParameters(BaseModel):
     fallbacks: Optional[List[ListAgentsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[ListAgentsAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[ListAgentsCache] = None
     r"""Cache configuration for the request."""
 
@@ -995,20 +860,15 @@ class ListAgentsParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1018,7 +878,6 @@ class ListAgentsParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1026,17 +885,12 @@ class ListAgentsParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1098,48 +952,6 @@ class ListAgentsRetry(BaseModel):
                     m[k] = val
 
         return m
-
-
-ListAgentsFallbackModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-ListAgentsFallbackModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsFallbackModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: ListAgentsFallbackModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class ListAgentsFallbackModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ListAgentsFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        ListAgentsFallbackModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 ListAgentsResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = Literal[
@@ -1306,36 +1118,6 @@ ListAgentsFallbackModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ListAgentsFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class ListAgentsFallbackModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "ListAgentsFallbackModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -1469,41 +1251,6 @@ class ListAgentsFallbackModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class ListAgentsFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class ListAgentsFallbackModelConfigurationAgentsRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ListAgentsFallbackModelConfigurationType = Literal["exact_match",]
 
 
@@ -1614,8 +1361,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[ListAgentsFallbackModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1625,12 +1370,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -1653,10 +1392,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[ListAgentsFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[ListAgentsFallbackModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[ListAgentsFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1678,8 +1413,6 @@ class ListAgentsFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[ListAgentsFallbackModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[ListAgentsFallbackModelConfigurationAgentsRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[ListAgentsFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
@@ -1696,9 +1429,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[ListAgentsFallbackModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -1710,15 +1440,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -1748,11 +1469,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     stop: OptionalNullable[ListAgentsFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[
-        ListAgentsFallbackModelConfigurationStreamOptions
-    ] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[ListAgentsFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -1781,9 +1497,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[ListAgentsFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[ListAgentsFallbackModelConfigurationAgentsRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[ListAgentsFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -1798,20 +1511,15 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1821,7 +1529,6 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1829,17 +1536,12 @@ class ListAgentsFallbackModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -2244,15 +1946,7 @@ class ListAgentsResponseBody(BaseModel):
 
 
 try:
-    ListAgentsAudio.model_rebuild()
-except NameError:
-    pass
-try:
     ListAgentsResponseFormatJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    ListAgentsFallbackModelConfigurationAudio.model_rebuild()
 except NameError:
     pass
 try:

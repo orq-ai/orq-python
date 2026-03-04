@@ -31,48 +31,6 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-ModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-UpdateAgentModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: UpdateAgentModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: ModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        UpdateAgentModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
 UpdateAgentResponseFormatAgentsRequestType = Literal["json_schema",]
 
 
@@ -231,36 +189,6 @@ ModelConfigurationStop = TypeAliasType("ModelConfigurationStop", Union[str, List
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class ModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class ModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 ModelConfigurationThinkingTypedDict = TypeAliasType(
     "ModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -392,41 +320,6 @@ class ModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class UpdateAgentModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class UpdateAgentModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateAgentModelConfigurationType = Literal["exact_match",]
 
 
@@ -535,8 +428,6 @@ class ModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[UpdateAgentModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -546,12 +437,6 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[ModelConfigurationResponseFormatTypedDict]
@@ -572,8 +457,6 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[ModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[ModelConfigurationStreamOptionsTypedDict]]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[ModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -591,8 +474,6 @@ class ModelConfigurationParametersTypedDict(TypedDict):
     r"""A list of guardrails to apply to the request."""
     fallbacks: NotRequired[List[ModelConfigurationFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[UpdateAgentModelConfigurationRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[ModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[ModelConfigurationLoadBalancerTypedDict]
@@ -607,9 +488,6 @@ class ModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[UpdateAgentModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -621,15 +499,6 @@ class ModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -657,9 +526,6 @@ class ModelConfigurationParameters(BaseModel):
     stop: OptionalNullable[ModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[ModelConfigurationStreamOptions] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[ModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -686,9 +552,6 @@ class ModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[ModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[UpdateAgentModelConfigurationRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[ModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -703,20 +566,15 @@ class ModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -726,7 +584,6 @@ class ModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -734,17 +591,12 @@ class ModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -773,7 +625,7 @@ class ModelConfigurationParameters(BaseModel):
         return m
 
 
-class UpdateAgentModelConfigurationAgentsRetryTypedDict(TypedDict):
+class ModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: NotRequired[float]
@@ -782,7 +634,7 @@ class UpdateAgentModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class UpdateAgentModelConfigurationAgentsRetry(BaseModel):
+class ModelConfigurationRetry(BaseModel):
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     count: Optional[float] = 3
@@ -818,7 +670,7 @@ class UpdateAgentModelConfiguration2TypedDict(TypedDict):
     r"""A model ID string (e.g., `openai/gpt-4o` or `anthropic/claude-haiku-4-5-20251001`). Only models that support tool calling can be used with agents."""
     parameters: NotRequired[ModelConfigurationParametersTypedDict]
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
-    retry: NotRequired[UpdateAgentModelConfigurationAgentsRetryTypedDict]
+    retry: NotRequired[ModelConfigurationRetryTypedDict]
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
 
@@ -834,7 +686,7 @@ class UpdateAgentModelConfiguration2(BaseModel):
     parameters: Optional[ModelConfigurationParameters] = None
     r"""Model behavior parameters that control how the model generates responses. Common parameters: `temperature` (0-1, randomness), `max_completion_tokens` (max output length), `top_p` (sampling diversity). Advanced: `frequency_penalty`, `presence_penalty`, `response_format` (JSON/structured), `reasoning_effort`, `seed` (reproducibility). Support varies by model - consult AI Gateway documentation."""
 
-    retry: Optional[UpdateAgentModelConfigurationAgentsRetry] = None
+    retry: Optional[ModelConfigurationRetry] = None
     r"""Retry configuration for model requests. Retries are triggered for specific HTTP status codes (e.g., 500, 429, 502, 503, 504). Supports configurable retry count (1-5) and custom status codes."""
 
     @model_serializer(mode="wrap")
@@ -865,48 +717,6 @@ UpdateAgentModelConfiguration = TypeAliasType(
     "UpdateAgentModelConfiguration", Union[UpdateAgentModelConfiguration2, str]
 )
 r"""Model configuration for agent execution. Can be a simple model ID string or a configuration object with optional behavior parameters and retry settings."""
-
-
-UpdateAgentFallbackModelConfigurationVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-UpdateAgentFallbackModelConfigurationFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentFallbackModelConfigurationAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: UpdateAgentFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: UpdateAgentFallbackModelConfigurationFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentFallbackModelConfigurationAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: UpdateAgentFallbackModelConfigurationVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[
-        UpdateAgentFallbackModelConfigurationFormat, pydantic.Field(alias="format")
-    ]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
 
 
 UpdateAgentResponseFormatAgentsRequestRequestBodyFallbackModelsFallbackModelConfigurationType = Literal[
@@ -1073,36 +883,6 @@ UpdateAgentFallbackModelConfigurationStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class UpdateAgentFallbackModelConfigurationStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class UpdateAgentFallbackModelConfigurationStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateAgentFallbackModelConfigurationThinkingTypedDict = TypeAliasType(
     "UpdateAgentFallbackModelConfigurationThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -1236,41 +1016,6 @@ class UpdateAgentFallbackModelConfigurationFallbacks(BaseModel):
     r"""Fallback model identifier"""
 
 
-class UpdateAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
-    r"""Retry configuration for the request"""
-
-    count: NotRequired[float]
-    r"""Number of retry attempts (1-5)"""
-    on_codes: NotRequired[List[float]]
-    r"""HTTP status codes that trigger retry logic"""
-
-
-class UpdateAgentFallbackModelConfigurationRetry(BaseModel):
-    r"""Retry configuration for the request"""
-
-    count: Optional[float] = 3
-    r"""Number of retry attempts (1-5)"""
-
-    on_codes: Optional[List[float]] = None
-    r"""HTTP status codes that trigger retry logic"""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["count", "on_codes"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateAgentFallbackModelConfigurationType = Literal["exact_match",]
 
 
@@ -1381,8 +1126,6 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
 
     name: NotRequired[str]
     r"""The name to display on the trace. If not specified, the default system name will be used."""
-    audio: NotRequired[Nullable[UpdateAgentFallbackModelConfigurationAudioTypedDict]]
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
     frequency_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
     max_tokens: NotRequired[Nullable[int]]
@@ -1392,12 +1135,6 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     """
     max_completion_tokens: NotRequired[Nullable[int]]
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-    logprobs: NotRequired[Nullable[bool]]
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-    top_logprobs: NotRequired[Nullable[int]]
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-    n: NotRequired[Nullable[int]]
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
     response_format: NotRequired[
@@ -1420,10 +1157,6 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[UpdateAgentFallbackModelConfigurationStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[
-        Nullable[UpdateAgentFallbackModelConfigurationStreamOptionsTypedDict]
-    ]
-    r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[UpdateAgentFallbackModelConfigurationThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1447,8 +1180,6 @@ class UpdateAgentFallbackModelConfigurationParametersTypedDict(TypedDict):
         List[UpdateAgentFallbackModelConfigurationFallbacksTypedDict]
     ]
     r"""Array of fallback models to use if primary model fails"""
-    retry: NotRequired[UpdateAgentFallbackModelConfigurationRetryTypedDict]
-    r"""Retry configuration for the request"""
     cache: NotRequired[UpdateAgentFallbackModelConfigurationCacheTypedDict]
     r"""Cache configuration for the request."""
     load_balancer: NotRequired[
@@ -1465,9 +1196,6 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     name: Optional[str] = None
     r"""The name to display on the trace. If not specified, the default system name will be used."""
 
-    audio: OptionalNullable[UpdateAgentFallbackModelConfigurationAudio] = UNSET
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
     frequency_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
 
@@ -1479,15 +1207,6 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
 
     max_completion_tokens: OptionalNullable[int] = UNSET
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
-
-    logprobs: OptionalNullable[bool] = UNSET
-    r"""Whether to return log probabilities of the output tokens or not. If true, returns the log probabilities of each output token returned in the content of message."""
-
-    top_logprobs: OptionalNullable[int] = UNSET
-    r"""An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. logprobs must be set to true if this parameter is used."""
-
-    n: OptionalNullable[int] = UNSET
-    r"""How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep n as 1 to minimize costs."""
 
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
@@ -1519,11 +1238,6 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     stop: OptionalNullable[UpdateAgentFallbackModelConfigurationStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[
-        UpdateAgentFallbackModelConfigurationStreamOptions
-    ] = UNSET
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
     thinking: Optional[UpdateAgentFallbackModelConfigurationThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
@@ -1552,9 +1266,6 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
     fallbacks: Optional[List[UpdateAgentFallbackModelConfigurationFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    retry: Optional[UpdateAgentFallbackModelConfigurationRetry] = None
-    r"""Retry configuration for the request"""
-
     cache: Optional[UpdateAgentFallbackModelConfigurationCache] = None
     r"""Cache configuration for the request."""
 
@@ -1569,20 +1280,15 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
         optional_fields = set(
             [
                 "name",
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "response_format",
                 "reasoning_effort",
                 "verbosity",
                 "seed",
                 "stop",
-                "stream_options",
                 "thinking",
                 "temperature",
                 "top_p",
@@ -1592,7 +1298,6 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
                 "modalities",
                 "guardrails",
                 "fallbacks",
-                "retry",
                 "cache",
                 "load_balancer",
                 "timeout",
@@ -1600,17 +1305,12 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
         )
         nullable_fields = set(
             [
-                "audio",
                 "frequency_penalty",
                 "max_tokens",
                 "max_completion_tokens",
-                "logprobs",
-                "top_logprobs",
-                "n",
                 "presence_penalty",
                 "seed",
                 "stop",
-                "stream_options",
                 "temperature",
                 "top_p",
                 "top_k",
@@ -1639,7 +1339,7 @@ class UpdateAgentFallbackModelConfigurationParameters(BaseModel):
         return m
 
 
-class UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+class UpdateAgentFallbackModelConfigurationRetryTypedDict(TypedDict):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: NotRequired[float]
@@ -1648,7 +1348,7 @@ class UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class UpdateAgentFallbackModelConfigurationAgentsRetry(BaseModel):
+class UpdateAgentFallbackModelConfigurationRetry(BaseModel):
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     count: Optional[float] = 3
@@ -1681,7 +1381,7 @@ class UpdateAgentFallbackModelConfiguration2TypedDict(TypedDict):
     r"""A fallback model ID string. Must support tool calling."""
     parameters: NotRequired[UpdateAgentFallbackModelConfigurationParametersTypedDict]
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
-    retry: NotRequired[UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict]
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationRetryTypedDict]
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
 
@@ -1694,7 +1394,7 @@ class UpdateAgentFallbackModelConfiguration2(BaseModel):
     parameters: Optional[UpdateAgentFallbackModelConfigurationParameters] = None
     r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
 
-    retry: Optional[UpdateAgentFallbackModelConfigurationAgentsRetry] = None
+    retry: Optional[UpdateAgentFallbackModelConfigurationRetry] = None
     r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
 
     @model_serializer(mode="wrap")
@@ -3115,46 +2815,6 @@ class UpdateAgentAgentsSettings(BaseModel):
         return m
 
 
-UpdateAgentVoice = Literal[
-    "alloy",
-    "echo",
-    "fable",
-    "onyx",
-    "nova",
-    "shimmer",
-]
-r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-
-UpdateAgentFormat = Literal[
-    "wav",
-    "mp3",
-    "flac",
-    "opus",
-    "pcm16",
-]
-r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentAudioTypedDict(TypedDict):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: UpdateAgentVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-    format_: UpdateAgentFormat
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
-class UpdateAgentAudio(BaseModel):
-    r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
-
-    voice: UpdateAgentVoice
-    r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
-
-    format_: Annotated[UpdateAgentFormat, pydantic.Field(alias="format")]
-    r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
-
-
 UpdateAgentResponseFormatAgentsResponse200ApplicationJSONType = Literal["json_schema",]
 
 
@@ -3317,36 +2977,6 @@ UpdateAgentStop = TypeAliasType("UpdateAgentStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class UpdateAgentStreamOptionsTypedDict(TypedDict):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: NotRequired[bool]
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-
-class UpdateAgentStreamOptions(BaseModel):
-    r"""Options for streaming response. Only set this when you set stream: true."""
-
-    include_usage: Optional[bool] = None
-    r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["include_usage"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 UpdateAgentThinkingTypedDict = TypeAliasType(
     "UpdateAgentThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
@@ -3429,16 +3059,1425 @@ UpdateAgentToolChoice = TypeAliasType(
 r"""Controls which (if any) tool is called by the model."""
 
 
-try:
-    UpdateAgentModelConfigurationAudio.model_rebuild()
-except NameError:
-    pass
+UpdateAgentModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+UpdateAgentIDAgentsResponse1 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+UpdateAgentIDTypedDict = TypeAliasType(
+    "UpdateAgentIDTypedDict", Union[UpdateAgentIDAgentsResponse1, str]
+)
+
+
+UpdateAgentID = TypeAliasType("UpdateAgentID", Union[UpdateAgentIDAgentsResponse1, str])
+
+
+UpdateAgentAgentsResponse200ApplicationJSONExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentAgentsResponseGuardrailsTypedDict(TypedDict):
+    id: UpdateAgentIDTypedDict
+    execute_on: UpdateAgentAgentsResponse200ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentAgentsResponseGuardrails(BaseModel):
+    id: UpdateAgentID
+
+    execute_on: UpdateAgentAgentsResponse200ApplicationJSONExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdateAgentFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+UpdateAgentType = Literal["exact_match",]
+
+
+class UpdateAgentCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: UpdateAgentType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class UpdateAgentCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: UpdateAgentType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentLoadBalancerAgentsResponseType = Literal["weight_based",]
+
+
+class UpdateAgentLoadBalancerAgentsResponseModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class UpdateAgentLoadBalancerAgentsResponseModels(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentLoadBalancerAgentsResponse1TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerAgentsResponseType
+    models: List[UpdateAgentLoadBalancerAgentsResponseModelsTypedDict]
+
+
+class UpdateAgentLoadBalancerAgentsResponse1(BaseModel):
+    type: UpdateAgentLoadBalancerAgentsResponseType
+
+    models: List[UpdateAgentLoadBalancerAgentsResponseModels]
+
+
+UpdateAgentLoadBalancerTypedDict = UpdateAgentLoadBalancerAgentsResponse1TypedDict
+r"""Load balancer configuration for the request."""
+
+
+UpdateAgentLoadBalancer = UpdateAgentLoadBalancerAgentsResponse1
+r"""Load balancer configuration for the request."""
+
+
+class UpdateAgentTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdateAgentTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdateAgentParametersTypedDict(TypedDict):
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[UpdateAgentResponseFormatTypedDict]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[UpdateAgentReasoningEffort]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[Nullable[UpdateAgentStopTypedDict]]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    thinking: NotRequired[UpdateAgentThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[UpdateAgentToolChoiceTypedDict]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[Nullable[List[UpdateAgentModalities]]]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[List[UpdateAgentAgentsResponseGuardrailsTypedDict]]
+    r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[List[UpdateAgentFallbacksTypedDict]]
+    r"""Array of fallback models to use if primary model fails"""
+    cache: NotRequired[UpdateAgentCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[UpdateAgentLoadBalancerTypedDict]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[UpdateAgentTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+
+class UpdateAgentParameters(BaseModel):
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[UpdateAgentResponseFormat] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[UpdateAgentReasoningEffort] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[UpdateAgentStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    thinking: Optional[UpdateAgentThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[UpdateAgentToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[List[UpdateAgentModalities]] = UNSET
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    guardrails: Optional[List[UpdateAgentAgentsResponseGuardrails]] = None
+    r"""A list of guardrails to apply to the request."""
+
+    fallbacks: Optional[List[UpdateAgentFallbacks]] = None
+    r"""Array of fallback models to use if primary model fails"""
+
+    cache: Optional[UpdateAgentCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[UpdateAgentLoadBalancer] = None
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[UpdateAgentTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "name",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+                "fallbacks",
+                "cache",
+                "load_balancer",
+                "timeout",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentRetryTypedDict(TypedDict):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentRetry(BaseModel):
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType = Literal[
+    "json_schema",
+]
+
+
+class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchemaTypedDict(
+    TypedDict
+):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+    description: NotRequired[str]
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+    schema_: NotRequired[Any]
+    r"""The schema for the response format, described as a JSON Schema object."""
+    strict: NotRequired[bool]
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+
+class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema(BaseModel):
+    name: str
+    r"""The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64."""
+
+    description: Optional[str] = None
+    r"""A description of what the response format is for, used by the model to determine how to respond in the format."""
+
+    schema_: Annotated[Optional[Any], pydantic.Field(alias="schema")] = None
+    r"""The schema for the response format, described as a JSON Schema object."""
+
+    strict: Optional[bool] = False
+    r"""Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the schema field. Only a subset of JSON Schema is supported when strict is true."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["description", "schema", "strict"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict(
+    TypedDict
+):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType
+    json_schema: (
+        UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchemaTypedDict
+    )
+
+
+class UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchema(
+    BaseModel
+):
+    r"""
+
+    JSON Schema response format. Used to generate structured JSON responses
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelFallbackModelsType
+
+    json_schema: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType = (
+    Literal["json_object",]
+)
+
+
+class UpdateAgentResponseFormatAgentsResponse200JSONObjectTypedDict(TypedDict):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType
+
+
+class UpdateAgentResponseFormatAgentsResponse200JSONObject(BaseModel):
+    r"""
+
+    JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyModelType
+
+
+UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType = Literal[
+    "text",
+]
+
+
+class UpdateAgentResponseFormatAgentsResponse200TextTypedDict(TypedDict):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
+
+
+class UpdateAgentResponseFormatAgentsResponse200Text(BaseModel):
+    r"""
+
+    Default response format. Used to generate text responses
+    """
+
+    type: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyType
+
+
+UpdateAgentFallbackModelConfigurationAgentsResponseFormatTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsResponseFormatTypedDict",
+    Union[
+        UpdateAgentResponseFormatAgentsResponse200TextTypedDict,
+        UpdateAgentResponseFormatAgentsResponse200JSONObjectTypedDict,
+        UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchemaTypedDict,
+    ],
+)
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelConfigurationAgentsResponseFormat = Annotated[
+    Union[
+        Annotated[UpdateAgentResponseFormatAgentsResponse200Text, Tag("text")],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponse200JSONObject, Tag("json_object")
+        ],
+        Annotated[
+            UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBodyJSONSchema,
+            Tag("json_schema"),
+        ],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""An object specifying the format that the model must output"""
+
+
+UpdateAgentFallbackModelConfigurationAgentsReasoningEffort = Literal[
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+]
+r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+- `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+- All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+- The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+- `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+"""
+
+
+UpdateAgentFallbackModelConfigurationAgentsStopTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsStopTypedDict", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsStop = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsStop", Union[str, List[str]]
+)
+r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict",
+    Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
+)
+
+
+UpdateAgentFallbackModelConfigurationAgentsThinking = Annotated[
+    Union[
+        Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
+        Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+
+
+UpdateAgentToolChoiceAgentsResponse200Type = Literal["function",]
+r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponse200FunctionTypedDict(TypedDict):
+    name: str
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponse200Function(BaseModel):
+    name: str
+    r"""The name of the function to call."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2002TypedDict(TypedDict):
+    function: UpdateAgentToolChoiceAgentsResponse200FunctionTypedDict
+    type: NotRequired[UpdateAgentToolChoiceAgentsResponse200Type]
+    r"""The type of the tool. Currently, only function is supported."""
+
+
+class UpdateAgentToolChoiceAgentsResponse2002(BaseModel):
+    function: UpdateAgentToolChoiceAgentsResponse200Function
+
+    type: Optional[UpdateAgentToolChoiceAgentsResponse200Type] = None
+    r"""The type of the tool. Currently, only function is supported."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["type"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentToolChoiceAgentsResponse2001 = Literal[
+    "none",
+    "auto",
+    "required",
+]
+
+
+UpdateAgentFallbackModelConfigurationAgentsToolChoiceTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsToolChoiceTypedDict",
+    Union[
+        UpdateAgentToolChoiceAgentsResponse2002TypedDict,
+        UpdateAgentToolChoiceAgentsResponse2001,
+    ],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsToolChoice = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsToolChoice",
+    Union[
+        UpdateAgentToolChoiceAgentsResponse2002, UpdateAgentToolChoiceAgentsResponse2001
+    ],
+)
+r"""Controls which (if any) tool is called by the model."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsModalities = Literal[
+    "text",
+    "audio",
+]
+
+
+UpdateAgentIDAgentsResponse2001 = Literal[
+    "orq_pii_detection",
+    "orq_sexual_moderation",
+    "orq_harmful_moderation",
+]
+r"""The key of the guardrail."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsIDTypedDict = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsIDTypedDict",
+    Union[UpdateAgentIDAgentsResponse2001, str],
+)
+
+
+UpdateAgentFallbackModelConfigurationAgentsID = TypeAliasType(
+    "UpdateAgentFallbackModelConfigurationAgentsID",
+    Union[UpdateAgentIDAgentsResponse2001, str],
+)
+
+
+UpdateAgentFallbackModelConfigurationAgentsExecuteOn = Literal[
+    "input",
+    "output",
+]
+r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsGuardrailsTypedDict(TypedDict):
+    id: UpdateAgentFallbackModelConfigurationAgentsIDTypedDict
+    execute_on: UpdateAgentFallbackModelConfigurationAgentsExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsGuardrails(BaseModel):
+    id: UpdateAgentFallbackModelConfigurationAgentsID
+
+    execute_on: UpdateAgentFallbackModelConfigurationAgentsExecuteOn
+    r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsFallbacksTypedDict(TypedDict):
+    model: str
+    r"""Fallback model identifier"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsFallbacks(BaseModel):
+    model: str
+    r"""Fallback model identifier"""
+
+
+UpdateAgentFallbackModelConfigurationAgentsType = Literal["exact_match",]
+
+
+class UpdateAgentFallbackModelConfigurationAgentsCacheTypedDict(TypedDict):
+    r"""Cache configuration for the request."""
+
+    type: UpdateAgentFallbackModelConfigurationAgentsType
+    ttl: NotRequired[float]
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsCache(BaseModel):
+    r"""Cache configuration for the request."""
+
+    type: UpdateAgentFallbackModelConfigurationAgentsType
+
+    ttl: Optional[float] = 1800
+    r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["ttl"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentLoadBalancerAgentsResponse200Type = Literal["weight_based",]
+
+
+class UpdateAgentLoadBalancerAgentsResponse200ModelsTypedDict(TypedDict):
+    model: str
+    r"""Model identifier for load balancing"""
+    weight: NotRequired[float]
+    r"""Weight assigned to this model for load balancing"""
+
+
+class UpdateAgentLoadBalancerAgentsResponse200Models(BaseModel):
+    model: str
+    r"""Model identifier for load balancing"""
+
+    weight: Optional[float] = 0.5
+    r"""Weight assigned to this model for load balancing"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["weight"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentLoadBalancerAgentsResponse2001TypedDict(TypedDict):
+    type: UpdateAgentLoadBalancerAgentsResponse200Type
+    models: List[UpdateAgentLoadBalancerAgentsResponse200ModelsTypedDict]
+
+
+class UpdateAgentLoadBalancerAgentsResponse2001(BaseModel):
+    type: UpdateAgentLoadBalancerAgentsResponse200Type
+
+    models: List[UpdateAgentLoadBalancerAgentsResponse200Models]
+
+
+UpdateAgentFallbackModelConfigurationAgentsLoadBalancerTypedDict = (
+    UpdateAgentLoadBalancerAgentsResponse2001TypedDict
+)
+r"""Load balancer configuration for the request."""
+
+
+UpdateAgentFallbackModelConfigurationAgentsLoadBalancer = (
+    UpdateAgentLoadBalancerAgentsResponse2001
+)
+r"""Load balancer configuration for the request."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsTimeoutTypedDict(TypedDict):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsTimeout(BaseModel):
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    call_timeout: float
+    r"""Timeout value in milliseconds"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict(TypedDict):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: NotRequired[str]
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+    frequency_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+    max_tokens: NotRequired[Nullable[int]]
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+    max_completion_tokens: NotRequired[Nullable[int]]
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+    presence_penalty: NotRequired[Nullable[float]]
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+    response_format: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsResponseFormatTypedDict
+    ]
+    r"""An object specifying the format that the model must output"""
+    reasoning_effort: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsReasoningEffort
+    ]
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
+    verbosity: NotRequired[str]
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+    seed: NotRequired[Nullable[float]]
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+    stop: NotRequired[
+        Nullable[UpdateAgentFallbackModelConfigurationAgentsStopTypedDict]
+    ]
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+    thinking: NotRequired[UpdateAgentFallbackModelConfigurationAgentsThinkingTypedDict]
+    temperature: NotRequired[Nullable[float]]
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+    top_p: NotRequired[Nullable[float]]
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+    top_k: NotRequired[Nullable[float]]
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+    tool_choice: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsToolChoiceTypedDict
+    ]
+    r"""Controls which (if any) tool is called by the model."""
+    parallel_tool_calls: NotRequired[bool]
+    r"""Whether to enable parallel function calling during tool use."""
+    modalities: NotRequired[
+        Nullable[List[UpdateAgentFallbackModelConfigurationAgentsModalities]]
+    ]
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+    guardrails: NotRequired[
+        List[UpdateAgentFallbackModelConfigurationAgentsGuardrailsTypedDict]
+    ]
+    r"""A list of guardrails to apply to the request."""
+    fallbacks: NotRequired[
+        List[UpdateAgentFallbackModelConfigurationAgentsFallbacksTypedDict]
+    ]
+    r"""Array of fallback models to use if primary model fails"""
+    cache: NotRequired[UpdateAgentFallbackModelConfigurationAgentsCacheTypedDict]
+    r"""Cache configuration for the request."""
+    load_balancer: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsLoadBalancerTypedDict
+    ]
+    r"""Load balancer configuration for the request."""
+    timeout: NotRequired[UpdateAgentFallbackModelConfigurationAgentsTimeoutTypedDict]
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsParameters(BaseModel):
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    name: Optional[str] = None
+    r"""The name to display on the trace. If not specified, the default system name will be used."""
+
+    frequency_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim."""
+
+    max_tokens: OptionalNullable[int] = UNSET
+    r"""`[Deprecated]`. The maximum number of tokens that can be generated in the chat completion. This value can be used to control costs for text generated via API.
+
+    This value is now `deprecated` in favor of `max_completion_tokens`, and is not compatible with o1 series models.
+    """
+
+    max_completion_tokens: OptionalNullable[int] = UNSET
+    r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
+
+    presence_penalty: OptionalNullable[float] = UNSET
+    r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
+
+    response_format: Optional[
+        UpdateAgentFallbackModelConfigurationAgentsResponseFormat
+    ] = None
+    r"""An object specifying the format that the model must output"""
+
+    reasoning_effort: Optional[
+        UpdateAgentFallbackModelConfigurationAgentsReasoningEffort
+    ] = None
+    r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+
+    - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+    - All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+    - The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+    - `xhigh` is currently only supported for `gpt-5.1-codex-max`.
+
+    Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
+    """
+
+    verbosity: Optional[str] = None
+    r"""Adjusts response verbosity. Lower levels yield shorter answers."""
+
+    seed: OptionalNullable[float] = UNSET
+    r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
+
+    stop: OptionalNullable[UpdateAgentFallbackModelConfigurationAgentsStop] = UNSET
+    r"""Up to 4 sequences where the API will stop generating further tokens."""
+
+    thinking: Optional[UpdateAgentFallbackModelConfigurationAgentsThinking] = None
+
+    temperature: OptionalNullable[float] = UNSET
+    r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
+
+    top_p: OptionalNullable[float] = UNSET
+    r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
+
+    top_k: OptionalNullable[float] = UNSET
+    r"""Limits the model to consider only the top k most likely tokens at each step."""
+
+    tool_choice: Optional[UpdateAgentFallbackModelConfigurationAgentsToolChoice] = None
+    r"""Controls which (if any) tool is called by the model."""
+
+    parallel_tool_calls: Optional[bool] = None
+    r"""Whether to enable parallel function calling during tool use."""
+
+    modalities: OptionalNullable[
+        List[UpdateAgentFallbackModelConfigurationAgentsModalities]
+    ] = UNSET
+    r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
+
+    guardrails: Optional[
+        List[UpdateAgentFallbackModelConfigurationAgentsGuardrails]
+    ] = None
+    r"""A list of guardrails to apply to the request."""
+
+    fallbacks: Optional[List[UpdateAgentFallbackModelConfigurationAgentsFallbacks]] = (
+        None
+    )
+    r"""Array of fallback models to use if primary model fails"""
+
+    cache: Optional[UpdateAgentFallbackModelConfigurationAgentsCache] = None
+    r"""Cache configuration for the request."""
+
+    load_balancer: Optional[UpdateAgentFallbackModelConfigurationAgentsLoadBalancer] = (
+        None
+    )
+    r"""Load balancer configuration for the request."""
+
+    timeout: Optional[UpdateAgentFallbackModelConfigurationAgentsTimeout] = None
+    r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "name",
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "presence_penalty",
+                "response_format",
+                "reasoning_effort",
+                "verbosity",
+                "seed",
+                "stop",
+                "thinking",
+                "temperature",
+                "top_p",
+                "top_k",
+                "tool_choice",
+                "parallel_tool_calls",
+                "modalities",
+                "guardrails",
+                "fallbacks",
+                "cache",
+                "load_balancer",
+                "timeout",
+            ]
+        )
+        nullable_fields = set(
+            [
+                "frequency_penalty",
+                "max_tokens",
+                "max_completion_tokens",
+                "presence_penalty",
+                "seed",
+                "stop",
+                "temperature",
+                "top_p",
+                "top_k",
+                "modalities",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict(TypedDict):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: NotRequired[float]
+    r"""Number of retry attempts (1-5)"""
+    on_codes: NotRequired[List[float]]
+    r"""HTTP status codes that trigger retry logic"""
+
+
+class UpdateAgentFallbackModelConfigurationAgentsRetry(BaseModel):
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    count: Optional[float] = 3
+    r"""Number of retry attempts (1-5)"""
+
+    on_codes: Optional[List[float]] = None
+    r"""HTTP status codes that trigger retry logic"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["count", "on_codes"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentFallbackModelConfigurationAgents2TypedDict(TypedDict):
+    r"""Fallback model configuration with optional parameters and retry settings."""
+
+    id: str
+    r"""A fallback model ID string. Must support tool calling."""
+    parameters: NotRequired[
+        UpdateAgentFallbackModelConfigurationAgentsParametersTypedDict
+    ]
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+    retry: NotRequired[UpdateAgentFallbackModelConfigurationAgentsRetryTypedDict]
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+
+class UpdateAgentFallbackModelConfigurationAgents2(BaseModel):
+    r"""Fallback model configuration with optional parameters and retry settings."""
+
+    id: str
+    r"""A fallback model ID string. Must support tool calling."""
+
+    parameters: Optional[UpdateAgentFallbackModelConfigurationAgentsParameters] = None
+    r"""Optional model parameters specific to this fallback model. Overrides primary model parameters if this fallback is used."""
+
+    retry: Optional[UpdateAgentFallbackModelConfigurationAgentsRetry] = None
+    r"""Retry configuration for this fallback model. Allows customizing retry count (1-5) and HTTP status codes that trigger retries."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["parameters", "retry"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+UpdateAgentAgentsFallbackModelConfigurationTypedDict = TypeAliasType(
+    "UpdateAgentAgentsFallbackModelConfigurationTypedDict",
+    Union[UpdateAgentFallbackModelConfigurationAgents2TypedDict, str],
+)
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
+
+
+UpdateAgentAgentsFallbackModelConfiguration = TypeAliasType(
+    "UpdateAgentAgentsFallbackModelConfiguration",
+    Union[UpdateAgentFallbackModelConfigurationAgents2, str],
+)
+r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
+
+
+class UpdateAgentModelTypedDict(TypedDict):
+    id: str
+    r"""The database ID of the primary model"""
+    integration_id: NotRequired[Nullable[str]]
+    r"""Optional integration ID for custom model configurations"""
+    parameters: NotRequired[UpdateAgentParametersTypedDict]
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+    retry: NotRequired[UpdateAgentRetryTypedDict]
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+    fallback_models: NotRequired[
+        Nullable[List[UpdateAgentAgentsFallbackModelConfigurationTypedDict]]
+    ]
+    r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
+
+
+class UpdateAgentModel(BaseModel):
+    id: str
+    r"""The database ID of the primary model"""
+
+    integration_id: OptionalNullable[str] = UNSET
+    r"""Optional integration ID for custom model configurations"""
+
+    parameters: Optional[UpdateAgentParameters] = None
+    r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
+
+    retry: Optional[UpdateAgentRetry] = None
+    r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
+
+    fallback_models: OptionalNullable[
+        List[UpdateAgentAgentsFallbackModelConfiguration]
+    ] = UNSET
+    r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["integration_id", "parameters", "retry", "fallback_models"]
+        )
+        nullable_fields = set(["integration_id", "fallback_models"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentAgentsTeamOfAgentsTypedDict(TypedDict):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+    role: NotRequired[str]
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+
+class UpdateAgentAgentsTeamOfAgents(BaseModel):
+    key: str
+    r"""The unique key of the agent within the workspace"""
+
+    role: Optional[str] = None
+    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["role"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentMetricsTypedDict(TypedDict):
+    total_cost: NotRequired[float]
+
+
+class UpdateAgentMetrics(BaseModel):
+    total_cost: Optional[float] = 0
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["total_cost"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class UpdateAgentAgentsKnowledgeBasesTypedDict(TypedDict):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+class UpdateAgentAgentsKnowledgeBases(BaseModel):
+    knowledge_id: str
+    r"""Unique identifier of the knowledge base to search"""
+
+
+UpdateAgentSource = Literal[
+    "internal",
+    "external",
+    "experiment",
+]
+
+
+class UpdateAgentResponseBodyTypedDict(TypedDict):
+    r"""Agent configuration successfully updated. Returns the complete updated agent manifest reflecting all changes made."""
+
+    id: str
+    key: str
+    r"""Unique identifier for the agent within the workspace"""
+    workspace_id: str
+    project_id: str
+    role: str
+    description: str
+    instructions: str
+    status: UpdateAgentStatus
+    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
+    model: UpdateAgentModelTypedDict
+    path: str
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+    memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+    team_of_agents: List[UpdateAgentAgentsTeamOfAgentsTypedDict]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+    display_name: NotRequired[str]
+    created_by_id: NotRequired[Nullable[str]]
+    updated_by_id: NotRequired[Nullable[str]]
+    created: NotRequired[str]
+    updated: NotRequired[str]
+    system_prompt: NotRequired[str]
+    settings: NotRequired[UpdateAgentAgentsSettingsTypedDict]
+    version_hash: NotRequired[str]
+    metrics: NotRequired[UpdateAgentMetricsTypedDict]
+    variables: NotRequired[Dict[str, Any]]
+    r"""Extracted variables from agent instructions"""
+    knowledge_bases: NotRequired[List[UpdateAgentAgentsKnowledgeBasesTypedDict]]
+    r"""Agent knowledge bases reference"""
+    source: NotRequired[UpdateAgentSource]
+
+
+class UpdateAgentResponseBody(BaseModel):
+    r"""Agent configuration successfully updated. Returns the complete updated agent manifest reflecting all changes made."""
+
+    id: Annotated[str, pydantic.Field(alias="_id")]
+
+    key: str
+    r"""Unique identifier for the agent within the workspace"""
+
+    workspace_id: str
+
+    project_id: str
+
+    role: str
+
+    description: str
+
+    instructions: str
+
+    status: UpdateAgentStatus
+    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
+
+    model: UpdateAgentModel
+
+    path: str
+    r"""Entity storage path in the format: `project/folder/subfolder/...`
+
+    The first element identifies the project, followed by nested folders (auto-created as needed).
+
+    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
+    """
+
+    memory_stores: List[str]
+    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
+
+    team_of_agents: List[UpdateAgentAgentsTeamOfAgents]
+    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
+
+    display_name: Optional[str] = None
+
+    created_by_id: OptionalNullable[str] = UNSET
+
+    updated_by_id: OptionalNullable[str] = UNSET
+
+    created: Optional[str] = None
+
+    updated: Optional[str] = None
+
+    system_prompt: Optional[str] = None
+
+    settings: Optional[UpdateAgentAgentsSettings] = None
+
+    version_hash: Optional[str] = None
+
+    metrics: Optional[UpdateAgentMetrics] = None
+
+    variables: Optional[Dict[str, Any]] = None
+    r"""Extracted variables from agent instructions"""
+
+    knowledge_bases: Optional[List[UpdateAgentAgentsKnowledgeBases]] = None
+    r"""Agent knowledge bases reference"""
+
+    source: Optional[UpdateAgentSource] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "display_name",
+                "created_by_id",
+                "updated_by_id",
+                "created",
+                "updated",
+                "system_prompt",
+                "settings",
+                "version_hash",
+                "metrics",
+                "variables",
+                "knowledge_bases",
+                "source",
+            ]
+        )
+        nullable_fields = set(["created_by_id", "updated_by_id"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
+
+            if val != UNSET_SENTINEL:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
+                    m[k] = val
+
+        return m
+
+
 try:
     UpdateAgentResponseFormatAgentsJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    UpdateAgentFallbackModelConfigurationAudio.model_rebuild()
 except NameError:
     pass
 try:
@@ -3446,10 +4485,14 @@ try:
 except NameError:
     pass
 try:
-    UpdateAgentAudio.model_rebuild()
+    UpdateAgentResponseFormatAgentsResponseJSONSchema.model_rebuild()
 except NameError:
     pass
 try:
-    UpdateAgentResponseFormatAgentsResponseJSONSchema.model_rebuild()
+    UpdateAgentResponseFormatAgentsResponse200ApplicationJSONJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentResponseBody.model_rebuild()
 except NameError:
     pass

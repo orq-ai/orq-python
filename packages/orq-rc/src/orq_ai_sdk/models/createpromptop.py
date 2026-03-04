@@ -693,7 +693,7 @@ CreatePromptMessages = Annotated[
 ]
 
 
-CreatePromptVoice = Literal[
+Voice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -717,7 +717,7 @@ r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or p
 class CreatePromptAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptVoice
+    voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
     format_: CreatePromptFormat
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
@@ -726,7 +726,7 @@ class CreatePromptAudioTypedDict(TypedDict):
 class CreatePromptAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptVoice
+    voice: Voice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[CreatePromptFormat, pydantic.Field(alias="format")]
@@ -891,14 +891,14 @@ CreatePromptStop = TypeAliasType("CreatePromptStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class CreatePromptStreamOptionsTypedDict(TypedDict):
+class StreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class CreatePromptStreamOptions(BaseModel):
+class StreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
@@ -1235,7 +1235,7 @@ class PromptInputTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[CreatePromptStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[CreatePromptStreamOptionsTypedDict]]
+    stream_options: NotRequired[Nullable[StreamOptionsTypedDict]]
     r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[CreatePromptThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
@@ -1326,7 +1326,7 @@ class PromptInput(BaseModel):
     stop: OptionalNullable[CreatePromptStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[CreatePromptStreamOptions] = UNSET
+    stream_options: OptionalNullable[StreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[CreatePromptThinking] = None
@@ -2311,7 +2311,7 @@ class PromptConfig(BaseModel):
         return m
 
 
-CreatePromptPromptsVoice = Literal[
+CreatePromptVoice = Literal[
     "alloy",
     "echo",
     "fable",
@@ -2335,7 +2335,7 @@ r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or p
 class CreatePromptPromptsAudioTypedDict(TypedDict):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptPromptsVoice
+    voice: CreatePromptVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
     format_: CreatePromptPromptsResponse200Format
     r"""Specifies the output audio format. Must be one of wav, mp3, flac, opus, or pcm16."""
@@ -2344,7 +2344,7 @@ class CreatePromptPromptsAudioTypedDict(TypedDict):
 class CreatePromptPromptsAudio(BaseModel):
     r"""Parameters for audio output. Required when audio output is requested with modalities: [\"audio\"]. Learn more."""
 
-    voice: CreatePromptPromptsVoice
+    voice: CreatePromptVoice
     r"""The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer."""
 
     format_: Annotated[
@@ -2517,14 +2517,14 @@ CreatePromptPromptsStop = TypeAliasType(
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-class CreatePromptPromptsStreamOptionsTypedDict(TypedDict):
+class CreatePromptStreamOptionsTypedDict(TypedDict):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: NotRequired[bool]
     r"""If set, an additional chunk will be streamed before the data: [DONE] message. The usage field on this chunk shows the token usage statistics for the entire request, and the choices field will always be an empty array. All other chunks will also include a usage field, but with a null value."""
 
 
-class CreatePromptPromptsStreamOptions(BaseModel):
+class CreatePromptStreamOptions(BaseModel):
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     include_usage: Optional[bool] = None
@@ -3453,7 +3453,7 @@ class PromptFieldTypedDict(TypedDict):
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
     stop: NotRequired[Nullable[CreatePromptPromptsStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    stream_options: NotRequired[Nullable[CreatePromptPromptsStreamOptionsTypedDict]]
+    stream_options: NotRequired[Nullable[CreatePromptStreamOptionsTypedDict]]
     r"""Options for streaming response. Only set this when you set stream: true."""
     thinking: NotRequired[CreatePromptPromptsThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
@@ -3543,7 +3543,7 @@ class PromptField(BaseModel):
     stop: OptionalNullable[CreatePromptPromptsStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    stream_options: OptionalNullable[CreatePromptPromptsStreamOptions] = UNSET
+    stream_options: OptionalNullable[CreatePromptStreamOptions] = UNSET
     r"""Options for streaming response. Only set this when you set stream: true."""
 
     thinking: Optional[CreatePromptPromptsThinking] = None
