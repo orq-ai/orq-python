@@ -1,5 +1,12 @@
 # ListPromptVersionsProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ListPromptVersionsProvider
+value: ListPromptVersionsProvider = "openai"
+```
+
 
 ## Values
 

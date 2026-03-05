@@ -7,6 +7,13 @@ The time-to-live for the cache control breakpoint. This may be one of the follow
 
 Defaults to `5m`. Only supported by `Anthropic` Claude models.
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import DeploymentStream2DeploymentsTTL
+value: DeploymentStream2DeploymentsTTL = "5m"
+```
+
 
 ## Values
 

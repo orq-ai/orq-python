@@ -2,6 +2,13 @@
 
 The key of the guardrail.
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RunAgentIDAgents1
+value: RunAgentIDAgents1 = "orq_pii_detection"
+```
+
 
 ## Values
 

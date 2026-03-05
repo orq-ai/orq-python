@@ -1,5 +1,12 @@
 # UpdateMemoryStoreProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdateMemoryStoreProvider
+value: UpdateMemoryStoreProvider = "openai"
+```
+
 
 ## Values
 

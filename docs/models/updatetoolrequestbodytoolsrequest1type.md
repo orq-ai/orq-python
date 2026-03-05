@@ -2,6 +2,13 @@
 
 The type must be "object"
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdateToolRequestBodyToolsRequest1Type
+value: UpdateToolRequestBodyToolsRequest1Type = "object"
+```
+
 
 ## Values
 

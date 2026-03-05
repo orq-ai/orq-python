@@ -1,5 +1,12 @@
 # ListPromptVersionsUseCases
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ListPromptVersionsUseCases
+value: ListPromptVersionsUseCases = "Agents simulations"
+```
+
 
 ## Values
 

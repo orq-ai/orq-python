@@ -1,5 +1,12 @@
 # UpdateAgentType
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdateAgentType
+value: UpdateAgentType = "exact_match"
+```
+
 
 ## Values
 

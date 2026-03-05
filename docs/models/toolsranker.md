@@ -2,6 +2,13 @@
 
 The ranking algorithm
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ToolsRanker
+value: ToolsRanker = "auto"
+```
+
 
 ## Values
 

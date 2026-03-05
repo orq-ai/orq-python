@@ -2,6 +2,13 @@
 
 The status of the function call
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreateResponseOutputRouterResponsesResponseStatus
+value: CreateResponseOutputRouterResponsesResponseStatus = "in_progress"
+```
+
 
 ## Values
 

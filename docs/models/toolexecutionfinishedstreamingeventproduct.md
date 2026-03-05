@@ -2,6 +2,13 @@
 
 Orquesta product
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ToolExecutionFinishedStreamingEventProduct
+value: ToolExecutionFinishedStreamingEventProduct = "remoteconfigs"
+```
+
 
 ## Values
 

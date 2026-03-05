@@ -1,5 +1,12 @@
 # DeploymentsProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import DeploymentsProvider
+value: DeploymentsProvider = "openai"
+```
+
 
 ## Values
 

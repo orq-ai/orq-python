@@ -1,5 +1,12 @@
 # GetOnePromptProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import GetOnePromptProvider
+value: GetOnePromptProvider = "openai"
+```
+
 
 ## Values
 

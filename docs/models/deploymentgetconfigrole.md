@@ -2,6 +2,13 @@
 
 The role of the prompt message
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import DeploymentGetConfigRole
+value: DeploymentGetConfigRole = "system"
+```
+
 
 ## Values
 

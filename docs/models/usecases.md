@@ -1,5 +1,12 @@
 # UseCases
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UseCases
+value: UseCases = "Agents simulations"
+```
+
 
 ## Values
 

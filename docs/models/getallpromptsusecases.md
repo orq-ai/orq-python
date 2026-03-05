@@ -1,5 +1,12 @@
 # GetAllPromptsUseCases
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import GetAllPromptsUseCases
+value: GetAllPromptsUseCases = "Agents simulations"
+```
+
 
 ## Values
 

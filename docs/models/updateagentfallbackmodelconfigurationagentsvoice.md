@@ -2,6 +2,13 @@
 
 The voice the model uses to respond. Supported voices are alloy, echo, fable, onyx, nova, and shimmer.
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdateAgentFallbackModelConfigurationAgentsVoice
+value: UpdateAgentFallbackModelConfigurationAgentsVoice = "alloy"
+```
+
 
 ## Values
 
