@@ -1,5 +1,12 @@
 # CreatePromptProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreatePromptProvider
+value: CreatePromptProvider = "openai"
+```
+
 
 ## Values
 

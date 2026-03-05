@@ -1,5 +1,12 @@
 # Include
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import Include
+value: Include = "code_interpreter_call.outputs"
+```
+
 
 ## Values
 

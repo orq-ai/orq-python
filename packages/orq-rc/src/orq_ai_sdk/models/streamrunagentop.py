@@ -1568,7 +1568,7 @@ class StreamRunAgentA2AMessageTypedDict(TypedDict):
     role: StreamRunAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[StreamRunAgentPublicMessagePartTypedDict]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
@@ -1580,7 +1580,7 @@ class StreamRunAgentA2AMessage(BaseModel):
     r"""Message role (user or tool for continuing executions)"""
 
     parts: List[StreamRunAgentPublicMessagePart]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
@@ -1889,7 +1889,7 @@ class AgentToolInputRunTools(BaseModel):
         StreamRunAgentAgentToolInputRunAgentsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KJWE7V7XWG3CSMJNQ229AP6N"
+    id: Optional[str] = "01KJZ6J2W74JBMWHXD7TM5M96B"
 
     description: Optional[str] = None
 

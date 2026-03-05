@@ -1,5 +1,12 @@
 # CreateChatCompletionToolChoice1
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreateChatCompletionToolChoice1
+value: CreateChatCompletionToolChoice1 = "none"
+```
+
 
 ## Values
 

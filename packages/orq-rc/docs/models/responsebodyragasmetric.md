@@ -1,5 +1,12 @@
 # ResponseBodyRagasMetric
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ResponseBodyRagasMetric
+value: ResponseBodyRagasMetric = "context_precision"
+```
+
 
 ## Values
 

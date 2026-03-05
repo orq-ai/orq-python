@@ -1,5 +1,12 @@
 # UpdateEvalGuardrailConfigEvalsRequestOperator
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdateEvalGuardrailConfigEvalsRequestOperator
+value: UpdateEvalGuardrailConfigEvalsRequestOperator = "eq"
+```
+
 
 ## Values
 

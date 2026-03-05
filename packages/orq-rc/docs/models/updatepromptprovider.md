@@ -1,5 +1,12 @@
 # UpdatePromptProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdatePromptProvider
+value: UpdatePromptProvider = "openai"
+```
+
 
 ## Values
 

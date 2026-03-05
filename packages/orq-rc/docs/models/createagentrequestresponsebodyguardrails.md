@@ -1,0 +1,9 @@
+# CreateAgentRequestResponseBodyGuardrails
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                               | [models.ResponseBodyID](../models/responsebodyid.md)                                                               | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |
+| `execute_on`                                                                                                       | [models.CreateAgentRequestResponseBodyAgentsExecuteOn](../models/createagentrequestresponsebodyagentsexecuteon.md) | :heavy_check_mark:                                                                                                 | Determines whether the guardrail runs on the input (user message) or output (model response).                      |

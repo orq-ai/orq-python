@@ -1,5 +1,12 @@
 # GetPromptVersionProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import GetPromptVersionProvider
+value: GetPromptVersionProvider = "openai"
+```
+
 
 ## Values
 

@@ -1,5 +1,12 @@
 # GetAllPromptsProvider
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import GetAllPromptsProvider
+value: GetAllPromptsProvider = "openai"
+```
+
 
 ## Values
 

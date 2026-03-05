@@ -140,7 +140,7 @@ class StreamAgentA2AMessageTypedDict(TypedDict):
     role: StreamAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[StreamAgentPublicMessagePartTypedDict]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
@@ -152,7 +152,7 @@ class StreamAgentA2AMessage(BaseModel):
     r"""Message role (user or tool for continuing executions)"""
 
     parts: List[StreamAgentPublicMessagePart]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
@@ -339,6 +339,36 @@ class StreamAgentMemory(BaseModel):
     r"""An entity ID used to link memory stores to a specific user, session, or conversation. This ID is used to isolate and retrieve memories specific to the entity across agent executions."""
 
 
+class StreamAgentConfigurationTypedDict(TypedDict):
+    r"""Configuration options for the agent invocation"""
+
+    blocking: NotRequired[bool]
+    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+
+
+class StreamAgentConfiguration(BaseModel):
+    r"""Configuration options for the agent invocation"""
+
+    blocking: Optional[bool] = False
+    r"""Whether to block until the agent task completes. When true, the response will include the full task with messages. When false (default), returns immediately with task ID and status."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["blocking"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class StreamAgentRequestBodyTypedDict(TypedDict):
     message: StreamAgentA2AMessageTypedDict
     r"""The A2A message to send to the agent (user input or tool results)"""
@@ -356,6 +386,8 @@ class StreamAgentRequestBodyTypedDict(TypedDict):
     r"""Memory configuration for the agent execution. Used to associate memory stores with specific entities like users or sessions."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
+    configuration: NotRequired[StreamAgentConfigurationTypedDict]
+    r"""Configuration options for the agent invocation"""
     stream_timeout_seconds: NotRequired[float]
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
 
@@ -390,6 +422,9 @@ class StreamAgentRequestBody(BaseModel):
     metadata: Optional[Dict[str, Any]] = None
     r"""Optional metadata for the agent invocation as key-value pairs that will be included in traces"""
 
+    configuration: Optional[StreamAgentConfiguration] = None
+    r"""Configuration options for the agent invocation"""
+
     stream_timeout_seconds: Optional[float] = None
     r"""Stream timeout in seconds (1-3600). Default: 1800 (30 minutes)"""
 
@@ -404,6 +439,7 @@ class StreamAgentRequestBody(BaseModel):
                 "thread",
                 "memory",
                 "metadata",
+                "configuration",
                 "stream_timeout_seconds",
             ]
         )

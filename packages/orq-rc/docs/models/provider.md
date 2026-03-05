@@ -2,6 +2,13 @@
 
 The provider used to generate the response
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import Provider
+value: Provider = "openai"
+```
+
 
 ## Values
 

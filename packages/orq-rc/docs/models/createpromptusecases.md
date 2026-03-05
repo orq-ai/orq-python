@@ -1,5 +1,12 @@
 # CreatePromptUseCases
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreatePromptUseCases
+value: CreatePromptUseCases = "Agents simulations"
+```
+
 
 ## Values
 

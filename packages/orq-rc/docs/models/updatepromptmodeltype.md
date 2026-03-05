@@ -2,6 +2,13 @@
 
 The modality of the model
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import UpdatePromptModelType
+value: UpdatePromptModelType = "chat"
+```
+
 
 ## Values
 

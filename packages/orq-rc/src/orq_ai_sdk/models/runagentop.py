@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .datapart import DataPart, DataPartTypedDict
 from .errorpart import ErrorPart, ErrorPartTypedDict
+from .extendedmessage import ExtendedMessage, ExtendedMessageTypedDict
 from .filepart import FilePart, FilePartTypedDict
 from .textpart import TextPart, TextPartTypedDict
 from .thinkingconfigdisabledschema import (
@@ -1476,7 +1477,7 @@ class RunAgentA2AMessageTypedDict(TypedDict):
     role: RunAgentRoleTypedDict
     r"""Message role (user or tool for continuing executions)"""
     parts: List[RunAgentPublicMessagePartTypedDict]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
     message_id: NotRequired[str]
     r"""Optional A2A message ID in ULID format"""
 
@@ -1488,7 +1489,7 @@ class RunAgentA2AMessage(BaseModel):
     r"""Message role (user or tool for continuing executions)"""
 
     parts: List[RunAgentPublicMessagePart]
-    r"""A2A message parts (text, file, or tool_result only)"""
+    r"""A2A message parts (text, file, or tool_result only). Note: Tool role messages must only contain tool_result parts."""
 
     message_id: Annotated[Optional[str], pydantic.Field(alias="messageId")] = None
     r"""Optional A2A message ID in ULID format"""
@@ -1719,12 +1720,12 @@ class RunAgentTeamOfAgents(BaseModel):
 RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Type = Literal["mcp",]
 
 
-class AgentToolInputRunHeadersTypedDict(TypedDict):
+class RunAgentAgentToolInputRunHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class AgentToolInputRunHeaders(BaseModel):
+class RunAgentAgentToolInputRunHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -1793,7 +1794,7 @@ class RunAgentAgentToolInputRunTools(BaseModel):
 
     schema_: Annotated[AgentToolInputRunSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KJWE7V4YJZ66B8VGS9TY5CC2"
+    id: Optional[str] = "01KJZ6J2SPJR976554V1PQKJCY"
 
     description: Optional[str] = None
 
@@ -1828,7 +1829,7 @@ class McpTypedDict(TypedDict):
     r"""Array of tools available from the MCP server"""
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
+    headers: NotRequired[Dict[str, RunAgentAgentToolInputRunHeadersTypedDict]]
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
@@ -1842,7 +1843,7 @@ class Mcp(BaseModel):
     connection_type: ConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
+    headers: Optional[Dict[str, RunAgentAgentToolInputRunHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
 
     @model_serializer(mode="wrap")
@@ -2356,10 +2357,14 @@ class Headers2(BaseModel):
         return m
 
 
-HeadersTypedDict = TypeAliasType("HeadersTypedDict", Union[Headers2TypedDict, str])
+AgentToolInputRunHeadersTypedDict = TypeAliasType(
+    "AgentToolInputRunHeadersTypedDict", Union[Headers2TypedDict, str]
+)
 
 
-Headers = TypeAliasType("Headers", Union[Headers2, str])
+AgentToolInputRunHeaders = TypeAliasType(
+    "AgentToolInputRunHeaders", Union[Headers2, str]
+)
 
 
 class BlueprintTypedDict(TypedDict):
@@ -2369,7 +2374,7 @@ class BlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: Method
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, HeadersTypedDict]]
+    headers: NotRequired[Dict[str, AgentToolInputRunHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -2384,7 +2389,7 @@ class Blueprint(BaseModel):
     method: Method
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, Headers]] = None
+    headers: Optional[Dict[str, AgentToolInputRunHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -3446,6 +3451,8 @@ class RunAgentA2ATaskResponseTypedDict(TypedDict):
     r"""A2A entity type identifier"""
     status: RunAgentTaskStatusTypedDict
     r"""Current task status information"""
+    messages: NotRequired[List[ExtendedMessageTypedDict]]
+    r"""Array of messages in the task conversation. Only present when blocking mode is enabled."""
     metadata: NotRequired[Dict[str, Any]]
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
@@ -3465,12 +3472,15 @@ class RunAgentA2ATaskResponse(BaseModel):
     status: RunAgentTaskStatus
     r"""Current task status information"""
 
+    messages: Optional[List[ExtendedMessage]] = None
+    r"""Array of messages in the task conversation. Only present when blocking mode is enabled."""
+
     metadata: Optional[Dict[str, Any]] = None
     r"""Task metadata containing workspace_id and trace_id for feedback and tracking"""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["metadata"])
+        optional_fields = set(["messages", "metadata"])
         serialized = handler(self)
         m = {}
 

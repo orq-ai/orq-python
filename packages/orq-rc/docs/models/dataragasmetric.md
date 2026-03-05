@@ -1,5 +1,12 @@
 # DataRagasMetric
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import DataRagasMetric
+value: DataRagasMetric = "context_precision"
+```
+
 
 ## Values
 

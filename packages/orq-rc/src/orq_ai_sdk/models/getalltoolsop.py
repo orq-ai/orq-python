@@ -57,7 +57,7 @@ class GetAllToolsRequest(BaseModel):
 GetAllToolsObject = Literal["list",]
 
 
-GetAllToolsDataToolsResponse200Status = Literal[
+GetAllToolsDataToolsResponse200ApplicationJSONStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -73,7 +73,7 @@ GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type = Literal["objec
 r"""The type must be \"object\" """
 
 
-class GetAllToolsDataParametersTypedDict(TypedDict):
+class GetAllToolsDataToolsParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type
@@ -84,7 +84,7 @@ class GetAllToolsDataParametersTypedDict(TypedDict):
     r"""Array of required parameter names"""
 
 
-class GetAllToolsDataParameters(BaseModel):
+class GetAllToolsDataToolsParameters(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     model_config = ConfigDict(
@@ -117,7 +117,7 @@ class DataCodeToolTypedDict(TypedDict):
     language: DataLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[GetAllToolsDataParametersTypedDict]
+    parameters: NotRequired[GetAllToolsDataToolsParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -127,7 +127,7 @@ class DataCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[GetAllToolsDataParameters] = None
+    parameters: Optional[GetAllToolsDataToolsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     @model_serializer(mode="wrap")
@@ -174,7 +174,7 @@ class DataCodeExecutionToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[GetAllToolsDataToolsResponse200Status]
+    status: NotRequired[GetAllToolsDataToolsResponse200ApplicationJSONStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -209,7 +209,7 @@ class DataCodeExecutionTool(BaseModel):
     code_tool: DataCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VK726WQ57Z78SKWW3PF"
+        "tool_01KJZ6J37JSDXN1MJRB724H4H8"
     )
 
     display_name: Optional[str] = None
@@ -221,7 +221,7 @@ class DataCodeExecutionTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[GetAllToolsDataToolsResponse200Status] = "live"
+    status: Optional[GetAllToolsDataToolsResponse200ApplicationJSONStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -252,7 +252,7 @@ class DataCodeExecutionTool(BaseModel):
         return m
 
 
-GetAllToolsDataToolsResponseStatus = Literal[
+GetAllToolsDataToolsResponse200Status = Literal[
     "live",
     "draft",
     "pending",
@@ -264,12 +264,12 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 GetAllToolsDataToolsResponse200Type = Literal["mcp",]
 
 
-class DataHeadersTypedDict(TypedDict):
+class GetAllToolsDataHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class DataHeaders(BaseModel):
+class GetAllToolsDataHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -324,19 +324,19 @@ class GetAllToolsDataSchema(BaseModel):
         return m
 
 
-class DataToolsTypedDict(TypedDict):
+class GetAllToolsDataToolsTypedDict(TypedDict):
     name: str
     schema_: GetAllToolsDataSchemaTypedDict
     id: NotRequired[str]
     description: NotRequired[str]
 
 
-class DataTools(BaseModel):
+class GetAllToolsDataTools(BaseModel):
     name: str
 
     schema_: Annotated[GetAllToolsDataSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KJWE7VK6GGKDPF9B1XB9NNR3"
+    id: Optional[str] = "01KJZ6J37JC83B9E90DA1YVW0N"
 
     description: Optional[str] = None
 
@@ -367,11 +367,11 @@ r"""The connection type used by the MCP server"""
 class DataMcpTypedDict(TypedDict):
     server_url: str
     r"""The MCP server URL (cached for execution)"""
-    tools: List[DataToolsTypedDict]
+    tools: List[GetAllToolsDataToolsTypedDict]
     r"""Array of tools available from the MCP server"""
     connection_type: DataConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, DataHeadersTypedDict]]
+    headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
@@ -379,13 +379,13 @@ class DataMcp(BaseModel):
     server_url: str
     r"""The MCP server URL (cached for execution)"""
 
-    tools: List[DataTools]
+    tools: List[GetAllToolsDataTools]
     r"""Array of tools available from the MCP server"""
 
     connection_type: DataConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, DataHeaders]] = None
+    headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
 
     @model_serializer(mode="wrap")
@@ -432,7 +432,7 @@ class DataMCPToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[GetAllToolsDataToolsResponseStatus]
+    status: NotRequired[GetAllToolsDataToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -467,7 +467,7 @@ class DataMCPTool(BaseModel):
     mcp: DataMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VK54C7VJVGF6PTRYSYC"
+        "tool_01KJZ6J37G2NKC7BYFYHE3SSWB"
     )
 
     display_name: Optional[str] = None
@@ -479,7 +479,7 @@ class DataMCPTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[GetAllToolsDataToolsResponseStatus] = "live"
+    status: Optional[GetAllToolsDataToolsResponse200Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -510,7 +510,7 @@ class DataMCPTool(BaseModel):
         return m
 
 
-GetAllToolsDataToolsStatus = Literal[
+GetAllToolsDataToolsResponseStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -558,13 +558,13 @@ class GetAllToolsHeaders2(BaseModel):
         return m
 
 
-GetAllToolsDataHeadersTypedDict = TypeAliasType(
-    "GetAllToolsDataHeadersTypedDict", Union[GetAllToolsHeaders2TypedDict, str]
+GetAllToolsDataToolsHeadersTypedDict = TypeAliasType(
+    "GetAllToolsDataToolsHeadersTypedDict", Union[GetAllToolsHeaders2TypedDict, str]
 )
 
 
-GetAllToolsDataHeaders = TypeAliasType(
-    "GetAllToolsDataHeaders", Union[GetAllToolsHeaders2, str]
+GetAllToolsDataToolsHeaders = TypeAliasType(
+    "GetAllToolsDataToolsHeaders", Union[GetAllToolsHeaders2, str]
 )
 
 
@@ -575,7 +575,7 @@ class DataBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: GetAllToolsDataMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, GetAllToolsDataHeadersTypedDict]]
+    headers: NotRequired[Dict[str, GetAllToolsDataToolsHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -590,7 +590,7 @@ class DataBlueprint(BaseModel):
     method: GetAllToolsDataMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, GetAllToolsDataHeaders]] = None
+    headers: Optional[Dict[str, GetAllToolsDataToolsHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -730,7 +730,7 @@ class DataHTTPToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[GetAllToolsDataToolsStatus]
+    status: NotRequired[GetAllToolsDataToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -765,7 +765,7 @@ class DataHTTPTool(BaseModel):
     http: GetAllToolsDataHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VK3KAWGGFRKMVM5P6XX"
+        "tool_01KJZ6J37D40SA944CG3D1APJ3"
     )
 
     display_name: Optional[str] = None
@@ -777,7 +777,7 @@ class DataHTTPTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[GetAllToolsDataToolsStatus] = "live"
+    status: Optional[GetAllToolsDataToolsResponseStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -808,7 +808,7 @@ class DataHTTPTool(BaseModel):
         return m
 
 
-GetAllToolsDataStatus = Literal[
+GetAllToolsDataToolsStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -925,7 +925,7 @@ class DataJSONSchemaToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[GetAllToolsDataStatus]
+    status: NotRequired[GetAllToolsDataToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -960,7 +960,7 @@ class DataJSONSchemaTool(BaseModel):
     json_schema: DataJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VK114F731NFNDVYWTS4"
+        "tool_01KJZ6J37AEAP3YQRY55AT2D5Z"
     )
 
     display_name: Optional[str] = None
@@ -972,7 +972,7 @@ class DataJSONSchemaTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[GetAllToolsDataStatus] = "live"
+    status: Optional[GetAllToolsDataToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1003,7 +1003,7 @@ class DataJSONSchemaTool(BaseModel):
         return m
 
 
-DataStatus = Literal[
+GetAllToolsDataStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -1019,7 +1019,7 @@ GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType = Literal["object
 r"""The type must be \"object\" """
 
 
-class DataParametersTypedDict(TypedDict):
+class GetAllToolsDataParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     type: GetAllToolsDataToolsResponse200ApplicationJSONResponseBodyType
@@ -1030,7 +1030,7 @@ class DataParametersTypedDict(TypedDict):
     r"""Array of required parameter names"""
 
 
-class DataParameters(BaseModel):
+class GetAllToolsDataParameters(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     model_config = ConfigDict(
@@ -1063,7 +1063,7 @@ class GetAllToolsDataFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[DataParametersTypedDict]
+    parameters: NotRequired[GetAllToolsDataParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1077,7 +1077,7 @@ class GetAllToolsDataFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[DataParameters] = None
+    parameters: Optional[GetAllToolsDataParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     @model_serializer(mode="wrap")
@@ -1124,7 +1124,7 @@ class DataFunctionToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[DataStatus]
+    status: NotRequired[GetAllToolsDataStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -1159,7 +1159,7 @@ class DataFunctionTool(BaseModel):
     function: GetAllToolsDataFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VK0HG2Y7656ATBVNDK5"
+        "tool_01KJZ6J373SR84WVRDHG8N7BR7"
     )
 
     display_name: Optional[str] = None
@@ -1171,7 +1171,7 @@ class DataFunctionTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[DataStatus] = "live"
+    status: Optional[GetAllToolsDataStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1249,7 +1249,7 @@ try:
 except NameError:
     pass
 try:
-    DataTools.model_rebuild()
+    GetAllToolsDataTools.model_rebuild()
 except NameError:
     pass
 try:

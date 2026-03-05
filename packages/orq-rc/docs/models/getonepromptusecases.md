@@ -1,5 +1,12 @@
 # GetOnePromptUseCases
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import GetOnePromptUseCases
+value: GetOnePromptUseCases = "Agents simulations"
+```
+
 
 ## Values
 

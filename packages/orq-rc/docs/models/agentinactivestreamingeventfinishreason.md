@@ -2,6 +2,13 @@
 
 The reason why the agent execution became inactive
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import AgentInactiveStreamingEventFinishReason
+value: AgentInactiveStreamingEventFinishReason = "stop"
+```
+
 
 ## Values
 

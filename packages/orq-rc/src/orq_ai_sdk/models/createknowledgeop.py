@@ -408,7 +408,7 @@ class ResponseBodyExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class ResponseBody2TypedDict(TypedDict):
+class CreateKnowledgeResponseBody2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -438,7 +438,7 @@ class ResponseBody2TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
 
-class ResponseBody2(BaseModel):
+class CreateKnowledgeResponseBody2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -643,7 +643,7 @@ class ResponseBodyRetrievalSettings(BaseModel):
         return m
 
 
-class ResponseBody1TypedDict(TypedDict):
+class CreateKnowledgeResponseBody1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -672,7 +672,7 @@ class ResponseBody1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class ResponseBody1(BaseModel):
+class CreateKnowledgeResponseBody1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -748,22 +748,23 @@ class ResponseBody1(BaseModel):
 
 CreateKnowledgeResponseBodyTypedDict = TypeAliasType(
     "CreateKnowledgeResponseBodyTypedDict",
-    Union[ResponseBody1TypedDict, ResponseBody2TypedDict],
+    Union[CreateKnowledgeResponseBody1TypedDict, CreateKnowledgeResponseBody2TypedDict],
 )
 r"""Knowledge successfully created"""
 
 
 CreateKnowledgeResponseBody = TypeAliasType(
-    "CreateKnowledgeResponseBody", Union[ResponseBody1, ResponseBody2]
+    "CreateKnowledgeResponseBody",
+    Union[CreateKnowledgeResponseBody1, CreateKnowledgeResponseBody2],
 )
 r"""Knowledge successfully created"""
 
 
 try:
-    ResponseBody2.model_rebuild()
+    CreateKnowledgeResponseBody2.model_rebuild()
 except NameError:
     pass
 try:
-    ResponseBody1.model_rebuild()
+    CreateKnowledgeResponseBody1.model_rebuild()
 except NameError:
     pass

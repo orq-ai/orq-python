@@ -2,6 +2,13 @@
 
 The reason why the agent stopped generating
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import FinishReason
+value: FinishReason = "stop"
+```
+
 
 ## Values
 

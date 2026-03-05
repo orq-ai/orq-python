@@ -191,7 +191,7 @@ class DataExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class Data2TypedDict(TypedDict):
+class ListKnowledgeBasesData2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -219,7 +219,7 @@ class Data2TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
 
-class Data2(BaseModel):
+class ListKnowledgeBasesData2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -426,7 +426,7 @@ class ListKnowledgeBasesDataRetrievalSettings(BaseModel):
         return m
 
 
-class Data1TypedDict(TypedDict):
+class ListKnowledgeBasesData1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -455,7 +455,7 @@ class Data1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class Data1(BaseModel):
+class ListKnowledgeBasesData1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -530,11 +530,14 @@ class Data1(BaseModel):
 
 
 ListKnowledgeBasesDataTypedDict = TypeAliasType(
-    "ListKnowledgeBasesDataTypedDict", Union[Data1TypedDict, Data2TypedDict]
+    "ListKnowledgeBasesDataTypedDict",
+    Union[ListKnowledgeBasesData1TypedDict, ListKnowledgeBasesData2TypedDict],
 )
 
 
-ListKnowledgeBasesData = TypeAliasType("ListKnowledgeBasesData", Union[Data1, Data2])
+ListKnowledgeBasesData = TypeAliasType(
+    "ListKnowledgeBasesData", Union[ListKnowledgeBasesData1, ListKnowledgeBasesData2]
+)
 
 
 class ListKnowledgeBasesResponseBodyTypedDict(TypedDict):
@@ -556,10 +559,10 @@ class ListKnowledgeBasesResponseBody(BaseModel):
 
 
 try:
-    Data2.model_rebuild()
+    ListKnowledgeBasesData2.model_rebuild()
 except NameError:
     pass
 try:
-    Data1.model_rebuild()
+    ListKnowledgeBasesData1.model_rebuild()
 except NameError:
     pass

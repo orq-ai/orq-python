@@ -1,5 +1,12 @@
 # RagasMetric
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import RagasMetric
+value: RagasMetric = "context_precision"
+```
+
 
 ## Values
 

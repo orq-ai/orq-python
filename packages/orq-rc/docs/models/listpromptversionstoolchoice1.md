@@ -1,5 +1,12 @@
 # ListPromptVersionsToolChoice1
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import ListPromptVersionsToolChoice1
+value: ListPromptVersionsToolChoice1 = "none"
+```
+
 
 ## Values
 

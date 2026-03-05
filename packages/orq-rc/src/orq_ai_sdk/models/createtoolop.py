@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-CreateToolRequestBodyToolsRequestStatus = Literal[
+CreateToolRequestBodyToolsRequest5Status = Literal[
     "live",
     "draft",
     "pending",
@@ -117,7 +117,7 @@ class RequestBodyCodeExecutionToolTypedDict(TypedDict):
     code_tool: RequestBodyCodeToolTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsRequestStatus]
+    status: NotRequired[CreateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -145,7 +145,7 @@ class RequestBodyCodeExecutionTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsRequestStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsRequest5Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -165,7 +165,7 @@ class RequestBodyCodeExecutionTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyToolsStatus = Literal[
+CreateToolRequestBodyToolsRequestStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -265,7 +265,7 @@ class RequestBodyMCPToolTypedDict(TypedDict):
     mcp: RequestBodyMcpTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsStatus]
+    status: NotRequired[CreateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -293,7 +293,7 @@ class RequestBodyMCPTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsRequestStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -313,7 +313,7 @@ class RequestBodyMCPTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyStatus = Literal[
+CreateToolRequestBodyToolsStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -526,7 +526,7 @@ class RequestBodyHTTPToolTypedDict(TypedDict):
     http: CreateToolRequestBodyHTTPTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyStatus]
+    status: NotRequired[CreateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -554,7 +554,7 @@ class RequestBodyHTTPTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyStatus] = "live"
+    status: Optional[CreateToolRequestBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -574,7 +574,7 @@ class RequestBodyHTTPTool(BaseModel):
         return m
 
 
-RequestBodyStatus = Literal[
+CreateToolRequestBodyStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -682,7 +682,7 @@ class RequestBodyJSONSchemaToolTypedDict(TypedDict):
     json_schema: RequestBodyJSONSchemaTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[RequestBodyStatus]
+    status: NotRequired[CreateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -710,7 +710,7 @@ class RequestBodyJSONSchemaTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[RequestBodyStatus] = "live"
+    status: Optional[CreateToolRequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -730,7 +730,7 @@ class RequestBodyJSONSchemaTool(BaseModel):
         return m
 
 
-CreateToolRequestBodyToolsRequest1Status = Literal[
+RequestBodyStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -842,7 +842,7 @@ class RequestBodyFunctionToolTypedDict(TypedDict):
     function: RequestBodyFunctionTypedDict
     display_name: NotRequired[str]
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
-    status: NotRequired[CreateToolRequestBodyToolsRequest1Status]
+    status: NotRequired[RequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
@@ -870,7 +870,7 @@ class RequestBodyFunctionTool(BaseModel):
     display_name: Optional[str] = None
     r"""The name of the tool as it will be displayed in the UI. This is optional and if not provided, the `key` will be used."""
 
-    status: Optional[CreateToolRequestBodyToolsRequest1Status] = "live"
+    status: Optional[RequestBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     @model_serializer(mode="wrap")
@@ -916,7 +916,7 @@ CreateToolRequestBody = Annotated[
 r"""The tool to create"""
 
 
-CreateToolResponseBodyToolsResponse200Status = Literal[
+CreateToolResponseBodyToolsResponse200ApplicationJSONStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -932,7 +932,7 @@ CreateToolResponseBodyToolsResponse200ApplicationJSON5Type = Literal["object",]
 r"""The type must be \"object\" """
 
 
-class CreateToolResponseBodyParametersTypedDict(TypedDict):
+class CreateToolResponseBodyToolsParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     type: CreateToolResponseBodyToolsResponse200ApplicationJSON5Type
@@ -943,7 +943,7 @@ class CreateToolResponseBodyParametersTypedDict(TypedDict):
     r"""Array of required parameter names"""
 
 
-class CreateToolResponseBodyParameters(BaseModel):
+class CreateToolResponseBodyToolsParameters(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     model_config = ConfigDict(
@@ -976,7 +976,7 @@ class ResponseBodyCodeToolTypedDict(TypedDict):
     language: ResponseBodyLanguage
     code: str
     r"""The code to execute."""
-    parameters: NotRequired[CreateToolResponseBodyParametersTypedDict]
+    parameters: NotRequired[CreateToolResponseBodyToolsParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -986,7 +986,7 @@ class ResponseBodyCodeTool(BaseModel):
     code: str
     r"""The code to execute."""
 
-    parameters: Optional[CreateToolResponseBodyParameters] = None
+    parameters: Optional[CreateToolResponseBodyToolsParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     @model_serializer(mode="wrap")
@@ -1033,7 +1033,7 @@ class ResponseBodyCodeExecutionToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[CreateToolResponseBodyToolsResponse200Status]
+    status: NotRequired[CreateToolResponseBodyToolsResponse200ApplicationJSONStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -1068,7 +1068,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     code_tool: ResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VM9ETXNDV007NHX37QR"
+        "tool_01KJZ6J38BHYE1NDNTV1303ZAM"
     )
 
     display_name: Optional[str] = None
@@ -1080,7 +1080,9 @@ class ResponseBodyCodeExecutionTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[CreateToolResponseBodyToolsResponse200Status] = "live"
+    status: Optional[CreateToolResponseBodyToolsResponse200ApplicationJSONStatus] = (
+        "live"
+    )
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1111,7 +1113,7 @@ class ResponseBodyCodeExecutionTool(BaseModel):
         return m
 
 
-CreateToolResponseBodyToolsResponseStatus = Literal[
+CreateToolResponseBodyToolsResponse200Status = Literal[
     "live",
     "draft",
     "pending",
@@ -1123,12 +1125,12 @@ r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is
 CreateToolResponseBodyToolsResponse200Type = Literal["mcp",]
 
 
-class ResponseBodyHeadersTypedDict(TypedDict):
+class CreateToolResponseBodyHeadersTypedDict(TypedDict):
     value: str
     encrypted: NotRequired[bool]
 
 
-class ResponseBodyHeaders(BaseModel):
+class CreateToolResponseBodyHeaders(BaseModel):
     value: str
 
     encrypted: Optional[bool] = False
@@ -1183,19 +1185,19 @@ class CreateToolResponseBodySchema(BaseModel):
         return m
 
 
-class ResponseBodyToolsTypedDict(TypedDict):
+class CreateToolResponseBodyToolsTypedDict(TypedDict):
     name: str
     schema_: CreateToolResponseBodySchemaTypedDict
     id: NotRequired[str]
     description: NotRequired[str]
 
 
-class ResponseBodyTools(BaseModel):
+class CreateToolResponseBodyTools(BaseModel):
     name: str
 
     schema_: Annotated[CreateToolResponseBodySchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KJWE7VM8VV51AKCPJZSGR7S4"
+    id: Optional[str] = "01KJZ6J38AM3N30BZDWBNTE3SP"
 
     description: Optional[str] = None
 
@@ -1226,11 +1228,11 @@ r"""The connection type used by the MCP server"""
 class ResponseBodyMcpTypedDict(TypedDict):
     server_url: str
     r"""The MCP server URL (cached for execution)"""
-    tools: List[ResponseBodyToolsTypedDict]
+    tools: List[CreateToolResponseBodyToolsTypedDict]
     r"""Array of tools available from the MCP server"""
     connection_type: ResponseBodyConnectionType
     r"""The connection type used by the MCP server"""
-    headers: NotRequired[Dict[str, ResponseBodyHeadersTypedDict]]
+    headers: NotRequired[Dict[str, CreateToolResponseBodyHeadersTypedDict]]
     r"""HTTP headers for MCP server requests with encryption support"""
 
 
@@ -1238,13 +1240,13 @@ class ResponseBodyMcp(BaseModel):
     server_url: str
     r"""The MCP server URL (cached for execution)"""
 
-    tools: List[ResponseBodyTools]
+    tools: List[CreateToolResponseBodyTools]
     r"""Array of tools available from the MCP server"""
 
     connection_type: ResponseBodyConnectionType
     r"""The connection type used by the MCP server"""
 
-    headers: Optional[Dict[str, ResponseBodyHeaders]] = None
+    headers: Optional[Dict[str, CreateToolResponseBodyHeaders]] = None
     r"""HTTP headers for MCP server requests with encryption support"""
 
     @model_serializer(mode="wrap")
@@ -1291,7 +1293,7 @@ class ResponseBodyMCPToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[CreateToolResponseBodyToolsResponseStatus]
+    status: NotRequired[CreateToolResponseBodyToolsResponse200Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -1326,7 +1328,7 @@ class ResponseBodyMCPTool(BaseModel):
     mcp: ResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VM68K8HXPAR82JAYWZZ"
+        "tool_01KJZ6J3889JECXHQ44DJARJ7F"
     )
 
     display_name: Optional[str] = None
@@ -1338,7 +1340,7 @@ class ResponseBodyMCPTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[CreateToolResponseBodyToolsResponseStatus] = "live"
+    status: Optional[CreateToolResponseBodyToolsResponse200Status] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1369,7 +1371,7 @@ class ResponseBodyMCPTool(BaseModel):
         return m
 
 
-CreateToolResponseBodyToolsStatus = Literal[
+CreateToolResponseBodyToolsResponseStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -1417,14 +1419,14 @@ class CreateToolHeadersTools2(BaseModel):
         return m
 
 
-CreateToolResponseBodyHeadersTypedDict = TypeAliasType(
-    "CreateToolResponseBodyHeadersTypedDict",
+CreateToolResponseBodyToolsHeadersTypedDict = TypeAliasType(
+    "CreateToolResponseBodyToolsHeadersTypedDict",
     Union[CreateToolHeadersTools2TypedDict, str],
 )
 
 
-CreateToolResponseBodyHeaders = TypeAliasType(
-    "CreateToolResponseBodyHeaders", Union[CreateToolHeadersTools2, str]
+CreateToolResponseBodyToolsHeaders = TypeAliasType(
+    "CreateToolResponseBodyToolsHeaders", Union[CreateToolHeadersTools2, str]
 )
 
 
@@ -1435,7 +1437,7 @@ class ResponseBodyBlueprintTypedDict(TypedDict):
     r"""The URL to send the request to."""
     method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
-    headers: NotRequired[Dict[str, CreateToolResponseBodyHeadersTypedDict]]
+    headers: NotRequired[Dict[str, CreateToolResponseBodyToolsHeadersTypedDict]]
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
     body: NotRequired[Dict[str, Any]]
     r"""The body to send with the request."""
@@ -1450,7 +1452,7 @@ class ResponseBodyBlueprint(BaseModel):
     method: CreateToolResponseBodyMethod
     r"""The HTTP method to use."""
 
-    headers: Optional[Dict[str, CreateToolResponseBodyHeaders]] = None
+    headers: Optional[Dict[str, CreateToolResponseBodyToolsHeaders]] = None
     r"""The headers to send with the request. Can be a string value or an object with value and encrypted properties."""
 
     body: Optional[Dict[str, Any]] = None
@@ -1592,7 +1594,7 @@ class ResponseBodyHTTPToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[CreateToolResponseBodyToolsStatus]
+    status: NotRequired[CreateToolResponseBodyToolsResponseStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -1627,7 +1629,7 @@ class ResponseBodyHTTPTool(BaseModel):
     http: CreateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VM157X00ZCZAEKB7X7F"
+        "tool_01KJZ6J386WR4P58FPG5B5AXAF"
     )
 
     display_name: Optional[str] = None
@@ -1639,7 +1641,7 @@ class ResponseBodyHTTPTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[CreateToolResponseBodyToolsStatus] = "live"
+    status: Optional[CreateToolResponseBodyToolsResponseStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1670,7 +1672,7 @@ class ResponseBodyHTTPTool(BaseModel):
         return m
 
 
-CreateToolResponseBodyStatus = Literal[
+CreateToolResponseBodyToolsStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -1787,7 +1789,7 @@ class ResponseBodyJSONSchemaToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[CreateToolResponseBodyStatus]
+    status: NotRequired[CreateToolResponseBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -1822,7 +1824,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     json_schema: ResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VKQ8HJSADY06XRJEW5Q"
+        "tool_01KJZ6J37YDC4YXZ26DZ95A6P5"
     )
 
     display_name: Optional[str] = None
@@ -1834,7 +1836,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[CreateToolResponseBodyStatus] = "live"
+    status: Optional[CreateToolResponseBodyToolsStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -1865,7 +1867,7 @@ class ResponseBodyJSONSchemaTool(BaseModel):
         return m
 
 
-ResponseBodyStatus = Literal[
+CreateToolResponseBodyStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -1881,7 +1883,7 @@ CreateToolResponseBodyToolsResponse200ApplicationJSON1Type = Literal["object",]
 r"""The type must be \"object\" """
 
 
-class ResponseBodyParametersTypedDict(TypedDict):
+class CreateToolResponseBodyParametersTypedDict(TypedDict):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     type: CreateToolResponseBodyToolsResponse200ApplicationJSON1Type
@@ -1892,7 +1894,7 @@ class ResponseBodyParametersTypedDict(TypedDict):
     r"""Array of required parameter names"""
 
 
-class ResponseBodyParameters(BaseModel):
+class CreateToolResponseBodyParameters(BaseModel):
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     model_config = ConfigDict(
@@ -1925,7 +1927,7 @@ class CreateToolResponseBodyFunctionTypedDict(TypedDict):
     r"""A description of what the function does, used by the model to choose when and how to call the function."""
     strict: NotRequired[bool]
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
-    parameters: NotRequired[ResponseBodyParametersTypedDict]
+    parameters: NotRequired[CreateToolResponseBodyParametersTypedDict]
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
 
@@ -1939,7 +1941,7 @@ class CreateToolResponseBodyFunction(BaseModel):
     strict: Optional[bool] = None
     r"""Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Currently only compatible with `OpenAI` models."""
 
-    parameters: Optional[ResponseBodyParameters] = None
+    parameters: Optional[CreateToolResponseBodyParameters] = None
     r"""The parameters the functions accepts, described as a JSON Schema object. See the `OpenAI` [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format."""
 
     @model_serializer(mode="wrap")
@@ -1986,7 +1988,7 @@ class ResponseBodyFunctionToolTypedDict(TypedDict):
     r"""The id of the user that created the tool"""
     updated_by_id: NotRequired[str]
     r"""The id of the user that last updated the tool"""
-    status: NotRequired[ResponseBodyStatus]
+    status: NotRequired[CreateToolResponseBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     version_hash: NotRequired[str]
 
@@ -2021,7 +2023,7 @@ class ResponseBodyFunctionTool(BaseModel):
     function: CreateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KJWE7VKPT60T1DFK86P420H7"
+        "tool_01KJZ6J37WH1G288EA0C5WDGEY"
     )
 
     display_name: Optional[str] = None
@@ -2033,7 +2035,7 @@ class ResponseBodyFunctionTool(BaseModel):
     updated_by_id: Optional[str] = None
     r"""The id of the user that last updated the tool"""
 
-    status: Optional[ResponseBodyStatus] = "live"
+    status: Optional[CreateToolResponseBodyStatus] = "live"
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     version_hash: Optional[str] = None
@@ -2099,7 +2101,7 @@ try:
 except NameError:
     pass
 try:
-    ResponseBodyTools.model_rebuild()
+    CreateToolResponseBodyTools.model_rebuild()
 except NameError:
     pass
 try:

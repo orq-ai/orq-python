@@ -2,6 +2,13 @@
 
 The reason the model stopped generating tokens.
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import AgentThoughtStreamingEventFinishReason
+value: AgentThoughtStreamingEventFinishReason = "stop"
+```
+
 
 ## Values
 

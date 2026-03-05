@@ -2,6 +2,13 @@
 
 The provider used to generate the response
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import DeploymentStreamProvider
+value: DeploymentStreamProvider = "openai"
+```
+
 
 ## Values
 

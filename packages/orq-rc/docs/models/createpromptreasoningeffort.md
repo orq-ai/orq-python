@@ -9,6 +9,13 @@ Constrains effort on reasoning for [reasoning models](https://platform.openai.co
 
 Any of "none", "minimal", "low", "medium", "high", "xhigh".
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreatePromptReasoningEffort
+value: CreatePromptReasoningEffort = "none"
+```
+
 
 ## Values
 

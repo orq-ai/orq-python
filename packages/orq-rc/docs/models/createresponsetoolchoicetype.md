@@ -1,5 +1,12 @@
 # CreateResponseToolChoiceType
 
+## Example Usage
+
+```python
+from orq_ai_sdk.models import CreateResponseToolChoiceType
+value: CreateResponseToolChoiceType = "file_search"
+```
+
 
 ## Values
 
