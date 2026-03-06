@@ -1251,9 +1251,9 @@ class Typescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-05T14:31:07.602Z"
+    created: Optional[str] = "2026-03-06T06:12:44.460Z"
 
-    updated: Optional[str] = "2026-03-05T14:31:07.603Z"
+    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -1447,9 +1447,9 @@ class Ragas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-05T14:31:07.602Z"
+    created: Optional[str] = "2026-03-06T06:12:44.460Z"
 
-    updated: Optional[str] = "2026-03-05T14:31:07.603Z"
+    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
 
     guardrail_config: Optional[
         CreateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -2142,9 +2142,9 @@ class CreateEvalResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-05T14:31:07.602Z"
+    created: Optional[str] = "2026-03-06T06:12:44.460Z"
 
-    updated: Optional[str] = "2026-03-05T14:31:07.603Z"
+    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
