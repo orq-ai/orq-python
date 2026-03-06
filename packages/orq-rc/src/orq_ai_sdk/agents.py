@@ -13,7 +13,7 @@ from orq_ai_sdk.models import (
     runagentop as models_runagentop,
     streamagentop as models_streamagentop,
     streamrunagentop as models_streamrunagentop,
-    updateagent_tool_choice_agents_response_2 as models_updateagent_tool_choice_agents_response_2,
+    updateagent_tool_choice_agents_response_function as models_updateagent_tool_choice_agents_response_function,
 )
 from orq_ai_sdk.responses import Responses
 from orq_ai_sdk.types import BaseModel, OptionalNullable, UNSET
@@ -1419,24 +1419,24 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentModelConfiguration,
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentModelConfigurationTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentModelConfiguration,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentFallbackModelConfiguration
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentFallbackModelConfiguration
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentSettings,
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentSettingsTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentSettings,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
@@ -1444,30 +1444,34 @@ class Agents(BaseSDK):
         knowledge_bases: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentKnowledgeBases
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentKnowledgeBases
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentKnowledgeBasesTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentKnowledgeBasesTypedDict
                 ],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentTeamOfAgents
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentTeamOfAgents
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentTeamOfAgentsTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentTeamOfAgentsTypedDict
                 ],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         a2a: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateA2AConfiguration,
-                models_updateagent_tool_choice_agents_response_2.UpdateA2AConfigurationTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateA2AConfiguration,
+                models_updateagent_tool_choice_agents_response_function.UpdateA2AConfigurationTypedDict,
             ]
         ] = None,
+        version_increment: Optional[
+            models_updateagent_tool_choice_agents_response_function.VersionIncrement
+        ] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1498,6 +1502,8 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
+        :param version_increment: Optional semantic version bump to create after a successful publish.
+        :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1548,6 +1554,8 @@ class Agents(BaseSDK):
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 
@@ -1628,24 +1636,24 @@ class Agents(BaseSDK):
         system_prompt: Optional[str] = None,
         model: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentModelConfiguration,
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentModelConfigurationTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentModelConfiguration,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentModelConfigurationTypedDict,
             ]
         ] = None,
         fallback_models: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentFallbackModelConfiguration
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentFallbackModelConfiguration
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentFallbackModelConfigurationTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentFallbackModelConfigurationTypedDict
                 ],
             ]
         ] = None,
         settings: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentSettings,
-                models_updateagent_tool_choice_agents_response_2.UpdateAgentSettingsTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentSettings,
+                models_updateagent_tool_choice_agents_response_function.UpdateAgentSettingsTypedDict,
             ]
         ] = None,
         path: Optional[str] = None,
@@ -1653,30 +1661,34 @@ class Agents(BaseSDK):
         knowledge_bases: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentKnowledgeBases
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentKnowledgeBases
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentKnowledgeBasesTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentKnowledgeBasesTypedDict
                 ],
             ]
         ] = None,
         team_of_agents: Optional[
             Union[
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentTeamOfAgents
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentTeamOfAgents
                 ],
                 List[
-                    models_updateagent_tool_choice_agents_response_2.UpdateAgentTeamOfAgentsTypedDict
+                    models_updateagent_tool_choice_agents_response_function.UpdateAgentTeamOfAgentsTypedDict
                 ],
             ]
         ] = None,
         variables: Optional[Dict[str, Any]] = None,
         a2a: Optional[
             Union[
-                models_updateagent_tool_choice_agents_response_2.UpdateA2AConfiguration,
-                models_updateagent_tool_choice_agents_response_2.UpdateA2AConfigurationTypedDict,
+                models_updateagent_tool_choice_agents_response_function.UpdateA2AConfiguration,
+                models_updateagent_tool_choice_agents_response_function.UpdateA2AConfigurationTypedDict,
             ]
         ] = None,
+        version_increment: Optional[
+            models_updateagent_tool_choice_agents_response_function.VersionIncrement
+        ] = None,
+        version_description: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1707,6 +1719,8 @@ class Agents(BaseSDK):
         :param team_of_agents: The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks.
         :param variables: Extracted variables from agent instructions
         :param a2a: Update A2A agent configuration (only applicable to A2A agents)
+        :param version_increment: Optional semantic version bump to create after a successful publish.
+        :param version_description: Optional description stored with the created version.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1757,6 +1771,8 @@ class Agents(BaseSDK):
                 a2a=utils.get_pydantic_model(
                     a2a, Optional[models.UpdateA2AConfiguration]
                 ),
+                version_increment=version_increment,
+                version_description=version_description,
             ),
         )
 

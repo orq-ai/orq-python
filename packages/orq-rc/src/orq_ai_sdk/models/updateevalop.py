@@ -915,7 +915,7 @@ class Jury(BaseModel):
         return m
 
 
-VersionIncrement = Literal[
+UpdateEvalRequestBodyEvalsRequestVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -941,7 +941,7 @@ class RequestBodyLLMTypedDict(TypedDict):
     model: NotRequired[str]
     jury: NotRequired[JuryTypedDict]
     key: NotRequired[str]
-    version_increment: NotRequired[VersionIncrement]
+    version_increment: NotRequired[UpdateEvalRequestBodyEvalsRequestVersionIncrement]
     version_description: NotRequired[str]
 
 
@@ -976,7 +976,8 @@ class RequestBodyLLM(BaseModel):
     key: Optional[str] = None
 
     version_increment: Annotated[
-        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[UpdateEvalRequestBodyEvalsRequestVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
     ] = None
 
     version_description: Annotated[
@@ -1242,9 +1243,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -1438,9 +1439,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -2135,9 +2136,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -2304,9 +2305,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -2523,9 +2524,9 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -2625,9 +2626,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
@@ -2978,9 +2979,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[UpdateEvalLLMEvalsGuardrailConfig] = None
 
@@ -3163,9 +3164,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-06T09:14:09.882Z"
+    created: Optional[str] = "2026-03-06T12:45:25.312Z"
 
-    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
+    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
 
     guardrail_config: Optional[UpdateEvalLLMGuardrailConfig] = None
 

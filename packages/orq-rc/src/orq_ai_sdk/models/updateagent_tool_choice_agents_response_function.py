@@ -2473,6 +2473,14 @@ class UpdateA2AConfiguration(BaseModel):
         return m
 
 
+VersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
+r"""Optional semantic version bump to create after a successful publish."""
+
+
 class UpdateAgentRequestBodyTypedDict(TypedDict):
     key: NotRequired[str]
     display_name: NotRequired[str]
@@ -2504,6 +2512,10 @@ class UpdateAgentRequestBodyTypedDict(TypedDict):
     r"""Extracted variables from agent instructions"""
     a2a: NotRequired[UpdateA2AConfigurationTypedDict]
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
+    version_increment: NotRequired[VersionIncrement]
+    r"""Optional semantic version bump to create after a successful publish."""
+    version_description: NotRequired[str]
+    r"""Optional description stored with the created version."""
 
 
 class UpdateAgentRequestBody(BaseModel):
@@ -2553,6 +2565,16 @@ class UpdateAgentRequestBody(BaseModel):
     a2a: Optional[UpdateA2AConfiguration] = None
     r"""Update A2A agent configuration (only applicable to A2A agents)"""
 
+    version_increment: Annotated[
+        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+    ] = None
+    r"""Optional semantic version bump to create after a successful publish."""
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+    r"""Optional description stored with the created version."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -2573,6 +2595,8 @@ class UpdateAgentRequestBody(BaseModel):
                 "team_of_agents",
                 "variables",
                 "a2a",
+                "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -3467,41 +3491,16 @@ class UpdateAgentToolChoiceAgentsResponseFunction(BaseModel):
     r"""The name of the function to call."""
 
 
-class UpdateAgentToolChoiceAgentsResponse2TypedDict(TypedDict):
-    function: UpdateAgentToolChoiceAgentsResponseFunctionTypedDict
-    type: NotRequired[UpdateAgentToolChoiceAgentsResponseType]
-    r"""The type of the tool. Currently, only function is supported."""
-
-
-class UpdateAgentToolChoiceAgentsResponse2(BaseModel):
-    function: UpdateAgentToolChoiceAgentsResponseFunction
-
-    type: Optional[UpdateAgentToolChoiceAgentsResponseType] = None
-    r"""The type of the tool. Currently, only function is supported."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["type"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
 try:
     UpdateAgentResponseFormatAgentsJSONSchema.model_rebuild()
 except NameError:
     pass
 try:
     UpdateAgentResponseFormatAgentsRequestRequestBodyJSONSchema.model_rebuild()
+except NameError:
+    pass
+try:
+    UpdateAgentRequestBody.model_rebuild()
 except NameError:
     pass
 try:
