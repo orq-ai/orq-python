@@ -133,6 +133,13 @@ UpdateEvalRequestBodyEvalsRequest4OutputType = Literal[
 UpdateEvalRequestBodyEvalsRequest4Type = Literal["python_eval",]
 
 
+UpdateEvalRequestBodyEvalsVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
+
+
 class RequestBodyPythonTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsRequest4Type
     path: str
@@ -149,6 +156,8 @@ class RequestBodyPythonTypedDict(TypedDict):
     code: NotRequired[str]
     description: NotRequired[str]
     key: NotRequired[str]
+    version_increment: NotRequired[UpdateEvalRequestBodyEvalsVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class RequestBodyPython(BaseModel):
@@ -172,10 +181,27 @@ class RequestBodyPython(BaseModel):
 
     key: Optional[str] = None
 
+    version_increment: Annotated[
+        Optional[UpdateEvalRequestBodyEvalsVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["guardrail_config", "output_type", "code", "description", "key"]
+            [
+                "guardrail_config",
+                "output_type",
+                "code",
+                "description",
+                "key",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
@@ -312,6 +338,13 @@ RequestBodyMethod = Literal[
 ]
 
 
+UpdateEvalRequestBodyVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
+
+
 class RequestBodyHTTPTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsRequestType
     path: str
@@ -332,6 +365,8 @@ class RequestBodyHTTPTypedDict(TypedDict):
     payload: NotRequired[Dict[str, Any]]
     description: NotRequired[str]
     key: NotRequired[str]
+    version_increment: NotRequired[UpdateEvalRequestBodyVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class RequestBodyHTTP(BaseModel):
@@ -362,6 +397,15 @@ class RequestBodyHTTP(BaseModel):
 
     key: Optional[str] = None
 
+    version_increment: Annotated[
+        Optional[UpdateEvalRequestBodyVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -374,6 +418,8 @@ class RequestBodyHTTP(BaseModel):
                 "payload",
                 "description",
                 "key",
+                "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -499,6 +545,13 @@ UpdateEvalRequestBodyEvalsOutputType = Literal["boolean",]
 UpdateEvalRequestBodyEvalsType = Literal["json_schema",]
 
 
+RequestBodyVersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
+
+
 class RequestBodyJSONTypedDict(TypedDict):
     type: UpdateEvalRequestBodyEvalsType
     path: str
@@ -513,6 +566,8 @@ class RequestBodyJSONTypedDict(TypedDict):
     schema_: NotRequired[str]
     description: NotRequired[str]
     key: NotRequired[str]
+    version_increment: NotRequired[RequestBodyVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class RequestBodyJSON(BaseModel):
@@ -536,10 +591,26 @@ class RequestBodyJSON(BaseModel):
 
     key: Optional[str] = None
 
+    version_increment: Annotated[
+        Optional[RequestBodyVersionIncrement], pydantic.Field(alias="versionIncrement")
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["guardrail_config", "output_type", "schema", "description", "key"]
+            [
+                "guardrail_config",
+                "output_type",
+                "schema",
+                "description",
+                "key",
+                "versionIncrement",
+                "versionDescription",
+            ]
         )
         serialized = handler(self)
         m = {}
@@ -844,6 +915,13 @@ class Jury(BaseModel):
         return m
 
 
+VersionIncrement = Literal[
+    "major",
+    "minor",
+    "patch",
+]
+
+
 class RequestBodyLLMTypedDict(TypedDict):
     type: UpdateEvalRequestBodyType
     path: str
@@ -863,6 +941,8 @@ class RequestBodyLLMTypedDict(TypedDict):
     model: NotRequired[str]
     jury: NotRequired[JuryTypedDict]
     key: NotRequired[str]
+    version_increment: NotRequired[VersionIncrement]
+    version_description: NotRequired[str]
 
 
 class RequestBodyLLM(BaseModel):
@@ -895,6 +975,14 @@ class RequestBodyLLM(BaseModel):
 
     key: Optional[str] = None
 
+    version_increment: Annotated[
+        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -908,6 +996,8 @@ class RequestBodyLLM(BaseModel):
                 "model",
                 "jury",
                 "key",
+                "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -1152,9 +1242,9 @@ class ResponseBodyTypescript(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSON7GuardrailConfig
@@ -1348,9 +1438,9 @@ class ResponseBodyRagas(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200ApplicationJSONGuardrailConfig
@@ -2045,9 +2135,9 @@ class ResponseBodyFunction(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[
         UpdateEvalResponseBodyEvalsResponse200GuardrailConfig
@@ -2214,9 +2304,9 @@ class UpdateEvalResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsResponseGuardrailConfig] = (
         None
@@ -2326,6 +2416,55 @@ class UpdateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
         return m
 
 
+UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
+
+
+UpdateEvalGuardrailConfigEvalsResponseOperator = Literal[
+    "eq",
+    "ne",
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+]
+
+
+class UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
+    enabled: bool
+    type: UpdateEvalGuardrailConfigEvalsResponse200Type
+    value: float
+    operator: UpdateEvalGuardrailConfigEvalsResponseOperator
+    alert_on_failure: NotRequired[bool]
+
+
+class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
+    enabled: bool
+
+    type: UpdateEvalGuardrailConfigEvalsResponse200Type
+
+    value: float
+
+    operator: UpdateEvalGuardrailConfigEvalsResponseOperator
+
+    alert_on_failure: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["alert_on_failure"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict = TypeAliasType(
     "UpdateEvalResponseBodyEvalsGuardrailConfigTypedDict",
     Union[
@@ -2384,64 +2523,15 @@ class UpdateEvalResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyEvalsGuardrailConfig] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["created", "updated", "guardrail_config"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-UpdateEvalGuardrailConfigEvalsResponse200Type = Literal["number",]
-
-
-UpdateEvalGuardrailConfigEvalsResponseOperator = Literal[
-    "eq",
-    "ne",
-    "gt",
-    "gte",
-    "lt",
-    "lte",
-]
-
-
-class UpdateEvalGuardrailConfigEvalsResponseNumberTypedDict(TypedDict):
-    enabled: bool
-    type: UpdateEvalGuardrailConfigEvalsResponse200Type
-    value: float
-    operator: UpdateEvalGuardrailConfigEvalsResponseOperator
-    alert_on_failure: NotRequired[bool]
-
-
-class UpdateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
-    enabled: bool
-
-    type: UpdateEvalGuardrailConfigEvalsResponse200Type
-
-    value: float
-
-    operator: UpdateEvalGuardrailConfigEvalsResponseOperator
-
-    alert_on_failure: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["alert_on_failure"])
         serialized = handler(self)
         m = {}
 
@@ -2535,9 +2625,9 @@ class UpdateEvalResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[UpdateEvalResponseBodyGuardrailConfig] = None
 
@@ -2888,9 +2978,9 @@ class UpdateEvalLLM2(BaseModel):
 
     jury: UpdateEvalLLMJury
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[UpdateEvalLLMEvalsGuardrailConfig] = None
 
@@ -3073,9 +3163,9 @@ class UpdateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-06T06:12:44.460Z"
+    created: Optional[str] = "2026-03-06T09:14:09.882Z"
 
-    updated: Optional[str] = "2026-03-06T06:12:44.460Z"
+    updated: Optional[str] = "2026-03-06T09:14:09.882Z"
 
     guardrail_config: Optional[UpdateEvalLLMGuardrailConfig] = None
 
@@ -3143,7 +3233,19 @@ r"""Successfully updated an eval"""
 
 
 try:
+    RequestBodyPython.model_rebuild()
+except NameError:
+    pass
+try:
+    RequestBodyHTTP.model_rebuild()
+except NameError:
+    pass
+try:
     RequestBodyJSON.model_rebuild()
+except NameError:
+    pass
+try:
+    RequestBodyLLM.model_rebuild()
 except NameError:
     pass
 try:

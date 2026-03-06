@@ -107,7 +107,7 @@ class UpdateToolRequestBodyCodeTool(BaseModel):
         return m
 
 
-UpdateToolRequestBodyToolsRequestVersionIncrement = Literal[
+UpdateToolRequestBodyToolsRequest5VersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -134,7 +134,8 @@ class UpdateCodeExecutionToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequest5Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     code_tool: NotRequired[UpdateToolRequestBodyCodeToolTypedDict]
-    version_increment: NotRequired[UpdateToolRequestBodyToolsRequestVersionIncrement]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequest5VersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateCodeExecutionTool(BaseModel):
@@ -165,8 +166,12 @@ class UpdateCodeExecutionTool(BaseModel):
     code_tool: Optional[UpdateToolRequestBodyCodeTool] = None
 
     version_increment: Annotated[
-        Optional[UpdateToolRequestBodyToolsRequestVersionIncrement],
+        Optional[UpdateToolRequestBodyToolsRequest5VersionIncrement],
         pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
     ] = None
 
     @model_serializer(mode="wrap")
@@ -180,6 +185,7 @@ class UpdateCodeExecutionTool(BaseModel):
                 "status",
                 "code_tool",
                 "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -280,7 +286,7 @@ class RequestBodyTools(BaseModel):
 
     schema_: Annotated[UpdateToolRequestBodyToolsSchema, pydantic.Field(alias="schema")]
 
-    id: Optional[str] = "01KK0WE8TYT2R39QRH2RAJTDPF"
+    id: Optional[str] = "01KK16TF72WKBM6SR7EQC1P9BP"
 
     description: Optional[str] = None
 
@@ -349,7 +355,7 @@ class UpdateToolRequestBodyMcp(BaseModel):
         return m
 
 
-UpdateToolRequestBodyToolsVersionIncrement = Literal[
+UpdateToolRequestBodyToolsRequest4VersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -376,7 +382,8 @@ class UpdateMCPToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequest4Status]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     mcp: NotRequired[UpdateToolRequestBodyMcpTypedDict]
-    version_increment: NotRequired[UpdateToolRequestBodyToolsVersionIncrement]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequest4VersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateMCPTool(BaseModel):
@@ -407,8 +414,12 @@ class UpdateMCPTool(BaseModel):
     mcp: Optional[UpdateToolRequestBodyMcp] = None
 
     version_increment: Annotated[
-        Optional[UpdateToolRequestBodyToolsVersionIncrement],
+        Optional[UpdateToolRequestBodyToolsRequest4VersionIncrement],
         pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
     ] = None
 
     @model_serializer(mode="wrap")
@@ -422,6 +433,7 @@ class UpdateMCPTool(BaseModel):
                 "status",
                 "mcp",
                 "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -634,7 +646,7 @@ class UpdateToolRequestBodyHTTP(BaseModel):
         return m
 
 
-UpdateToolRequestBodyVersionIncrement = Literal[
+UpdateToolRequestBodyToolsRequestVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -661,7 +673,8 @@ class UpdateHTTPToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsRequestStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     http: NotRequired[UpdateToolRequestBodyHTTPTypedDict]
-    version_increment: NotRequired[UpdateToolRequestBodyVersionIncrement]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsRequestVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateHTTPTool(BaseModel):
@@ -692,8 +705,12 @@ class UpdateHTTPTool(BaseModel):
     http: Optional[UpdateToolRequestBodyHTTP] = None
 
     version_increment: Annotated[
-        Optional[UpdateToolRequestBodyVersionIncrement],
+        Optional[UpdateToolRequestBodyToolsRequestVersionIncrement],
         pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
     ] = None
 
     @model_serializer(mode="wrap")
@@ -707,6 +724,7 @@ class UpdateHTTPTool(BaseModel):
                 "status",
                 "http",
                 "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -813,7 +831,7 @@ class UpdateToolRequestBodyJSONSchema(BaseModel):
         return m
 
 
-RequestBodyVersionIncrement = Literal[
+UpdateToolRequestBodyToolsVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -840,7 +858,8 @@ class UpdateJSONSchemaToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyToolsStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     json_schema: NotRequired[UpdateToolRequestBodyJSONSchemaTypedDict]
-    version_increment: NotRequired[RequestBodyVersionIncrement]
+    version_increment: NotRequired[UpdateToolRequestBodyToolsVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateJSONSchemaTool(BaseModel):
@@ -871,7 +890,12 @@ class UpdateJSONSchemaTool(BaseModel):
     json_schema: Optional[UpdateToolRequestBodyJSONSchema] = None
 
     version_increment: Annotated[
-        Optional[RequestBodyVersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[UpdateToolRequestBodyToolsVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
     ] = None
 
     @model_serializer(mode="wrap")
@@ -885,6 +909,7 @@ class UpdateJSONSchemaTool(BaseModel):
                 "status",
                 "json_schema",
                 "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -995,7 +1020,7 @@ class UpdateToolRequestBodyFunction(BaseModel):
         return m
 
 
-VersionIncrement = Literal[
+UpdateToolRequestBodyVersionIncrement = Literal[
     "major",
     "minor",
     "patch",
@@ -1022,7 +1047,8 @@ class UpdateFunctionToolTypedDict(TypedDict):
     status: NotRequired[UpdateToolRequestBodyStatus]
     r"""The status of the tool. `Live` is the latest version of the tool. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     function: NotRequired[UpdateToolRequestBodyFunctionTypedDict]
-    version_increment: NotRequired[VersionIncrement]
+    version_increment: NotRequired[UpdateToolRequestBodyVersionIncrement]
+    version_description: NotRequired[str]
 
 
 class UpdateFunctionTool(BaseModel):
@@ -1053,7 +1079,12 @@ class UpdateFunctionTool(BaseModel):
     function: Optional[UpdateToolRequestBodyFunction] = None
 
     version_increment: Annotated[
-        Optional[VersionIncrement], pydantic.Field(alias="versionIncrement")
+        Optional[UpdateToolRequestBodyVersionIncrement],
+        pydantic.Field(alias="versionIncrement"),
+    ] = None
+
+    version_description: Annotated[
+        Optional[str], pydantic.Field(alias="versionDescription")
     ] = None
 
     @model_serializer(mode="wrap")
@@ -1067,6 +1098,7 @@ class UpdateFunctionTool(BaseModel):
                 "status",
                 "function",
                 "versionIncrement",
+                "versionDescription",
             ]
         )
         serialized = handler(self)
@@ -1317,7 +1349,7 @@ class UpdateToolResponseBodyCodeExecutionTool(BaseModel):
     code_tool: UpdateToolResponseBodyCodeTool
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK0WE8TR82HTKVJAFNNDETRF"
+        "tool_01KK16TF6XCH6HZXQKPWH2Q14J"
     )
 
     display_name: Optional[str] = None
@@ -1448,7 +1480,7 @@ class UpdateToolResponseBodyTools(BaseModel):
         UpdateToolResponseBodyToolsSchema, pydantic.Field(alias="schema")
     ]
 
-    id: Optional[str] = "01KK0WE8TQR4GGAAFFWPEVP5WT"
+    id: Optional[str] = "01KK16TF6WHGQRZT30A0Y3QGW6"
 
     description: Optional[str] = None
 
@@ -1579,7 +1611,7 @@ class UpdateToolResponseBodyMCPTool(BaseModel):
     mcp: UpdateToolResponseBodyMcp
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK0WE8TPZ4A93R8RFPWMX2PV"
+        "tool_01KK16TF6VA0G9KY7FWG31PE86"
     )
 
     display_name: Optional[str] = None
@@ -1880,7 +1912,7 @@ class UpdateToolResponseBodyHTTPTool(BaseModel):
     http: UpdateToolResponseBodyHTTP
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK0WE8TMVKHRVVQD40SNWYFM"
+        "tool_01KK16TF6TR5DP98M2G6AF1K56"
     )
 
     display_name: Optional[str] = None
@@ -2075,7 +2107,7 @@ class UpdateToolResponseBodyJSONSchemaTool(BaseModel):
     json_schema: UpdateToolResponseBodyJSONSchema
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK0WE8TKSDFT15YJRD0RQJ9D"
+        "tool_01KK16TF6S146RGFCDX45JYTBC"
     )
 
     display_name: Optional[str] = None
@@ -2274,7 +2306,7 @@ class UpdateToolResponseBodyFunctionTool(BaseModel):
     function: UpdateToolResponseBodyFunction
 
     id: Annotated[Optional[str], pydantic.Field(alias="_id")] = (
-        "tool_01KK0WE8THJT4TK06E33THT87W"
+        "tool_01KK16TF6R8946S7CQ4TKR79T0"
     )
 
     display_name: Optional[str] = None
