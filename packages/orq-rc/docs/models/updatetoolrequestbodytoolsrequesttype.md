@@ -10,6 +10,4 @@ value: UpdateToolRequestBodyToolsRequestType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

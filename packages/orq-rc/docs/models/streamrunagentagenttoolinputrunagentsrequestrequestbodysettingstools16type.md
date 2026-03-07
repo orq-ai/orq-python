@@ -10,6 +10,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools16Typ
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

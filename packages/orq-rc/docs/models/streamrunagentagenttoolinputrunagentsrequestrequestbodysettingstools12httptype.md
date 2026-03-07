@@ -12,8 +12,6 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTT
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `STRING`  | string    |
-| `NUMBER`  | number    |
-| `BOOLEAN` | boolean   |
+- `"string"`
+- `"number"`
+- `"boolean"`

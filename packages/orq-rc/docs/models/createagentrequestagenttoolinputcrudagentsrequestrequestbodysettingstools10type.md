@@ -10,6 +10,4 @@ value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsTools
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `QUERY_KNOWLEDGE_BASE` | query_knowledge_base   |
+- `"query_knowledge_base"`

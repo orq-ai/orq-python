@@ -12,6 +12,4 @@ value: GetPromptVersionToolChoiceType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

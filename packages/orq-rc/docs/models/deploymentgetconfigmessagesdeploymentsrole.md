@@ -12,6 +12,4 @@ value: DeploymentGetConfigMessagesDeploymentsRole = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

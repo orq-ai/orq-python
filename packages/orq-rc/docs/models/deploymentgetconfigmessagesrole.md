@@ -12,6 +12,4 @@ value: DeploymentGetConfigMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

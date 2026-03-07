@@ -57,7 +57,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONNumber(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -97,7 +97,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONBoolean(BaseModel)
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -155,9 +155,9 @@ class ResponseBodyPython(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T12:45:25.312Z"
+    created: Optional[str] = "2026-03-07T11:51:12.181Z"
 
-    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
+    updated: Optional[str] = "2026-03-07T11:51:12.181Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyEvalsGuardrailConfig] = None
 
@@ -169,7 +169,7 @@ class ResponseBodyPython(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -220,7 +220,7 @@ class CreateEvalGuardrailConfigEvalsResponse200Number(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -256,7 +256,7 @@ class CreateEvalGuardrailConfigEvalsResponse200Boolean(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -323,9 +323,9 @@ class ResponseBodyHTTP(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T12:45:25.312Z"
+    created: Optional[str] = "2026-03-07T11:51:12.181Z"
 
-    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
+    updated: Optional[str] = "2026-03-07T11:51:12.181Z"
 
     guardrail_config: Optional[CreateEvalResponseBodyGuardrailConfig] = None
 
@@ -337,7 +337,7 @@ class ResponseBodyHTTP(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -386,7 +386,7 @@ class CreateEvalGuardrailConfigEvalsResponseNumber(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -422,7 +422,7 @@ class CreateEvalGuardrailConfigEvalsResponseBoolean(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -474,9 +474,9 @@ class ResponseBodyJSON(BaseModel):
 
     key: str
 
-    created: Optional[str] = "2026-03-06T12:45:25.312Z"
+    created: Optional[str] = "2026-03-07T11:51:12.181Z"
 
-    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
+    updated: Optional[str] = "2026-03-07T11:51:12.181Z"
 
     guardrail_config: Optional[ResponseBodyGuardrailConfig] = None
 
@@ -488,7 +488,7 @@ class ResponseBodyJSON(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -549,7 +549,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMNu
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -591,7 +591,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1LLMBo
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -648,7 +648,7 @@ class CreateEvalLLMEvalsResponseRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -686,7 +686,7 @@ class CreateEvalLLMJudges(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -713,7 +713,7 @@ class CreateEvalLLMEvalsRetry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -751,7 +751,7 @@ class CreateEvalLLMReplacementJudges(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -789,7 +789,7 @@ class CreateEvalLLMJury(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -827,9 +827,9 @@ class CreateEvalLLM2(BaseModel):
 
     jury: CreateEvalLLMJury
 
-    created: Optional[str] = "2026-03-06T12:45:25.312Z"
+    created: Optional[str] = "2026-03-07T11:51:12.181Z"
 
-    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
+    updated: Optional[str] = "2026-03-07T11:51:12.181Z"
 
     guardrail_config: Optional[CreateEvalLLMEvalsResponseGuardrailConfig] = None
 
@@ -843,7 +843,7 @@ class CreateEvalLLM2(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -902,7 +902,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Numbe
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -944,7 +944,7 @@ class CreateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody1Boole
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -1012,9 +1012,9 @@ class CreateEvalLLM1(BaseModel):
 
     model: str
 
-    created: Optional[str] = "2026-03-06T12:45:25.312Z"
+    created: Optional[str] = "2026-03-07T11:51:12.181Z"
 
-    updated: Optional[str] = "2026-03-06T12:45:25.312Z"
+    updated: Optional[str] = "2026-03-07T11:51:12.181Z"
 
     guardrail_config: Optional[CreateEvalLLMEvalsGuardrailConfig] = None
 
@@ -1028,7 +1028,7 @@ class CreateEvalLLM1(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

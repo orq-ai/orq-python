@@ -12,6 +12,4 @@ value: DeploymentGetConfig2DeploymentsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

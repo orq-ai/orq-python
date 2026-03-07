@@ -12,6 +12,4 @@ value: InvokeAgentRoleUserMessage = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

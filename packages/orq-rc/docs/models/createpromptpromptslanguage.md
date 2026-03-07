@@ -12,12 +12,10 @@ value: CreatePromptPromptsLanguage = "Chinese"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `CHINESE` | Chinese   |
-| `DUTCH`   | Dutch     |
-| `ENGLISH` | English   |
-| `FRENCH`  | French    |
-| `GERMAN`  | German    |
-| `RUSSIAN` | Russian   |
-| `SPANISH` | Spanish   |
+- `"Chinese"`
+- `"Dutch"`
+- `"English"`
+- `"French"`
+- `"German"`
+- `"Russian"`
+- `"Spanish"`

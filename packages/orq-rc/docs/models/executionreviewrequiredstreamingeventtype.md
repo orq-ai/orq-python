@@ -10,6 +10,4 @@ value: ExecutionReviewRequiredStreamingEventType = "event.agents.execution_revie
 
 ## Values
 
-| Name                                     | Value                                    |
-| ---------------------------------------- | ---------------------------------------- |
-| `EVENT_AGENTS_EXECUTION_REVIEW_REQUIRED` | event.agents.execution_review_required   |
+- `"event.agents.execution_review_required"`

@@ -10,10 +10,8 @@ value: CreateResponseToolChoiceType = "file_search"
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `FILE_SEARCH`          | file_search            |
-| `WEB_SEARCH_PREVIEW`   | web_search_preview     |
-| `COMPUTER_USE_PREVIEW` | computer_use_preview   |
-| `CODE_INTERPRETER`     | code_interpreter       |
-| `IMAGE_GENERATION`     | image_generation       |
+- `"file_search"`
+- `"web_search_preview"`
+- `"computer_use_preview"`
+- `"code_interpreter"`
+- `"image_generation"`

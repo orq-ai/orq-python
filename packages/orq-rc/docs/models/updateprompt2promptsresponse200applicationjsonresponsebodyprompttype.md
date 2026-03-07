@@ -12,6 +12,4 @@ value: UpdatePrompt2PromptsResponse200ApplicationJSONResponseBodyPromptType = "e
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

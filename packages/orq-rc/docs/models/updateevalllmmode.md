@@ -10,6 +10,4 @@ value: UpdateEvalLLMMode = "single"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SINGLE` | single   |
+- `"single"`

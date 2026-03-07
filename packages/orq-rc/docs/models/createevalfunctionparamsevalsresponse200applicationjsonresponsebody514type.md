@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody514Typ
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ONE_LINE` | one_line   |
+- `"one_line"`

@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestType = "retrieve_agents"
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `RETRIEVE_AGENTS` | retrieve_agents   |
+- `"retrieve_agents"`

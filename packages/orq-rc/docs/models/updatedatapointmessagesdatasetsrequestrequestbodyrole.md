@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsRequestRequestBodyRole = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

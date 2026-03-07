@@ -10,6 +10,4 @@ value: GetEvalsGuardrailConfigEvalsResponse200ApplicationJSONResponseBodyData62T
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

@@ -12,7 +12,5 @@ value: Format = "mp3"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MP3` | mp3   |
-| `WAV` | wav   |
+- `"mp3"`
+- `"wav"`

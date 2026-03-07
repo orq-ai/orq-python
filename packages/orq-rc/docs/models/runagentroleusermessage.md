@@ -12,6 +12,4 @@ value: RunAgentRoleUserMessage = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

@@ -10,7 +10,5 @@ value: RequestBodyMode = "single"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SINGLE` | single   |
-| `JURY`   | jury     |
+- `"single"`
+- `"jury"`

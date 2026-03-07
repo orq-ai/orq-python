@@ -10,7 +10,5 @@ value: CreateEvalRequestBodyMethod = "GET"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `GET`  | GET    |
-| `POST` | POST   |
+- `"GET"`
+- `"POST"`

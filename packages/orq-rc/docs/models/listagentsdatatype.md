@@ -12,6 +12,4 @@ value: ListAgentsDataType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+- `"internal"`

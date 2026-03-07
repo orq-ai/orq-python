@@ -12,8 +12,6 @@ value: Status = "in_progress"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `IN_PROGRESS` | in_progress   |
-| `COMPLETED`   | completed     |
-| `FAILED`      | failed        |
+- `"in_progress"`
+- `"completed"`
+- `"failed"`

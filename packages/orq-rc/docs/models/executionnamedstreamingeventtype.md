@@ -10,6 +10,4 @@ value: ExecutionNamedStreamingEventType = "event.agents.execution_named"
 
 ## Values
 
-| Name                           | Value                          |
-| ------------------------------ | ------------------------------ |
-| `EVENT_AGENTS_EXECUTION_NAMED` | event.agents.execution_named   |
+- `"event.agents.execution_named"`

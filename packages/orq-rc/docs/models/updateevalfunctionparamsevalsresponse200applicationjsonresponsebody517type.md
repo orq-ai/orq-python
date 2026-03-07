@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody517Typ
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `MODERATIONS_OPENAI` | moderations_openai   |
+- `"moderations_openai"`

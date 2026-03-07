@@ -12,6 +12,4 @@ value: CreateResponseOutputRouterResponsesType = "web_search_call"
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `WEB_SEARCH_CALL` | web_search_call   |
+- `"web_search_call"`

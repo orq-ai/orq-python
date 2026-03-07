@@ -12,6 +12,4 @@ value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools14Type 
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

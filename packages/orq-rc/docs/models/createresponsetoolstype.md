@@ -12,6 +12,4 @@ value: CreateResponseToolsType = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

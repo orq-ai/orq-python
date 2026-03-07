@@ -10,6 +10,4 @@ value: FunctionParamsType = "contains"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `CONTAINS` | contains   |
+- `"contains"`

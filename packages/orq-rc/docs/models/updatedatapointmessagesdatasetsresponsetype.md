@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsResponseType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

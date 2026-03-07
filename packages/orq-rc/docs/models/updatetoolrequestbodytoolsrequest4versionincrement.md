@@ -10,8 +10,6 @@ value: UpdateToolRequestBodyToolsRequest4VersionIncrement = "major"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `MAJOR` | major   |
-| `MINOR` | minor   |
-| `PATCH` | patch   |
+- `"major"`
+- `"minor"`
+- `"patch"`

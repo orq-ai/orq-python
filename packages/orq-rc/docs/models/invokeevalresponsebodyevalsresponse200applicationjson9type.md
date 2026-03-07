@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON9Type = "structured"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `STRUCTURED` | structured   |
+- `"structured"`

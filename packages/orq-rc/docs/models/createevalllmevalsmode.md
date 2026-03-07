@@ -10,6 +10,4 @@ value: CreateEvalLLMEvalsMode = "jury"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `JURY` | jury   |
+- `"jury"`

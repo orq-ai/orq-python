@@ -10,7 +10,5 @@ value: UpdateDatapointEvaluationsSource = "orq"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ORQ`      | orq        |
-| `EXTERNAL` | external   |
+- `"orq"`
+- `"external"`

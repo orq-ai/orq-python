@@ -10,6 +10,4 @@ value: ListIdentitiesObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

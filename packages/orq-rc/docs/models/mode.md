@@ -12,7 +12,5 @@ value: Mode = "window"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `WINDOW`   | window     |
-| `SENTENCE` | sentence   |
+- `"window"`
+- `"sentence"`

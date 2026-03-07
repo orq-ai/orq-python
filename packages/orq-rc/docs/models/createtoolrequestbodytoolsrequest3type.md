@@ -12,8 +12,6 @@ value: CreateToolRequestBodyToolsRequest3Type = "string"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `STRING`  | string    |
-| `NUMBER`  | number    |
-| `BOOLEAN` | boolean   |
+- `"string"`
+- `"number"`
+- `"boolean"`

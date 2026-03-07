@@ -10,6 +10,4 @@ value: DeploymentInvokeMessageDeploymentsResponseType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

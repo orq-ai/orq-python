@@ -12,6 +12,4 @@ value: PartKind = "reasoning"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `REASONING` | reasoning   |
+- `"reasoning"`

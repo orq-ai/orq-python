@@ -12,7 +12,5 @@ value: Moderation = "low"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LOW`  | low    |
-| `AUTO` | auto   |
+- `"low"`
+- `"auto"`

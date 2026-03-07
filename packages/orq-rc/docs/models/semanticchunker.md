@@ -10,6 +10,4 @@ value: SemanticChunker = "semantic"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `SEMANTIC` | semantic   |
+- `"semantic"`

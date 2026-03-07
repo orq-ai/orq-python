@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200Type = "contains_any"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CONTAINS_ANY` | contains_any   |
+- `"contains_any"`

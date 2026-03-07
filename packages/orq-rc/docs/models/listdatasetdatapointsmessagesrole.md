@@ -12,6 +12,4 @@ value: ListDatasetDatapointsMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

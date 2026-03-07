@@ -10,6 +10,4 @@ value: UpdateToolResponseBodyToolsResponse200ApplicationJSONType = "code"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

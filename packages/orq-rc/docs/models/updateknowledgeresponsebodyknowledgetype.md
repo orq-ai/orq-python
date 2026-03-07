@@ -10,6 +10,4 @@ value: UpdateKnowledgeResponseBodyKnowledgeType = "external"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `EXTERNAL` | external   |
+- `"external"`

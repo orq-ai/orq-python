@@ -12,6 +12,4 @@ value: DeploymentCreateMetricChoicesDeploymentsMetricsRequestRole = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

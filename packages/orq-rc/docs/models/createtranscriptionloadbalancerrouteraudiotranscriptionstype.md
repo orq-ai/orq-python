@@ -10,6 +10,4 @@ value: CreateTranscriptionLoadBalancerRouterAudioTranscriptionsType = "weight_ba
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `WEIGHT_BASED` | weight_based   |
+- `"weight_based"`

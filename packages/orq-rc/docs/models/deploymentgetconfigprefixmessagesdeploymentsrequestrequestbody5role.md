@@ -12,6 +12,4 @@ value: DeploymentGetConfigPrefixMessagesDeploymentsRequestRequestBody5Role = "to
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

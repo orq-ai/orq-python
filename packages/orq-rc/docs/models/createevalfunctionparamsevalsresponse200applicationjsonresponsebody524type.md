@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody524Typ
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `LEVENSHTEIN_DISTANCE` | levenshtein_distance   |
+- `"levenshtein_distance"`

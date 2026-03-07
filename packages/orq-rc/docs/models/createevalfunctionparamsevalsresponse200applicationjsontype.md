@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONType = "contains_u
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CONTAINS_URL` | contains_url   |
+- `"contains_url"`

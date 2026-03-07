@@ -10,6 +10,4 @@ value: DeploymentGetConfig2DeploymentsResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

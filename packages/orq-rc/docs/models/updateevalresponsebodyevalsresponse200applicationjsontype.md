@@ -10,6 +10,4 @@ value: UpdateEvalResponseBodyEvalsResponse200ApplicationJSONType = "ragas"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+- `"ragas"`

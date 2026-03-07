@@ -10,6 +10,4 @@ value: UpdatePromptResponseFormatPromptsResponse200ApplicationJSONResponseBodyTy
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_SCHEMA` | json_schema   |
+- `"json_schema"`

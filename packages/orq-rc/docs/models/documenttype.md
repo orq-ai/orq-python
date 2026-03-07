@@ -10,6 +10,4 @@ value: DocumentType = "document_url"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `DOCUMENT_URL` | document_url   |
+- `"document_url"`

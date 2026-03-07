@@ -12,10 +12,8 @@ value: CreateChatCompletionFinishReason = "stop"
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `STOP`           | stop             |
-| `LENGTH`         | length           |
-| `TOOL_CALLS`     | tool_calls       |
-| `CONTENT_FILTER` | content_filter   |
-| `FUNCTION_CALL`  | function_call    |
+- `"stop"`
+- `"length"`
+- `"tool_calls"`
+- `"content_filter"`
+- `"function_call"`

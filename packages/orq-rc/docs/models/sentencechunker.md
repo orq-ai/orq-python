@@ -10,6 +10,4 @@ value: SentenceChunker = "sentence"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `SENTENCE` | sentence   |
+- `"sentence"`

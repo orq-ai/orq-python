@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData525T
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `KEYWORDS_MATCH` | keywords_match   |
+- `"keywords_match"`

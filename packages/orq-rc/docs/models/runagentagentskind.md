@@ -10,6 +10,4 @@ value: RunAgentAgentsKind = "message"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `MESSAGE` | message   |
+- `"message"`

@@ -12,8 +12,6 @@ value: FileListPurpose = "retrieval"
 
 ## Values
 
-| Name                   | Value                  |
-| ---------------------- | ---------------------- |
-| `RETRIEVAL`            | retrieval              |
-| `KNOWLEDGE_DATASOURCE` | knowledge_datasource   |
-| `BATCH`                | batch                  |
+- `"retrieval"`
+- `"knowledge_datasource"`
+- `"batch"`

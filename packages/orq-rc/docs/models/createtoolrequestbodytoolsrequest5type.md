@@ -10,6 +10,4 @@ value: CreateToolRequestBodyToolsRequest5Type = "code"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

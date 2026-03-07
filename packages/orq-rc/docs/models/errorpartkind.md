@@ -10,6 +10,4 @@ value: ErrorPartKind = "error"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `ERROR` | error   |
+- `"error"`

@@ -12,6 +12,4 @@ value: CreateDatasetItemMessagesDatasetsRequestRequestBody5Role = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

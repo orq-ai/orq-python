@@ -12,6 +12,4 @@ value: GetAllPromptsMessagesPromptsResponseRole = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

@@ -12,9 +12,7 @@ value: CreateResponseStatus = "completed"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `COMPLETED`   | completed     |
-| `FAILED`      | failed        |
-| `IN_PROGRESS` | in_progress   |
-| `INCOMPLETE`  | incomplete    |
+- `"completed"`
+- `"failed"`
+- `"in_progress"`
+- `"incomplete"`

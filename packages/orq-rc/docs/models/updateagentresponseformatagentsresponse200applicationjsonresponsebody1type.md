@@ -10,6 +10,4 @@ value: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBody1Typ
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_OBJECT` | json_object   |
+- `"json_object"`

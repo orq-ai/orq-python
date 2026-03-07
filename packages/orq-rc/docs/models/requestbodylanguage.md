@@ -10,6 +10,4 @@ value: RequestBodyLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

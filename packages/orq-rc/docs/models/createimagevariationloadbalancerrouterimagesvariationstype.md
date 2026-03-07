@@ -10,6 +10,4 @@ value: CreateImageVariationLoadBalancerRouterImagesVariationsType = "weight_base
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `WEIGHT_BASED` | weight_based   |
+- `"weight_based"`

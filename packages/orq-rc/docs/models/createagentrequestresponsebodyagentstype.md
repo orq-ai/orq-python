@@ -12,6 +12,4 @@ value: CreateAgentRequestResponseBodyAgentsType = "a2a"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `A2A` | a2a   |
+- `"a2a"`

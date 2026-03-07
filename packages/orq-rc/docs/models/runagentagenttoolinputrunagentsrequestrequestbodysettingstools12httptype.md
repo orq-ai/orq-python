@@ -12,8 +12,6 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools12HTTPType 
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `STRING`  | string    |
-| `NUMBER`  | number    |
-| `BOOLEAN` | boolean   |
+- `"string"`
+- `"number"`
+- `"boolean"`

@@ -12,6 +12,4 @@ value: GetPromptVersionMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

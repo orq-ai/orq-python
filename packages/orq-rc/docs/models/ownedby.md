@@ -12,7 +12,5 @@ value: OwnedBy = "vendor"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `VENDOR`    | vendor      |
-| `WORKSPACE` | workspace   |
+- `"vendor"`
+- `"workspace"`

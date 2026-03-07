@@ -10,6 +10,4 @@ value: CreateEvalLLMEvalsResponseMode = "single"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SINGLE` | single   |
+- `"single"`

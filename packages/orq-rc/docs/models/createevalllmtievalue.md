@@ -10,6 +10,4 @@ value: CreateEvalLLMTieValue = "Tie"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `TIE` | Tie   |
+- `"Tie"`

@@ -12,6 +12,4 @@ value: RetrieveToolResponseBodyToolsResponse200ApplicationJSON1Type = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

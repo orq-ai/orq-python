@@ -10,6 +10,4 @@ value: CreateDatasetItemEvaluationsType = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

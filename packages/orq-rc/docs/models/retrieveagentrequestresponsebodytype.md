@@ -12,6 +12,4 @@ value: RetrieveAgentRequestResponseBodyType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+- `"internal"`

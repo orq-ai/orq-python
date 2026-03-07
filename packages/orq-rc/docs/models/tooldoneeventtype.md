@@ -10,6 +10,4 @@ value: ToolDoneEventType = "tool.done"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `TOOL_DONE` | tool.done   |
+- `"tool.done"`

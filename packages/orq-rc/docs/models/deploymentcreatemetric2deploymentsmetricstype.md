@@ -12,6 +12,4 @@ value: DeploymentCreateMetric2DeploymentsMetricsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

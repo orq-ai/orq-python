@@ -10,25 +10,23 @@ value: UpdatePromptUseCases = "Agents simulations"
 
 ## Values
 
-| Name                     | Value                    |
-| ------------------------ | ------------------------ |
-| `AGENTS_SIMULATIONS`     | Agents simulations       |
-| `AGENTS`                 | Agents                   |
-| `API_INTERACTION`        | API interaction          |
-| `AUTONOMOUS_AGENTS`      | Autonomous Agents        |
-| `CHATBOTS`               | Chatbots                 |
-| `CLASSIFICATION`         | Classification           |
-| `CODE_UNDERSTANDING`     | Code understanding       |
-| `CODE_WRITING`           | Code writing             |
-| `CONVERSATION`           | Conversation             |
-| `DOCUMENTS_QA`           | Documents QA             |
-| `EVALUATION`             | Evaluation               |
-| `EXTRACTION`             | Extraction               |
-| `MULTI_MODAL`            | Multi-modal              |
-| `SELF_CHECKING`          | Self-checking            |
-| `SENTIMENT_ANALYSIS`     | Sentiment analysis       |
-| `SQL`                    | SQL                      |
-| `SUMMARIZATION`          | Summarization            |
-| `TAGGING`                | Tagging                  |
-| `TRANSLATION_DOCUMENT_`  | Translation (document)   |
-| `TRANSLATION_SENTENCES_` | Translation (sentences)  |
+- `"Agents simulations"`
+- `"Agents"`
+- `"API interaction"`
+- `"Autonomous Agents"`
+- `"Chatbots"`
+- `"Classification"`
+- `"Code understanding"`
+- `"Code writing"`
+- `"Conversation"`
+- `"Documents QA"`
+- `"Evaluation"`
+- `"Extraction"`
+- `"Multi-modal"`
+- `"Self-checking"`
+- `"Sentiment analysis"`
+- `"SQL"`
+- `"Summarization"`
+- `"Tagging"`
+- `"Translation (document)"`
+- `"Translation (sentences)"`

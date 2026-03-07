@@ -12,6 +12,4 @@ value: DeploymentGetConfig2DeploymentsResponse200ApplicationJSONType = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

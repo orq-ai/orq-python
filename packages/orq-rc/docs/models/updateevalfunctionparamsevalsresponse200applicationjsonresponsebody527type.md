@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody527Typ
 
 ## Values
 
-| Name                  | Value                 |
-| --------------------- | --------------------- |
-| `FLESCH_READING_EASE` | flesch_reading_ease   |
+- `"flesch_reading_ease"`

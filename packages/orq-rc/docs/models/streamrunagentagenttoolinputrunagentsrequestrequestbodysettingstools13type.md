@@ -10,6 +10,4 @@ value: StreamRunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Typ
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

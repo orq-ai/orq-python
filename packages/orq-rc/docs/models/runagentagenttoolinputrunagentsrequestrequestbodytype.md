@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodyType = "query_memory_sto
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `QUERY_MEMORY_STORE` | query_memory_store   |
+- `"query_memory_store"`

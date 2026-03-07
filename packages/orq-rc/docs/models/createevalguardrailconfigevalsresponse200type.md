@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsResponse200Type = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

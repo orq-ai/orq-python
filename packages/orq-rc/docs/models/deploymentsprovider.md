@@ -10,34 +10,32 @@ value: DeploymentsProvider = "openai"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `OPENAI`       | openai         |
-| `GROQ`         | groq           |
-| `COHERE`       | cohere         |
-| `AZURE`        | azure          |
-| `AWS`          | aws            |
-| `GOOGLE`       | google         |
-| `GOOGLE_AI`    | google-ai      |
-| `HUGGINGFACE`  | huggingface    |
-| `TOGETHERAI`   | togetherai     |
-| `PERPLEXITY`   | perplexity     |
-| `ANTHROPIC`    | anthropic      |
-| `LEONARDOAI`   | leonardoai     |
-| `FAL`          | fal            |
-| `NVIDIA`       | nvidia         |
-| `JINA`         | jina           |
-| `ELEVENLABS`   | elevenlabs     |
-| `LITELLM`      | litellm        |
-| `CEREBRAS`     | cerebras       |
-| `OPENAILIKE`   | openailike     |
-| `BYTEDANCE`    | bytedance      |
-| `MISTRAL`      | mistral        |
-| `DEEPSEEK`     | deepseek       |
-| `CONTEXTUALAI` | contextualai   |
-| `MOONSHOTAI`   | moonshotai     |
-| `ZAI`          | zai            |
-| `MINIMAX`      | minimax        |
-| `XAI`          | xai            |
-| `ALIBABA`      | alibaba        |
-| `SLACK`        | slack          |
+- `"openai"`
+- `"groq"`
+- `"cohere"`
+- `"azure"`
+- `"aws"`
+- `"google"`
+- `"google-ai"`
+- `"huggingface"`
+- `"togetherai"`
+- `"perplexity"`
+- `"anthropic"`
+- `"leonardoai"`
+- `"fal"`
+- `"nvidia"`
+- `"jina"`
+- `"elevenlabs"`
+- `"litellm"`
+- `"cerebras"`
+- `"openailike"`
+- `"bytedance"`
+- `"mistral"`
+- `"deepseek"`
+- `"contextualai"`
+- `"moonshotai"`
+- `"zai"`
+- `"minimax"`
+- `"xai"`
+- `"alibaba"`
+- `"slack"`

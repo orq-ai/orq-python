@@ -12,6 +12,4 @@ value: CreateDatasetItemMessagesDatasetsResponse200Type = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

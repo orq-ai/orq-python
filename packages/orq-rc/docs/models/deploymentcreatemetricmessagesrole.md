@@ -12,6 +12,4 @@ value: DeploymentCreateMetricMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

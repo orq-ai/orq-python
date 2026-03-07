@@ -10,6 +10,4 @@ value: InvokeAgentAgentsKind = "message"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `MESSAGE` | message   |
+- `"message"`

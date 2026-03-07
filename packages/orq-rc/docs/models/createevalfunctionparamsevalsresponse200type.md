@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200Type = "contains_email"
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `CONTAINS_EMAIL` | contains_email   |
+- `"contains_email"`

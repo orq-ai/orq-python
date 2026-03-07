@@ -12,6 +12,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13CodeToolT
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

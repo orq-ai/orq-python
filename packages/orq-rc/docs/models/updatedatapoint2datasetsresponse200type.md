@@ -12,6 +12,4 @@ value: UpdateDatapoint2DatasetsResponse200Type = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

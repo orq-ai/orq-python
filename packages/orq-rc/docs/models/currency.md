@@ -10,6 +10,4 @@ value: Currency = "USD"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `USD` | USD   |
+- `"USD"`

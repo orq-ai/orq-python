@@ -10,6 +10,4 @@ value: UpdateKnowledgeRequestBodyType = "external"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `EXTERNAL` | external   |
+- `"external"`

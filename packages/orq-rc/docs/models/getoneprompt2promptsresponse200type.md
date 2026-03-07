@@ -12,6 +12,4 @@ value: GetOnePrompt2PromptsResponse200Type = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

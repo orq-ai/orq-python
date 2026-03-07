@@ -12,7 +12,5 @@ value: QueryParamType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
-| `A2A`      | a2a        |
+- `"internal"`
+- `"a2a"`

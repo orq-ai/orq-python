@@ -103,7 +103,7 @@ class RetrieveIdentityResponseBody(BaseModel):
     created: Optional[datetime] = None
     r"""The date and time the resource was created"""
 
-    updated: Optional[datetime] = parse_datetime("2026-03-06T12:45:23.925Z")
+    updated: Optional[datetime] = parse_datetime("2026-03-07T11:51:10.719Z")
     r"""The date and time the resource was last updated"""
 
     @model_serializer(mode="wrap")
@@ -125,7 +125,7 @@ class RetrieveIdentityResponseBody(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
             is_nullable_and_explicitly_set = (
                 k in nullable_fields
                 and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member

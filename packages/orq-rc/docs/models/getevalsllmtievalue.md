@@ -10,6 +10,4 @@ value: GetEvalsLLMTieValue = "Tie"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `TIE` | Tie   |
+- `"Tie"`

@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData514T
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `ONE_LINE` | one_line   |
+- `"one_line"`

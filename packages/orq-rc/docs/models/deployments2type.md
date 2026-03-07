@@ -10,6 +10,4 @@ value: Deployments2Type = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

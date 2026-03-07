@@ -12,6 +12,4 @@ value: Version = "latest"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `LATEST` | latest   |
+- `"latest"`

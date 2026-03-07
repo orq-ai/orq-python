@@ -12,9 +12,7 @@ value: UpdateEvalRequestBodyOutputType = "boolean"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `BOOLEAN`     | boolean       |
-| `CATEGORICAL` | categorical   |
-| `NUMBER`      | number        |
-| `STRING`      | string        |
+- `"boolean"`
+- `"categorical"`
+- `"number"`
+- `"string"`

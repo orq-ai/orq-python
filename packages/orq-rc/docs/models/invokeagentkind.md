@@ -12,6 +12,4 @@ value: InvokeAgentKind = "task"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TASK` | task   |
+- `"task"`

@@ -12,6 +12,4 @@ value: DeploymentGetConfigDeploymentsType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

@@ -12,6 +12,4 @@ value: RunAgentRoleToolMessage = "tool"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

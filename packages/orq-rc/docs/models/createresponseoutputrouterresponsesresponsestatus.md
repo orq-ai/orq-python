@@ -12,9 +12,7 @@ value: CreateResponseOutputRouterResponsesResponseStatus = "in_progress"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `IN_PROGRESS` | in_progress   |
-| `COMPLETED`   | completed     |
-| `INCOMPLETE`  | incomplete    |
-| `FAILED`      | failed        |
+- `"in_progress"`
+- `"completed"`
+- `"incomplete"`
+- `"failed"`

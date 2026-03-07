@@ -10,6 +10,4 @@ value: CreateDatasetItemEvaluationsDatasetsType = "string_array"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `STRING_ARRAY` | string_array   |
+- `"string_array"`

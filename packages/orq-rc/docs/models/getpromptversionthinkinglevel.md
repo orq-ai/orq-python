@@ -12,7 +12,5 @@ value: GetPromptVersionThinkingLevel = "low"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LOW`  | low    |
-| `HIGH` | high   |
+- `"low"`
+- `"high"`

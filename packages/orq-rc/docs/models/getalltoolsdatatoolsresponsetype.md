@@ -10,6 +10,4 @@ value: GetAllToolsDataToolsResponseType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

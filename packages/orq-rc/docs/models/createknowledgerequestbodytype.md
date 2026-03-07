@@ -10,6 +10,4 @@ value: CreateKnowledgeRequestBodyType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+- `"internal"`

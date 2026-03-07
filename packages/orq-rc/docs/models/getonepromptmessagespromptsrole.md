@@ -12,6 +12,4 @@ value: GetOnePromptMessagesPromptsRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

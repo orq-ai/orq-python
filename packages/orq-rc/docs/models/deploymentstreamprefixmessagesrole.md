@@ -12,6 +12,4 @@ value: DeploymentStreamPrefixMessagesRole = "system"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `SYSTEM` | system   |
+- `"system"`

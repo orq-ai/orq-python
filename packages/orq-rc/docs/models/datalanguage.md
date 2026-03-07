@@ -10,6 +10,4 @@ value: DataLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

@@ -12,6 +12,4 @@ value: ListDatasetDatapointsMessagesDatasetsRole = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

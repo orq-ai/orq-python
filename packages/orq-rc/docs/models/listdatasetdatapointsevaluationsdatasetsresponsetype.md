@@ -10,6 +10,4 @@ value: ListDatasetDatapointsEvaluationsDatasetsResponseType = "string"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `STRING` | string   |
+- `"string"`

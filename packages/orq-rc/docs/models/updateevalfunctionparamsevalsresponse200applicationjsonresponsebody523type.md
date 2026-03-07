@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody523Typ
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `COSINE_SIMILARITY` | cosine_similarity   |
+- `"cosine_similarity"`

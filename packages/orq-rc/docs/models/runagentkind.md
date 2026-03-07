@@ -12,6 +12,4 @@ value: RunAgentKind = "task"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TASK` | task   |
+- `"task"`

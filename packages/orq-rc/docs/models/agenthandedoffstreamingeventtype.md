@@ -10,6 +10,4 @@ value: AgentHandedOffStreamingEventType = "event.agents.handed_off"
 
 ## Values
 
-| Name                      | Value                     |
-| ------------------------- | ------------------------- |
-| `EVENT_AGENTS_HANDED_OFF` | event.agents.handed_off   |
+- `"event.agents.handed_off"`

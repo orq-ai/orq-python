@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody532Typ
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `GRAMMAR_DIVERSITY` | grammar_diversity   |
+- `"grammar_diversity"`

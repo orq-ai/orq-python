@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody510Typ
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `EXACT_MATCH` | exact_match   |
+- `"exact_match"`

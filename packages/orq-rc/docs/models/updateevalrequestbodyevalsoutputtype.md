@@ -10,6 +10,4 @@ value: UpdateEvalRequestBodyEvalsOutputType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

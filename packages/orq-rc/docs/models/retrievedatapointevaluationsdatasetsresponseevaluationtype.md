@@ -12,6 +12,4 @@ value: RetrieveDatapointEvaluationsDatasetsResponseEvaluationType = "human_revie
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `HUMAN_REVIEW` | human_review   |
+- `"human_review"`

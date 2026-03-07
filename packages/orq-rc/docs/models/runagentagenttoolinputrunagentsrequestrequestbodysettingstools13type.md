@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools13Type = "c
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

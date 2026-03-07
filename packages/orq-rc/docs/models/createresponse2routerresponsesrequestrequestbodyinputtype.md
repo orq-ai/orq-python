@@ -12,6 +12,4 @@ value: CreateResponse2RouterResponsesRequestRequestBodyInputType = "function_cal
 
 ## Values
 
-| Name            | Value           |
-| --------------- | --------------- |
-| `FUNCTION_CALL` | function_call   |
+- `"function_call"`

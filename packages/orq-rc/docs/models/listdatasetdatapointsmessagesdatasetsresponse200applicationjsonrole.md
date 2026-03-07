@@ -12,6 +12,4 @@ value: ListDatasetDatapointsMessagesDatasetsResponse200ApplicationJSONRole = "to
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

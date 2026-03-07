@@ -12,8 +12,6 @@ value: Background = "transparent"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `TRANSPARENT` | transparent   |
-| `OPAQUE`      | opaque        |
-| `AUTO`        | auto          |
+- `"transparent"`
+- `"opaque"`
+- `"auto"`

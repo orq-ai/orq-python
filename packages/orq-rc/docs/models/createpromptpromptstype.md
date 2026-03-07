@@ -10,6 +10,4 @@ value: CreatePromptPromptsType = "prompt"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PROMPT` | prompt   |
+- `"prompt"`

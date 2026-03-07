@@ -10,6 +10,4 @@ value: FastChunker = "fast"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FAST` | fast   |
+- `"fast"`

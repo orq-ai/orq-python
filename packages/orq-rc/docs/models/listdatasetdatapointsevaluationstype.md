@@ -10,6 +10,4 @@ value: ListDatasetDatapointsEvaluationsType = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

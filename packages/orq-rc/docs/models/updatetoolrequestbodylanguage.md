@@ -10,6 +10,4 @@ value: UpdateToolRequestBodyLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

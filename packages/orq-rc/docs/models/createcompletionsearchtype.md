@@ -12,8 +12,6 @@ value: CreateCompletionSearchType = "vector_search"
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `VECTOR_SEARCH`  | vector_search    |
-| `KEYWORD_SEARCH` | keyword_search   |
-| `HYBRID_SEARCH`  | hybrid_search    |
+- `"vector_search"`
+- `"keyword_search"`
+- `"hybrid_search"`

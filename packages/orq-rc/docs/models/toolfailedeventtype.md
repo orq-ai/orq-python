@@ -10,6 +10,4 @@ value: ToolFailedEventType = "tool.failed"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `TOOL_FAILED` | tool.failed   |
+- `"tool.failed"`

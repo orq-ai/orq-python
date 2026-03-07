@@ -10,6 +10,4 @@ value: GetAllMemoryDocumentsObject = "list"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `LIST` | list   |
+- `"list"`

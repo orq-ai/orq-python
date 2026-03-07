@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsResponse200ApplicationJSON6Type = "bert_score"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BERT_SCORE` | bert_score   |
+- `"bert_score"`

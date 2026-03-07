@@ -12,6 +12,4 @@ value: CreateResponse2RouterResponsesType = "input_image"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `INPUT_IMAGE` | input_image   |
+- `"input_image"`

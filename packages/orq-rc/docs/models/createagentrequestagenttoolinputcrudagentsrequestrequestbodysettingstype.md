@@ -10,6 +10,4 @@ value: CreateAgentRequestAgentToolInputCRUDAgentsRequestRequestBodySettingsType 
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `WRITE_MEMORY_STORE` | write_memory_store   |
+- `"write_memory_store"`

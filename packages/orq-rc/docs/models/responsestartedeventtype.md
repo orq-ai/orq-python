@@ -10,6 +10,4 @@ value: ResponseStartedEventType = "response.started"
 
 ## Values
 
-| Name               | Value              |
-| ------------------ | ------------------ |
-| `RESPONSE_STARTED` | response.started   |
+- `"response.started"`

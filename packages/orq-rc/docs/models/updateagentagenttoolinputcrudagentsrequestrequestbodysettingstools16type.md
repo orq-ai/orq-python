@@ -12,6 +12,4 @@ value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools16Type 
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `MCP` | mcp   |
+- `"mcp"`

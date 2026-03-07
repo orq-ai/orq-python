@@ -10,6 +10,4 @@ value: TieValue = "Tie"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `TIE` | Tie   |
+- `"Tie"`

@@ -12,6 +12,4 @@ value: UpdateDatapointMessagesDatasetsRequestRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

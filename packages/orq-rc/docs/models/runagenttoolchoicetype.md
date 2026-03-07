@@ -12,6 +12,4 @@ value: RunAgentToolChoiceType = "function"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `FUNCTION` | function   |
+- `"function"`

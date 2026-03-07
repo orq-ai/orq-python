@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData522T
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `METEOR_SCORE` | meteor_score   |
+- `"meteor_score"`

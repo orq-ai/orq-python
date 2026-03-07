@@ -12,6 +12,4 @@ value: CreateResponse2RouterResponsesRequestType = "input_file"
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `INPUT_FILE` | input_file   |
+- `"input_file"`

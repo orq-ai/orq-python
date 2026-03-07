@@ -12,6 +12,4 @@ value: DeploymentStreamMessagesDeploymentsRole = "developer"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `DEVELOPER` | developer   |
+- `"developer"`

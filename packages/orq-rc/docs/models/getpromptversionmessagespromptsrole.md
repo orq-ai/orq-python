@@ -12,6 +12,4 @@ value: GetPromptVersionMessagesPromptsRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

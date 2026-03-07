@@ -10,6 +10,4 @@ value: UsageType = "pages"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `PAGES` | pages   |
+- `"pages"`

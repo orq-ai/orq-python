@@ -10,7 +10,5 @@ value: PostV2AgentsA2aType = "a2a"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `A2A`      | a2a        |
-| `INTERNAL` | internal   |
+- `"a2a"`
+- `"internal"`

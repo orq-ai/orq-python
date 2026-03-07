@@ -12,6 +12,4 @@ value: RetrieveDatapointMessagesDatasetsResponse200Role = "assistant"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

@@ -12,6 +12,4 @@ value: CreateResponseOutputType = "message"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `MESSAGE` | message   |
+- `"message"`

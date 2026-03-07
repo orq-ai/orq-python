@@ -10,6 +10,4 @@ value: RetrieveToolResponseBodyToolsResponse200ApplicationJSONType = "code"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

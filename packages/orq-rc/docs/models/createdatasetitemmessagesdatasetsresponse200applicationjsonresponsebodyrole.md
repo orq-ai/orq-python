@@ -12,6 +12,4 @@ value: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBodyRo
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ASSISTANT` | assistant   |
+- `"assistant"`

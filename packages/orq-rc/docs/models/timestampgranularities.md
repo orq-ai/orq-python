@@ -10,7 +10,5 @@ value: TimestampGranularities = "word"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `WORD`    | word      |
-| `SEGMENT` | segment   |
+- `"word"`
+- `"segment"`

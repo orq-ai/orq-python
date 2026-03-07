@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData523T
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `COSINE_SIMILARITY` | cosine_similarity   |
+- `"cosine_similarity"`

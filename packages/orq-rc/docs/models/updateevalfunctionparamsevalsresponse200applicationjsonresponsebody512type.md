@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody512Typ
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `LENGTH_BETWEEN` | length_between   |
+- `"length_between"`

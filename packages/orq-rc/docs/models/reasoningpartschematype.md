@@ -12,6 +12,4 @@ value: ReasoningPartSchemaType = "reasoning"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `REASONING` | reasoning   |
+- `"reasoning"`

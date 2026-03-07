@@ -10,6 +10,4 @@ value: CreateEvalGuardrailConfigEvalsResponseType = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONType = "contains_e
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `CONTAINS_EMAIL` | contains_email   |
+- `"contains_email"`

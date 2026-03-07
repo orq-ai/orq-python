@@ -10,6 +10,4 @@ value: UpdateToolRequestBodyToolsRequest5Type = "code"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `CODE` | code   |
+- `"code"`

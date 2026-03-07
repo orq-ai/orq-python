@@ -10,6 +10,4 @@ value: ChunkingConfigurationType = "default"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `DEFAULT` | default   |
+- `"default"`

@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsResponse200Type = "string_array"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `STRING_ARRAY` | string_array   |
+- `"string_array"`

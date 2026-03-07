@@ -12,6 +12,4 @@ value: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

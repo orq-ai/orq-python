@@ -12,8 +12,6 @@ value: TwoDetail = "high"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HIGH` | high   |
-| `LOW`  | low    |
-| `AUTO` | auto   |
+- `"high"`
+- `"low"`
+- `"auto"`

@@ -10,8 +10,6 @@ value: GetAllPromptsToolChoice1 = "none"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `NONE`     | none       |
-| `AUTO`     | auto       |
-| `REQUIRED` | required   |
+- `"none"`
+- `"auto"`
+- `"required"`

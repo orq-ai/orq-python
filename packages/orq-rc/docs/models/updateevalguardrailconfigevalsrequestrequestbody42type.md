@@ -10,6 +10,4 @@ value: UpdateEvalGuardrailConfigEvalsRequestRequestBody42Type = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

@@ -10,6 +10,4 @@ value: CreateImageEditLoadBalancerRouterImagesEditsType = "weight_based"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `WEIGHT_BASED` | weight_based   |
+- `"weight_based"`

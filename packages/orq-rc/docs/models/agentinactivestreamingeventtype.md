@@ -10,6 +10,4 @@ value: AgentInactiveStreamingEventType = "event.agents.inactive"
 
 ## Values
 
-| Name                    | Value                   |
-| ----------------------- | ----------------------- |
-| `EVENT_AGENTS_INACTIVE` | event.agents.inactive   |
+- `"event.agents.inactive"`

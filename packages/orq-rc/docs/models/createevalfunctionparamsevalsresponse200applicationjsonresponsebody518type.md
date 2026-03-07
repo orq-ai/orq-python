@@ -10,6 +10,4 @@ value: CreateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody518Typ
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `MODERATIONS_GOOGLE` | moderations_google   |
+- `"moderations_google"`

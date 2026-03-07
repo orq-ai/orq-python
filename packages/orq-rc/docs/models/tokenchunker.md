@@ -10,6 +10,4 @@ value: TokenChunker = "token"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `TOKEN` | token   |
+- `"token"`

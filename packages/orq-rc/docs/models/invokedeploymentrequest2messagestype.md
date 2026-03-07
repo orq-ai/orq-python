@@ -12,6 +12,4 @@ value: InvokeDeploymentRequest2MessagesType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

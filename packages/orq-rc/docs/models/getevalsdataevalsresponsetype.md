@@ -10,6 +10,4 @@ value: GetEvalsDataEvalsResponseType = "ragas"
 
 ## Values
 
-| Name    | Value   |
-| ------- | ------- |
-| `RAGAS` | ragas   |
+- `"ragas"`

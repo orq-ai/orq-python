@@ -12,6 +12,4 @@ value: DeploymentCreateMetricMessagesDeploymentsMetricsRequestRequestBody5Role =
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

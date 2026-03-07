@@ -10,6 +10,4 @@ value: RunAgentAgentToolInputRunAgentsRequestRequestBodySettingsTools8Type = "de
 
 ## Values
 
-| Name                     | Value                    |
-| ------------------------ | ------------------------ |
-| `DELETE_MEMORY_DOCUMENT` | delete_memory_document   |
+- `"delete_memory_document"`

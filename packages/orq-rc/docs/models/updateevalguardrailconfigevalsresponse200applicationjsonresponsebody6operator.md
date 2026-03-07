@@ -10,11 +10,9 @@ value: UpdateEvalGuardrailConfigEvalsResponse200ApplicationJSONResponseBody6Oper
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `EQ`  | eq    |
-| `NE`  | ne    |
-| `GT`  | gt    |
-| `GTE` | gte   |
-| `LT`  | lt    |
-| `LTE` | lte   |
+- `"eq"`
+- `"ne"`
+- `"gt"`
+- `"gte"`
+- `"lt"`
+- `"lte"`

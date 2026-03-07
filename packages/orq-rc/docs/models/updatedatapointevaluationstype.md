@@ -10,6 +10,4 @@ value: UpdateDatapointEvaluationsType = "string"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `STRING` | string   |
+- `"string"`

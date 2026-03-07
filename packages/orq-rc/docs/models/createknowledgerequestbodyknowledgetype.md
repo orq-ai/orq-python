@@ -10,6 +10,4 @@ value: CreateKnowledgeRequestBodyKnowledgeType = "external"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `EXTERNAL` | external   |
+- `"external"`

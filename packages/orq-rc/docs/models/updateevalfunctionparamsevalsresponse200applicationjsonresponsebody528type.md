@@ -10,6 +10,4 @@ value: UpdateEvalFunctionParamsEvalsResponse200ApplicationJSONResponseBody528Typ
 
 ## Values
 
-| Name                | Value               |
-| ------------------- | ------------------- |
-| `GSE_ENGLISH_LEVEL` | gse_english_level   |
+- `"gse_english_level"`

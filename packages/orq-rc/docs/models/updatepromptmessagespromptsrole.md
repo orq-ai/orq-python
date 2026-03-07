@@ -12,6 +12,4 @@ value: UpdatePromptMessagesPromptsRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

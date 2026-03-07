@@ -12,11 +12,9 @@ value: ListPromptVersionsPromptsReasoningEffort = "none"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `NONE`    | none      |
-| `DISABLE` | disable   |
-| `MINIMAL` | minimal   |
-| `LOW`     | low       |
-| `MEDIUM`  | medium    |
-| `HIGH`    | high      |
+- `"none"`
+- `"disable"`
+- `"minimal"`
+- `"low"`
+- `"medium"`
+- `"high"`

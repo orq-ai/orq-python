@@ -12,6 +12,4 @@ value: ListDatasetDatapoints2Type = "file"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `FILE` | file   |
+- `"file"`

@@ -12,6 +12,4 @@ value: CreatePromptMessagesPromptsResponse200Role = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

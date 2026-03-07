@@ -12,6 +12,4 @@ value: DeploymentGetConfigPrefixMessagesDeploymentsType = "ephemeral"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `EPHEMERAL` | ephemeral   |
+- `"ephemeral"`

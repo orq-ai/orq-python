@@ -12,6 +12,4 @@ value: CreateDatasetItemMessagesDatasetsResponse200ApplicationJSONResponseBody5R
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TOOL` | tool   |
+- `"tool"`

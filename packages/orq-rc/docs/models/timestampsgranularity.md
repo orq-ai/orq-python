@@ -12,8 +12,6 @@ value: TimestampsGranularity = "none"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `NONE`      | none        |
-| `WORD`      | word        |
-| `CHARACTER` | character   |
+- `"none"`
+- `"word"`
+- `"character"`

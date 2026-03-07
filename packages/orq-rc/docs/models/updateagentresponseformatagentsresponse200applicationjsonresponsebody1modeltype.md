@@ -10,6 +10,4 @@ value: UpdateAgentResponseFormatAgentsResponse200ApplicationJSONResponseBody1Mod
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `JSON_SCHEMA` | json_schema   |
+- `"json_schema"`

@@ -12,6 +12,4 @@ value: RefusalPartSchemaType = "refusal"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `REFUSAL` | refusal   |
+- `"refusal"`

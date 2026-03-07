@@ -12,7 +12,5 @@ value: CreateResponseToolsRouterResponsesResponse200ApplicationJSONResponseBodyT
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `APPROXIMATE` | approximate   |
-| `EXACT`       | exact         |
+- `"approximate"`
+- `"exact"`

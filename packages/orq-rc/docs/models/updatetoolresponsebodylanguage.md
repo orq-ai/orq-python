@@ -10,6 +10,4 @@ value: UpdateToolResponseBodyLanguage = "python"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `PYTHON` | python   |
+- `"python"`

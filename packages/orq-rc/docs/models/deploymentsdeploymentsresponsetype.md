@@ -10,6 +10,4 @@ value: DeploymentsDeploymentsResponseType = "object"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

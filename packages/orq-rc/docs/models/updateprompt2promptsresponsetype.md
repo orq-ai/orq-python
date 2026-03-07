@@ -10,6 +10,4 @@ value: UpdatePrompt2PromptsResponseType = "text"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `TEXT` | text   |
+- `"text"`

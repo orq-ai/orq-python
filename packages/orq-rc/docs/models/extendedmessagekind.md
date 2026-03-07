@@ -10,6 +10,4 @@ value: ExtendedMessageKind = "message"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `MESSAGE` | message   |
+- `"message"`

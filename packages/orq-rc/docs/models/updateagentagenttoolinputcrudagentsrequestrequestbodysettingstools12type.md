@@ -12,6 +12,4 @@ value: UpdateAgentAgentToolInputCRUDAgentsRequestRequestBodySettingsTools12Type 
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

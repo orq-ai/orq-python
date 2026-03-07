@@ -12,7 +12,5 @@ value: EncodingFormat = "base64"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `BASE64` | base64   |
-| `FLOAT`  | float    |
+- `"base64"`
+- `"float"`

@@ -10,11 +10,9 @@ value: GetPromptVersionResponseFormat4 = "mp3"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `MP3`  | mp3    |
-| `OPUS` | opus   |
-| `AAC`  | aac    |
-| `FLAC` | flac   |
-| `WAV`  | wav    |
-| `PCM`  | pcm    |
+- `"mp3"`
+- `"opus"`
+- `"aac"`
+- `"flac"`
+- `"wav"`
+- `"pcm"`

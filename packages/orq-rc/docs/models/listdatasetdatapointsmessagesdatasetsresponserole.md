@@ -12,6 +12,4 @@ value: ListDatasetDatapointsMessagesDatasetsResponseRole = "user"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `USER` | user   |
+- `"user"`

@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData5Typ
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ENDS_WITH` | ends_with   |
+- `"ends_with"`

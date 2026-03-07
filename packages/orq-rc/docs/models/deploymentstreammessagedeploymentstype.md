@@ -10,6 +10,4 @@ value: DeploymentStreamMessageDeploymentsType = "content"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `CONTENT` | content   |
+- `"content"`

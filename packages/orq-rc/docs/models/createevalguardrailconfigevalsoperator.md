@@ -10,11 +10,9 @@ value: CreateEvalGuardrailConfigEvalsOperator = "eq"
 
 ## Values
 
-| Name  | Value |
-| ----- | ----- |
-| `EQ`  | eq    |
-| `NE`  | ne    |
-| `GT`  | gt    |
-| `GTE` | gte   |
-| `LT`  | lt    |
-| `LTE` | lte   |
+- `"eq"`
+- `"ne"`
+- `"gt"`
+- `"gte"`
+- `"lt"`
+- `"lte"`

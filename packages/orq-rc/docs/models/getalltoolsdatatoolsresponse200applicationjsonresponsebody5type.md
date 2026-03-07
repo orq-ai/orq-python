@@ -12,6 +12,4 @@ value: GetAllToolsDataToolsResponse200ApplicationJSONResponseBody5Type = "object
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `OBJECT` | object   |
+- `"object"`

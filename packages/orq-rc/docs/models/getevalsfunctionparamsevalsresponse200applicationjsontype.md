@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONType = "contains_url
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `CONTAINS_URL` | contains_url   |
+- `"contains_url"`

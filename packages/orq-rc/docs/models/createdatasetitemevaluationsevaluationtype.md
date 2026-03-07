@@ -12,6 +12,4 @@ value: CreateDatasetItemEvaluationsEvaluationType = "human_review"
 
 ## Values
 
-| Name           | Value          |
-| -------------- | -------------- |
-| `HUMAN_REVIEW` | human_review   |
+- `"human_review"`

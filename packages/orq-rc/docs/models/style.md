@@ -12,7 +12,5 @@ value: Style = "vivid"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `VIVID`   | vivid     |
-| `NATURAL` | natural   |
+- `"vivid"`
+- `"natural"`

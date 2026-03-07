@@ -10,6 +10,4 @@ value: ToolResultPartKind = "tool_result"
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `TOOL_RESULT` | tool_result   |
+- `"tool_result"`

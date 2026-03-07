@@ -12,10 +12,8 @@ value: CreateImageEditQuality = "auto"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `AUTO`     | auto       |
-| `HIGH`     | high       |
-| `MEDIUM`   | medium     |
-| `LOW`      | low        |
-| `STANDARD` | standard   |
+- `"auto"`
+- `"high"`
+- `"medium"`
+- `"low"`
+- `"standard"`

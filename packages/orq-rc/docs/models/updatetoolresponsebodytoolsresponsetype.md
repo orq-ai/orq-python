@@ -10,6 +10,4 @@ value: UpdateToolResponseBodyToolsResponseType = "http"
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `HTTP` | http   |
+- `"http"`

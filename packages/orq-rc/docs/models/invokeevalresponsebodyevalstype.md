@@ -10,6 +10,4 @@ value: InvokeEvalResponseBodyEvalsType = "number"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `NUMBER` | number   |
+- `"number"`

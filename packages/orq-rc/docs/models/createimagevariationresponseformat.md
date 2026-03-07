@@ -12,7 +12,5 @@ value: CreateImageVariationResponseFormat = "url"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `URL`      | url        |
-| `B64_JSON` | b64_json   |
+- `"url"`
+- `"b64_json"`

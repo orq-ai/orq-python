@@ -12,6 +12,4 @@ value: CreateRerankRouterRerankObject = "rerank"
 
 ## Values
 
-| Name     | Value    |
-| -------- | -------- |
-| `RERANK` | rerank   |
+- `"rerank"`

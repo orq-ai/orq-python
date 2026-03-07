@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData520T
 
 ## Values
 
-| Name         | Value        |
-| ------------ | ------------ |
-| `BLEU_SCORE` | bleu_score   |
+- `"bleu_score"`

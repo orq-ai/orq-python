@@ -12,9 +12,7 @@ value: CreateResponseServiceTier = "auto"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `AUTO`     | auto       |
-| `DEFAULT`  | default    |
-| `FLEX`     | flex       |
-| `PRIORITY` | priority   |
+- `"auto"`
+- `"default"`
+- `"flex"`
+- `"priority"`

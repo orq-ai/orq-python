@@ -10,6 +10,4 @@ value: GetEvalsFunctionParamsEvalsResponse200ApplicationJSONResponseBodyData517T
 
 ## Values
 
-| Name                 | Value                |
-| -------------------- | -------------------- |
-| `MODERATIONS_OPENAI` | moderations_openai   |
+- `"moderations_openai"`

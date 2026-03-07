@@ -10,6 +10,4 @@ value: GetEvalsGuardrailConfigEvalsResponse200Type = "boolean"
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `BOOLEAN` | boolean   |
+- `"boolean"`

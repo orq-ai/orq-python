@@ -12,13 +12,11 @@ value: TaskState = "submitted"
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `SUBMITTED`      | submitted        |
-| `WORKING`        | working          |
-| `INPUT_REQUIRED` | input-required   |
-| `AUTH_REQUIRED`  | auth-required    |
-| `COMPLETED`      | completed        |
-| `FAILED`         | failed           |
-| `CANCELED`       | canceled         |
-| `REJECTED`       | rejected         |
+- `"submitted"`
+- `"working"`
+- `"input-required"`
+- `"auth-required"`
+- `"completed"`
+- `"failed"`
+- `"canceled"`
+- `"rejected"`

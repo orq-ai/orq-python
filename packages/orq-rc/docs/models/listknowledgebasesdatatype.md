@@ -10,6 +10,4 @@ value: ListKnowledgeBasesDataType = "internal"
 
 ## Values
 
-| Name       | Value      |
-| ---------- | ---------- |
-| `INTERNAL` | internal   |
+- `"internal"`

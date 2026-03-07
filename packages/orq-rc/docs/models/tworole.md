@@ -12,9 +12,7 @@ value: TwoRole = "user"
 
 ## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `USER`      | user        |
-| `ASSISTANT` | assistant   |
-| `SYSTEM`    | system      |
-| `DEVELOPER` | developer   |
+- `"user"`
+- `"assistant"`
+- `"system"`
+- `"developer"`
