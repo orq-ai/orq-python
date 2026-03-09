@@ -86,7 +86,7 @@ class ListAgentsRequest(BaseModel):
 ListAgentsObject = Literal["list",]
 
 
-ListAgentsDataStatus = Literal[
+ListAgentsStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -95,14 +95,14 @@ ListAgentsDataStatus = Literal[
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class ListAgentsDataTeamOfAgentsTypedDict(TypedDict):
+class ListAgentsTeamOfAgentsTypedDict(TypedDict):
     key: str
     r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-class ListAgentsDataTeamOfAgents(BaseModel):
+class ListAgentsTeamOfAgents(BaseModel):
     key: str
     r"""The unique key of the agent within the workspace"""
 
@@ -126,11 +126,11 @@ class ListAgentsDataTeamOfAgents(BaseModel):
         return m
 
 
-class ListAgentsDataMetricsTypedDict(TypedDict):
+class ListAgentsMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
 
-class ListAgentsDataMetrics(BaseModel):
+class ListAgentsMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
     @model_serializer(mode="wrap")
@@ -150,333 +150,31 @@ class ListAgentsDataMetrics(BaseModel):
         return m
 
 
-class ListAgentsDataKnowledgeBasesTypedDict(TypedDict):
+class ListAgentsKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-class ListAgentsDataKnowledgeBases(BaseModel):
+class ListAgentsKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-ListAgentsDataSource = Literal[
+ListAgentsSource = Literal[
     "internal",
     "external",
     "experiment",
 ]
 
 
-ListAgentsDataAgentsType = Literal["a2a",]
-r"""External A2A-compliant agent"""
-
-
-class DataHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class DataHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class DataA2AAgentConfigurationTypedDict(TypedDict):
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-    card_url: NotRequired[str]
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-    headers: NotRequired[Dict[str, DataHeadersTypedDict]]
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-    cached_card: NotRequired[Any]
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-
-class DataA2AAgentConfiguration(BaseModel):
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-
-    card_url: Optional[str] = None
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-
-    headers: Optional[Dict[str, DataHeaders]] = None
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-
-    cached_card: Optional[Any] = None
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["card_url", "headers", "cached_card"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class Data2TypedDict(TypedDict):
-    id: str
-    key: str
-    r"""Unique identifier for the agent within the workspace"""
-    status: ListAgentsDataStatus
-    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
-    type: ListAgentsDataAgentsType
-    r"""External A2A-compliant agent"""
-    role: str
-    r"""Role fetched from agent card name or user-provided"""
-    description: str
-    r"""Description fetched from agent card or user-provided"""
-    instructions: str
-    r"""Instructions from agent card description or user-provided"""
-    a2a: DataA2AAgentConfigurationTypedDict
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-    display_name: NotRequired[str]
-    created_by_id: NotRequired[Nullable[str]]
-    updated_by_id: NotRequired[Nullable[str]]
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    version_hash: NotRequired[str]
-    memory_stores: NotRequired[List[str]]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: NotRequired[List[ListAgentsDataTeamOfAgentsTypedDict]]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[ListAgentsDataMetricsTypedDict]
-    variables: NotRequired[Dict[str, Any]]
-    r"""Extracted variables from agent instructions"""
-    knowledge_bases: NotRequired[List[ListAgentsDataKnowledgeBasesTypedDict]]
-    r"""Agent knowledge bases reference"""
-    source: NotRequired[ListAgentsDataSource]
-    system_prompt: NotRequired[str]
-
-
-class Data2(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    key: str
-    r"""Unique identifier for the agent within the workspace"""
-
-    status: ListAgentsDataStatus
-    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
-
-    type: ListAgentsDataAgentsType
-    r"""External A2A-compliant agent"""
-
-    role: str
-    r"""Role fetched from agent card name or user-provided"""
-
-    description: str
-    r"""Description fetched from agent card or user-provided"""
-
-    instructions: str
-    r"""Instructions from agent card description or user-provided"""
-
-    a2a: DataA2AAgentConfiguration
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    display_name: Optional[str] = None
-
-    created_by_id: OptionalNullable[str] = UNSET
-
-    updated_by_id: OptionalNullable[str] = UNSET
-
-    created: Optional[str] = None
-
-    updated: Optional[str] = None
-
-    version_hash: Optional[str] = None
-
-    memory_stores: Optional[List[str]] = None
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-
-    team_of_agents: Optional[List[ListAgentsDataTeamOfAgents]] = None
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-
-    metrics: Optional[ListAgentsDataMetrics] = None
-
-    variables: Optional[Dict[str, Any]] = None
-    r"""Extracted variables from agent instructions"""
-
-    knowledge_bases: Optional[List[ListAgentsDataKnowledgeBases]] = None
-    r"""Agent knowledge bases reference"""
-
-    source: Optional[ListAgentsDataSource] = None
-
-    system_prompt: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "created",
-                "updated",
-                "version_hash",
-                "memory_stores",
-                "team_of_agents",
-                "metrics",
-                "variables",
-                "knowledge_bases",
-                "source",
-                "system_prompt",
-            ]
-        )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-DataStatus = Literal[
-    "live",
-    "draft",
-    "pending",
-    "published",
-]
-r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-class DataTeamOfAgentsTypedDict(TypedDict):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-    role: NotRequired[str]
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
-
-
-class DataTeamOfAgents(BaseModel):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-
-    role: Optional[str] = None
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["role"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class DataMetricsTypedDict(TypedDict):
-    total_cost: NotRequired[float]
-
-
-class DataMetrics(BaseModel):
-    total_cost: Optional[float] = 0
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["total_cost"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class DataKnowledgeBasesTypedDict(TypedDict):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-class DataKnowledgeBases(BaseModel):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-DataSource = Literal[
+ListAgentsType = Literal[
     "internal",
-    "external",
-    "experiment",
+    "a2a",
 ]
+r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
 
-ListAgentsDataType = Literal["internal",]
-r"""Orquesta-managed agent"""
-
-
-DataToolApprovalRequired = Literal[
+ListAgentsToolApprovalRequired = Literal[
     "all",
     "respect_tool",
     "none",
@@ -484,7 +182,7 @@ DataToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-class DataConditionsTypedDict(TypedDict):
+class ListAgentsConditionsTypedDict(TypedDict):
     condition: str
     r"""The argument of the tool call to evaluate"""
     operator: str
@@ -493,7 +191,7 @@ class DataConditionsTypedDict(TypedDict):
     r"""The value to compare against"""
 
 
-class DataConditions(BaseModel):
+class ListAgentsConditions(BaseModel):
     condition: str
     r"""The argument of the tool call to evaluate"""
 
@@ -504,7 +202,7 @@ class DataConditions(BaseModel):
     r"""The value to compare against"""
 
 
-class DataToolsTypedDict(TypedDict):
+class ListAgentsToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
@@ -516,12 +214,12 @@ class DataToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
-    conditions: NotRequired[List[DataConditionsTypedDict]]
+    conditions: NotRequired[List[ListAgentsConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-class DataTools(BaseModel):
+class ListAgentsTools(BaseModel):
     id: str
     r"""The id of the resource"""
 
@@ -540,7 +238,7 @@ class DataTools(BaseModel):
     tool_id: Optional[str] = None
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
-    conditions: Optional[List[DataConditions]] = None
+    conditions: Optional[List[ListAgentsConditions]] = None
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
@@ -572,27 +270,27 @@ class DataTools(BaseModel):
         return m
 
 
-DataExecuteOn = Literal[
+ListAgentsExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class DataEvaluatorsTypedDict(TypedDict):
+class ListAgentsEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: DataExecuteOn
+    execute_on: ListAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class DataEvaluators(BaseModel):
+class ListAgentsEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: DataExecuteOn
+    execute_on: ListAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -615,27 +313,27 @@ class DataEvaluators(BaseModel):
         return m
 
 
-ListAgentsDataExecuteOn = Literal[
+ListAgentsAgentsExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class DataGuardrailsTypedDict(TypedDict):
+class ListAgentsGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: ListAgentsDataExecuteOn
+    execute_on: ListAgentsAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class DataGuardrails(BaseModel):
+class ListAgentsGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: ListAgentsDataExecuteOn
+    execute_on: ListAgentsAgentsExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -658,23 +356,23 @@ class DataGuardrails(BaseModel):
         return m
 
 
-class DataSettingsTypedDict(TypedDict):
+class ListAgentsSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
-    tool_approval_required: NotRequired[DataToolApprovalRequired]
+    tool_approval_required: NotRequired[ListAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
-    tools: NotRequired[List[DataToolsTypedDict]]
-    evaluators: NotRequired[List[DataEvaluatorsTypedDict]]
+    tools: NotRequired[List[ListAgentsToolsTypedDict]]
+    evaluators: NotRequired[List[ListAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
-    guardrails: NotRequired[List[DataGuardrailsTypedDict]]
+    guardrails: NotRequired[List[ListAgentsGuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
 
 
-class DataSettings(BaseModel):
+class ListAgentsSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -684,15 +382,15 @@ class DataSettings(BaseModel):
     max_cost: Optional[float] = 0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
-    tool_approval_required: Optional[DataToolApprovalRequired] = "respect_tool"
+    tool_approval_required: Optional[ListAgentsToolApprovalRequired] = "respect_tool"
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
-    tools: Optional[List[DataTools]] = None
+    tools: Optional[List[ListAgentsTools]] = None
 
-    evaluators: Optional[List[DataEvaluators]] = None
+    evaluators: Optional[List[ListAgentsEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
-    guardrails: Optional[List[DataGuardrails]] = None
+    guardrails: Optional[List[ListAgentsGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
 
     @model_serializer(mode="wrap")
@@ -829,8 +527,8 @@ class ListAgentsResponseFormatText(BaseModel):
     type: ListAgentsResponseFormatType
 
 
-DataResponseFormatTypedDict = TypeAliasType(
-    "DataResponseFormatTypedDict",
+ListAgentsResponseFormatTypedDict = TypeAliasType(
+    "ListAgentsResponseFormatTypedDict",
     Union[
         ListAgentsResponseFormatTextTypedDict,
         ListAgentsResponseFormatJSONObjectTypedDict,
@@ -840,7 +538,7 @@ DataResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-DataResponseFormat = Annotated[
+ListAgentsResponseFormat = Annotated[
     Union[
         Annotated[ListAgentsResponseFormatText, Tag("text")],
         Annotated[ListAgentsResponseFormatJSONObject, Tag("json_object")],
@@ -851,7 +549,7 @@ DataResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
-DataReasoningEffort = Literal[
+ListAgentsReasoningEffort = Literal[
     "none",
     "minimal",
     "low",
@@ -870,21 +568,23 @@ Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
 """
 
 
-DataStopTypedDict = TypeAliasType("DataStopTypedDict", Union[str, List[str]])
+ListAgentsStopTypedDict = TypeAliasType(
+    "ListAgentsStopTypedDict", Union[str, List[str]]
+)
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-DataStop = TypeAliasType("DataStop", Union[str, List[str]])
+ListAgentsStop = TypeAliasType("ListAgentsStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-DataThinkingTypedDict = TypeAliasType(
-    "DataThinkingTypedDict",
+ListAgentsThinkingTypedDict = TypeAliasType(
+    "ListAgentsThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
 )
 
 
-DataThinking = Annotated[
+ListAgentsThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
@@ -943,20 +643,20 @@ ListAgentsToolChoice1 = Literal[
 ]
 
 
-DataToolChoiceTypedDict = TypeAliasType(
-    "DataToolChoiceTypedDict",
+ListAgentsToolChoiceTypedDict = TypeAliasType(
+    "ListAgentsToolChoiceTypedDict",
     Union[ListAgentsToolChoice2TypedDict, ListAgentsToolChoice1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-DataToolChoice = TypeAliasType(
-    "DataToolChoice", Union[ListAgentsToolChoice2, ListAgentsToolChoice1]
+ListAgentsToolChoice = TypeAliasType(
+    "ListAgentsToolChoice", Union[ListAgentsToolChoice2, ListAgentsToolChoice1]
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-DataModalities = Literal[
+ListAgentsModalities = Literal[
     "text",
     "audio",
 ]
@@ -970,57 +670,59 @@ ListAgentsID1 = Literal[
 r"""The key of the guardrail."""
 
 
-DataIDTypedDict = TypeAliasType("DataIDTypedDict", Union[ListAgentsID1, str])
+ListAgentsIDTypedDict = TypeAliasType(
+    "ListAgentsIDTypedDict", Union[ListAgentsID1, str]
+)
 
 
-DataID = TypeAliasType("DataID", Union[ListAgentsID1, str])
+ListAgentsID = TypeAliasType("ListAgentsID", Union[ListAgentsID1, str])
 
 
-ListAgentsDataAgentsExecuteOn = Literal[
+ListAgentsAgentsResponseExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class ListAgentsDataGuardrailsTypedDict(TypedDict):
-    id: DataIDTypedDict
-    execute_on: ListAgentsDataAgentsExecuteOn
+class ListAgentsAgentsGuardrailsTypedDict(TypedDict):
+    id: ListAgentsIDTypedDict
+    execute_on: ListAgentsAgentsResponseExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class ListAgentsDataGuardrails(BaseModel):
-    id: DataID
+class ListAgentsAgentsGuardrails(BaseModel):
+    id: ListAgentsID
 
-    execute_on: ListAgentsDataAgentsExecuteOn
+    execute_on: ListAgentsAgentsResponseExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class DataFallbacksTypedDict(TypedDict):
+class ListAgentsFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class DataFallbacks(BaseModel):
+class ListAgentsFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
 
-ListAgentsDataAgentsResponseType = Literal["exact_match",]
+ListAgentsAgentsType = Literal["exact_match",]
 
 
-class DataCacheTypedDict(TypedDict):
+class ListAgentsCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: ListAgentsDataAgentsResponseType
+    type: ListAgentsAgentsType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
 
-class DataCache(BaseModel):
+class ListAgentsCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: ListAgentsDataAgentsResponseType
+    type: ListAgentsAgentsType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -1087,29 +789,29 @@ class ListAgentsLoadBalancer1(BaseModel):
     models: List[ListAgentsLoadBalancerModels]
 
 
-DataLoadBalancerTypedDict = ListAgentsLoadBalancer1TypedDict
+ListAgentsLoadBalancerTypedDict = ListAgentsLoadBalancer1TypedDict
 r"""Load balancer configuration for the request."""
 
 
-DataLoadBalancer = ListAgentsLoadBalancer1
+ListAgentsLoadBalancer = ListAgentsLoadBalancer1
 r"""Load balancer configuration for the request."""
 
 
-class DataTimeoutTypedDict(TypedDict):
+class ListAgentsTimeoutTypedDict(TypedDict):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class DataTimeout(BaseModel):
+class ListAgentsTimeout(BaseModel):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class DataParametersTypedDict(TypedDict):
+class ListAgentsParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: NotRequired[str]
@@ -1125,9 +827,9 @@ class DataParametersTypedDict(TypedDict):
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[DataResponseFormatTypedDict]
+    response_format: NotRequired[ListAgentsResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[DataReasoningEffort]
+    reasoning_effort: NotRequired[ListAgentsReasoningEffort]
     r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
@@ -1141,34 +843,34 @@ class DataParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[DataStopTypedDict]]
+    stop: NotRequired[Nullable[ListAgentsStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    thinking: NotRequired[DataThinkingTypedDict]
+    thinking: NotRequired[ListAgentsThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[DataToolChoiceTypedDict]
+    tool_choice: NotRequired[ListAgentsToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[DataModalities]]]
+    modalities: NotRequired[Nullable[List[ListAgentsModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    guardrails: NotRequired[List[ListAgentsDataGuardrailsTypedDict]]
+    guardrails: NotRequired[List[ListAgentsAgentsGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
-    fallbacks: NotRequired[List[DataFallbacksTypedDict]]
+    fallbacks: NotRequired[List[ListAgentsFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    cache: NotRequired[DataCacheTypedDict]
+    cache: NotRequired[ListAgentsCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[DataLoadBalancerTypedDict]
+    load_balancer: NotRequired[ListAgentsLoadBalancerTypedDict]
     r"""Load balancer configuration for the request."""
-    timeout: NotRequired[DataTimeoutTypedDict]
+    timeout: NotRequired[ListAgentsTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
-class DataParameters(BaseModel):
+class ListAgentsParameters(BaseModel):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: Optional[str] = None
@@ -1189,10 +891,10 @@ class DataParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[DataResponseFormat] = None
+    response_format: Optional[ListAgentsResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[DataReasoningEffort] = None
+    reasoning_effort: Optional[ListAgentsReasoningEffort] = None
     r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
@@ -1209,10 +911,10 @@ class DataParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[DataStop] = UNSET
+    stop: OptionalNullable[ListAgentsStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    thinking: Optional[DataThinking] = None
+    thinking: Optional[ListAgentsThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -1223,28 +925,28 @@ class DataParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[DataToolChoice] = None
+    tool_choice: Optional[ListAgentsToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[DataModalities]] = UNSET
+    modalities: OptionalNullable[List[ListAgentsModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
-    guardrails: Optional[List[ListAgentsDataGuardrails]] = None
+    guardrails: Optional[List[ListAgentsAgentsGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
-    fallbacks: Optional[List[DataFallbacks]] = None
+    fallbacks: Optional[List[ListAgentsFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    cache: Optional[DataCache] = None
+    cache: Optional[ListAgentsCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[DataLoadBalancer] = None
+    load_balancer: Optional[ListAgentsLoadBalancer] = None
     r"""Load balancer configuration for the request."""
 
-    timeout: Optional[DataTimeout] = None
+    timeout: Optional[ListAgentsTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -1311,7 +1013,7 @@ class DataParameters(BaseModel):
         return m
 
 
-class DataRetryTypedDict(TypedDict):
+class ListAgentsRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
     count: NotRequired[float]
@@ -1320,7 +1022,7 @@ class DataRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class DataRetry(BaseModel):
+class ListAgentsRetry(BaseModel):
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
     count: Optional[float] = 3
@@ -2037,48 +1739,51 @@ class ListAgentsFallbackModelConfiguration2(BaseModel):
         return m
 
 
-DataFallbackModelConfigurationTypedDict = TypeAliasType(
-    "DataFallbackModelConfigurationTypedDict",
+ListAgentsFallbackModelConfigurationTypedDict = TypeAliasType(
+    "ListAgentsFallbackModelConfigurationTypedDict",
     Union[ListAgentsFallbackModelConfiguration2TypedDict, str],
 )
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-DataFallbackModelConfiguration = TypeAliasType(
-    "DataFallbackModelConfiguration", Union[ListAgentsFallbackModelConfiguration2, str]
+ListAgentsFallbackModelConfiguration = TypeAliasType(
+    "ListAgentsFallbackModelConfiguration",
+    Union[ListAgentsFallbackModelConfiguration2, str],
 )
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-class DataModelTypedDict(TypedDict):
+class ListAgentsModelTypedDict(TypedDict):
     id: str
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    parameters: NotRequired[DataParametersTypedDict]
+    parameters: NotRequired[ListAgentsParametersTypedDict]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
-    retry: NotRequired[DataRetryTypedDict]
+    retry: NotRequired[ListAgentsRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
-        Nullable[List[DataFallbackModelConfigurationTypedDict]]
+        Nullable[List[ListAgentsFallbackModelConfigurationTypedDict]]
     ]
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
 
-class DataModel(BaseModel):
+class ListAgentsModel(BaseModel):
     id: str
     r"""The database ID of the primary model"""
 
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    parameters: Optional[DataParameters] = None
+    parameters: Optional[ListAgentsParameters] = None
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
-    retry: Optional[DataRetry] = None
+    retry: Optional[ListAgentsRetry] = None
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
-    fallback_models: OptionalNullable[List[DataFallbackModelConfiguration]] = UNSET
+    fallback_models: OptionalNullable[List[ListAgentsFallbackModelConfiguration]] = (
+        UNSET
+    )
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
     @model_serializer(mode="wrap")
@@ -2109,11 +1814,85 @@ class DataModel(BaseModel):
         return m
 
 
-class Data1TypedDict(TypedDict):
+class ListAgentsHeadersTypedDict(TypedDict):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+    encrypted: NotRequired[bool]
+
+
+class ListAgentsHeaders(BaseModel):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+
+    encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListAgentsA2AAgentConfigurationTypedDict(TypedDict):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+    card_url: NotRequired[str]
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+    headers: NotRequired[Dict[str, ListAgentsHeadersTypedDict]]
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+    cached_card: NotRequired[Any]
+    r"""Cached agent card from discovery. Refreshed periodically."""
+
+
+class ListAgentsA2AAgentConfiguration(BaseModel):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+
+    card_url: Optional[str] = None
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+
+    headers: Optional[Dict[str, ListAgentsHeaders]] = None
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+
+    cached_card: Optional[Any] = None
+    r"""Cached agent card from discovery. Refreshed periodically."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["card_url", "headers", "cached_card"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class ListAgentsDataTypedDict(TypedDict):
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
-    status: DataStatus
+    status: ListAgentsStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -2122,12 +1901,10 @@ class Data1TypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
-    type: ListAgentsDataType
-    r"""Orquesta-managed agent"""
     role: str
     description: str
     instructions: str
-    model: DataModelTypedDict
+    model: ListAgentsModelTypedDict
     display_name: NotRequired[str]
     created_by_id: NotRequired[Nullable[str]]
     updated_by_id: NotRequired[Nullable[str]]
@@ -2136,25 +1913,29 @@ class Data1TypedDict(TypedDict):
     version_hash: NotRequired[str]
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: NotRequired[List[DataTeamOfAgentsTypedDict]]
+    team_of_agents: NotRequired[List[ListAgentsTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[DataMetricsTypedDict]
+    metrics: NotRequired[ListAgentsMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
-    knowledge_bases: NotRequired[List[DataKnowledgeBasesTypedDict]]
+    knowledge_bases: NotRequired[List[ListAgentsKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    source: NotRequired[DataSource]
+    source: NotRequired[ListAgentsSource]
+    type: NotRequired[ListAgentsType]
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
-    settings: NotRequired[DataSettingsTypedDict]
+    settings: NotRequired[ListAgentsSettingsTypedDict]
+    a2a: NotRequired[ListAgentsA2AAgentConfigurationTypedDict]
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
-class Data1(BaseModel):
+class ListAgentsData(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
     r"""Unique identifier for the agent within the workspace"""
 
-    status: DataStatus
+    status: ListAgentsStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     path: str
@@ -2165,16 +1946,13 @@ class Data1(BaseModel):
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
 
-    type: ListAgentsDataType
-    r"""Orquesta-managed agent"""
-
     role: str
 
     description: str
 
     instructions: str
 
-    model: DataModel
+    model: ListAgentsModel
 
     display_name: Optional[str] = None
 
@@ -2191,22 +1969,28 @@ class Data1(BaseModel):
     memory_stores: Optional[List[str]] = None
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
-    team_of_agents: Optional[List[DataTeamOfAgents]] = None
+    team_of_agents: Optional[List[ListAgentsTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
-    metrics: Optional[DataMetrics] = None
+    metrics: Optional[ListAgentsMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
-    knowledge_bases: Optional[List[DataKnowledgeBases]] = None
+    knowledge_bases: Optional[List[ListAgentsKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    source: Optional[DataSource] = None
+    source: Optional[ListAgentsSource] = None
+
+    type: Optional[ListAgentsType] = "internal"
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
     system_prompt: Optional[str] = None
 
-    settings: Optional[DataSettings] = None
+    settings: Optional[ListAgentsSettings] = None
+
+    a2a: Optional[ListAgentsA2AAgentConfiguration] = None
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -2224,8 +2008,10 @@ class Data1(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "type",
                 "system_prompt",
                 "settings",
+                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])
@@ -2251,17 +2037,6 @@ class Data1(BaseModel):
         return m
 
 
-ListAgentsDataTypedDict = TypeAliasType(
-    "ListAgentsDataTypedDict", Union[Data2TypedDict, Data1TypedDict]
-)
-
-
-ListAgentsData = Annotated[
-    Union[Annotated[Data1, Tag("internal")], Annotated[Data2, Tag("a2a")]],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-
-
 class ListAgentsResponseBodyTypedDict(TypedDict):
     r"""Successfully retrieved the list of agents. Returns a paginated response containing agent manifests with complete configurations, including primary and fallback models, tools, knowledge bases, and execution settings."""
 
@@ -2281,10 +2056,6 @@ class ListAgentsResponseBody(BaseModel):
 
 
 try:
-    Data2.model_rebuild()
-except NameError:
-    pass
-try:
     ListAgentsResponseFormatJSONSchema.model_rebuild()
 except NameError:
     pass
@@ -2293,6 +2064,6 @@ try:
 except NameError:
     pass
 try:
-    Data1.model_rebuild()
+    ListAgentsData.model_rebuild()
 except NameError:
     pass

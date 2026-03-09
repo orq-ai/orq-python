@@ -2496,7 +2496,7 @@ class CreateAgentRequestRequestBody(BaseModel):
         return m
 
 
-ResponseBodyStatus = Literal[
+CreateAgentRequestStatus = Literal[
     "live",
     "draft",
     "pending",
@@ -2505,14 +2505,14 @@ ResponseBodyStatus = Literal[
 r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
 
-class CreateAgentRequestResponseBodyTeamOfAgentsTypedDict(TypedDict):
+class CreateAgentRequestTeamOfAgentsTypedDict(TypedDict):
     key: str
     r"""The unique key of the agent within the workspace"""
     role: NotRequired[str]
     r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
 
 
-class CreateAgentRequestResponseBodyTeamOfAgents(BaseModel):
+class CreateAgentRequestTeamOfAgents(BaseModel):
     key: str
     r"""The unique key of the agent within the workspace"""
 
@@ -2536,11 +2536,11 @@ class CreateAgentRequestResponseBodyTeamOfAgents(BaseModel):
         return m
 
 
-class CreateAgentRequestResponseBodyMetricsTypedDict(TypedDict):
+class CreateAgentRequestMetricsTypedDict(TypedDict):
     total_cost: NotRequired[float]
 
 
-class CreateAgentRequestResponseBodyMetrics(BaseModel):
+class CreateAgentRequestMetrics(BaseModel):
     total_cost: Optional[float] = 0
 
     @model_serializer(mode="wrap")
@@ -2560,340 +2560,31 @@ class CreateAgentRequestResponseBodyMetrics(BaseModel):
         return m
 
 
-class CreateAgentRequestResponseBodyKnowledgeBasesTypedDict(TypedDict):
+class CreateAgentRequestKnowledgeBasesTypedDict(TypedDict):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-class CreateAgentRequestResponseBodyKnowledgeBases(BaseModel):
+class CreateAgentRequestKnowledgeBases(BaseModel):
     knowledge_id: str
     r"""Unique identifier of the knowledge base to search"""
 
 
-CreateAgentRequestResponseBodySource = Literal[
+CreateAgentRequestSource = Literal[
     "internal",
     "external",
     "experiment",
 ]
 
 
-CreateAgentRequestResponseBodyAgentsType = Literal["a2a",]
-r"""External A2A-compliant agent"""
-
-
-class ResponseBodyHeadersTypedDict(TypedDict):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-    encrypted: NotRequired[bool]
-
-
-class ResponseBodyHeaders(BaseModel):
-    value: str
-    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
-
-    encrypted: Optional[bool] = False
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["encrypted"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class A2AAgentConfigurationTypedDict(TypedDict):
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-    card_url: NotRequired[str]
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-    headers: NotRequired[Dict[str, ResponseBodyHeadersTypedDict]]
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-    cached_card: NotRequired[Any]
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-
-class A2AAgentConfiguration(BaseModel):
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    agent_url: str
-    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
-
-    card_url: Optional[str] = None
-    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
-
-    headers: Optional[Dict[str, ResponseBodyHeaders]] = None
-    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
-
-    cached_card: Optional[Any] = None
-    r"""Cached agent card from discovery. Refreshed periodically."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["card_url", "headers", "cached_card"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class ResponseBody2TypedDict(TypedDict):
-    id: str
-    key: str
-    r"""Unique identifier for the agent within the workspace"""
-    project_id: str
-    status: ResponseBodyStatus
-    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
-    type: CreateAgentRequestResponseBodyAgentsType
-    r"""External A2A-compliant agent"""
-    role: str
-    r"""Role fetched from agent card name or user-provided"""
-    description: str
-    r"""Description fetched from agent card or user-provided"""
-    instructions: str
-    r"""Instructions from agent card description or user-provided"""
-    a2a: A2AAgentConfigurationTypedDict
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-    display_name: NotRequired[str]
-    created_by_id: NotRequired[Nullable[str]]
-    updated_by_id: NotRequired[Nullable[str]]
-    created: NotRequired[str]
-    updated: NotRequired[str]
-    version_hash: NotRequired[str]
-    memory_stores: NotRequired[List[str]]
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: NotRequired[
-        List[CreateAgentRequestResponseBodyTeamOfAgentsTypedDict]
-    ]
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[CreateAgentRequestResponseBodyMetricsTypedDict]
-    variables: NotRequired[Dict[str, Any]]
-    r"""Extracted variables from agent instructions"""
-    knowledge_bases: NotRequired[
-        List[CreateAgentRequestResponseBodyKnowledgeBasesTypedDict]
-    ]
-    r"""Agent knowledge bases reference"""
-    source: NotRequired[CreateAgentRequestResponseBodySource]
-    system_prompt: NotRequired[str]
-
-
-class ResponseBody2(BaseModel):
-    id: Annotated[str, pydantic.Field(alias="_id")]
-
-    key: str
-    r"""Unique identifier for the agent within the workspace"""
-
-    project_id: str
-
-    status: ResponseBodyStatus
-    r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-    path: str
-    r"""Entity storage path in the format: `project/folder/subfolder/...`
-
-    The first element identifies the project, followed by nested folders (auto-created as needed).
-
-    With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
-    """
-
-    type: CreateAgentRequestResponseBodyAgentsType
-    r"""External A2A-compliant agent"""
-
-    role: str
-    r"""Role fetched from agent card name or user-provided"""
-
-    description: str
-    r"""Description fetched from agent card or user-provided"""
-
-    instructions: str
-    r"""Instructions from agent card description or user-provided"""
-
-    a2a: A2AAgentConfiguration
-    r"""A2A configuration with agent endpoint and authentication. External agents manage their own model/settings."""
-
-    display_name: Optional[str] = None
-
-    created_by_id: OptionalNullable[str] = UNSET
-
-    updated_by_id: OptionalNullable[str] = UNSET
-
-    created: Optional[str] = None
-
-    updated: Optional[str] = None
-
-    version_hash: Optional[str] = None
-
-    memory_stores: Optional[List[str]] = None
-    r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-
-    team_of_agents: Optional[List[CreateAgentRequestResponseBodyTeamOfAgents]] = None
-    r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-
-    metrics: Optional[CreateAgentRequestResponseBodyMetrics] = None
-
-    variables: Optional[Dict[str, Any]] = None
-    r"""Extracted variables from agent instructions"""
-
-    knowledge_bases: Optional[List[CreateAgentRequestResponseBodyKnowledgeBases]] = None
-    r"""Agent knowledge bases reference"""
-
-    source: Optional[CreateAgentRequestResponseBodySource] = None
-
-    system_prompt: Optional[str] = None
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(
-            [
-                "display_name",
-                "created_by_id",
-                "updated_by_id",
-                "created",
-                "updated",
-                "version_hash",
-                "memory_stores",
-                "team_of_agents",
-                "metrics",
-                "variables",
-                "knowledge_bases",
-                "source",
-                "system_prompt",
-            ]
-        )
-        nullable_fields = set(["created_by_id", "updated_by_id"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-            is_nullable_and_explicitly_set = (
-                k in nullable_fields
-                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
-            )
-
-            if val != UNSET_SENTINEL:
-                if (
-                    val is not None
-                    or k not in optional_fields
-                    or is_nullable_and_explicitly_set
-                ):
-                    m[k] = val
-
-        return m
-
-
-CreateAgentRequestResponseBodyStatus = Literal[
-    "live",
-    "draft",
-    "pending",
-    "published",
-]
-r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
-
-
-class ResponseBodyTeamOfAgentsTypedDict(TypedDict):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-    role: NotRequired[str]
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
-
-
-class ResponseBodyTeamOfAgents(BaseModel):
-    key: str
-    r"""The unique key of the agent within the workspace"""
-
-    role: Optional[str] = None
-    r"""The role of the agent in this context. This is used to give extra information to the leader to help it decide which agent to hand off to."""
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["role"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class ResponseBodyMetricsTypedDict(TypedDict):
-    total_cost: NotRequired[float]
-
-
-class ResponseBodyMetrics(BaseModel):
-    total_cost: Optional[float] = 0
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["total_cost"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k, serialized.get(n))
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
-
-
-class ResponseBodyKnowledgeBasesTypedDict(TypedDict):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-class ResponseBodyKnowledgeBases(BaseModel):
-    knowledge_id: str
-    r"""Unique identifier of the knowledge base to search"""
-
-
-ResponseBodySource = Literal[
+CreateAgentRequestType = Literal[
     "internal",
-    "external",
-    "experiment",
+    "a2a",
 ]
+r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
 
-CreateAgentRequestResponseBodyType = Literal["internal",]
-r"""Orquesta-managed agent"""
-
-
-ResponseBodyToolApprovalRequired = Literal[
+CreateAgentRequestAgentsToolApprovalRequired = Literal[
     "all",
     "respect_tool",
     "none",
@@ -2901,7 +2592,7 @@ ResponseBodyToolApprovalRequired = Literal[
 r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
 
-class CreateAgentRequestResponseBodyConditionsTypedDict(TypedDict):
+class CreateAgentRequestConditionsTypedDict(TypedDict):
     condition: str
     r"""The argument of the tool call to evaluate"""
     operator: str
@@ -2910,7 +2601,7 @@ class CreateAgentRequestResponseBodyConditionsTypedDict(TypedDict):
     r"""The value to compare against"""
 
 
-class CreateAgentRequestResponseBodyConditions(BaseModel):
+class CreateAgentRequestConditions(BaseModel):
     condition: str
     r"""The argument of the tool call to evaluate"""
 
@@ -2921,7 +2612,7 @@ class CreateAgentRequestResponseBodyConditions(BaseModel):
     r"""The value to compare against"""
 
 
-class ResponseBodyToolsTypedDict(TypedDict):
+class CreateAgentRequestToolsTypedDict(TypedDict):
     id: str
     r"""The id of the resource"""
     action_type: str
@@ -2933,12 +2624,12 @@ class ResponseBodyToolsTypedDict(TypedDict):
     requires_approval: NotRequired[bool]
     tool_id: NotRequired[str]
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
-    conditions: NotRequired[List[CreateAgentRequestResponseBodyConditionsTypedDict]]
+    conditions: NotRequired[List[CreateAgentRequestConditionsTypedDict]]
     timeout: NotRequired[float]
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
 
 
-class ResponseBodyTools(BaseModel):
+class CreateAgentRequestTools(BaseModel):
     id: str
     r"""The id of the resource"""
 
@@ -2957,7 +2648,7 @@ class ResponseBodyTools(BaseModel):
     tool_id: Optional[str] = None
     r"""Nested tool ID for MCP tools (identifies specific tool within MCP server)"""
 
-    conditions: Optional[List[CreateAgentRequestResponseBodyConditions]] = None
+    conditions: Optional[List[CreateAgentRequestConditions]] = None
 
     timeout: Optional[float] = 120
     r"""Tool execution timeout in seconds (default: 2 minutes, max: 10 minutes)"""
@@ -2989,27 +2680,27 @@ class ResponseBodyTools(BaseModel):
         return m
 
 
-ResponseBodyExecuteOn = Literal[
+CreateAgentRequestAgentsResponseExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class ResponseBodyEvaluatorsTypedDict(TypedDict):
+class CreateAgentRequestAgentsEvaluatorsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: ResponseBodyExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class ResponseBodyEvaluators(BaseModel):
+class CreateAgentRequestAgentsEvaluators(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: ResponseBodyExecuteOn
+    execute_on: CreateAgentRequestAgentsResponseExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -3032,27 +2723,27 @@ class ResponseBodyEvaluators(BaseModel):
         return m
 
 
-CreateAgentRequestResponseBodyExecuteOn = Literal[
+CreateAgentRequestAgentsResponse201ExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
 
-class ResponseBodyGuardrailsTypedDict(TypedDict):
+class CreateAgentRequestAgentsGuardrailsTypedDict(TypedDict):
     id: str
     r"""Unique key or identifier of the evaluator"""
-    execute_on: CreateAgentRequestResponseBodyExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
     sample_rate: NotRequired[float]
     r"""The percentage of executions to evaluate with this evaluator (1-100). For example, a value of 50 means the evaluator will run on approximately half of the executions."""
 
 
-class ResponseBodyGuardrails(BaseModel):
+class CreateAgentRequestAgentsGuardrails(BaseModel):
     id: str
     r"""Unique key or identifier of the evaluator"""
 
-    execute_on: CreateAgentRequestResponseBodyExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ExecuteOn
     r"""Determines whether the evaluator runs on the agent input (user message) or output (agent response)."""
 
     sample_rate: Optional[float] = 50
@@ -3075,23 +2766,23 @@ class ResponseBodyGuardrails(BaseModel):
         return m
 
 
-class ResponseBodySettingsTypedDict(TypedDict):
+class CreateAgentRequestAgentsSettingsTypedDict(TypedDict):
     max_iterations: NotRequired[int]
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
     max_execution_time: NotRequired[int]
     r"""Maximum time (in seconds) for the agent thinking process. This does not include the time for tool calls and sub agent calls. It will be loosely enforced, the in progress LLM calls will not be terminated and the last assistant message will be returned."""
     max_cost: NotRequired[float]
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
-    tool_approval_required: NotRequired[ResponseBodyToolApprovalRequired]
+    tool_approval_required: NotRequired[CreateAgentRequestAgentsToolApprovalRequired]
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
-    tools: NotRequired[List[ResponseBodyToolsTypedDict]]
-    evaluators: NotRequired[List[ResponseBodyEvaluatorsTypedDict]]
+    tools: NotRequired[List[CreateAgentRequestToolsTypedDict]]
+    evaluators: NotRequired[List[CreateAgentRequestAgentsEvaluatorsTypedDict]]
     r"""Configuration for an evaluator applied to the agent"""
-    guardrails: NotRequired[List[ResponseBodyGuardrailsTypedDict]]
+    guardrails: NotRequired[List[CreateAgentRequestAgentsGuardrailsTypedDict]]
     r"""Configuration for a guardrail applied to the agent"""
 
 
-class ResponseBodySettings(BaseModel):
+class CreateAgentRequestAgentsSettings(BaseModel):
     max_iterations: Optional[int] = 100
     r"""Maximum iterations(llm calls) before the agent will stop executing."""
 
@@ -3101,15 +2792,17 @@ class ResponseBodySettings(BaseModel):
     max_cost: Optional[float] = 0
     r"""Maximum cost in USD for the agent execution. When the accumulated cost exceeds this limit, the agent will stop executing. Set to 0 for unlimited. Only supported in v3 responses"""
 
-    tool_approval_required: Optional[ResponseBodyToolApprovalRequired] = "respect_tool"
+    tool_approval_required: Optional[CreateAgentRequestAgentsToolApprovalRequired] = (
+        "respect_tool"
+    )
     r"""If all, the agent will require approval for all tools. If respect_tool, the agent will require approval for tools that have the requires_approval flag set to true. If none, the agent will not require approval for any tools."""
 
-    tools: Optional[List[ResponseBodyTools]] = None
+    tools: Optional[List[CreateAgentRequestTools]] = None
 
-    evaluators: Optional[List[ResponseBodyEvaluators]] = None
+    evaluators: Optional[List[CreateAgentRequestAgentsEvaluators]] = None
     r"""Configuration for an evaluator applied to the agent"""
 
-    guardrails: Optional[List[ResponseBodyGuardrails]] = None
+    guardrails: Optional[List[CreateAgentRequestAgentsGuardrails]] = None
     r"""Configuration for a guardrail applied to the agent"""
 
     @model_serializer(mode="wrap")
@@ -3248,8 +2941,8 @@ class CreateAgentRequestResponseFormatText(BaseModel):
     type: CreateAgentRequestResponseFormatAgentsResponseType
 
 
-ResponseBodyResponseFormatTypedDict = TypeAliasType(
-    "ResponseBodyResponseFormatTypedDict",
+CreateAgentRequestResponseFormatTypedDict = TypeAliasType(
+    "CreateAgentRequestResponseFormatTypedDict",
     Union[
         CreateAgentRequestResponseFormatTextTypedDict,
         CreateAgentRequestResponseFormatJSONObjectTypedDict,
@@ -3259,7 +2952,7 @@ ResponseBodyResponseFormatTypedDict = TypeAliasType(
 r"""An object specifying the format that the model must output"""
 
 
-ResponseBodyResponseFormat = Annotated[
+CreateAgentRequestResponseFormat = Annotated[
     Union[
         Annotated[CreateAgentRequestResponseFormatText, Tag("text")],
         Annotated[CreateAgentRequestResponseFormatJSONObject, Tag("json_object")],
@@ -3273,7 +2966,7 @@ ResponseBodyResponseFormat = Annotated[
 r"""An object specifying the format that the model must output"""
 
 
-ResponseBodyReasoningEffort = Literal[
+CreateAgentRequestReasoningEffort = Literal[
     "none",
     "minimal",
     "low",
@@ -3292,23 +2985,23 @@ Any of \"none\", \"minimal\", \"low\", \"medium\", \"high\", \"xhigh\".
 """
 
 
-ResponseBodyStopTypedDict = TypeAliasType(
-    "ResponseBodyStopTypedDict", Union[str, List[str]]
+CreateAgentRequestStopTypedDict = TypeAliasType(
+    "CreateAgentRequestStopTypedDict", Union[str, List[str]]
 )
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-ResponseBodyStop = TypeAliasType("ResponseBodyStop", Union[str, List[str]])
+CreateAgentRequestStop = TypeAliasType("CreateAgentRequestStop", Union[str, List[str]])
 r"""Up to 4 sequences where the API will stop generating further tokens."""
 
 
-ResponseBodyThinkingTypedDict = TypeAliasType(
-    "ResponseBodyThinkingTypedDict",
+CreateAgentRequestThinkingTypedDict = TypeAliasType(
+    "CreateAgentRequestThinkingTypedDict",
     Union[ThinkingConfigDisabledSchemaTypedDict, ThinkingConfigEnabledSchemaTypedDict],
 )
 
 
-ResponseBodyThinking = Annotated[
+CreateAgentRequestThinking = Annotated[
     Union[
         Annotated[ThinkingConfigDisabledSchema, Tag("disabled")],
         Annotated[ThinkingConfigEnabledSchema, Tag("enabled")],
@@ -3367,8 +3060,8 @@ CreateAgentRequestToolChoiceAgents1 = Literal[
 ]
 
 
-ResponseBodyToolChoiceTypedDict = TypeAliasType(
-    "ResponseBodyToolChoiceTypedDict",
+CreateAgentRequestToolChoiceTypedDict = TypeAliasType(
+    "CreateAgentRequestToolChoiceTypedDict",
     Union[
         CreateAgentRequestToolChoiceAgents2TypedDict,
         CreateAgentRequestToolChoiceAgents1,
@@ -3377,14 +3070,14 @@ ResponseBodyToolChoiceTypedDict = TypeAliasType(
 r"""Controls which (if any) tool is called by the model."""
 
 
-ResponseBodyToolChoice = TypeAliasType(
-    "ResponseBodyToolChoice",
+CreateAgentRequestToolChoice = TypeAliasType(
+    "CreateAgentRequestToolChoice",
     Union[CreateAgentRequestToolChoiceAgents2, CreateAgentRequestToolChoiceAgents1],
 )
 r"""Controls which (if any) tool is called by the model."""
 
 
-ResponseBodyModalities = Literal[
+CreateAgentRequestModalities = Literal[
     "text",
     "audio",
 ]
@@ -3398,61 +3091,61 @@ CreateAgentRequestIDAgents1 = Literal[
 r"""The key of the guardrail."""
 
 
-ResponseBodyIDTypedDict = TypeAliasType(
-    "ResponseBodyIDTypedDict", Union[CreateAgentRequestIDAgents1, str]
+CreateAgentRequestIDTypedDict = TypeAliasType(
+    "CreateAgentRequestIDTypedDict", Union[CreateAgentRequestIDAgents1, str]
 )
 
 
-ResponseBodyID = TypeAliasType(
-    "ResponseBodyID", Union[CreateAgentRequestIDAgents1, str]
+CreateAgentRequestID = TypeAliasType(
+    "CreateAgentRequestID", Union[CreateAgentRequestIDAgents1, str]
 )
 
 
-CreateAgentRequestResponseBodyAgentsExecuteOn = Literal[
+CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn = Literal[
     "input",
     "output",
 ]
 r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class CreateAgentRequestResponseBodyGuardrailsTypedDict(TypedDict):
-    id: ResponseBodyIDTypedDict
-    execute_on: CreateAgentRequestResponseBodyAgentsExecuteOn
+class CreateAgentRequestAgentsResponseGuardrailsTypedDict(TypedDict):
+    id: CreateAgentRequestIDTypedDict
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class CreateAgentRequestResponseBodyGuardrails(BaseModel):
-    id: ResponseBodyID
+class CreateAgentRequestAgentsResponseGuardrails(BaseModel):
+    id: CreateAgentRequestID
 
-    execute_on: CreateAgentRequestResponseBodyAgentsExecuteOn
+    execute_on: CreateAgentRequestAgentsResponse201ApplicationJSONExecuteOn
     r"""Determines whether the guardrail runs on the input (user message) or output (model response)."""
 
 
-class ResponseBodyFallbacksTypedDict(TypedDict):
+class CreateAgentRequestFallbacksTypedDict(TypedDict):
     model: str
     r"""Fallback model identifier"""
 
 
-class ResponseBodyFallbacks(BaseModel):
+class CreateAgentRequestFallbacks(BaseModel):
     model: str
     r"""Fallback model identifier"""
 
 
-CreateAgentRequestResponseBodyAgentsResponseType = Literal["exact_match",]
+CreateAgentRequestAgentsType = Literal["exact_match",]
 
 
-class ResponseBodyCacheTypedDict(TypedDict):
+class CreateAgentRequestCacheTypedDict(TypedDict):
     r"""Cache configuration for the request."""
 
-    type: CreateAgentRequestResponseBodyAgentsResponseType
+    type: CreateAgentRequestAgentsType
     ttl: NotRequired[float]
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
 
 
-class ResponseBodyCache(BaseModel):
+class CreateAgentRequestCache(BaseModel):
     r"""Cache configuration for the request."""
 
-    type: CreateAgentRequestResponseBodyAgentsResponseType
+    type: CreateAgentRequestAgentsType
 
     ttl: Optional[float] = 1800
     r"""Time to live for cached responses in seconds. Maximum 259200 seconds (3 days)."""
@@ -3519,29 +3212,29 @@ class CreateAgentRequestLoadBalancerAgents1(BaseModel):
     models: List[CreateAgentRequestLoadBalancerAgentsModels]
 
 
-ResponseBodyLoadBalancerTypedDict = CreateAgentRequestLoadBalancerAgents1TypedDict
+CreateAgentRequestLoadBalancerTypedDict = CreateAgentRequestLoadBalancerAgents1TypedDict
 r"""Load balancer configuration for the request."""
 
 
-ResponseBodyLoadBalancer = CreateAgentRequestLoadBalancerAgents1
+CreateAgentRequestLoadBalancer = CreateAgentRequestLoadBalancerAgents1
 r"""Load balancer configuration for the request."""
 
 
-class ResponseBodyTimeoutTypedDict(TypedDict):
+class CreateAgentRequestTimeoutTypedDict(TypedDict):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class ResponseBodyTimeout(BaseModel):
+class CreateAgentRequestTimeout(BaseModel):
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     call_timeout: float
     r"""Timeout value in milliseconds"""
 
 
-class ResponseBodyParametersTypedDict(TypedDict):
+class CreateAgentRequestParametersTypedDict(TypedDict):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: NotRequired[str]
@@ -3557,9 +3250,9 @@ class ResponseBodyParametersTypedDict(TypedDict):
     r"""An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and reasoning tokens"""
     presence_penalty: NotRequired[Nullable[float]]
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
-    response_format: NotRequired[ResponseBodyResponseFormatTypedDict]
+    response_format: NotRequired[CreateAgentRequestResponseFormatTypedDict]
     r"""An object specifying the format that the model must output"""
-    reasoning_effort: NotRequired[ResponseBodyReasoningEffort]
+    reasoning_effort: NotRequired[CreateAgentRequestReasoningEffort]
     r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
@@ -3573,34 +3266,34 @@ class ResponseBodyParametersTypedDict(TypedDict):
     r"""Adjusts response verbosity. Lower levels yield shorter answers."""
     seed: NotRequired[Nullable[float]]
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
-    stop: NotRequired[Nullable[ResponseBodyStopTypedDict]]
+    stop: NotRequired[Nullable[CreateAgentRequestStopTypedDict]]
     r"""Up to 4 sequences where the API will stop generating further tokens."""
-    thinking: NotRequired[ResponseBodyThinkingTypedDict]
+    thinking: NotRequired[CreateAgentRequestThinkingTypedDict]
     temperature: NotRequired[Nullable[float]]
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
     top_p: NotRequired[Nullable[float]]
     r"""An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass."""
     top_k: NotRequired[Nullable[float]]
     r"""Limits the model to consider only the top k most likely tokens at each step."""
-    tool_choice: NotRequired[ResponseBodyToolChoiceTypedDict]
+    tool_choice: NotRequired[CreateAgentRequestToolChoiceTypedDict]
     r"""Controls which (if any) tool is called by the model."""
     parallel_tool_calls: NotRequired[bool]
     r"""Whether to enable parallel function calling during tool use."""
-    modalities: NotRequired[Nullable[List[ResponseBodyModalities]]]
+    modalities: NotRequired[Nullable[List[CreateAgentRequestModalities]]]
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
-    guardrails: NotRequired[List[CreateAgentRequestResponseBodyGuardrailsTypedDict]]
+    guardrails: NotRequired[List[CreateAgentRequestAgentsResponseGuardrailsTypedDict]]
     r"""A list of guardrails to apply to the request."""
-    fallbacks: NotRequired[List[ResponseBodyFallbacksTypedDict]]
+    fallbacks: NotRequired[List[CreateAgentRequestFallbacksTypedDict]]
     r"""Array of fallback models to use if primary model fails"""
-    cache: NotRequired[ResponseBodyCacheTypedDict]
+    cache: NotRequired[CreateAgentRequestCacheTypedDict]
     r"""Cache configuration for the request."""
-    load_balancer: NotRequired[ResponseBodyLoadBalancerTypedDict]
+    load_balancer: NotRequired[CreateAgentRequestLoadBalancerTypedDict]
     r"""Load balancer configuration for the request."""
-    timeout: NotRequired[ResponseBodyTimeoutTypedDict]
+    timeout: NotRequired[CreateAgentRequestTimeoutTypedDict]
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
 
-class ResponseBodyParameters(BaseModel):
+class CreateAgentRequestParameters(BaseModel):
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
     name: Optional[str] = None
@@ -3621,10 +3314,10 @@ class ResponseBodyParameters(BaseModel):
     presence_penalty: OptionalNullable[float] = UNSET
     r"""Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."""
 
-    response_format: Optional[ResponseBodyResponseFormat] = None
+    response_format: Optional[CreateAgentRequestResponseFormat] = None
     r"""An object specifying the format that the model must output"""
 
-    reasoning_effort: Optional[ResponseBodyReasoningEffort] = None
+    reasoning_effort: Optional[CreateAgentRequestReasoningEffort] = None
     r"""Constrains effort on reasoning for [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
 
     - `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
@@ -3641,10 +3334,10 @@ class ResponseBodyParameters(BaseModel):
     seed: OptionalNullable[float] = UNSET
     r"""If specified, our system will make a best effort to sample deterministically, such that repeated requests with the same seed and parameters should return the same result."""
 
-    stop: OptionalNullable[ResponseBodyStop] = UNSET
+    stop: OptionalNullable[CreateAgentRequestStop] = UNSET
     r"""Up to 4 sequences where the API will stop generating further tokens."""
 
-    thinking: Optional[ResponseBodyThinking] = None
+    thinking: Optional[CreateAgentRequestThinking] = None
 
     temperature: OptionalNullable[float] = UNSET
     r"""What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."""
@@ -3655,28 +3348,28 @@ class ResponseBodyParameters(BaseModel):
     top_k: OptionalNullable[float] = UNSET
     r"""Limits the model to consider only the top k most likely tokens at each step."""
 
-    tool_choice: Optional[ResponseBodyToolChoice] = None
+    tool_choice: Optional[CreateAgentRequestToolChoice] = None
     r"""Controls which (if any) tool is called by the model."""
 
     parallel_tool_calls: Optional[bool] = None
     r"""Whether to enable parallel function calling during tool use."""
 
-    modalities: OptionalNullable[List[ResponseBodyModalities]] = UNSET
+    modalities: OptionalNullable[List[CreateAgentRequestModalities]] = UNSET
     r"""Output types that you would like the model to generate. Most models are capable of generating text, which is the default: [\"text\"]. The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use: [\"text\", \"audio\"]."""
 
-    guardrails: Optional[List[CreateAgentRequestResponseBodyGuardrails]] = None
+    guardrails: Optional[List[CreateAgentRequestAgentsResponseGuardrails]] = None
     r"""A list of guardrails to apply to the request."""
 
-    fallbacks: Optional[List[ResponseBodyFallbacks]] = None
+    fallbacks: Optional[List[CreateAgentRequestFallbacks]] = None
     r"""Array of fallback models to use if primary model fails"""
 
-    cache: Optional[ResponseBodyCache] = None
+    cache: Optional[CreateAgentRequestCache] = None
     r"""Cache configuration for the request."""
 
-    load_balancer: Optional[ResponseBodyLoadBalancer] = None
+    load_balancer: Optional[CreateAgentRequestLoadBalancer] = None
     r"""Load balancer configuration for the request."""
 
-    timeout: Optional[ResponseBodyTimeout] = None
+    timeout: Optional[CreateAgentRequestTimeout] = None
     r"""Timeout configuration to apply to the request. If the request exceeds the timeout, it will be retried or fallback to the next model if configured."""
 
     @model_serializer(mode="wrap")
@@ -3743,7 +3436,7 @@ class ResponseBodyParameters(BaseModel):
         return m
 
 
-class ResponseBodyRetryTypedDict(TypedDict):
+class CreateAgentRequestRetryTypedDict(TypedDict):
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
     count: NotRequired[float]
@@ -3752,7 +3445,7 @@ class ResponseBodyRetryTypedDict(TypedDict):
     r"""HTTP status codes that trigger retry logic"""
 
 
-class ResponseBodyRetry(BaseModel):
+class CreateAgentRequestRetry(BaseModel):
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
     count: Optional[float] = 3
@@ -3778,7 +3471,7 @@ class ResponseBodyRetry(BaseModel):
         return m
 
 
-CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1ModelType = Literal[
+CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallbackModelsType = Literal[
     "json_schema",
 ]
 
@@ -3836,7 +3529,7 @@ class CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBo
     JSON Schema response format. Used to generate structured JSON responses
     """
 
-    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1ModelType
+    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallbackModelsType
     json_schema: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONJSONSchemaTypedDict
 
 
@@ -3848,16 +3541,16 @@ class CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBo
     JSON Schema response format. Used to generate structured JSON responses
     """
 
-    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1ModelType
+    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelFallbackModelsType
 
     json_schema: (
         CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONJSONSchema
     )
 
 
-CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1Type = (
-    Literal["json_object",]
-)
+CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType = Literal[
+    "json_object",
+]
 
 
 class CreateAgentRequestResponseFormatAgentsJSONObjectTypedDict(TypedDict):
@@ -3866,7 +3559,7 @@ class CreateAgentRequestResponseFormatAgentsJSONObjectTypedDict(TypedDict):
     JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
     """
 
-    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1Type
+    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType
 
 
 class CreateAgentRequestResponseFormatAgentsJSONObject(BaseModel):
@@ -3875,7 +3568,7 @@ class CreateAgentRequestResponseFormatAgentsJSONObject(BaseModel):
     JSON object response format. An older method of generating JSON responses. Using `json_schema` is recommended for models that support it. Note that the model will not generate JSON without a system or user message instructing it to do so.
     """
 
-    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBody1Type
+    type: CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyModelType
 
 
 CreateAgentRequestResponseFormatAgentsResponse201ApplicationJSONResponseBodyType = (
@@ -4516,15 +4209,15 @@ class CreateAgentRequestFallbackModelConfiguration2(BaseModel):
         return m
 
 
-ResponseBodyFallbackModelConfigurationTypedDict = TypeAliasType(
-    "ResponseBodyFallbackModelConfigurationTypedDict",
+CreateAgentRequestFallbackModelConfigurationTypedDict = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfigurationTypedDict",
     Union[CreateAgentRequestFallbackModelConfiguration2TypedDict, str],
 )
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
 
 
-ResponseBodyFallbackModelConfiguration = TypeAliasType(
-    "ResponseBodyFallbackModelConfiguration",
+CreateAgentRequestFallbackModelConfiguration = TypeAliasType(
+    "CreateAgentRequestFallbackModelConfiguration",
     Union[CreateAgentRequestFallbackModelConfiguration2, str],
 )
 r"""Fallback model for automatic failover when primary model request fails. Supports optional parameter overrides. Can be a simple model ID string or a configuration object with model-specific parameters. Fallbacks are tried in order."""
@@ -4535,12 +4228,12 @@ class ModelTypedDict(TypedDict):
     r"""The database ID of the primary model"""
     integration_id: NotRequired[Nullable[str]]
     r"""Optional integration ID for custom model configurations"""
-    parameters: NotRequired[ResponseBodyParametersTypedDict]
+    parameters: NotRequired[CreateAgentRequestParametersTypedDict]
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
-    retry: NotRequired[ResponseBodyRetryTypedDict]
+    retry: NotRequired[CreateAgentRequestRetryTypedDict]
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
     fallback_models: NotRequired[
-        Nullable[List[ResponseBodyFallbackModelConfigurationTypedDict]]
+        Nullable[List[CreateAgentRequestFallbackModelConfigurationTypedDict]]
     ]
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
@@ -4552,15 +4245,15 @@ class Model(BaseModel):
     integration_id: OptionalNullable[str] = UNSET
     r"""Optional integration ID for custom model configurations"""
 
-    parameters: Optional[ResponseBodyParameters] = None
+    parameters: Optional[CreateAgentRequestParameters] = None
     r"""Model behavior parameters (snake_case) stored as part of the agent configuration. These become the default parameters used when the agent is executed. Commonly used: temperature (0-1, controls randomness), max_completion_tokens (response length), top_p (nucleus sampling). Advanced: frequency_penalty, presence_penalty, response_format (JSON/structured output), reasoning_effort (for o1/thinking models), seed (reproducibility), stop sequences. Model-specific support varies. Runtime parameters in agent execution requests can override these defaults."""
 
-    retry: Optional[ResponseBodyRetry] = None
+    retry: Optional[CreateAgentRequestRetry] = None
     r"""Retry configuration for model requests. Allows customizing retry count (1-5) and HTTP status codes that trigger retries. Default codes: [429]. Common codes: 500 (internal error), 429 (rate limit), 502/503/504 (gateway errors)."""
 
-    fallback_models: OptionalNullable[List[ResponseBodyFallbackModelConfiguration]] = (
-        UNSET
-    )
+    fallback_models: OptionalNullable[
+        List[CreateAgentRequestFallbackModelConfiguration]
+    ] = UNSET
     r"""Optional array of fallback models (string IDs or config objects) that will be used automatically in order if the primary model fails"""
 
     @model_serializer(mode="wrap")
@@ -4591,12 +4284,88 @@ class Model(BaseModel):
         return m
 
 
-class ResponseBody1TypedDict(TypedDict):
+class CreateAgentRequestHeadersTypedDict(TypedDict):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+    encrypted: NotRequired[bool]
+
+
+class CreateAgentRequestHeaders(BaseModel):
+    value: str
+    r"""Header value. **Update behavior**: Provide empty string (\"\") to preserve existing encrypted value without re-entering credentials. Provide new value to rotate. Omit header entirely to remove."""
+
+    encrypted: Optional[bool] = False
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["encrypted"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class A2AAgentConfigurationTypedDict(TypedDict):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+    card_url: NotRequired[str]
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+    headers: NotRequired[Dict[str, CreateAgentRequestHeadersTypedDict]]
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+    cached_card: NotRequired[Any]
+    r"""Cached agent card from discovery. Refreshed periodically."""
+
+
+class A2AAgentConfiguration(BaseModel):
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
+
+    agent_url: str
+    r"""The A2A agent endpoint URL (e.g., https://example.com/agent/a2a)"""
+
+    card_url: Optional[str] = None
+    r"""Optional explicit URL to fetch agent card. Defaults to {agent_url}/card if not provided"""
+
+    headers: Optional[Dict[str, CreateAgentRequestHeaders]] = None
+    r"""HTTP headers for A2A agent requests with encryption support (max 20 headers). **Update behavior**: Empty string values preserve existing encrypted headers, allowing partial updates without credential re-entry."""
+
+    cached_card: Optional[Any] = None
+    r"""Cached agent card from discovery. Refreshed periodically."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["card_url", "headers", "cached_card"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
+class CreateAgentRequestResponseBodyTypedDict(TypedDict):
+    r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
+
     id: str
     key: str
     r"""Unique identifier for the agent within the workspace"""
     project_id: str
-    status: CreateAgentRequestResponseBodyStatus
+    status: CreateAgentRequestStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -4605,8 +4374,6 @@ class ResponseBody1TypedDict(TypedDict):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
-    type: CreateAgentRequestResponseBodyType
-    r"""Orquesta-managed agent"""
     role: str
     description: str
     instructions: str
@@ -4619,19 +4386,25 @@ class ResponseBody1TypedDict(TypedDict):
     version_hash: NotRequired[str]
     memory_stores: NotRequired[List[str]]
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
-    team_of_agents: NotRequired[List[ResponseBodyTeamOfAgentsTypedDict]]
+    team_of_agents: NotRequired[List[CreateAgentRequestTeamOfAgentsTypedDict]]
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
-    metrics: NotRequired[ResponseBodyMetricsTypedDict]
+    metrics: NotRequired[CreateAgentRequestMetricsTypedDict]
     variables: NotRequired[Dict[str, Any]]
     r"""Extracted variables from agent instructions"""
-    knowledge_bases: NotRequired[List[ResponseBodyKnowledgeBasesTypedDict]]
+    knowledge_bases: NotRequired[List[CreateAgentRequestKnowledgeBasesTypedDict]]
     r"""Agent knowledge bases reference"""
-    source: NotRequired[ResponseBodySource]
+    source: NotRequired[CreateAgentRequestSource]
+    type: NotRequired[CreateAgentRequestType]
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
     system_prompt: NotRequired[str]
-    settings: NotRequired[ResponseBodySettingsTypedDict]
+    settings: NotRequired[CreateAgentRequestAgentsSettingsTypedDict]
+    a2a: NotRequired[A2AAgentConfigurationTypedDict]
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
 
-class ResponseBody1(BaseModel):
+class CreateAgentRequestResponseBody(BaseModel):
+    r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
+
     id: Annotated[str, pydantic.Field(alias="_id")]
 
     key: str
@@ -4639,7 +4412,7 @@ class ResponseBody1(BaseModel):
 
     project_id: str
 
-    status: CreateAgentRequestResponseBodyStatus
+    status: CreateAgentRequestStatus
     r"""The status of the agent. `Live` is the latest version of the agent. `Draft` is a version that is not yet published. `Pending` is a version that is pending approval. `Published` is a version that was live and has been replaced by a new version."""
 
     path: str
@@ -4649,9 +4422,6 @@ class ResponseBody1(BaseModel):
 
     With project-based API keys, the first element is treated as a folder name, as the project is predetermined by the API key.
     """
-
-    type: CreateAgentRequestResponseBodyType
-    r"""Orquesta-managed agent"""
 
     role: str
 
@@ -4676,22 +4446,28 @@ class ResponseBody1(BaseModel):
     memory_stores: Optional[List[str]] = None
     r"""Array of memory store identifiers. Accepts both memory store IDs and keys."""
 
-    team_of_agents: Optional[List[ResponseBodyTeamOfAgents]] = None
+    team_of_agents: Optional[List[CreateAgentRequestTeamOfAgents]] = None
     r"""The agents that are accessible to this orchestrator. The main agent can hand off to these agents to perform tasks."""
 
-    metrics: Optional[ResponseBodyMetrics] = None
+    metrics: Optional[CreateAgentRequestMetrics] = None
 
     variables: Optional[Dict[str, Any]] = None
     r"""Extracted variables from agent instructions"""
 
-    knowledge_bases: Optional[List[ResponseBodyKnowledgeBases]] = None
+    knowledge_bases: Optional[List[CreateAgentRequestKnowledgeBases]] = None
     r"""Agent knowledge bases reference"""
 
-    source: Optional[ResponseBodySource] = None
+    source: Optional[CreateAgentRequestSource] = None
+
+    type: Optional[CreateAgentRequestType] = "internal"
+    r"""Agent type: internal (Orquesta-managed) or a2a (external A2A-compliant)"""
 
     system_prompt: Optional[str] = None
 
-    settings: Optional[ResponseBodySettings] = None
+    settings: Optional[CreateAgentRequestAgentsSettings] = None
+
+    a2a: Optional[A2AAgentConfiguration] = None
+    r"""A2A configuration with agent endpoint and authentication. Only present for A2A agents."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -4709,8 +4485,10 @@ class ResponseBody1(BaseModel):
                 "variables",
                 "knowledge_bases",
                 "source",
+                "type",
                 "system_prompt",
                 "settings",
+                "a2a",
             ]
         )
         nullable_fields = set(["created_by_id", "updated_by_id"])
@@ -4736,32 +4514,12 @@ class ResponseBody1(BaseModel):
         return m
 
 
-CreateAgentRequestResponseBodyTypedDict = TypeAliasType(
-    "CreateAgentRequestResponseBodyTypedDict",
-    Union[ResponseBody2TypedDict, ResponseBody1TypedDict],
-)
-r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
-
-
-CreateAgentRequestResponseBody = Annotated[
-    Union[
-        Annotated[ResponseBody1, Tag("internal")], Annotated[ResponseBody2, Tag("a2a")]
-    ],
-    Discriminator(lambda m: get_discriminator(m, "type", "type")),
-]
-r"""Agent successfully created and ready for use. Returns the complete agent manifest including the generated ID, configuration, and all settings."""
-
-
 try:
     ResponseFormatJSONSchema.model_rebuild()
 except NameError:
     pass
 try:
     CreateAgentRequestResponseFormatAgentsJSONSchema.model_rebuild()
-except NameError:
-    pass
-try:
-    ResponseBody2.model_rebuild()
 except NameError:
     pass
 try:
@@ -4773,6 +4531,6 @@ try:
 except NameError:
     pass
 try:
-    ResponseBody1.model_rebuild()
+    CreateAgentRequestResponseBody.model_rebuild()
 except NameError:
     pass

@@ -191,7 +191,7 @@ class DataExternalConfig(BaseModel):
     r"""The API URL of the external knowledge base."""
 
 
-class ListKnowledgeBasesData2TypedDict(TypedDict):
+class Data2TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -219,7 +219,7 @@ class ListKnowledgeBasesData2TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base."""
 
 
-class ListKnowledgeBasesData2(BaseModel):
+class Data2(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -426,7 +426,7 @@ class ListKnowledgeBasesDataRetrievalSettings(BaseModel):
         return m
 
 
-class ListKnowledgeBasesData1TypedDict(TypedDict):
+class Data1TypedDict(TypedDict):
     id: str
     r"""The unique identifier of the knowledge base."""
     created: str
@@ -455,7 +455,7 @@ class ListKnowledgeBasesData1TypedDict(TypedDict):
     r"""The retrieval settings for the knowledge base. If not provider, Hybrid Search will be used as a default query strategy."""
 
 
-class ListKnowledgeBasesData1(BaseModel):
+class Data1(BaseModel):
     id: Annotated[str, pydantic.Field(alias="_id")]
     r"""The unique identifier of the knowledge base."""
 
@@ -530,14 +530,11 @@ class ListKnowledgeBasesData1(BaseModel):
 
 
 ListKnowledgeBasesDataTypedDict = TypeAliasType(
-    "ListKnowledgeBasesDataTypedDict",
-    Union[ListKnowledgeBasesData1TypedDict, ListKnowledgeBasesData2TypedDict],
+    "ListKnowledgeBasesDataTypedDict", Union[Data1TypedDict, Data2TypedDict]
 )
 
 
-ListKnowledgeBasesData = TypeAliasType(
-    "ListKnowledgeBasesData", Union[ListKnowledgeBasesData1, ListKnowledgeBasesData2]
-)
+ListKnowledgeBasesData = TypeAliasType("ListKnowledgeBasesData", Union[Data1, Data2])
 
 
 class ListKnowledgeBasesResponseBodyTypedDict(TypedDict):
@@ -559,10 +556,10 @@ class ListKnowledgeBasesResponseBody(BaseModel):
 
 
 try:
-    ListKnowledgeBasesData2.model_rebuild()
+    Data2.model_rebuild()
 except NameError:
     pass
 try:
-    ListKnowledgeBasesData1.model_rebuild()
+    Data1.model_rebuild()
 except NameError:
     pass
