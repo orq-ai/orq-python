@@ -1446,6 +1446,8 @@ class PromptInput(BaseModel):
 class CreatePromptRequestBodyTypedDict(TypedDict):
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
+    prompt: PromptInputTypedDict
+    r"""Prompt configuration with model and messages."""
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
 
@@ -1456,13 +1458,14 @@ class CreatePromptRequestBodyTypedDict(TypedDict):
     description: NotRequired[Nullable[str]]
     r"""The prompt’s description, meant to be displayable in the UI. Use this field to optionally store a long form explanation of the prompt for your own purpose"""
     metadata: NotRequired[CreatePromptMetadataTypedDict]
-    prompt: NotRequired[PromptInputTypedDict]
-    r"""Prompt configuration with model and messages."""
 
 
 class CreatePromptRequestBody(BaseModel):
     display_name: str
     r"""The prompt’s name, meant to be displayable in the UI."""
+
+    prompt: PromptInput
+    r"""Prompt configuration with model and messages."""
 
     path: str
     r"""Entity storage path in the format: `project/folder/subfolder/...`
@@ -1477,12 +1480,9 @@ class CreatePromptRequestBody(BaseModel):
 
     metadata: Optional[CreatePromptMetadata] = None
 
-    prompt: Optional[PromptInput] = None
-    r"""Prompt configuration with model and messages."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["description", "metadata", "prompt"])
+        optional_fields = set(["description", "metadata"])
         nullable_fields = set(["description"])
         serialized = handler(self)
         m = {}
